@@ -1,16 +1,37 @@
 problem_id: "1008"
 display_name: "Erdos Problem #1008"
-title: "C4-Free Subgraph Density Problem"
+title: C4-Free Subgraph Density Problem
 source:
-  site: "erdosproblems.com"
-  url: "https://www.erdosproblems.com/1008"
+  site: erdosproblems.com
+  url: https://www.erdosproblems.com/1008
   external_id: "1008"
+upstream:
+  repo: https://github.com/teorth/erdosproblems
+  data_file: data/problems.yaml
+  number: "1008"
 status:
-  site_status: "solved"
-  site_badge: "PROVED (LEAN)"
-  repo_status: "historical"
-cluster: "graph-theory"
+  site_status: solved
+  site_badge: PROVED (LEAN)
+  repo_status: historical
+  upstream_status: proved (Lean)
+  upstream_last_update: 2026-01-17
+cluster: graph-theory
+prize:
+  display: no
 related_problems: []
 family_tags:
-  - "graph-theory"
-  - "cycles"
+  - graph-theory
+  - cycles
+harness:
+  depth: dossier
+statement:
+  short: Determine whether every graph with m edges contains a C4-free subgraph
+    with a constant multiple of m^(2/3) edges.
+  normalized_md_path: STATEMENT.md
+references_path: REFERENCES.md
+evidence_path: EVIDENCE.md
+formalization_path: FORMALIZATION.md
+formalization:
+  status: site-proved-lean
+  upstream_state: no
+  upstream_last_update: 2025-09-10

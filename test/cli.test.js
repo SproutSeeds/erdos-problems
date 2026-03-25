@@ -43,6 +43,13 @@ test('problem list filters by harness depth', () => {
   assert.doesNotMatch(output, /89/);
 });
 
+test('problem list filters by site status', () => {
+  const output = runCli(['problem', 'list', '--site-status', 'solved']);
+  assert.match(output, /542/);
+  assert.match(output, /1008/);
+  assert.doesNotMatch(output, /857/);
+});
+
 test('problem show 857 includes research state', () => {
   const output = runCli(['problem', 'show', '857']);
   assert.match(output, /Sunflower Conjecture/);
@@ -52,6 +59,22 @@ test('problem show 857 includes research state', () => {
 test('problem show 1008 includes exact site badge', () => {
   const output = runCli(['problem', 'show', '1008']);
   assert.match(output, /Site badge: PROVED \(LEAN\)/);
+});
+
+test('problem artifacts shows canonical file inventory', () => {
+  const output = runCli(['problem', 'artifacts', '857']);
+  assert.match(output, /canonical artifacts/);
+  assert.match(output, /problem.yaml: present/);
+  assert.match(output, /STATEMENT.md: present/);
+  assert.match(output, /Upstream record available: yes/);
+});
+
+test('problem artifacts can emit json for agents', () => {
+  const output = runCli(['problem', 'artifacts', '857', '--json']);
+  const payload = JSON.parse(output);
+  assert.equal(payload.problemId, '857');
+  assert.equal(payload.upstreamRecordIncluded, true);
+  assert.equal(payload.canonicalArtifacts.length >= 5, true);
 });
 
 test('cluster list shows multiple seeded clusters', () => {
@@ -99,4 +122,48 @@ test('dossier show uses active problem when omitted', () => {
   const output = runCli(['dossier', 'show'], { cwd: workspace });
   assert.match(output, /Erdos Problem #857 dossier/);
   assert.match(output, /STATEMENT.md: present/);
+});
+
+test('upstream show reports bundled snapshot', () => {
+  const output = runCli(['upstream', 'show']);
+  assert.match(output, /Snapshot kind: bundled/);
+  assert.match(output, /Upstream repo: https:\/\/github.com\/teorth\/erdosproblems/);
+  assert.match(output, /Entries: 1183/);
+});
+
+test('upstream diff writes workspace report from bundled snapshot', () => {
+  const workspace = fs.mkdtempSync(path.join(os.tmpdir(), 'erdos-upstream-'));
+  const output = runCli(['upstream', 'diff'], { cwd: workspace });
+  assert.match(output, /Local seeded problems: 8/);
+  assert.match(output, /Upstream total problems: 1183/);
+  const diffPath = path.join(workspace, '.erdos', 'reports', 'UPSTREAM_DIFF.md');
+  assert.equal(fs.existsSync(diffPath), true);
+  assert.match(fs.readFileSync(diffPath, 'utf8'), /# Upstream Diff/);
+});
+
+test('scaffold problem copies canonical files and upstream record', () => {
+  const workspace = fs.mkdtempSync(path.join(os.tmpdir(), 'erdos-scaffold-'));
+  const output = runCli(['scaffold', 'problem', '857'], { cwd: workspace });
+  assert.match(output, /Scaffold created:/);
+  assert.match(output, /Upstream record included: yes/);
+  const scaffoldDir = path.join(workspace, '.erdos', 'scaffolds', '857');
+  assert.equal(fs.existsSync(path.join(scaffoldDir, 'problem.yaml')), true);
+  assert.equal(fs.existsSync(path.join(scaffoldDir, 'STATEMENT.md')), true);
+  assert.equal(fs.existsSync(path.join(scaffoldDir, 'PACK_CONTEXT.md')), true);
+  assert.equal(fs.existsSync(path.join(scaffoldDir, 'UPSTREAM_RECORD.json')), true);
+  const artifactIndex = JSON.parse(fs.readFileSync(path.join(scaffoldDir, 'ARTIFACT_INDEX.json'), 'utf8'));
+  assert.equal(artifactIndex.includedUpstreamRecord, true);
+});
+
+test('bootstrap problem selects active problem and creates scaffold in one step', () => {
+  const workspace = fs.mkdtempSync(path.join(os.tmpdir(), 'erdos-bootstrap-'));
+  const output = runCli(['bootstrap', 'problem', '857'], { cwd: workspace });
+  assert.match(output, /Bootstrapped problem 857/);
+  assert.match(output, /Active problem: 857/);
+  const statePath = path.join(workspace, '.erdos', 'state.json');
+  const currentProblemPath = path.join(workspace, '.erdos', 'current-problem.json');
+  const scaffoldDir = path.join(workspace, '.erdos', 'scaffolds', '857');
+  assert.equal(JSON.parse(fs.readFileSync(statePath, 'utf8')).activeProblem, '857');
+  assert.equal(JSON.parse(fs.readFileSync(currentProblemPath, 'utf8')).problemId, '857');
+  assert.equal(fs.existsSync(path.join(scaffoldDir, 'PROBLEM.json')), true);
 });

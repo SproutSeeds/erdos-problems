@@ -1,0 +1,9 @@
+{
+  "upstream_repo": "https://github.com/teorth/erdosproblems",
+  "source_url": "https://raw.githubusercontent.com/teorth/erdosproblems/master/data/problems.yaml",
+  "source_file": "data/problems.yaml",
+  "fetched_at": "2026-03-25T19:24:57.377Z",
+  "upstream_commit": "cd91711d143184e090e5336e3165be50abfaaaf3",
+  "raw_sha256": "e2d161ffe3866275704bb18a268f9417f32d8a92a0af19fa119a856445cd2021",
+  "entry_count": 1183
+}

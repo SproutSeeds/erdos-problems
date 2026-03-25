@@ -10,65 +10,93 @@ The goal is:
 
 - every Erdős problem has a consistent home
 - open and solved problems use the same shape
-- dossiers can grow without changing the core schema
+- local dossier truth and upstream public truth stay explicitly separated
+- packaged CLI installs can scaffold problem workspaces from canonical artifacts immediately
 
-## Canonical File
+## Canonical Files
 
 Each problem should have:
 
 - `problems/<id>/problem.yaml`
+- `problems/<id>/STATEMENT.md`
+- `problems/<id>/REFERENCES.md`
+- `problems/<id>/EVIDENCE.md`
+- `problems/<id>/FORMALIZATION.md`
 
-## Required Fields
+Bundled upstream snapshot artifacts live in:
+
+- `data/upstream/erdosproblems/problems.yaml`
+- `data/upstream/erdosproblems/PROBLEMS_INDEX.json`
+- `data/upstream/erdosproblems/SYNC_MANIFEST.json`
+
+## Canonical Truth Split
+
+### External public truth
+
+Tracked, not rewritten by us:
+
+- upstream structured repo: `teorth/erdosproblems`
+- upstream data file: `data/problems.yaml`
+- public presentation site: `erdosproblems.com`
+
+### Local atlas truth
+
+Authored by this repo:
+
+- `problems/<id>/problem.yaml`
+- local dossier markdown files alongside it
+
+### Local research truth
+
+For active harnessed problems:
+
+- route state
+- evidence
+- formalization status
+- checkpoints and generated reports
+
+## Example Canonical Problem YAML
 
 ```yaml
 problem_id: "857"
+display_name: "Erdos Problem #857"
 title: "Sunflower Conjecture"
 source:
   site: "erdosproblems.com"
   url: "https://www.erdosproblems.com/857"
   external_id: "857"
+upstream:
+  repo: "https://github.com/teorth/erdosproblems"
+  data_file: "data/problems.yaml"
+  number: "857"
 status:
   site_status: "open"
+  site_badge: "OPEN"
   repo_status: "active"
-family_tags:
-  - "sunflower"
-  - "extremal-set-theory"
-problem_type:
-  kind: "open_problem"
-statement:
-  short: "Normalized problem statement"
-  normalized_md_path: "STATEMENT.md"
-references_path: "REFERENCES.md"
-evidence_path: "EVIDENCE.md"
-formalization_path: "FORMALIZATION.md"
-```
-
-## Recommended Fields
-
-```yaml
-display_name: "Erdos Problem #857"
-aliases:
-  - "weak sunflower problem"
+  upstream_status: "open"
+  upstream_last_update: "2025-08-31"
+cluster: "sunflower"
+prize:
+  display: "no"
 related_problems:
   - "20"
   - "536"
   - "856"
-prize:
-  amount_usd: null
-  note: null
-domain_tags:
-  - "combinatorics"
-  - "set-systems"
-cluster: "sunflower"
-repo_links:
-  dossier_dir: "problems/857"
-  checkpoints_dir: "problems/857/CHECKPOINTS"
-  pack: "sunflower"
+family_tags:
+  - "sunflower"
+  - "extremal-set-theory"
+harness:
+  depth: "deep"
+statement:
+  short: "Bound the weak sunflower number m(n,k) by C(k)^n."
+  normalized_md_path: "STATEMENT.md"
+references_path: "REFERENCES.md"
+evidence_path: "EVIDENCE.md"
+formalization_path: "FORMALIZATION.md"
 formalization:
   status: "active"
-  lean_modules:
-    - "SunflowerLean/Obstruction.lean"
-    - "SunflowerLean/ObstructionExport.lean"
+  upstream_state: "no"
+  upstream_last_update: "2025-08-31"
 research_state:
   open_problem: true
   active_route: "anchored_selector_linearization"
@@ -76,9 +104,27 @@ research_state:
   problem_solved: false
 ```
 
+## Required Fields
+
+- `problem_id`
+- `display_name`
+- `title`
+- `source`
+- `upstream`
+- `status`
+- `cluster`
+- `family_tags`
+- `harness.depth`
+- `statement.short`
+- `statement.normalized_md_path`
+- `references_path`
+- `evidence_path`
+- `formalization_path`
+- `formalization.status`
+
 ## Status Vocabulary
 
-### `site_status`
+### `status.site_status`
 
 Allowed values:
 
@@ -87,9 +133,7 @@ Allowed values:
 - `partial`
 - `unknown`
 
-This reflects the public source.
-
-### `repo_status`
+### `status.repo_status`
 
 Allowed values:
 
@@ -99,98 +143,39 @@ Allowed values:
 - `solved_locally`
 - `historical`
 
-This reflects our local posture.
+### `harness.depth`
 
-### `research_state`
+Allowed values:
 
-For deep-harness problems only:
+- `deep`
+- `dossier`
 
-- `open_problem`
-- `active_route`
-- `route_breakthrough`
-- `problem_solved`
+### `formalization.status`
 
-This lets us preserve the sunflower ladder without forcing it onto every problem.
+Repo-local examples:
 
-## Supporting Files
+- `active`
+- `planned`
+- `statement-formalized`
+- `site-proved-lean`
+- `unstarted`
 
-### `STATEMENT.md`
+## Upstream Sync Artifacts
 
-Contains:
+The sync commands should produce:
 
-- normalized statement
-- source attribution
-- concise context
+- raw upstream YAML snapshot
+- normalized JSON index keyed by problem number
+- sync manifest with commit SHA, timestamp, and hash
+- markdown diff report comparing locally seeded problems to upstream state
 
-### `REFERENCES.md`
+## Scaffold Contract
 
-Contains:
+`erdos scaffold problem <id>` should create a workspace-ready bundle containing:
 
-- literature references
-- source links
-- related problem links
+- copied canonical local dossier files
+- canonical local `problem.yaml`
+- upstream record snapshot for that problem when available
+- generated artifact index for agent consumption
 
-### `EVIDENCE.md`
-
-Contains:
-
-- verified constructions
-- theorem checkpoints
-- computational artifacts
-- failed-path summaries
-
-### `FORMALIZATION.md`
-
-Contains:
-
-- Lean status
-- code paths
-- verification hooks
-- outstanding gaps
-
-## Example: Problem 857
-
-```yaml
-problem_id: "857"
-display_name: "Erdos Problem #857"
-title: "Sunflower Conjecture"
-aliases:
-  - "weak sunflower problem"
-source:
-  site: "erdosproblems.com"
-  url: "https://www.erdosproblems.com/857"
-  external_id: "857"
-status:
-  site_status: "open"
-  repo_status: "active"
-family_tags:
-  - "sunflower"
-  - "extremal-set-theory"
-domain_tags:
-  - "combinatorics"
-  - "set-systems"
-problem_type:
-  kind: "open_problem"
-cluster: "sunflower"
-related_problems:
-  - "20"
-  - "536"
-  - "856"
-statement:
-  short: "Bound the weak sunflower number m(n,k) by C(k)^n."
-  normalized_md_path: "STATEMENT.md"
-references_path: "REFERENCES.md"
-evidence_path: "EVIDENCE.md"
-formalization_path: "FORMALIZATION.md"
-formalization:
-  status: "active"
-  lean_modules:
-    - "SunflowerLean/Obstruction.lean"
-    - "SunflowerLean/ObstructionExport.lean"
-research_state:
-  open_problem: true
-  active_route: "anchored_selector_linearization"
-  route_breakthrough: true
-  problem_solved: false
-```
-
+This makes a fresh npm-installed CLI immediately useful to an agentic workflow.

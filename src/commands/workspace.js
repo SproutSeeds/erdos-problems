@@ -19,6 +19,8 @@ export function runWorkspaceCommand(args) {
   console.log(`State dir: ${summary.stateDir}`);
   console.log(`Initialized: ${summary.hasState ? 'yes' : 'no'}`);
   console.log(`Active problem: ${summary.activeProblem ?? '(none)'}`);
+  console.log(`Workspace upstream dir: ${summary.upstreamDir}`);
+  console.log(`Workspace scaffold dir: ${summary.scaffoldDir}`);
   console.log(`Updated at: ${summary.updatedAt ?? '(none)'}`);
   return 0;
 }

@@ -1,4 +1,5 @@
 import { getProblem, listProblems } from '../atlas/catalog.js';
+import { getProblemArtifactInventory } from '../runtime/problem-artifacts.js';
 import { readCurrentProblem, setCurrentProblem } from '../runtime/workspace.js';
 
 function parseListFilters(args) {
@@ -32,9 +33,40 @@ function parseListFilters(args) {
       index += 1;
       continue;
     }
+    if (token === '--site-status') {
+      const siteStatus = args[index + 1];
+      if (!siteStatus) {
+        return { error: 'Missing site status after --site-status.' };
+      }
+      filters.siteStatus = siteStatus;
+      index += 1;
+      continue;
+    }
     return { error: `Unknown list option: ${token}` };
   }
   return { filters };
+}
+
+function parseArtifactArgs(args) {
+  const parsed = {
+    problemId: null,
+    asJson: false,
+  };
+
+  for (let index = 0; index < args.length; index += 1) {
+    const token = args[index];
+    if (token === '--json') {
+      parsed.asJson = true;
+      continue;
+    }
+    if (!parsed.problemId) {
+      parsed.problemId = token;
+      continue;
+    }
+    return { error: `Unknown artifact option: ${token}` };
+  }
+
+  return parsed;
 }
 
 function printProblemTable(rows, activeProblem) {
@@ -59,17 +91,52 @@ function printProblem(problem) {
   console.log(`Repo status: ${problem.repoStatus}`);
   console.log(`Cluster: ${problem.cluster}`);
   console.log(`Harness depth: ${problem.harnessDepth}`);
+  console.log(`Prize: ${problem.prize ?? '(none)'}`);
   console.log(`Formalization: ${problem.formalizationStatus}`);
+  console.log(`Upstream formalized: ${problem.upstreamFormalizedState ?? '(unknown)'}`);
+  console.log(`Upstream last update: ${problem.upstreamLastUpdate ?? '(unknown)'}`);
   console.log(`Related: ${problem.relatedProblems.join(', ') || '(none)'}`);
   console.log(`Tags: ${problem.familyTags.join(', ') || '(none)'}`);
   console.log(`Statement: ${problem.shortStatement}`);
   if (problem.researchState) {
     console.log('Research state:');
-    console.log(`  open problem: ${problem.researchState.openProblem ? 'yes' : 'no'}`);
-    console.log(`  active route: ${problem.researchState.activeRoute}`);
-    console.log(`  route breakthrough: ${problem.researchState.routeBreakthrough ? 'yes' : 'no'}`);
-    console.log(`  problem solved: ${problem.researchState.problemSolved ? 'yes' : 'no'}`);
+    console.log(`  open problem: ${problem.researchState.open_problem ? 'yes' : 'no'}`);
+    console.log(`  active route: ${problem.researchState.active_route}`);
+    console.log(`  route breakthrough: ${problem.researchState.route_breakthrough ? 'yes' : 'no'}`);
+    console.log(`  problem solved: ${problem.researchState.problem_solved ? 'yes' : 'no'}`);
   }
+  if (problem.upstream) {
+    console.log('Upstream provenance:');
+    console.log(`  repo: ${problem.upstream.repo}`);
+    console.log(`  data file: ${problem.upstream.data_file}`);
+    console.log(`  number: ${problem.upstream.number}`);
+  }
+}
+
+function printArtifactInventory(problem, inventory, asJson) {
+  if (asJson) {
+    console.log(JSON.stringify(inventory, null, 2));
+    return;
+  }
+
+  console.log(`${problem.displayName} canonical artifacts`);
+  console.log(`Problem directory: ${inventory.problemDir}`);
+  console.log(`Source: ${inventory.sourceUrl}`);
+  console.log('Canonical files:');
+  for (const artifact of inventory.canonicalArtifacts) {
+    console.log(`- ${artifact.label}: ${artifact.exists ? 'present' : 'missing'} (${artifact.path})`);
+  }
+  if (inventory.packContext) {
+    console.log(`- ${inventory.packContext.label}: ${inventory.packContext.exists ? 'present' : 'missing'} (${inventory.packContext.path})`);
+  }
+  if (inventory.upstreamSnapshot) {
+    console.log('Upstream snapshot:');
+    console.log(`- kind: ${inventory.upstreamSnapshot.kind}`);
+    console.log(`- manifest: ${inventory.upstreamSnapshot.manifestPath}`);
+    console.log(`- index: ${inventory.upstreamSnapshot.indexPath}`);
+    console.log(`- commit: ${inventory.upstreamSnapshot.upstreamCommit ?? '(unknown)'}`);
+  }
+  console.log(`Upstream record available: ${inventory.upstreamRecordIncluded ? 'yes' : 'no'}`);
 }
 
 export function runProblemCommand(args) {
@@ -77,10 +144,11 @@ export function runProblemCommand(args) {
 
   if (!subcommand || subcommand === 'help' || subcommand === '--help') {
     console.log('Usage:');
-    console.log('  erdos problem list [--cluster <name>] [--repo-status <status>] [--harness-depth <depth>]');
+    console.log('  erdos problem list [--cluster <name>] [--repo-status <status>] [--harness-depth <depth>] [--site-status <status>]');
     console.log('  erdos problem show <id>');
     console.log('  erdos problem use <id>');
     console.log('  erdos problem current');
+    console.log('  erdos problem artifacts [<id>] [--json]');
     return 0;
   }
 
@@ -136,6 +204,27 @@ export function runProblemCommand(args) {
       return 1;
     }
     printProblem(problem);
+    return 0;
+  }
+
+  if (subcommand === 'artifacts') {
+    const parsed = parseArtifactArgs([value, ...rest].filter(Boolean));
+    if (parsed.error) {
+      console.error(parsed.error);
+      return 1;
+    }
+    const problemId = parsed.problemId ?? readCurrentProblem();
+    if (!problemId) {
+      console.error('Missing problem id and no active problem is selected.');
+      return 1;
+    }
+    const problem = getProblem(problemId);
+    if (!problem) {
+      console.error(`Unknown problem: ${problemId}`);
+      return 1;
+    }
+    const inventory = getProblemArtifactInventory(problem);
+    printArtifactInventory(problem, inventory, parsed.asJson);
     return 0;
   }
 

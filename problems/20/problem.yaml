@@ -1,16 +1,38 @@
 problem_id: "20"
 display_name: "Erdos Problem #20"
-title: "Strong Sunflower Problem"
+title: Strong Sunflower Problem
 source:
-  site: "erdosproblems.com"
-  url: "https://www.erdosproblems.com/20"
+  site: erdosproblems.com
+  url: https://www.erdosproblems.com/20
   external_id: "20"
+upstream:
+  repo: https://github.com/teorth/erdosproblems
+  data_file: data/problems.yaml
+  number: "20"
 status:
-  site_status: "open"
-  repo_status: "active"
-cluster: "sunflower"
+  site_status: open
+  site_badge: OPEN
+  repo_status: active
+  upstream_status: open
+  upstream_last_update: 2025-08-31
+cluster: sunflower
+prize:
+  display: $1000
 related_problems:
   - "857"
 family_tags:
-  - "sunflower"
-  - "uniform-families"
+  - sunflower
+  - uniform-families
+harness:
+  depth: deep
+statement:
+  short: Determine the strong sunflower threshold for k-uniform set systems, with
+    the k=3 lane as the immediate active frontier.
+  normalized_md_path: STATEMENT.md
+references_path: REFERENCES.md
+evidence_path: EVIDENCE.md
+formalization_path: FORMALIZATION.md
+formalization:
+  status: active
+  upstream_state: yes
+  upstream_last_update: 2025-08-31

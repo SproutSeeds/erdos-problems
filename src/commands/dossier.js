@@ -1,10 +1,14 @@
 import fs from 'node:fs';
-import path from 'node:path';
 import { getProblem } from '../atlas/catalog.js';
-import { getProblemDir } from '../runtime/paths.js';
 import { readCurrentProblem } from '../runtime/workspace.js';
 
-const sections = ['STATEMENT.md', 'REFERENCES.md', 'EVIDENCE.md', 'FORMALIZATION.md'];
+const sections = [
+  ['problem.yaml', 'problemYamlPath'],
+  ['STATEMENT.md', 'statementPath'],
+  ['REFERENCES.md', 'referencesPath'],
+  ['EVIDENCE.md', 'evidencePath'],
+  ['FORMALIZATION.md', 'formalizationPath'],
+];
 
 export function runDossierCommand(args) {
   const [subcommand, value] = args;
@@ -32,20 +36,24 @@ export function runDossierCommand(args) {
     return 1;
   }
 
-  const problemDir = getProblemDir(problem.problemId);
   console.log(`${problem.displayName} dossier`);
-  console.log(`Directory: ${problemDir}`);
+  console.log(`Directory: ${problem.problemDir}`);
   console.log('Sections:');
-  for (const section of sections) {
-    const filePath = path.join(problemDir, section);
+  for (const [label, key] of sections) {
+    const filePath = problem[key];
     const exists = fs.existsSync(filePath);
-    console.log(`- ${section}: ${exists ? 'present' : 'missing'}`);
+    console.log(`- ${label}: ${exists ? 'present' : 'missing'}`);
   }
-  const statementPath = path.join(problemDir, 'STATEMENT.md');
-  if (fs.existsSync(statementPath)) {
+  console.log('');
+  console.log('Canonical metadata:');
+  console.log(`- cluster: ${problem.cluster}`);
+  console.log(`- repo status: ${problem.repoStatus}`);
+  console.log(`- harness depth: ${problem.harnessDepth}`);
+  console.log(`- upstream number: ${problem.upstream?.number ?? '(unset)'}`);
+  if (fs.existsSync(problem.statementPath)) {
     console.log('');
     console.log('Statement preview:');
-    console.log(fs.readFileSync(statementPath, 'utf8').trim());
+    console.log(fs.readFileSync(problem.statementPath, 'utf8').trim());
   }
   return 0;
 }

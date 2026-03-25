@@ -1,17 +1,38 @@
 problem_id: "18"
 display_name: "Erdos Problem #18"
-title: "Practical Numbers Divisor-Sum Efficiency"
+title: Practical Numbers Divisor-Sum Efficiency
 source:
-  site: "erdosproblems.com"
-  url: "https://www.erdosproblems.com/18"
+  site: erdosproblems.com
+  url: https://www.erdosproblems.com/18
   external_id: "18"
+upstream:
+  repo: https://github.com/teorth/erdosproblems
+  data_file: data/problems.yaml
+  number: "18"
 status:
-  site_status: "open"
-  site_badge: "OPEN"
-  repo_status: "cataloged"
-cluster: "number-theory"
+  site_status: open
+  site_badge: OPEN
+  repo_status: cataloged
+  upstream_status: open
+  upstream_last_update: 2025-08-31
+cluster: number-theory
+prize:
+  display: no
 related_problems: []
 family_tags:
-  - "number-theory"
-  - "divisors"
-  - "factorials"
+  - number-theory
+  - divisors
+  - factorials
+harness:
+  depth: dossier
+statement:
+  short: Study whether infinitely many practical numbers admit polylogarithmic
+    divisor-sum efficiency, and whether h(n!) is polylogarithmic.
+  normalized_md_path: STATEMENT.md
+references_path: REFERENCES.md
+evidence_path: EVIDENCE.md
+formalization_path: FORMALIZATION.md
+formalization:
+  status: statement-formalized
+  upstream_state: yes
+  upstream_last_update: 2026-03-15

@@ -1,16 +1,13 @@
 import fs from 'node:fs';
-import path from 'node:path';
 import {
   getCurrentProblemPath,
   getWorkspaceDir,
+  getWorkspaceProblemScaffoldDir,
   getWorkspaceRoot,
   getWorkspaceStatePath,
+  getWorkspaceUpstreamDir,
 } from './paths.js';
-
-function writeJson(filePath, payload) {
-  fs.mkdirSync(path.dirname(filePath), { recursive: true });
-  fs.writeFileSync(filePath, JSON.stringify(payload, null, 2) + '\n');
-}
+import { writeJson } from './files.js';
 
 export function readWorkspaceState() {
   const filePath = getWorkspaceStatePath();
@@ -61,11 +58,14 @@ export function readCurrentProblem() {
 
 export function getWorkspaceSummary() {
   const state = readWorkspaceState();
+  const activeProblem = readCurrentProblem();
   return {
     workspaceRoot: getWorkspaceRoot(),
     stateDir: getWorkspaceDir(),
     hasState: Boolean(state),
-    activeProblem: readCurrentProblem(),
+    activeProblem,
+    upstreamDir: getWorkspaceUpstreamDir(),
+    scaffoldDir: activeProblem ? getWorkspaceProblemScaffoldDir(activeProblem) : getWorkspaceProblemScaffoldDir('<problem-id>'),
     updatedAt: state?.updatedAt ?? null,
   };
 }

@@ -1,17 +1,38 @@
 problem_id: "542"
 display_name: "Erdos Problem #542"
-title: "LCM-Free Sets Reciprocal Sum Bound"
+title: LCM-Free Sets Reciprocal Sum Bound
 source:
-  site: "erdosproblems.com"
-  url: "https://www.erdosproblems.com/542"
+  site: erdosproblems.com
+  url: https://www.erdosproblems.com/542
   external_id: "542"
+upstream:
+  repo: https://github.com/teorth/erdosproblems
+  data_file: data/problems.yaml
+  number: "542"
 status:
-  site_status: "solved"
-  site_badge: "SOLVED"
-  repo_status: "historical"
-cluster: "number-theory"
+  site_status: solved
+  site_badge: SOLVED
+  repo_status: historical
+  upstream_status: solved
+  upstream_last_update: 2025-08-31
+cluster: number-theory
+prize:
+  display: no
 related_problems:
   - "784"
 family_tags:
-  - "number-theory"
-  - "least-common-multiple"
+  - number-theory
+  - least-common-multiple
+harness:
+  depth: dossier
+statement:
+  short: Control reciprocal sums of sets with all pairwise least common multiples
+    above n, a problem resolved by Schinzel and Szekeres.
+  normalized_md_path: STATEMENT.md
+references_path: REFERENCES.md
+evidence_path: EVIDENCE.md
+formalization_path: FORMALIZATION.md
+formalization:
+  status: unstarted
+  upstream_state: no
+  upstream_last_update: 2025-08-31
