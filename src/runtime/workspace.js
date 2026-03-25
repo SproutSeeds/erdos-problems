@@ -2,6 +2,7 @@ import fs from 'node:fs';
 import {
   getCurrentProblemPath,
   getWorkspaceDir,
+  getWorkspaceProblemPullDir,
   getWorkspaceProblemScaffoldDir,
   getWorkspaceRoot,
   getWorkspaceStatePath,
@@ -66,6 +67,7 @@ export function getWorkspaceSummary() {
     activeProblem,
     upstreamDir: getWorkspaceUpstreamDir(),
     scaffoldDir: activeProblem ? getWorkspaceProblemScaffoldDir(activeProblem) : getWorkspaceProblemScaffoldDir('<problem-id>'),
+    pullDir: activeProblem ? getWorkspaceProblemPullDir(activeProblem) : getWorkspaceProblemPullDir('<problem-id>'),
     updatedAt: state?.updatedAt ?? null,
   };
 }

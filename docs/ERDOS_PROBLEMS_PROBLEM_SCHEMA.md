@@ -12,10 +12,11 @@ The goal is:
 - open and solved problems use the same shape
 - local dossier truth and upstream public truth stay explicitly separated
 - packaged CLI installs can scaffold problem workspaces from canonical artifacts immediately
+- unseeded problems can still be pulled into a workspace bundle from upstream truth
 
 ## Canonical Files
 
-Each problem should have:
+Each seeded problem should have:
 
 - `problems/<id>/problem.yaml`
 - `problems/<id>/STATEMENT.md`
@@ -28,6 +29,12 @@ Bundled upstream snapshot artifacts live in:
 - `data/upstream/erdosproblems/problems.yaml`
 - `data/upstream/erdosproblems/PROBLEMS_INDEX.json`
 - `data/upstream/erdosproblems/SYNC_MANIFEST.json`
+
+Workspace-generated artifacts may live in:
+
+- `.erdos/scaffolds/<id>/`
+- `.erdos/pulls/<id>/`
+- `.erdos/upstream/erdosproblems/`
 
 ## Canonical Truth Split
 
@@ -178,4 +185,15 @@ The sync commands should produce:
 - upstream record snapshot for that problem when available
 - generated artifact index for agent consumption
 
-This makes a fresh npm-installed CLI immediately useful to an agentic workflow.
+This is the seeded-problem path.
+
+## Pull Contract
+
+`erdos pull problem <id>` should create a broader workspace-ready bundle containing:
+
+- upstream record snapshot for that problem when available
+- generated artifact index for agent consumption
+- seeded local dossier files too when the problem already exists in `problems/<id>/`
+- optional live site snapshot and extracted text when `--include-site` is used
+
+This makes a fresh npm-installed CLI immediately useful to an agentic workflow even for problems that are not yet fully seeded as local dossiers.

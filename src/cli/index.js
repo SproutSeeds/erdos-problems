@@ -2,6 +2,7 @@ import { runBootstrapCommand } from '../commands/bootstrap.js';
 import { runClusterCommand } from '../commands/cluster.js';
 import { runDossierCommand } from '../commands/dossier.js';
 import { runProblemCommand } from '../commands/problem.js';
+import { runPullCommand } from '../commands/pull.js';
 import { runScaffoldCommand } from '../commands/scaffold.js';
 import { runUpstreamCommand } from '../commands/upstream.js';
 import { runWorkspaceCommand } from '../commands/workspace.js';
@@ -24,6 +25,7 @@ function printUsage() {
   console.log('  erdos upstream diff [--write-package-report]');
   console.log('  erdos scaffold problem <id> [--dest <path>]');
   console.log('  erdos bootstrap problem <id> [--dest <path>] [--sync-upstream]');
+  console.log('  erdos pull problem <id> [--dest <path>] [--include-site] [--refresh-upstream]');
 }
 
 const args = process.argv.slice(2);
@@ -47,6 +49,8 @@ if (!command || command === 'help' || command === '--help') {
   exitCode = runScaffoldCommand(rest);
 } else if (command === 'bootstrap') {
   exitCode = await runBootstrapCommand(rest);
+} else if (command === 'pull') {
+  exitCode = await runPullCommand(rest);
 } else {
   console.error(`Unknown command: ${command}`);
   printUsage();

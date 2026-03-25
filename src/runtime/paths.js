@@ -52,6 +52,14 @@ export function getWorkspaceProblemScaffoldDir(problemId) {
   return path.join(getWorkspaceScaffoldsDir(), String(problemId));
 }
 
+export function getWorkspacePullsDir() {
+  return path.join(getWorkspaceDir(), 'pulls');
+}
+
+export function getWorkspaceProblemPullDir(problemId) {
+  return path.join(getWorkspacePullsDir(), String(problemId));
+}
+
 export function getProblemDir(problemId) {
   return path.join(repoRoot, 'problems', String(problemId));
 }

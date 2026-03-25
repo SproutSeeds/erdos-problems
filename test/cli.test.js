@@ -108,12 +108,13 @@ test('problem show without id uses active workspace problem', () => {
   assert.match(output, /Erdos Problem #20/);
 });
 
-test('workspace show reports active problem', () => {
+test('workspace show reports active problem and pull dir', () => {
   const workspace = fs.mkdtempSync(path.join(os.tmpdir(), 'erdos-workspace-'));
   runCli(['problem', 'use', '857'], { cwd: workspace });
   const output = runCli(['workspace', 'show'], { cwd: workspace });
   assert.match(output, /Initialized: yes/);
   assert.match(output, /Active problem: 857/);
+  assert.match(output, /Workspace pull dir:/);
 });
 
 test('dossier show uses active problem when omitted', () => {
@@ -166,4 +167,28 @@ test('bootstrap problem selects active problem and creates scaffold in one step'
   assert.equal(JSON.parse(fs.readFileSync(statePath, 'utf8')).activeProblem, '857');
   assert.equal(JSON.parse(fs.readFileSync(currentProblemPath, 'utf8')).problemId, '857');
   assert.equal(fs.existsSync(path.join(scaffoldDir, 'PROBLEM.json')), true);
+});
+
+test('pull problem copies seeded dossier into pull bundle', () => {
+  const workspace = fs.mkdtempSync(path.join(os.tmpdir(), 'erdos-pull-seeded-'));
+  const output = runCli(['pull', 'problem', '857'], { cwd: workspace });
+  assert.match(output, /Pull bundle created:/);
+  assert.match(output, /Local canonical dossier included: yes/);
+  assert.match(output, /Upstream record included: yes/);
+  const pullDir = path.join(workspace, '.erdos', 'pulls', '857');
+  assert.equal(fs.existsSync(path.join(pullDir, 'problem.yaml')), true);
+  assert.equal(fs.existsSync(path.join(pullDir, 'UPSTREAM_RECORD.json')), true);
+  assert.equal(fs.existsSync(path.join(pullDir, 'PULL_STATUS.json')), true);
+});
+
+test('pull problem creates upstream-only bundle for unseeded problem', () => {
+  const workspace = fs.mkdtempSync(path.join(os.tmpdir(), 'erdos-pull-unseeded-'));
+  const output = runCli(['pull', 'problem', '1'], { cwd: workspace });
+  assert.match(output, /Pull bundle created:/);
+  assert.match(output, /Local canonical dossier included: no/);
+  assert.match(output, /Upstream record included: yes/);
+  const pullDir = path.join(workspace, '.erdos', 'pulls', '1');
+  assert.equal(fs.existsSync(path.join(pullDir, 'UPSTREAM_RECORD.json')), true);
+  assert.equal(fs.existsSync(path.join(pullDir, 'PROBLEM.json')), true);
+  assert.equal(fs.existsSync(path.join(pullDir, 'problem.yaml')), false);
 });
