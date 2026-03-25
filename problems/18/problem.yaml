@@ -1,0 +1,17 @@
+problem_id: "18"
+display_name: "Erdos Problem #18"
+title: "Practical Numbers Divisor-Sum Efficiency"
+source:
+  site: "erdosproblems.com"
+  url: "https://www.erdosproblems.com/18"
+  external_id: "18"
+status:
+  site_status: "open"
+  site_badge: "OPEN"
+  repo_status: "cataloged"
+cluster: "number-theory"
+related_problems: []
+family_tags:
+  - "number-theory"
+  - "divisors"
+  - "factorials"

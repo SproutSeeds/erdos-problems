@@ -1,0 +1,5 @@
+node_modules/
+.erdos/
+dist/
+*.tgz
+.DS_Store

@@ -1,0 +1,30 @@
+{
+  "name": "erdos-problems",
+  "version": "0.1.1",
+  "description": "CLI atlas and staged research harness for Paul Erdos problems.",
+  "type": "module",
+  "bin": {
+    "erdos": "bin/erdos"
+  },
+  "files": [
+    "README.md",
+    "LICENSE",
+    "bin",
+    "docs",
+    "packs",
+    "problems",
+    "src"
+  ],
+  "scripts": {
+    "test": "node --test",
+    "start": "node src/cli/index.js"
+  },
+  "keywords": [
+    "erdos",
+    "combinatorics",
+    "open-problems",
+    "research",
+    "sunflower"
+  ],
+  "license": "MIT"
+}

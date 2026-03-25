@@ -1,0 +1,16 @@
+problem_id: "536"
+display_name: "Erdos Problem #536"
+title: "LCM Sunflower Analogue"
+source:
+  site: "erdosproblems.com"
+  url: "https://www.erdosproblems.com/536"
+  external_id: "536"
+status:
+  site_status: "open"
+  repo_status: "cataloged"
+cluster: "sunflower"
+related_problems:
+  - "857"
+family_tags:
+  - "sunflower-analogue"
+  - "number-theory"

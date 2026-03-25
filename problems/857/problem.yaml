@@ -1,0 +1,23 @@
+problem_id: "857"
+display_name: "Erdos Problem #857"
+title: "Sunflower Conjecture"
+source:
+  site: "erdosproblems.com"
+  url: "https://www.erdosproblems.com/857"
+  external_id: "857"
+status:
+  site_status: "open"
+  repo_status: "active"
+cluster: "sunflower"
+related_problems:
+  - "20"
+  - "536"
+  - "856"
+family_tags:
+  - "sunflower"
+  - "extremal-set-theory"
+research_state:
+  open_problem: true
+  active_route: "anchored_selector_linearization"
+  route_breakthrough: true
+  problem_solved: false

@@ -1,0 +1,71 @@
+import fs from 'node:fs';
+import path from 'node:path';
+import {
+  getCurrentProblemPath,
+  getWorkspaceDir,
+  getWorkspaceRoot,
+  getWorkspaceStatePath,
+} from './paths.js';
+
+function writeJson(filePath, payload) {
+  fs.mkdirSync(path.dirname(filePath), { recursive: true });
+  fs.writeFileSync(filePath, JSON.stringify(payload, null, 2) + '\n');
+}
+
+export function readWorkspaceState() {
+  const filePath = getWorkspaceStatePath();
+  if (!fs.existsSync(filePath)) {
+    return null;
+  }
+  return JSON.parse(fs.readFileSync(filePath, 'utf8'));
+}
+
+export function ensureWorkspaceState() {
+  const existing = readWorkspaceState();
+  if (existing) {
+    return existing;
+  }
+  const now = new Date().toISOString();
+  const state = {
+    workspaceRoot: getWorkspaceRoot(),
+    createdAt: now,
+    updatedAt: now,
+  };
+  writeJson(getWorkspaceStatePath(), state);
+  return state;
+}
+
+export function setCurrentProblem(problemId) {
+  const existing = ensureWorkspaceState();
+  const now = new Date().toISOString();
+  writeJson(getCurrentProblemPath(), {
+    problemId: String(problemId),
+    selectedAt: now,
+  });
+  writeJson(getWorkspaceStatePath(), {
+    workspaceRoot: getWorkspaceRoot(),
+    createdAt: existing.createdAt ?? now,
+    updatedAt: now,
+    activeProblem: String(problemId),
+  });
+}
+
+export function readCurrentProblem() {
+  const filePath = getCurrentProblemPath();
+  if (!fs.existsSync(filePath)) {
+    return null;
+  }
+  const payload = JSON.parse(fs.readFileSync(filePath, 'utf8'));
+  return payload.problemId ?? null;
+}
+
+export function getWorkspaceSummary() {
+  const state = readWorkspaceState();
+  return {
+    workspaceRoot: getWorkspaceRoot(),
+    stateDir: getWorkspaceDir(),
+    hasState: Boolean(state),
+    activeProblem: readCurrentProblem(),
+    updatedAt: state?.updatedAt ?? null,
+  };
+}

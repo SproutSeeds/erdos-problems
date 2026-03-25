@@ -1,0 +1,16 @@
+problem_id: "856"
+display_name: "Erdos Problem #856"
+title: "Harmonic LCM Sunflower Analogue"
+source:
+  site: "erdosproblems.com"
+  url: "https://www.erdosproblems.com/856"
+  external_id: "856"
+status:
+  site_status: "open"
+  repo_status: "cataloged"
+cluster: "sunflower"
+related_problems:
+  - "857"
+family_tags:
+  - "sunflower-analogue"
+  - "number-theory"

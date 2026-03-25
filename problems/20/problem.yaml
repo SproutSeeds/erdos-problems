@@ -1,0 +1,16 @@
+problem_id: "20"
+display_name: "Erdos Problem #20"
+title: "Strong Sunflower Problem"
+source:
+  site: "erdosproblems.com"
+  url: "https://www.erdosproblems.com/20"
+  external_id: "20"
+status:
+  site_status: "open"
+  repo_status: "active"
+cluster: "sunflower"
+related_problems:
+  - "857"
+family_tags:
+  - "sunflower"
+  - "uniform-families"

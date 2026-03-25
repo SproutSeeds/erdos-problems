@@ -1,0 +1,17 @@
+problem_id: "542"
+display_name: "Erdos Problem #542"
+title: "LCM-Free Sets Reciprocal Sum Bound"
+source:
+  site: "erdosproblems.com"
+  url: "https://www.erdosproblems.com/542"
+  external_id: "542"
+status:
+  site_status: "solved"
+  site_badge: "SOLVED"
+  repo_status: "historical"
+cluster: "number-theory"
+related_problems:
+  - "784"
+family_tags:
+  - "number-theory"
+  - "least-common-multiple"
