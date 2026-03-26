@@ -21,6 +21,7 @@ function parseMaintainerSeedArgs(args) {
     activeRoute: null,
     routeBreakthrough: false,
     problemSolved: false,
+    allowNonOpen: false,
     force: false,
   };
 
@@ -116,6 +117,10 @@ function parseMaintainerSeedArgs(args) {
       parsed.problemSolved = true;
       continue;
     }
+    if (token === '--allow-non-open') {
+      parsed.allowNonOpen = true;
+      continue;
+    }
     if (token === '--force') {
       parsed.force = true;
       continue;
@@ -131,7 +136,7 @@ export function runMaintainerCommand(args) {
 
   if (!subcommand || subcommand === 'help' || subcommand === '--help') {
     console.log('Usage:');
-    console.log('  erdos maintainer seed problem <id> [--from-pull <path>] [--dest-root <path>] [--cluster <name>] [--repo-status <status>] [--harness-depth <depth>] [--title <title>] [--family-tag <tag>] [--related <id>] [--formalization-status <status>] [--active-route <route>] [--route-breakthrough] [--problem-solved] [--force]');
+    console.log('  erdos maintainer seed problem <id> [--from-pull <path>] [--dest-root <path>] [--cluster <name>] [--repo-status <status>] [--harness-depth <depth>] [--title <title>] [--family-tag <tag>] [--related <id>] [--formalization-status <status>] [--active-route <route>] [--route-breakthrough] [--problem-solved] [--allow-non-open] [--force]');
     return 0;
   }
 
@@ -164,6 +169,7 @@ export function runMaintainerCommand(args) {
       activeRoute: parsed.activeRoute,
       routeBreakthrough: parsed.routeBreakthrough,
       problemSolved: parsed.problemSolved,
+      allowNonOpen: parsed.allowNonOpen,
       force: parsed.force,
     });
 
@@ -174,6 +180,7 @@ export function runMaintainerCommand(args) {
     console.log(`Harness depth: ${result.record.harness.depth}`);
     console.log(`Upstream record used: ${result.usedUpstreamRecord ? 'yes' : 'no'}`);
     console.log(`Site snapshot used: ${result.usedSiteSnapshot ? 'yes' : 'no'}`);
+    console.log(`Public status review used: ${result.usedPublicStatusReview ? 'yes' : 'no'}`);
     return 0;
   } catch (error) {
     console.error(String(error.message ?? error));

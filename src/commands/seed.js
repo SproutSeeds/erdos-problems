@@ -16,7 +16,8 @@ function parseSeedArgs(args) {
 
   const parsed = {
     problemId: value,
-    includeSite: false,
+    includeSite: true,
+    includePublicSearch: true,
     refreshUpstream: false,
     cluster: null,
     repoStatus: 'local_seeded',
@@ -28,6 +29,7 @@ function parseSeedArgs(args) {
     activeRoute: null,
     routeBreakthrough: false,
     problemSolved: false,
+    allowNonOpen: false,
     destRoot: null,
     noActivate: false,
     noLoopSync: false,
@@ -39,6 +41,18 @@ function parseSeedArgs(args) {
     const token = rest[index];
     if (token === '--include-site') {
       parsed.includeSite = true;
+      continue;
+    }
+    if (token === '--no-site') {
+      parsed.includeSite = false;
+      continue;
+    }
+    if (token === '--include-public-search') {
+      parsed.includePublicSearch = true;
+      continue;
+    }
+    if (token === '--no-public-search') {
+      parsed.includePublicSearch = false;
       continue;
     }
     if (token === '--refresh-upstream') {
@@ -119,6 +133,10 @@ function parseSeedArgs(args) {
       parsed.problemSolved = true;
       continue;
     }
+    if (token === '--allow-non-open') {
+      parsed.allowNonOpen = true;
+      continue;
+    }
     if (token === '--dest-root') {
       parsed.destRoot = rest[index + 1];
       if (!parsed.destRoot) {
@@ -152,7 +170,7 @@ function parseSeedArgs(args) {
 export async function runSeedCommand(args) {
   if (args.length === 0 || args[0] === 'help' || args[0] === '--help') {
     console.log('Usage:');
-    console.log('  erdos seed problem <id> [--include-site] [--refresh-upstream] [--cluster <name>] [--repo-status <status>] [--harness-depth <depth>] [--title <title>] [--family-tag <tag>] [--related <id>] [--formalization-status <status>] [--active-route <route>] [--route-breakthrough] [--problem-solved] [--dest-root <path>] [--no-activate] [--no-loop-sync] [--force] [--json]');
+    console.log('  erdos seed problem <id> [--include-site|--no-site] [--include-public-search|--no-public-search] [--refresh-upstream] [--cluster <name>] [--repo-status <status>] [--harness-depth <depth>] [--title <title>] [--family-tag <tag>] [--related <id>] [--formalization-status <status>] [--active-route <route>] [--route-breakthrough] [--problem-solved] [--allow-non-open] [--dest-root <path>] [--no-activate] [--no-loop-sync] [--force] [--json]');
     return 0;
   }
 
@@ -179,6 +197,9 @@ export async function runSeedCommand(args) {
   if (parsed.includeSite) {
     pullArgs.push('--include-site');
   }
+  if (parsed.includePublicSearch) {
+    pullArgs.push('--include-public-search');
+  }
   if (parsed.refreshUpstream) {
     pullArgs.push('--refresh-upstream');
   }
@@ -202,6 +223,7 @@ export async function runSeedCommand(args) {
     activeRoute: parsed.activeRoute ?? (parsed.problemSolved ? null : 'seed_route_pending'),
     routeBreakthrough: parsed.routeBreakthrough,
     problemSolved: parsed.problemSolved,
+    allowNonOpen: parsed.allowNonOpen,
     force: parsed.force,
   });
 
@@ -233,6 +255,7 @@ export async function runSeedCommand(args) {
     checkpointShelf: checkpoints?.indexPath ?? null,
     usedUpstreamRecord: result.usedUpstreamRecord,
     usedSiteSnapshot: result.usedSiteSnapshot,
+    usedPublicStatusReview: result.usedPublicStatusReview,
     workspaceOverlayVisible: seedsIntoWorkspaceOverlay,
     orpProtocol: orp.protocolPath,
   };
@@ -250,6 +273,7 @@ export async function runSeedCommand(args) {
   console.log(`Harness depth: ${result.record.harness.depth}`);
   console.log(`Upstream record used: ${result.usedUpstreamRecord ? 'yes' : 'no'}`);
   console.log(`Site snapshot used: ${result.usedSiteSnapshot ? 'yes' : 'no'}`);
+  console.log(`Public status review used: ${result.usedPublicStatusReview ? 'yes' : 'no'}`);
   console.log(`ORP protocol: ${orp.protocolPath}`);
   console.log(`Workspace overlay visible: ${seedsIntoWorkspaceOverlay ? 'yes' : 'no'}`);
   console.log(`Activated: ${activated ? 'yes' : 'no'}`);

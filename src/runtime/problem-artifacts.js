@@ -17,6 +17,8 @@ const STARTER_LOOP_FILES = [
   ['AGENT_START.md', 'AGENT_START.md'],
   ['ROUTES.md', 'ROUTES.md'],
   ['CHECKPOINT_NOTES.md', 'CHECKPOINT_NOTES.md'],
+  ['PUBLIC_STATUS_REVIEW.md', 'PUBLIC_STATUS_REVIEW.md'],
+  ['AGENT_WEBSEARCH_BRIEF.md', 'AGENT_WEBSEARCH_BRIEF.md'],
 ];
 
 function getPackContextPath(problem) {

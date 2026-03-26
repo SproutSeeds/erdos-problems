@@ -2,6 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { parse } from 'yaml';
 import { writeJson } from './files.js';
+import { buildBreakthroughsComputeView } from './breakthroughs.js';
 import { getPackDir, getPackProblemDir, getWorkspaceComputeRegistryDir } from './paths.js';
 
 const CLAIM_LEVEL_PRIORITY = {
@@ -313,6 +314,7 @@ export function buildSunflowerStatusSnapshot(problem) {
   const packets = listSunflowerComputePackets(problem.problemId);
   const activePacket = chooseActivePacket(packets);
   const summary = deriveSummary(activePacket);
+  const computeGovernance = buildBreakthroughsComputeView(problem, activePacket);
   const routeState = deriveRouteState(problem, context);
   const agentStartPath = getSunflowerAgentStartPath(problem.problemId);
   const checkpointPacketPath = getSunflowerCheckpointPacketPath(problem.problemId);
@@ -356,6 +358,9 @@ export function buildSunflowerStatusSnapshot(problem) {
     computeSummary: summary.computeSummary,
     computeNextAction: summary.computeNextAction,
     budgetState: summary.budgetState,
+    computeReason: activePacket?.question ?? null,
+    computeWhen: computeGovernance?.when ?? 'No compute packet is currently admitted.',
+    computeGovernance,
     activePacket: compactPacket(activePacket),
     computePackets: packets.map((packet) => compactPacket(packet)),
   };

@@ -9,6 +9,7 @@ import {
 import { getProblemArtifactInventory, scaffoldProblem } from '../runtime/problem-artifacts.js';
 import { loadActiveUpstreamSnapshot, syncUpstream } from '../upstream/sync.js';
 import { fetchProblemSiteSnapshot } from '../upstream/site.js';
+import { buildProblemSearchQueries, fetchProblemPublicSearchReview } from '../upstream/public-search.js';
 
 function normalizeClusterLabel(rawTag) {
   return String(rawTag ?? '')
@@ -48,6 +49,7 @@ function parsePullArgs(args) {
 
   let destination = null;
   let includeSite = false;
+  let includePublicSearch = false;
   let refreshUpstream = false;
 
   for (let index = 0; index < rest.length; index += 1) {
@@ -64,6 +66,10 @@ function parsePullArgs(args) {
       includeSite = true;
       continue;
     }
+    if (token === '--include-public-search') {
+      includePublicSearch = true;
+      continue;
+    }
     if (token === '--refresh-upstream') {
       refreshUpstream = true;
       continue;
@@ -76,6 +82,7 @@ function parsePullArgs(args) {
     problemId: value,
     destination,
     includeSite,
+    includePublicSearch,
     refreshUpstream,
   };
 }
@@ -165,6 +172,8 @@ async function maybeWriteSiteBundle(problemId, destination, includeSite) {
       url: siteSnapshot.url,
       fetchedAt: siteSnapshot.fetchedAt,
       title: siteSnapshot.title,
+      siteStatus: siteSnapshot.siteStatus,
+      siteStatusRaw: siteSnapshot.siteStatusRaw,
       previewLines: siteSnapshot.previewLines,
     });
     writeText(
@@ -175,6 +184,8 @@ async function maybeWriteSiteBundle(problemId, destination, includeSite) {
         `Source: ${siteSnapshot.url}`,
         `Fetched at: ${siteSnapshot.fetchedAt}`,
         `Title: ${siteSnapshot.title}`,
+        `Site status: ${siteSnapshot.siteStatus}`,
+        `Status line: ${siteSnapshot.siteStatusRaw ?? '(unknown)'}`,
         '',
         '## Preview',
         '',
@@ -182,14 +193,132 @@ async function maybeWriteSiteBundle(problemId, destination, includeSite) {
         '',
       ].join('\n'),
     );
-    return { attempted: true, included: true, error: null };
+    return {
+      attempted: true,
+      included: true,
+      error: null,
+      siteStatus: siteSnapshot.siteStatus,
+      siteStatusRaw: siteSnapshot.siteStatusRaw,
+      title: siteSnapshot.title,
+      previewLines: siteSnapshot.previewLines,
+    };
   } catch (error) {
     writeText(path.join(destination, 'SITE_FETCH_ERROR.txt'), String(error.message ?? error));
-    return { attempted: true, included: false, error: String(error.message ?? error) };
+    return {
+      attempted: true,
+      included: false,
+      error: String(error.message ?? error),
+      siteStatus: 'unknown',
+      siteStatusRaw: null,
+      title: null,
+      previewLines: [],
+    };
   }
 }
 
-async function writeLiteratureLane(problemId, destination, localProblem, upstreamRecord, includeSite) {
+async function maybeWritePublicSearchBundle(problemId, title, destination, includePublicSearch) {
+  const queries = buildProblemSearchQueries(problemId, title);
+  const briefLines = [
+    `# Erdős Problem #${problemId} Agent Websearch Brief`,
+    '',
+    'Why this exists:',
+    '- do not rely on erdosproblems.com alone as the canonical public truth surface',
+    '- compare the site status with current publicized discussion, literature, and formalization chatter',
+    '',
+    'Suggested queries:',
+    ...queries.map((query) => `- ${query}`),
+    '',
+    'Review prompts:',
+    '- Does the problem still appear publicly open?',
+    '- Are there recent solution claims, partial claims, or major status updates?',
+    '- Are there recent formalization artifacts, surveys, or project pages worth pulling into the dossier?',
+    '',
+  ];
+
+  writeText(path.join(destination, 'AGENT_WEBSEARCH_BRIEF.md'), briefLines.join('\n'));
+
+  if (!includePublicSearch) {
+    writeText(
+      path.join(destination, 'PUBLIC_STATUS_REVIEW.md'),
+      [
+        `# Erdős Problem #${problemId} Public Status Review`,
+        '',
+        '- A live public search was not requested for this pull bundle.',
+        '- Use `AGENT_WEBSEARCH_BRIEF.md` to run the suggested queries before widening public-status claims.',
+        '',
+      ].join('\n'),
+    );
+    return {
+      attempted: false,
+      included: false,
+      error: null,
+      queries,
+      combinedResults: [],
+    };
+  }
+
+  try {
+    const review = await fetchProblemPublicSearchReview(problemId, title);
+    writeJson(path.join(destination, 'PUBLIC_STATUS_REVIEW.json'), review);
+    writeText(
+      path.join(destination, 'PUBLIC_STATUS_REVIEW.md'),
+      [
+        `# Erdős Problem #${problemId} Public Status Review`,
+        '',
+        `Fetched at: ${review.fetchedAt}`,
+        `Provider: ${review.provider}`,
+        '',
+        'Queries run:',
+        ...review.queries.map((query) => `- ${query}`),
+        '',
+        'Top public results:',
+        ...(review.combinedResults.length > 0
+          ? review.combinedResults.map((result) => `- [${result.title}](${result.url})${result.snippet ? ` — ${result.snippet}` : ''}`)
+          : ['- *(no results captured)*']),
+        '',
+        ...(review.errors.length > 0
+          ? [
+              'Search notes:',
+              ...review.errors.map((entry) => `- ${entry.query}: ${entry.error}`),
+              '',
+            ]
+          : []),
+      ].join('\n'),
+    );
+    return {
+      attempted: true,
+      included: true,
+      error: null,
+      queries: review.queries,
+      combinedResults: review.combinedResults,
+    };
+  } catch (error) {
+    const message = String(error?.message ?? error);
+    writeText(
+      path.join(destination, 'PUBLIC_STATUS_REVIEW.md'),
+      [
+        `# Erdős Problem #${problemId} Public Status Review`,
+        '',
+        '- A live public search was attempted but did not complete cleanly.',
+        `- Error: ${message}`,
+        '',
+        'Suggested queries:',
+        ...queries.map((query) => `- ${query}`),
+        '',
+      ].join('\n'),
+    );
+    writeText(path.join(destination, 'PUBLIC_STATUS_REVIEW_ERROR.txt'), message);
+    return {
+      attempted: true,
+      included: false,
+      error: message,
+      queries,
+      combinedResults: [],
+    };
+  }
+}
+
+async function writeLiteratureLane(problemId, destination, localProblem, upstreamRecord, includeSite, includePublicSearch) {
   ensureDir(destination);
 
   const includedFiles = [];
@@ -220,6 +349,12 @@ async function writeLiteratureLane(problemId, destination, localProblem, upstrea
   }
 
   const siteStatus = await maybeWriteSiteBundle(problemId, destination, includeSite);
+  const publicSearch = await maybeWritePublicSearchBundle(
+    problemId,
+    localProblem?.title ?? upstreamRecord?.title ?? `Erdos Problem #${problemId}`,
+    destination,
+    includePublicSearch,
+  );
   const problemRecord = buildProblemRecord(problemId, localProblem, upstreamRecord);
   writeJson(path.join(destination, 'PROBLEM.json'), problemRecord);
   writeJson(path.join(destination, 'LITERATURE_INDEX.json'), {
@@ -229,6 +364,10 @@ async function writeLiteratureLane(problemId, destination, localProblem, upstrea
     includedUpstreamRecord: Boolean(upstreamRecord),
     includedSiteSnapshot: siteStatus.included,
     siteSnapshotError: siteStatus.error,
+    siteStatus: siteStatus.siteStatus,
+    includedPublicSearch: publicSearch.included,
+    publicSearchError: publicSearch.error,
+    publicSearchQueries: publicSearch.queries,
   });
   writeText(
     path.join(destination, 'README.md'),
@@ -240,6 +379,7 @@ async function writeLiteratureLane(problemId, destination, localProblem, upstrea
       `- Local dossier included: ${localProblem ? 'yes' : 'no'}`,
       `- Upstream record included: ${upstreamRecord ? 'yes' : 'no'}`,
       `- Live site snapshot included: ${siteStatus.included ? 'yes' : 'no'}`,
+      `- Public search review included: ${publicSearch.included ? 'yes' : 'no'}`,
       '',
     ].join('\n'),
   );
@@ -248,6 +388,7 @@ async function writeLiteratureLane(problemId, destination, localProblem, upstrea
     destination,
     includedFiles,
     siteStatus,
+    publicSearch,
   };
 }
 
@@ -292,9 +433,9 @@ export async function runPullCommand(args, options = {}) {
   if (args.length === 0 || args[0] === 'help' || args[0] === '--help') {
     if (!silent) {
       console.log('Usage:');
-      console.log('  erdos pull problem <id> [--dest <path>] [--include-site] [--refresh-upstream]');
+      console.log('  erdos pull problem <id> [--dest <path>] [--include-site] [--include-public-search] [--refresh-upstream]');
       console.log('  erdos pull artifacts <id> [--dest <path>] [--refresh-upstream]');
-      console.log('  erdos pull literature <id> [--dest <path>] [--include-site] [--refresh-upstream]');
+      console.log('  erdos pull literature <id> [--dest <path>] [--include-site] [--include-public-search] [--refresh-upstream]');
     }
     return 0;
   }
@@ -346,14 +487,25 @@ export async function runPullCommand(args, options = {}) {
     const destination = parsed.destination
       ? path.resolve(parsed.destination)
       : getWorkspaceProblemLiteratureDir(parsed.problemId);
-    const result = await writeLiteratureLane(String(parsed.problemId), destination, localProblem, upstreamRecord, parsed.includeSite);
+    const result = await writeLiteratureLane(
+      String(parsed.problemId),
+      destination,
+      localProblem,
+      upstreamRecord,
+      parsed.includeSite,
+      parsed.includePublicSearch,
+    );
     if (!silent) {
       console.log(`Literature bundle created: ${destination}`);
       console.log(`Local dossier context included: ${localProblem ? 'yes' : 'no'}`);
       console.log(`Upstream record included: ${upstreamRecord ? 'yes' : 'no'}`);
       console.log(`Live site snapshot included: ${result.siteStatus.included ? 'yes' : 'no'}`);
+      console.log(`Public search review included: ${result.publicSearch.included ? 'yes' : 'no'}`);
       if (result.siteStatus.error) {
         console.log(`Live site snapshot note: ${result.siteStatus.error}`);
+      }
+      if (result.publicSearch.error) {
+        console.log(`Public search note: ${result.publicSearch.error}`);
       }
     }
     return 0;
@@ -367,7 +519,14 @@ export async function runPullCommand(args, options = {}) {
 
   writeRootProblemBundle(rootDestination, String(parsed.problemId), localProblem, upstreamRecord, snapshot, artifactDestination, literatureDestination);
   const artifactResult = writeArtifactsLane(String(parsed.problemId), artifactDestination, localProblem, upstreamRecord, snapshot);
-  const literatureResult = await writeLiteratureLane(String(parsed.problemId), literatureDestination, localProblem, upstreamRecord, parsed.includeSite);
+  const literatureResult = await writeLiteratureLane(
+    String(parsed.problemId),
+    literatureDestination,
+    localProblem,
+    upstreamRecord,
+    parsed.includeSite,
+    parsed.includePublicSearch,
+  );
 
   writeJson(path.join(rootDestination, 'PULL_STATUS.json'), {
     generatedAt: new Date().toISOString(),
@@ -382,6 +541,10 @@ export async function runPullCommand(args, options = {}) {
     siteSnapshotAttempted: literatureResult.siteStatus.attempted,
     siteSnapshotIncluded: literatureResult.siteStatus.included,
     siteSnapshotError: literatureResult.siteStatus.error,
+    siteStatus: literatureResult.siteStatus.siteStatus,
+    publicSearchAttempted: literatureResult.publicSearch.attempted,
+    publicSearchIncluded: literatureResult.publicSearch.included,
+    publicSearchError: literatureResult.publicSearch.error,
   });
 
   if (!silent) {
@@ -391,8 +554,12 @@ export async function runPullCommand(args, options = {}) {
     console.log(`Local canonical dossier included: ${localProblem ? 'yes' : 'no'}`);
     console.log(`Upstream record included: ${upstreamRecord ? 'yes' : 'no'}`);
     console.log(`Live site snapshot included: ${literatureResult.siteStatus.included ? 'yes' : 'no'}`);
+    console.log(`Public search review included: ${literatureResult.publicSearch.included ? 'yes' : 'no'}`);
     if (literatureResult.siteStatus.error) {
       console.log(`Live site snapshot note: ${literatureResult.siteStatus.error}`);
+    }
+    if (literatureResult.publicSearch.error) {
+      console.log(`Public search note: ${literatureResult.publicSearch.error}`);
     }
   }
   return 0;

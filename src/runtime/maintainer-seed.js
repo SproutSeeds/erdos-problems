@@ -35,6 +35,8 @@ const STARTER_LOOP_ARTIFACTS = [
   'AGENT_START.md',
   'ROUTES.md',
   'CHECKPOINT_NOTES.md',
+  'PUBLIC_STATUS_REVIEW.md',
+  'AGENT_WEBSEARCH_BRIEF.md',
 ];
 
 function normalizeTitle(rawTitle, problemId) {
@@ -118,6 +120,9 @@ function loadPullBundle(problemId, fromPullDir) {
   const literatureSiteExtractText = readOptionalText(path.join(pullDir, 'literature', 'SITE_EXTRACT.txt'));
   const literatureReferences = readOptionalText(path.join(pullDir, 'literature', 'REFERENCES.md'));
   const literatureStatement = readOptionalText(path.join(pullDir, 'literature', 'STATEMENT.md'));
+  const publicStatusReview = readOptionalJson(path.join(pullDir, 'literature', 'PUBLIC_STATUS_REVIEW.json'));
+  const publicStatusReviewMarkdown = readOptionalText(path.join(pullDir, 'literature', 'PUBLIC_STATUS_REVIEW.md'));
+  const agentWebsearchBrief = readOptionalText(path.join(pullDir, 'literature', 'AGENT_WEBSEARCH_BRIEF.md'));
 
   return {
     pullDir,
@@ -129,6 +134,9 @@ function loadPullBundle(problemId, fromPullDir) {
     siteExtractText: literatureSiteExtractText,
     references: literatureReferences,
     statement: literatureStatement,
+    publicStatusReview,
+    publicStatusReviewMarkdown,
+    agentWebsearchBrief,
   };
 }
 
@@ -185,7 +193,12 @@ function buildResearchState(options, siteStatus) {
 
 function buildProblemRecord(problemId, bundle, options) {
   const upstreamRecord = bundle.upstreamRecord ?? {};
-  const siteStatus = String(upstreamRecord.status?.state ?? bundle.problemRecord?.siteStatus ?? 'unknown').trim();
+  const siteStatus = String(
+    bundle.siteExtract?.siteStatus
+      ?? upstreamRecord.status?.state
+      ?? bundle.problemRecord?.siteStatus
+      ?? 'unknown',
+  ).trim();
   const title = deriveTitle(problemId, bundle, options.title);
   const shortStatement = deriveShortStatement(problemId, bundle, title);
   const familyTags = [
@@ -219,6 +232,7 @@ function buildProblemRecord(problemId, bundle, options) {
         kind: 'pull_bundle',
         upstream_record_included: Boolean(bundle.upstreamRecord),
         site_snapshot_included: Boolean(bundle.siteExtract || bundle.siteSummary),
+        public_search_review_included: Boolean(bundle.publicStatusReview || bundle.publicStatusReviewMarkdown),
       },
     },
     status: {
@@ -256,6 +270,29 @@ function buildProblemRecord(problemId, bundle, options) {
   }
 
   return record;
+}
+
+function assertSeedAdmission(record, bundle, options) {
+  if (options.allowNonOpen) {
+    return;
+  }
+
+  const siteStatus = String(bundle.siteExtract?.siteStatus ?? '').trim().toLowerCase();
+  const upstreamStatus = String(bundle.upstreamRecord?.status?.state ?? '').trim().toLowerCase();
+  if (!siteStatus) {
+    if (upstreamStatus === 'open') {
+      return;
+    }
+    throw new Error(
+      `Seed admission failed for problem ${record.problem_id}: live erdosproblems.com status was not captured in the pull bundle and upstream status is not clearly open. Re-run with a live site snapshot or pass --allow-non-open to bypass this gate.`,
+    );
+  }
+
+  if (siteStatus !== 'open') {
+    throw new Error(
+      `Seed admission failed for problem ${record.problem_id}: erdosproblems.com currently reports site status "${siteStatus}", not "open". Pass --allow-non-open to bypass this gate intentionally.`,
+    );
+  }
 }
 
 function renderStatementMarkdown(problemId, record, bundle) {
@@ -316,6 +353,7 @@ function renderEvidenceMarkdown(problemId, record, bundle) {
     `- This dossier was seeded for Erdos Problem #${problemId} from a pull bundle.`,
     `- Upstream record included: ${bundle.upstreamRecord ? 'yes' : 'no'}`,
     `- Site snapshot included: ${bundle.siteExtract || bundle.siteSummary ? 'yes' : 'no'}`,
+    `- Public status review included: ${bundle.publicStatusReview || bundle.publicStatusReviewMarkdown ? 'yes' : 'no'}`,
     `- Repo status at seed time: ${record.status.repo_status}`,
     `- Harness depth at seed time: ${record.harness.depth}`,
     '',
@@ -357,9 +395,11 @@ function renderAgentStartMarkdown(problemId, record) {
     `- Active route: ${activeRoute}`,
     `- Repo status: ${record.status.repo_status}`,
     `- Harness depth: ${record.harness.depth}`,
+    `- Site status: ${record.status.site_status}`,
     '',
     'First honest move:',
     `- tighten the local dossier for problem ${problemId} against its pull bundle, references, and upstream provenance before widening claims.`,
+    '- read `PUBLIC_STATUS_REVIEW.md` and run the suggested queries in `AGENT_WEBSEARCH_BRIEF.md` before trusting a single public status surface.',
     '',
   ].join('\n');
 }
@@ -397,6 +437,7 @@ function renderCheckpointNotesMarkdown(problemId, record) {
     '- What changed in the active route since the last honest checkpoint?',
     '- Which claim level is justified right now: Exact, Verified, Heuristic, or Conjecture?',
     '- Which upstream/public truth changed, if any?',
+    '- What did the public-status review and agent websearch brief surface beyond erdosproblems.com?',
     '- Which artifact or literature bundle should the next agent read first?',
     '',
   ].join('\n');
@@ -424,6 +465,7 @@ export function seedProblemFromPullBundle(problemId, options = {}) {
     routeBreakthrough: options.routeBreakthrough ?? false,
     problemSolved: options.problemSolved ?? false,
   });
+  assertSeedAdmission(record, bundle, options);
 
   writeText(path.join(destinationDir, 'problem.yaml'), stringify(record));
   writeText(path.join(destinationDir, 'STATEMENT.md'), renderStatementMarkdown(problemId, record, bundle));
@@ -433,12 +475,36 @@ export function seedProblemFromPullBundle(problemId, options = {}) {
   writeText(path.join(destinationDir, 'AGENT_START.md'), renderAgentStartMarkdown(problemId, record));
   writeText(path.join(destinationDir, 'ROUTES.md'), renderRoutesMarkdown(problemId, record));
   writeText(path.join(destinationDir, 'CHECKPOINT_NOTES.md'), renderCheckpointNotesMarkdown(problemId, record));
+  writeText(
+    path.join(destinationDir, 'PUBLIC_STATUS_REVIEW.md'),
+    bundle.publicStatusReviewMarkdown
+      ?? [
+          '# Public Status Review',
+          '',
+          '- No live public search review markdown was present in the pull bundle.',
+          '- Re-run the pull with a public search lane before widening any public-status claim.',
+          '',
+        ].join('\n'),
+  );
+  writeText(
+    path.join(destinationDir, 'AGENT_WEBSEARCH_BRIEF.md'),
+    bundle.agentWebsearchBrief
+      ?? [
+          '# Agent Websearch Brief',
+          '',
+          `- Problem: ${problemId}`,
+          `- Site status at seed time: ${record.status.site_status}`,
+          '- Run a fresh web search before treating the public status surface as settled.',
+          '',
+        ].join('\n'),
+  );
 
   return {
     destinationDir,
     record,
     usedSiteSnapshot: Boolean(bundle.siteExtract || bundle.siteSummary),
     usedUpstreamRecord: Boolean(bundle.upstreamRecord),
+    usedPublicStatusReview: Boolean(bundle.publicStatusReview || bundle.publicStatusReviewMarkdown),
     starterLoopArtifacts: STARTER_LOOP_ARTIFACTS,
   };
 }

@@ -45,7 +45,7 @@ erdos dossier show 857
 For an unseeded problem, the one-step self-seeding flow is now:
 
 ```bash
-erdos seed problem 25 --include-site --cluster number-theory
+erdos seed problem 25 --cluster number-theory
 erdos problem show 25
 erdos workspace show
 ```
@@ -60,6 +60,8 @@ What `bootstrap` does:
 
 What `seed` does:
 - creates a pull bundle for any problem in the upstream snapshot
+- defaults to a live site snapshot plus a public-search review bundle
+- treats a problem as seed-admissible only when the public site says `open`, unless you intentionally pass `--allow-non-open`
 - promotes that bundle into `.erdos/seeded-problems/<id>/`
 - auto-selects the problem in the workspace
 - syncs the bundled ORP workspace kit into `.erdos/orp/`
@@ -69,6 +71,8 @@ What `seed` does:
   - `AGENT_START.md`
   - `ROUTES.md`
   - `CHECKPOINT_NOTES.md`
+  - `PUBLIC_STATUS_REVIEW.md`
+  - `AGENT_WEBSEARCH_BRIEF.md`
 
 ## Pull lanes
 
@@ -78,7 +82,7 @@ For any problem number in the upstream snapshot, you can create a workspace bund
 erdos pull problem 857
 erdos pull artifacts 857
 erdos pull literature 857
-erdos pull problem 999 --include-site
+erdos pull problem 999 --include-site --include-public-search
 erdos pull problem 999 --refresh-upstream
 ```
 
@@ -91,6 +95,10 @@ What the pull lanes do:
 - `erdos pull literature <id>` creates only the literature lane
 - when a problem is locally seeded, the artifact lane includes the canonical dossier, pack context, and compute packets
 - when `--include-site` is used, the literature lane can include a live site snapshot and plain-text extract
+- when `--include-public-search` is used, the literature lane also includes:
+  - `PUBLIC_STATUS_REVIEW.md`
+  - `PUBLIC_STATUS_REVIEW.json`
+  - `AGENT_WEBSEARCH_BRIEF.md`
 
 ## Maintainer seeding
 
@@ -115,6 +123,9 @@ What maintainer seeding does:
   - `AGENT_START.md`
   - `ROUTES.md`
   - `CHECKPOINT_NOTES.md`
+- public-truth starter files:
+  - `PUBLIC_STATUS_REVIEW.md`
+  - `AGENT_WEBSEARCH_BRIEF.md`
 - preserves upstream/site provenance in the local record
 
 ## Sunflower pack
@@ -193,7 +204,7 @@ erdos upstream diff
 erdos scaffold problem 857
 erdos bootstrap problem 857
 erdos bootstrap problem 857 --sync-upstream
-erdos seed problem 25 --include-site --cluster number-theory
+erdos seed problem 25 --cluster number-theory
 erdos pull problem 857
 erdos pull artifacts 857
 erdos pull literature 857
@@ -221,6 +232,8 @@ Many seeded dossiers now also carry starter-loop artifacts:
 - `AGENT_START.md`
 - `ROUTES.md`
 - `CHECKPOINT_NOTES.md`
+- `PUBLIC_STATUS_REVIEW.md`
+- `AGENT_WEBSEARCH_BRIEF.md`
 
 The CLI can surface these directly:
 - `erdos problem artifacts <id>` shows the canonical inventory
@@ -236,6 +249,7 @@ For sunflower problems, the CLI also surfaces pack-specific artifacts:
 - per-problem context files under `packs/sunflower/problems/<id>/`
 - route packets and checkpoint/report packets for `20` and `857`
 - compute packets under `packs/sunflower/compute/<id>/` when available
+- compute-governance evaluation under `breakthroughs`, surfaced through `erdos sunflower status`
 
 ## Notes
 

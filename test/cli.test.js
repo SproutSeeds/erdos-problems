@@ -154,6 +154,8 @@ test('sunflower status shows packaged compute lane and family context for 857', 
   assert.match(output, /Checkpoint packet:/);
   assert.match(output, /Report packet:/);
   assert.match(output, /Compute lane: m8_exactness_cube_and_certificate_v0 \[ready_for_local_scout\]/);
+  assert.match(output, /Breakthroughs engine: breakthroughs/);
+  assert.match(output, /Dispatch action: run_local/);
   assert.match(output, /Registry record:/);
   assert.equal(fs.existsSync(path.join(workspace, '.erdos', 'registry', 'compute', 'latest__p857.json')), true);
 });
@@ -252,6 +254,8 @@ test('pull problem creates root bundle with artifact and literature lanes', () =
   assert.equal(fs.existsSync(path.join(pullDir, 'artifacts', 'PACK_PROBLEM', 'CONTEXT.md')), true);
   assert.equal(fs.existsSync(path.join(pullDir, 'literature', 'REFERENCES.md')), true);
   assert.equal(fs.existsSync(path.join(pullDir, 'literature', 'STATEMENT.md')), true);
+  assert.equal(fs.existsSync(path.join(pullDir, 'literature', 'PUBLIC_STATUS_REVIEW.md')), true);
+  assert.equal(fs.existsSync(path.join(pullDir, 'literature', 'AGENT_WEBSEARCH_BRIEF.md')), true);
 });
 
 test('pull artifacts creates the artifact lane directly', () => {
@@ -289,7 +293,7 @@ test('pull problem creates upstream-only bundle for unseeded problem', () => {
 test('maintainer seed creates a canonical dossier from a pulled bundle', () => {
   const workspace = fs.mkdtempSync(path.join(os.tmpdir(), 'erdos-seed-workspace-'));
   const pullDir = path.join(workspace, 'pull-bundle');
-  const outputPull = runCli(['pull', 'problem', '25', '--dest', pullDir], { cwd: workspace });
+  const outputPull = runCli(['pull', 'problem', '25', '--dest', pullDir, '--include-site', '--include-public-search'], { cwd: workspace });
   assert.match(outputPull, /Pull bundle created:/);
 
   const destRoot = path.join(workspace, 'seeded-problems');
@@ -320,6 +324,8 @@ test('maintainer seed creates a canonical dossier from a pulled bundle', () => {
   assert.equal(fs.existsSync(path.join(problemDir, 'AGENT_START.md')), true);
   assert.equal(fs.existsSync(path.join(problemDir, 'ROUTES.md')), true);
   assert.equal(fs.existsSync(path.join(problemDir, 'CHECKPOINT_NOTES.md')), true);
+  assert.equal(fs.existsSync(path.join(problemDir, 'PUBLIC_STATUS_REVIEW.md')), true);
+  assert.equal(fs.existsSync(path.join(problemDir, 'AGENT_WEBSEARCH_BRIEF.md')), true);
 
   const yamlText = fs.readFileSync(path.join(problemDir, 'problem.yaml'), 'utf8');
   assert.match(yamlText, /problem_id: "25"/);
@@ -409,6 +415,8 @@ test('seed problem creates a workspace-local dossier and activates the research 
   assert.equal(fs.existsSync(path.join(seededDir, 'AGENT_START.md')), true);
   assert.equal(fs.existsSync(path.join(seededDir, 'ROUTES.md')), true);
   assert.equal(fs.existsSync(path.join(seededDir, 'CHECKPOINT_NOTES.md')), true);
+  assert.equal(fs.existsSync(path.join(seededDir, 'PUBLIC_STATUS_REVIEW.md')), true);
+  assert.equal(fs.existsSync(path.join(seededDir, 'AGENT_WEBSEARCH_BRIEF.md')), true);
   assert.equal(fs.existsSync(path.join(workspace, '.erdos', 'orp', 'PROTOCOL.md')), true);
   assert.equal(fs.existsSync(path.join(workspace, '.erdos', 'STATE.md')), true);
   assert.equal(fs.existsSync(path.join(workspace, '.erdos', 'checkpoints', 'CHECKPOINTS.md')), true);
@@ -433,6 +441,7 @@ test('seed problem can emit json for agents', () => {
   assert.equal(payload.activated, true);
   assert.equal(payload.loopSynced, true);
   assert.equal(payload.activeProblem, '25');
+  assert.equal(payload.usedPublicStatusReview, true);
   assert.match(payload.orpProtocol, /\.erdos\/orp\/PROTOCOL\.md$/);
   assert.equal(typeof payload.nextHonestMove, 'string');
 });

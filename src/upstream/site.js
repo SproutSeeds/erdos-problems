@@ -1,5 +1,16 @@
 const SITE_BASE_URL = 'https://www.erdosproblems.com';
 
+const SITE_STATUS_MAP = {
+  OPEN: 'open',
+  SOLVED: 'solved',
+  PROVED: 'proved',
+  'PROVED (LEAN)': 'proved',
+  DISPROVED: 'disproved',
+  PARTIAL: 'partial',
+  DECIDABLE: 'decidable',
+  VERIFIABLE: 'verifiable',
+};
+
 function decodeEntities(text) {
   return text
     .replace(/&#x([0-9a-f]+);/gi, (_, hex) => String.fromCodePoint(Number.parseInt(hex, 16)))
@@ -51,6 +62,33 @@ function selectPreviewLines(lines) {
   return lines.slice(0, 24);
 }
 
+export function normalizeSiteStatus(value) {
+  const raw = String(value ?? '').trim().toUpperCase();
+  return SITE_STATUS_MAP[raw] ?? (raw.toLowerCase() || 'unknown');
+}
+
+export function extractProblemPageStatus(lines) {
+  const statusLine = (Array.isArray(lines) ? lines : [])
+    .map((line) => String(line ?? '').trim())
+    .find((line) => /^(OPEN|SOLVED|PROVED|PARTIAL|DISPROVED|DECIDABLE|VERIFIABLE)\b/i.test(line));
+
+  if (!statusLine) {
+    return {
+      raw: null,
+      normalized: 'unknown',
+    };
+  }
+
+  const raw = statusLine
+    .replace(/\s+\$\d[\d,]*(?:\s*-\s*\$\d[\d,]*)?.*$/i, '')
+    .trim();
+
+  return {
+    raw,
+    normalized: normalizeSiteStatus(raw),
+  };
+}
+
 export async function fetchProblemSiteSnapshot(problemId) {
   const url = `${SITE_BASE_URL}/${problemId}`;
   const response = await fetch(url, {
@@ -68,6 +106,7 @@ export async function fetchProblemSiteSnapshot(problemId) {
   const text = htmlToReadableText(html);
   const title = extractTitle(html, problemId);
   const lines = text.split('\n').filter(Boolean);
+  const status = extractProblemPageStatus(lines);
 
   return {
     url,
@@ -75,6 +114,8 @@ export async function fetchProblemSiteSnapshot(problemId) {
     html,
     title,
     text,
+    siteStatus: status.normalized,
+    siteStatusRaw: status.raw,
     previewLines: selectPreviewLines(lines),
   };
 }

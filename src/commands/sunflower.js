@@ -57,6 +57,8 @@ function printSunflowerStatus(snapshot, registryPaths) {
   console.log(`Compute lane present: ${snapshot.computeLanePresent ? 'yes' : 'no'}`);
   console.log(`Compute lane count: ${snapshot.computeLaneCount}`);
   console.log(`Compute summary: ${snapshot.computeSummary}`);
+  console.log(`Compute reason: ${snapshot.computeReason ?? '(none)'}`);
+  console.log(`Compute when: ${snapshot.computeWhen}`);
   console.log(`Compute next: ${snapshot.computeNextAction}`);
   if (snapshot.activePacket) {
     console.log(`Compute lane: ${snapshot.activePacket.laneId} [${snapshot.activePacket.status}]`);
@@ -65,6 +67,11 @@ function printSunflowerStatus(snapshot, registryPaths) {
     console.log(`Approval required: ${snapshot.activePacket.approvalRequired ? 'yes' : 'no'}`);
     console.log(`Price checked: ${snapshot.activePacket.priceCheckedLocalDate || '(unknown)'}`);
     console.log(`Packet file: ${snapshot.activePacket.packetFileName}`);
+  }
+  if (snapshot.computeGovernance) {
+    console.log(`Breakthroughs engine: ${snapshot.computeGovernance.engine}`);
+    console.log(`Dispatch action: ${snapshot.computeGovernance.dispatchResult.action}`);
+    console.log(`Dispatch rung: ${snapshot.computeGovernance.selectedRung.label} [${snapshot.computeGovernance.selectedRung.spendClass}]`);
   }
   console.log(`Registry record: ${registryPaths.latestPath}`);
 }

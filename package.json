@@ -1,6 +1,6 @@
 {
   "name": "erdos-problems",
-  "version": "0.1.9",
+  "version": "0.1.10",
   "description": "CLI atlas and staged research harness for Paul Erdos problems.",
   "type": "module",
   "bin": {
@@ -31,6 +31,7 @@
     "sunflower"
   ],
   "dependencies": {
+    "breakthroughs": "^0.1.1",
     "yaml": "^2.8.3"
   },
   "license": "MIT"

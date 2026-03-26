@@ -42,11 +42,11 @@ function printUsage() {
   console.log('  erdos upstream diff [--write-package-report]');
   console.log('  erdos scaffold problem <id> [--dest <path>]');
   console.log('  erdos bootstrap problem <id> [--dest <path>] [--sync-upstream]');
-  console.log('  erdos seed problem <id> [--include-site] [--refresh-upstream] [--cluster <name>] [--repo-status <status>] [--harness-depth <depth>] [--title <title>] [--family-tag <tag>] [--related <id>] [--formalization-status <status>] [--active-route <route>] [--route-breakthrough] [--problem-solved] [--dest-root <path>] [--no-activate] [--no-loop-sync] [--force] [--json]');
-  console.log('  erdos pull problem <id> [--dest <path>] [--include-site] [--refresh-upstream]');
+  console.log('  erdos seed problem <id> [--include-site|--no-site] [--include-public-search|--no-public-search] [--refresh-upstream] [--cluster <name>] [--repo-status <status>] [--harness-depth <depth>] [--title <title>] [--family-tag <tag>] [--related <id>] [--formalization-status <status>] [--active-route <route>] [--route-breakthrough] [--problem-solved] [--allow-non-open] [--dest-root <path>] [--no-activate] [--no-loop-sync] [--force] [--json]');
+  console.log('  erdos pull problem <id> [--dest <path>] [--include-site] [--include-public-search] [--refresh-upstream]');
   console.log('  erdos pull artifacts <id> [--dest <path>] [--refresh-upstream]');
-  console.log('  erdos pull literature <id> [--dest <path>] [--include-site] [--refresh-upstream]');
-  console.log('  erdos maintainer seed problem <id> [--from-pull <path>] [--dest-root <path>] [--cluster <name>]');
+  console.log('  erdos pull literature <id> [--dest <path>] [--include-site] [--include-public-search] [--refresh-upstream]');
+  console.log('  erdos maintainer seed problem <id> [--from-pull <path>] [--dest-root <path>] [--cluster <name>] [--allow-non-open]');
 }
 
 const args = process.argv.slice(2);
