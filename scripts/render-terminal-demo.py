@@ -158,14 +158,14 @@ for scene in SCENES:
     for typed in range(1, len(command) + 1, step):
         frame = render_scene(scene, typed_chars=typed, shown_lines=0, cursor=True)
         frames.append(frame)
-        durations.append(55)
+        durations.append(150)
     frame = render_scene(scene, typed_chars=len(command), shown_lines=0, cursor=False)
     frames.append(frame)
-    durations.append(350)
+    durations.append(900)
     for idx in range(1, len(scene['output']) + 1):
         frame = render_scene(scene, typed_chars=len(command), shown_lines=idx, cursor=False)
         frames.append(frame)
-        durations.append(240 if idx < len(scene['output']) else 900)
+        durations.append(650 if idx < len(scene['output']) else 2600)
 
 poster = render_scene(SCENES[1], typed_chars=len(SCENES[1]['command']), shown_lines=len(SCENES[1]['output']), cursor=False)
 poster.save(POSTER_PATH)
