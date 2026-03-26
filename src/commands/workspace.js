@@ -1,5 +1,6 @@
 import { getProblem } from '../atlas/catalog.js';
 import { loadConfig } from '../runtime/config.js';
+import { buildNumberTheoryStatusSnapshot } from '../runtime/number-theory.js';
 import { buildSunflowerStatusSnapshot } from '../runtime/sunflower.js';
 import { getWorkspaceSummary } from '../runtime/workspace.js';
 
@@ -75,6 +76,21 @@ export function runWorkspaceCommand(args) {
         console.log(`Sunflower compute lane: ${sunflower.activePacket.laneId} [${sunflower.activePacket.status}]`);
       }
       console.log(`Sunflower compute next: ${sunflower.computeNextAction}`);
+    }
+    if (problem?.cluster === 'number-theory') {
+      const numberTheory = buildNumberTheoryStatusSnapshot(problem);
+      console.log(`Number-theory family role: ${numberTheory.familyRole ?? '(none)'}`);
+      console.log(`Number-theory harness profile: ${numberTheory.harnessProfile ?? '(none)'}`);
+      console.log(`Number-theory route: ${numberTheory.activeRoute ?? '(none)'}`);
+      console.log(`Number-theory frontier: ${numberTheory.frontierDetail ?? '(none)'}`);
+      console.log(`Number-theory frontier note: ${numberTheory.frontierNotePath ?? '(none)'}`);
+      console.log(`Number-theory route history: ${numberTheory.routeHistoryPath ?? '(none)'}`);
+      console.log(`Number-theory archive mode: ${numberTheory.archiveMode ?? '(none)'}`);
+      console.log(`Number-theory active ticket: ${numberTheory.activeTicketDetail?.ticket_id ?? '(none)'}`);
+      console.log(`Number-theory ready atoms: ${numberTheory.readyAtomCount}`);
+      if (numberTheory.firstReadyAtom) {
+        console.log(`Number-theory first ready atom: ${numberTheory.firstReadyAtom.atom_id} — ${numberTheory.firstReadyAtom.title}`);
+      }
     }
   }
   return 0;

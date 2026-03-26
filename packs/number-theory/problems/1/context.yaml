@@ -1,13 +1,13 @@
 problem_id: "1"
 family_role: additive_number_theory_seed
-harness_profile: dossier_seed_pack
-default_active_route: additive_structure_seed
-bootstrap_focus: Freeze the exact problem statement, the local dossier, and the first honest additive-number-theory route sketch.
-route_story: This problem currently lives in dossier-first mode inside the number-theory pack.
-frontier_label: dossier_seed_frontier
-frontier_detail: Tighten the statement, references, and first route sketch before pretending there is a deeper frontier engine here.
-checkpoint_focus: Preserve provenance and route honesty while the pack remains dossier-first.
-next_honest_move: Seed the first real route note and keep the public-status review current.
+harness_profile: starter_cockpit
+default_active_route: distinct_subset_sum_lower_bound
+bootstrap_focus: Freeze the exact problem statement, the local dossier, and the first honest lower-bound route for distinct subset sums.
+route_story: This problem now has a starter cockpit whose job is to keep the lower-bound route explicit without pretending we already have a deep theorem engine.
+frontier_label: distinct_subset_sum_lower_bound
+frontier_detail: Keep the problem anchored to the binary-growth lower-bound route and freeze the exact first reduction before widening claims.
+checkpoint_focus: Preserve provenance, the exact lower-bound route, and the open-problem boundary in every checkpoint.
+next_honest_move: Freeze the first additive lower-bound route note and tighten the evidence stack around the distinct-subset-sum hypothesis.
 related_core_problems: []
 literature_focus:
   - additive number theory
@@ -18,8 +18,8 @@ artifact_focus:
   - EVIDENCE.md
 question_ledger:
   open_questions:
-    - What is the first honest additive-number-theory route worth freezing for problem 1?
+    - What is the first exact lower-bound reduction worth freezing for the distinct-subset-sum route?
   active_route_notes:
-    - Keep this problem dossier-first until a real pack-specific route is earned.
+    - Keep the active route tied to distinct subset sums and exponential-growth pressure, not generic additive chatter.
   route_breakthroughs: []
   problem_solved: []

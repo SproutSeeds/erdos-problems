@@ -1,13 +1,13 @@
 problem_id: "2"
-family_role: additive_number_theory_seed
-harness_profile: dossier_seed_pack
-default_active_route: additive_structure_seed
-bootstrap_focus: Freeze the exact problem statement, local dossier, and first honest additive route sketch.
-route_story: This problem currently lives in dossier-first mode inside the number-theory pack.
-frontier_label: dossier_seed_frontier
-frontier_detail: Keep this number-theory problem in a disciplined dossier-first workflow until a deeper route is honestly earned.
-checkpoint_focus: Preserve provenance and route honesty while the pack remains dossier-first.
-next_honest_move: Seed the first route note and keep the public-status review current.
+family_role: covering_systems_counterexample_archive
+harness_profile: archive_cockpit
+default_active_route: counterexample_archive
+bootstrap_focus: Freeze the exact disproval record, the dossier provenance, and the counterexample-facing archive packet.
+route_story: This problem is not a live open frontier; the honest public job is to preserve the disproval and keep it usable as a method/counterexample exemplar.
+frontier_label: counterexample_archive
+frontier_detail: Preserve the counterexample/archive posture cleanly and avoid drifting back into open-problem language.
+checkpoint_focus: Keep the disproval record, references, and archive packet synchronized.
+next_honest_move: Tighten the counterexample archive note and make the public references impossible to misread as an open frontier.
 related_core_problems: []
 literature_focus:
   - additive number theory
@@ -18,8 +18,8 @@ artifact_focus:
   - EVIDENCE.md
 question_ledger:
   open_questions:
-    - What is the first honest additive-number-theory route worth freezing for problem 2?
+    - Which exact disproval or counterexample references should be frozen first in the archive packet?
   active_route_notes:
-    - Keep this problem dossier-first until a real pack-specific route is earned.
+    - Treat this as an archive cockpit, not a live open-problem route.
   route_breakthroughs: []
   problem_solved: []

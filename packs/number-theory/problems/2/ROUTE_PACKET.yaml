@@ -1,0 +1,13 @@
+route_packet_id: nt2_counterexample_archive_v1
+route_id: counterexample_archive
+frontier_claim: Preserve the disproval and counterexample-facing references cleanly so the problem remains useful as a method exemplar.
+theorem_module: ""
+checkpoint_packet: CHECKPOINT_TEMPLATE.md
+report_packet: REPORT_TEMPLATE.md
+ready_prompts:
+  - Which exact disproval reference should be frozen first in the archive packet?
+  - Which method lesson from the counterexample should be made explicit for future number-theory dossiers?
+verification_hook:
+  - erdos number-theory status 2
+  - erdos number-theory routes 2
+  - erdos problem show 2

@@ -45,7 +45,7 @@ function inferClusterFromUpstream(upstreamRecord) {
 function parsePullArgs(args) {
   const [kind, value, ...rest] = args;
   if (!['problem', 'artifacts', 'literature'].includes(kind)) {
-    return { error: 'Usage: erdos pull problem|artifacts|literature <id> [--dest <path>] [--include-site] [--include-public-search] [--include-crossref] [--include-openalex] [--refresh-upstream]' };
+    return { error: 'Usage: erdos pull problem|artifacts|literature <id> [--dest <path>] [--include-site] [--include-public-search] [--include-crossref] [--include-openalex] [--refresh-upstream] [--json]' };
   }
 
   let destination = null;
@@ -54,6 +54,7 @@ function parsePullArgs(args) {
   let includeCrossref = false;
   let includeOpenAlex = false;
   let refreshUpstream = false;
+  let asJson = false;
 
   for (let index = 0; index < rest.length; index += 1) {
     const token = rest[index];
@@ -85,6 +86,10 @@ function parsePullArgs(args) {
       refreshUpstream = true;
       continue;
     }
+    if (token === '--json') {
+      asJson = true;
+      continue;
+    }
     return { error: `Unknown pull option: ${token}` };
   }
 
@@ -97,6 +102,7 @@ function parsePullArgs(args) {
     includeCrossref,
     includeOpenAlex,
     refreshUpstream,
+    asJson,
   };
 }
 
@@ -530,9 +536,9 @@ export async function runPullCommand(args, options = {}) {
   if (args.length === 0 || args[0] === 'help' || args[0] === '--help') {
     if (!silent) {
       console.log('Usage:');
-      console.log('  erdos pull problem <id> [--dest <path>] [--include-site] [--include-public-search] [--include-crossref] [--include-openalex] [--refresh-upstream]');
-      console.log('  erdos pull artifacts <id> [--dest <path>] [--refresh-upstream]');
-      console.log('  erdos pull literature <id> [--dest <path>] [--include-site] [--include-public-search] [--include-crossref] [--include-openalex] [--refresh-upstream]');
+      console.log('  erdos pull problem <id> [--dest <path>] [--include-site] [--include-public-search] [--include-crossref] [--include-openalex] [--refresh-upstream] [--json]');
+      console.log('  erdos pull artifacts <id> [--dest <path>] [--refresh-upstream] [--json]');
+      console.log('  erdos pull literature <id> [--dest <path>] [--include-site] [--include-public-search] [--include-crossref] [--include-openalex] [--refresh-upstream] [--json]');
     }
     return 0;
   }
@@ -571,6 +577,17 @@ export async function runPullCommand(args, options = {}) {
       ? path.resolve(parsed.destination)
       : getWorkspaceProblemArtifactDir(parsed.problemId);
     const result = writeArtifactsLane(String(parsed.problemId), destination, localProblem, upstreamRecord, snapshot);
+    if (parsed.asJson) {
+      console.log(JSON.stringify({
+        kind: 'artifacts',
+        problemId: String(parsed.problemId),
+        destination,
+        localProblemIncluded: Boolean(localProblem),
+        upstreamRecordIncluded: Boolean(upstreamRecord),
+        artifactsCopied: result.copiedArtifacts?.length ?? result.artifactsCopied ?? 0,
+      }, null, 2));
+      return 0;
+    }
     if (!silent) {
       console.log(`Artifact bundle created: ${destination}`);
       console.log(`Local canonical dossier included: ${localProblem ? 'yes' : 'no'}`);
@@ -594,6 +611,24 @@ export async function runPullCommand(args, options = {}) {
       parsed.includeCrossref,
       parsed.includeOpenAlex,
     );
+    if (parsed.asJson) {
+      console.log(JSON.stringify({
+        kind: 'literature',
+        problemId: String(parsed.problemId),
+        destination,
+        localProblemIncluded: Boolean(localProblem),
+        upstreamRecordIncluded: Boolean(upstreamRecord),
+        includedSiteSnapshot: result.siteStatus.included,
+        siteStatusError: result.siteStatus.error,
+        includedPublicSearch: result.publicSearch.included,
+        publicSearchError: result.publicSearch.error,
+        includedCrossref: result.crossref.included,
+        crossrefError: result.crossref.error,
+        includedOpenAlex: result.openalex.included,
+        openAlexError: result.openalex.error,
+      }, null, 2));
+      return 0;
+    }
     if (!silent) {
       console.log(`Literature bundle created: ${destination}`);
       console.log(`Local dossier context included: ${localProblem ? 'yes' : 'no'}`);
@@ -661,6 +696,23 @@ export async function runPullCommand(args, options = {}) {
     openAlexIncluded: literatureResult.openalex.included,
     openAlexError: literatureResult.openalex.error,
   });
+
+  if (parsed.asJson) {
+    console.log(JSON.stringify({
+      kind: 'problem',
+      problemId: String(parsed.problemId),
+      destination: rootDestination,
+      artifactsDir: artifactDestination,
+      literatureDir: literatureDestination,
+      localProblemIncluded: Boolean(localProblem),
+      upstreamRecordIncluded: Boolean(upstreamRecord),
+      includedSiteSnapshot: literatureResult.siteStatus.included,
+      includedPublicSearch: literatureResult.publicSearch.included,
+      includedCrossref: literatureResult.crossref.included,
+      includedOpenAlex: literatureResult.openalex.included,
+    }, null, 2));
+    return 0;
+  }
 
   if (!silent) {
     console.log(`Pull bundle created: ${rootDestination}`);

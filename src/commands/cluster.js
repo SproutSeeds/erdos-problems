@@ -10,6 +10,10 @@ function printCluster(cluster) {
     console.log('  Weak sunflower core: 857');
     console.log('  Strong sunflower sibling: 20');
     console.log('  Related analogues: 536, 856');
+  } else if (cluster.name === 'number-theory') {
+    console.log('  Open starter cockpit: 1');
+    console.log('  Counterexample/archive cockpit: 2');
+    console.log('  Additional dossier seeds: 3, 4, 5, 6, 7, 18, 542');
   }
 }
 

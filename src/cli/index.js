@@ -5,6 +5,7 @@ import { runClusterCommand } from '../commands/cluster.js';
 import { runContinuationCommand } from '../commands/continuation.js';
 import { runDossierCommand } from '../commands/dossier.js';
 import { runMaintainerCommand } from '../commands/maintainer.js';
+import { runNumberTheoryCommand } from '../commands/number-theory.js';
 import { runOrpCommand } from '../commands/orp.js';
 import { runPreflightCommand } from '../commands/preflight.js';
 import { runProblemCommand } from '../commands/problem.js';
@@ -29,6 +30,10 @@ function printUsage() {
   console.log('  erdos cluster show <name>');
   console.log('  erdos archive show <id>');
   console.log('  erdos archive scaffold <id>');
+  console.log('  erdos number-theory status [<id>] [--json]');
+  console.log('  erdos number-theory frontier [<id>] [--json]');
+  console.log('  erdos number-theory routes [<id>] [--json]');
+  console.log('  erdos number-theory tickets [<id>] [--json]');
   console.log('  erdos workspace show');
   console.log('  erdos orp show [--json]');
   console.log('  erdos orp sync [--json]');
@@ -57,9 +62,9 @@ function printUsage() {
   console.log('  erdos scaffold problem <id> [--dest <path>]');
   console.log('  erdos bootstrap problem <id> [--dest <path>] [--sync-upstream]');
   console.log('  erdos seed problem <id> [--include-site|--no-site] [--include-public-search|--no-public-search] [--refresh-upstream] [--cluster <name>] [--repo-status <status>] [--harness-depth <depth>] [--title <title>] [--family-tag <tag>] [--related <id>] [--formalization-status <status>] [--active-route <route>] [--route-breakthrough] [--problem-solved] [--allow-non-open] [--dest-root <path>] [--no-activate] [--no-loop-sync] [--force] [--json]');
-  console.log('  erdos pull problem <id> [--dest <path>] [--include-site] [--include-public-search] [--include-crossref] [--include-openalex] [--refresh-upstream]');
-  console.log('  erdos pull artifacts <id> [--dest <path>] [--refresh-upstream]');
-  console.log('  erdos pull literature <id> [--dest <path>] [--include-site] [--include-public-search] [--include-crossref] [--include-openalex] [--refresh-upstream]');
+  console.log('  erdos pull problem <id> [--dest <path>] [--include-site] [--include-public-search] [--include-crossref] [--include-openalex] [--refresh-upstream] [--json]');
+  console.log('  erdos pull artifacts <id> [--dest <path>] [--refresh-upstream] [--json]');
+  console.log('  erdos pull literature <id> [--dest <path>] [--include-site] [--include-public-search] [--include-crossref] [--include-openalex] [--refresh-upstream] [--json]');
   console.log('  erdos maintainer seed problem <id> [--from-pull <path>] [--dest-root <path>] [--cluster <name>] [--allow-non-open]');
   console.log('  erdos maintainer review problem <id> [--from-pull <path>] [--dest-root <path>] [--title <title>]');
 }
@@ -77,6 +82,8 @@ if (!command || command === 'help' || command === '--help') {
   exitCode = runClusterCommand(rest);
 } else if (command === 'archive') {
   exitCode = runArchiveCommand(rest);
+} else if (command === 'number-theory') {
+  exitCode = runNumberTheoryCommand(rest);
 } else if (command === 'workspace') {
   exitCode = runWorkspaceCommand(rest);
 } else if (command === 'orp') {

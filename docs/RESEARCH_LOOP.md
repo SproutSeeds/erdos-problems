@@ -85,6 +85,13 @@ For sunflower compute lanes, ORP now sits above `breakthroughs`:
 - the CLI surfaces the selected rung, dispatch action, and the reason compute is admissible
 - this is compute governance and traceability, not an automatic paid or unbounded compute launch
 
+For number-theory starter-cockpit problems:
+- `erdos number-theory status <id>` exposes the current route/frontier posture
+- `erdos number-theory frontier <id>` compresses the honest next move
+- `erdos number-theory routes <id>` exposes the small route table
+- `erdos number-theory tickets <id>` exposes the current ticket/archive packet
+- this is deliberately lighter than the sunflower pack and should stay honest about that
+
 For solved problems:
 - `erdos archive show <id>` exposes archival posture
 - `erdos archive scaffold <id>` creates a method-exemplar bundle under `.erdos/archives/<id>/`

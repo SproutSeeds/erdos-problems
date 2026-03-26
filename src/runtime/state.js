@@ -7,6 +7,7 @@ import {
   getWorkspaceStateMarkdownPath,
   getWorkspaceStatePath,
 } from './paths.js';
+import { buildNumberTheoryStatusSnapshot } from './number-theory.js';
 import { buildSunflowerStatusSnapshot } from './sunflower.js';
 import { readCurrentProblem } from './workspace.js';
 import { continuationDisplay, resolveContinuation } from './continuation.js';
@@ -215,6 +216,36 @@ function deriveProblemSummary(problem) {
       activeTicketId: sunflower.activeTicket?.ticketId ?? null,
       activeAtomId: sunflower.firstReadyAtom?.atomId ?? null,
       questionLedger: sunflower.questionLedger,
+    };
+  }
+
+  if (problem.cluster === 'number-theory') {
+    const snapshot = buildNumberTheoryStatusSnapshot(problem);
+    return {
+      familyRole: snapshot.familyRole,
+      harnessProfile: snapshot.harnessProfile,
+      activeRoute: snapshot.activeRoute,
+      routeBreakthrough: snapshot.routeBreakthrough,
+      problemSolved: snapshot.problemSolved,
+      openProblem: snapshot.openProblem,
+      currentFrontier: {
+        kind: snapshot.firstReadyAtom ? 'ready_atom' : 'route_frontier',
+        detail: snapshot.firstReadyAtom
+          ? `${snapshot.firstReadyAtom.atom_id} — ${snapshot.firstReadyAtom.title}`
+          : snapshot.frontierDetail,
+      },
+      routeStory: snapshot.activeRouteDetail?.summary || snapshot.routeStory,
+      checkpointFocus: snapshot.checkpointFocus,
+      nextHonestMove: snapshot.nextHonestMove,
+      packArtifacts: {
+        frontierNotePath: snapshot.frontierNotePath,
+        routeHistoryPath: snapshot.routeHistoryPath,
+        checkpointTemplatePath: snapshot.checkpointTemplatePath,
+        reportTemplatePath: snapshot.reportTemplatePath,
+      },
+      activeTicketId: snapshot.activeTicketDetail?.ticket_id ?? null,
+      activeAtomId: snapshot.firstReadyAtom?.atom_id ?? null,
+      questionLedger: snapshot.questionLedger,
     };
   }
 

@@ -1,0 +1,13 @@
+route_packet_id: nt1_distinct_subset_sum_lower_bound_v1
+route_id: distinct_subset_sum_lower_bound
+frontier_claim: Preserve the exponential-growth lower-bound route for distinct subset sums and keep the first honest reduction explicit.
+theorem_module: ""
+checkpoint_packet: CHECKPOINT_TEMPLATE.md
+report_packet: REPORT_TEMPLATE.md
+ready_prompts:
+  - Which exact lower-bound reduction should be frozen first for the distinct-subset-sum route?
+  - Which reference or historical bound is still missing from the canonical dossier?
+verification_hook:
+  - erdos number-theory status 1
+  - erdos number-theory routes 1
+  - erdos problem artifacts 1 --json

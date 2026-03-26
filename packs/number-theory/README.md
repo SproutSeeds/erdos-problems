@@ -1,13 +1,17 @@
 # Number Theory Pack
 
-This is the first non-sunflower family-pack scaffold in `erdos-problems`.
+Light starter cockpit for number-theory problems in `erdos-problems`.
 
-Current posture:
-- dossier-first
-- route-light
-- no deep board/compute loop yet
+Current seeded cockpit problems:
+- `1`: open starter cockpit around a distinct-subset-sum lower-bound route
+- `2`: counterexample/archive cockpit for a disproved covering-systems problem
 
-Why it exists:
-- keep a clean home for reusable number-theory context
-- prove the core/pack split scales beyond sunflower
-- let selected number-theory problems accumulate pack context before they earn deeper gated flows
+Useful commands:
+- `erdos number-theory status 1`
+- `erdos number-theory frontier 1`
+- `erdos number-theory routes 1`
+- `erdos number-theory tickets 1`
+- `erdos number-theory status 2 --json`
+
+Design rule:
+- keep this pack lighter than sunflower until a deeper theorem-board frontier is honestly earned

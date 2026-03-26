@@ -1,0 +1,25 @@
+packet_id: nt2_ops_details_v1
+summary: Archive cockpit packet for the disproved covering-systems problem.
+routes:
+  - route_id: counterexample_archive
+    title: Counterexample Archive
+    status: archival
+    summary: Keep the problem packaged as a disproval archive rather than a live open frontier.
+    why_now: This is the honest public posture for a disproved problem.
+    next_move: Freeze the strongest disproval/counterexample references in the archive packet.
+tickets:
+  - ticket_id: N2
+    title: Tighten the disproval archive packet
+    route_id: counterexample_archive
+    status: active
+    summary: Package the disproval cleanly enough that future agents cannot mistake this for an open problem.
+    current_blocker: The archive packet still needs a sharper reference-centered summary.
+    next_move: Close `N2.G1.A1`.
+atoms:
+  - atom_id: N2.G1.A1
+    title: Freeze the primary disproval reference and method note
+    route_id: counterexample_archive
+    ticket_id: N2
+    status: ready
+    summary: This is the smallest archive improvement that meaningfully clarifies the public dossier.
+    next_move: Record the best disproval reference and checkpoint the archive packet.

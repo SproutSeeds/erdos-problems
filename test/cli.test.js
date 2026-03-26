@@ -108,6 +108,13 @@ test('cluster show sunflower lists the seed cluster', () => {
   assert.match(output, /Deep harness: 20, 857/);
 });
 
+test('cluster show number-theory summarizes the starter cockpit slice', () => {
+  const output = runCli(['cluster', 'show', 'number-theory']);
+  assert.match(output, /Problems: 1, 2, 3, 4, 5, 6, 7, 18, 542/);
+  assert.match(output, /Open starter cockpit: 1/);
+  assert.match(output, /Counterexample\/archive cockpit: 2/);
+});
+
 test('problem use writes workspace state and current problem', () => {
   const workspace = fs.mkdtempSync(path.join(os.tmpdir(), 'erdos-workspace-'));
   const output = runCli(['problem', 'use', '857'], { cwd: workspace });
@@ -195,8 +202,46 @@ test('sunflower status records a no-compute dossier bridge cleanly for 536', () 
   assert.equal(payload.routePacketPresent, true);
   assert.equal(payload.atomicBoardPresent, true);
   assert.equal(payload.firstReadyAtom.atomId, 'T1.G1.A3');
+  assert.equal(payload.frontierNotePresent, true);
+  assert.equal(payload.routeHistoryPresent, true);
   assert.equal(payload.computeLanePresent, false);
   assert.equal(fs.existsSync(path.join(workspace, '.erdos', 'registry', 'compute', 'latest__p536.json')), true);
+});
+
+test('number-theory status shows the starter cockpit for 1', () => {
+  const workspace = fs.mkdtempSync(path.join(os.tmpdir(), 'erdos-number-theory-1-'));
+  const output = runCli(['number-theory', 'status', '1'], { cwd: workspace });
+  assert.match(output, /Erdos Problem #1 number-theory harness/);
+  assert.match(output, /Harness profile: starter_cockpit/);
+  assert.match(output, /Active route: distinct_subset_sum_lower_bound/);
+  assert.match(output, /Route packet present: yes/);
+  assert.match(output, /Frontier note:/);
+  assert.match(output, /Active ticket: N1/);
+  assert.match(output, /Ready atoms: 1/);
+});
+
+test('number-theory frontier and routes expose the open cockpit for 1', () => {
+  const workspace = fs.mkdtempSync(path.join(os.tmpdir(), 'erdos-number-theory-frontier-1-'));
+  const frontier = runCli(['number-theory', 'frontier', '1'], { cwd: workspace });
+  assert.match(frontier, /Erdos Problem #1 number-theory frontier/);
+  assert.match(frontier, /Frontier label: distinct_subset_sum_lower_bound/);
+  assert.match(frontier, /Open problem: yes/);
+
+  const routes = runCli(['number-theory', 'routes', '1'], { cwd: workspace });
+  assert.match(routes, /Erdos Problem #1 number-theory routes/);
+  assert.match(routes, /distinct_subset_sum_lower_bound \[active, active\]/);
+  assert.match(routes, /why now:/);
+});
+
+test('number-theory status records archive posture for disproved problem 2', () => {
+  const workspace = fs.mkdtempSync(path.join(os.tmpdir(), 'erdos-number-theory-2-'));
+  const output = runCli(['number-theory', 'status', '2', '--json'], { cwd: workspace });
+  const payload = JSON.parse(output);
+  assert.equal(payload.problemId, '2');
+  assert.equal(payload.archiveMode, 'counterexample_archive');
+  assert.equal(payload.openProblem, false);
+  assert.equal(payload.activeRoute, 'counterexample_archive');
+  assert.equal(payload.readyAtomCount, 1);
 });
 
 test('sunflower board prints the mirrored atomic frontier for 857', () => {
@@ -426,6 +471,18 @@ test('pull literature creates the literature lane directly', () => {
   assert.equal(fs.existsSync(path.join(literatureDir, 'LITERATURE_INDEX.json')), true);
 });
 
+test('pull literature can emit json for richer adapters', () => {
+  const workspace = fs.mkdtempSync(path.join(os.tmpdir(), 'erdos-pull-literature-json-'));
+  const output = runCli(['pull', 'literature', '857', '--include-crossref', '--include-openalex', '--json'], { cwd: workspace });
+  const payload = JSON.parse(output);
+  assert.equal(payload.kind, 'literature');
+  assert.equal(payload.problemId, '857');
+  assert.equal(payload.localProblemIncluded, true);
+  assert.equal(payload.upstreamRecordIncluded, true);
+  assert.equal(payload.includedCrossref, true);
+  assert.equal(payload.includedOpenAlex, true);
+});
+
 test('pull problem creates upstream-only bundle for unseeded problem', () => {
   const workspace = fs.mkdtempSync(path.join(os.tmpdir(), 'erdos-pull-unseeded-'));
   const output = runCli(['pull', 'problem', '25'], { cwd: workspace });
@@ -573,6 +630,17 @@ test('workspace show includes research loop paths and continuation mode', () => 
   assert.match(output, /Sunflower board: yes/);
   assert.match(output, /Sunflower board ready atoms: 1/);
   assert.match(output, /Sunflower first ready atom: T10.G3.A2/);
+});
+
+test('workspace show includes number-theory cockpit context for problem 1', () => {
+  const workspace = fs.mkdtempSync(path.join(os.tmpdir(), 'erdos-workspace-number-theory-'));
+  runCli(['problem', 'use', '1'], { cwd: workspace });
+  const output = runCli(['workspace', 'show'], { cwd: workspace });
+  assert.match(output, /Active route: distinct_subset_sum_lower_bound/);
+  assert.match(output, /Number-theory family role: additive_number_theory_seed/);
+  assert.match(output, /Number-theory frontier note:/);
+  assert.match(output, /Number-theory active ticket: N1/);
+  assert.match(output, /Number-theory ready atoms: 1/);
 });
 
 test('problem show surfaces solved archival mode for 1008', () => {

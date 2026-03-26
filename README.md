@@ -35,7 +35,7 @@ Native dossier count:
 
 Pack coverage:
 - sunflower pack: `4`
-- number-theory starter pack: `2`
+- number-theory starter cockpit: `2`
 
 ## First-run flow
 
@@ -49,6 +49,7 @@ erdos sunflower frontier 857
 erdos sunflower routes 857
 erdos sunflower tickets 857
 erdos dossier show 857
+erdos number-theory status 1
 ```
 
 For an unseeded problem, the one-step self-seeding flow is now:
@@ -97,6 +98,7 @@ For any problem number in the upstream snapshot, you can create a workspace bund
 erdos pull problem 857
 erdos pull artifacts 857
 erdos pull literature 857
+erdos pull literature 857 --json
 erdos pull literature 857 --include-crossref --include-openalex
 erdos pull problem 999 --include-site --include-public-search
 erdos pull problem 999 --refresh-upstream
@@ -121,6 +123,7 @@ What the pull lanes do:
 - when `--include-openalex` is used, the literature lane also includes:
   - `OPENALEX_RESULTS.json`
   - `OPENALEX_RESULTS.md`
+- when `--json` is used, the pull command emits an agent-friendly machine summary instead of prose
 
 ## Maintainer seeding
 
@@ -164,8 +167,8 @@ The first deep pack is the sunflower quartet:
 Sunflower problems now ship pack packets:
 - `20`: `AGENT_START.md`, `ROUTE_PACKET.yaml`, `CHECKPOINT_PACKET.md`, `REPORT_PACKET.md`, `ATOMIC_BOARD.yaml`, `ATOMIC_BOARD.md`, `FRONTIER_NOTE.md`, `ROUTE_HISTORY.md`, `CHECKPOINT_TEMPLATE.md`, `REPORT_TEMPLATE.md`, `OPS_DETAILS.yaml`
 - `857`: `AGENT_START.md`, `ROUTE_PACKET.yaml`, `CHECKPOINT_PACKET.md`, `REPORT_PACKET.md`, `ATOMIC_BOARD.yaml`, `ATOMIC_BOARD.md`, `FRONTIER_NOTE.md`, `ROUTE_HISTORY.md`, `CHECKPOINT_TEMPLATE.md`, `REPORT_TEMPLATE.md`, `OPS_DETAILS.yaml`
-- `536`: `AGENT_START.md`, `ROUTE_PACKET.yaml`, `CHECKPOINT_PACKET.md`, `REPORT_PACKET.md`, `ATOMIC_BOARD.yaml`, `ATOMIC_BOARD.md`, `OPS_DETAILS.yaml`
-- `856`: `AGENT_START.md`, `ROUTE_PACKET.yaml`, `CHECKPOINT_PACKET.md`, `REPORT_PACKET.md`, `ATOMIC_BOARD.yaml`, `ATOMIC_BOARD.md`, `OPS_DETAILS.yaml`
+- `536`: `AGENT_START.md`, `ROUTE_PACKET.yaml`, `CHECKPOINT_PACKET.md`, `REPORT_PACKET.md`, `ATOMIC_BOARD.yaml`, `ATOMIC_BOARD.md`, `FRONTIER_NOTE.md`, `ROUTE_HISTORY.md`, `CHECKPOINT_TEMPLATE.md`, `REPORT_TEMPLATE.md`, `OPS_DETAILS.yaml`
+- `856`: `AGENT_START.md`, `ROUTE_PACKET.yaml`, `CHECKPOINT_PACKET.md`, `REPORT_PACKET.md`, `ATOMIC_BOARD.yaml`, `ATOMIC_BOARD.md`, `FRONTIER_NOTE.md`, `ROUTE_HISTORY.md`, `CHECKPOINT_TEMPLATE.md`, `REPORT_TEMPLATE.md`, `OPS_DETAILS.yaml`
 
 Useful sunflower commands:
 
@@ -238,6 +241,27 @@ erdos sunflower status 857 --json
 - records governance and ORP-facing packet context
 - does not silently escalate into paid or unbounded compute
 
+## Number-theory starter cockpit
+
+The first non-sunflower pack is now a light but real cockpit for two number-theory problems:
+- `1`: open starter cockpit around a distinct-subset-sum lower-bound route
+- `2`: archive cockpit around a disproved / counterexample-facing record
+
+Useful number-theory commands:
+
+```bash
+erdos number-theory status 1
+erdos number-theory frontier 1
+erdos number-theory routes 1
+erdos number-theory tickets 1
+erdos number-theory status 2 --json
+```
+
+The number-theory pack is intentionally lighter than sunflower:
+- no mirrored theorem board yet
+- explicit route/frontier/ticket packet layer
+- honest archive posture for disproved problems
+
 ## Archive mode
 
 Solved problems can now be treated as method exemplars instead of dead entries.
@@ -246,6 +270,10 @@ Solved problems can now be treated as method exemplars instead of dead entries.
 erdos problem show 1008
 erdos archive show 1008
 erdos archive scaffold 1008
+erdos number-theory status 1
+erdos number-theory frontier 1
+erdos number-theory routes 1
+erdos number-theory tickets 1
 ```
 
 Archive scaffolds land in:
@@ -291,6 +319,7 @@ erdos problem artifacts 857
 erdos problem artifacts 857 --json
 erdos cluster list
 erdos cluster show sunflower
+erdos cluster show number-theory
 erdos workspace show
 erdos orp show
 erdos orp sync
@@ -305,6 +334,10 @@ erdos sunflower route 857 anchored_selector_linearization
 erdos sunflower ticket 857 T10
 erdos sunflower atom 857 T10.G3.A2
 erdos sunflower compute run 857
+erdos number-theory status 1
+erdos number-theory frontier 1
+erdos number-theory routes 1
+erdos number-theory tickets 1
 erdos sunflower status --json
 erdos dossier show
 erdos upstream show
@@ -319,6 +352,7 @@ erdos seed problem 25 --cluster number-theory
 erdos pull problem 857
 erdos pull artifacts 857
 erdos pull literature 857
+erdos pull literature 857 --json
 erdos pull literature 857 --include-crossref --include-openalex
 erdos maintainer review problem 25 --from-pull .erdos/pulls/25
 erdos maintainer seed problem 25 --from-pull .erdos/pulls/25 --cluster number-theory
@@ -365,6 +399,12 @@ For sunflower problems, the CLI also surfaces pack-specific artifacts:
 - route packets, checkpoint/report packets, and board packets for the full sunflower quartet
 - compute packets under `packs/sunflower/compute/<id>/` when available
 - compute-governance evaluation under `breakthroughs`, surfaced through `erdos sunflower status`
+
+For number-theory starter-cockpit problems, the CLI now also surfaces:
+- pack README context
+- per-problem context files under `packs/number-theory/problems/<id>/`
+- route packets, frontier notes, route histories, checkpoint/report templates, and ops-detail packets
+- archive posture for disproved problems through `erdos number-theory status`
 
 ## Notes
 
