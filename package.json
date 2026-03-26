@@ -1,7 +1,7 @@
 {
   "name": "erdos-problems",
-  "version": "0.2.2",
-  "description": "CLI atlas and staged research harness for Paul Erdos problems.",
+  "version": "0.2.3",
+  "description": "Research cockpit and agent-ready CLI atlas for Paul Erdos problems.",
   "type": "module",
   "bin": {
     "erdos": "bin/erdos"
@@ -25,14 +25,22 @@
   },
   "keywords": [
     "erdos",
-    "combinatorics",
-    "open-problems",
     "research",
+    "cli",
+    "open-problems",
+    "combinatorics",
+    "number-theory",
+    "graph-theory",
+    "theorem-proving",
+    "agents",
     "sunflower"
   ],
   "dependencies": {
     "breakthroughs": "^0.1.1",
     "yaml": "^2.8.3"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "engines": {
+    "node": ">=20"
+  }
 }
