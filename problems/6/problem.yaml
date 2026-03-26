@@ -1,0 +1,43 @@
+problem_id: "6"
+display_name: "Erdos Problem #6"
+title: "Erdos Problem #6"
+source:
+  site: erdosproblems.com
+  url: https://www.erdosproblems.com/6
+  external_id: "6"
+upstream:
+  repo: https://github.com/teorth/erdosproblems
+  data_file: data/problems.yaml
+  number: "6"
+provenance:
+  seeded_at: 2026-03-26T04:41:26.097Z
+  seeded_from:
+    kind: pull_bundle
+    upstream_record_included: true
+    site_snapshot_included: true
+status:
+  site_status: proved
+  site_badge: PROVED
+  repo_status: cataloged
+  upstream_status: proved
+  upstream_last_update: 2025-08-31
+cluster: number-theory
+prize:
+  display: $100
+related_problems: []
+family_tags:
+  - number-theory
+  - primes
+harness:
+  depth: dossier
+statement:
+  short: Let $d_n=p_{n+1}-p_n$. Are there infinitely many $n$ such that
+    $d_n<d_{n+1}<d_{n+2}$?
+  normalized_md_path: STATEMENT.md
+references_path: REFERENCES.md
+evidence_path: EVIDENCE.md
+formalization_path: FORMALIZATION.md
+formalization:
+  status: planned
+  upstream_state: yes
+  upstream_last_update: 2025-09-18

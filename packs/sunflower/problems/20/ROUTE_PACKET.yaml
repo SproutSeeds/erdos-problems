@@ -1,0 +1,12 @@
+route_packet_id: strong20_uniform_k3_frontier_v1
+route_id: uniform_k3_frontier
+frontier_claim: Tighten the uniform k=3 sunflower lane into a recurrence-ready and transfer-ready packet that can honestly talk to problem 857.
+theorem_module: sunflower-coda/repo/sunflower_lean/SunflowerLean/ErdosProblem20.lean
+checkpoint_packet: CHECKPOINT_PACKET.md
+report_packet: REPORT_PACKET.md
+ready_prompts:
+  - Which uniform k=3 reduction is the next smallest honest step?
+  - Which reusable bridge would transfer directly back into the weak 857 program?
+verification_hook:
+  - erdos sunflower status 20
+  - erdos problem artifacts 20 --json

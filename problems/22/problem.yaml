@@ -1,0 +1,44 @@
+problem_id: "22"
+display_name: "Erdos Problem #22"
+title: "Erdos Problem #22"
+source:
+  site: erdosproblems.com
+  url: https://www.erdosproblems.com/22
+  external_id: "22"
+upstream:
+  repo: https://github.com/teorth/erdosproblems
+  data_file: data/problems.yaml
+  number: "22"
+provenance:
+  seeded_at: 2026-03-26T04:41:27.183Z
+  seeded_from:
+    kind: pull_bundle
+    upstream_record_included: true
+    site_snapshot_included: true
+status:
+  site_status: proved
+  site_badge: PROVED
+  repo_status: cataloged
+  upstream_status: proved
+  upstream_last_update: 2025-08-31
+cluster: graph-theory
+prize:
+  display: no
+related_problems: []
+family_tags:
+  - graph-theory
+harness:
+  depth: dossier
+statement:
+  short: Let $\epsilon>0$ and $n$ be sufficiently large depending on $\epsilon$.
+    Is there a graph on $n$ vertices with $\geq n^2/8$ many edges which contains
+    no $K_4$ such that the largest independent set has size at most $\epsilon
+    n$?
+  normalized_md_path: STATEMENT.md
+references_path: REFERENCES.md
+evidence_path: EVIDENCE.md
+formalization_path: FORMALIZATION.md
+formalization:
+  status: planned
+  upstream_state: no
+  upstream_last_update: 2025-08-31

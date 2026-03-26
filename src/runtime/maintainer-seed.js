@@ -4,6 +4,39 @@ import { stringify } from 'yaml';
 import { ensureDir, fileExists, readJson, readText, writeText } from './files.js';
 import { getProblemDir, getWorkspaceProblemPullDir, repoRoot } from './paths.js';
 
+const STATEMENT_SKIP_PATTERNS = [
+  /^open$/i,
+  /^proved(?:\s*\(.*\))?$/i,
+  /^disproved(?:\s*\(.*\))?$/i,
+  /^decidable$/i,
+  /^verifiable$/i,
+  /^erd[őo]s problem #\d+/i,
+  /^this has been solved/i,
+  /^-\s*\$\d+/i,
+  /^-$/i,
+  /^#\d+\s*:/i,
+  /^forum$/i,
+  /^inbox$/i,
+  /^favourites$/i,
+  /^tags$/i,
+  /^more$/i,
+  /^faq$/i,
+  /^prizes$/i,
+  /^view the latex source$/i,
+  /^view history$/i,
+  /^external data from the database/i,
+  /^formalised statement\?$/i,
+  /\bdisclaimer\b/i,
+  /^this is (open|proved|disproved|verifiable|decidable)\b/i,
+  /^\s*[a-z][a-z ]+\|\s*$/i,
+];
+
+const STARTER_LOOP_ARTIFACTS = [
+  'AGENT_START.md',
+  'ROUTES.md',
+  'CHECKPOINT_NOTES.md',
+];
+
 function normalizeTitle(rawTitle, problemId) {
   const fallback = `Erdos Problem #${problemId}`;
   if (!rawTitle) {
@@ -27,6 +60,34 @@ function normalizeFamilyTag(tag) {
 
 function uppercaseBadge(status) {
   return String(status ?? 'unknown').trim().toUpperCase() || 'UNKNOWN';
+}
+
+function normalizeClusterLabel(rawTag) {
+  return String(rawTag ?? '')
+    .trim()
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+}
+
+function inferClusterFromTags(tags) {
+  const normalized = Array.isArray(tags) ? tags.map(normalizeClusterLabel).filter(Boolean) : [];
+  if (normalized.includes('number-theory')) {
+    return 'number-theory';
+  }
+  if (normalized.includes('graph-theory') || normalized.includes('chromatic-number')) {
+    return 'graph-theory';
+  }
+  if (normalized.includes('geometry')) {
+    return 'geometry';
+  }
+  if (normalized.includes('analysis')) {
+    return 'analysis';
+  }
+  if (normalized.includes('combinatorics') || normalized.includes('intersecting-family')) {
+    return 'combinatorics';
+  }
+  return 'uncategorized';
 }
 
 function getDefaultPullDir(problemId) {
@@ -84,12 +145,22 @@ function deriveTitle(problemId, bundle, titleOverride) {
   return `Erdos Problem #${problemId}`;
 }
 
+function extractStatementCandidates(bundle) {
+  const previewLines = Array.isArray(bundle.siteExtract?.previewLines)
+    ? bundle.siteExtract.previewLines
+    : [];
+
+  return previewLines
+    .map((line) => String(line ?? '').replace(/\s+/g, ' ').trim())
+    .filter(Boolean)
+    .filter((line) => !STATEMENT_SKIP_PATTERNS.some((pattern) => pattern.test(line)))
+    .filter((line) => !/^\w[\w -]+$/.test(line) || line.length > 40);
+}
+
 function deriveShortStatement(problemId, bundle, title) {
-  const preview = Array.isArray(bundle.siteExtract?.previewLines)
-    ? bundle.siteExtract.previewLines.find((line) => String(line ?? '').trim())
-    : null;
-  if (preview) {
-    return String(preview).replace(/\s+/g, ' ').trim();
+  const statementCandidate = extractStatementCandidates(bundle)[0];
+  if (statementCandidate) {
+    return statementCandidate;
   }
   if (bundle.problemRecord?.title && bundle.problemRecord.title !== title) {
     return String(bundle.problemRecord.title).trim();
@@ -157,7 +228,7 @@ function buildProblemRecord(problemId, bundle, options) {
       upstream_status: upstreamRecord.status?.state ?? null,
       upstream_last_update: upstreamRecord.status?.last_update ?? null,
     },
-    cluster: options.cluster,
+    cluster: options.cluster ?? inferClusterFromTags(upstreamRecord.tags),
     prize: {
       display: upstreamRecord.prize ?? 'unknown',
     },
@@ -191,6 +262,7 @@ function renderStatementMarkdown(problemId, record, bundle) {
   const previewLines = Array.isArray(bundle.siteExtract?.previewLines)
     ? bundle.siteExtract.previewLines.filter((line) => String(line ?? '').trim())
     : [];
+  const statementCandidates = extractStatementCandidates(bundle);
 
   return [
     `# Problem ${problemId} Statement`,
@@ -199,8 +271,19 @@ function renderStatementMarkdown(problemId, record, bundle) {
     '',
     'Normalized focus:',
     `- ${record.statement.short}`,
-    previewLines.length > 0 ? '- Seeded with preview lines from the public site snapshot' : '- Seeded from upstream public metadata',
+    statementCandidates.length > 0
+      ? '- Seeded with filtered statement candidates from the public site snapshot'
+      : previewLines.length > 0
+        ? '- Seeded with preview lines from the public site snapshot'
+        : '- Seeded from upstream public metadata',
     '',
+    ...(statementCandidates.length > 0
+      ? [
+          'Statement candidates:',
+          ...statementCandidates.slice(0, 4).map((line) => `- ${line}`),
+          '',
+        ]
+      : []),
     ...(previewLines.length > 0
       ? [
           'Public-site preview:',
@@ -256,6 +339,69 @@ function renderFormalizationMarkdown(record) {
   ].join('\n');
 }
 
+function renderAgentStartMarkdown(problemId, record) {
+  const activeRoute = record.research_state?.active_route ?? 'seed_route_pending';
+  const routeMode = activeRoute ? 'route' : 'milestone';
+  return [
+    '# Agent Start',
+    '',
+    'Fast start:',
+    `- \`erdos problem show ${problemId}\``,
+    '- `erdos workspace show`',
+    '- `erdos preflight`',
+    `- \`erdos continuation use ${routeMode}\``,
+    '- `erdos checkpoints sync`',
+    '',
+    'Working assumptions:',
+    `- Open problem: ${record.research_state?.open_problem === false ? 'no' : 'yes'}`,
+    `- Active route: ${activeRoute}`,
+    `- Repo status: ${record.status.repo_status}`,
+    `- Harness depth: ${record.harness.depth}`,
+    '',
+    'First honest move:',
+    `- tighten the local dossier for problem ${problemId} against its pull bundle, references, and upstream provenance before widening claims.`,
+    '',
+  ].join('\n');
+}
+
+function renderRoutesMarkdown(problemId, record) {
+  const activeRoute = record.research_state?.active_route ?? 'seed_route_pending';
+  return [
+    '# Routes',
+    '',
+    '## Status Ladder',
+    '',
+    `- Open problem: ${record.research_state?.open_problem === false ? 'no' : 'yes'}`,
+    `- Active route: ${activeRoute}`,
+    `- Route breakthrough: ${record.research_state?.route_breakthrough ? 'yes' : 'no'}`,
+    `- Problem solved: ${record.research_state?.problem_solved ? 'yes' : 'no'}`,
+    '',
+    '## Starter route notes',
+    '',
+    `- Current seeded route placeholder for problem ${problemId}: \`${activeRoute}\``,
+    '- Treat this as a workspace-level route marker until a curated route tree is written.',
+    '- Keep route progress separate from global problem status.',
+    '',
+  ].join('\n');
+}
+
+function renderCheckpointNotesMarkdown(problemId, record) {
+  return [
+    '# Checkpoint Notes',
+    '',
+    `- Problem: ${problemId}`,
+    `- Repo status: ${record.status.repo_status}`,
+    `- Harness depth: ${record.harness.depth}`,
+    '',
+    'Checkpoint prompts:',
+    '- What changed in the active route since the last honest checkpoint?',
+    '- Which claim level is justified right now: Exact, Verified, Heuristic, or Conjecture?',
+    '- Which upstream/public truth changed, if any?',
+    '- Which artifact or literature bundle should the next agent read first?',
+    '',
+  ].join('\n');
+}
+
 export function seedProblemFromPullBundle(problemId, options = {}) {
   const bundle = loadPullBundle(problemId, options.fromPullDir);
   const destinationRoot = path.resolve(options.destRoot ?? path.join(repoRoot, 'problems'));
@@ -267,7 +413,7 @@ export function seedProblemFromPullBundle(problemId, options = {}) {
 
   ensureDir(destinationDir);
   const record = buildProblemRecord(problemId, bundle, {
-    cluster: options.cluster ?? 'uncategorized',
+    cluster: options.cluster ?? null,
     repoStatus: options.repoStatus ?? 'cataloged',
     harnessDepth: options.harnessDepth ?? 'dossier',
     title: options.title ?? null,
@@ -284,11 +430,15 @@ export function seedProblemFromPullBundle(problemId, options = {}) {
   writeText(path.join(destinationDir, 'REFERENCES.md'), renderReferencesMarkdown(record, bundle));
   writeText(path.join(destinationDir, 'EVIDENCE.md'), renderEvidenceMarkdown(problemId, record, bundle));
   writeText(path.join(destinationDir, 'FORMALIZATION.md'), renderFormalizationMarkdown(record));
+  writeText(path.join(destinationDir, 'AGENT_START.md'), renderAgentStartMarkdown(problemId, record));
+  writeText(path.join(destinationDir, 'ROUTES.md'), renderRoutesMarkdown(problemId, record));
+  writeText(path.join(destinationDir, 'CHECKPOINT_NOTES.md'), renderCheckpointNotesMarkdown(problemId, record));
 
   return {
     destinationDir,
     record,
     usedSiteSnapshot: Boolean(bundle.siteExtract || bundle.siteSummary),
     usedUpstreamRecord: Boolean(bundle.upstreamRecord),
+    starterLoopArtifacts: STARTER_LOOP_ARTIFACTS,
   };
 }

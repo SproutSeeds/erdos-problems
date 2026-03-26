@@ -1,0 +1,12 @@
+route_packet_id: weak857_export_compression_v1
+route_id: anchored_selector_linearization
+frontier_claim: Preserve the live export and compression frontier and keep pushing the explicit O1a remainder package toward a genuine recurrence-facing step.
+theorem_module: sunflower-coda/repo/sunflower_lean/SunflowerLean/ObstructionGlobalBridge.lean
+checkpoint_packet: CHECKPOINT_PACKET.md
+report_packet: REPORT_PACKET.md
+ready_prompts:
+  - Which explicit compression step is the next honest reduction on the active weak-sunflower route?
+  - Which exported remainder term is still dominating the recurrence-facing frontier?
+verification_hook:
+  - erdos sunflower status 857
+  - erdos problem artifacts 857 --json

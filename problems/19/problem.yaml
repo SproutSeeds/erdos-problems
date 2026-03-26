@@ -1,0 +1,42 @@
+problem_id: "19"
+display_name: "Erdos Problem #19"
+title: "Erdos Problem #19"
+source:
+  site: erdosproblems.com
+  url: https://www.erdosproblems.com/19
+  external_id: "19"
+upstream:
+  repo: https://github.com/teorth/erdosproblems
+  data_file: data/problems.yaml
+  number: "19"
+provenance:
+  seeded_at: 2026-03-26T04:41:26.625Z
+  seeded_from:
+    kind: pull_bundle
+    upstream_record_included: true
+    site_snapshot_included: true
+status:
+  site_status: decidable
+  site_badge: DECIDABLE
+  repo_status: cataloged
+  upstream_status: decidable
+  upstream_last_update: 2025-08-31
+cluster: graph-theory
+prize:
+  display: $500
+related_problems: []
+family_tags:
+  - graph-theory
+  - chromatic-number
+harness:
+  depth: dossier
+statement:
+  short: "Curated dossier seeded from upstream public metadata for Erdos Problem #19."
+  normalized_md_path: STATEMENT.md
+references_path: REFERENCES.md
+evidence_path: EVIDENCE.md
+formalization_path: FORMALIZATION.md
+formalization:
+  status: planned
+  upstream_state: no
+  upstream_last_update: 2025-08-31

@@ -1,0 +1,46 @@
+problem_id: "21"
+display_name: "Erdos Problem #21"
+title: "Erdos Problem #21"
+source:
+  site: erdosproblems.com
+  url: https://www.erdosproblems.com/21
+  external_id: "21"
+upstream:
+  repo: https://github.com/teorth/erdosproblems
+  data_file: data/problems.yaml
+  number: "21"
+provenance:
+  seeded_at: 2026-03-26T04:41:26.922Z
+  seeded_from:
+    kind: pull_bundle
+    upstream_record_included: true
+    site_snapshot_included: true
+status:
+  site_status: proved
+  site_badge: PROVED
+  repo_status: cataloged
+  upstream_status: proved
+  upstream_last_update: 2025-08-31
+cluster: combinatorics
+prize:
+  display: $500
+related_problems: []
+family_tags:
+  - combinatorics
+  - intersecting-family
+harness:
+  depth: dossier
+statement:
+  short: Let $f(n)$ be minimal such that there is an intersecting family
+    $\mathcal{F}$ of sets of size $n$ (so $A\cap B\neq\emptyset$ for all $A,B\in
+    \mathcal{F}$) with $\lvert \mathcal{F}\rvert=f(n)$ such that any set $S$
+    with $\lvert S\rvert \leq n-1$ is disjoint from at least one $A\in
+    \mathcal{F}$.
+  normalized_md_path: STATEMENT.md
+references_path: REFERENCES.md
+evidence_path: EVIDENCE.md
+formalization_path: FORMALIZATION.md
+formalization:
+  status: planned
+  upstream_state: no
+  upstream_last_update: 2025-08-31

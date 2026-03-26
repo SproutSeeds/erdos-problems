@@ -10,6 +10,36 @@ import { getProblemArtifactInventory, scaffoldProblem } from '../runtime/problem
 import { loadActiveUpstreamSnapshot, syncUpstream } from '../upstream/sync.js';
 import { fetchProblemSiteSnapshot } from '../upstream/site.js';
 
+function normalizeClusterLabel(rawTag) {
+  return String(rawTag ?? '')
+    .trim()
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+}
+
+function inferClusterFromUpstream(upstreamRecord) {
+  const normalized = Array.isArray(upstreamRecord?.tags)
+    ? upstreamRecord.tags.map(normalizeClusterLabel).filter(Boolean)
+    : [];
+  if (normalized.includes('number-theory')) {
+    return 'number-theory';
+  }
+  if (normalized.includes('graph-theory') || normalized.includes('chromatic-number')) {
+    return 'graph-theory';
+  }
+  if (normalized.includes('geometry')) {
+    return 'geometry';
+  }
+  if (normalized.includes('analysis')) {
+    return 'analysis';
+  }
+  if (normalized.includes('combinatorics') || normalized.includes('intersecting-family')) {
+    return 'combinatorics';
+  }
+  return null;
+}
+
 function parsePullArgs(args) {
   const [kind, value, ...rest] = args;
   if (!['problem', 'artifacts', 'literature'].includes(kind)) {
@@ -55,7 +85,7 @@ function buildProblemRecord(problemId, localProblem, upstreamRecord) {
     generatedAt: new Date().toISOString(),
     problemId: String(problemId),
     title: localProblem?.title ?? `Erdos Problem #${problemId}`,
-    cluster: localProblem?.cluster ?? null,
+    cluster: localProblem?.cluster ?? inferClusterFromUpstream(upstreamRecord),
     siteStatus: localProblem?.siteStatus ?? upstreamRecord?.status?.state ?? 'unknown',
     repoStatus: localProblem?.repoStatus ?? 'upstream-only',
     harnessDepth: localProblem?.harnessDepth ?? 'unseeded',

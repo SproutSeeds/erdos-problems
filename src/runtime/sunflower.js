@@ -38,6 +38,22 @@ function getSunflowerContextMarkdownPath(problemId) {
   return path.join(getSunflowerProblemDir(problemId), 'CONTEXT.md');
 }
 
+function getSunflowerRoutePacketPath(problemId) {
+  return path.join(getSunflowerProblemDir(problemId), 'ROUTE_PACKET.yaml');
+}
+
+function getSunflowerAgentStartPath(problemId) {
+  return path.join(getSunflowerProblemDir(problemId), 'AGENT_START.md');
+}
+
+function getSunflowerCheckpointPacketPath(problemId) {
+  return path.join(getSunflowerProblemDir(problemId), 'CHECKPOINT_PACKET.md');
+}
+
+function getSunflowerReportPacketPath(problemId) {
+  return path.join(getSunflowerProblemDir(problemId), 'REPORT_PACKET.md');
+}
+
 function parseStringList(value) {
   if (!Array.isArray(value)) {
     return [];
@@ -130,6 +146,26 @@ export function readSunflowerContext(problemId) {
     contextPath,
     contextMarkdownPath,
     contextMarkdownExists: fs.existsSync(contextMarkdownPath),
+  };
+}
+
+function readSunflowerRoutePacket(problemId) {
+  const routePacketPath = getSunflowerRoutePacketPath(problemId);
+  if (!fs.existsSync(routePacketPath)) {
+    return null;
+  }
+
+  const parsed = parse(fs.readFileSync(routePacketPath, 'utf8')) ?? {};
+  return {
+    routePacketId: compactText(parsed.route_packet_id),
+    routeId: compactText(parsed.route_id),
+    frontierClaim: compactText(parsed.frontier_claim),
+    theoremModule: compactText(parsed.theorem_module),
+    checkpointPacket: compactText(parsed.checkpoint_packet),
+    reportPacket: compactText(parsed.report_packet),
+    readyPrompts: parseStringList(parsed.ready_prompts),
+    verificationHook: parseStringList(parsed.verification_hook),
+    routePacketPath,
   };
 }
 
@@ -273,10 +309,14 @@ function defaultQuestionLedger(problemId, routeState) {
 
 export function buildSunflowerStatusSnapshot(problem) {
   const context = readSunflowerContext(problem.problemId);
+  const routePacket = readSunflowerRoutePacket(problem.problemId);
   const packets = listSunflowerComputePackets(problem.problemId);
   const activePacket = chooseActivePacket(packets);
   const summary = deriveSummary(activePacket);
   const routeState = deriveRouteState(problem, context);
+  const agentStartPath = getSunflowerAgentStartPath(problem.problemId);
+  const checkpointPacketPath = getSunflowerCheckpointPacketPath(problem.problemId);
+  const reportPacketPath = getSunflowerReportPacketPath(problem.problemId);
 
   return {
     generatedAt: new Date().toISOString(),
@@ -303,6 +343,14 @@ export function buildSunflowerStatusSnapshot(problem) {
     contextPresent: Boolean(context),
     contextPath: context?.contextPath ?? null,
     contextMarkdownPath: context?.contextMarkdownExists ? context.contextMarkdownPath : null,
+    routePacketPresent: Boolean(routePacket),
+    routePacket,
+    agentStartPresent: fs.existsSync(agentStartPath),
+    agentStartPath: fs.existsSync(agentStartPath) ? agentStartPath : null,
+    checkpointPacketPresent: fs.existsSync(checkpointPacketPath),
+    checkpointPacketPath: fs.existsSync(checkpointPacketPath) ? checkpointPacketPath : null,
+    reportPacketPresent: fs.existsSync(reportPacketPath),
+    reportPacketPath: fs.existsSync(reportPacketPath) ? reportPacketPath : null,
     computeLanePresent: Boolean(activePacket),
     computeLaneCount: packets.length,
     computeSummary: summary.computeSummary,

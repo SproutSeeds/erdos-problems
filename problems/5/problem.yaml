@@ -1,0 +1,43 @@
+problem_id: "5"
+display_name: "Erdos Problem #5"
+title: "Erdos Problem #5"
+source:
+  site: erdosproblems.com
+  url: https://www.erdosproblems.com/5
+  external_id: "5"
+upstream:
+  repo: https://github.com/teorth/erdosproblems
+  data_file: data/problems.yaml
+  number: "5"
+provenance:
+  seeded_at: 2026-03-26T04:41:25.800Z
+  seeded_from:
+    kind: pull_bundle
+    upstream_record_included: true
+    site_snapshot_included: true
+status:
+  site_status: open
+  site_badge: OPEN
+  repo_status: cataloged
+  upstream_status: open
+  upstream_last_update: 2025-08-31
+cluster: number-theory
+prize:
+  display: no
+related_problems: []
+family_tags:
+  - number-theory
+  - primes
+harness:
+  depth: dossier
+statement:
+  short: Let $C\geq 0$. Is there an infinite sequence of $n_i$ such
+    that\[\lim_{i\to \infty}\frac{p_{n_i+1}-p_{n_i}}{\log n_i}=C?\]
+  normalized_md_path: STATEMENT.md
+references_path: REFERENCES.md
+evidence_path: EVIDENCE.md
+formalization_path: FORMALIZATION.md
+formalization:
+  status: planned
+  upstream_state: no
+  upstream_last_update: 2025-08-31

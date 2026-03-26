@@ -18,7 +18,9 @@ test('problem list shows seeded atlas including non-sunflower problems', () => {
   const output = runCli(['problem', 'list']);
   assert.match(output, /857/);
   assert.match(output, /20/);
+  assert.match(output, /1/);
   assert.match(output, /18/);
+  assert.match(output, /21/);
   assert.match(output, /1008/);
 });
 
@@ -70,6 +72,14 @@ test('problem artifacts shows canonical file inventory', () => {
   assert.match(output, /Upstream record available: yes/);
 });
 
+test('problem artifacts show starter loop artifacts for newly packaged dossiers', () => {
+  const output = runCli(['problem', 'artifacts', '1']);
+  assert.match(output, /Starter loop artifacts:/);
+  assert.match(output, /AGENT_START.md: present/);
+  assert.match(output, /ROUTES.md: present/);
+  assert.match(output, /CHECKPOINT_NOTES.md: present/);
+});
+
 test('problem artifacts can emit json for agents with pack context and compute packets', () => {
   const output = runCli(['problem', 'artifacts', '857', '--json']);
   const payload = JSON.parse(output);
@@ -84,9 +94,10 @@ test('problem artifacts can emit json for agents with pack context and compute p
 test('cluster list shows multiple seeded clusters', () => {
   const output = runCli(['cluster', 'list']);
   assert.match(output, /sunflower: 4 problems, 2 deep-harness/);
-  assert.match(output, /number-theory: 2 problems, 0 deep-harness/);
+  assert.match(output, /number-theory: 9 problems, 0 deep-harness/);
+  assert.match(output, /combinatorics: 1 problems, 0 deep-harness/);
+  assert.match(output, /graph-theory: 3 problems, 0 deep-harness/);
   assert.match(output, /geometry: 1 problems, 0 deep-harness/);
-  assert.match(output, /graph-theory: 1 problems, 0 deep-harness/);
 });
 
 test('cluster show sunflower lists the seed cluster', () => {
@@ -130,6 +141,10 @@ test('sunflower status shows packaged compute lane and family context for 857', 
   assert.match(output, /Erdos Problem #857 sunflower harness/);
   assert.match(output, /Family role: weak_sunflower_core/);
   assert.match(output, /Active route: anchored_selector_linearization/);
+  assert.match(output, /Route packet present: yes/);
+  assert.match(output, /Route packet id: weak857_export_compression_v1/);
+  assert.match(output, /Checkpoint packet:/);
+  assert.match(output, /Report packet:/);
   assert.match(output, /Compute lane: m8_exactness_cube_and_certificate_v0 \[ready_for_local_scout\]/);
   assert.match(output, /Registry record:/);
   assert.equal(fs.existsSync(path.join(workspace, '.erdos', 'registry', 'compute', 'latest__p857.json')), true);
@@ -176,7 +191,7 @@ test('upstream show reports bundled snapshot', () => {
 test('upstream diff writes workspace report from bundled snapshot', () => {
   const workspace = fs.mkdtempSync(path.join(os.tmpdir(), 'erdos-upstream-'));
   const output = runCli(['upstream', 'diff'], { cwd: workspace });
-  assert.match(output, /Local seeded problems: 8/);
+  assert.match(output, /Local seeded problems: 18/);
   assert.match(output, /Upstream total problems: 1183/);
   const diffPath = path.join(workspace, '.erdos', 'reports', 'UPSTREAM_DIFF.md');
   assert.equal(fs.existsSync(diffPath), true);
@@ -250,11 +265,11 @@ test('pull literature creates the literature lane directly', () => {
 
 test('pull problem creates upstream-only bundle for unseeded problem', () => {
   const workspace = fs.mkdtempSync(path.join(os.tmpdir(), 'erdos-pull-unseeded-'));
-  const output = runCli(['pull', 'problem', '1'], { cwd: workspace });
+  const output = runCli(['pull', 'problem', '25'], { cwd: workspace });
   assert.match(output, /Pull bundle created:/);
   assert.match(output, /Local canonical dossier included: no/);
   assert.match(output, /Upstream record included: yes/);
-  const pullDir = path.join(workspace, '.erdos', 'pulls', '1');
+  const pullDir = path.join(workspace, '.erdos', 'pulls', '25');
   assert.equal(fs.existsSync(path.join(pullDir, 'UPSTREAM_RECORD.json')), true);
   assert.equal(fs.existsSync(path.join(pullDir, 'artifacts', 'PROBLEM.json')), true);
   assert.equal(fs.existsSync(path.join(pullDir, 'artifacts', 'problem.yaml')), false);
@@ -264,7 +279,7 @@ test('pull problem creates upstream-only bundle for unseeded problem', () => {
 test('maintainer seed creates a canonical dossier from a pulled bundle', () => {
   const workspace = fs.mkdtempSync(path.join(os.tmpdir(), 'erdos-seed-workspace-'));
   const pullDir = path.join(workspace, 'pull-bundle');
-  const outputPull = runCli(['pull', 'problem', '1', '--dest', pullDir], { cwd: workspace });
+  const outputPull = runCli(['pull', 'problem', '25', '--dest', pullDir], { cwd: workspace });
   assert.match(outputPull, /Pull bundle created:/);
 
   const destRoot = path.join(workspace, 'seeded-problems');
@@ -272,7 +287,7 @@ test('maintainer seed creates a canonical dossier from a pulled bundle', () => {
     'maintainer',
     'seed',
     'problem',
-    '1',
+    '25',
     '--from-pull',
     pullDir,
     '--dest-root',
@@ -285,16 +300,19 @@ test('maintainer seed creates a canonical dossier from a pulled bundle', () => {
     '20',
   ], { cwd: workspace });
 
-  assert.match(outputSeed, /Seeded dossier for problem 1/);
-  const problemDir = path.join(destRoot, '1');
+  assert.match(outputSeed, /Seeded dossier for problem 25/);
+  const problemDir = path.join(destRoot, '25');
   assert.equal(fs.existsSync(path.join(problemDir, 'problem.yaml')), true);
   assert.equal(fs.existsSync(path.join(problemDir, 'STATEMENT.md')), true);
   assert.equal(fs.existsSync(path.join(problemDir, 'REFERENCES.md')), true);
   assert.equal(fs.existsSync(path.join(problemDir, 'EVIDENCE.md')), true);
   assert.equal(fs.existsSync(path.join(problemDir, 'FORMALIZATION.md')), true);
+  assert.equal(fs.existsSync(path.join(problemDir, 'AGENT_START.md')), true);
+  assert.equal(fs.existsSync(path.join(problemDir, 'ROUTES.md')), true);
+  assert.equal(fs.existsSync(path.join(problemDir, 'CHECKPOINT_NOTES.md')), true);
 
   const yamlText = fs.readFileSync(path.join(problemDir, 'problem.yaml'), 'utf8');
-  assert.match(yamlText, /problem_id: "1"/);
+  assert.match(yamlText, /problem_id: "25"/);
   assert.match(yamlText, /cluster: number-theory/);
   assert.match(yamlText, /repo_status: cataloged/);
   assert.match(yamlText, /family_tags:/);
@@ -345,6 +363,8 @@ test('sunflower status for 20 shows the deeper frontier framing and compute lane
   const workspace = fs.mkdtempSync(path.join(os.tmpdir(), 'erdos-sunflower-20-'));
   const output = runCli(['sunflower', 'status', '20'], { cwd: workspace });
   assert.match(output, /Frontier label: uniform_k3_frontier/);
+  assert.match(output, /Route packet present: yes/);
+  assert.match(output, /Route packet id: strong20_uniform_k3_frontier_v1/);
   assert.match(output, /Compute lane: u3_uniform_transfer_window_v0 \[ready_for_local_scout\]/);
   assert.match(output, /Next honest move:/);
 });
@@ -364,37 +384,40 @@ test('workspace show includes research loop paths and continuation mode', () => 
 
 test('seed problem creates a workspace-local dossier and activates the research loop in one step', () => {
   const workspace = fs.mkdtempSync(path.join(os.tmpdir(), 'erdos-seed-one-step-'));
-  const output = runCli(['seed', 'problem', '1', '--cluster', 'number-theory'], { cwd: workspace });
-  assert.match(output, /Seeded local dossier for problem 1/);
+  const output = runCli(['seed', 'problem', '25', '--cluster', 'number-theory'], { cwd: workspace });
+  assert.match(output, /Seeded local dossier for problem 25/);
   assert.match(output, /Workspace overlay visible: yes/);
   assert.match(output, /Activated: yes/);
   assert.match(output, /Loop synced: yes/);
 
-  const seededDir = path.join(workspace, '.erdos', 'seeded-problems', '1');
+  const seededDir = path.join(workspace, '.erdos', 'seeded-problems', '25');
   assert.equal(fs.existsSync(path.join(seededDir, 'problem.yaml')), true);
   assert.equal(fs.existsSync(path.join(seededDir, 'STATEMENT.md')), true);
+  assert.equal(fs.existsSync(path.join(seededDir, 'AGENT_START.md')), true);
+  assert.equal(fs.existsSync(path.join(seededDir, 'ROUTES.md')), true);
+  assert.equal(fs.existsSync(path.join(seededDir, 'CHECKPOINT_NOTES.md')), true);
   assert.equal(fs.existsSync(path.join(workspace, '.erdos', 'STATE.md')), true);
   assert.equal(fs.existsSync(path.join(workspace, '.erdos', 'checkpoints', 'CHECKPOINTS.md')), true);
 
   const currentProblem = JSON.parse(fs.readFileSync(path.join(workspace, '.erdos', 'current-problem.json'), 'utf8'));
-  assert.equal(currentProblem.problemId, '1');
+  assert.equal(currentProblem.problemId, '25');
 
-  const shown = runCli(['problem', 'show', '1'], { cwd: workspace });
-  assert.match(shown, /Erdos Problem #1/);
+  const shown = runCli(['problem', 'show', '25'], { cwd: workspace });
+  assert.match(shown, /Erdos Problem #25/);
   assert.match(shown, /Repo status: local_seeded/);
 
   const listed = runCli(['problem', 'list', '--repo-status', 'local_seeded'], { cwd: workspace });
-  assert.match(listed, /1/);
+  assert.match(listed, /25/);
 });
 
 test('seed problem can emit json for agents', () => {
   const workspace = fs.mkdtempSync(path.join(os.tmpdir(), 'erdos-seed-json-'));
-  const output = runCli(['seed', 'problem', '1', '--cluster', 'number-theory', '--json'], { cwd: workspace });
+  const output = runCli(['seed', 'problem', '25', '--cluster', 'number-theory', '--json'], { cwd: workspace });
   const payload = JSON.parse(output);
-  assert.equal(payload.problemId, '1');
+  assert.equal(payload.problemId, '25');
   assert.equal(payload.workspaceOverlayVisible, true);
   assert.equal(payload.activated, true);
   assert.equal(payload.loopSynced, true);
-  assert.equal(payload.activeProblem, '1');
+  assert.equal(payload.activeProblem, '25');
   assert.equal(typeof payload.nextHonestMove, 'string');
 });

@@ -13,3 +13,7 @@ Profiles:
 - `857`: deep harness, weak / non-uniform core
 - `536`: dossier bridge, natural-density LCM analogue
 - `856`: dossier bridge, harmonic-density LCM analogue
+
+Deep route packets:
+- `20` ships `AGENT_START.md`, `ROUTE_PACKET.yaml`, `CHECKPOINT_PACKET.md`, `REPORT_PACKET.md`
+- `857` ships `AGENT_START.md`, `ROUTE_PACKET.yaml`, `CHECKPOINT_PACKET.md`, `REPORT_PACKET.md`

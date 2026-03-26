@@ -26,7 +26,10 @@ Official binary:
 - unseeded problems can still be pulled into a workspace from the bundled upstream snapshot
 
 Seeded problems:
-- `18`, `20`, `89`, `536`, `542`, `856`, `857`, `1008`
+- `1`, `2`, `3`, `4`, `5`, `6`, `7`, `18`, `19`, `20`, `21`, `22`, `89`, `536`, `542`, `856`, `857`, `1008`
+
+Native dossier count:
+- `18`
 
 ## First-run flow
 
@@ -41,8 +44,8 @@ erdos dossier show 857
 For an unseeded problem, the one-step self-seeding flow is now:
 
 ```bash
-erdos seed problem 1 --include-site --cluster number-theory
-erdos problem show 1
+erdos seed problem 25 --include-site --cluster number-theory
+erdos problem show 25
 erdos workspace show
 ```
 
@@ -59,6 +62,10 @@ What `seed` does:
 - auto-selects the problem in the workspace
 - syncs the staged research loop state and checkpoint shelf
 - makes the new dossier visible to the atlas commands immediately inside that workspace
+- writes richer starter artifacts:
+  - `AGENT_START.md`
+  - `ROUTES.md`
+  - `CHECKPOINT_NOTES.md`
 
 ## Pull lanes
 
@@ -87,10 +94,9 @@ What the pull lanes do:
 To turn a pulled bundle into a new canonical dossier in the repo:
 
 ```bash
-erdos maintainer seed problem 1 \
-  --from-pull .erdos/pulls/1 \
-  --cluster number-theory \
-  --family-tag additive-combinatorics
+erdos maintainer seed problem 25 \
+  --from-pull .erdos/pulls/25 \
+  --cluster number-theory
 ```
 
 What maintainer seeding does:
@@ -102,6 +108,10 @@ What maintainer seeding does:
   - `REFERENCES.md`
   - `EVIDENCE.md`
   - `FORMALIZATION.md`
+- starter loop files:
+  - `AGENT_START.md`
+  - `ROUTES.md`
+  - `CHECKPOINT_NOTES.md`
 - preserves upstream/site provenance in the local record
 
 ## Sunflower pack
@@ -111,6 +121,10 @@ The first deep pack is the sunflower quartet:
 - `857`: weak / non-uniform sunflower core
 - `536`: natural-density LCM analogue
 - `856`: harmonic-density LCM analogue
+
+Deep sunflower problems now also ship route packets:
+- `20`: `AGENT_START.md`, `ROUTE_PACKET.yaml`, `CHECKPOINT_PACKET.md`, `REPORT_PACKET.md`
+- `857`: `AGENT_START.md`, `ROUTE_PACKET.yaml`, `CHECKPOINT_PACKET.md`, `REPORT_PACKET.md`
 
 Useful sunflower commands:
 
@@ -153,11 +167,11 @@ erdos upstream diff
 erdos scaffold problem 857
 erdos bootstrap problem 857
 erdos bootstrap problem 857 --sync-upstream
-erdos seed problem 1 --include-site --cluster number-theory
+erdos seed problem 25 --include-site --cluster number-theory
 erdos pull problem 857
 erdos pull artifacts 857
 erdos pull literature 857
-erdos maintainer seed problem 1 --from-pull .erdos/pulls/1 --cluster number-theory
+erdos maintainer seed problem 25 --from-pull .erdos/pulls/25 --cluster number-theory
 ```
 
 ## Canonical sources
@@ -177,6 +191,11 @@ For each seeded problem, the canonical local dossier lives in `problems/<id>/`:
 - `EVIDENCE.md`
 - `FORMALIZATION.md`
 
+Many seeded dossiers now also carry starter-loop artifacts:
+- `AGENT_START.md`
+- `ROUTES.md`
+- `CHECKPOINT_NOTES.md`
+
 The CLI can surface these directly:
 - `erdos problem artifacts <id>` shows the canonical inventory
 - `erdos problem artifacts <id> --json` emits machine-readable inventory
@@ -189,6 +208,7 @@ The CLI can surface these directly:
 For sunflower problems, the CLI also surfaces pack-specific artifacts:
 - pack README context
 - per-problem context files under `packs/sunflower/problems/<id>/`
+- route packets and checkpoint/report packets for `20` and `857`
 - compute packets under `packs/sunflower/compute/<id>/` when available
 
 ## Notes

@@ -1,0 +1,42 @@
+problem_id: "7"
+display_name: "Erdos Problem #7"
+title: "Erdos Problem #7"
+source:
+  site: erdosproblems.com
+  url: https://www.erdosproblems.com/7
+  external_id: "7"
+upstream:
+  repo: https://github.com/teorth/erdosproblems
+  data_file: data/problems.yaml
+  number: "7"
+provenance:
+  seeded_at: 2026-03-26T04:41:26.332Z
+  seeded_from:
+    kind: pull_bundle
+    upstream_record_included: true
+    site_snapshot_included: true
+status:
+  site_status: verifiable
+  site_badge: VERIFIABLE
+  repo_status: cataloged
+  upstream_status: verifiable
+  upstream_last_update: 2025-08-31
+cluster: number-theory
+prize:
+  display: no
+related_problems: []
+family_tags:
+  - number-theory
+  - covering-systems
+harness:
+  depth: dossier
+statement:
+  short: Open, but could be proved with a finite example.
+  normalized_md_path: STATEMENT.md
+references_path: REFERENCES.md
+evidence_path: EVIDENCE.md
+formalization_path: FORMALIZATION.md
+formalization:
+  status: planned
+  upstream_state: no
+  upstream_last_update: 2025-08-31

@@ -127,6 +127,12 @@ function printArtifactInventory(problem, inventory, asJson) {
   for (const artifact of inventory.canonicalArtifacts) {
     console.log(`- ${artifact.label}: ${artifact.exists ? 'present' : 'missing'} (${artifact.path})`);
   }
+  if (inventory.starterArtifacts.length > 0) {
+    console.log('Starter loop artifacts:');
+    for (const artifact of inventory.starterArtifacts) {
+      console.log(`- ${artifact.label}: ${artifact.exists ? 'present' : 'missing'} (${artifact.path})`);
+    }
+  }
   if (inventory.packContext) {
     console.log(`- ${inventory.packContext.label}: ${inventory.packContext.exists ? 'present' : 'missing'} (${inventory.packContext.path})`);
   }

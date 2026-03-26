@@ -44,6 +44,16 @@ function printSunflowerStatus(snapshot, registryPaths) {
   console.log(`Literature focus: ${snapshot.literatureFocus.join(', ') || '(none)'}`);
   console.log(`Artifact focus: ${snapshot.artifactFocus.join(', ') || '(none)'}`);
   console.log(`Context file: ${snapshot.contextPath ?? '(none)'}`);
+  console.log(`Route packet present: ${snapshot.routePacketPresent ? 'yes' : 'no'}`);
+  if (snapshot.routePacket) {
+    console.log(`Route packet id: ${snapshot.routePacket.routePacketId ?? '(none)'}`);
+    console.log(`Route packet route: ${snapshot.routePacket.routeId ?? '(none)'}`);
+    console.log(`Route frontier claim: ${snapshot.routePacket.frontierClaim ?? '(none)'}`);
+    console.log(`Theorem module: ${snapshot.routePacket.theoremModule ?? '(none)'}`);
+  }
+  console.log(`Agent start packet: ${snapshot.agentStartPresent ? snapshot.agentStartPath : '(missing)'}`);
+  console.log(`Checkpoint packet: ${snapshot.checkpointPacketPresent ? snapshot.checkpointPacketPath : '(missing)'}`);
+  console.log(`Report packet: ${snapshot.reportPacketPresent ? snapshot.reportPacketPath : '(missing)'}`);
   console.log(`Compute lane present: ${snapshot.computeLanePresent ? 'yes' : 'no'}`);
   console.log(`Compute lane count: ${snapshot.computeLaneCount}`);
   console.log(`Compute summary: ${snapshot.computeSummary}`);

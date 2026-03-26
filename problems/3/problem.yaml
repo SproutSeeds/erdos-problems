@@ -1,0 +1,44 @@
+problem_id: "3"
+display_name: "Erdos Problem #3"
+title: "Erdos Problem #3"
+source:
+  site: erdosproblems.com
+  url: https://www.erdosproblems.com/3
+  external_id: "3"
+upstream:
+  repo: https://github.com/teorth/erdosproblems
+  data_file: data/problems.yaml
+  number: "3"
+provenance:
+  seeded_at: 2026-03-26T04:41:25.280Z
+  seeded_from:
+    kind: pull_bundle
+    upstream_record_included: true
+    site_snapshot_included: true
+status:
+  site_status: open
+  site_badge: OPEN
+  repo_status: cataloged
+  upstream_status: open
+  upstream_last_update: 2025-08-31
+cluster: number-theory
+prize:
+  display: $5000
+related_problems: []
+family_tags:
+  - number-theory
+  - additive-combinatorics
+  - arithmetic-progressions
+harness:
+  depth: dossier
+statement:
+  short: If $A\subseteq \mathbb{N}$ has $\sum_{n\in A}\frac{1}{n}=\infty$ then
+    must $A$ contain arbitrarily long arithmetic progressions?
+  normalized_md_path: STATEMENT.md
+references_path: REFERENCES.md
+evidence_path: EVIDENCE.md
+formalization_path: FORMALIZATION.md
+formalization:
+  status: planned
+  upstream_state: yes
+  upstream_last_update: 2025-08-31

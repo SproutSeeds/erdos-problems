@@ -13,11 +13,21 @@ const DOSSIER_FILES = [
   ['FORMALIZATION.md', 'formalizationPath', 'FORMALIZATION.md'],
 ];
 
+const STARTER_LOOP_FILES = [
+  ['AGENT_START.md', 'AGENT_START.md'],
+  ['ROUTES.md', 'ROUTES.md'],
+  ['CHECKPOINT_NOTES.md', 'CHECKPOINT_NOTES.md'],
+];
+
 function getPackContextPath(problem) {
   if (!problem.cluster) {
     return null;
   }
-  return path.join(getPackDir(problem.cluster), 'README.md');
+  const packDir = getPackDir(problem.cluster);
+  if (!fs.existsSync(packDir)) {
+    return null;
+  }
+  return path.join(packDir, 'README.md');
 }
 
 function collectFiles(rootDir, relativeDir = '') {
@@ -71,6 +81,15 @@ export function getProblemArtifactInventory(problem) {
       exists: fs.existsSync(filePath),
     };
   });
+  const starterArtifacts = STARTER_LOOP_FILES.map(([label, destinationName]) => {
+    const filePath = path.join(problem.problemDir, label);
+    return {
+      label,
+      path: filePath,
+      destinationName,
+      exists: fs.existsSync(filePath),
+    };
+  }).filter((artifact) => artifact.exists);
 
   const packContextPath = getPackContextPath(problem);
   const packContext = packContextPath
@@ -103,6 +122,7 @@ export function getProblemArtifactInventory(problem) {
     harnessDepth: problem.harnessDepth,
     problemDir: problem.problemDir,
     canonicalArtifacts,
+    starterArtifacts,
     packContext,
     packProblemArtifacts,
     computePackets,
@@ -130,6 +150,18 @@ export function scaffoldProblem(problem, destination) {
     const destinationPath = path.join(destination, artifact.destinationName);
     if (copyFileIfPresent(artifact.path, destinationPath)) {
       copiedArtifacts.push({
+        label: artifact.label,
+        sourcePath: artifact.path,
+        destinationPath,
+      });
+    }
+  }
+
+  const copiedStarterArtifacts = [];
+  for (const artifact of inventory.starterArtifacts) {
+    const destinationPath = path.join(destination, artifact.destinationName);
+    if (copyFileIfPresent(artifact.path, destinationPath)) {
+      copiedStarterArtifacts.push({
         label: artifact.label,
         sourcePath: artifact.path,
         destinationPath,
@@ -203,10 +235,12 @@ export function scaffoldProblem(problem, destination) {
     problemId: problem.problemId,
     bundledProblemDir: problem.problemDir,
     copiedArtifacts,
+    copiedStarterArtifacts,
     packProblemArtifacts,
     computeArtifacts,
     packContext: inventory.packContext,
     canonicalArtifacts: inventory.canonicalArtifacts,
+    starterArtifacts: inventory.starterArtifacts,
     packProblemArtifactsInventory: inventory.packProblemArtifacts,
     computePackets: inventory.computePackets,
     upstreamSnapshot: inventory.upstreamSnapshot,
@@ -228,6 +262,7 @@ export function scaffoldProblem(problem, destination) {
       `- Repo status: ${problem.repoStatus}`,
       `- Harness depth: ${problem.harnessDepth}`,
       `- Upstream record included: ${inventory.upstreamRecordIncluded ? 'yes' : 'no'}`,
+      `- Starter loop artifacts copied: ${copiedStarterArtifacts.length}`,
       `- Pack problem artifacts copied: ${packProblemArtifacts.length}`,
       `- Compute packets copied: ${computeArtifacts.length}`,
       '',
