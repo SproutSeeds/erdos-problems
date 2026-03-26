@@ -62,6 +62,10 @@ Recommended social preview:
 - editable source: `assets/social-card.svg`
 - upload-ready raster: `assets/social-card.png`
 
+Recommended demo assets:
+- animated terminal demo: `assets/terminal-demo.gif`
+- poster frame: `assets/terminal-demo-poster.png`
+
 Recommended pinned bullets:
 - atlas + dossiers
 - ORP-governed workspaces
@@ -80,7 +84,7 @@ Recommended lead screenshot substitute:
 - publish npm package
 - set GitHub social preview image
 - add repo description/tagline
-- pin a short demo GIF or screenshot later if desired
+- pin the terminal demo GIF in the announcement thread and repo launch post
 - post the one-liner + short post copy
 
 ## Live links

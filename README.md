@@ -24,6 +24,12 @@ It is built for people who want more than a problem list and for agents that nee
 
 **Links:** [GitHub](https://github.com/SproutSeeds/erdos-problems) · [npm](https://www.npmjs.com/package/erdos-problems)
 
+## Watch It Run
+
+A fast look at the first minute:
+
+![erdos-problems terminal demo](https://raw.githubusercontent.com/SproutSeeds/erdos-problems/main/assets/terminal-demo.gif)
+
 ## Why It Feels Different
 
 Most open-problem repos stop at metadata.
