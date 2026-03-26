@@ -39,6 +39,8 @@ function printUsage() {
   console.log('  erdos sunflower board [<id>] [--json]');
   console.log('  erdos sunflower ready [<id>] [--json]');
   console.log('  erdos sunflower ladder [<id>] [--json]');
+  console.log('  erdos sunflower routes [<id>] [--json]');
+  console.log('  erdos sunflower tickets [<id>] [--json]');
   console.log('  erdos dossier show <id>');
   console.log('  erdos upstream show');
   console.log('  erdos upstream sync [--write-package-snapshot]');

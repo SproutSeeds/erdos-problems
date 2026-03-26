@@ -232,6 +232,36 @@ test('sunflower ladder prints the current ladder for 20', () => {
   assert.match(output, /P4-Verification: 86\/86/);
 });
 
+test('sunflower routes prints the strategic route table for 857', () => {
+  const workspace = fs.mkdtempSync(path.join(os.tmpdir(), 'erdos-sunflower-routes-857-'));
+  const output = runCli(['sunflower', 'routes', '857'], { cwd: workspace });
+  assert.match(output, /Erdos Problem #857 sunflower routes/);
+  assert.match(output, /Active route: anchored_selector_linearization/);
+  assert.match(output, /Route breakthrough: yes/);
+  assert.match(output, /o1a_existential_explicit_export \[strict-closed\]: loose 1\/1, strict 1\/1/);
+  assert.match(output, /anchored_selector_linearization \[active\]: loose 0\/1, strict 0\/1/);
+  assert.match(output, /First ready atom: T10\.G3\.A2/);
+});
+
+test('sunflower tickets prints the operational ticket table for 857', () => {
+  const workspace = fs.mkdtempSync(path.join(os.tmpdir(), 'erdos-sunflower-tickets-857-'));
+  const output = runCli(['sunflower', 'tickets', '857'], { cwd: workspace });
+  assert.match(output, /Erdos Problem #857 sunflower tickets/);
+  assert.match(output, /Active ticket: T10/);
+  assert.match(output, /Closed tickets: 5\/10/);
+  assert.match(output, /T10 Route Redesign T10: Anchored-Selector Linearization \[active\]/);
+  assert.match(output, /T7 Route Redesign T7: Global Family-Card Export \[closed\]/);
+  assert.match(output, /First ready atom: T10\.G3\.A2/);
+});
+
+test('sunflower routes prints the public bridge route table for 536', () => {
+  const workspace = fs.mkdtempSync(path.join(os.tmpdir(), 'erdos-sunflower-routes-536-'));
+  const output = runCli(['sunflower', 'routes', '536'], { cwd: workspace });
+  assert.match(output, /Erdos Problem #536 sunflower routes/);
+  assert.match(output, /Profile: dossier_bridge/);
+  assert.match(output, /natural_density_lcm_bridge \[active\]: loose 0\/3, strict 0\/3/);
+});
+
 test('dossier show uses active problem when omitted', () => {
   const workspace = fs.mkdtempSync(path.join(os.tmpdir(), 'erdos-workspace-'));
   runCli(['problem', 'use', '857'], { cwd: workspace });
