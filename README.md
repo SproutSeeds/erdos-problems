@@ -305,8 +305,32 @@ If you are preparing a public post, start here:
 - `assets/social-card.svg`
 - `assets/terminal-demo.gif`
 
-## Notes
+## FAQ
 
-- `erdos-problems` is the canonical npm package name.
-- the package is already live on npm.
-- the compact unscoped alias `erdosproblems` is not publishable because npm rejects it as too similar to `erdos-problems`.
+### What is the difference between this and erdosproblems.com?
+
+`erdosproblems.com` is a public problem atlas. `erdos-problems` uses that public record, but adds local dossiers, workspace scaffolding, checkpoints, and pack-specific views for the problems that already have more structure here.
+
+### Can I use this with Codex, Claude Code, or another agent?
+
+Yes. The package can scaffold a local `.erdos/` workspace, expose machine-readable JSON on the main public surfaces, and keep public status, local route state, and verification records separate.
+
+### Which problems are most developed right now?
+
+The sunflower pack is currently the most developed. Problems `20` and `857` have the deepest public pack surface. Problems `536` and `856` are included as bridge-oriented sunflower dossiers. The number-theory and graph-theory packs are lighter.
+
+### Does it only cover open problems?
+
+No. The bundled upstream atlas covers open, solved, and decided problems. Open problems can be seeded into active workspaces. Solved or decided problems can be scaffolded in archive mode and used as method exemplars.
+
+### What is a dossier?
+
+A dossier is the local canonical folder for one problem. It usually includes `problem.yaml`, `STATEMENT.md`, `REFERENCES.md`, `EVIDENCE.md`, and `FORMALIZATION.md`.
+
+### Do I need Lean or ORP to start using it?
+
+No. You can start with `erdos bootstrap problem <id>` or `erdos seed problem <id>`. ORP files are bundled into the workspace for structured claims and checkpoints, and some packs include formalization-specific surfaces, but the first step does not require Lean.
+
+### Why is the npm package called `erdos-problems` and not `erdosproblems`?
+
+`erdos-problems` is the canonical npm package name and it is already live on npm. The compact unscoped alias `erdosproblems` is not publishable because npm rejects it as too similar to `erdos-problems`.
