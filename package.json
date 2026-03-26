@@ -1,6 +1,6 @@
 {
   "name": "erdos-problems",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "Research cockpit and agent-ready CLI atlas for Paul Erdos problems.",
   "type": "module",
   "bin": {
@@ -13,6 +13,7 @@
     "AGENT_INTEGRATION.md",
     "bin",
     "data",
+    "assets",
     "docs",
     "packs",
     "problems",
@@ -42,5 +43,13 @@
   "license": "MIT",
   "engines": {
     "node": ">=20"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SproutSeeds/erdos-problems.git"
+  },
+  "homepage": "https://github.com/SproutSeeds/erdos-problems#readme",
+  "bugs": {
+    "url": "https://github.com/SproutSeeds/erdos-problems/issues"
   }
 }

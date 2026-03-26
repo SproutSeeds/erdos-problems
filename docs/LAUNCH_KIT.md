@@ -17,7 +17,7 @@ Long version:
 - Research cockpit for Paul Erdos problems.
 
 ### Short post
-- I just released `erdos-problems`: a CLI atlas and agent-ready research harness for Paul Erdos problems. It ships canonical dossiers, ORP-governed workspaces, self-seeding flows, and deeper cockpits for the sunflower family. Install with `npm install -g erdos-problems`.
+- I just released `erdos-problems`: a CLI atlas and agent-ready research harness for Paul Erdos problems. It ships canonical dossiers, ORP-governed workspaces, self-seeding flows, and deeper cockpits for the sunflower family. Install with `npm install -g erdos-problems`. GitHub: https://github.com/SproutSeeds/erdos-problems
 
 ### Longer post
 - I just released `erdos-problems`, a CLI atlas and staged research harness for Paul Erdos problems. The goal is not just to list problems, but to make them operational for real research. The package bundles upstream problem data, creates canonical dossiers, scaffolds ORP-governed workspaces, supports one-step self-seeding for new problems, and already includes deeper family-specific cockpits for sunflower, number theory, and graph-theory archive work. It is designed so a person or agent can install it at night and start honest, structured work immediately.
@@ -59,8 +59,8 @@ Recommended repo tagline:
 - Research cockpit for Paul Erdos problems.
 
 Recommended social preview:
-- `assets/social-card.svg`
-- export a PNG from it for GitHub social preview if GitHub wants raster upload
+- editable source: `assets/social-card.svg`
+- upload-ready raster: `assets/social-card.png`
 
 Recommended pinned bullets:
 - atlas + dossiers
@@ -82,3 +82,8 @@ Recommended lead screenshot substitute:
 - add repo description/tagline
 - pin a short demo GIF or screenshot later if desired
 - post the one-liner + short post copy
+
+## Live links
+
+- GitHub: https://github.com/SproutSeeds/erdos-problems
+- npm: https://www.npmjs.com/package/erdos-problems

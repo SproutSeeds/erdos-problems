@@ -6,8 +6,13 @@
 
 [![npm version](https://img.shields.io/npm/v/erdos-problems?color=111111&label=npm)](https://www.npmjs.com/package/erdos-problems)
 [![npm downloads](https://img.shields.io/npm/dm/erdos-problems?color=111111&label=downloads)](https://www.npmjs.com/package/erdos-problems)
+[![GitHub stars](https://img.shields.io/github/stars/SproutSeeds/erdos-problems?style=flat&color=111111&label=stars)](https://github.com/SproutSeeds/erdos-problems/stargazers)
+[![GitHub issues](https://img.shields.io/github/issues/SproutSeeds/erdos-problems?color=111111&label=issues)](https://github.com/SproutSeeds/erdos-problems/issues)
+[![GitHub discussions](https://img.shields.io/github/discussions/SproutSeeds/erdos-problems?color=111111&label=discussions)](https://github.com/SproutSeeds/erdos-problems/discussions)
 [![license](https://img.shields.io/npm/l/erdos-problems?color=111111&label=license)](./LICENSE)
 [![node](https://img.shields.io/node/v/erdos-problems?color=111111&label=node)](https://www.npmjs.com/package/erdos-problems)
+
+![erdos-problems social card](https://raw.githubusercontent.com/SproutSeeds/erdos-problems/main/assets/social-card.png)
 
 ```text
 erdos-problems
@@ -16,6 +21,8 @@ atlas -> dossier -> pack -> checkpoint -> archive
 
 `erdos-problems` is a CLI atlas and staged research harness for Paul Erdos problems.
 It is built for people who want more than a problem list and for agents that need a real starting surface on day one.
+
+**Links:** [GitHub](https://github.com/SproutSeeds/erdos-problems) · [npm](https://www.npmjs.com/package/erdos-problems)
 
 ## Why It Feels Different
 
