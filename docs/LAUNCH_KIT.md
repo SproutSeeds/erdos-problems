@@ -3,24 +3,24 @@
 ## Positioning
 
 Short version:
-- `erdos-problems` is a research cockpit for Paul Erdos problems.
+- `erdos-problems` is a CLI and workspace for Paul Erdos problems.
 
 Medium version:
-- `erdos-problems` is a CLI atlas and agent-ready research harness for Paul Erdos problems. It goes beyond a problem list by shipping dossiers, pack-specific cockpits, ORP-governed workspaces, and structured pull/seed flows that let humans and agents start real research immediately.
+- `erdos-problems` is a CLI atlas with local dossiers, workspace scaffolding, and pack-specific views for Paul Erdos problems. It is designed to make the first step concrete without blurring public status, local route state, or verification records.
 
 Long version:
-- `erdos-problems` is built for serious open-problem work. It packages the public Erdős problem atlas, preserves canonical dossier truth, scaffolds agent-ready workspaces, and adds deeper family-specific cockpits where the problem structure is rich enough to justify them. The result is a clean research loop that can move from atlas -> dossier -> route -> checkpoint -> archive without blurring public status, local route pressure, or verification truth.
+- `erdos-problems` packages problem records, local dossiers, seeded workspaces, and pack-specific packets for the parts of the atlas that already have more structure in this repo. The aim is simple: make it easier to move from a problem listing to a working local workspace, while keeping public status, local route state, and verification records separate.
 
 ## Launch Copy
 
 ### One-liner
-- Research cockpit for Paul Erdos problems.
+- CLI and workspace for Paul Erdos problems.
 
 ### Short post
-- I just released `erdos-problems`: a CLI atlas and agent-ready research harness for Paul Erdos problems. It ships canonical dossiers, ORP-governed workspaces, self-seeding flows, and deeper cockpits for the sunflower family. Install with `npm install -g erdos-problems`. GitHub: https://github.com/SproutSeeds/erdos-problems
+- I just released `erdos-problems`, a CLI and workspace for Paul Erdos problems. It bundles problem records, local dossiers, self-seeding workspaces, and pack-specific views for the sunflower family and a few other problems. Install with `npm install -g erdos-problems`. GitHub: https://github.com/SproutSeeds/erdos-problems
 
 ### Longer post
-- I just released `erdos-problems`, a CLI atlas and staged research harness for Paul Erdos problems. The goal is not just to list problems, but to make them operational for real research. The package bundles upstream problem data, creates canonical dossiers, scaffolds ORP-governed workspaces, supports one-step self-seeding for new problems, and already includes deeper family-specific cockpits for sunflower, number theory, and graph-theory archive work. It is designed so a person or agent can install it at night and start honest, structured work immediately.
+- I just released `erdos-problems`, a CLI atlas and workspace for Paul Erdos problems. It bundles problem records, local dossiers, ORP-based workspaces, one-step self-seeding for new problems, and more developed pack views for the sunflower family. It is meant to make the move from a problem listing to a working local workspace simpler and more explicit, especially when you want to use coding agents without losing track of public status or verification boundaries.
 
 ## Demo Flow
 
@@ -47,16 +47,15 @@ erdos archive scaffold 1008 --json
 
 ## What To Emphasize
 
-- It is not just a metadata dump.
-- It is agent-ready out of the box.
-- It preserves truth hygiene.
-- It supports both open and solved problems.
-- It already has a deep sunflower cockpit.
+- It bundles problem records with local dossiers and workspaces.
+- It keeps public status and local research state separate.
+- It works well with coding agents, but it is still usable by hand.
+- It includes more developed sunflower views and lighter starter/archive views elsewhere.
 
 ## GitHub Presentation Notes
 
 Recommended repo tagline:
-- Research cockpit for Paul Erdos problems.
+- CLI and workspace for Paul Erdos problems.
 
 Recommended social preview:
 - editable source: `assets/social-card.svg`
@@ -68,23 +67,23 @@ Recommended demo assets:
 
 Recommended pinned bullets:
 - atlas + dossiers
-- ORP-governed workspaces
+- workspaces + checkpoints
 - self-seeding from public sources
-- sunflower family cockpit
+- sunflower pack
 
 ## npm Presentation Notes
 
 Recommended lead screenshot substitute:
-- use the README's command-output sections
-- keep the top fast and cinematic
-- lead with install + immediate payoff
+- use the README command examples and the demo GIF
+- keep the top short and readable
+- lead with install + one concrete next step
 
 ## Suggested Release Checklist
 
 - publish npm package
 - set GitHub social preview image
 - add repo description/tagline
-- pin the terminal demo GIF in the announcement thread and repo launch post
+- pin the terminal demo GIF in the announcement thread or repo launch post
 - post the one-liner + short post copy
 
 ## Live links

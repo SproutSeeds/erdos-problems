@@ -1,6 +1,6 @@
 # Research Loop
 
-`erdos-problems` now carries the staged research loop that was proven out in the sunflower lab and refined by the `.gpd` flow in `longevity-research`.
+`erdos-problems` includes a staged research loop for selecting problems, syncing workspace state, and recording checkpoints.
 
 ## Runtime layout
 
@@ -56,7 +56,7 @@ erdos checkpoints sync
 
 That flow writes the local dossier into `.erdos/seeded-problems/<id>/`, makes it visible to the atlas inside the current workspace, and immediately syncs the same state/checkpoint machinery used by packaged dossiers.
 
-The seeded dossier now also includes starter-loop artifacts:
+The seeded dossier also includes starter-loop artifacts:
 - `AGENT_START.md`
 - `ROUTES.md`
 - `CHECKPOINT_NOTES.md`
@@ -70,7 +70,7 @@ The ORP kit travels with the workspace too:
 - `templates/VERIFICATION_RECORD.md`
 - `templates/FAILED_TOPIC.md`
 
-For sunflower compute lanes, ORP now sits above `breakthroughs`:
+For sunflower compute lanes, ORP sits above `breakthroughs`:
 - `erdos sunflower status <id>` evaluates the packaged compute lane with `breakthroughs`
 - `erdos sunflower board <id>` exposes the packaged atomic or bridge board for the active sunflower problem
 - `erdos sunflower ready <id>` exposes the dependency-satisfied ready queue for the packaged board
@@ -85,12 +85,12 @@ For sunflower compute lanes, ORP now sits above `breakthroughs`:
 - the CLI surfaces the selected rung, dispatch action, and the reason compute is admissible
 - this is compute governance and traceability, not an automatic paid or unbounded compute launch
 
-For number-theory starter-cockpit problems:
+For number-theory starter-pack problems:
 - `erdos number-theory status <id>` exposes the current route/frontier posture
 - `erdos number-theory frontier <id>` compresses the honest next move
 - `erdos number-theory routes <id>` exposes the small route table
 - `erdos number-theory tickets <id>` exposes the current ticket/archive packet
-- this is deliberately lighter than the sunflower pack and should stay honest about that
+- this layer is intentionally lighter than the sunflower pack
 
 For solved problems:
 - `erdos archive show <id>` exposes archival posture
@@ -98,7 +98,7 @@ For solved problems:
 
 ## Status ladder
 
-The public package uses the same ladder we converged on in the lab:
+The public package uses this ladder:
 - open problem
 - active route
 - route breakthrough

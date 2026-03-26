@@ -4,11 +4,11 @@
   <rect x="78" y="78" width="1124" height="484" rx="18" fill="#181818" stroke="#C86A3E" stroke-width="2"/>
 
   <text x="104" y="168" fill="#F3EBDD" font-family="Menlo, Monaco, Consolas, monospace" font-size="28">erdos-problems</text>
-  <text x="104" y="228" fill="#F3EBDD" font-family="Georgia, 'Times New Roman', serif" font-size="64" font-weight="700">Research cockpit</text>
+  <text x="104" y="228" fill="#F3EBDD" font-family="Georgia, 'Times New Roman', serif" font-size="64" font-weight="700">CLI and workspace</text>
   <text x="104" y="300" fill="#F3EBDD" font-family="Georgia, 'Times New Roman', serif" font-size="64" font-weight="700">for Paul Erdos problems</text>
 
   <text x="104" y="388" fill="#DDB892" font-family="Menlo, Monaco, Consolas, monospace" font-size="26">atlas  ->  dossier  ->  pack  ->  checkpoint  ->  archive</text>
-  <text x="104" y="440" fill="#DDB892" font-family="Menlo, Monaco, Consolas, monospace" font-size="22">seed a problem  |  hand it to an agent  |  keep the truth clean</text>
+  <text x="104" y="440" fill="#DDB892" font-family="Menlo, Monaco, Consolas, monospace" font-size="22">seed a problem  |  inspect the record  |  keep sources separate</text>
 
   <rect x="104" y="476" width="520" height="64" rx="14" fill="#C86A3E"/>
   <text x="136" y="518" fill="#111111" font-family="Menlo, Monaco, Consolas, monospace" font-size="24" font-weight="700">npm install -g erdos-problems</text>

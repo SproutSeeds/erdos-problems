@@ -115,7 +115,7 @@ def draw_terminal_base():
     draw.ellipse((MARGIN + 40, MARGIN + 14, MARGIN + 56, MARGIN + 30), fill='#E9C46A')
     draw.ellipse((MARGIN + 66, MARGIN + 14, MARGIN + 82, MARGIN + 30), fill=GREEN)
     draw.text((MARGIN + 108, MARGIN + 10), 'erdos-problems demo', font=MONO_20, fill=MUTED)
-    right_label = 'agent-ready research loop'
+    right_label = 'local research loop'
     right_bbox = draw.textbbox((0, 0), right_label, font=MONO_20)
     right_x = WIDTH - MARGIN - 28 - (right_bbox[2] - right_bbox[0])
     draw.text((right_x, MARGIN + 32), right_label, font=MONO_20, fill=MUTED)

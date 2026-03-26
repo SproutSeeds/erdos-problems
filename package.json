@@ -1,7 +1,7 @@
 {
   "name": "erdos-problems",
-  "version": "0.2.5",
-  "description": "Research cockpit and agent-ready CLI atlas for Paul Erdos problems.",
+  "version": "0.2.6",
+  "description": "CLI atlas and workspace tools for Paul Erdos problems.",
   "type": "module",
   "bin": {
     "erdos": "bin/erdos"

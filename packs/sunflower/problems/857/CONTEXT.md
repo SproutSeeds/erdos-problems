@@ -2,11 +2,11 @@
 
 Role in family:
 - weak / non-uniform sunflower core
-- current deep-harness flagship problem in the public atlas
+- currently one of the most developed public sunflower records in this repo
 
 Bootstrap focus:
 - preserve the live route framing in the scaffold
-- keep literature, artifact, and compute packets aligned with the active frontier rather than generic sunflower chatter
+- keep literature, artifact, and compute packets aligned with the active frontier rather than generic sunflower notes
 
 Frontier framing:
 - preserve the active export/compression route as the live frontier

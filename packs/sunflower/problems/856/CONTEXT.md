@@ -2,7 +2,7 @@
 
 Role in family:
 - harmonic-density LCM analogue inside the sunflower quartet
-- dossier-first bridge problem with direct implications for 857-style exponents
+- bridge-oriented dossier with direct implications for 857-style exponents
 
 Bootstrap focus:
 - keep the exponent-transfer story explicit

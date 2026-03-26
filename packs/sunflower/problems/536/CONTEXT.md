@@ -2,7 +2,7 @@
 
 Role in family:
 - natural-density LCM analogue inside the sunflower quartet
-- dossier-first bridge problem rather than a deep theorem harness today
+- bridge-oriented dossier rather than a more developed theorem pack today
 
 Bootstrap focus:
 - keep the combinatorial relation to 857 explicit

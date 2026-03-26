@@ -2,7 +2,7 @@
 
 Role in family:
 - strong / uniform sunflower core
-- deep-harness sibling to the weak sunflower program on 857
+- more developed sibling to the weak sunflower work on 857
 
 Bootstrap focus:
 - start from the uniform k=3 lane

@@ -1,8 +1,8 @@
 # erdos-problems
 
-> Research cockpit for Paul Erdos problems.
+> CLI and workspace for Paul Erdos problems.
 >
-> Seed a problem. Hand it to an agent. Keep the public truth, local route truth, and verification truth sharply separated.
+> Browse the atlas, scaffold a dossier, and keep public status, local route state, and verification records separate.
 
 [![npm version](https://img.shields.io/npm/v/erdos-problems?color=111111&label=npm)](https://www.npmjs.com/package/erdos-problems)
 [![npm downloads](https://img.shields.io/npm/dm/erdos-problems?color=111111&label=downloads)](https://www.npmjs.com/package/erdos-problems)
@@ -19,27 +19,23 @@ erdos-problems
 atlas -> dossier -> pack -> checkpoint -> archive
 ```
 
-`erdos-problems` is a CLI atlas and staged research harness for Paul Erdos problems.
-It is built for people who want more than a problem list and for agents that need a real starting surface on day one.
+`erdos-problems` is a CLI for working with Paul Erdos problems. It bundles problem records, local dossiers, workspace scaffolding, and pack-specific views for the problems that already have more structure in this repo.
 
 **Links:** [GitHub](https://github.com/SproutSeeds/erdos-problems) · [npm](https://www.npmjs.com/package/erdos-problems)
 
 ## Watch It Run
 
-A fast look at the first minute:
+A short example from the first minute:
 
 ![erdos-problems terminal demo](https://raw.githubusercontent.com/SproutSeeds/erdos-problems/main/assets/terminal-demo.gif)
 
-## Why It Feels Different
+## What It Includes
 
-Most open-problem repos stop at metadata.
-
-`erdos-problems` goes further:
-- it ships a canonical atlas of Erdős problems
-- it creates agent-ready dossiers and workspace bundles
-- it keeps upstream public status separate from local research state
-- it adds pack-specific cockpits where deeper structure is honest
-- it carries an ORP-governed loop so claims, checkpoints, and runs stay disciplined
+- a bundled snapshot of the Erdős problem atlas
+- local dossiers and workspace bundles
+- separate surfaces for public status, local route state, and verification records
+- pack-specific views where this repo already has enough structure to support them
+- an ORP-based workflow for claims, checkpoints, and run artifacts
 
 ## Start In 60 Seconds
 
@@ -49,7 +45,7 @@ Install:
 npm install -g erdos-problems
 ```
 
-Bootstrap a flagship problem:
+Bootstrap a seeded problem:
 
 ```bash
 erdos bootstrap problem 857
@@ -58,7 +54,7 @@ erdos sunflower ready 857
 erdos workspace show --json
 ```
 
-Self-seed an unseeded problem into a fresh workspace:
+Seed a new problem into the current workspace:
 
 ```bash
 erdos seed problem 25 --cluster number-theory
@@ -66,42 +62,28 @@ erdos problem show 25
 erdos checkpoints sync
 ```
 
-Archive a solved problem cleanly:
+Archive a solved problem:
 
 ```bash
 erdos graph-theory status 1008
 erdos archive scaffold 1008 --json
 ```
 
-## What You Get
-
-| Layer | What it does |
-| --- | --- |
-| Atlas | canonical `problems/<id>/problem.yaml` records plus a bundled upstream snapshot |
-| Dossiers | local case files with statement, references, evidence, and formalization paths |
-| Workspaces | `.erdos/` state, checkpoints, ORP kit, pull bundles, runs, and archives |
-| Packs | deeper family-specific cockpits for problem clusters that deserve them |
-| Governance | ORP + `breakthroughs` + public-status review + structured run artifacts |
-
-## Coverage Right Now
+## Current Coverage
 
 | Surface | Coverage |
 | --- | --- |
 | Bundled upstream atlas | `1183` problems |
 | Native packaged dossiers | `18` |
 | Sunflower pack | `20`, `536`, `856`, `857` |
-| Number-theory cockpit | `1`, `2` |
-| Graph-theory archive cockpit | `19`, `22`, `1008` |
-| Deep theorem-facing pack problems | `20`, `857` |
+| Number-theory pack | `1`, `2` |
+| Graph-theory archive pack | `19`, `22`, `1008` |
+| Most developed pack problems | `20`, `857` |
 
 Seeded problems today:
 - `1`, `2`, `3`, `4`, `5`, `6`, `7`, `18`, `19`, `20`, `21`, `22`, `89`, `536`, `542`, `856`, `857`, `1008`
 
-## Flavor
-
-The package is meant to feel like a research cockpit, not a bag of files.
-
-Example:
+## Example Output
 
 ```bash
 $ erdos sunflower frontier 857
@@ -137,9 +119,9 @@ What this does:
 - syncs the bundled ORP kit into `.erdos/orp/`
 - scaffolds the dossier into `.erdos/scaffolds/<id>/`
 - pulls in pack-specific context where available
-- makes the workspace immediately usable by an agent
+- prepares the workspace for the next step
 
-### 2. Self-seed a new problem
+### 2. Seed a new problem
 
 ```bash
 erdos seed problem 25 --cluster number-theory
@@ -147,7 +129,7 @@ erdos seed problem 25 --cluster number-theory
 
 What this does:
 - pulls upstream public metadata into a workspace bundle
-- includes live site review and an agent-websearch brief by default
+- includes live site review and an agent websearch brief by default
 - seeds a local dossier into `.erdos/seeded-problems/<id>/`
 - syncs state, checkpoints, and ORP automatically
 
@@ -171,7 +153,7 @@ erdos maintainer seed problem 25 --from-pull .erdos/pulls/25 --cluster number-th
 
 ### Sunflower Pack
 
-The first deep pack is the sunflower quartet:
+The sunflower pack currently covers this quartet:
 - `20`: strong / uniform sunflower core
 - `857`: weak / non-uniform sunflower core
 - `536`: natural-density LCM analogue
@@ -190,17 +172,17 @@ erdos sunflower atom 857 T10.G3.A2
 erdos sunflower compute run 857
 ```
 
-What makes it special:
-- mirrored public board packets
-- route / ticket / atom cockpit views
+What is included here:
+- public board packets
+- route / ticket / atom views
 - checkpoint and report packets
-- governed local-scout compute posture
+- governed local-scout compute posture where a packet exists
 
-### Number-Theory Starter Cockpit
+### Number-Theory Pack
 
-The first lighter non-sunflower pack is number theory:
-- `1`: open starter cockpit around a distinct-subset-sum route
-- `2`: counterexample/archive cockpit
+The number-theory pack currently includes:
+- `1`: open route-oriented starter pack around a distinct-subset-sum lane
+- `2`: counterexample / archive pack
 
 Useful commands:
 
@@ -213,12 +195,12 @@ erdos number-theory ticket 1 N1
 erdos number-theory atom 1 N1.G1.A1
 ```
 
-### Graph-Theory Archive Cockpit
+### Graph-Theory Archive Pack
 
-The first archive-first pack outside sunflower is graph theory:
-- `19`: decision archive cockpit
-- `22`: proof archive cockpit
-- `1008`: Lean-facing proof archive cockpit
+The graph-theory archive pack currently includes:
+- `19`: decision archive pack
+- `22`: proof archive pack
+- `1008`: Lean-facing proof archive pack
 
 Useful commands:
 
@@ -235,19 +217,19 @@ Design rule:
 - keep the archive usable as a method exemplar
 - preserve public status discipline instead of inflating pressure where none exists
 
-## Built For Agents
+## Using It With Agents
 
-If you are using Codex, Claude Code, or another agent harness, the package gives your agent:
+If you are using Codex, Claude Code, or another coding agent, the package provides:
 - canonical dossier files
 - upstream provenance
-- pack-aware context when available
+- pack-aware context where it exists
 - `.erdos/` workspace state
 - ORP templates and protocol guidance
 - checkpoint shelves
-- explicit next-honest-move framing
-- machine-readable JSON on the important public surfaces
+- explicit next-step framing
+- machine-readable JSON on the main public surfaces
 
-Especially useful commands for agent workflows:
+Useful commands for agent workflows:
 
 ```bash
 erdos problem artifacts 857 --json
@@ -265,13 +247,11 @@ erdos upstream drift 857 --json
 - `templates/VERIFICATION_RECORD.md`
 - `templates/FAILED_TOPIC.md`
 
-The package is opinionated about a clean truth ladder:
+The package keeps these layers separate:
 - upstream public truth
 - local canonical dossier truth
 - workspace bundle truth
 - pack-specific route / checkpoint / run truth
-
-That separation is one of the main product features.
 
 ## Command Gallery
 
@@ -320,12 +300,13 @@ erdos archive scaffold 1008 --json
 
 ## Launch Assets
 
-If you are about to push the public GitHub launch, start here:
+If you are preparing a public post, start here:
 - [docs/LAUNCH_KIT.md](docs/LAUNCH_KIT.md)
 - `assets/social-card.svg`
+- `assets/terminal-demo.gif`
 
 ## Notes
 
 - `erdos-problems` is the canonical npm package name.
-- the package is already live on npm
-- the compact unscoped alias `erdosproblems` is not publishable because npm rejects it as too similar to `erdos-problems`
+- the package is already live on npm.
+- the compact unscoped alias `erdosproblems` is not publishable because npm rejects it as too similar to `erdos-problems`.
