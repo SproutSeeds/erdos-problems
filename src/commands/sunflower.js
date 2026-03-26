@@ -25,6 +25,10 @@ function parseStatusArgs(args) {
   return parsed;
 }
 
+function parseBoardArgs(args) {
+  return parseStatusArgs(args);
+}
+
 function printSunflowerStatus(snapshot, registryPaths) {
   console.log(`${snapshot.displayName} sunflower harness`);
   console.log(`Title: ${snapshot.title}`);
@@ -51,6 +55,26 @@ function printSunflowerStatus(snapshot, registryPaths) {
     console.log(`Route frontier claim: ${snapshot.routePacket.frontierClaim ?? '(none)'}`);
     console.log(`Theorem module: ${snapshot.routePacket.theoremModule ?? '(none)'}`);
   }
+  console.log(`Atomic board present: ${snapshot.atomicBoardPresent ? 'yes' : 'no'}`);
+  if (snapshot.atomicBoardSummary) {
+    console.log(`Atomic board: ${snapshot.atomicBoardSummary.boardTitle ?? '(none)'}`);
+    console.log(`Atomic board profile: ${snapshot.atomicBoardSummary.boardProfile ?? '(none)'}`);
+    console.log(`Atomic board route: ${snapshot.atomicBoardSummary.activeRoute ?? '(none)'}`);
+    console.log(`Atomic board claim: ${snapshot.atomicBoardSummary.frontierClaim ?? '(none)'}`);
+    console.log(`Atomic board module: ${snapshot.atomicBoardSummary.moduleTarget ?? '(none)'}`);
+    if (snapshot.activeTicket) {
+      console.log(
+        `Atomic board active ticket: ${snapshot.activeTicket.ticketId} ${snapshot.activeTicket.ticketName} `
+        + `[${snapshot.activeTicket.gatesDone}/${snapshot.activeTicket.gatesTotal} gates, `
+        + `${snapshot.activeTicket.atomsDone}/${snapshot.activeTicket.atomsTotal} atoms]`,
+      );
+    }
+    console.log(`Atomic board ready atoms: ${snapshot.readyAtomCount}`);
+    console.log(`Atomic board mirage frontiers: ${snapshot.mirageFrontierCount}`);
+    if (snapshot.firstReadyAtom) {
+      console.log(`Atomic board first ready atom: ${snapshot.firstReadyAtom.atomId} — ${snapshot.firstReadyAtom.title}`);
+    }
+  }
   console.log(`Agent start packet: ${snapshot.agentStartPresent ? snapshot.agentStartPath : '(missing)'}`);
   console.log(`Checkpoint packet: ${snapshot.checkpointPacketPresent ? snapshot.checkpointPacketPath : '(missing)'}`);
   console.log(`Report packet: ${snapshot.reportPacketPresent ? snapshot.reportPacketPath : '(missing)'}`);
@@ -76,21 +100,107 @@ function printSunflowerStatus(snapshot, registryPaths) {
   console.log(`Registry record: ${registryPaths.latestPath}`);
 }
 
+function printSunflowerBoard(snapshot) {
+  const board = snapshot.atomicBoardSummary;
+  if (!board) {
+    console.log(`${snapshot.displayName} has no packaged sunflower board yet.`);
+    return;
+  }
+
+  console.log(`${snapshot.displayName} sunflower board`);
+  console.log(`Title: ${board.boardTitle}`);
+  console.log(`Profile: ${board.boardProfile ?? '(none)'}`);
+  console.log(`Active route: ${board.activeRoute ?? '(none)'}`);
+  console.log(`Frontier claim: ${board.frontierClaim ?? '(none)'}`);
+  console.log(`Module target: ${board.moduleTarget ?? '(none)'}`);
+  console.log(`Source kind: ${board.sourceKind ?? '(none)'}`);
+  console.log(`Source board json: ${board.sourceBoardJson ?? '(none)'}`);
+  console.log(`Source board markdown: ${board.sourceBoardMarkdown ?? '(none)'}`);
+  console.log(`Board packet: ${board.atomicBoardPath}`);
+  console.log(`Board markdown: ${board.atomicBoardMarkdownPath ?? '(missing)'}`);
+  console.log(`Ready atoms: ${snapshot.readyAtomCount}`);
+  console.log(`Mirage frontiers: ${snapshot.mirageFrontierCount}`);
+  if (snapshot.activeTicket) {
+    console.log(
+      `Active ticket: ${snapshot.activeTicket.ticketId} ${snapshot.activeTicket.ticketName} `
+      + `[leaf=${snapshot.activeTicket.routeLeaf ?? '(none)'}, `
+      + `status=${snapshot.activeTicket.leafStatus ?? '(none)'}, `
+      + `gates=${snapshot.activeTicket.gatesDone}/${snapshot.activeTicket.gatesTotal}, `
+      + `atoms=${snapshot.activeTicket.atomsDone}/${snapshot.activeTicket.atomsTotal}]`,
+    );
+  }
+
+  console.log('Route status:');
+  if (board.routeStatus.length === 0) {
+    console.log('  (none)');
+  } else {
+    for (const route of board.routeStatus) {
+      console.log(
+        `  - ${route.route}: loose ${route.looseDone}/${route.looseTotal}, `
+        + `strict ${route.strictDone}/${route.strictTotal}`,
+      );
+    }
+  }
+
+  console.log('Ticket board:');
+  if (board.tickets.length === 0) {
+    console.log('  (none)');
+  } else {
+    for (const ticket of board.tickets) {
+      console.log(
+        `  - ${ticket.ticketId} ${ticket.ticketName}: ${ticket.routeLeaf ?? '(none)'} `
+        + `[leaf=${ticket.leafStatus ?? '(none)'}, gates=${ticket.gatesDone}/${ticket.gatesTotal}, `
+        + `atoms=${ticket.atomsDone}/${ticket.atomsTotal}]`,
+      );
+    }
+  }
+
+  console.log('First-principles ladder:');
+  if (board.ladder.length === 0) {
+    console.log('  (none)');
+  } else {
+    for (const rung of board.ladder) {
+      console.log(`  - ${rung.tier}: ${rung.done}/${rung.total}`);
+    }
+  }
+
+  console.log('Ready queue:');
+  if (board.readyQueue.length === 0) {
+    console.log('  (none)');
+  } else {
+    for (const atom of board.readyQueue) {
+      console.log(
+        `  - ${atom.atomId} (${atom.ticketId} / ${atom.gateId} / ${atom.tier ?? 'tier-unknown'}): ${atom.title}`,
+      );
+    }
+  }
+
+  console.log('Notes:');
+  if (board.notes.length === 0) {
+    console.log('  (none)');
+  } else {
+    for (const note of board.notes) {
+      console.log(`  - ${note}`);
+    }
+  }
+}
+
 export function runSunflowerCommand(args) {
   const [subcommand, ...rest] = args;
 
   if (!subcommand || subcommand === 'help' || subcommand === '--help') {
     console.log('Usage:');
     console.log('  erdos sunflower status [<id>] [--json]');
+    console.log('  erdos sunflower board [<id>] [--json]');
     return 0;
   }
 
-  if (subcommand !== 'status') {
+  if (subcommand !== 'status' && subcommand !== 'board') {
     console.error(`Unknown sunflower subcommand: ${subcommand}`);
     return 1;
   }
 
-  const parsed = parseStatusArgs(rest);
+  const parsed = subcommand === 'board' ? parseBoardArgs(rest) : parseStatusArgs(rest);
   if (parsed.error) {
     console.error(parsed.error);
     return 1;
@@ -118,6 +228,11 @@ export function runSunflowerCommand(args) {
 
   if (parsed.asJson) {
     console.log(JSON.stringify({ ...snapshot, registryPaths }, null, 2));
+    return 0;
+  }
+
+  if (subcommand === 'board') {
+    printSunflowerBoard(snapshot);
     return 0;
   }
 

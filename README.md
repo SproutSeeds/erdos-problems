@@ -22,6 +22,7 @@ Official binary:
 - workspace `.erdos/` state for active-problem selection, upstream refreshes, scaffolds, and pull bundles
 - sunflower cluster as the first deep harness pack
 - quartet-aware sunflower context for `20`, `536`, `856`, and `857`
+- packaged atomic/bridge board packets for the full sunflower quartet
 - packaged compute-lane metadata for deep sunflower problems, surfaced directly in the CLI
 - seeded atlas now includes open and solved problems beyond sunflower
 - unseeded problems can still be pulled into a workspace from the bundled upstream snapshot
@@ -39,6 +40,7 @@ erdos problem list --cluster sunflower
 erdos bootstrap problem 857
 erdos problem artifacts 857 --json
 erdos sunflower status 857
+erdos sunflower board 857
 erdos dossier show 857
 ```
 
@@ -136,9 +138,11 @@ The first deep pack is the sunflower quartet:
 - `536`: natural-density LCM analogue
 - `856`: harmonic-density LCM analogue
 
-Deep sunflower problems now also ship route packets:
-- `20`: `AGENT_START.md`, `ROUTE_PACKET.yaml`, `CHECKPOINT_PACKET.md`, `REPORT_PACKET.md`
-- `857`: `AGENT_START.md`, `ROUTE_PACKET.yaml`, `CHECKPOINT_PACKET.md`, `REPORT_PACKET.md`
+Sunflower problems now ship pack packets:
+- `20`: `AGENT_START.md`, `ROUTE_PACKET.yaml`, `CHECKPOINT_PACKET.md`, `REPORT_PACKET.md`, `ATOMIC_BOARD.yaml`, `ATOMIC_BOARD.md`
+- `857`: `AGENT_START.md`, `ROUTE_PACKET.yaml`, `CHECKPOINT_PACKET.md`, `REPORT_PACKET.md`, `ATOMIC_BOARD.yaml`, `ATOMIC_BOARD.md`
+- `536`: `AGENT_START.md`, `ROUTE_PACKET.yaml`, `CHECKPOINT_PACKET.md`, `REPORT_PACKET.md`, `ATOMIC_BOARD.yaml`, `ATOMIC_BOARD.md`
+- `856`: `AGENT_START.md`, `ROUTE_PACKET.yaml`, `CHECKPOINT_PACKET.md`, `REPORT_PACKET.md`, `ATOMIC_BOARD.yaml`, `ATOMIC_BOARD.md`
 
 Useful sunflower commands:
 
@@ -146,6 +150,8 @@ Useful sunflower commands:
 erdos cluster show sunflower
 erdos sunflower status 20
 erdos sunflower status 536
+erdos sunflower board 536
+erdos sunflower board 857
 erdos sunflower status 857 --json
 ```
 
@@ -155,7 +161,16 @@ erdos sunflower status 857 --json
 - active route
 - route breakthrough state
 - problem-solved distinction
+- atomic board posture, active ticket, ready-atom count, and first ready atom when a board packet exists
 - compute posture when a packet exists
+
+`erdos sunflower board` surfaces:
+- mirrored lab atomic boards for `20` and `857`
+- lighter dossier-bridge boards for `536` and `856`
+- route status
+- ticket board summary
+- first-principles ladder
+- ready queue
 
 ## ORP
 
@@ -196,6 +211,7 @@ erdos workspace show
 erdos orp show
 erdos orp sync
 erdos sunflower status 857
+erdos sunflower board 857
 erdos sunflower status --json
 erdos dossier show
 erdos upstream show
@@ -247,7 +263,7 @@ The CLI can surface these directly:
 For sunflower problems, the CLI also surfaces pack-specific artifacts:
 - pack README context
 - per-problem context files under `packs/sunflower/problems/<id>/`
-- route packets and checkpoint/report packets for `20` and `857`
+- route packets, checkpoint/report packets, and board packets for the full sunflower quartet
 - compute packets under `packs/sunflower/compute/<id>/` when available
 - compute-governance evaluation under `breakthroughs`, surfaced through `erdos sunflower status`
 

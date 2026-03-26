@@ -58,6 +58,14 @@ export function runWorkspaceCommand(args) {
       console.log(`Sunflower harness profile: ${sunflower.harnessProfile ?? '(none)'}`);
       console.log(`Sunflower route: ${sunflower.activeRoute ?? '(none)'}`);
       console.log(`Sunflower frontier: ${sunflower.frontierDetail ?? '(none)'}`);
+      console.log(`Sunflower board: ${sunflower.atomicBoardPresent ? 'yes' : 'no'}`);
+      if (sunflower.atomicBoardSummary) {
+        console.log(`Sunflower board title: ${sunflower.atomicBoardSummary.boardTitle ?? '(none)'}`);
+        console.log(`Sunflower board ready atoms: ${sunflower.readyAtomCount}`);
+        if (sunflower.firstReadyAtom) {
+          console.log(`Sunflower first ready atom: ${sunflower.firstReadyAtom.atomId} — ${sunflower.firstReadyAtom.title}`);
+        }
+      }
       console.log(`Sunflower compute: ${sunflower.computeLanePresent ? 'yes' : 'no'}`);
       if (sunflower.activePacket) {
         console.log(`Sunflower compute lane: ${sunflower.activePacket.laneId} [${sunflower.activePacket.status}]`);

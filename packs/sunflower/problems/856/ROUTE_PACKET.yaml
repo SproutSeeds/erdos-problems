@@ -1,0 +1,13 @@
+route_packet_id: sunflower856_harmonic_density_bridge_v1
+route_id: harmonic_density_lcm_bridge
+frontier_claim: Keep the harmonic-density LCM analogue synchronized with the weak sunflower program and preserve explicit exponent-transfer artifacts.
+theorem_module: ""
+checkpoint_packet: CHECKPOINT_PACKET.md
+report_packet: REPORT_PACKET.md
+ready_prompts:
+  - Which exact exponent-transfer statement from 856 back to 857 should be frozen next?
+  - Which density-language artifact is still missing from the 856 bridge dossier?
+verification_hook:
+  - erdos sunflower status 856
+  - erdos sunflower board 856
+  - erdos problem artifacts 856 --json

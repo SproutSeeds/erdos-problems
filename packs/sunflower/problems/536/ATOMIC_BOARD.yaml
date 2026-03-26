@@ -1,0 +1,62 @@
+board_packet_id: sunflower536_bridge_board_v1
+board_profile: dossier_bridge
+board_title: Problem 536 Natural-Density LCM Bridge Board
+problem_id: "536"
+active_route: natural_density_lcm_bridge
+frontier_claim: Keep 536 research-ready by freezing public status, exact analogue statements, and explicit bridge artifacts back to 857.
+module_target: ""
+source_kind: public_pack_bridge
+active_ticket_id: T1
+route_status:
+  - route: natural_density_lcm_bridge
+    loose_done: 0
+    loose_total: 3
+    strict_done: 0
+    strict_total: 3
+tickets:
+  - ticket_id: T1
+    ticket_name: Dossier Source Lock
+    route_leaf: public_status_and_statement_lock
+    leaf_status: open
+    gates_done: 1
+    gates_total: 3
+    atoms_done: 2
+    atoms_total: 6
+  - ticket_id: T2
+    ticket_name: Analogue Translation Bridge
+    route_leaf: lcm_analogue_bridge_note
+    leaf_status: open
+    gates_done: 0
+    gates_total: 3
+    atoms_done: 0
+    atoms_total: 6
+  - ticket_id: T3
+    ticket_name: Transfer Back To 857
+    route_leaf: density_to_weak_sunflower_hook
+    leaf_status: open
+    gates_done: 0
+    gates_total: 3
+    atoms_done: 0
+    atoms_total: 6
+ladder:
+  - tier: P0-SpecLock
+    done: 2
+    total: 6
+  - tier: P1-StructuralKernel
+    done: 0
+    total: 6
+  - tier: P2-QuantAssembly
+    done: 0
+    total: 6
+ready_queue:
+  - atom_id: T1.G1.A3
+    ticket_id: T1
+    gate_id: T1.G1
+    tier: P0-SpecLock
+    kind: review
+    title: Run the public-status review and freeze the exact open-state snapshot for problem 536
+    status: ready
+mirage_frontiers: []
+notes:
+  - This is a public-pack bridge board, not a Lean-scanner board.
+  - Counts track dossier and bridge completeness so agents can move with the same disciplined loop as the deep sunflower problems.

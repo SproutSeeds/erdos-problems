@@ -15,5 +15,9 @@ Profiles:
 - `856`: dossier bridge, harmonic-density LCM analogue
 
 Deep route packets:
-- `20` ships `AGENT_START.md`, `ROUTE_PACKET.yaml`, `CHECKPOINT_PACKET.md`, `REPORT_PACKET.md`
-- `857` ships `AGENT_START.md`, `ROUTE_PACKET.yaml`, `CHECKPOINT_PACKET.md`, `REPORT_PACKET.md`
+- `20` ships `AGENT_START.md`, `ROUTE_PACKET.yaml`, `CHECKPOINT_PACKET.md`, `REPORT_PACKET.md`, `ATOMIC_BOARD.yaml`, `ATOMIC_BOARD.md`
+- `857` ships `AGENT_START.md`, `ROUTE_PACKET.yaml`, `CHECKPOINT_PACKET.md`, `REPORT_PACKET.md`, `ATOMIC_BOARD.yaml`, `ATOMIC_BOARD.md`
+
+Bridge packets:
+- `536` ships `AGENT_START.md`, `ROUTE_PACKET.yaml`, `CHECKPOINT_PACKET.md`, `REPORT_PACKET.md`, `ATOMIC_BOARD.yaml`, `ATOMIC_BOARD.md`
+- `856` ships `AGENT_START.md`, `ROUTE_PACKET.yaml`, `CHECKPOINT_PACKET.md`, `REPORT_PACKET.md`, `ATOMIC_BOARD.yaml`, `ATOMIC_BOARD.md`

@@ -1,0 +1,98 @@
+board_packet_id: strong20_uniform_k3_atomic_board_v1
+board_profile: deep_atomic_ops
+board_title: Problem 20 K=3 Closure Ops Board
+problem_id: "20"
+active_route: uniform_k3_frontier
+frontier_claim: Keep the public strong-sunflower pack aligned with the live k=3 closure board and surface the remaining support-lane pressure honestly.
+module_target: sunflower-coda/repo/sunflower_lean/SunflowerLean/ErdosProblem20.lean
+source_kind: mirrored_from_lab
+source_board_json: sunflower-coda/repo/analysis/problem20_k3_gateboard.json
+source_board_markdown: sunflower-coda/repo/docs/PROBLEM20_K3_OPS_BOARD.md
+active_ticket_id: T6
+route_status:
+  - route: uniform_prize
+    loose_done: 7
+    loose_total: 7
+    strict_done: 7
+    strict_total: 7
+  - route: uniform_prize_final_k3
+    loose_done: 5
+    loose_total: 5
+    strict_done: 5
+    strict_total: 5
+  - route: uniform_prize_full_all_k
+    loose_done: 0
+    loose_total: 1
+    strict_done: 0
+    strict_total: 1
+tickets:
+  - ticket_id: T1
+    ticket_name: "Closure Lane T1: UniformBoundF3Global"
+    route_leaf: UniformBoundF3Global
+    leaf_status: done
+    gates_done: 5
+    gates_total: 5
+    atoms_done: 16
+    atoms_total: 16
+  - ticket_id: T2
+    ticket_name: "Closure Lane T2: UniformBoundF4Global"
+    route_leaf: UniformBoundF4Global
+    leaf_status: done
+    gates_done: 5
+    gates_total: 5
+    atoms_done: 15
+    atoms_total: 15
+  - ticket_id: T3
+    ticket_name: "Closure Lane T3: UniformBoundF5Global"
+    route_leaf: UniformBoundF5Global
+    leaf_status: done
+    gates_done: 5
+    gates_total: 5
+    atoms_done: 15
+    atoms_total: 15
+  - ticket_id: T4
+    ticket_name: "Closure Lane T4: UniformBoundF6Global"
+    route_leaf: UniformBoundF6Global
+    leaf_status: done
+    gates_done: 5
+    gates_total: 5
+    atoms_done: 15
+    atoms_total: 15
+  - ticket_id: T5
+    ticket_name: "Closure Lane T5: UniformK3EnvelopeFrom7WithPolySlack"
+    route_leaf: UniformK3EnvelopeFrom7WithPolySlack
+    leaf_status: done
+    gates_done: 5
+    gates_total: 5
+    atoms_done: 15
+    atoms_total: 15
+  - ticket_id: T6
+    ticket_name: "Support Lane T6: UniformK3From7 Base/Step Witness Construction"
+    route_leaf: UniformK3From7BaseRangeHyp
+    leaf_status: open
+    gates_done: 5
+    gates_total: 5
+    atoms_done: 77
+    atoms_total: 77
+ladder:
+  - tier: P0-SpecLock
+    done: 18
+    total: 18
+  - tier: P1-StructuralKernel
+    done: 18
+    total: 18
+  - tier: P2-QuantAssembly
+    done: 13
+    total: 13
+  - tier: P3-InterfaceLift
+    done: 18
+    total: 18
+  - tier: P4-Verification
+    done: 86
+    total: 86
+ready_queue: []
+mirage_frontiers: []
+notes:
+  - Mirrored from the live sunflower-coda problem-20 lab board; counts reflect the lab closure/support frontier.
+  - The final k=3 route is closed in the mirrored board.
+  - The support lane remains open but currently has no dependency-satisfied ready atom.

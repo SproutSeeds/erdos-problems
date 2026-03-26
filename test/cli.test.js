@@ -140,6 +140,9 @@ test('workspace show reports active problem plus artifact and literature dirs', 
   assert.match(output, /Workspace artifact dir:/);
   assert.match(output, /Workspace literature dir:/);
   assert.match(output, /Sunflower family role: weak_sunflower_core/);
+  assert.match(output, /Sunflower board: yes/);
+  assert.match(output, /Sunflower board ready atoms: 1/);
+  assert.match(output, /Sunflower first ready atom: T10.G3.A2/);
   assert.match(output, /Sunflower compute lane: m8_exactness_cube_and_certificate_v0 \[ready_for_local_scout\]/);
 });
 
@@ -151,6 +154,9 @@ test('sunflower status shows packaged compute lane and family context for 857', 
   assert.match(output, /Active route: anchored_selector_linearization/);
   assert.match(output, /Route packet present: yes/);
   assert.match(output, /Route packet id: weak857_export_compression_v1/);
+  assert.match(output, /Atomic board present: yes/);
+  assert.match(output, /Atomic board: Problem 857 Post-Counting Redesign \+ Anchored-Selector Linearization Ops Board/);
+  assert.match(output, /Atomic board first ready atom: T10.G3.A2/);
   assert.match(output, /Checkpoint packet:/);
   assert.match(output, /Report packet:/);
   assert.match(output, /Compute lane: m8_exactness_cube_and_certificate_v0 \[ready_for_local_scout\]/);
@@ -169,6 +175,8 @@ test('sunflower status can emit json using the active problem', () => {
   assert.equal(payload.familyRole, 'weak_sunflower_core');
   assert.equal(payload.computeLanePresent, true);
   assert.equal(payload.activePacket.laneId, 'm8_exactness_cube_and_certificate_v0');
+  assert.equal(payload.atomicBoardPresent, true);
+  assert.equal(payload.firstReadyAtom.atomId, 'T10.G3.A2');
 });
 
 test('sunflower status records a no-compute dossier bridge cleanly for 536', () => {
@@ -179,8 +187,32 @@ test('sunflower status records a no-compute dossier bridge cleanly for 536', () 
   assert.equal(payload.familyRole, 'natural_density_lcm_analogue');
   assert.equal(payload.harnessProfile, 'dossier_bridge');
   assert.equal(payload.activeRoute, 'natural_density_lcm_bridge');
+  assert.equal(payload.routePacketPresent, true);
+  assert.equal(payload.atomicBoardPresent, true);
+  assert.equal(payload.firstReadyAtom.atomId, 'T1.G1.A3');
   assert.equal(payload.computeLanePresent, false);
   assert.equal(fs.existsSync(path.join(workspace, '.erdos', 'registry', 'compute', 'latest__p536.json')), true);
+});
+
+test('sunflower board prints the mirrored atomic frontier for 857', () => {
+  const workspace = fs.mkdtempSync(path.join(os.tmpdir(), 'erdos-sunflower-board-857-'));
+  const output = runCli(['sunflower', 'board', '857'], { cwd: workspace });
+  assert.match(output, /Erdos Problem #857 sunflower board/);
+  assert.match(output, /Profile: deep_atomic_ops/);
+  assert.match(output, /Active ticket: T10 Route Redesign T10: Anchored-Selector Linearization/);
+  assert.match(output, /Ready atoms: 1/);
+  assert.match(output, /T10.G3.A2/);
+  assert.match(output, /anchored_selector_linearization: loose 0\/1, strict 0\/1/);
+});
+
+test('sunflower board prints the mirrored closure board for 20', () => {
+  const workspace = fs.mkdtempSync(path.join(os.tmpdir(), 'erdos-sunflower-board-20-'));
+  const output = runCli(['sunflower', 'board', '20'], { cwd: workspace });
+  assert.match(output, /Erdos Problem #20 sunflower board/);
+  assert.match(output, /Profile: deep_atomic_ops/);
+  assert.match(output, /Active ticket: T6 Support Lane T6: UniformK3From7 Base\/Step Witness Construction/);
+  assert.match(output, /Ready atoms: 0/);
+  assert.match(output, /uniform_prize_final_k3: loose 5\/5, strict 5\/5/);
 });
 
 test('dossier show uses active problem when omitted', () => {
@@ -382,6 +414,8 @@ test('sunflower status for 20 shows the deeper frontier framing and compute lane
   assert.match(output, /Frontier label: uniform_k3_frontier/);
   assert.match(output, /Route packet present: yes/);
   assert.match(output, /Route packet id: strong20_uniform_k3_frontier_v1/);
+  assert.match(output, /Atomic board present: yes/);
+  assert.match(output, /Atomic board ready atoms: 0/);
   assert.match(output, /Compute lane: u3_uniform_transfer_window_v0 \[ready_for_local_scout\]/);
   assert.match(output, /Next honest move:/);
 });
@@ -398,6 +432,9 @@ test('workspace show includes research loop paths and continuation mode', () => 
   assert.match(output, /Active seeded dossier dir:/);
   assert.match(output, /Continuation mode: route/);
   assert.match(output, /Next honest move:/);
+  assert.match(output, /Sunflower board: yes/);
+  assert.match(output, /Sunflower board ready atoms: 1/);
+  assert.match(output, /Sunflower first ready atom: T10.G3.A2/);
 });
 
 test('seed problem creates a workspace-local dossier and activates the research loop in one step', () => {

@@ -1,0 +1,13 @@
+route_packet_id: sunflower536_natural_density_bridge_v1
+route_id: natural_density_lcm_bridge
+frontier_claim: Keep the natural-density LCM analogue synchronized with the weak sunflower program and preserve an honest bridge from public status to research artifacts.
+theorem_module: ""
+checkpoint_packet: CHECKPOINT_PACKET.md
+report_packet: REPORT_PACKET.md
+ready_prompts:
+  - Which exact combinatorial-to-number-theoretic bridge from 536 to 857 should be frozen next?
+  - Which public-status or reference artifact is still missing from the 536 dossier bridge?
+verification_hook:
+  - erdos sunflower status 536
+  - erdos sunflower board 536
+  - erdos problem artifacts 536 --json
