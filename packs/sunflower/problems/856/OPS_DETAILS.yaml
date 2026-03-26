@@ -1,0 +1,39 @@
+packet_id: sunflower856_ops_details_v1
+summary: Public bridge-board drill-down packet for problem 856.
+routes:
+  - route_id: harmonic_density_lcm_bridge
+    title: Harmonic-Density LCM Bridge
+    status: active
+    theorem_module: ""
+    summary: Freeze public status, density-language wording, and the exponent-transfer bridge back to 857.
+    why_now: This is the active public bridge route for the harmonic-density analogue.
+    next_move: Close the public-status review atom before widening the exponent-transfer story.
+    ticket_ids: [T1, T2, T3]
+tickets:
+  - ticket_id: T1
+    title: Dossier Source Lock
+    route_id: harmonic_density_lcm_bridge
+    route_leaf: public_status_and_density_lock
+    status: active
+    summary: Freeze the public open-state and the exact density-language statement.
+    gate_story: This is where the bridge board becomes trustworthy.
+    current_blocker: The public-status review still needs to be frozen.
+    next_move: Close `T1.G1.A3`.
+    atom_ids: [T1.G1.A3]
+atoms:
+  - atom_id: T1.G1.A3
+    title: Run the public-status review and freeze the exact open-state snapshot for problem 856
+    ticket_id: T1
+    route_id: harmonic_density_lcm_bridge
+    gate_id: T1.G1
+    tier: P0-SpecLock
+    kind: review
+    status: ready
+    summary: This is the smallest honest public move for 856.
+    why_now: The bridge board already marks it ready.
+    next_move: Freeze the public-status artifacts and checkpoint the bridge state.
+    verification_hook:
+      - erdos sunflower routes 856
+      - erdos sunflower tickets 856
+    dependencies:
+      - public-status review bundle

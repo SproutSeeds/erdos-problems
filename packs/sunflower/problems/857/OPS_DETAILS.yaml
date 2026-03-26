@@ -1,0 +1,65 @@
+packet_id: weak857_ops_details_v1
+summary: Public drill-down packet for the live weak-sunflower frontier.
+routes:
+  - route_id: anchored_selector_linearization
+    title: Anchored-Selector Linearization
+    status: active
+    theorem_module: sunflower-coda/repo/sunflower_lean/SunflowerLean/ObstructionExport.lean
+    summary: Export the live anchored-selector helper stack into a route-facing leaf that remains honest about the open-problem boundary.
+    why_now: This is the only live public route with a dependency-satisfied ready atom.
+    next_move: Promote the helper/theorem stack into `anchored_selector_linearization_realized`.
+    ticket_ids: [T10]
+    source_paths:
+      - packs/sunflower/problems/857/ATOMIC_BOARD.yaml
+      - packs/sunflower/problems/857/FRONTIER_NOTE.md
+  - route_id: o1a_existential_explicit_export
+    title: O1a Existential Explicit Export
+    status: strict_closed
+    theorem_module: sunflower-coda/repo/sunflower_lean/SunflowerLean/ObstructionGlobalBridge.lean
+    summary: Closed public route exporting the O1a obstruction into an explicit remainder package.
+    why_now: This is the last fully closed route layer immediately beneath the active anchored-selector frontier.
+    next_move: Use it as support context only; do not spend new frontier energy here.
+    ticket_ids: [T9]
+tickets:
+  - ticket_id: T10
+    title: "Route Redesign T10: Anchored-Selector Linearization"
+    route_id: anchored_selector_linearization
+    route_leaf: anchored_selector_linearization_realized
+    status: active
+    summary: Turn the packaged helper stack into a stable public route leaf.
+    gate_story: The early gates are satisfied; the live public pressure is concentrated inside the G3 seam.
+    current_blocker: The helper/theorem stack must be promoted into the named route-facing leaf without blurring historical context into closure.
+    next_move: Close `T10.G3.A2`.
+    atom_ids: [T10.G3.A2]
+    source_paths:
+      - packs/sunflower/problems/857/ATOMIC_BOARD.yaml
+  - ticket_id: T9
+    title: "Route Redesign T9: O1a Existential Explicit Export"
+    route_id: o1a_existential_explicit_export
+    route_leaf: exists_anchor_with_explicit_M_remainder_export_of_ObstructionO1a
+    status: closed
+    summary: Closed public ticket exporting the obstruction route into an explicit anchored remainder theorem.
+    gate_story: This ticket is historical support, not the live frontier.
+    current_blocker: none
+    next_move: Keep it as support context for the active route.
+    atom_ids: []
+atoms:
+  - atom_id: T10.G3.A2
+    title: Promote the helper/theorem stack into anchored_selector_linearization_realized
+    ticket_id: T10
+    route_id: anchored_selector_linearization
+    gate_id: T10.G3
+    tier: P2-QuantAssembly
+    kind: work
+    status: ready
+    summary: This is the exact public atom where the active route becomes a real named leaf.
+    why_now: The board already marks it ready, so this is the smallest honest public move.
+    next_move: Prove or package the helper stack cleanly and checkpoint the route if the leaf closes.
+    verification_hook:
+      - erdos sunflower frontier 857
+      - erdos sunflower tickets 857
+    dependencies:
+      - anchored_selector_linearization helper stack remains verified
+      - route/ticket packet wording stays synchronized
+    source_paths:
+      - packs/sunflower/problems/857/ATOMIC_BOARD.yaml

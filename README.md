@@ -33,6 +33,10 @@ Seeded problems:
 Native dossier count:
 - `18`
 
+Pack coverage:
+- sunflower pack: `4`
+- number-theory starter pack: `2`
+
 ## First-run flow
 
 ```bash
@@ -41,6 +45,7 @@ erdos bootstrap problem 857
 erdos problem artifacts 857 --json
 erdos sunflower status 857
 erdos sunflower board 857
+erdos sunflower frontier 857
 erdos sunflower routes 857
 erdos sunflower tickets 857
 erdos dossier show 857
@@ -78,6 +83,12 @@ What `seed` does:
   - `PUBLIC_STATUS_REVIEW.md`
   - `AGENT_WEBSEARCH_BRIEF.md`
 
+The seeded workspace also now has a clearer runtime shape:
+- `.erdos/runs/`
+- `.erdos/archives/`
+- `.erdos/checkpoints/`
+- `.erdos/orp/`
+
 ## Pull lanes
 
 For any problem number in the upstream snapshot, you can create a workspace bundle even if the problem is not yet seeded locally:
@@ -86,6 +97,7 @@ For any problem number in the upstream snapshot, you can create a workspace bund
 erdos pull problem 857
 erdos pull artifacts 857
 erdos pull literature 857
+erdos pull literature 857 --include-crossref --include-openalex
 erdos pull problem 999 --include-site --include-public-search
 erdos pull problem 999 --refresh-upstream
 ```
@@ -103,6 +115,12 @@ What the pull lanes do:
   - `PUBLIC_STATUS_REVIEW.md`
   - `PUBLIC_STATUS_REVIEW.json`
   - `AGENT_WEBSEARCH_BRIEF.md`
+- when `--include-crossref` is used, the literature lane also includes:
+  - `CROSSREF_RESULTS.json`
+  - `CROSSREF_RESULTS.md`
+- when `--include-openalex` is used, the literature lane also includes:
+  - `OPENALEX_RESULTS.json`
+  - `OPENALEX_RESULTS.md`
 
 ## Maintainer seeding
 
@@ -112,6 +130,8 @@ To turn a pulled bundle into a new canonical dossier in the repo:
 erdos maintainer seed problem 25 \
   --from-pull .erdos/pulls/25 \
   --cluster number-theory
+erdos maintainer review problem 25 \
+  --from-pull .erdos/pulls/25
 ```
 
 What maintainer seeding does:
@@ -131,6 +151,7 @@ What maintainer seeding does:
   - `PUBLIC_STATUS_REVIEW.md`
   - `AGENT_WEBSEARCH_BRIEF.md`
 - preserves upstream/site provenance in the local record
+- `erdos maintainer review problem <id>` also creates a review checklist before promotion
 
 ## Sunflower pack
 
@@ -141,10 +162,10 @@ The first deep pack is the sunflower quartet:
 - `856`: harmonic-density LCM analogue
 
 Sunflower problems now ship pack packets:
-- `20`: `AGENT_START.md`, `ROUTE_PACKET.yaml`, `CHECKPOINT_PACKET.md`, `REPORT_PACKET.md`, `ATOMIC_BOARD.yaml`, `ATOMIC_BOARD.md`
-- `857`: `AGENT_START.md`, `ROUTE_PACKET.yaml`, `CHECKPOINT_PACKET.md`, `REPORT_PACKET.md`, `ATOMIC_BOARD.yaml`, `ATOMIC_BOARD.md`
-- `536`: `AGENT_START.md`, `ROUTE_PACKET.yaml`, `CHECKPOINT_PACKET.md`, `REPORT_PACKET.md`, `ATOMIC_BOARD.yaml`, `ATOMIC_BOARD.md`
-- `856`: `AGENT_START.md`, `ROUTE_PACKET.yaml`, `CHECKPOINT_PACKET.md`, `REPORT_PACKET.md`, `ATOMIC_BOARD.yaml`, `ATOMIC_BOARD.md`
+- `20`: `AGENT_START.md`, `ROUTE_PACKET.yaml`, `CHECKPOINT_PACKET.md`, `REPORT_PACKET.md`, `ATOMIC_BOARD.yaml`, `ATOMIC_BOARD.md`, `FRONTIER_NOTE.md`, `ROUTE_HISTORY.md`, `CHECKPOINT_TEMPLATE.md`, `REPORT_TEMPLATE.md`, `OPS_DETAILS.yaml`
+- `857`: `AGENT_START.md`, `ROUTE_PACKET.yaml`, `CHECKPOINT_PACKET.md`, `REPORT_PACKET.md`, `ATOMIC_BOARD.yaml`, `ATOMIC_BOARD.md`, `FRONTIER_NOTE.md`, `ROUTE_HISTORY.md`, `CHECKPOINT_TEMPLATE.md`, `REPORT_TEMPLATE.md`, `OPS_DETAILS.yaml`
+- `536`: `AGENT_START.md`, `ROUTE_PACKET.yaml`, `CHECKPOINT_PACKET.md`, `REPORT_PACKET.md`, `ATOMIC_BOARD.yaml`, `ATOMIC_BOARD.md`, `OPS_DETAILS.yaml`
+- `856`: `AGENT_START.md`, `ROUTE_PACKET.yaml`, `CHECKPOINT_PACKET.md`, `REPORT_PACKET.md`, `ATOMIC_BOARD.yaml`, `ATOMIC_BOARD.md`, `OPS_DETAILS.yaml`
 
 Useful sunflower commands:
 
@@ -155,8 +176,13 @@ erdos sunflower status 536
 erdos sunflower board 536
 erdos sunflower ready 857
 erdos sunflower ladder 20
+erdos sunflower frontier 857
 erdos sunflower routes 857
 erdos sunflower tickets 857
+erdos sunflower route 857 anchored_selector_linearization
+erdos sunflower ticket 20 T6
+erdos sunflower atom 857 T10.G3.A2
+erdos sunflower compute run 857
 erdos sunflower board 857
 erdos sunflower status 857 --json
 ```
@@ -193,6 +219,42 @@ erdos sunflower status 857 --json
 - the operational ticket table for the active sunflower board
 - the active ticket, leaf theorem, and gate/atom counts
 - which tickets are closed versus still honest live pressure
+
+`erdos sunflower frontier` surfaces:
+- the compressed cockpit view:
+  - active route
+  - active ticket
+  - first ready atom
+  - checkpoint focus
+  - compute posture
+
+`erdos sunflower route|ticket|atom` surfaces:
+- the deeper public drill-down packet for a specific route, ticket, or atom
+- live summary, blocker, next move, and source paths when available
+
+`erdos sunflower compute run` surfaces:
+- a governed local-scout run bundle only when the packaged compute posture admits a local scout
+- writes reproducible run artifacts into `.erdos/runs/<run-id>/`
+- records governance and ORP-facing packet context
+- does not silently escalate into paid or unbounded compute
+
+## Archive mode
+
+Solved problems can now be treated as method exemplars instead of dead entries.
+
+```bash
+erdos problem show 1008
+erdos archive show 1008
+erdos archive scaffold 1008
+```
+
+Archive scaffolds land in:
+- `.erdos/archives/<id>/`
+
+and include:
+- `ARCHIVE.json`
+- `ARCHIVE_SUMMARY.md`
+- `METHOD_PACKET.md`
 
 ## ORP
 
@@ -236,13 +298,20 @@ erdos sunflower status 857
 erdos sunflower board 857
 erdos sunflower ready 857
 erdos sunflower ladder 857
+erdos sunflower frontier 857
 erdos sunflower routes 857
 erdos sunflower tickets 857
+erdos sunflower route 857 anchored_selector_linearization
+erdos sunflower ticket 857 T10
+erdos sunflower atom 857 T10.G3.A2
+erdos sunflower compute run 857
 erdos sunflower status --json
 erdos dossier show
 erdos upstream show
 erdos upstream sync
 erdos upstream diff
+erdos upstream drift
+erdos upstream drift 857 --json
 erdos scaffold problem 857
 erdos bootstrap problem 857
 erdos bootstrap problem 857 --sync-upstream
@@ -250,7 +319,11 @@ erdos seed problem 25 --cluster number-theory
 erdos pull problem 857
 erdos pull artifacts 857
 erdos pull literature 857
+erdos pull literature 857 --include-crossref --include-openalex
+erdos maintainer review problem 25 --from-pull .erdos/pulls/25
 erdos maintainer seed problem 25 --from-pull .erdos/pulls/25 --cluster number-theory
+erdos archive show 1008
+erdos archive scaffold 1008
 ```
 
 ## Canonical sources

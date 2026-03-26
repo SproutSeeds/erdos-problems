@@ -11,6 +11,8 @@ Workspace runtime files live under `.erdos/`:
 - `QUESTION-LEDGER.md`
 - `checkpoints/CHECKPOINTS.md`
 - `checkpoints/CHECKPOINTS.json`
+- `runs/<run-id>/`
+- `archives/<id>/`
 - `orp/PROTOCOL.md`
 - `orp/AGENT_INTEGRATION.md`
 - `orp/templates/`
@@ -28,7 +30,8 @@ Workspace runtime files live under `.erdos/`:
 7. Pull or scaffold artifacts.
 8. Review public status and agent websearch brief if the problem was freshly seeded.
 9. Work the active route.
-10. Sync checkpoints again at honest boundaries.
+10. If the pack admits a local scout, run it intentionally and checkpoint the artifact.
+11. Sync checkpoints again at honest boundaries.
 
 ## Commands
 
@@ -72,10 +75,19 @@ For sunflower compute lanes, ORP now sits above `breakthroughs`:
 - `erdos sunflower board <id>` exposes the packaged atomic or bridge board for the active sunflower problem
 - `erdos sunflower ready <id>` exposes the dependency-satisfied ready queue for the packaged board
 - `erdos sunflower ladder <id>` exposes the first-principles ladder for the packaged board
+- `erdos sunflower frontier <id>` exposes the compressed cockpit view for the active board
 - `erdos sunflower routes <id>` exposes the public route table for the packaged board
 - `erdos sunflower tickets <id>` exposes the ticket table for the packaged board
+- `erdos sunflower route <id> <route-id>` exposes the deeper public route packet
+- `erdos sunflower ticket <id> <ticket-id>` exposes the deeper public ticket packet
+- `erdos sunflower atom <id> <atom-id>` exposes the deeper public atom packet
+- `erdos sunflower compute run <id>` writes a governed local-scout bundle when the packet admits it
 - the CLI surfaces the selected rung, dispatch action, and the reason compute is admissible
-- this is compute governance and traceability, not an automatic compute launch
+- this is compute governance and traceability, not an automatic paid or unbounded compute launch
+
+For solved problems:
+- `erdos archive show <id>` exposes archival posture
+- `erdos archive scaffold <id>` creates a method-exemplar bundle under `.erdos/archives/<id>/`
 
 ## Status ladder
 

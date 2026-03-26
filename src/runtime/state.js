@@ -35,6 +35,9 @@ function defaultState(config, workspaceRoot) {
     routeStory: null,
     checkpointFocus: null,
     nextHonestMove: 'Select or bootstrap an Erdős problem to begin.',
+    packArtifacts: null,
+    activeTicketId: null,
+    activeAtomId: null,
     lastCheckpointSyncAt: null,
   };
 }
@@ -101,6 +104,13 @@ function renderStateMarkdown(state) {
 
 - ${state.checkpointFocus || '(none yet)'}
 
+## Pack Artifacts
+
+- Frontier Note: ${state.packArtifacts?.frontierNotePath || '(none)'}
+- Route History: ${state.packArtifacts?.routeHistoryPath || '(none)'}
+- Checkpoint Template: ${state.packArtifacts?.checkpointTemplatePath || '(none)'}
+- Report Template: ${state.packArtifacts?.reportTemplatePath || '(none)'}
+
 ## Next Honest Move
 
 - ${state.nextHonestMove}
@@ -146,6 +156,9 @@ function deriveGenericProblemSummary(problem) {
       : 'No active route is recorded for this dossier yet.',
     checkpointFocus: 'Keep dossier truth, upstream provenance, and local route state sharply separated.',
     nextHonestMove,
+    packArtifacts: null,
+    activeTicketId: null,
+    activeAtomId: null,
     questionLedger: {
       openQuestions: ['What is the next smallest honest route or evidence obligation for this problem?'],
       activeRouteNotes: activeRoute ? [`Current active route: ${activeRoute}`] : [],
@@ -170,10 +183,10 @@ function deriveProblemSummary(problem) {
       : sunflower.frontierDetail || sunflower.computeSummary || sunflower.bootstrapFocus || problem.shortStatement;
     const routeStory = sunflower.activeTicket
       ? `Work ${sunflower.activeTicket.ticketId} (${sunflower.activeTicket.ticketName}) without blurring ticket-local pressure into solved-problem claims.`
-      : (sunflower.routeStory || sunflower.bootstrapFocus || null);
+      : (sunflower.activeRouteDetail?.summary || sunflower.routeStory || sunflower.bootstrapFocus || null);
     const checkpointFocus = sunflower.activeTicket
       ? `Keep the board packet honest around ${sunflower.activeTicket.ticketId} while preserving the open-problem / active-route / route-breakthrough ladder.`
-      : (sunflower.checkpointFocus || null);
+      : (sunflower.activeRouteDetail?.whyNow || sunflower.checkpointFocus || null);
     return {
       familyRole: sunflower.familyRole,
       harnessProfile: sunflower.harnessProfile,
@@ -187,7 +200,20 @@ function deriveProblemSummary(problem) {
       },
       routeStory,
       checkpointFocus,
-      nextHonestMove: sunflower.nextHonestMove || sunflower.computeNextAction || 'Refresh the active route and package a new honest checkpoint.',
+      nextHonestMove:
+        sunflower.activeAtomDetail?.nextMove
+        || sunflower.activeTicketDetail?.nextMove
+        || sunflower.nextHonestMove
+        || sunflower.computeNextAction
+        || 'Refresh the active route and package a new honest checkpoint.',
+      packArtifacts: {
+        frontierNotePath: sunflower.frontierNotePath,
+        routeHistoryPath: sunflower.routeHistoryPath,
+        checkpointTemplatePath: sunflower.checkpointTemplatePath,
+        reportTemplatePath: sunflower.reportTemplatePath,
+      },
+      activeTicketId: sunflower.activeTicket?.ticketId ?? null,
+      activeAtomId: sunflower.firstReadyAtom?.atomId ?? null,
       questionLedger: sunflower.questionLedger,
     };
   }
@@ -273,6 +299,9 @@ export function syncState(workspaceRoot = getWorkspaceRoot()) {
     routeStory: summary.routeStory,
     checkpointFocus: summary.checkpointFocus,
     nextHonestMove: summary.nextHonestMove,
+    packArtifacts: summary.packArtifacts,
+    activeTicketId: summary.activeTicketId,
+    activeAtomId: summary.activeAtomId,
     lastCheckpointSyncAt: existing.lastCheckpointSyncAt ?? null,
   };
 

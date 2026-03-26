@@ -1,9 +1,14 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { parse } from 'yaml';
-import { writeJson } from './files.js';
+import { ensureDir, writeJson, writeText } from './files.js';
 import { buildBreakthroughsComputeView } from './breakthroughs.js';
-import { getPackDir, getPackProblemDir, getWorkspaceComputeRegistryDir } from './paths.js';
+import {
+  getPackDir,
+  getPackProblemDir,
+  getWorkspaceComputeRegistryDir,
+  getWorkspaceRunDir,
+} from './paths.js';
 
 const CLAIM_LEVEL_PRIORITY = {
   Exact: 4,
@@ -61,6 +66,26 @@ function getSunflowerAtomicBoardPath(problemId) {
 
 function getSunflowerAtomicBoardMarkdownPath(problemId) {
   return path.join(getSunflowerProblemDir(problemId), 'ATOMIC_BOARD.md');
+}
+
+function getSunflowerFrontierNotePath(problemId) {
+  return path.join(getSunflowerProblemDir(problemId), 'FRONTIER_NOTE.md');
+}
+
+function getSunflowerRouteHistoryPath(problemId) {
+  return path.join(getSunflowerProblemDir(problemId), 'ROUTE_HISTORY.md');
+}
+
+function getSunflowerCheckpointTemplatePath(problemId) {
+  return path.join(getSunflowerProblemDir(problemId), 'CHECKPOINT_TEMPLATE.md');
+}
+
+function getSunflowerReportTemplatePath(problemId) {
+  return path.join(getSunflowerProblemDir(problemId), 'REPORT_TEMPLATE.md');
+}
+
+function getSunflowerOpsDetailsPath(problemId) {
+  return path.join(getSunflowerProblemDir(problemId), 'OPS_DETAILS.yaml');
 }
 
 function parseStringList(value) {
@@ -247,6 +272,73 @@ function parseMirageFrontiers(value) {
   return text ? [text] : [];
 }
 
+function parseOpsRouteEntries(value) {
+  if (!Array.isArray(value)) {
+    return [];
+  }
+
+  return value
+    .filter((entry) => entry && typeof entry === 'object')
+    .map((entry) => ({
+      routeId: compactText(entry.route_id ?? entry.route),
+      title: compactText(entry.title),
+      status: compactText(entry.status),
+      theoremModule: compactText(entry.theorem_module),
+      summary: compactText(entry.summary),
+      whyNow: compactText(entry.why_now),
+      nextMove: compactText(entry.next_move),
+      ticketIds: parseStringList(entry.ticket_ids),
+      sourcePaths: parseStringList(entry.source_paths),
+    }));
+}
+
+function parseOpsTicketEntries(value) {
+  if (!Array.isArray(value)) {
+    return [];
+  }
+
+  return value
+    .filter((entry) => entry && typeof entry === 'object')
+    .map((entry) => ({
+      ticketId: compactText(entry.ticket_id),
+      title: compactText(entry.title ?? entry.ticket_name),
+      routeId: compactText(entry.route_id),
+      routeLeaf: compactText(entry.route_leaf),
+      status: compactText(entry.status),
+      summary: compactText(entry.summary),
+      gateStory: compactText(entry.gate_story),
+      currentBlocker: compactText(entry.current_blocker),
+      nextMove: compactText(entry.next_move),
+      atomIds: parseStringList(entry.atom_ids),
+      sourcePaths: parseStringList(entry.source_paths),
+    }));
+}
+
+function parseOpsAtomEntries(value) {
+  if (!Array.isArray(value)) {
+    return [];
+  }
+
+  return value
+    .filter((entry) => entry && typeof entry === 'object')
+    .map((entry) => ({
+      atomId: compactText(entry.atom_id),
+      title: compactText(entry.title),
+      ticketId: compactText(entry.ticket_id),
+      routeId: compactText(entry.route_id),
+      gateId: compactText(entry.gate_id),
+      tier: compactText(entry.tier),
+      kind: compactText(entry.kind),
+      status: compactText(entry.status),
+      summary: compactText(entry.summary),
+      whyNow: compactText(entry.why_now),
+      nextMove: compactText(entry.next_move),
+      verificationHook: parseStringList(entry.verification_hook),
+      dependencies: parseStringList(entry.dependencies),
+      sourcePaths: parseStringList(entry.source_paths),
+    }));
+}
+
 function chooseActiveTicket(board) {
   if (!board) {
     return null;
@@ -299,6 +391,48 @@ function readSunflowerAtomicBoard(problemId) {
     ...board,
     activeTicket: chooseActiveTicket(board),
   };
+}
+
+function readSunflowerOpsDetails(problemId) {
+  const opsDetailsPath = getSunflowerOpsDetailsPath(problemId);
+  if (!fs.existsSync(opsDetailsPath)) {
+    return null;
+  }
+
+  const parsed = parse(fs.readFileSync(opsDetailsPath, 'utf8')) ?? {};
+  const routes = parseOpsRouteEntries(parsed.routes);
+  const tickets = parseOpsTicketEntries(parsed.tickets);
+  const atoms = parseOpsAtomEntries(parsed.atoms);
+
+  return {
+    packetId: compactText(parsed.packet_id),
+    summary: compactText(parsed.summary),
+    routes,
+    tickets,
+    atoms,
+    path: opsDetailsPath,
+  };
+}
+
+function findRouteDetail(opsDetails, routeId) {
+  if (!opsDetails || !routeId) {
+    return null;
+  }
+  return opsDetails.routes.find((entry) => entry.routeId === routeId) ?? null;
+}
+
+function findTicketDetail(opsDetails, ticketId) {
+  if (!opsDetails || !ticketId) {
+    return null;
+  }
+  return opsDetails.tickets.find((entry) => entry.ticketId === ticketId) ?? null;
+}
+
+function findAtomDetail(opsDetails, atomId) {
+  if (!opsDetails || !atomId) {
+    return null;
+  }
+  return opsDetails.atoms.find((entry) => entry.atomId === atomId) ?? null;
 }
 
 function chooseActivePacket(packets) {
@@ -436,6 +570,21 @@ function compactAtomicBoard(board) {
   };
 }
 
+function compactOpsDetails(opsDetails) {
+  if (!opsDetails) {
+    return null;
+  }
+
+  return {
+    packetId: opsDetails.packetId,
+    summary: opsDetails.summary,
+    path: opsDetails.path,
+    routes: opsDetails.routes,
+    tickets: opsDetails.tickets,
+    atoms: opsDetails.atoms,
+  };
+}
+
 function deriveRouteState(problem, context) {
   const researchState = problem.researchState ?? {};
   const solvedBySite = String(problem.siteStatus ?? '').toLowerCase() === 'solved';
@@ -470,6 +619,7 @@ export function buildSunflowerStatusSnapshot(problem) {
   const context = readSunflowerContext(problem.problemId);
   const routePacket = readSunflowerRoutePacket(problem.problemId);
   const atomicBoard = readSunflowerAtomicBoard(problem.problemId);
+  const opsDetails = readSunflowerOpsDetails(problem.problemId);
   const packets = listSunflowerComputePackets(problem.problemId);
   const activePacket = chooseActivePacket(packets);
   const summary = deriveSummary(activePacket);
@@ -478,8 +628,15 @@ export function buildSunflowerStatusSnapshot(problem) {
   const agentStartPath = getSunflowerAgentStartPath(problem.problemId);
   const checkpointPacketPath = getSunflowerCheckpointPacketPath(problem.problemId);
   const reportPacketPath = getSunflowerReportPacketPath(problem.problemId);
+  const frontierNotePath = getSunflowerFrontierNotePath(problem.problemId);
+  const routeHistoryPath = getSunflowerRouteHistoryPath(problem.problemId);
+  const checkpointTemplatePath = getSunflowerCheckpointTemplatePath(problem.problemId);
+  const reportTemplatePath = getSunflowerReportTemplatePath(problem.problemId);
 
   const firstReadyAtom = atomicBoard?.readyQueue?.[0] ?? null;
+  const activeRouteDetail = findRouteDetail(opsDetails, routeState.activeRoute ?? atomicBoard?.activeRoute);
+  const activeTicketDetail = findTicketDetail(opsDetails, atomicBoard?.activeTicket?.ticketId);
+  const activeAtomDetail = findAtomDetail(opsDetails, firstReadyAtom?.atomId);
 
   return {
     generatedAt: new Date().toISOString(),
@@ -524,6 +681,14 @@ export function buildSunflowerStatusSnapshot(problem) {
     checkpointPacketPath: fs.existsSync(checkpointPacketPath) ? checkpointPacketPath : null,
     reportPacketPresent: fs.existsSync(reportPacketPath),
     reportPacketPath: fs.existsSync(reportPacketPath) ? reportPacketPath : null,
+    frontierNotePresent: fs.existsSync(frontierNotePath),
+    frontierNotePath: fs.existsSync(frontierNotePath) ? frontierNotePath : null,
+    routeHistoryPresent: fs.existsSync(routeHistoryPath),
+    routeHistoryPath: fs.existsSync(routeHistoryPath) ? routeHistoryPath : null,
+    checkpointTemplatePresent: fs.existsSync(checkpointTemplatePath),
+    checkpointTemplatePath: fs.existsSync(checkpointTemplatePath) ? checkpointTemplatePath : null,
+    reportTemplatePresent: fs.existsSync(reportTemplatePath),
+    reportTemplatePath: fs.existsSync(reportTemplatePath) ? reportTemplatePath : null,
     atomicBoardPresent: Boolean(atomicBoard),
     atomicBoardPath: atomicBoard?.atomicBoardPath ?? null,
     atomicBoardMarkdownPath: atomicBoard?.atomicBoardMarkdownExists ? atomicBoard.atomicBoardMarkdownPath : null,
@@ -532,6 +697,11 @@ export function buildSunflowerStatusSnapshot(problem) {
     readyAtomCount: atomicBoard?.readyQueue?.length ?? 0,
     firstReadyAtom,
     mirageFrontierCount: atomicBoard?.mirageFrontiers?.length ?? 0,
+    opsDetailsPresent: Boolean(opsDetails),
+    opsDetailsPath: opsDetails?.path ?? null,
+    activeRouteDetail,
+    activeTicketDetail,
+    activeAtomDetail,
     computeLanePresent: Boolean(activePacket),
     computeLaneCount: packets.length,
     computeSummary: summary.computeSummary,
@@ -543,6 +713,7 @@ export function buildSunflowerStatusSnapshot(problem) {
     activePacket: compactPacket(activePacket),
     computePackets: packets.map((packet) => compactPacket(packet)),
     atomicBoardSummary: compactAtomicBoard(atomicBoard),
+    opsDetails: compactOpsDetails(opsDetails),
   };
 }
 
@@ -557,5 +728,161 @@ export function writeSunflowerStatusRecord(problem, snapshot, workspaceRoot) {
     registryDir,
     timestampedPath,
     latestPath,
+  };
+}
+
+export function getSunflowerRouteSnapshot(problem, routeId) {
+  const snapshot = buildSunflowerStatusSnapshot(problem);
+  const boardRoute = snapshot.atomicBoardSummary?.routeStatus?.find((route) => route.route === routeId) ?? null;
+  const routeDetail = findRouteDetail(snapshot.opsDetails, routeId);
+  if (!boardRoute && !routeDetail) {
+    return null;
+  }
+
+  return {
+    problemId: problem.problemId,
+    displayName: problem.displayName,
+    routeId,
+    activeRoute: snapshot.activeRoute,
+    routeBreakthrough: snapshot.routeBreakthrough,
+    boardRoute,
+    routeDetail,
+    activeTicket: snapshot.activeTicket,
+    firstReadyAtom: snapshot.firstReadyAtom,
+    snapshot,
+  };
+}
+
+export function getSunflowerTicketSnapshot(problem, ticketId) {
+  const snapshot = buildSunflowerStatusSnapshot(problem);
+  const boardTicket = snapshot.atomicBoardSummary?.tickets?.find((ticket) => ticket.ticketId === ticketId) ?? null;
+  const ticketDetail = findTicketDetail(snapshot.opsDetails, ticketId);
+  if (!boardTicket && !ticketDetail) {
+    return null;
+  }
+
+  return {
+    problemId: problem.problemId,
+    displayName: problem.displayName,
+    ticketId,
+    activeTicketId: snapshot.activeTicket?.ticketId ?? null,
+    boardTicket,
+    ticketDetail,
+    firstReadyAtom: snapshot.firstReadyAtom,
+    snapshot,
+  };
+}
+
+export function getSunflowerAtomSnapshot(problem, atomId) {
+  const snapshot = buildSunflowerStatusSnapshot(problem);
+  const boardAtom = snapshot.atomicBoardSummary?.readyQueue?.find((atom) => atom.atomId === atomId) ?? null;
+  const atomDetail = findAtomDetail(snapshot.opsDetails, atomId);
+  if (!boardAtom && !atomDetail) {
+    return null;
+  }
+
+  return {
+    problemId: problem.problemId,
+    displayName: problem.displayName,
+    atomId,
+    boardAtom,
+    atomDetail,
+    firstReadyAtom: snapshot.firstReadyAtom,
+    snapshot,
+  };
+}
+
+export function runSunflowerLocalScout(problem, workspaceRoot) {
+  const snapshot = buildSunflowerStatusSnapshot(problem);
+  const governance = snapshot.computeGovernance;
+
+  if (!snapshot.activePacket || !governance) {
+    throw new Error(`Problem ${problem.problemId} does not have an admitted sunflower compute packet.`);
+  }
+
+  if (governance.dispatchResult.action !== 'run_local' || governance.selectedRung.spendClass !== 'local_unmetered') {
+    throw new Error(
+      `Problem ${problem.problemId} is not currently admitted for a local scout run. Current action: ${governance.dispatchResult.action}.`,
+    );
+  }
+
+  const runId = `${new Date().toISOString().replaceAll(':', '-')}__sunflower_p${problem.problemId}__${snapshot.activePacket.laneId}`;
+  const runDir = getWorkspaceRunDir(runId, workspaceRoot);
+  ensureDir(runDir);
+
+  const runRecord = {
+    runId,
+    generatedAt: new Date().toISOString(),
+    problemId: problem.problemId,
+    displayName: problem.displayName,
+    cluster: problem.cluster,
+    laneId: snapshot.activePacket.laneId,
+    packetStatus: snapshot.activePacket.status,
+    dispatchAction: governance.dispatchResult.action,
+    selectedRung: governance.selectedRung,
+    question: governance.question,
+    currentFrontier: snapshot.firstReadyAtom
+      ? `${snapshot.firstReadyAtom.atomId} — ${snapshot.firstReadyAtom.title}`
+      : snapshot.frontierDetail,
+    artifacts: {
+      statusRecordPath: path.join(runDir, 'STATUS_RECORD.json'),
+      runSummaryPath: path.join(runDir, 'RUN_SUMMARY.md'),
+      runLogPath: path.join(runDir, 'RUN_LOG.txt'),
+      governancePath: path.join(runDir, 'GOVERNANCE.json'),
+      orpPacketPath: path.join(runDir, 'ORP_COMPUTE_PACKET.json'),
+    },
+  };
+
+  writeJson(path.join(runDir, 'RUN.json'), runRecord);
+  writeJson(path.join(runDir, 'STATUS_RECORD.json'), snapshot);
+  writeJson(path.join(runDir, 'GOVERNANCE.json'), governance);
+  writeJson(path.join(runDir, 'ORP_COMPUTE_PACKET.json'), governance.orpPacket);
+  writeText(
+    path.join(runDir, 'RUN_LOG.txt'),
+    [
+      `sunflower local scout`,
+      `problem=${problem.problemId}`,
+      `lane=${snapshot.activePacket.laneId}`,
+      `action=${governance.dispatchResult.action}`,
+      `rung=${governance.selectedRung.label}`,
+      `question=${governance.question}`,
+      `frontier=${runRecord.currentFrontier}`,
+      `when=${governance.when}`,
+    ].join('\n') + '\n',
+  );
+  writeText(
+    path.join(runDir, 'RUN_SUMMARY.md'),
+    [
+      `# Sunflower Local Scout Run`,
+      '',
+      `- Problem: ${problem.displayName}`,
+      `- Lane: ${snapshot.activePacket.laneId}`,
+      `- Dispatch action: ${governance.dispatchResult.action}`,
+      `- Selected rung: ${governance.selectedRung.label} [${governance.selectedRung.spendClass}]`,
+      `- Question: ${governance.question}`,
+      `- Current frontier: ${runRecord.currentFrontier}`,
+      '',
+      'Why this run exists:',
+      `- ${snapshot.computeSummary}`,
+      `- ${governance.when}`,
+      '',
+      'Run outputs:',
+      '- RUN.json',
+      '- STATUS_RECORD.json',
+      '- GOVERNANCE.json',
+      '- ORP_COMPUTE_PACKET.json',
+      '- RUN_LOG.txt',
+      '',
+      'Important boundary:',
+      '- This is a governed local-scout artifact bundle. It does not upgrade problem-level claims by itself.',
+      '',
+    ].join('\n'),
+  );
+
+  return {
+    runId,
+    runDir,
+    runRecord,
+    snapshot,
   };
 }

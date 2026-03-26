@@ -38,6 +38,8 @@ export function runWorkspaceCommand(args) {
   console.log(`Workspace pull dir: ${summary.pullDir}`);
   console.log(`Workspace artifact dir: ${summary.artifactDir}`);
   console.log(`Workspace literature dir: ${summary.literatureDir}`);
+  console.log(`Workspace runs dir: ${summary.runsDir}`);
+  console.log(`Workspace archives dir: ${summary.archivesDir}`);
   console.log(`Active seeded dossier dir: ${summary.seededProblemDir}`);
   console.log(`Preferred agent: ${config.preferredAgent}`);
   console.log(`Continuation mode: ${summary.continuationMode ?? config.continuation}`);
@@ -58,6 +60,8 @@ export function runWorkspaceCommand(args) {
       console.log(`Sunflower harness profile: ${sunflower.harnessProfile ?? '(none)'}`);
       console.log(`Sunflower route: ${sunflower.activeRoute ?? '(none)'}`);
       console.log(`Sunflower frontier: ${sunflower.frontierDetail ?? '(none)'}`);
+      console.log(`Sunflower frontier note: ${sunflower.frontierNotePath ?? '(none)'}`);
+      console.log(`Sunflower route history: ${sunflower.routeHistoryPath ?? '(none)'}`);
       console.log(`Sunflower board: ${sunflower.atomicBoardPresent ? 'yes' : 'no'}`);
       if (sunflower.atomicBoardSummary) {
         console.log(`Sunflower board title: ${sunflower.atomicBoardSummary.boardTitle ?? '(none)'}`);

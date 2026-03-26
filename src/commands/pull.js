@@ -10,6 +10,7 @@ import { getProblemArtifactInventory, scaffoldProblem } from '../runtime/problem
 import { loadActiveUpstreamSnapshot, syncUpstream } from '../upstream/sync.js';
 import { fetchProblemSiteSnapshot } from '../upstream/site.js';
 import { buildProblemSearchQueries, fetchProblemPublicSearchReview } from '../upstream/public-search.js';
+import { fetchCrossrefLiterature, fetchOpenAlexLiterature } from '../upstream/literature.js';
 
 function normalizeClusterLabel(rawTag) {
   return String(rawTag ?? '')
@@ -44,12 +45,14 @@ function inferClusterFromUpstream(upstreamRecord) {
 function parsePullArgs(args) {
   const [kind, value, ...rest] = args;
   if (!['problem', 'artifacts', 'literature'].includes(kind)) {
-    return { error: 'Usage: erdos pull problem|artifacts|literature <id> [--dest <path>] [--include-site] [--refresh-upstream]' };
+    return { error: 'Usage: erdos pull problem|artifacts|literature <id> [--dest <path>] [--include-site] [--include-public-search] [--include-crossref] [--include-openalex] [--refresh-upstream]' };
   }
 
   let destination = null;
   let includeSite = false;
   let includePublicSearch = false;
+  let includeCrossref = false;
+  let includeOpenAlex = false;
   let refreshUpstream = false;
 
   for (let index = 0; index < rest.length; index += 1) {
@@ -70,6 +73,14 @@ function parsePullArgs(args) {
       includePublicSearch = true;
       continue;
     }
+    if (token === '--include-crossref') {
+      includeCrossref = true;
+      continue;
+    }
+    if (token === '--include-openalex') {
+      includeOpenAlex = true;
+      continue;
+    }
     if (token === '--refresh-upstream') {
       refreshUpstream = true;
       continue;
@@ -83,6 +94,8 @@ function parsePullArgs(args) {
     destination,
     includeSite,
     includePublicSearch,
+    includeCrossref,
+    includeOpenAlex,
     refreshUpstream,
   };
 }
@@ -318,7 +331,66 @@ async function maybeWritePublicSearchBundle(problemId, title, destination, inclu
   }
 }
 
-async function writeLiteratureLane(problemId, destination, localProblem, upstreamRecord, includeSite, includePublicSearch) {
+async function maybeWriteLiteratureAdapter(problemId, title, destination, includeAdapter, label, fetcher) {
+  if (!includeAdapter) {
+    return {
+      attempted: false,
+      included: false,
+      error: null,
+      resultCount: 0,
+      filePrefix: label.toUpperCase(),
+    };
+  }
+
+  const filePrefix = label.toUpperCase();
+
+  try {
+    const payload = await fetcher(problemId, title);
+    writeJson(path.join(destination, `${filePrefix}_RESULTS.json`), payload);
+    writeText(
+      path.join(destination, `${filePrefix}_RESULTS.md`),
+      [
+        `# ${label} Results`,
+        '',
+        `Fetched at: ${payload.fetchedAt}`,
+        `Query: ${payload.query}`,
+        '',
+        ...(payload.results.length > 0
+          ? payload.results.map((result) => `- [${result.title || '(untitled)'}](${result.url || '#'})`)
+          : ['- *(no results captured)*']),
+        '',
+      ].join('\n'),
+    );
+    return {
+      attempted: true,
+      included: true,
+      error: null,
+      resultCount: payload.results.length,
+      filePrefix,
+    };
+  } catch (error) {
+    const message = String(error?.message ?? error);
+    writeText(path.join(destination, `${filePrefix}_ERROR.txt`), message);
+    return {
+      attempted: true,
+      included: false,
+      error: message,
+      resultCount: 0,
+      filePrefix,
+    };
+  }
+}
+
+async function writeLiteratureLane(
+  problemId,
+  destination,
+  localProblem,
+  upstreamRecord,
+  includeSite,
+  includePublicSearch,
+  includeCrossref,
+  includeOpenAlex,
+) {
   ensureDir(destination);
 
   const includedFiles = [];
@@ -355,6 +427,23 @@ async function writeLiteratureLane(problemId, destination, localProblem, upstrea
     destination,
     includePublicSearch,
   );
+  const literatureTitle = localProblem?.title ?? upstreamRecord?.title ?? `Erdos Problem #${problemId}`;
+  const crossref = await maybeWriteLiteratureAdapter(
+    problemId,
+    literatureTitle,
+    destination,
+    includeCrossref,
+    'Crossref',
+    fetchCrossrefLiterature,
+  );
+  const openalex = await maybeWriteLiteratureAdapter(
+    problemId,
+    literatureTitle,
+    destination,
+    includeOpenAlex,
+    'OpenAlex',
+    fetchOpenAlexLiterature,
+  );
   const problemRecord = buildProblemRecord(problemId, localProblem, upstreamRecord);
   writeJson(path.join(destination, 'PROBLEM.json'), problemRecord);
   writeJson(path.join(destination, 'LITERATURE_INDEX.json'), {
@@ -368,6 +457,10 @@ async function writeLiteratureLane(problemId, destination, localProblem, upstrea
     includedPublicSearch: publicSearch.included,
     publicSearchError: publicSearch.error,
     publicSearchQueries: publicSearch.queries,
+    includedCrossref: crossref.included,
+    crossrefError: crossref.error,
+    includedOpenAlex: openalex.included,
+    openAlexError: openalex.error,
   });
   writeText(
     path.join(destination, 'README.md'),
@@ -380,6 +473,8 @@ async function writeLiteratureLane(problemId, destination, localProblem, upstrea
       `- Upstream record included: ${upstreamRecord ? 'yes' : 'no'}`,
       `- Live site snapshot included: ${siteStatus.included ? 'yes' : 'no'}`,
       `- Public search review included: ${publicSearch.included ? 'yes' : 'no'}`,
+      `- Crossref adapter included: ${crossref.included ? 'yes' : 'no'}`,
+      `- OpenAlex adapter included: ${openalex.included ? 'yes' : 'no'}`,
       '',
     ].join('\n'),
   );
@@ -389,6 +484,8 @@ async function writeLiteratureLane(problemId, destination, localProblem, upstrea
     includedFiles,
     siteStatus,
     publicSearch,
+    crossref,
+    openalex,
   };
 }
 
@@ -433,9 +530,9 @@ export async function runPullCommand(args, options = {}) {
   if (args.length === 0 || args[0] === 'help' || args[0] === '--help') {
     if (!silent) {
       console.log('Usage:');
-      console.log('  erdos pull problem <id> [--dest <path>] [--include-site] [--include-public-search] [--refresh-upstream]');
+      console.log('  erdos pull problem <id> [--dest <path>] [--include-site] [--include-public-search] [--include-crossref] [--include-openalex] [--refresh-upstream]');
       console.log('  erdos pull artifacts <id> [--dest <path>] [--refresh-upstream]');
-      console.log('  erdos pull literature <id> [--dest <path>] [--include-site] [--include-public-search] [--refresh-upstream]');
+      console.log('  erdos pull literature <id> [--dest <path>] [--include-site] [--include-public-search] [--include-crossref] [--include-openalex] [--refresh-upstream]');
     }
     return 0;
   }
@@ -494,6 +591,8 @@ export async function runPullCommand(args, options = {}) {
       upstreamRecord,
       parsed.includeSite,
       parsed.includePublicSearch,
+      parsed.includeCrossref,
+      parsed.includeOpenAlex,
     );
     if (!silent) {
       console.log(`Literature bundle created: ${destination}`);
@@ -501,11 +600,19 @@ export async function runPullCommand(args, options = {}) {
       console.log(`Upstream record included: ${upstreamRecord ? 'yes' : 'no'}`);
       console.log(`Live site snapshot included: ${result.siteStatus.included ? 'yes' : 'no'}`);
       console.log(`Public search review included: ${result.publicSearch.included ? 'yes' : 'no'}`);
+      console.log(`Crossref adapter included: ${result.crossref.included ? 'yes' : 'no'}`);
+      console.log(`OpenAlex adapter included: ${result.openalex.included ? 'yes' : 'no'}`);
       if (result.siteStatus.error) {
         console.log(`Live site snapshot note: ${result.siteStatus.error}`);
       }
       if (result.publicSearch.error) {
         console.log(`Public search note: ${result.publicSearch.error}`);
+      }
+      if (result.crossref.error) {
+        console.log(`Crossref note: ${result.crossref.error}`);
+      }
+      if (result.openalex.error) {
+        console.log(`OpenAlex note: ${result.openalex.error}`);
       }
     }
     return 0;
@@ -526,6 +633,8 @@ export async function runPullCommand(args, options = {}) {
     upstreamRecord,
     parsed.includeSite,
     parsed.includePublicSearch,
+    parsed.includeCrossref,
+    parsed.includeOpenAlex,
   );
 
   writeJson(path.join(rootDestination, 'PULL_STATUS.json'), {
@@ -545,6 +654,12 @@ export async function runPullCommand(args, options = {}) {
     publicSearchAttempted: literatureResult.publicSearch.attempted,
     publicSearchIncluded: literatureResult.publicSearch.included,
     publicSearchError: literatureResult.publicSearch.error,
+    crossrefAttempted: literatureResult.crossref.attempted,
+    crossrefIncluded: literatureResult.crossref.included,
+    crossrefError: literatureResult.crossref.error,
+    openAlexAttempted: literatureResult.openalex.attempted,
+    openAlexIncluded: literatureResult.openalex.included,
+    openAlexError: literatureResult.openalex.error,
   });
 
   if (!silent) {
@@ -555,11 +670,19 @@ export async function runPullCommand(args, options = {}) {
     console.log(`Upstream record included: ${upstreamRecord ? 'yes' : 'no'}`);
     console.log(`Live site snapshot included: ${literatureResult.siteStatus.included ? 'yes' : 'no'}`);
     console.log(`Public search review included: ${literatureResult.publicSearch.included ? 'yes' : 'no'}`);
+    console.log(`Crossref adapter included: ${literatureResult.crossref.included ? 'yes' : 'no'}`);
+    console.log(`OpenAlex adapter included: ${literatureResult.openalex.included ? 'yes' : 'no'}`);
     if (literatureResult.siteStatus.error) {
       console.log(`Live site snapshot note: ${literatureResult.siteStatus.error}`);
     }
     if (literatureResult.publicSearch.error) {
       console.log(`Public search note: ${literatureResult.publicSearch.error}`);
+    }
+    if (literatureResult.crossref.error) {
+      console.log(`Crossref note: ${literatureResult.crossref.error}`);
+    }
+    if (literatureResult.openalex.error) {
+      console.log(`OpenAlex note: ${literatureResult.openalex.error}`);
     }
   }
   return 0;

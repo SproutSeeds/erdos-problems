@@ -62,6 +62,13 @@ function renderProblemCheckpoint(problem, state) {
 
 - ${checkpointFocus}
 
+## Pack Context
+
+- Frontier Note: ${sunflower?.frontierNotePath ?? '(none)'}
+- Route History: ${sunflower?.routeHistoryPath ?? '(none)'}
+- Checkpoint Template: ${sunflower?.checkpointTemplatePath ?? '(none)'}
+- Report Template: ${sunflower?.reportTemplatePath ?? '(none)'}
+
 ## Next Honest Move
 
 - ${nextHonestMove}
@@ -92,6 +99,20 @@ function renderRouteCheckpoint(problem, state) {
   const mirageLine = sunflower
     ? `- Mirage Frontiers: ${sunflower.mirageFrontierCount}`
     : null;
+  const routeDetailLine = sunflower?.activeRouteDetail?.summary
+    ? `- Route Detail: ${sunflower.activeRouteDetail.summary}`
+    : null;
+  const ticketDetailLine = sunflower?.activeTicketDetail?.currentBlocker
+    ? `- Ticket Blocker: ${sunflower.activeTicketDetail.currentBlocker}`
+    : null;
+  const packArtifactLines = sunflower
+    ? [
+        `- Frontier Note: ${sunflower.frontierNotePath ?? '(none)'}`,
+        `- Route History: ${sunflower.routeHistoryPath ?? '(none)'}`,
+        `- Checkpoint Template: ${sunflower.checkpointTemplatePath ?? '(none)'}`,
+        `- Report Template: ${sunflower.reportTemplatePath ?? '(none)'}`,
+      ].join('\n')
+    : null;
 
   return `# Problem ${problem.problemId} Active Route Checkpoint
 
@@ -107,6 +128,8 @@ function renderRouteCheckpoint(problem, state) {
 - ${frontier}
 ${activeTicketLine}
 ${readyAtomLine}
+${routeDetailLine ? `\n${routeDetailLine}` : ''}
+${ticketDetailLine ? `\n${ticketDetailLine}` : ''}
 ${mirageLine ? `\n${mirageLine}` : ''}
 
 ## Route Story
@@ -116,6 +139,10 @@ ${mirageLine ? `\n${mirageLine}` : ''}
 ## Checkpoint Focus
 
 - ${checkpointFocus}
+
+## Pack Artifacts
+
+${packArtifactLines ?? '- Frontier Note: *(none)*'}
 
 ## Continuation Frame
 

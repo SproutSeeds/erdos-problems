@@ -397,9 +397,18 @@ function renderAgentStartMarkdown(problemId, record) {
     `- Harness depth: ${record.harness.depth}`,
     `- Site status: ${record.status.site_status}`,
     '',
+    'Read in this order:',
+    '- `STATEMENT.md`',
+    '- `REFERENCES.md`',
+    '- `EVIDENCE.md`',
+    '- `FORMALIZATION.md`',
+    '- `PUBLIC_STATUS_REVIEW.md`',
+    '- `AGENT_WEBSEARCH_BRIEF.md`',
+    '',
     'First honest move:',
     `- tighten the local dossier for problem ${problemId} against its pull bundle, references, and upstream provenance before widening claims.`,
     '- read `PUBLIC_STATUS_REVIEW.md` and run the suggested queries in `AGENT_WEBSEARCH_BRIEF.md` before trusting a single public status surface.',
+    '- write down the smallest route hypothesis that would make the next session cleaner, even if it remains provisional.',
     '',
   ].join('\n');
 }
@@ -421,6 +430,10 @@ function renderRoutesMarkdown(problemId, record) {
     `- Current seeded route placeholder for problem ${problemId}: \`${activeRoute}\``,
     '- Treat this as a workspace-level route marker until a curated route tree is written.',
     '- Keep route progress separate from global problem status.',
+    '- Suggested route-writing prompts:',
+    '  - What is the smallest honest route name?',
+    '  - What theorem, evidence bundle, or survey note does it point at?',
+    '  - What would count as a route breakthrough versus only route clarification?',
     '',
   ].join('\n');
 }
@@ -439,6 +452,7 @@ function renderCheckpointNotesMarkdown(problemId, record) {
     '- Which upstream/public truth changed, if any?',
     '- What did the public-status review and agent websearch brief surface beyond erdosproblems.com?',
     '- Which artifact or literature bundle should the next agent read first?',
+    '- What route, evidence, and formalization notes should be promoted out of scratch space into canonical dossier files?',
     '',
   ].join('\n');
 }
@@ -506,5 +520,61 @@ export function seedProblemFromPullBundle(problemId, options = {}) {
     usedUpstreamRecord: Boolean(bundle.upstreamRecord),
     usedPublicStatusReview: Boolean(bundle.publicStatusReview || bundle.publicStatusReviewMarkdown),
     starterLoopArtifacts: STARTER_LOOP_ARTIFACTS,
+  };
+}
+
+function renderReviewChecklist(problemId, bundle, destinationDir) {
+  return [
+    `# Problem ${problemId} Maintainer Review Checklist`,
+    '',
+    `- Pull bundle: ${bundle.pullDir}`,
+    `- Proposed destination: ${destinationDir}`,
+    '',
+    '## Provenance',
+    '',
+    `- Upstream record included: ${bundle.upstreamRecord ? 'yes' : 'no'}`,
+    `- Site snapshot included: ${bundle.siteExtract || bundle.siteSummary ? 'yes' : 'no'}`,
+    `- Public search review included: ${bundle.publicStatusReview || bundle.publicStatusReviewMarkdown ? 'yes' : 'no'}`,
+    '',
+    '## Review questions',
+    '',
+    '- Is the public site status clearly open right now?',
+    '- Does the seeded short statement capture the actual mathematical focus cleanly?',
+    '- Are the cluster and family tags honest?',
+    '- Does the dossier need a deeper route starter before publication?',
+    '- Should this problem remain dossier-depth or enter a family pack later?',
+    '',
+    '## Ready-to-promote checks',
+    '',
+    '- Statement reviewed',
+    '- References reviewed',
+    '- Evidence starter reviewed',
+    '- Formalization starter reviewed',
+    '- Public-status review read',
+    '- Agent websearch brief read',
+    '',
+  ].join('\n');
+}
+
+export function reviewPullBundleForSeeding(problemId, options = {}) {
+  const bundle = loadPullBundle(problemId, options.fromPullDir);
+  const destinationRoot = path.resolve(options.destRoot ?? path.join(repoRoot, 'problems'));
+  const destinationDir = path.join(destinationRoot, String(problemId));
+  const reviewPath = path.resolve(options.dest ?? path.join(bundle.pullDir, 'REVIEW_CHECKLIST.md'));
+  const title = deriveTitle(problemId, bundle, options.title);
+  const shortStatement = deriveShortStatement(problemId, bundle, title);
+
+  writeText(reviewPath, renderReviewChecklist(problemId, bundle, destinationDir));
+
+  return {
+    problemId: String(problemId),
+    reviewPath,
+    pullDir: bundle.pullDir,
+    destinationDir,
+    usedUpstreamRecord: Boolean(bundle.upstreamRecord),
+    usedSiteSnapshot: Boolean(bundle.siteExtract || bundle.siteSummary),
+    usedPublicStatusReview: Boolean(bundle.publicStatusReview || bundle.publicStatusReviewMarkdown),
+    title,
+    shortStatement,
   };
 }

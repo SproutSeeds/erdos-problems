@@ -1,0 +1,25 @@
+problem_id: "1"
+family_role: additive_number_theory_seed
+harness_profile: dossier_seed_pack
+default_active_route: additive_structure_seed
+bootstrap_focus: Freeze the exact problem statement, the local dossier, and the first honest additive-number-theory route sketch.
+route_story: This problem currently lives in dossier-first mode inside the number-theory pack.
+frontier_label: dossier_seed_frontier
+frontier_detail: Tighten the statement, references, and first route sketch before pretending there is a deeper frontier engine here.
+checkpoint_focus: Preserve provenance and route honesty while the pack remains dossier-first.
+next_honest_move: Seed the first real route note and keep the public-status review current.
+related_core_problems: []
+literature_focus:
+  - additive number theory
+  - extremal sets
+artifact_focus:
+  - STATEMENT.md
+  - REFERENCES.md
+  - EVIDENCE.md
+question_ledger:
+  open_questions:
+    - What is the first honest additive-number-theory route worth freezing for problem 1?
+  active_route_notes:
+    - Keep this problem dossier-first until a real pack-specific route is earned.
+  route_breakthroughs: []
+  problem_solved: []

@@ -78,6 +78,8 @@ test('problem artifacts show starter loop artifacts for newly packaged dossiers'
   assert.match(output, /AGENT_START.md: present/);
   assert.match(output, /ROUTES.md: present/);
   assert.match(output, /CHECKPOINT_NOTES.md: present/);
+  assert.match(output, /Pack problem artifacts:/);
+  assert.match(output, /CONTEXT.md: present/);
 });
 
 test('problem artifacts can emit json for agents with pack context and compute packets', () => {
@@ -139,7 +141,10 @@ test('workspace show reports active problem plus artifact and literature dirs', 
   assert.match(output, /Workspace ORP integration:/);
   assert.match(output, /Workspace artifact dir:/);
   assert.match(output, /Workspace literature dir:/);
+  assert.match(output, /Workspace runs dir:/);
+  assert.match(output, /Workspace archives dir:/);
   assert.match(output, /Sunflower family role: weak_sunflower_core/);
+  assert.match(output, /Sunflower frontier note:/);
   assert.match(output, /Sunflower board: yes/);
   assert.match(output, /Sunflower board ready atoms: 1/);
   assert.match(output, /Sunflower first ready atom: T10.G3.A2/);
@@ -262,6 +267,56 @@ test('sunflower routes prints the public bridge route table for 536', () => {
   assert.match(output, /natural_density_lcm_bridge \[active\]: loose 0\/3, strict 0\/3/);
 });
 
+test('sunflower frontier prints the compressed cockpit for 857', () => {
+  const workspace = fs.mkdtempSync(path.join(os.tmpdir(), 'erdos-sunflower-frontier-857-'));
+  const output = runCli(['sunflower', 'frontier', '857'], { cwd: workspace });
+  assert.match(output, /Erdos Problem #857 sunflower frontier/);
+  assert.match(output, /Active route: anchored_selector_linearization/);
+  assert.match(output, /Active ticket: T10/);
+  assert.match(output, /First ready atom: T10\.G3\.A2/);
+  assert.match(output, /Frontier note:/);
+});
+
+test('sunflower route prints the deeper route packet for 857', () => {
+  const workspace = fs.mkdtempSync(path.join(os.tmpdir(), 'erdos-sunflower-route-857-'));
+  const output = runCli(['sunflower', 'route', '857', 'anchored_selector_linearization'], { cwd: workspace });
+  assert.match(output, /Erdos Problem #857 sunflower route anchored_selector_linearization/);
+  assert.match(output, /Title: Anchored-Selector Linearization/);
+  assert.match(output, /Strict progress: 0\/1/);
+});
+
+test('sunflower ticket prints the deeper ticket packet for 20', () => {
+  const workspace = fs.mkdtempSync(path.join(os.tmpdir(), 'erdos-sunflower-ticket-20-'));
+  const output = runCli(['sunflower', 'ticket', '20', 'T6'], { cwd: workspace });
+  assert.match(output, /Erdos Problem #20 sunflower ticket T6/);
+  assert.match(output, /Title: Support Lane T6: UniformK3From7 Base\/Step Witness Construction/);
+  assert.match(output, /Current blocker:/);
+  assert.match(output, /Gate progress: 5\/5/);
+});
+
+test('sunflower atom prints the deeper atom packet for 857', () => {
+  const workspace = fs.mkdtempSync(path.join(os.tmpdir(), 'erdos-sunflower-atom-857-'));
+  const output = runCli(['sunflower', 'atom', '857', 'T10.G3.A2'], { cwd: workspace });
+  assert.match(output, /Erdos Problem #857 sunflower atom T10.G3.A2/);
+  assert.match(output, /Status: ready/);
+  assert.match(output, /Current frontier atom: yes/);
+  assert.match(output, /Verification hook:/);
+});
+
+test('sunflower compute run creates a governed local scout bundle for 857', () => {
+  const workspace = fs.mkdtempSync(path.join(os.tmpdir(), 'erdos-sunflower-compute-run-'));
+  const output = runCli(['sunflower', 'compute', 'run', '857'], { cwd: workspace });
+  assert.match(output, /Sunflower local scout run created for problem 857/);
+  assert.match(output, /Lane: m8_exactness_cube_and_certificate_v0/);
+  const runsDir = path.join(workspace, '.erdos', 'runs');
+  const runEntries = fs.readdirSync(runsDir);
+  assert.equal(runEntries.length, 1);
+  const runDir = path.join(runsDir, runEntries[0]);
+  assert.equal(fs.existsSync(path.join(runDir, 'RUN.json')), true);
+  assert.equal(fs.existsSync(path.join(runDir, 'RUN_SUMMARY.md')), true);
+  assert.equal(fs.existsSync(path.join(runDir, 'ORP_COMPUTE_PACKET.json')), true);
+});
+
 test('dossier show uses active problem when omitted', () => {
   const workspace = fs.mkdtempSync(path.join(os.tmpdir(), 'erdos-workspace-'));
   runCli(['problem', 'use', '857'], { cwd: workspace });
@@ -285,6 +340,21 @@ test('upstream diff writes workspace report from bundled snapshot', () => {
   const diffPath = path.join(workspace, '.erdos', 'reports', 'UPSTREAM_DIFF.md');
   assert.equal(fs.existsSync(diffPath), true);
   assert.match(fs.readFileSync(diffPath, 'utf8'), /# Upstream Diff/);
+});
+
+test('upstream drift shows the packaged dashboard', () => {
+  const output = runCli(['upstream', 'drift']);
+  assert.match(output, /Upstream drift dashboard/);
+  assert.match(output, /Local seeded problems:/);
+  assert.match(output, /Site-status drifts:/);
+});
+
+test('upstream drift for 857 can emit json without a live site fetch', () => {
+  const output = runCli(['upstream', 'drift', '857', '--json']);
+  const payload = JSON.parse(output);
+  assert.equal(payload.problemId, '857');
+  assert.equal(payload.local.siteStatus, 'open');
+  assert.equal(payload.upstream.siteStatus, 'open');
 });
 
 test('scaffold problem copies canonical files, pack context, and upstream record', () => {
@@ -416,6 +486,22 @@ test('maintainer seed creates a canonical dossier from a pulled bundle', () => {
   assert.match(yamlText, /"20"/);
 });
 
+test('maintainer review creates a checklist from a pulled bundle', () => {
+  const workspace = fs.mkdtempSync(path.join(os.tmpdir(), 'erdos-review-workspace-'));
+  const pullDir = path.join(workspace, 'pull-bundle');
+  runCli(['pull', 'problem', '25', '--dest', pullDir], { cwd: workspace });
+  const output = runCli([
+    'maintainer',
+    'review',
+    'problem',
+    '25',
+    '--from-pull',
+    pullDir,
+  ], { cwd: workspace });
+  assert.match(output, /Prepared maintainer review for problem 25/);
+  assert.equal(fs.existsSync(path.join(pullDir, 'REVIEW_CHECKLIST.md')), true);
+});
+
 test('state sync after problem use writes state markdown and question ledger', () => {
   const workspace = fs.mkdtempSync(path.join(os.tmpdir(), 'erdos-state-sync-'));
   runCli(['problem', 'use', '857'], { cwd: workspace });
@@ -426,6 +512,7 @@ test('state sync after problem use writes state markdown and question ledger', (
   assert.match(output, /Current frontier: ready_atom \/ T10.G3.A2/);
   assert.equal(fs.existsSync(path.join(workspace, '.erdos', 'STATE.md')), true);
   assert.equal(fs.existsSync(path.join(workspace, '.erdos', 'QUESTION-LEDGER.md')), true);
+  assert.match(fs.readFileSync(path.join(workspace, '.erdos', 'STATE.md'), 'utf8'), /Frontier Note:/);
 });
 
 test('continuation use milestone persists config and shows resolved mode', () => {
@@ -447,6 +534,7 @@ test('checkpoints sync creates checkpoint shelf and route checkpoint', () => {
   const routePath = path.join(workspace, '.erdos', 'checkpoints', 'route-checkpoints', 'problem-857--anchored_selector_linearization.md');
   assert.equal(fs.existsSync(routePath), true);
   assert.match(fs.readFileSync(routePath, 'utf8'), /First Ready Atom: T10\.G3\.A2/);
+  assert.match(fs.readFileSync(routePath, 'utf8'), /Frontier Note:/);
 });
 
 test('preflight reports ok after bootstrap and checkpoint sync', () => {
@@ -485,6 +573,20 @@ test('workspace show includes research loop paths and continuation mode', () => 
   assert.match(output, /Sunflower board: yes/);
   assert.match(output, /Sunflower board ready atoms: 1/);
   assert.match(output, /Sunflower first ready atom: T10.G3.A2/);
+});
+
+test('problem show surfaces solved archival mode for 1008', () => {
+  const output = runCli(['problem', 'show', '1008']);
+  assert.match(output, /Archive mode: method_exemplar/);
+});
+
+test('archive scaffold creates a solved-problem archive bundle', () => {
+  const workspace = fs.mkdtempSync(path.join(os.tmpdir(), 'erdos-archive-'));
+  const output = runCli(['archive', 'scaffold', '1008'], { cwd: workspace });
+  assert.match(output, /Archive scaffold created:/);
+  const archiveDir = path.join(workspace, '.erdos', 'archives', '1008');
+  assert.equal(fs.existsSync(path.join(archiveDir, 'ARCHIVE.json')), true);
+  assert.equal(fs.existsSync(path.join(archiveDir, 'METHOD_PACKET.md')), true);
 });
 
 test('seed problem creates a workspace-local dossier and activates the research loop in one step', () => {

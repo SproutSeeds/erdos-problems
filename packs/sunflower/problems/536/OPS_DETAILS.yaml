@@ -1,0 +1,39 @@
+packet_id: sunflower536_ops_details_v1
+summary: Public bridge-board drill-down packet for problem 536.
+routes:
+  - route_id: natural_density_lcm_bridge
+    title: Natural-Density LCM Bridge
+    status: active
+    theorem_module: ""
+    summary: Freeze public status, exact analogue wording, and the bridge back to 857.
+    why_now: This is the active public bridge route for the natural-density analogue.
+    next_move: Close the public-status review atom before widening the analogue story.
+    ticket_ids: [T1, T2, T3]
+tickets:
+  - ticket_id: T1
+    title: Dossier Source Lock
+    route_id: natural_density_lcm_bridge
+    route_leaf: public_status_and_statement_lock
+    status: active
+    summary: Freeze the public open-state and exact statement wording.
+    gate_story: This is where the bridge board becomes trustworthy.
+    current_blocker: The public-status review still needs to be frozen.
+    next_move: Close `T1.G1.A3`.
+    atom_ids: [T1.G1.A3]
+atoms:
+  - atom_id: T1.G1.A3
+    title: Run the public-status review and freeze the exact open-state snapshot for problem 536
+    ticket_id: T1
+    route_id: natural_density_lcm_bridge
+    gate_id: T1.G1
+    tier: P0-SpecLock
+    kind: review
+    status: ready
+    summary: This is the smallest honest public move for 536.
+    why_now: The bridge board already marks it ready.
+    next_move: Freeze the public-status artifacts and checkpoint the bridge state.
+    verification_hook:
+      - erdos sunflower routes 536
+      - erdos sunflower tickets 536
+    dependencies:
+      - public-status review bundle

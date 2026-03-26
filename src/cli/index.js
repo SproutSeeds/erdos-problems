@@ -1,3 +1,4 @@
+import { runArchiveCommand } from '../commands/archive.js';
 import { runBootstrapCommand } from '../commands/bootstrap.js';
 import { runCheckpointsCommand } from '../commands/checkpoints.js';
 import { runClusterCommand } from '../commands/cluster.js';
@@ -26,6 +27,8 @@ function printUsage() {
   console.log('  erdos problem artifacts [<id>] [--json]');
   console.log('  erdos cluster list');
   console.log('  erdos cluster show <name>');
+  console.log('  erdos archive show <id>');
+  console.log('  erdos archive scaffold <id>');
   console.log('  erdos workspace show');
   console.log('  erdos orp show [--json]');
   console.log('  erdos orp sync [--json]');
@@ -41,17 +44,24 @@ function printUsage() {
   console.log('  erdos sunflower ladder [<id>] [--json]');
   console.log('  erdos sunflower routes [<id>] [--json]');
   console.log('  erdos sunflower tickets [<id>] [--json]');
+  console.log('  erdos sunflower frontier [<id>] [--json]');
+  console.log('  erdos sunflower route <problem-id> <route-id> [--json]');
+  console.log('  erdos sunflower ticket <problem-id> <ticket-id> [--json]');
+  console.log('  erdos sunflower atom <problem-id> <atom-id> [--json]');
+  console.log('  erdos sunflower compute run [<id>] [--json]');
   console.log('  erdos dossier show <id>');
   console.log('  erdos upstream show');
   console.log('  erdos upstream sync [--write-package-snapshot]');
   console.log('  erdos upstream diff [--write-package-report]');
+  console.log('  erdos upstream drift [<id>] [--include-site] [--json]');
   console.log('  erdos scaffold problem <id> [--dest <path>]');
   console.log('  erdos bootstrap problem <id> [--dest <path>] [--sync-upstream]');
   console.log('  erdos seed problem <id> [--include-site|--no-site] [--include-public-search|--no-public-search] [--refresh-upstream] [--cluster <name>] [--repo-status <status>] [--harness-depth <depth>] [--title <title>] [--family-tag <tag>] [--related <id>] [--formalization-status <status>] [--active-route <route>] [--route-breakthrough] [--problem-solved] [--allow-non-open] [--dest-root <path>] [--no-activate] [--no-loop-sync] [--force] [--json]');
-  console.log('  erdos pull problem <id> [--dest <path>] [--include-site] [--include-public-search] [--refresh-upstream]');
+  console.log('  erdos pull problem <id> [--dest <path>] [--include-site] [--include-public-search] [--include-crossref] [--include-openalex] [--refresh-upstream]');
   console.log('  erdos pull artifacts <id> [--dest <path>] [--refresh-upstream]');
-  console.log('  erdos pull literature <id> [--dest <path>] [--include-site] [--include-public-search] [--refresh-upstream]');
+  console.log('  erdos pull literature <id> [--dest <path>] [--include-site] [--include-public-search] [--include-crossref] [--include-openalex] [--refresh-upstream]');
   console.log('  erdos maintainer seed problem <id> [--from-pull <path>] [--dest-root <path>] [--cluster <name>] [--allow-non-open]');
+  console.log('  erdos maintainer review problem <id> [--from-pull <path>] [--dest-root <path>] [--title <title>]');
 }
 
 const args = process.argv.slice(2);
@@ -65,6 +75,8 @@ if (!command || command === 'help' || command === '--help') {
   exitCode = runProblemCommand(rest);
 } else if (command === 'cluster') {
   exitCode = runClusterCommand(rest);
+} else if (command === 'archive') {
+  exitCode = runArchiveCommand(rest);
 } else if (command === 'workspace') {
   exitCode = runWorkspaceCommand(rest);
 } else if (command === 'orp') {

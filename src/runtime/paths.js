@@ -120,6 +120,22 @@ export function getWorkspaceCheckpointsDir(workspaceRoot = getWorkspaceRoot()) {
   return path.join(getWorkspaceDir(workspaceRoot), 'checkpoints');
 }
 
+export function getWorkspaceRunsDir(workspaceRoot = getWorkspaceRoot()) {
+  return path.join(getWorkspaceDir(workspaceRoot), 'runs');
+}
+
+export function getWorkspaceRunDir(runId, workspaceRoot = getWorkspaceRoot()) {
+  return path.join(getWorkspaceRunsDir(workspaceRoot), String(runId));
+}
+
+export function getWorkspaceArchivesDir(workspaceRoot = getWorkspaceRoot()) {
+  return path.join(getWorkspaceDir(workspaceRoot), 'archives');
+}
+
+export function getWorkspaceArchiveDir(problemId, workspaceRoot = getWorkspaceRoot()) {
+  return path.join(getWorkspaceArchivesDir(workspaceRoot), String(problemId));
+}
+
 export function getWorkspaceProblemCheckpointsDir(workspaceRoot = getWorkspaceRoot()) {
   return path.join(getWorkspaceCheckpointsDir(workspaceRoot), 'problem-checkpoints');
 }

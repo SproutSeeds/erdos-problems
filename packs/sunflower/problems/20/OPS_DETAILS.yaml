@@ -1,0 +1,44 @@
+packet_id: strong20_ops_details_v1
+summary: Public drill-down packet for the strong sunflower k=3 frontier.
+routes:
+  - route_id: uniform_k3_frontier
+    title: Uniform K=3 Frontier
+    status: active
+    theorem_module: sunflower-coda/repo/sunflower_lean/SunflowerLean/ErdosProblem20.lean
+    summary: Keep the public strong-sunflower pack aligned with the closed k=3 route and the still-open support lane.
+    why_now: This is the honest public route posture after the mirrored closure board.
+    next_move: Work the support lane carefully and checkpoint any real change before widening claims.
+    ticket_ids: [T6]
+    source_paths:
+      - packs/sunflower/problems/20/ATOMIC_BOARD.yaml
+      - packs/sunflower/problems/20/FRONTIER_NOTE.md
+  - route_id: uniform_prize_final_k3
+    title: Uniform Prize Final K=3
+    status: strict_closed
+    theorem_module: sunflower-coda/repo/sunflower_lean/SunflowerLean/ErdosProblem20.lean
+    summary: Closed mirrored route for the public k=3 lane.
+    why_now: It is important support context, but it is not the current support-lane frontier.
+    next_move: Treat it as closed historical support.
+    ticket_ids: [T5]
+tickets:
+  - ticket_id: T6
+    title: "Support Lane T6: UniformK3From7 Base/Step Witness Construction"
+    route_id: uniform_k3_frontier
+    route_leaf: UniformK3From7BaseRangeHyp
+    status: active
+    summary: The support lane remains open even though the final mirrored k=3 route is closed.
+    gate_story: Gate counts are closed but there is no currently dependency-satisfied ready atom.
+    current_blocker: The public pack does not yet have a genuine next atom; the correct move is checkpoint/report discipline and support-lane clarification.
+    next_move: Preserve the support-lane context and avoid inventing urgency that the board does not justify.
+    atom_ids: []
+  - ticket_id: T5
+    title: "Closure Lane T5: UniformK3EnvelopeFrom7WithPolySlack"
+    route_id: uniform_prize_final_k3
+    route_leaf: UniformK3EnvelopeFrom7WithPolySlack
+    status: closed
+    summary: Closed mirrored route ticket for the public k=3 closure lane.
+    gate_story: This ticket is historical support and should remain visible as such.
+    current_blocker: none
+    next_move: Keep as closure context only.
+    atom_ids: []
+atoms: []

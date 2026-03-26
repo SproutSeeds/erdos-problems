@@ -94,6 +94,9 @@ function printProblem(problem) {
   console.log(`Repo status: ${problem.repoStatus}`);
   console.log(`Cluster: ${problem.cluster}`);
   console.log(`Harness depth: ${problem.harnessDepth}`);
+  if (String(problem.siteStatus).toLowerCase() === 'solved') {
+    console.log('Archive mode: method_exemplar');
+  }
   console.log(`Prize: ${problem.prize ?? '(none)'}`);
   console.log(`Formalization: ${problem.formalizationStatus}`);
   console.log(`Upstream formalized: ${problem.upstreamFormalizedState ?? '(unknown)'}`);

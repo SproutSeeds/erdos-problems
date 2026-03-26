@@ -1,5 +1,5 @@
 import path from 'node:path';
-import { seedProblemFromPullBundle } from '../runtime/maintainer-seed.js';
+import { reviewPullBundleForSeeding, seedProblemFromPullBundle } from '../runtime/maintainer-seed.js';
 
 function parseMaintainerSeedArgs(args) {
   const [kind, problemToken, ...rest] = args;
@@ -137,10 +137,11 @@ export function runMaintainerCommand(args) {
   if (!subcommand || subcommand === 'help' || subcommand === '--help') {
     console.log('Usage:');
     console.log('  erdos maintainer seed problem <id> [--from-pull <path>] [--dest-root <path>] [--cluster <name>] [--repo-status <status>] [--harness-depth <depth>] [--title <title>] [--family-tag <tag>] [--related <id>] [--formalization-status <status>] [--active-route <route>] [--route-breakthrough] [--problem-solved] [--allow-non-open] [--force]');
+    console.log('  erdos maintainer review problem <id> [--from-pull <path>] [--dest-root <path>] [--title <title>]');
     return 0;
   }
 
-  if (subcommand !== 'seed') {
+  if (!['seed', 'review'].includes(subcommand)) {
     console.error(`Unknown maintainer subcommand: ${subcommand}`);
     return 1;
   }
@@ -156,6 +157,23 @@ export function runMaintainerCommand(args) {
   }
 
   try {
+    if (subcommand === 'review') {
+      const result = reviewPullBundleForSeeding(parsed.problemId, {
+        fromPullDir: parsed.fromPullDir ? path.resolve(parsed.fromPullDir) : null,
+        destRoot: parsed.destRoot ? path.resolve(parsed.destRoot) : null,
+        title: parsed.title,
+      });
+
+      console.log(`Prepared maintainer review for problem ${parsed.problemId}`);
+      console.log(`Review checklist: ${result.reviewPath}`);
+      console.log(`Proposed destination: ${result.destinationDir}`);
+      console.log(`Title: ${result.title}`);
+      console.log(`Upstream record used: ${result.usedUpstreamRecord ? 'yes' : 'no'}`);
+      console.log(`Site snapshot used: ${result.usedSiteSnapshot ? 'yes' : 'no'}`);
+      console.log(`Public status review used: ${result.usedPublicStatusReview ? 'yes' : 'no'}`);
+      return 0;
+    }
+
     const result = seedProblemFromPullBundle(parsed.problemId, {
       fromPullDir: parsed.fromPullDir ? path.resolve(parsed.fromPullDir) : null,
       destRoot: parsed.destRoot ? path.resolve(parsed.destRoot) : null,
