@@ -1,0 +1,17 @@
+problem_id: "856"
+family_role: harmonic_density_lcm_analogue
+harness_profile: dossier_bridge
+default_active_route: harmonic_density_lcm_bridge
+bootstrap_focus: Treat 856 as the harmonic-density LCM analogue whose exponent behavior should stay synchronized with weak sunflower progress.
+related_core_problems:
+  - "857"
+  - "536"
+  - "20"
+literature_focus:
+  - harmonic density
+  - lcm analogue
+  - exponent transfer to 857
+artifact_focus:
+  - analogue statements
+  - density bridge notes
+  - exponent-comparison artifacts

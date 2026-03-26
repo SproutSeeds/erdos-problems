@@ -4,20 +4,17 @@ Last updated: 2026-03-25
 
 ## Purpose
 
-This schema defines the minimum metadata for each problem entry in `erdos-problems`.
+This schema defines the canonical local dossier record for each seeded problem in `erdos-problems`.
 
-The goal is:
+Goals:
+- every Erdős problem has a consistent local home
+- local dossier truth stays separate from upstream public truth
+- agents can bootstrap from canonical artifacts immediately after install
+- pulled upstream/site bundles can be promoted into canonical dossiers without losing provenance
 
-- every Erdős problem has a consistent home
-- open and solved problems use the same shape
-- local dossier truth and upstream public truth stay explicitly separated
-- packaged CLI installs can scaffold problem workspaces from canonical artifacts immediately
-- unseeded problems can still be pulled into a workspace bundle from upstream truth
-
-## Canonical Files
+## Canonical files
 
 Each seeded problem should have:
-
 - `problems/<id>/problem.yaml`
 - `problems/<id>/STATEMENT.md`
 - `problems/<id>/REFERENCES.md`
@@ -25,44 +22,42 @@ Each seeded problem should have:
 - `problems/<id>/FORMALIZATION.md`
 
 Bundled upstream snapshot artifacts live in:
-
 - `data/upstream/erdosproblems/problems.yaml`
 - `data/upstream/erdosproblems/PROBLEMS_INDEX.json`
 - `data/upstream/erdosproblems/SYNC_MANIFEST.json`
 
-Workspace-generated artifacts may live in:
+Pack-specific context may live in:
+- `packs/<pack>/README.md`
+- `packs/<pack>/problems/<id>/context.yaml`
+- `packs/<pack>/problems/<id>/CONTEXT.md`
+- `packs/<pack>/compute/<id>/*.yaml`
 
+Workspace-generated artifacts may live in:
 - `.erdos/scaffolds/<id>/`
-- `.erdos/pulls/<id>/`
+- `.erdos/pulls/<id>/artifacts/`
+- `.erdos/pulls/<id>/literature/`
 - `.erdos/upstream/erdosproblems/`
 
-## Canonical Truth Split
+## Canonical truth split
 
-### External public truth
-
-Tracked, not rewritten by us:
-
+External public truth:
+- tracked, not rewritten
 - upstream structured repo: `teorth/erdosproblems`
-- upstream data file: `data/problems.yaml`
 - public presentation site: `erdosproblems.com`
 
-### Local atlas truth
-
-Authored by this repo:
-
+Local atlas truth:
 - `problems/<id>/problem.yaml`
-- local dossier markdown files alongside it
+- dossier markdown files beside it
 
-### Local research truth
-
-For active harnessed problems:
-
+Local harness truth:
 - route state
-- evidence
-- formalization status
-- checkpoints and generated reports
+- evidence notes
+- formalization state
+- pack context
+- compute packets
+- workspace pull/scaffold artifacts
 
-## Example Canonical Problem YAML
+## Example canonical problem YAML
 
 ```yaml
 problem_id: "857"
@@ -111,7 +106,20 @@ research_state:
   problem_solved: false
 ```
 
-## Required Fields
+## Optional provenance block
+
+Maintainer-seeded dossiers may also include:
+
+```yaml
+provenance:
+  seeded_at: "2026-03-25T..."
+  seeded_from:
+    kind: "pull_bundle"
+    upstream_record_included: true
+    site_snapshot_included: false
+```
+
+## Required fields
 
 - `problem_id`
 - `display_name`
@@ -129,12 +137,11 @@ research_state:
 - `formalization_path`
 - `formalization.status`
 
-## Status Vocabulary
+## Status vocabulary
 
 ### `status.site_status`
 
 Allowed values:
-
 - `open`
 - `solved`
 - `partial`
@@ -143,7 +150,6 @@ Allowed values:
 ### `status.repo_status`
 
 Allowed values:
-
 - `cataloged`
 - `active`
 - `archived`
@@ -153,47 +159,46 @@ Allowed values:
 ### `harness.depth`
 
 Allowed values:
-
 - `deep`
 - `dossier`
 
 ### `formalization.status`
 
 Repo-local examples:
-
 - `active`
 - `planned`
 - `statement-formalized`
 - `site-proved-lean`
 - `unstarted`
 
-## Upstream Sync Artifacts
-
-The sync commands should produce:
-
-- raw upstream YAML snapshot
-- normalized JSON index keyed by problem number
-- sync manifest with commit SHA, timestamp, and hash
-- markdown diff report comparing locally seeded problems to upstream state
-
-## Scaffold Contract
+## Scaffold contract
 
 `erdos scaffold problem <id>` should create a workspace-ready bundle containing:
-
-- copied canonical local dossier files
-- canonical local `problem.yaml`
-- upstream record snapshot for that problem when available
+- copied canonical dossier files
+- `problem.yaml`
+- upstream record snapshot when available
+- pack README context when available
+- per-problem pack context when available
+- compute packets when available
 - generated artifact index for agent consumption
 
-This is the seeded-problem path.
-
-## Pull Contract
+## Pull contract
 
 `erdos pull problem <id>` should create a broader workspace-ready bundle containing:
-
-- upstream record snapshot for that problem when available
-- generated artifact index for agent consumption
-- seeded local dossier files too when the problem already exists in `problems/<id>/`
+- a root pull manifest
+- an `artifacts/` lane
+- a `literature/` lane
+- upstream record snapshot when available
+- local dossier artifacts when the problem is already seeded locally
 - optional live site snapshot and extracted text when `--include-site` is used
 
-This makes a fresh npm-installed CLI immediately useful to an agentic workflow even for problems that are not yet fully seeded as local dossiers.
+## Maintainer seed contract
+
+`erdos maintainer seed problem <id>` should be able to consume a pull bundle and generate:
+- `problem.yaml`
+- `STATEMENT.md`
+- `REFERENCES.md`
+- `EVIDENCE.md`
+- `FORMALIZATION.md`
+
+The resulting dossier should preserve upstream/site provenance and be safe for later manual curation.

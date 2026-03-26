@@ -4,120 +4,48 @@ Last updated: 2026-03-25
 
 ## Purpose
 
-This document defines a new public-facing sibling repository:
+This document defines the public-facing `erdos-problems` repository and npm package.
 
-- repo name target: `erdos-problems`
-- npm package target: `erdos-problems`
-- CLI executable target: `erdos`
+Targets:
+- repo name: `erdos-problems`
+- npm package: `erdos-problems`
+- CLI executable: `erdos`
 
-This repo is meant to be the polished atlas and harness for Paul Erdős problems.
+`sunflower-coda` remains the experimental lab.
+`erdos-problems` is the clean public atlas and harness surface.
 
-`sunflower-coda` remains the experimental proving ground.
+## Product position
 
-`erdos-problems` becomes the clean published surface.
-
-## Product Position
-
-`erdos-problems` should be:
-
+`erdos-problems` is:
 - a problem atlas for Paul Erdős problems
-- a research harness with staged workflows for selected problem families
-- CLI-first
-- dossier-first
-- evidence-linked
+- a dossier-first CLI research harness
+- provenance-aware
 - formalization-aware
+- agent-friendly from first install
 
-It should not be:
-
-- a clone of `sunflower-coda`
-- a raw mirror of every internal experiment
+It is not:
+- a raw mirror of `sunflower-coda`
 - a generic research framework
+- a place where local route state silently overwrites public upstream truth
 
-## Core Product Model
+## Core model
 
-The repo should have two layers.
+The repo has three layers.
 
 ### 1. Atlas layer
 
-All Erdős problems live here, including:
+All seeded Erdős problems live here with canonical local dossiers.
 
-- open problems
-- solved problems
-- prize information
-- source links
-- tags
-- references
-- dossier links
-- formalization status
+### 2. Upstream truth layer
 
-Every problem gets a documented home.
+The package ships a bundled snapshot of `teorth/erdosproblems` and can refresh a workspace-local snapshot.
 
-### 2. Harness layer
+### 3. Harness layer
 
-Selected problem families get deeper staged research machinery.
+Selected problem families get deeper pack-specific context.
+The first pack is `sunflower`.
 
-The first deep harness should be:
-
-- `sunflower`
-
-Later families can be added only if they earn it.
-
-## Naming Recommendation
-
-Recommended repo and package name:
-
-- `erdos-problems`
-
-Reason:
-
-- broader than “conjectures”
-- matches the actual scope better
-- includes solved entries naturally
-- leaves room for atlas + dossiers + harnesses
-
-As of 2026-03-25, the following npm names appeared open when checked:
-
-- `erdos-problems`
-- `erdos-conjectures`
-- `erdos-conjecture`
-
-Recommended binary name:
-
-- `erdos`
-
-## Relationship To Existing Repos
-
-### `sunflower-coda`
-
-Role:
-
-- experimental lab
-- theorem-engine proving ground
-- route-design incubator
-- UI/app experimentation
-
-### `erdos-problems`
-
-Role:
-
-- public atlas
-- clean CLI surface
-- curated problem dossiers
-- stable research harness for selected families
-
-### `ode-to-erdos`
-
-Role:
-
-- narrower theorem-work CLI
-- can either remain a focused sibling or be absorbed as an internal package inside `erdos-problems`
-
-Current recommendation:
-
-- keep `ode-to-erdos` as a focused implementation seed
-- let `erdos-problems` become the broader public shell above it
-
-## Repository Shape
+## Repository shape
 
 ```text
 erdos-problems/
@@ -129,93 +57,76 @@ erdos-problems/
     cli/
     commands/
     atlas/
-    dossiers/
-    packs/
-    reporting/
-    adapters/
+    runtime/
+    upstream/
   problems/
-    20/
-    536/
-    856/
-    857/
+    <id>/
   packs/
     sunflower/
-  schemas/
-  templates/
+      README.md
+      problems/<id>/
+      compute/<id>/
+  data/upstream/erdosproblems/
   docs/
 ```
 
-## Runtime Model
+## Runtime model
 
-Local runtime folder:
-
-- `.erdos/`
-
-Suggested shape:
+Local workspace runtime:
 
 ```text
 .erdos/
-  config.json
   state.json
   current-problem.json
-  problems.json
-  runs/
+  upstream/erdosproblems/
+  scaffolds/<id>/
+  pulls/<id>/
+    artifacts/
+    literature/
   registry/
-  checkpoints/
-  literature/
 ```
 
-## Problem Entry Model
+## Dossier model
 
-Every problem directory should contain:
+Each canonical seeded dossier contains:
+- `problem.yaml`
+- `STATEMENT.md`
+- `REFERENCES.md`
+- `EVIDENCE.md`
+- `FORMALIZATION.md`
 
-```text
-problems/<id>/
-  problem.yaml
-  STATEMENT.md
-  REFERENCES.md
-  EVIDENCE.md
-  FORMALIZATION.md
-  CHECKPOINTS/
-```
+## Pull model
 
-Not every problem needs a deep route board immediately.
+`erdos pull problem <id>` creates a root pull bundle with two sub-lanes:
+- `artifacts/`
+- `literature/`
 
-But every problem should have:
+`erdos pull artifacts <id>` and `erdos pull literature <id>` target those lanes directly.
 
-- source URL
-- normalized statement
-- status
-- tags
-- references
-- evidence links
+## Maintainer model
 
-## Harness Model
+`erdos maintainer seed problem <id>` promotes a pulled bundle into a canonical local dossier.
 
-The first harness pack should be:
+This is the disciplined bridge from:
+- public upstream/site truth
+- to local canonical dossier truth
 
-- `packs/sunflower/`
+## Sunflower pack model
 
-That pack should preserve:
+The sunflower pack now explicitly covers the quartet:
+- `20`: strong sunflower core
+- `857`: weak sunflower core
+- `536`: natural-density LCM analogue
+- `856`: harmonic-density LCM analogue
 
-- open problem
-- active route
-- route breakthrough
-- problem solved
+Pack assets may include:
+- pack README context
+- per-problem context files
+- compute packets for deep problems
 
-And also:
+## CLI shape
 
-- tickets
-- gates
-- atoms
-- ready queue
-- generated checkpoints
-- literature mapping
-
-## CLI Shape
-
-### Atlas commands
-
+Atlas:
 ```bash
 erdos problem list
 erdos problem show 857
@@ -224,61 +135,43 @@ erdos cluster list
 erdos cluster show sunflower
 ```
 
-### Dossier commands
-
+Workspace and artifacts:
 ```bash
-erdos dossier show 857
-erdos dossier build 857
-erdos checkpoints sync 857
-erdos report build 857
+erdos workspace show
+erdos problem artifacts 857 --json
+erdos scaffold problem 857
+erdos bootstrap problem 857
 ```
 
-### Sunflower harness commands
-
+Pull and maintainer flow:
 ```bash
-erdos sunflower setup 857
-erdos sunflower warnings 857
-erdos sunflower pass 857
-erdos sunflower frontier 857
+erdos pull problem 1
+erdos pull artifacts 857
+erdos pull literature 857 --include-site
+erdos maintainer seed problem 1 --from-pull .erdos/pulls/1 --cluster number-theory
 ```
 
-## Content Policy
+Sunflower pack:
+```bash
+erdos sunflower status 20
+erdos sunflower status 536
+erdos sunflower status 857 --json
+```
 
-The repo should not blindly mirror `erdosproblems.com` text.
+## Canonical truth split
 
-Safer default:
+Public upstream truth:
+- `teorth/erdosproblems`
+- `data/problems.yaml`
+- `erdosproblems.com`
 
-- source URL
-- citation
-- normalized summary of the problem
-- our own dossier and evidence materials
+Local atlas truth:
+- `problems/<id>/problem.yaml`
+- dossier markdown files beside it
 
-This keeps the repo publishable and reduces licensing ambiguity.
-
-## Launch Strategy
-
-### Phase 1
-
-- create repo
-- scaffold CLI
-- add core schema
-- seed sunflower cluster
-- ship atlas-only read commands
-
-### Phase 2
-
-- add dossier generation
-- add checkpoint shelf
-- add sunflower harness commands
-
-### Phase 3
-
-- deepen route-level automation for sunflower family
-- expand to other Erdős clusters carefully
-
-## First Public Promise
-
-The first public promise should be:
-
-> `erdos-problems` is a CLI atlas and staged research harness for Paul Erdős problems, with the sunflower family as the first deeply integrated pack.
-
+Local harness truth:
+- research state
+- checkpoints
+- pack context
+- compute packets
+- workspace pull/scaffold artifacts

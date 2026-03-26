@@ -1,0 +1,18 @@
+problem_id: "857"
+family_role: weak_sunflower_core
+harness_profile: deep
+default_active_route: anchored_selector_linearization
+bootstrap_focus: Start from the weak sunflower asymptotic route and preserve the active export/compression frontier in the scaffold.
+related_core_problems:
+  - "20"
+  - "536"
+  - "856"
+literature_focus:
+  - weak sunflower problem
+  - m(n,3)
+  - asymptotic routes
+  - container and export methods
+artifact_focus:
+  - active route notes
+  - formal frontier checkpoints
+  - compute lane packets when frozen

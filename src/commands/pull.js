@@ -1,15 +1,19 @@
 import path from 'node:path';
 import { getProblem } from '../atlas/catalog.js';
-import { ensureDir, writeJson, writeText } from '../runtime/files.js';
-import { getWorkspaceProblemPullDir } from '../runtime/paths.js';
-import { scaffoldProblem } from '../runtime/problem-artifacts.js';
+import { copyFileIfPresent, ensureDir, writeJson, writeText } from '../runtime/files.js';
+import {
+  getWorkspaceProblemArtifactDir,
+  getWorkspaceProblemLiteratureDir,
+  getWorkspaceProblemPullDir,
+} from '../runtime/paths.js';
+import { getProblemArtifactInventory, scaffoldProblem } from '../runtime/problem-artifacts.js';
 import { loadActiveUpstreamSnapshot, syncUpstream } from '../upstream/sync.js';
 import { fetchProblemSiteSnapshot } from '../upstream/site.js';
 
 function parsePullArgs(args) {
   const [kind, value, ...rest] = args;
-  if (kind !== 'problem') {
-    return { error: 'Only `erdos pull problem <id>` is supported right now.' };
+  if (!['problem', 'artifacts', 'literature'].includes(kind)) {
+    return { error: 'Usage: erdos pull problem|artifacts|literature <id> [--dest <path>] [--include-site] [--refresh-upstream]' };
   }
 
   let destination = null;
@@ -38,6 +42,7 @@ function parsePullArgs(args) {
   }
 
   return {
+    kind,
     problemId: value,
     destination,
     includeSite,
@@ -45,31 +50,36 @@ function parsePullArgs(args) {
   };
 }
 
-function writeUpstreamOnlyBundle(problemId, destination, upstreamRecord, snapshot) {
+function buildProblemRecord(problemId, localProblem, upstreamRecord) {
+  return {
+    generatedAt: new Date().toISOString(),
+    problemId: String(problemId),
+    title: localProblem?.title ?? `Erdos Problem #${problemId}`,
+    cluster: localProblem?.cluster ?? null,
+    siteStatus: localProblem?.siteStatus ?? upstreamRecord?.status?.state ?? 'unknown',
+    repoStatus: localProblem?.repoStatus ?? 'upstream-only',
+    harnessDepth: localProblem?.harnessDepth ?? 'unseeded',
+    sourceUrl: localProblem?.sourceUrl ?? `https://www.erdosproblems.com/${problemId}`,
+    activeRoute: localProblem?.researchState?.active_route ?? null,
+  };
+}
+
+function writeUpstreamOnlyBundle(problemId, destination, upstreamRecord, snapshot, readmeTitle) {
   ensureDir(destination);
 
   if (upstreamRecord) {
     writeJson(path.join(destination, 'UPSTREAM_RECORD.json'), upstreamRecord);
   }
 
-  const generatedAt = new Date().toISOString();
-  writeJson(path.join(destination, 'PROBLEM.json'), {
-    generatedAt,
-    problemId,
-    title: `Erdos Problem #${problemId}`,
-    cluster: null,
-    siteStatus: upstreamRecord?.status?.state ?? 'unknown',
-    repoStatus: 'upstream-only',
-    harnessDepth: 'unseeded',
-    sourceUrl: `https://www.erdosproblems.com/${problemId}`,
-    activeRoute: null,
-  });
-
+  const problemRecord = buildProblemRecord(problemId, null, upstreamRecord);
+  writeJson(path.join(destination, 'PROBLEM.json'), problemRecord);
   writeJson(path.join(destination, 'ARTIFACT_INDEX.json'), {
-    generatedAt,
-    problemId,
+    generatedAt: problemRecord.generatedAt,
+    problemId: String(problemId),
     copiedArtifacts: [],
     canonicalArtifacts: [],
+    packProblemArtifactsInventory: [],
+    computePackets: [],
     upstreamSnapshot: snapshot
       ? {
           kind: snapshot.kind,
@@ -82,11 +92,10 @@ function writeUpstreamOnlyBundle(problemId, destination, upstreamRecord, snapsho
       : null,
     includedUpstreamRecord: Boolean(upstreamRecord),
   });
-
   writeText(
     path.join(destination, 'README.md'),
     [
-      `# Erdos Problem ${problemId} Pull Bundle`,
+      `# ${readmeTitle}`,
       '',
       'This bundle was generated from upstream public metadata.',
       '',
@@ -97,6 +106,20 @@ function writeUpstreamOnlyBundle(problemId, destination, upstreamRecord, snapsho
       '',
     ].join('\n'),
   );
+
+  return {
+    problemRecord,
+    artifactsCopied: 0,
+    inventory: null,
+  };
+}
+
+function writeArtifactsLane(problemId, destination, localProblem, upstreamRecord, snapshot) {
+  if (localProblem) {
+    return scaffoldProblem(localProblem, destination);
+  }
+
+  return writeUpstreamOnlyBundle(problemId, destination, upstreamRecord, snapshot, `Erdos Problem ${problemId} Artifact Bundle`);
 }
 
 async function maybeWriteSiteBundle(problemId, destination, includeSite) {
@@ -136,10 +159,110 @@ async function maybeWriteSiteBundle(problemId, destination, includeSite) {
   }
 }
 
+async function writeLiteratureLane(problemId, destination, localProblem, upstreamRecord, includeSite) {
+  ensureDir(destination);
+
+  const includedFiles = [];
+  const copied = (sourcePath, destinationName, label) => {
+    const destinationPath = path.join(destination, destinationName);
+    if (copyFileIfPresent(sourcePath, destinationPath)) {
+      includedFiles.push({ label, sourcePath, destinationPath });
+      return true;
+    }
+    return false;
+  };
+
+  if (upstreamRecord) {
+    writeJson(path.join(destination, 'UPSTREAM_RECORD.json'), upstreamRecord);
+  }
+
+  let inventory = null;
+  if (localProblem) {
+    inventory = getProblemArtifactInventory(localProblem);
+    copied(localProblem.referencesPath, 'REFERENCES.md', 'REFERENCES.md');
+    copied(localProblem.statementPath, 'STATEMENT.md', 'STATEMENT.md');
+    if (inventory.packContext?.exists) {
+      copied(inventory.packContext.path, 'PACK_CONTEXT.md', inventory.packContext.label);
+    }
+    for (const artifact of inventory.packProblemArtifacts) {
+      copied(artifact.path, path.join('PACK_PROBLEM', artifact.destinationName), artifact.label);
+    }
+  }
+
+  const siteStatus = await maybeWriteSiteBundle(problemId, destination, includeSite);
+  const problemRecord = buildProblemRecord(problemId, localProblem, upstreamRecord);
+  writeJson(path.join(destination, 'PROBLEM.json'), problemRecord);
+  writeJson(path.join(destination, 'LITERATURE_INDEX.json'), {
+    generatedAt: new Date().toISOString(),
+    problemId: String(problemId),
+    includedFiles,
+    includedUpstreamRecord: Boolean(upstreamRecord),
+    includedSiteSnapshot: siteStatus.included,
+    siteSnapshotError: siteStatus.error,
+  });
+  writeText(
+    path.join(destination, 'README.md'),
+    [
+      `# Erdos Problem ${problemId} Literature Bundle`,
+      '',
+      'This literature lane was generated by the erdos CLI.',
+      '',
+      `- Local dossier included: ${localProblem ? 'yes' : 'no'}`,
+      `- Upstream record included: ${upstreamRecord ? 'yes' : 'no'}`,
+      `- Live site snapshot included: ${siteStatus.included ? 'yes' : 'no'}`,
+      '',
+    ].join('\n'),
+  );
+
+  return {
+    destination,
+    includedFiles,
+    siteStatus,
+  };
+}
+
+function writeRootProblemBundle(rootDir, problemId, localProblem, upstreamRecord, snapshot, artifactsDir, literatureDir) {
+  ensureDir(rootDir);
+  const problemRecord = buildProblemRecord(problemId, localProblem, upstreamRecord);
+
+  if (upstreamRecord) {
+    writeJson(path.join(rootDir, 'UPSTREAM_RECORD.json'), upstreamRecord);
+  }
+
+  writeJson(path.join(rootDir, 'PROBLEM.json'), problemRecord);
+  writeJson(path.join(rootDir, 'PULL_INDEX.json'), {
+    generatedAt: new Date().toISOString(),
+    problemId: String(problemId),
+    rootDir,
+    artifactsDir,
+    literatureDir,
+    snapshotKind: snapshot?.kind ?? null,
+    upstreamCommit: snapshot?.manifest.upstream_commit ?? null,
+  });
+  writeText(
+    path.join(rootDir, 'README.md'),
+    [
+      `# Erdos Problem ${problemId} Pull Bundle`,
+      '',
+      'This pull bundle contains per-problem workspace lanes for artifacts and literature.',
+      '',
+      `- Artifacts lane: ${artifactsDir}`,
+      `- Literature lane: ${literatureDir}`,
+      `- Local canonical dossier available: ${localProblem ? 'yes' : 'no'}`,
+      `- Upstream record included: ${upstreamRecord ? 'yes' : 'no'}`,
+      '',
+    ].join('\n'),
+  );
+
+  return problemRecord;
+}
+
 export async function runPullCommand(args) {
   if (args.length === 0 || args[0] === 'help' || args[0] === '--help') {
     console.log('Usage:');
     console.log('  erdos pull problem <id> [--dest <path>] [--include-site] [--refresh-upstream]');
+    console.log('  erdos pull artifacts <id> [--dest <path>] [--refresh-upstream]');
+    console.log('  erdos pull literature <id> [--dest <path>] [--include-site] [--refresh-upstream]');
     return 0;
   }
 
@@ -166,38 +289,66 @@ export async function runPullCommand(args) {
     return 1;
   }
 
-  const destination = parsed.destination
-    ? path.resolve(parsed.destination)
-    : getWorkspaceProblemPullDir(parsed.problemId);
-
-  let scaffoldResult = null;
-  if (localProblem) {
-    scaffoldResult = scaffoldProblem(localProblem, destination);
-  } else {
-    writeUpstreamOnlyBundle(String(parsed.problemId), destination, upstreamRecord, snapshot);
+  if (parsed.kind === 'artifacts') {
+    const destination = parsed.destination
+      ? path.resolve(parsed.destination)
+      : getWorkspaceProblemArtifactDir(parsed.problemId);
+    const result = writeArtifactsLane(String(parsed.problemId), destination, localProblem, upstreamRecord, snapshot);
+    console.log(`Artifact bundle created: ${destination}`);
+    console.log(`Local canonical dossier included: ${localProblem ? 'yes' : 'no'}`);
+    console.log(`Upstream record included: ${upstreamRecord ? 'yes' : 'no'}`);
+    console.log(`Artifacts copied: ${result.copiedArtifacts?.length ?? result.artifactsCopied ?? 0}`);
+    return 0;
   }
 
+  if (parsed.kind === 'literature') {
+    const destination = parsed.destination
+      ? path.resolve(parsed.destination)
+      : getWorkspaceProblemLiteratureDir(parsed.problemId);
+    const result = await writeLiteratureLane(String(parsed.problemId), destination, localProblem, upstreamRecord, parsed.includeSite);
+    console.log(`Literature bundle created: ${destination}`);
+    console.log(`Local dossier context included: ${localProblem ? 'yes' : 'no'}`);
+    console.log(`Upstream record included: ${upstreamRecord ? 'yes' : 'no'}`);
+    console.log(`Live site snapshot included: ${result.siteStatus.included ? 'yes' : 'no'}`);
+    if (result.siteStatus.error) {
+      console.log(`Live site snapshot note: ${result.siteStatus.error}`);
+    }
+    return 0;
+  }
 
-  const siteStatus = await maybeWriteSiteBundle(String(parsed.problemId), destination, parsed.includeSite);
+  const rootDestination = parsed.destination
+    ? path.resolve(parsed.destination)
+    : getWorkspaceProblemPullDir(parsed.problemId);
+  const artifactDestination = path.join(rootDestination, 'artifacts');
+  const literatureDestination = path.join(rootDestination, 'literature');
 
-  writeJson(path.join(destination, 'PULL_STATUS.json'), {
+  writeRootProblemBundle(rootDestination, String(parsed.problemId), localProblem, upstreamRecord, snapshot, artifactDestination, literatureDestination);
+  const artifactResult = writeArtifactsLane(String(parsed.problemId), artifactDestination, localProblem, upstreamRecord, snapshot);
+  const literatureResult = await writeLiteratureLane(String(parsed.problemId), literatureDestination, localProblem, upstreamRecord, parsed.includeSite);
+
+  writeJson(path.join(rootDestination, 'PULL_STATUS.json'), {
     generatedAt: new Date().toISOString(),
     problemId: String(parsed.problemId),
     usedLocalDossier: Boolean(localProblem),
     includedUpstreamRecord: Boolean(upstreamRecord),
     upstreamSnapshotKind: snapshot?.kind ?? null,
-    siteSnapshotAttempted: siteStatus.attempted,
-    siteSnapshotIncluded: siteStatus.included,
-    siteSnapshotError: siteStatus.error,
-    scaffoldArtifactsCopied: scaffoldResult?.copiedArtifacts.length ?? 0,
+    artifactLanePath: artifactDestination,
+    literatureLanePath: literatureDestination,
+    artifactArtifactsCopied: artifactResult.copiedArtifacts?.length ?? artifactResult.artifactsCopied ?? 0,
+    literatureFilesCopied: literatureResult.includedFiles.length,
+    siteSnapshotAttempted: literatureResult.siteStatus.attempted,
+    siteSnapshotIncluded: literatureResult.siteStatus.included,
+    siteSnapshotError: literatureResult.siteStatus.error,
   });
 
-  console.log(`Pull bundle created: ${destination}`);
+  console.log(`Pull bundle created: ${rootDestination}`);
+  console.log(`Artifact lane: ${artifactDestination}`);
+  console.log(`Literature lane: ${literatureDestination}`);
   console.log(`Local canonical dossier included: ${localProblem ? 'yes' : 'no'}`);
   console.log(`Upstream record included: ${upstreamRecord ? 'yes' : 'no'}`);
-  console.log(`Live site snapshot included: ${siteStatus.included ? 'yes' : 'no'}`);
-  if (siteStatus.error) {
-    console.log(`Live site snapshot note: ${siteStatus.error}`);
+  console.log(`Live site snapshot included: ${literatureResult.siteStatus.included ? 'yes' : 'no'}`);
+  if (literatureResult.siteStatus.error) {
+    console.log(`Live site snapshot note: ${literatureResult.siteStatus.error}`);
   }
   return 0;
 }

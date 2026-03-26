@@ -12,7 +12,7 @@ upstream:
 status:
   site_status: open
   site_badge: OPEN
-  repo_status: cataloged
+  repo_status: active
   upstream_status: open
   upstream_last_update: 2025-08-31
 cluster: sunflower
@@ -20,14 +20,15 @@ prize:
   display: no
 related_problems:
   - "857"
+  - "536"
+  - "20"
 family_tags:
   - sunflower-analogue
   - number-theory
 harness:
   depth: dossier
 statement:
-  short: A harmonic or density-shaped LCM analogue whose exponents are explicitly
-    linked to progress on the weak sunflower problem.
+  short: A harmonic or density-shaped LCM analogue whose exponent behavior is explicitly linked to progress on the weak sunflower problem.
   normalized_md_path: STATEMENT.md
 references_path: REFERENCES.md
 evidence_path: EVIDENCE.md
@@ -36,3 +37,8 @@ formalization:
   status: planned
   upstream_state: no
   upstream_last_update: 2025-08-31
+research_state:
+  open_problem: true
+  active_route: harmonic_density_lcm_bridge
+  route_breakthrough: false
+  problem_solved: false

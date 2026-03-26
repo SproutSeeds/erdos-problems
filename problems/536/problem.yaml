@@ -12,7 +12,7 @@ upstream:
 status:
   site_status: open
   site_badge: OPEN
-  repo_status: cataloged
+  repo_status: active
   upstream_status: open
   upstream_last_update: 2025-08-31
 cluster: sunflower
@@ -20,14 +20,15 @@ prize:
   display: no
 related_problems:
   - "857"
+  - "856"
+  - "20"
 family_tags:
   - sunflower-analogue
   - number-theory
 harness:
   depth: dossier
 statement:
-  short: Number-theoretic analogue of the sunflower problem framed through least
-    common multiples.
+  short: Number-theoretic analogue of the sunflower problem framed through least common multiples and natural-density structure.
   normalized_md_path: STATEMENT.md
 references_path: REFERENCES.md
 evidence_path: EVIDENCE.md
@@ -36,3 +37,8 @@ formalization:
   status: planned
   upstream_state: yes
   upstream_last_update: 2025-11-12
+research_state:
+  open_problem: true
+  active_route: natural_density_lcm_bridge
+  route_breakthrough: false
+  problem_solved: false

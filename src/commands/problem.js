@@ -129,6 +129,18 @@ function printArtifactInventory(problem, inventory, asJson) {
   if (inventory.packContext) {
     console.log(`- ${inventory.packContext.label}: ${inventory.packContext.exists ? 'present' : 'missing'} (${inventory.packContext.path})`);
   }
+  if (inventory.packProblemArtifacts.length > 0) {
+    console.log('Pack problem artifacts:');
+    for (const artifact of inventory.packProblemArtifacts) {
+      console.log(`- ${artifact.label}: ${artifact.exists ? 'present' : 'missing'} (${artifact.path})`);
+    }
+  }
+  if (inventory.computePackets.length > 0) {
+    console.log('Compute packets:');
+    for (const packet of inventory.computePackets) {
+      console.log(`- ${packet.label}: ${packet.exists ? 'present' : 'missing'} (${packet.path}) [${packet.status}]`);
+    }
+  }
   if (inventory.upstreamSnapshot) {
     console.log('Upstream snapshot:');
     console.log(`- kind: ${inventory.upstreamSnapshot.kind}`);

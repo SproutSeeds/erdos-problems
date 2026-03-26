@@ -1,9 +1,11 @@
 import { runBootstrapCommand } from '../commands/bootstrap.js';
 import { runClusterCommand } from '../commands/cluster.js';
 import { runDossierCommand } from '../commands/dossier.js';
+import { runMaintainerCommand } from '../commands/maintainer.js';
 import { runProblemCommand } from '../commands/problem.js';
 import { runPullCommand } from '../commands/pull.js';
 import { runScaffoldCommand } from '../commands/scaffold.js';
+import { runSunflowerCommand } from '../commands/sunflower.js';
 import { runUpstreamCommand } from '../commands/upstream.js';
 import { runWorkspaceCommand } from '../commands/workspace.js';
 
@@ -19,6 +21,7 @@ function printUsage() {
   console.log('  erdos cluster list');
   console.log('  erdos cluster show <name>');
   console.log('  erdos workspace show');
+  console.log('  erdos sunflower status [<id>] [--json]');
   console.log('  erdos dossier show <id>');
   console.log('  erdos upstream show');
   console.log('  erdos upstream sync [--write-package-snapshot]');
@@ -26,6 +29,9 @@ function printUsage() {
   console.log('  erdos scaffold problem <id> [--dest <path>]');
   console.log('  erdos bootstrap problem <id> [--dest <path>] [--sync-upstream]');
   console.log('  erdos pull problem <id> [--dest <path>] [--include-site] [--refresh-upstream]');
+  console.log('  erdos pull artifacts <id> [--dest <path>] [--refresh-upstream]');
+  console.log('  erdos pull literature <id> [--dest <path>] [--include-site] [--refresh-upstream]');
+  console.log('  erdos maintainer seed problem <id> [--from-pull <path>] [--dest-root <path>] [--cluster <name>]');
 }
 
 const args = process.argv.slice(2);
@@ -41,6 +47,8 @@ if (!command || command === 'help' || command === '--help') {
   exitCode = runClusterCommand(rest);
 } else if (command === 'workspace') {
   exitCode = runWorkspaceCommand(rest);
+} else if (command === 'sunflower') {
+  exitCode = runSunflowerCommand(rest);
 } else if (command === 'dossier') {
   exitCode = runDossierCommand(rest);
 } else if (command === 'upstream') {
@@ -51,6 +59,8 @@ if (!command || command === 'help' || command === '--help') {
   exitCode = await runBootstrapCommand(rest);
 } else if (command === 'pull') {
   exitCode = await runPullCommand(rest);
+} else if (command === 'maintainer') {
+  exitCode = runMaintainerCommand(rest);
 } else {
   console.error(`Unknown command: ${command}`);
   printUsage();

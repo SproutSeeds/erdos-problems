@@ -1,0 +1,17 @@
+problem_id: "536"
+family_role: natural_density_lcm_analogue
+harness_profile: dossier_bridge
+default_active_route: natural_density_lcm_bridge
+bootstrap_focus: Treat 536 as the number-theoretic natural-density analogue that should stay tightly linked to weak sunflower progress.
+related_core_problems:
+  - "857"
+  - "856"
+  - "20"
+literature_focus:
+  - lcm analogue
+  - natural density
+  - weak sunflower transfer
+artifact_focus:
+  - analogue statements
+  - bridge notes to 857
+  - number-theoretic translation artifacts

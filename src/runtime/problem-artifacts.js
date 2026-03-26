@@ -2,7 +2,8 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { loadActiveUpstreamSnapshot } from '../upstream/sync.js';
 import { copyFileIfPresent, ensureDir, writeJson, writeText } from './files.js';
-import { getPackDir } from './paths.js';
+import { getPackDir, getPackProblemDir } from './paths.js';
+import { listSunflowerComputePackets } from './sunflower.js';
 
 const DOSSIER_FILES = [
   ['problem.yaml', 'problemYamlPath', 'problem.yaml'],
@@ -17,6 +18,45 @@ function getPackContextPath(problem) {
     return null;
   }
   return path.join(getPackDir(problem.cluster), 'README.md');
+}
+
+function collectFiles(rootDir, relativeDir = '') {
+  const currentDir = relativeDir ? path.join(rootDir, relativeDir) : rootDir;
+  const entries = fs.readdirSync(currentDir, { withFileTypes: true }).sort((left, right) => left.name.localeCompare(right.name));
+  const files = [];
+
+  for (const entry of entries) {
+    const relativePath = relativeDir ? path.join(relativeDir, entry.name) : entry.name;
+    if (entry.isDirectory()) {
+      files.push(...collectFiles(rootDir, relativePath));
+      continue;
+    }
+    files.push(relativePath);
+  }
+
+  return files;
+}
+
+function getPackProblemArtifacts(problem) {
+  if (!problem.cluster) {
+    return [];
+  }
+
+  const packProblemDir = getPackProblemDir(problem.cluster, problem.problemId);
+  if (!fs.existsSync(packProblemDir)) {
+    return [];
+  }
+
+  return collectFiles(packProblemDir).map((relativePath) => {
+    const sourcePath = path.join(packProblemDir, relativePath);
+    return {
+      label: relativePath,
+      path: sourcePath,
+      relativePath,
+      destinationName: relativePath,
+      exists: fs.existsSync(sourcePath),
+    };
+  });
 }
 
 export function getProblemArtifactInventory(problem) {
@@ -42,6 +82,16 @@ export function getProblemArtifactInventory(problem) {
       }
     : null;
 
+  const packProblemArtifacts = getPackProblemArtifacts(problem);
+  const computePackets = listSunflowerComputePackets(problem.problemId).map((packet) => ({
+    label: packet.laneId || packet.packetFileName,
+    path: packet.packetPath,
+    destinationName: packet.packetFileName,
+    exists: fs.existsSync(packet.packetPath),
+    status: packet.status,
+    claimLevelGoal: packet.claimLevelGoal,
+  }));
+
   return {
     generatedAt: new Date().toISOString(),
     problemId: problem.problemId,
@@ -54,6 +104,8 @@ export function getProblemArtifactInventory(problem) {
     problemDir: problem.problemDir,
     canonicalArtifacts,
     packContext,
+    packProblemArtifacts,
+    computePackets,
     upstreamSnapshot: snapshot
       ? {
           kind: snapshot.kind,
@@ -96,6 +148,40 @@ export function scaffoldProblem(problem, destination) {
     }
   }
 
+  const packProblemArtifacts = [];
+  const packProblemDir = path.join(destination, 'PACK_PROBLEM');
+  for (const artifact of inventory.packProblemArtifacts) {
+    if (!artifact.exists) {
+      continue;
+    }
+    const destinationPath = path.join(packProblemDir, artifact.destinationName);
+    if (copyFileIfPresent(artifact.path, destinationPath)) {
+      packProblemArtifacts.push({
+        label: artifact.label,
+        sourcePath: artifact.path,
+        destinationPath,
+      });
+    }
+  }
+
+  const computeArtifacts = [];
+  const computeDir = path.join(destination, 'COMPUTE');
+  for (const packet of inventory.computePackets) {
+    if (!packet.exists) {
+      continue;
+    }
+    const destinationPath = path.join(computeDir, packet.destinationName);
+    if (copyFileIfPresent(packet.path, destinationPath)) {
+      computeArtifacts.push({
+        label: packet.label,
+        sourcePath: packet.path,
+        destinationPath,
+        status: packet.status,
+        claimLevelGoal: packet.claimLevelGoal,
+      });
+    }
+  }
+
   if (inventory.upstreamRecord) {
     writeJson(path.join(destination, 'UPSTREAM_RECORD.json'), inventory.upstreamRecord);
   }
@@ -117,8 +203,12 @@ export function scaffoldProblem(problem, destination) {
     problemId: problem.problemId,
     bundledProblemDir: problem.problemDir,
     copiedArtifacts,
+    packProblemArtifacts,
+    computeArtifacts,
     packContext: inventory.packContext,
     canonicalArtifacts: inventory.canonicalArtifacts,
+    packProblemArtifactsInventory: inventory.packProblemArtifacts,
+    computePackets: inventory.computePackets,
     upstreamSnapshot: inventory.upstreamSnapshot,
     includedUpstreamRecord: inventory.upstreamRecordIncluded,
   };
@@ -138,6 +228,8 @@ export function scaffoldProblem(problem, destination) {
       `- Repo status: ${problem.repoStatus}`,
       `- Harness depth: ${problem.harnessDepth}`,
       `- Upstream record included: ${inventory.upstreamRecordIncluded ? 'yes' : 'no'}`,
+      `- Pack problem artifacts copied: ${packProblemArtifacts.length}`,
+      `- Compute packets copied: ${computeArtifacts.length}`,
       '',
     ].join('\n'),
   );
@@ -145,6 +237,8 @@ export function scaffoldProblem(problem, destination) {
   return {
     destination,
     copiedArtifacts,
+    packProblemArtifacts,
+    computeArtifacts,
     inventory,
   };
 }

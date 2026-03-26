@@ -1,0 +1,26 @@
+lane_id: m8_exactness_cube_and_certificate_v0
+problem_id: "857"
+cluster: sunflower
+question: "Is M(8,3) = 45 exact, equivalently is the target-46 SAT instance UNSAT?"
+claim_level_goal: Exact
+status: ready_for_local_scout
+price_checked_local_date: "2026-03-25"
+recommendation: cpu_first
+approval_required: true
+summary: "Packaged sunflower compute lane for the first exact M(8,3) certification packet. The next honest move is the local scout, not paid launch."
+source_repo:
+  name: sunflower-coda
+  canonical_packet_path: analysis/compute/m8_exactness_cube_and_certificate_v0/launch_packet.yaml
+public_feature:
+  command: erdos sunflower status 857
+  scaffold_subdir: COMPUTE
+rungs:
+  - name: local_scout
+    role: local_unmetered
+    note: "Run the local scout packet first and require clean artifacts before any paid rung."
+  - name: cpu_transfer
+    role: paid_metered
+    note: "Preferred first paid rung once the local scout has earned promotion."
+  - name: heuristic_gpu_sidecar
+    role: paid_metered
+    note: "Optional and heuristic-only; it supports the exact lane but does not upgrade claims by itself."

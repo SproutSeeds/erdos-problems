@@ -1,0 +1,18 @@
+problem_id: "20"
+family_role: strong_sunflower_core
+harness_profile: deep
+default_active_route: uniform_k3_frontier
+bootstrap_focus: Frame the strong or uniform k=3 sunflower lane as the direct sibling frontier to the weak 857 route.
+related_core_problems:
+  - "857"
+  - "536"
+  - "856"
+literature_focus:
+  - strong sunflower problem
+  - k-uniform families
+  - k=3
+  - Erdos-Rado sunflower
+artifact_focus:
+  - uniform-family reductions
+  - k=3 active route notes
+  - bridge notes to 857
