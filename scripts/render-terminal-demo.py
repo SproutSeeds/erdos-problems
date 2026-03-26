@@ -142,9 +142,12 @@ def render_scene(scene, typed_chars=None, shown_lines=0, cursor=False):
             draw.text((CONTENT_X, y), line, font=MONO_24, fill=color)
             y += LINE_HEIGHT
     footer = 'npm install -g erdos-problems'
+    footer_bbox = draw.textbbox((0, 0), footer, font=MONO_24)
+    footer_w = (footer_bbox[2] - footer_bbox[0]) + 48
+    box_x = (WIDTH - footer_w) // 2
     box_y = HEIGHT - 120
-    draw.rounded_rectangle((CONTENT_X, box_y, CONTENT_X + 460, box_y + 56), radius=14, fill=ACCENT)
-    draw.text((CONTENT_X + 24, box_y + 15), footer, font=MONO_24, fill=PANEL)
+    draw.rounded_rectangle((box_x, box_y, box_x + footer_w, box_y + 56), radius=14, fill=ACCENT)
+    draw.text((box_x + 24, box_y + 15), footer, font=MONO_24, fill=PANEL)
     return image
 
 
