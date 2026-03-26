@@ -29,6 +29,14 @@ function parseBoardArgs(args) {
   return parseStatusArgs(args);
 }
 
+function parseReadyArgs(args) {
+  return parseStatusArgs(args);
+}
+
+function parseLadderArgs(args) {
+  return parseStatusArgs(args);
+}
+
 function printSunflowerStatus(snapshot, registryPaths) {
   console.log(`${snapshot.displayName} sunflower harness`);
   console.log(`Title: ${snapshot.title}`);
@@ -185,6 +193,56 @@ function printSunflowerBoard(snapshot) {
   }
 }
 
+function printSunflowerReady(snapshot) {
+  const board = snapshot.atomicBoardSummary;
+  if (!board) {
+    console.log(`${snapshot.displayName} has no packaged sunflower board yet.`);
+    return;
+  }
+
+  console.log(`${snapshot.displayName} sunflower ready queue`);
+  console.log(`Board: ${board.boardTitle}`);
+  console.log(`Active route: ${board.activeRoute ?? '(none)'}`);
+  console.log(`Ready atoms: ${snapshot.readyAtomCount}`);
+  console.log(`Mirage frontiers: ${snapshot.mirageFrontierCount}`);
+
+  if (board.readyQueue.length === 0) {
+    console.log('Ready queue:');
+    console.log('  (none)');
+    return;
+  }
+
+  console.log('Ready queue:');
+  for (const atom of board.readyQueue) {
+    console.log(
+      `  - ${atom.atomId} (${atom.ticketId} / ${atom.gateId} / ${atom.tier ?? 'tier-unknown'} / ${atom.kind ?? 'kind-unknown'}): ${atom.title}`,
+    );
+  }
+}
+
+function printSunflowerLadder(snapshot) {
+  const board = snapshot.atomicBoardSummary;
+  if (!board) {
+    console.log(`${snapshot.displayName} has no packaged sunflower board yet.`);
+    return;
+  }
+
+  console.log(`${snapshot.displayName} sunflower ladder`);
+  console.log(`Board: ${board.boardTitle}`);
+  console.log(`Active route: ${board.activeRoute ?? '(none)'}`);
+
+  if (board.ladder.length === 0) {
+    console.log('First-principles ladder:');
+    console.log('  (none)');
+    return;
+  }
+
+  console.log('First-principles ladder:');
+  for (const rung of board.ladder) {
+    console.log(`  - ${rung.tier}: ${rung.done}/${rung.total}`);
+  }
+}
+
 export function runSunflowerCommand(args) {
   const [subcommand, ...rest] = args;
 
@@ -192,15 +250,26 @@ export function runSunflowerCommand(args) {
     console.log('Usage:');
     console.log('  erdos sunflower status [<id>] [--json]');
     console.log('  erdos sunflower board [<id>] [--json]');
+    console.log('  erdos sunflower ready [<id>] [--json]');
+    console.log('  erdos sunflower ladder [<id>] [--json]');
     return 0;
   }
 
-  if (subcommand !== 'status' && subcommand !== 'board') {
+  if (!['status', 'board', 'ready', 'ladder'].includes(subcommand)) {
     console.error(`Unknown sunflower subcommand: ${subcommand}`);
     return 1;
   }
 
-  const parsed = subcommand === 'board' ? parseBoardArgs(rest) : parseStatusArgs(rest);
+  let parsed;
+  if (subcommand === 'board') {
+    parsed = parseBoardArgs(rest);
+  } else if (subcommand === 'ready') {
+    parsed = parseReadyArgs(rest);
+  } else if (subcommand === 'ladder') {
+    parsed = parseLadderArgs(rest);
+  } else {
+    parsed = parseStatusArgs(rest);
+  }
   if (parsed.error) {
     console.error(parsed.error);
     return 1;
@@ -233,6 +302,16 @@ export function runSunflowerCommand(args) {
 
   if (subcommand === 'board') {
     printSunflowerBoard(snapshot);
+    return 0;
+  }
+
+  if (subcommand === 'ready') {
+    printSunflowerReady(snapshot);
+    return 0;
+  }
+
+  if (subcommand === 'ladder') {
+    printSunflowerLadder(snapshot);
     return 0;
   }
 

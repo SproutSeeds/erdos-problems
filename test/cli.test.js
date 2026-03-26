@@ -215,6 +215,23 @@ test('sunflower board prints the mirrored closure board for 20', () => {
   assert.match(output, /uniform_prize_final_k3: loose 5\/5, strict 5\/5/);
 });
 
+test('sunflower ready prints the current ready queue for 857', () => {
+  const workspace = fs.mkdtempSync(path.join(os.tmpdir(), 'erdos-sunflower-ready-857-'));
+  const output = runCli(['sunflower', 'ready', '857'], { cwd: workspace });
+  assert.match(output, /Erdos Problem #857 sunflower ready queue/);
+  assert.match(output, /Ready atoms: 1/);
+  assert.match(output, /T10.G3.A2/);
+  assert.match(output, /Promote the helper\/theorem stack into anchored_selector_linearization_realized/);
+});
+
+test('sunflower ladder prints the current ladder for 20', () => {
+  const workspace = fs.mkdtempSync(path.join(os.tmpdir(), 'erdos-sunflower-ladder-20-'));
+  const output = runCli(['sunflower', 'ladder', '20'], { cwd: workspace });
+  assert.match(output, /Erdos Problem #20 sunflower ladder/);
+  assert.match(output, /P0-SpecLock: 18\/18/);
+  assert.match(output, /P4-Verification: 86\/86/);
+});
+
 test('dossier show uses active problem when omitted', () => {
   const workspace = fs.mkdtempSync(path.join(os.tmpdir(), 'erdos-workspace-'));
   runCli(['problem', 'use', '857'], { cwd: workspace });
@@ -376,6 +393,7 @@ test('state sync after problem use writes state markdown and question ledger', (
   assert.match(output, /Erdos research state/);
   assert.match(output, /Open problem: 857/);
   assert.match(output, /Active route: anchored_selector_linearization/);
+  assert.match(output, /Current frontier: ready_atom \/ T10.G3.A2/);
   assert.equal(fs.existsSync(path.join(workspace, '.erdos', 'STATE.md')), true);
   assert.equal(fs.existsSync(path.join(workspace, '.erdos', 'QUESTION-LEDGER.md')), true);
 });
@@ -396,7 +414,9 @@ test('checkpoints sync creates checkpoint shelf and route checkpoint', () => {
   assert.match(output, /Checkpoint shelf synced/);
   assert.equal(fs.existsSync(path.join(workspace, '.erdos', 'checkpoints', 'CHECKPOINTS.md')), true);
   assert.equal(fs.existsSync(path.join(workspace, '.erdos', 'orp', 'AGENT_INTEGRATION.md')), true);
-  assert.equal(fs.existsSync(path.join(workspace, '.erdos', 'checkpoints', 'route-checkpoints', 'problem-857--anchored_selector_linearization.md')), true);
+  const routePath = path.join(workspace, '.erdos', 'checkpoints', 'route-checkpoints', 'problem-857--anchored_selector_linearization.md');
+  assert.equal(fs.existsSync(routePath), true);
+  assert.match(fs.readFileSync(routePath, 'utf8'), /First Ready Atom: T10\.G3\.A2/);
 });
 
 test('preflight reports ok after bootstrap and checkpoint sync', () => {

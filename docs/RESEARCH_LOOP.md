@@ -70,6 +70,8 @@ The ORP kit travels with the workspace too:
 For sunflower compute lanes, ORP now sits above `breakthroughs`:
 - `erdos sunflower status <id>` evaluates the packaged compute lane with `breakthroughs`
 - `erdos sunflower board <id>` exposes the packaged atomic or bridge board for the active sunflower problem
+- `erdos sunflower ready <id>` exposes the dependency-satisfied ready queue for the packaged board
+- `erdos sunflower ladder <id>` exposes the first-principles ladder for the packaged board
 - the CLI surfaces the selected rung, dispatch action, and the reason compute is admissible
 - this is compute governance and traceability, not an automatic compute launch
 

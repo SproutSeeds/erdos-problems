@@ -83,6 +83,15 @@ function renderRouteCheckpoint(problem, state) {
   const frontier = sunflower?.frontierDetail ?? state.currentFrontier.detail;
   const routeStory = sunflower?.routeStory ?? state.routeStory ?? '(none yet)';
   const checkpointFocus = sunflower?.checkpointFocus ?? state.checkpointFocus ?? '(none yet)';
+  const activeTicketLine = sunflower?.activeTicket
+    ? `- Active Ticket: ${sunflower.activeTicket.ticketId} ${sunflower.activeTicket.ticketName} [gates=${sunflower.activeTicket.gatesDone}/${sunflower.activeTicket.gatesTotal}, atoms=${sunflower.activeTicket.atomsDone}/${sunflower.activeTicket.atomsTotal}]`
+    : '- Active Ticket: *(none packaged)*';
+  const readyAtomLine = sunflower?.firstReadyAtom
+    ? `- First Ready Atom: ${sunflower.firstReadyAtom.atomId} — ${sunflower.firstReadyAtom.title}`
+    : '- First Ready Atom: *(none)*';
+  const mirageLine = sunflower
+    ? `- Mirage Frontiers: ${sunflower.mirageFrontierCount}`
+    : null;
 
   return `# Problem ${problem.problemId} Active Route Checkpoint
 
@@ -96,6 +105,9 @@ function renderRouteCheckpoint(problem, state) {
 ## Current Frontier
 
 - ${frontier}
+${activeTicketLine}
+${readyAtomLine}
+${mirageLine ? `\n${mirageLine}` : ''}
 
 ## Route Story
 

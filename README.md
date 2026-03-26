@@ -151,6 +151,8 @@ erdos cluster show sunflower
 erdos sunflower status 20
 erdos sunflower status 536
 erdos sunflower board 536
+erdos sunflower ready 857
+erdos sunflower ladder 20
 erdos sunflower board 857
 erdos sunflower status 857 --json
 ```
@@ -171,6 +173,12 @@ erdos sunflower status 857 --json
 - ticket board summary
 - first-principles ladder
 - ready queue
+
+`erdos sunflower ready` surfaces:
+- the current dependency-satisfied ready queue for the active sunflower board
+
+`erdos sunflower ladder` surfaces:
+- the first-principles ladder for the active sunflower board
 
 ## ORP
 
@@ -212,6 +220,8 @@ erdos orp show
 erdos orp sync
 erdos sunflower status 857
 erdos sunflower board 857
+erdos sunflower ready 857
+erdos sunflower ladder 857
 erdos sunflower status --json
 erdos dossier show
 erdos upstream show

@@ -158,6 +158,22 @@ function deriveGenericProblemSummary(problem) {
 function deriveProblemSummary(problem) {
   if (problem.cluster === 'sunflower') {
     const sunflower = buildSunflowerStatusSnapshot(problem);
+    const frontierKind = sunflower.firstReadyAtom
+      ? 'ready_atom'
+      : sunflower.atomicBoardPresent
+        ? 'atomic_board'
+        : sunflower.activePacket
+          ? 'compute_lane'
+          : (sunflower.frontierLabel ? 'route_frontier' : 'pack_context');
+    const frontierDetail = sunflower.firstReadyAtom
+      ? `${sunflower.firstReadyAtom.atomId} — ${sunflower.firstReadyAtom.title}`
+      : sunflower.frontierDetail || sunflower.computeSummary || sunflower.bootstrapFocus || problem.shortStatement;
+    const routeStory = sunflower.activeTicket
+      ? `Work ${sunflower.activeTicket.ticketId} (${sunflower.activeTicket.ticketName}) without blurring ticket-local pressure into solved-problem claims.`
+      : (sunflower.routeStory || sunflower.bootstrapFocus || null);
+    const checkpointFocus = sunflower.activeTicket
+      ? `Keep the board packet honest around ${sunflower.activeTicket.ticketId} while preserving the open-problem / active-route / route-breakthrough ladder.`
+      : (sunflower.checkpointFocus || null);
     return {
       familyRole: sunflower.familyRole,
       harnessProfile: sunflower.harnessProfile,
@@ -166,11 +182,11 @@ function deriveProblemSummary(problem) {
       problemSolved: sunflower.problemSolved,
       openProblem: sunflower.openProblem,
       currentFrontier: {
-        kind: sunflower.activePacket ? 'compute_lane' : (sunflower.frontierLabel ? 'route_frontier' : 'pack_context'),
-        detail: sunflower.frontierDetail || sunflower.computeSummary || sunflower.bootstrapFocus || problem.shortStatement,
+        kind: frontierKind,
+        detail: frontierDetail,
       },
-      routeStory: sunflower.routeStory || sunflower.bootstrapFocus || null,
-      checkpointFocus: sunflower.checkpointFocus || null,
+      routeStory,
+      checkpointFocus,
       nextHonestMove: sunflower.nextHonestMove || sunflower.computeNextAction || 'Refresh the active route and package a new honest checkpoint.',
       questionLedger: sunflower.questionLedger,
     };
