@@ -24,15 +24,18 @@ RED = '#E27D60'
 
 FONT_MONO = '/System/Library/Fonts/Menlo.ttc'
 FONT_SERIF_BOLD = '/System/Library/Fonts/Supplemental/Times New Roman Bold.ttf'
+MONO_18 = ImageFont.truetype(FONT_MONO, 18)
 MONO_20 = ImageFont.truetype(FONT_MONO, 20)
 MONO_24 = ImageFont.truetype(FONT_MONO, 24)
 MONO_28 = ImageFont.truetype(FONT_MONO, 28)
+SERIF_26 = ImageFont.truetype(FONT_SERIF_BOLD, 26)
 SERIF_30 = ImageFont.truetype(FONT_SERIF_BOLD, 30)
 SERIF_36 = ImageFont.truetype(FONT_SERIF_BOLD, 36)
 
 LINE_HEIGHT = 32
 CONTENT_X = 98
-CONTENT_Y = 140
+SCENE_Y = 104
+CONTENT_Y = 152
 CONTENT_WIDTH = WIDTH - CONTENT_X - 88
 MAX_LINES = 15
 
@@ -122,12 +125,16 @@ def draw_terminal_base():
 def render_scene(scene, typed_chars=None, shown_lines=0, cursor=False):
     image, draw = draw_terminal_base()
     label = scene['label']
-    draw.text((CONTENT_X, 96), label, font=SERIF_30, fill=CREAM)
+    pill_text = f"scene · {label}"
+    pill_bbox = draw.textbbox((0, 0), pill_text, font=MONO_18)
+    pill_w = (pill_bbox[2] - pill_bbox[0]) + 32
+    draw.rounded_rectangle((CONTENT_X, SCENE_Y, CONTENT_X + pill_w, SCENE_Y + 32), radius=12, fill='#222222', outline=ACCENT, width=1)
+    draw.text((CONTENT_X + 16, SCENE_Y + 6), pill_text, font=MONO_18, fill=SAND)
     prompt = '$ '
     command = scene['command'] if typed_chars is None else scene['command'][:typed_chars]
     command_text = prompt + command + ('_' if cursor else '')
     draw.text((CONTENT_X, CONTENT_Y), command_text, font=MONO_28, fill=ACCENT)
-    y = CONTENT_Y + 56
+    y = CONTENT_Y + 60
     visible = scene['output'][:shown_lines]
     for text, color in visible:
         wrapped = wrap_line(text, MONO_24, CONTENT_WIDTH)
