@@ -184,3 +184,34 @@ For sunflower problems, the CLI also surfaces pack-specific artifacts:
 - `docs/ERDOS_PROBLEMS_REPO_SPEC.md`
 - `docs/ERDOS_PROBLEMS_PROBLEM_SCHEMA.md`
 - `docs/ERDOS_SUNFLOWER_CLUSTER_SEED_PLAN.md`
+
+## Research loop
+
+`erdos-problems` now carries the staged loop we defined in the sunflower lab and the `.gpd`-style harness work:
+
+```bash
+erdos problem use 857
+erdos state sync
+erdos preflight
+erdos continuation use route
+erdos checkpoints sync
+erdos workspace show
+```
+
+This runtime writes:
+- `.erdos/config.json`
+- `.erdos/state.json`
+- `.erdos/STATE.md`
+- `.erdos/QUESTION-LEDGER.md`
+- `.erdos/checkpoints/CHECKPOINTS.md`
+- `.erdos/checkpoints/CHECKPOINTS.json`
+- `.erdos/registry/preflight/`
+
+The public package uses the same status ladder we settled on in the lab:
+- open problem
+- active route
+- route breakthrough
+- problem solved
+
+See also:
+- `docs/RESEARCH_LOOP.md`

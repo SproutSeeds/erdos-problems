@@ -8,72 +8,108 @@ export function getWorkspaceRoot() {
   return process.cwd();
 }
 
-export function getWorkspaceDir() {
-  return path.join(getWorkspaceRoot(), '.erdos');
+export function getWorkspaceDir(workspaceRoot = getWorkspaceRoot()) {
+  return path.join(workspaceRoot, '.erdos');
+}
+
+export function getWorkspaceConfigPath(workspaceRoot = getWorkspaceRoot()) {
+  return path.join(getWorkspaceDir(workspaceRoot), 'config.json');
 }
 
 export function getWorkspaceRegistryDir(workspaceRoot = getWorkspaceRoot()) {
-  return path.join(workspaceRoot, '.erdos', 'registry');
+  return path.join(getWorkspaceDir(workspaceRoot), 'registry');
+}
+
+export function getWorkspaceRegistryBucketDir(bucket, workspaceRoot = getWorkspaceRoot()) {
+  return path.join(getWorkspaceRegistryDir(workspaceRoot), String(bucket));
 }
 
 export function getWorkspaceComputeRegistryDir(workspaceRoot = getWorkspaceRoot()) {
   return path.join(getWorkspaceRegistryDir(workspaceRoot), 'compute');
 }
 
-export function getWorkspaceStatePath() {
-  return path.join(getWorkspaceDir(), 'state.json');
+export function getWorkspaceStatePath(workspaceRoot = getWorkspaceRoot()) {
+  return path.join(getWorkspaceDir(workspaceRoot), 'state.json');
 }
 
-export function getCurrentProblemPath() {
-  return path.join(getWorkspaceDir(), 'current-problem.json');
+export function getWorkspaceStateMarkdownPath(workspaceRoot = getWorkspaceRoot()) {
+  return path.join(getWorkspaceDir(workspaceRoot), 'STATE.md');
 }
 
-export function getWorkspaceReportsDir() {
-  return path.join(getWorkspaceDir(), 'reports');
+export function getWorkspaceQuestionLedgerPath(workspaceRoot = getWorkspaceRoot()) {
+  return path.join(getWorkspaceDir(workspaceRoot), 'QUESTION-LEDGER.md');
 }
 
-export function getWorkspaceDiffPath() {
-  return path.join(getWorkspaceReportsDir(), 'UPSTREAM_DIFF.md');
+export function getCurrentProblemPath(workspaceRoot = getWorkspaceRoot()) {
+  return path.join(getWorkspaceDir(workspaceRoot), 'current-problem.json');
 }
 
-export function getWorkspaceUpstreamDir() {
-  return path.join(getWorkspaceDir(), 'upstream', 'erdosproblems');
+export function getWorkspaceReportsDir(workspaceRoot = getWorkspaceRoot()) {
+  return path.join(getWorkspaceDir(workspaceRoot), 'reports');
 }
 
-export function getWorkspaceUpstreamYamlPath() {
-  return path.join(getWorkspaceUpstreamDir(), 'problems.yaml');
+export function getWorkspaceDiffPath(workspaceRoot = getWorkspaceRoot()) {
+  return path.join(getWorkspaceReportsDir(workspaceRoot), 'UPSTREAM_DIFF.md');
 }
 
-export function getWorkspaceUpstreamIndexPath() {
-  return path.join(getWorkspaceUpstreamDir(), 'PROBLEMS_INDEX.json');
+export function getWorkspaceUpstreamDir(workspaceRoot = getWorkspaceRoot()) {
+  return path.join(getWorkspaceDir(workspaceRoot), 'upstream', 'erdosproblems');
 }
 
-export function getWorkspaceUpstreamManifestPath() {
-  return path.join(getWorkspaceUpstreamDir(), 'SYNC_MANIFEST.json');
+export function getWorkspaceUpstreamYamlPath(workspaceRoot = getWorkspaceRoot()) {
+  return path.join(getWorkspaceUpstreamDir(workspaceRoot), 'problems.yaml');
 }
 
-export function getWorkspaceScaffoldsDir() {
-  return path.join(getWorkspaceDir(), 'scaffolds');
+export function getWorkspaceUpstreamIndexPath(workspaceRoot = getWorkspaceRoot()) {
+  return path.join(getWorkspaceUpstreamDir(workspaceRoot), 'PROBLEMS_INDEX.json');
 }
 
-export function getWorkspaceProblemScaffoldDir(problemId) {
-  return path.join(getWorkspaceScaffoldsDir(), String(problemId));
+export function getWorkspaceUpstreamManifestPath(workspaceRoot = getWorkspaceRoot()) {
+  return path.join(getWorkspaceUpstreamDir(workspaceRoot), 'SYNC_MANIFEST.json');
 }
 
-export function getWorkspacePullsDir() {
-  return path.join(getWorkspaceDir(), 'pulls');
+export function getWorkspaceScaffoldsDir(workspaceRoot = getWorkspaceRoot()) {
+  return path.join(getWorkspaceDir(workspaceRoot), 'scaffolds');
 }
 
-export function getWorkspaceProblemPullDir(problemId) {
-  return path.join(getWorkspacePullsDir(), String(problemId));
+export function getWorkspaceProblemScaffoldDir(problemId, workspaceRoot = getWorkspaceRoot()) {
+  return path.join(getWorkspaceScaffoldsDir(workspaceRoot), String(problemId));
 }
 
-export function getWorkspaceProblemArtifactDir(problemId) {
-  return path.join(getWorkspaceProblemPullDir(problemId), 'artifacts');
+export function getWorkspacePullsDir(workspaceRoot = getWorkspaceRoot()) {
+  return path.join(getWorkspaceDir(workspaceRoot), 'pulls');
 }
 
-export function getWorkspaceProblemLiteratureDir(problemId) {
-  return path.join(getWorkspaceProblemPullDir(problemId), 'literature');
+export function getWorkspaceProblemPullDir(problemId, workspaceRoot = getWorkspaceRoot()) {
+  return path.join(getWorkspacePullsDir(workspaceRoot), String(problemId));
+}
+
+export function getWorkspaceProblemArtifactDir(problemId, workspaceRoot = getWorkspaceRoot()) {
+  return path.join(getWorkspaceProblemPullDir(problemId, workspaceRoot), 'artifacts');
+}
+
+export function getWorkspaceProblemLiteratureDir(problemId, workspaceRoot = getWorkspaceRoot()) {
+  return path.join(getWorkspaceProblemPullDir(problemId, workspaceRoot), 'literature');
+}
+
+export function getWorkspaceCheckpointsDir(workspaceRoot = getWorkspaceRoot()) {
+  return path.join(getWorkspaceDir(workspaceRoot), 'checkpoints');
+}
+
+export function getWorkspaceProblemCheckpointsDir(workspaceRoot = getWorkspaceRoot()) {
+  return path.join(getWorkspaceCheckpointsDir(workspaceRoot), 'problem-checkpoints');
+}
+
+export function getWorkspaceRouteCheckpointsDir(workspaceRoot = getWorkspaceRoot()) {
+  return path.join(getWorkspaceCheckpointsDir(workspaceRoot), 'route-checkpoints');
+}
+
+export function getWorkspaceCheckpointIndexPath(workspaceRoot = getWorkspaceRoot()) {
+  return path.join(getWorkspaceCheckpointsDir(workspaceRoot), 'CHECKPOINTS.md');
+}
+
+export function getWorkspaceCheckpointJsonPath(workspaceRoot = getWorkspaceRoot()) {
+  return path.join(getWorkspaceCheckpointsDir(workspaceRoot), 'CHECKPOINTS.json');
 }
 
 export function getProblemDir(problemId) {

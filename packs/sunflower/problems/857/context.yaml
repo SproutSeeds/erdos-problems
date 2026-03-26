@@ -3,6 +3,11 @@ family_role: weak_sunflower_core
 harness_profile: deep
 default_active_route: anchored_selector_linearization
 bootstrap_focus: Start from the weak sunflower asymptotic route and preserve the active export/compression frontier in the scaffold.
+route_story: Keep the weak sunflower route pointed at recurrence-facing export and compression work, and preserve the distinction between route breakthroughs and full problem closure.
+frontier_label: anchored_selector_linearization
+frontier_detail: Preserve the live export/compression frontier and keep the recurrence-facing remainder terms explicit rather than flattening them into generic sunflower notes.
+checkpoint_focus: Record route breakthroughs, keep the open-problem versus active-route distinction sharp, and preserve the live remainder/compression obligations in every checkpoint.
+next_honest_move: Sync checkpoints, then keep compressing the explicit O1a export into a true recurrence-facing step.
 related_core_problems:
   - "20"
   - "536"
@@ -16,3 +21,12 @@ artifact_focus:
   - active route notes
   - formal frontier checkpoints
   - compute lane packets when frozen
+question_ledger:
+  open_questions:
+    - Which explicit compression step is the next honest reduction on the active weak-sunflower route?
+    - Which exported remainder term is still dominating the recurrence-facing frontier?
+  active_route_notes:
+    - Keep active-route notes tied to the explicit export/compression frontier, not generic sunflower chatter.
+    - Preserve the distinction between route breakthrough and full-problem solution in every artifact.
+  route_breakthroughs:
+    - When a route breakthrough lands, checkpoint it before selecting the next active route.

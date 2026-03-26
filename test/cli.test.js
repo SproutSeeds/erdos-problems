@@ -302,3 +302,60 @@ test('maintainer seed creates a canonical dossier from a pulled bundle', () => {
   assert.match(yamlText, /related_problems:/);
   assert.match(yamlText, /"20"/);
 });
+
+test('state sync after problem use writes state markdown and question ledger', () => {
+  const workspace = fs.mkdtempSync(path.join(os.tmpdir(), 'erdos-state-sync-'));
+  runCli(['problem', 'use', '857'], { cwd: workspace });
+  const output = runCli(['state', 'show'], { cwd: workspace });
+  assert.match(output, /Erdos research state/);
+  assert.match(output, /Open problem: 857/);
+  assert.match(output, /Active route: anchored_selector_linearization/);
+  assert.equal(fs.existsSync(path.join(workspace, '.erdos', 'STATE.md')), true);
+  assert.equal(fs.existsSync(path.join(workspace, '.erdos', 'QUESTION-LEDGER.md')), true);
+});
+
+test('continuation use milestone persists config and shows resolved mode', () => {
+  const workspace = fs.mkdtempSync(path.join(os.tmpdir(), 'erdos-continuation-'));
+  runCli(['problem', 'use', '857'], { cwd: workspace });
+  const output = runCli(['continuation', 'use', 'milestone'], { cwd: workspace });
+  assert.match(output, /Continuation mode set to milestone/);
+  const config = JSON.parse(fs.readFileSync(path.join(workspace, '.erdos', 'config.json'), 'utf8'));
+  assert.equal(config.continuation, 'milestone');
+});
+
+test('checkpoints sync creates checkpoint shelf and route checkpoint', () => {
+  const workspace = fs.mkdtempSync(path.join(os.tmpdir(), 'erdos-checkpoints-'));
+  runCli(['problem', 'use', '857'], { cwd: workspace });
+  const output = runCli(['checkpoints', 'sync'], { cwd: workspace });
+  assert.match(output, /Checkpoint shelf synced/);
+  assert.equal(fs.existsSync(path.join(workspace, '.erdos', 'checkpoints', 'CHECKPOINTS.md')), true);
+  assert.equal(fs.existsSync(path.join(workspace, '.erdos', 'checkpoints', 'route-checkpoints', 'problem-857--anchored_selector_linearization.md')), true);
+});
+
+test('preflight reports ok after bootstrap and checkpoint sync', () => {
+  const workspace = fs.mkdtempSync(path.join(os.tmpdir(), 'erdos-preflight-'));
+  runCli(['bootstrap', 'problem', '857'], { cwd: workspace });
+  const output = runCli(['preflight'], { cwd: workspace });
+  assert.match(output, /Verdict: ok/);
+  assert.match(output, /Continuation policy: route/);
+  assert.equal(fs.existsSync(path.join(workspace, '.erdos', 'registry', 'preflight')), true);
+});
+
+test('sunflower status for 20 shows the deeper frontier framing and compute lane', () => {
+  const workspace = fs.mkdtempSync(path.join(os.tmpdir(), 'erdos-sunflower-20-'));
+  const output = runCli(['sunflower', 'status', '20'], { cwd: workspace });
+  assert.match(output, /Frontier label: uniform_k3_frontier/);
+  assert.match(output, /Compute lane: u3_uniform_transfer_window_v0 \[ready_for_local_scout\]/);
+  assert.match(output, /Next honest move:/);
+});
+
+test('workspace show includes research loop paths and continuation mode', () => {
+  const workspace = fs.mkdtempSync(path.join(os.tmpdir(), 'erdos-workspace-loop-'));
+  runCli(['bootstrap', 'problem', '857'], { cwd: workspace });
+  const output = runCli(['workspace', 'show'], { cwd: workspace });
+  assert.match(output, /State markdown:/);
+  assert.match(output, /Question ledger:/);
+  assert.match(output, /Checkpoint shelf:/);
+  assert.match(output, /Continuation mode: route/);
+  assert.match(output, /Next honest move:/);
+});

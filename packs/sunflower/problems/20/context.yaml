@@ -3,6 +3,11 @@ family_role: strong_sunflower_core
 harness_profile: deep
 default_active_route: uniform_k3_frontier
 bootstrap_focus: Frame the strong or uniform k=3 sunflower lane as the direct sibling frontier to the weak 857 route.
+route_story: Keep the uniform k=3 lane explicit, preserve every clean bridge to problem 857, and do not let local route work masquerade as full strong-sunflower closure.
+frontier_label: uniform_k3_frontier
+frontier_detail: Tighten the uniform k=3 route into a recurrence-ready and transfer-ready reduction packet that can talk honestly to the weak 857 export program.
+checkpoint_focus: Record honest uniform-family route claims, bridge notes to 857, and any reusable reductions without overstating global closure.
+next_honest_move: Pull the uniform k=3 dossier, sync checkpoints, and pressure the smallest recurrence-facing or reduction-facing obligation.
 related_core_problems:
   - "857"
   - "536"
@@ -16,3 +21,11 @@ artifact_focus:
   - uniform-family reductions
   - k=3 active route notes
   - bridge notes to 857
+question_ledger:
+  open_questions:
+    - Which uniform k=3 reduction is the next smallest honest route step?
+    - What bridge result would cleanly transfer from problem 20 back into the weak 857 program?
+  active_route_notes:
+    - Keep the active route stated in uniform-family language, not generic sunflower shorthand.
+  route_breakthroughs:
+    - If a route breakthrough lands, checkpoint it before widening to strong-sunflower victory language.

@@ -52,6 +52,24 @@ function compactText(value) {
   return text || null;
 }
 
+function parseQuestionLedger(value) {
+  if (!value || typeof value !== 'object') {
+    return {
+      openQuestions: [],
+      activeRouteNotes: [],
+      routeBreakthroughs: [],
+      problemSolved: [],
+    };
+  }
+
+  return {
+    openQuestions: parseStringList(value.open_questions),
+    activeRouteNotes: parseStringList(value.active_route_notes),
+    routeBreakthroughs: parseStringList(value.route_breakthroughs),
+    problemSolved: parseStringList(value.problem_solved),
+  };
+}
+
 function readComputePacket(packetPath) {
   const parsed = parse(fs.readFileSync(packetPath, 'utf8')) ?? {};
   return {
@@ -100,9 +118,15 @@ export function readSunflowerContext(problemId) {
     harnessProfile: compactText(parsed.harness_profile),
     defaultActiveRoute: compactText(parsed.default_active_route),
     bootstrapFocus: compactText(parsed.bootstrap_focus),
+    routeStory: compactText(parsed.route_story),
+    frontierLabel: compactText(parsed.frontier_label),
+    frontierDetail: compactText(parsed.frontier_detail),
+    checkpointFocus: compactText(parsed.checkpoint_focus),
+    nextHonestMove: compactText(parsed.next_honest_move),
     relatedCoreProblems: parseStringList(parsed.related_core_problems),
     literatureFocus: parseStringList(parsed.literature_focus),
     artifactFocus: parseStringList(parsed.artifact_focus),
+    questionLedger: parseQuestionLedger(parsed.question_ledger),
     contextPath,
     contextMarkdownPath,
     contextMarkdownExists: fs.existsSync(contextMarkdownPath),
@@ -137,7 +161,7 @@ function deriveSummary(packet) {
   if (!packet) {
     return {
       computeSummary: 'No packaged compute lane is registered for this sunflower problem yet.',
-      computeNextAction: 'Stay in the atlas/dossier lane until a frozen benchmark and artifact bundle exist.',
+      computeNextAction: 'Stay in the dossier, checkpoint, and literature lane until a frozen compute packet is honestly earned.',
       budgetState: 'not_applicable',
     };
   }
@@ -238,6 +262,15 @@ function deriveRouteState(problem, context) {
   };
 }
 
+function defaultQuestionLedger(problemId, routeState) {
+  return {
+    openQuestions: [`What is the next honest frontier for sunflower problem ${problemId}?`],
+    activeRouteNotes: routeState.activeRoute ? [`Current active route: ${routeState.activeRoute}`] : [],
+    routeBreakthroughs: routeState.routeBreakthrough ? ['A route breakthrough is already recorded; checkpoint it before upgrading claims.'] : [],
+    problemSolved: routeState.problemSolved ? ['This problem is marked solved; preserve archival discipline.'] : [],
+  };
+}
+
 export function buildSunflowerStatusSnapshot(problem) {
   const context = readSunflowerContext(problem.problemId);
   const packets = listSunflowerComputePackets(problem.problemId);
@@ -258,9 +291,15 @@ export function buildSunflowerStatusSnapshot(problem) {
     familyRole: context?.familyRole ?? null,
     harnessProfile: context?.harnessProfile ?? null,
     bootstrapFocus: context?.bootstrapFocus ?? null,
+    routeStory: context?.routeStory ?? null,
+    frontierLabel: context?.frontierLabel ?? (activePacket?.question ? 'compute_packet' : null),
+    frontierDetail: context?.frontierDetail ?? activePacket?.question ?? summary.computeSummary,
+    checkpointFocus: context?.checkpointFocus ?? null,
+    nextHonestMove: context?.nextHonestMove ?? summary.computeNextAction,
     relatedCoreProblems: context?.relatedCoreProblems ?? [],
     literatureFocus: context?.literatureFocus ?? [],
     artifactFocus: context?.artifactFocus ?? [],
+    questionLedger: context?.questionLedger ?? defaultQuestionLedger(problem.problemId, routeState),
     contextPresent: Boolean(context),
     contextPath: context?.contextPath ?? null,
     contextMarkdownPath: context?.contextMarkdownExists ? context.contextMarkdownPath : null,

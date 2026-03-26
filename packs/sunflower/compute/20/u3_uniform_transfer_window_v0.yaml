@@ -1,0 +1,16 @@
+lane_id: u3_uniform_transfer_window_v0
+problem_id: "20"
+cluster: sunflower
+question: Can the uniform k=3 lane be frozen into a transfer-ready reduction packet that talks cleanly to the weak 857 export route?
+claim_level_goal: Verified
+status: ready_for_local_scout
+price_checked_local_date: 2026-03-25
+recommendation: local_scout_first
+approval_required: false
+summary: Problem 20 now has a frozen local-scout packet for the uniform k=3 transfer window. The job is to verify a small explicit reduction bundle before any paid compute rung is considered.
+source_repo: /Volumes/Code_2TB/code/sunflower-coda/repo
+public_feature: uniform_k3_frontier
+rungs:
+  - label: local_scout
+    mode: local
+    goal: verify the reduction packet, pull artifacts, and checkpoint the first honest route result

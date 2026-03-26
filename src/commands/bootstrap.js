@@ -1,7 +1,9 @@
 import path from 'node:path';
 import { getProblem } from '../atlas/catalog.js';
+import { syncCheckpoints } from '../runtime/checkpoints.js';
 import { scaffoldProblem } from '../runtime/problem-artifacts.js';
 import { getWorkspaceProblemScaffoldDir } from '../runtime/paths.js';
+import { syncState } from '../runtime/state.js';
 import { setCurrentProblem } from '../runtime/workspace.js';
 import { syncUpstream } from '../upstream/sync.js';
 
@@ -71,11 +73,16 @@ export async function runBootstrapCommand(args) {
     ? path.resolve(parsed.destination)
     : getWorkspaceProblemScaffoldDir(problem.problemId);
   const result = scaffoldProblem(problem, destination);
+  const state = syncState();
+  const checkpoints = syncCheckpoints();
 
   console.log(`Bootstrapped problem ${problem.problemId} (${problem.title})`);
   console.log(`Active problem: ${problem.problemId}`);
+  console.log(`Active route: ${state.activeRoute ?? '(none)'}`);
   console.log(`Scaffold dir: ${result.destination}`);
   console.log(`Artifacts copied: ${result.copiedArtifacts.length}`);
   console.log(`Upstream record included: ${result.inventory.upstreamRecordIncluded ? 'yes' : 'no'}`);
+  console.log(`Checkpoint shelf: ${checkpoints.indexPath}`);
+  console.log(`Next honest move: ${state.nextHonestMove}`);
   return 0;
 }

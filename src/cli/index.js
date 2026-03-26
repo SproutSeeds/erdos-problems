@@ -1,10 +1,14 @@
 import { runBootstrapCommand } from '../commands/bootstrap.js';
+import { runCheckpointsCommand } from '../commands/checkpoints.js';
 import { runClusterCommand } from '../commands/cluster.js';
+import { runContinuationCommand } from '../commands/continuation.js';
 import { runDossierCommand } from '../commands/dossier.js';
 import { runMaintainerCommand } from '../commands/maintainer.js';
+import { runPreflightCommand } from '../commands/preflight.js';
 import { runProblemCommand } from '../commands/problem.js';
 import { runPullCommand } from '../commands/pull.js';
 import { runScaffoldCommand } from '../commands/scaffold.js';
+import { runStateCommand } from '../commands/state.js';
 import { runSunflowerCommand } from '../commands/sunflower.js';
 import { runUpstreamCommand } from '../commands/upstream.js';
 import { runWorkspaceCommand } from '../commands/workspace.js';
@@ -21,6 +25,12 @@ function printUsage() {
   console.log('  erdos cluster list');
   console.log('  erdos cluster show <name>');
   console.log('  erdos workspace show');
+  console.log('  erdos state sync [--json]');
+  console.log('  erdos state show [--json]');
+  console.log('  erdos continuation show [--json]');
+  console.log('  erdos continuation use <atom|route|phase|milestone> [--json]');
+  console.log('  erdos preflight [--allow-dirty] [--json]');
+  console.log('  erdos checkpoints sync [--json]');
   console.log('  erdos sunflower status [<id>] [--json]');
   console.log('  erdos dossier show <id>');
   console.log('  erdos upstream show');
@@ -47,6 +57,14 @@ if (!command || command === 'help' || command === '--help') {
   exitCode = runClusterCommand(rest);
 } else if (command === 'workspace') {
   exitCode = runWorkspaceCommand(rest);
+} else if (command === 'state') {
+  exitCode = runStateCommand(rest);
+} else if (command === 'continuation') {
+  exitCode = runContinuationCommand(rest);
+} else if (command === 'preflight') {
+  exitCode = runPreflightCommand(rest);
+} else if (command === 'checkpoints') {
+  exitCode = runCheckpointsCommand(rest);
 } else if (command === 'sunflower') {
   exitCode = runSunflowerCommand(rest);
 } else if (command === 'dossier') {

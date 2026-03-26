@@ -35,6 +35,11 @@ function printSunflowerStatus(snapshot, registryPaths) {
   console.log(`Open problem: ${snapshot.openProblem ? 'yes' : 'no'}`);
   console.log(`Problem solved: ${snapshot.problemSolved ? 'yes' : 'no'}`);
   console.log(`Bootstrap focus: ${snapshot.bootstrapFocus ?? '(none)'}`);
+  console.log(`Route story: ${snapshot.routeStory ?? '(none)'}`);
+  console.log(`Frontier label: ${snapshot.frontierLabel ?? '(none)'}`);
+  console.log(`Frontier detail: ${snapshot.frontierDetail ?? '(none)'}`);
+  console.log(`Checkpoint focus: ${snapshot.checkpointFocus ?? '(none)'}`);
+  console.log(`Next honest move: ${snapshot.nextHonestMove}`);
   console.log(`Related core problems: ${snapshot.relatedCoreProblems.join(', ') || '(none)'}`);
   console.log(`Literature focus: ${snapshot.literatureFocus.join(', ') || '(none)'}`);
   console.log(`Artifact focus: ${snapshot.artifactFocus.join(', ') || '(none)'}`);

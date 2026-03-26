@@ -1,5 +1,6 @@
 import { getProblem, listProblems } from '../atlas/catalog.js';
 import { getProblemArtifactInventory } from '../runtime/problem-artifacts.js';
+import { syncState } from '../runtime/state.js';
 import { readCurrentProblem, setCurrentProblem } from '../runtime/workspace.js';
 
 function parseListFilters(args) {
@@ -200,7 +201,10 @@ export function runProblemCommand(args) {
       return 1;
     }
     setCurrentProblem(problem.problemId);
+    const state = syncState();
     console.log(`Active problem set to ${problem.problemId} (${problem.title})`);
+    console.log(`Active route: ${state.activeRoute ?? '(none)'}`);
+    console.log(`Next honest move: ${state.nextHonestMove}`);
     return 0;
   }
 
