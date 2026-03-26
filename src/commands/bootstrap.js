@@ -1,6 +1,7 @@
 import path from 'node:path';
 import { getProblem } from '../atlas/catalog.js';
 import { syncCheckpoints } from '../runtime/checkpoints.js';
+import { syncOrpWorkspaceKit } from '../runtime/orp.js';
 import { scaffoldProblem } from '../runtime/problem-artifacts.js';
 import { getWorkspaceProblemScaffoldDir } from '../runtime/paths.js';
 import { syncState } from '../runtime/state.js';
@@ -68,6 +69,7 @@ export async function runBootstrapCommand(args) {
     console.log(`Workspace upstream snapshot refreshed: ${syncResult.workspacePaths.manifestPath}`);
   }
 
+  const orp = syncOrpWorkspaceKit();
   setCurrentProblem(problem.problemId);
   const destination = parsed.destination
     ? path.resolve(parsed.destination)
@@ -81,6 +83,7 @@ export async function runBootstrapCommand(args) {
   console.log(`Active route: ${state.activeRoute ?? '(none)'}`);
   console.log(`Scaffold dir: ${result.destination}`);
   console.log(`Artifacts copied: ${result.copiedArtifacts.length}`);
+  console.log(`ORP protocol: ${orp.protocolPath}`);
   console.log(`Upstream record included: ${result.inventory.upstreamRecordIncluded ? 'yes' : 'no'}`);
   console.log(`Checkpoint shelf: ${checkpoints.indexPath}`);
   console.log(`Next honest move: ${state.nextHonestMove}`);

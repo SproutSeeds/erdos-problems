@@ -1,6 +1,6 @@
 {
   "name": "erdos-problems",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "description": "CLI atlas and staged research harness for Paul Erdos problems.",
   "type": "module",
   "bin": {
@@ -9,12 +9,15 @@
   "files": [
     "README.md",
     "LICENSE",
+    "PROTOCOL.md",
+    "AGENT_INTEGRATION.md",
     "bin",
     "data",
     "docs",
     "packs",
     "problems",
-    "src"
+    "src",
+    "templates"
   ],
   "scripts": {
     "test": "node --test",

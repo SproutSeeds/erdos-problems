@@ -2,6 +2,7 @@ import path from 'node:path';
 import { getProblem } from '../atlas/catalog.js';
 import { syncCheckpoints } from '../runtime/checkpoints.js';
 import { seedProblemFromPullBundle } from '../runtime/maintainer-seed.js';
+import { syncOrpWorkspaceKit } from '../runtime/orp.js';
 import { getWorkspaceProblemPullDir, getWorkspaceRoot, getWorkspaceSeededProblemsDir } from '../runtime/paths.js';
 import { syncState } from '../runtime/state.js';
 import { readCurrentProblem, setCurrentProblem } from '../runtime/workspace.js';
@@ -166,6 +167,7 @@ export async function runSeedCommand(args) {
   }
 
   const workspaceRoot = getWorkspaceRoot();
+  const orp = syncOrpWorkspaceKit(workspaceRoot);
   const pullDir = getWorkspaceProblemPullDir(parsed.problemId, workspaceRoot);
   const defaultSeedRoot = getWorkspaceSeededProblemsDir(workspaceRoot);
   const destinationRoot = parsed.destRoot
@@ -232,6 +234,7 @@ export async function runSeedCommand(args) {
     usedUpstreamRecord: result.usedUpstreamRecord,
     usedSiteSnapshot: result.usedSiteSnapshot,
     workspaceOverlayVisible: seedsIntoWorkspaceOverlay,
+    orpProtocol: orp.protocolPath,
   };
 
   if (parsed.asJson) {
@@ -247,6 +250,7 @@ export async function runSeedCommand(args) {
   console.log(`Harness depth: ${result.record.harness.depth}`);
   console.log(`Upstream record used: ${result.usedUpstreamRecord ? 'yes' : 'no'}`);
   console.log(`Site snapshot used: ${result.usedSiteSnapshot ? 'yes' : 'no'}`);
+  console.log(`ORP protocol: ${orp.protocolPath}`);
   console.log(`Workspace overlay visible: ${seedsIntoWorkspaceOverlay ? 'yes' : 'no'}`);
   console.log(`Activated: ${activated ? 'yes' : 'no'}`);
   console.log(`Loop synced: ${loopSynced ? 'yes' : 'no'}`);

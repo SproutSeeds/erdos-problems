@@ -1,4 +1,6 @@
 import { getProblem, listProblems } from '../atlas/catalog.js';
+import { syncOrpWorkspaceKit } from '../runtime/orp.js';
+import { syncCheckpoints } from '../runtime/checkpoints.js';
 import { getProblemArtifactInventory } from '../runtime/problem-artifacts.js';
 import { syncState } from '../runtime/state.js';
 import { readCurrentProblem, setCurrentProblem } from '../runtime/workspace.js';
@@ -207,10 +209,14 @@ export function runProblemCommand(args) {
       return 1;
     }
     setCurrentProblem(problem.problemId);
-    const state = syncState();
+    syncOrpWorkspaceKit();
+    syncState();
+    const checkpointResult = syncCheckpoints();
+    const state = checkpointResult.state;
     console.log(`Active problem set to ${problem.problemId} (${problem.title})`);
     console.log(`Active route: ${state.activeRoute ?? '(none)'}`);
     console.log(`Next honest move: ${state.nextHonestMove}`);
+    console.log(`Checkpoint shelf: ${checkpointResult.indexPath}`);
     return 0;
   }
 

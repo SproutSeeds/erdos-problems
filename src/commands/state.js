@@ -1,4 +1,5 @@
 import { getWorkspaceQuestionLedgerPath, getWorkspaceStateMarkdownPath } from '../runtime/paths.js';
+import { syncOrpWorkspaceKit } from '../runtime/orp.js';
 import { loadState, syncState } from '../runtime/state.js';
 
 function printState(state) {
@@ -33,6 +34,7 @@ export function runStateCommand(args) {
   }
 
   if (subcommand === 'sync') {
+    syncOrpWorkspaceKit();
     const state = syncState();
     if (asJson) {
       console.log(JSON.stringify(state, null, 2));

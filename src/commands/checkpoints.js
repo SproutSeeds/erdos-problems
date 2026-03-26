@@ -1,4 +1,5 @@
 import { syncCheckpoints } from '../runtime/checkpoints.js';
+import { syncOrpWorkspaceKit } from '../runtime/orp.js';
 
 export function runCheckpointsCommand(args) {
   const [subcommand, ...rest] = args;
@@ -21,6 +22,7 @@ export function runCheckpointsCommand(args) {
     return 1;
   }
 
+  syncOrpWorkspaceKit();
   const result = syncCheckpoints();
   if (asJson) {
     console.log(JSON.stringify(result, null, 2));

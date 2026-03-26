@@ -12,6 +12,22 @@ export function getWorkspaceDir(workspaceRoot = getWorkspaceRoot()) {
   return path.join(workspaceRoot, '.erdos');
 }
 
+export function getWorkspaceOrpDir(workspaceRoot = getWorkspaceRoot()) {
+  return path.join(getWorkspaceDir(workspaceRoot), 'orp');
+}
+
+export function getWorkspaceOrpProtocolPath(workspaceRoot = getWorkspaceRoot()) {
+  return path.join(getWorkspaceOrpDir(workspaceRoot), 'PROTOCOL.md');
+}
+
+export function getWorkspaceOrpIntegrationPath(workspaceRoot = getWorkspaceRoot()) {
+  return path.join(getWorkspaceOrpDir(workspaceRoot), 'AGENT_INTEGRATION.md');
+}
+
+export function getWorkspaceOrpTemplatesDir(workspaceRoot = getWorkspaceRoot()) {
+  return path.join(getWorkspaceOrpDir(workspaceRoot), 'templates');
+}
+
 export function getWorkspaceConfigPath(workspaceRoot = getWorkspaceRoot()) {
   return path.join(getWorkspaceDir(workspaceRoot), 'config.json');
 }
@@ -126,6 +142,18 @@ export function getProblemDir(problemId) {
 
 export function getBundledDataDir() {
   return path.join(repoRoot, 'data');
+}
+
+export function getBundledOrpProtocolPath() {
+  return path.join(repoRoot, 'PROTOCOL.md');
+}
+
+export function getBundledOrpIntegrationPath() {
+  return path.join(repoRoot, 'AGENT_INTEGRATION.md');
+}
+
+export function getBundledOrpTemplatesDir() {
+  return path.join(repoRoot, 'templates');
 }
 
 export function getBundledUpstreamDir() {

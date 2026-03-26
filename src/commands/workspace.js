@@ -28,6 +28,10 @@ export function runWorkspaceCommand(args) {
   console.log(`State markdown: ${summary.stateMarkdownPath}`);
   console.log(`Question ledger: ${summary.questionLedgerPath}`);
   console.log(`Checkpoint shelf: ${summary.checkpointIndexPath}`);
+  console.log(`Workspace ORP dir: ${summary.orpDir}`);
+  console.log(`Workspace ORP protocol: ${summary.orpProtocolPath}`);
+  console.log(`Workspace ORP integration: ${summary.orpIntegrationPath}`);
+  console.log(`Workspace ORP templates: ${summary.orpTemplatesDir}`);
   console.log(`Workspace upstream dir: ${summary.upstreamDir}`);
   console.log(`Workspace seeded-problems dir: ${summary.seededProblemsDir}`);
   console.log(`Workspace scaffold dir: ${summary.scaffoldDir}`);

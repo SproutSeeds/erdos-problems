@@ -4,6 +4,7 @@ import { runClusterCommand } from '../commands/cluster.js';
 import { runContinuationCommand } from '../commands/continuation.js';
 import { runDossierCommand } from '../commands/dossier.js';
 import { runMaintainerCommand } from '../commands/maintainer.js';
+import { runOrpCommand } from '../commands/orp.js';
 import { runPreflightCommand } from '../commands/preflight.js';
 import { runProblemCommand } from '../commands/problem.js';
 import { runPullCommand } from '../commands/pull.js';
@@ -26,6 +27,8 @@ function printUsage() {
   console.log('  erdos cluster list');
   console.log('  erdos cluster show <name>');
   console.log('  erdos workspace show');
+  console.log('  erdos orp show [--json]');
+  console.log('  erdos orp sync [--json]');
   console.log('  erdos state sync [--json]');
   console.log('  erdos state show [--json]');
   console.log('  erdos continuation show [--json]');
@@ -59,6 +62,8 @@ if (!command || command === 'help' || command === '--help') {
   exitCode = runClusterCommand(rest);
 } else if (command === 'workspace') {
   exitCode = runWorkspaceCommand(rest);
+} else if (command === 'orp') {
+  exitCode = runOrpCommand(rest);
 } else if (command === 'state') {
   exitCode = runStateCommand(rest);
 } else if (command === 'continuation') {

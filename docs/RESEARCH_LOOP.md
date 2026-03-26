@@ -11,24 +11,29 @@ Workspace runtime files live under `.erdos/`:
 - `QUESTION-LEDGER.md`
 - `checkpoints/CHECKPOINTS.md`
 - `checkpoints/CHECKPOINTS.json`
+- `orp/PROTOCOL.md`
+- `orp/AGENT_INTEGRATION.md`
+- `orp/templates/`
 - `registry/preflight/`
 - `registry/compute/`
 
 ## Core loop
 
 1. Select or bootstrap a problem.
-2. Sync state.
-3. Run preflight.
-4. Set continuation mode.
-5. Sync checkpoints.
-6. Pull or scaffold artifacts.
-7. Work the active route.
-8. Sync checkpoints again at honest boundaries.
+2. Sync ORP.
+3. Sync state.
+4. Run preflight.
+5. Set continuation mode.
+6. Sync checkpoints.
+7. Pull or scaffold artifacts.
+8. Work the active route.
+9. Sync checkpoints again at honest boundaries.
 
 ## Commands
 
 ```bash
 erdos problem use 857
+erdos orp sync
 erdos state sync
 erdos preflight
 erdos continuation use route
@@ -51,6 +56,13 @@ The seeded dossier now also includes starter-loop artifacts:
 - `AGENT_START.md`
 - `ROUTES.md`
 - `CHECKPOINT_NOTES.md`
+
+The ORP kit travels with the workspace too:
+- `PROTOCOL.md`
+- `AGENT_INTEGRATION.md`
+- `templates/CLAIM.md`
+- `templates/VERIFICATION_RECORD.md`
+- `templates/FAILED_TOPIC.md`
 
 ## Status ladder
 

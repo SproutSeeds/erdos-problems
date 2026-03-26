@@ -18,6 +18,7 @@ Official binary:
 
 - atlas layer with canonical local `problems/<id>/problem.yaml` records
 - bundled upstream snapshot from `teorth/erdosproblems`
+- bundled ORP kit with protocol and templates for claim hygiene
 - workspace `.erdos/` state for active-problem selection, upstream refreshes, scaffolds, and pull bundles
 - sunflower cluster as the first deep harness pack
 - quartet-aware sunflower context for `20`, `536`, `856`, and `857`
@@ -51,6 +52,7 @@ erdos workspace show
 
 What `bootstrap` does:
 - sets the active workspace problem
+- syncs the bundled ORP workspace kit into `.erdos/orp/`
 - scaffolds the canonical dossier files into `.erdos/scaffolds/<id>/`
 - includes the upstream record when a bundled or workspace snapshot is available
 - copies pack-specific context and compute packets when the problem has them
@@ -60,6 +62,7 @@ What `seed` does:
 - creates a pull bundle for any problem in the upstream snapshot
 - promotes that bundle into `.erdos/seeded-problems/<id>/`
 - auto-selects the problem in the workspace
+- syncs the bundled ORP workspace kit into `.erdos/orp/`
 - syncs the staged research loop state and checkpoint shelf
 - makes the new dossier visible to the atlas commands immediately inside that workspace
 - writes richer starter artifacts:
@@ -143,6 +146,27 @@ erdos sunflower status 857 --json
 - problem-solved distinction
 - compute posture when a packet exists
 
+## ORP
+
+`erdos-problems` now ships a bundled Open Research Protocol kit:
+- `PROTOCOL.md`
+- `AGENT_INTEGRATION.md`
+- `templates/CLAIM.md`
+- `templates/VERIFICATION_RECORD.md`
+- `templates/FAILED_TOPIC.md`
+
+Workspace copy:
+- `.erdos/orp/PROTOCOL.md`
+- `.erdos/orp/AGENT_INTEGRATION.md`
+- `.erdos/orp/templates/`
+
+Useful ORP commands:
+
+```bash
+erdos orp show
+erdos orp sync
+```
+
 ## CLI
 
 ```bash
@@ -158,6 +182,8 @@ erdos problem artifacts 857 --json
 erdos cluster list
 erdos cluster show sunflower
 erdos workspace show
+erdos orp show
+erdos orp sync
 erdos sunflower status 857
 erdos sunflower status --json
 erdos dossier show
@@ -242,6 +268,9 @@ This runtime writes:
 - `.erdos/QUESTION-LEDGER.md`
 - `.erdos/checkpoints/CHECKPOINTS.md`
 - `.erdos/checkpoints/CHECKPOINTS.json`
+- `.erdos/orp/PROTOCOL.md`
+- `.erdos/orp/AGENT_INTEGRATION.md`
+- `.erdos/orp/templates/`
 - `.erdos/registry/preflight/`
 
 The public package uses the same status ladder we settled on in the lab:

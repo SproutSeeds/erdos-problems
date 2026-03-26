@@ -110,10 +110,15 @@ test('problem use writes workspace state and current problem', () => {
   const workspace = fs.mkdtempSync(path.join(os.tmpdir(), 'erdos-workspace-'));
   const output = runCli(['problem', 'use', '857'], { cwd: workspace });
   assert.match(output, /Active problem set to 857/);
+  assert.match(output, /Checkpoint shelf:/);
   const currentProblemPath = path.join(workspace, '.erdos', 'current-problem.json');
   const statePath = path.join(workspace, '.erdos', 'state.json');
+  const orpProtocolPath = path.join(workspace, '.erdos', 'orp', 'PROTOCOL.md');
+  const checkpointIndexPath = path.join(workspace, '.erdos', 'checkpoints', 'CHECKPOINTS.md');
   assert.equal(JSON.parse(fs.readFileSync(currentProblemPath, 'utf8')).problemId, '857');
   assert.equal(JSON.parse(fs.readFileSync(statePath, 'utf8')).activeProblem, '857');
+  assert.equal(fs.existsSync(orpProtocolPath), true);
+  assert.equal(fs.existsSync(checkpointIndexPath), true);
 });
 
 test('problem show without id uses active workspace problem', () => {
@@ -129,6 +134,9 @@ test('workspace show reports active problem plus artifact and literature dirs', 
   const output = runCli(['workspace', 'show'], { cwd: workspace });
   assert.match(output, /Initialized: yes/);
   assert.match(output, /Active problem: 857/);
+  assert.match(output, /Workspace ORP dir:/);
+  assert.match(output, /Workspace ORP protocol:/);
+  assert.match(output, /Workspace ORP integration:/);
   assert.match(output, /Workspace artifact dir:/);
   assert.match(output, /Workspace literature dir:/);
   assert.match(output, /Sunflower family role: weak_sunflower_core/);
@@ -225,9 +233,11 @@ test('bootstrap problem selects active problem and creates scaffold in one step'
   const statePath = path.join(workspace, '.erdos', 'state.json');
   const currentProblemPath = path.join(workspace, '.erdos', 'current-problem.json');
   const scaffoldDir = path.join(workspace, '.erdos', 'scaffolds', '857');
+  const orpProtocolPath = path.join(workspace, '.erdos', 'orp', 'PROTOCOL.md');
   assert.equal(JSON.parse(fs.readFileSync(statePath, 'utf8')).activeProblem, '857');
   assert.equal(JSON.parse(fs.readFileSync(currentProblemPath, 'utf8')).problemId, '857');
   assert.equal(fs.existsSync(path.join(scaffoldDir, 'PROBLEM.json')), true);
+  assert.equal(fs.existsSync(orpProtocolPath), true);
 });
 
 test('pull problem creates root bundle with artifact and literature lanes', () => {
@@ -347,6 +357,7 @@ test('checkpoints sync creates checkpoint shelf and route checkpoint', () => {
   const output = runCli(['checkpoints', 'sync'], { cwd: workspace });
   assert.match(output, /Checkpoint shelf synced/);
   assert.equal(fs.existsSync(path.join(workspace, '.erdos', 'checkpoints', 'CHECKPOINTS.md')), true);
+  assert.equal(fs.existsSync(path.join(workspace, '.erdos', 'orp', 'AGENT_INTEGRATION.md')), true);
   assert.equal(fs.existsSync(path.join(workspace, '.erdos', 'checkpoints', 'route-checkpoints', 'problem-857--anchored_selector_linearization.md')), true);
 });
 
@@ -376,6 +387,7 @@ test('workspace show includes research loop paths and continuation mode', () => 
   assert.match(output, /State markdown:/);
   assert.match(output, /Question ledger:/);
   assert.match(output, /Checkpoint shelf:/);
+  assert.match(output, /Workspace ORP dir:/);
   assert.match(output, /Workspace seeded-problems dir:/);
   assert.match(output, /Active seeded dossier dir:/);
   assert.match(output, /Continuation mode: route/);
@@ -386,6 +398,7 @@ test('seed problem creates a workspace-local dossier and activates the research 
   const workspace = fs.mkdtempSync(path.join(os.tmpdir(), 'erdos-seed-one-step-'));
   const output = runCli(['seed', 'problem', '25', '--cluster', 'number-theory'], { cwd: workspace });
   assert.match(output, /Seeded local dossier for problem 25/);
+  assert.match(output, /ORP protocol:/);
   assert.match(output, /Workspace overlay visible: yes/);
   assert.match(output, /Activated: yes/);
   assert.match(output, /Loop synced: yes/);
@@ -396,6 +409,7 @@ test('seed problem creates a workspace-local dossier and activates the research 
   assert.equal(fs.existsSync(path.join(seededDir, 'AGENT_START.md')), true);
   assert.equal(fs.existsSync(path.join(seededDir, 'ROUTES.md')), true);
   assert.equal(fs.existsSync(path.join(seededDir, 'CHECKPOINT_NOTES.md')), true);
+  assert.equal(fs.existsSync(path.join(workspace, '.erdos', 'orp', 'PROTOCOL.md')), true);
   assert.equal(fs.existsSync(path.join(workspace, '.erdos', 'STATE.md')), true);
   assert.equal(fs.existsSync(path.join(workspace, '.erdos', 'checkpoints', 'CHECKPOINTS.md')), true);
 
@@ -419,5 +433,20 @@ test('seed problem can emit json for agents', () => {
   assert.equal(payload.activated, true);
   assert.equal(payload.loopSynced, true);
   assert.equal(payload.activeProblem, '25');
+  assert.match(payload.orpProtocol, /\.erdos\/orp\/PROTOCOL\.md$/);
   assert.equal(typeof payload.nextHonestMove, 'string');
+});
+
+test('orp sync and show expose the bundled protocol kit', () => {
+  const workspace = fs.mkdtempSync(path.join(os.tmpdir(), 'erdos-orp-'));
+  const syncOutput = runCli(['orp', 'sync'], { cwd: workspace });
+  assert.match(syncOutput, /ORP workspace kit synced/);
+  assert.equal(fs.existsSync(path.join(workspace, '.erdos', 'orp', 'PROTOCOL.md')), true);
+  assert.equal(fs.existsSync(path.join(workspace, '.erdos', 'orp', 'AGENT_INTEGRATION.md')), true);
+  assert.equal(fs.existsSync(path.join(workspace, '.erdos', 'orp', 'templates', 'CLAIM.md')), true);
+
+  const showOutput = runCli(['orp', 'show'], { cwd: workspace });
+  assert.match(showOutput, /Open Research Protocol/);
+  assert.match(showOutput, /Workspace protocol:/);
+  assert.match(showOutput, /Workspace templates:/);
 });
