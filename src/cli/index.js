@@ -4,6 +4,7 @@ import { runCheckpointsCommand } from '../commands/checkpoints.js';
 import { runClusterCommand } from '../commands/cluster.js';
 import { runContinuationCommand } from '../commands/continuation.js';
 import { runDossierCommand } from '../commands/dossier.js';
+import { runGraphTheoryCommand } from '../commands/graph-theory.js';
 import { runMaintainerCommand } from '../commands/maintainer.js';
 import { runNumberTheoryCommand } from '../commands/number-theory.js';
 import { runOrpCommand } from '../commands/orp.js';
@@ -26,15 +27,22 @@ function printUsage() {
   console.log('  erdos problem use <id>');
   console.log('  erdos problem current');
   console.log('  erdos problem artifacts [<id>] [--json]');
-  console.log('  erdos cluster list');
-  console.log('  erdos cluster show <name>');
-  console.log('  erdos archive show <id>');
-  console.log('  erdos archive scaffold <id>');
+  console.log('  erdos cluster list [--json]');
+  console.log('  erdos cluster show <name> [--json]');
+  console.log('  erdos archive show <id> [--json]');
+  console.log('  erdos archive scaffold <id> [--json]');
+  console.log('  erdos graph-theory status [<id>] [--json]');
+  console.log('  erdos graph-theory frontier [<id>] [--json]');
+  console.log('  erdos graph-theory routes [<id>] [--json]');
+  console.log('  erdos graph-theory tickets [<id>] [--json]');
   console.log('  erdos number-theory status [<id>] [--json]');
   console.log('  erdos number-theory frontier [<id>] [--json]');
   console.log('  erdos number-theory routes [<id>] [--json]');
   console.log('  erdos number-theory tickets [<id>] [--json]');
-  console.log('  erdos workspace show');
+  console.log('  erdos number-theory route <problem-id> <route-id> [--json]');
+  console.log('  erdos number-theory ticket <problem-id> <ticket-id> [--json]');
+  console.log('  erdos number-theory atom <problem-id> <atom-id> [--json]');
+  console.log('  erdos workspace show [--json]');
   console.log('  erdos orp show [--json]');
   console.log('  erdos orp sync [--json]');
   console.log('  erdos state sync [--json]');
@@ -82,6 +90,8 @@ if (!command || command === 'help' || command === '--help') {
   exitCode = runClusterCommand(rest);
 } else if (command === 'archive') {
   exitCode = runArchiveCommand(rest);
+} else if (command === 'graph-theory') {
+  exitCode = runGraphTheoryCommand(rest);
 } else if (command === 'number-theory') {
   exitCode = runNumberTheoryCommand(rest);
 } else if (command === 'workspace') {

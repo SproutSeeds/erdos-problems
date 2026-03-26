@@ -1,0 +1,27 @@
+problem_id: "1008"
+family_role: c4_free_lean_archive
+harness_profile: lean_archive_cockpit
+default_active_route: c4_free_lean_archive
+bootstrap_focus: Freeze the `C_4`-free density result as a Lean-facing archive packet and keep the solved status synchronized with the public dossier.
+route_story: Problem 1008 is a formalization-flavored proof archive. The public job is to preserve the solved record, the Lean-facing posture, and the core extremal-graph framing without re-opening a closed problem.
+frontier_label: c4_free_lean_archive
+frontier_detail: Preserve the Lean-facing solved record and the `C_4`-free density framing without widening the claim beyond the public dossier.
+checkpoint_focus: Keep the solved status, Lean-facing archive wording, and main source trail synchronized.
+next_honest_move: Tighten the Lean proof archive note and freeze the best public/formalization source hook for the `C_4`-free density result.
+related_core_problems: []
+literature_focus:
+  - graph theory
+  - extremal graph theory
+  - formalization
+artifact_focus:
+  - STATEMENT.md
+  - REFERENCES.md
+  - FORMALIZATION.md
+question_ledger:
+  open_questions:
+    - Which exact Lean-facing artifact should anchor the archive packet first?
+  active_route_notes:
+    - Treat Problem 1008 as a solved Lean archive, not as a live frontier.
+  route_breakthroughs: []
+  problem_solved:
+    - The public site marks this problem as solved with a Lean-facing badge.

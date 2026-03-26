@@ -11,6 +11,9 @@ Useful commands:
 - `erdos number-theory frontier 1`
 - `erdos number-theory routes 1`
 - `erdos number-theory tickets 1`
+- `erdos number-theory route 1 distinct_subset_sum_lower_bound`
+- `erdos number-theory ticket 1 N1`
+- `erdos number-theory atom 1 N1.G1.A1`
 - `erdos number-theory status 2 --json`
 
 Design rule:

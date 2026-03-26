@@ -1,5 +1,10 @@
 import { getProblem } from '../atlas/catalog.js';
-import { buildNumberTheoryStatusSnapshot } from '../runtime/number-theory.js';
+import {
+  buildNumberTheoryStatusSnapshot,
+  getNumberTheoryAtomSnapshot,
+  getNumberTheoryRouteSnapshot,
+  getNumberTheoryTicketSnapshot,
+} from '../runtime/number-theory.js';
 import { readCurrentProblem } from '../runtime/workspace.js';
 
 function resolveNumberTheoryProblem(problemId) {
@@ -24,6 +29,7 @@ function parseArgs(args) {
   const parsed = {
     problemId: null,
     asJson: false,
+    entityId: null,
   };
 
   for (const token of args) {
@@ -33,6 +39,10 @@ function parseArgs(args) {
     }
     if (!parsed.problemId) {
       parsed.problemId = token;
+      continue;
+    }
+    if (!parsed.entityId) {
+      parsed.entityId = token;
       continue;
     }
     return { error: `Unknown number-theory option: ${token}` };
@@ -146,6 +156,44 @@ function printTickets(snapshot) {
   }
 }
 
+function printRouteDetail(snapshot) {
+  const route = snapshot.routeDetail;
+  console.log(`${snapshot.displayName} number-theory route ${snapshot.routeId}`);
+  console.log(`Title: ${route.title ?? snapshot.routeId}`);
+  console.log(`Status: ${route.status ?? '(unknown)'}`);
+  console.log(`Active route: ${route.route_id === snapshot.activeRoute ? 'yes' : 'no'}`);
+  console.log(`Summary: ${route.summary ?? '(none)'}`);
+  console.log(`Why now: ${route.why_now ?? '(none)'}`);
+  console.log(`Next move: ${route.next_move ?? '(none)'}`);
+  if (Array.isArray(route.ticket_ids) && route.ticket_ids.length > 0) {
+    console.log(`Tickets: ${route.ticket_ids.join(', ')}`);
+  }
+}
+
+function printTicketDetail(snapshot) {
+  const ticket = snapshot.ticketDetail;
+  console.log(`${snapshot.displayName} number-theory ticket ${snapshot.ticketId}`);
+  console.log(`Title: ${ticket.title ?? snapshot.ticketId}`);
+  console.log(`Status: ${ticket.status ?? '(unknown)'}`);
+  console.log(`Active ticket: ${ticket.ticket_id === snapshot.activeTicketDetail?.ticket_id ? 'yes' : 'no'}`);
+  console.log(`Summary: ${ticket.summary ?? '(none)'}`);
+  console.log(`Current blocker: ${ticket.current_blocker ?? '(none)'}`);
+  console.log(`Next move: ${ticket.next_move ?? '(none)'}`);
+  if (Array.isArray(ticket.atom_ids) && ticket.atom_ids.length > 0) {
+    console.log(`Atoms: ${ticket.atom_ids.join(', ')}`);
+  }
+}
+
+function printAtomDetail(snapshot) {
+  const atom = snapshot.atomDetail;
+  console.log(`${snapshot.displayName} number-theory atom ${snapshot.atomId}`);
+  console.log(`Title: ${atom.title ?? snapshot.atomId}`);
+  console.log(`Status: ${atom.status ?? '(unknown)'}`);
+  console.log(`Current frontier atom: ${atom.atom_id === snapshot.firstReadyAtom?.atom_id ? 'yes' : 'no'}`);
+  console.log(`Summary: ${atom.summary ?? '(none)'}`);
+  console.log(`Next move: ${atom.next_move ?? '(none)'}`);
+}
+
 export function runNumberTheoryCommand(args) {
   const [subcommand, ...rest] = args;
 
@@ -155,10 +203,13 @@ export function runNumberTheoryCommand(args) {
     console.log('  erdos number-theory frontier [<id>] [--json]');
     console.log('  erdos number-theory routes [<id>] [--json]');
     console.log('  erdos number-theory tickets [<id>] [--json]');
+    console.log('  erdos number-theory route <problem-id> <route-id> [--json]');
+    console.log('  erdos number-theory ticket <problem-id> <ticket-id> [--json]');
+    console.log('  erdos number-theory atom <problem-id> <atom-id> [--json]');
     return 0;
   }
 
-  if (!['status', 'frontier', 'routes', 'tickets'].includes(subcommand)) {
+  if (!['status', 'frontier', 'routes', 'tickets', 'route', 'ticket', 'atom'].includes(subcommand)) {
     console.error(`Unknown number-theory subcommand: ${subcommand}`);
     return 1;
   }
@@ -173,6 +224,60 @@ export function runNumberTheoryCommand(args) {
   if (error) {
     console.error(error);
     return 1;
+  }
+
+  if (subcommand === 'route') {
+    if (!parsed.entityId) {
+      console.error('Missing route id.');
+      return 1;
+    }
+    const snapshot = getNumberTheoryRouteSnapshot(problem, parsed.entityId);
+    if (!snapshot) {
+      console.error(`Unknown number-theory route: ${parsed.entityId}`);
+      return 1;
+    }
+    if (parsed.asJson) {
+      console.log(JSON.stringify(snapshot, null, 2));
+      return 0;
+    }
+    printRouteDetail(snapshot);
+    return 0;
+  }
+
+  if (subcommand === 'ticket') {
+    if (!parsed.entityId) {
+      console.error('Missing ticket id.');
+      return 1;
+    }
+    const snapshot = getNumberTheoryTicketSnapshot(problem, parsed.entityId);
+    if (!snapshot) {
+      console.error(`Unknown number-theory ticket: ${parsed.entityId}`);
+      return 1;
+    }
+    if (parsed.asJson) {
+      console.log(JSON.stringify(snapshot, null, 2));
+      return 0;
+    }
+    printTicketDetail(snapshot);
+    return 0;
+  }
+
+  if (subcommand === 'atom') {
+    if (!parsed.entityId) {
+      console.error('Missing atom id.');
+      return 1;
+    }
+    const snapshot = getNumberTheoryAtomSnapshot(problem, parsed.entityId);
+    if (!snapshot) {
+      console.error(`Unknown number-theory atom: ${parsed.entityId}`);
+      return 1;
+    }
+    if (parsed.asJson) {
+      console.log(JSON.stringify(snapshot, null, 2));
+      return 0;
+    }
+    printAtomDetail(snapshot);
+    return 0;
   }
 
   const snapshot = buildNumberTheoryStatusSnapshot(problem);

@@ -14,11 +14,16 @@ function printCluster(cluster) {
     console.log('  Open starter cockpit: 1');
     console.log('  Counterexample/archive cockpit: 2');
     console.log('  Additional dossier seeds: 3, 4, 5, 6, 7, 18, 542');
+  } else if (cluster.name === 'graph-theory') {
+    console.log('  Decision archive cockpit: 19');
+    console.log('  Proof archive cockpit: 22');
+    console.log('  Lean proof archive cockpit: 1008');
   }
 }
 
 export function runClusterCommand(args) {
-  const [subcommand, value] = args;
+  const [subcommand, value, ...rest] = args;
+  const asJson = [value, ...rest].includes('--json');
 
   if (!subcommand || subcommand === 'help' || subcommand === '--help') {
     console.log('Usage:');
@@ -28,6 +33,10 @@ export function runClusterCommand(args) {
   }
 
   if (subcommand === 'list') {
+    if (asJson) {
+      console.log(JSON.stringify(listClusters(), null, 2));
+      return 0;
+    }
     console.log('Clusters:');
     for (const cluster of listClusters()) {
       console.log(`- ${cluster.name}: ${cluster.problems.length} problems, ${cluster.deepHarnessProblems.length} deep-harness`);
@@ -49,6 +58,11 @@ export function runClusterCommand(args) {
   if (!cluster) {
     console.error(`Unknown cluster: ${value}`);
     return 1;
+  }
+
+  if (asJson) {
+    console.log(JSON.stringify(cluster, null, 2));
+    return 0;
   }
 
   printCluster(cluster);

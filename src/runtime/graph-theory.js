@@ -11,7 +11,7 @@ function readYamlIfPresent(filePath) {
 }
 
 function getPackFile(problemId, fileName) {
-  return path.join(getPackProblemDir('number-theory', problemId), fileName);
+  return path.join(getPackProblemDir('graph-theory', problemId), fileName);
 }
 
 function normalizeQuestionLedger(rawLedger) {
@@ -46,48 +46,11 @@ function findRouteDetail(opsDetails, routeId) {
   return opsDetails.routes.find((route) => route.route_id === routeId) ?? null;
 }
 
-function findTicketDetail(opsDetails, ticketId) {
-  if (!opsDetails || !Array.isArray(opsDetails.tickets)) {
+function firstMatching(items, predicate) {
+  if (!Array.isArray(items)) {
     return null;
   }
-  return opsDetails.tickets.find((ticket) => ticket.ticket_id === ticketId) ?? null;
-}
-
-function findAtomDetail(opsDetails, atomId) {
-  if (!opsDetails || !Array.isArray(opsDetails.atoms)) {
-    return null;
-  }
-  return opsDetails.atoms.find((atom) => atom.atom_id === atomId) ?? null;
-}
-
-function findActiveRouteDetail(opsDetails, activeRoute) {
-  if (!opsDetails || !Array.isArray(opsDetails.routes)) {
-    return null;
-  }
-  return opsDetails.routes.find((route) => route.route_id === activeRoute) ?? opsDetails.routes[0] ?? null;
-}
-
-function findActiveTicketDetail(opsDetails, activeRoute) {
-  if (!opsDetails || !Array.isArray(opsDetails.tickets)) {
-    return null;
-  }
-  return (
-    opsDetails.tickets.find((ticket) => ticket.status === 'active' && (!activeRoute || ticket.route_id === activeRoute))
-    ?? opsDetails.tickets.find((ticket) => !activeRoute || ticket.route_id === activeRoute)
-    ?? opsDetails.tickets[0]
-    ?? null
-  );
-}
-
-function findFirstReadyAtom(opsDetails, activeRoute) {
-  if (!opsDetails || !Array.isArray(opsDetails.atoms)) {
-    return null;
-  }
-  return (
-    opsDetails.atoms.find((atom) => atom.status === 'ready' && (!activeRoute || atom.route_id === activeRoute))
-    ?? opsDetails.atoms.find((atom) => atom.status === 'ready')
-    ?? null
-  );
+  return items.find(predicate) ?? items[0] ?? null;
 }
 
 function resolveArchiveMode(problem) {
@@ -95,13 +58,21 @@ function resolveArchiveMode(problem) {
   if (siteStatus === 'solved') {
     return 'method_exemplar';
   }
-  if (siteStatus === 'disproved') {
-    return 'counterexample_archive';
+  if (siteStatus === 'proved' || siteStatus === 'proved (lean)') {
+    return 'proof_archive';
+  }
+  if (siteStatus === 'decidable') {
+    return 'decision_archive';
   }
   return null;
 }
 
-export function buildNumberTheoryStatusSnapshot(problem) {
+function solvedLikeSiteStatus(problem) {
+  const siteStatus = String(problem.siteStatus ?? '').toLowerCase();
+  return siteStatus === 'solved' || siteStatus === 'proved' || siteStatus === 'proved (lean)';
+}
+
+export function buildGraphTheoryStatusSnapshot(problem) {
   const contextPath = getPackFile(problem.problemId, 'context.yaml');
   const contextMarkdownPath = getPackFile(problem.problemId, 'CONTEXT.md');
   const routePacketPath = getPackFile(problem.problemId, 'ROUTE_PACKET.yaml');
@@ -119,20 +90,26 @@ export function buildNumberTheoryStatusSnapshot(problem) {
     ?? context.default_active_route
     ?? routePacket?.route_id
     ?? null;
-  const routeBreakthrough = typeof problem.researchState?.route_breakthrough === 'boolean'
-    ? problem.researchState.route_breakthrough
-    : false;
   const archiveMode = resolveArchiveMode(problem);
   const problemSolved = typeof problem.researchState?.problem_solved === 'boolean'
     ? problem.researchState.problem_solved
-    : String(problem.siteStatus ?? '').toLowerCase() === 'solved';
+    : solvedLikeSiteStatus(problem);
   const openProblem = typeof problem.researchState?.open_problem === 'boolean'
     ? problem.researchState.open_problem
     : String(problem.siteStatus ?? '').toLowerCase() === 'open';
+  const routeBreakthrough = typeof problem.researchState?.route_breakthrough === 'boolean'
+    ? problem.researchState.route_breakthrough
+    : problemSolved;
 
-  const activeRouteDetail = findActiveRouteDetail(opsDetails, activeRoute);
-  const activeTicketDetail = findActiveTicketDetail(opsDetails, activeRoute);
-  const firstReadyAtom = findFirstReadyAtom(opsDetails, activeRoute);
+  const activeRouteDetail = findRouteDetail(opsDetails, activeRoute) ?? firstMatching(opsDetails?.routes, () => true);
+  const activeTicketDetail = firstMatching(
+    opsDetails?.tickets,
+    (ticket) => ticket.status === 'active' && (!activeRoute || ticket.route_id === activeRoute),
+  );
+  const firstReadyAtom = firstMatching(
+    opsDetails?.atoms,
+    (atom) => atom.status === 'ready' && (!activeRoute || atom.route_id === activeRoute),
+  );
   const readyAtoms = Array.isArray(opsDetails?.atoms)
     ? opsDetails.atoms.filter((atom) => atom.status === 'ready')
     : [];
@@ -143,7 +120,7 @@ export function buildNumberTheoryStatusSnapshot(problem) {
     displayName: problem.displayName,
     title: problem.title,
     cluster: problem.cluster,
-    familyRole: context.family_role ?? 'number_theory_pack',
+    familyRole: context.family_role ?? 'graph_theory_pack',
     harnessProfile: context.harness_profile ?? 'starter_cockpit',
     activeRoute,
     routeBreakthrough,
@@ -153,14 +130,14 @@ export function buildNumberTheoryStatusSnapshot(problem) {
     archiveMode,
     bootstrapFocus: context.bootstrap_focus ?? null,
     routeStory: context.route_story ?? routePacket?.frontier_claim ?? problem.shortStatement,
-    frontierLabel: context.frontier_label ?? activeRoute ?? 'number_theory_frontier',
+    frontierLabel: context.frontier_label ?? activeRoute ?? 'graph_theory_frontier',
     frontierDetail: firstReadyAtom?.summary ?? context.frontier_detail ?? activeRouteDetail?.summary ?? problem.shortStatement,
     checkpointFocus: context.checkpoint_focus ?? activeRouteDetail?.why_now ?? null,
     nextHonestMove:
       firstReadyAtom?.next_move
       ?? activeTicketDetail?.next_move
       ?? context.next_honest_move
-      ?? 'Pull the dossier, freeze the route note, and preserve public-status honesty.',
+      ?? 'Freeze the current graph-theory packet without widening status claims.',
     relatedCoreProblems: context.related_core_problems ?? [],
     literatureFocus: context.literature_focus ?? [],
     artifactFocus: context.artifact_focus ?? [],
@@ -186,44 +163,5 @@ export function buildNumberTheoryStatusSnapshot(problem) {
     activeTicketDetail,
     firstReadyAtom,
     readyAtomCount: readyAtoms.length,
-  };
-}
-
-export function getNumberTheoryRouteSnapshot(problem, routeId) {
-  const snapshot = buildNumberTheoryStatusSnapshot(problem);
-  const routeDetail = findRouteDetail(snapshot.opsDetails, routeId);
-  if (!routeDetail) {
-    return null;
-  }
-  return {
-    ...snapshot,
-    routeId,
-    routeDetail,
-  };
-}
-
-export function getNumberTheoryTicketSnapshot(problem, ticketId) {
-  const snapshot = buildNumberTheoryStatusSnapshot(problem);
-  const ticketDetail = findTicketDetail(snapshot.opsDetails, ticketId);
-  if (!ticketDetail) {
-    return null;
-  }
-  return {
-    ...snapshot,
-    ticketId,
-    ticketDetail,
-  };
-}
-
-export function getNumberTheoryAtomSnapshot(problem, atomId) {
-  const snapshot = buildNumberTheoryStatusSnapshot(problem);
-  const atomDetail = findAtomDetail(snapshot.opsDetails, atomId);
-  if (!atomDetail) {
-    return null;
-  }
-  return {
-    ...snapshot,
-    atomId,
-    atomDetail,
   };
 }

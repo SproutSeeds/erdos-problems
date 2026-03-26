@@ -22,6 +22,8 @@ Official binary:
 - workspace `.erdos/` state for active-problem selection, upstream refreshes, scaffolds, and pull bundles
 - sunflower cluster as the first deep harness pack
 - quartet-aware sunflower context for `20`, `536`, `856`, and `857`
+- number-theory starter cockpit as the first lighter non-sunflower pack
+- graph-theory archive cockpit as the first archive/decision pack outside sunflower
 - packaged atomic/bridge board packets for the full sunflower quartet
 - packaged compute-lane metadata for deep sunflower problems, surfaced directly in the CLI
 - seeded atlas now includes open and solved problems beyond sunflower
@@ -36,6 +38,7 @@ Native dossier count:
 Pack coverage:
 - sunflower pack: `4`
 - number-theory starter cockpit: `2`
+- graph-theory archive cockpit: `3`
 
 ## First-run flow
 
@@ -50,6 +53,7 @@ erdos sunflower routes 857
 erdos sunflower tickets 857
 erdos dossier show 857
 erdos number-theory status 1
+erdos graph-theory status 1008
 ```
 
 For an unseeded problem, the one-step self-seeding flow is now:
@@ -254,6 +258,9 @@ erdos number-theory status 1
 erdos number-theory frontier 1
 erdos number-theory routes 1
 erdos number-theory tickets 1
+erdos number-theory route 1 distinct_subset_sum_lower_bound
+erdos number-theory ticket 1 N1
+erdos number-theory atom 1 N1.G1.A1
 erdos number-theory status 2 --json
 ```
 
@@ -261,6 +268,28 @@ The number-theory pack is intentionally lighter than sunflower:
 - no mirrored theorem board yet
 - explicit route/frontier/ticket packet layer
 - honest archive posture for disproved problems
+
+## Graph-theory archive cockpit
+
+The next family pack is a deliberately honest archive/decision cockpit for seeded graph-theory problems:
+- `19`: decision archive cockpit
+- `22`: proof archive cockpit
+- `1008`: Lean-facing proof archive cockpit
+
+Useful graph-theory commands:
+
+```bash
+erdos graph-theory status 19
+erdos graph-theory frontier 22
+erdos graph-theory routes 1008
+erdos graph-theory tickets 1008
+erdos graph-theory status 1008 --json
+```
+
+The graph-theory pack is intentionally archive-first:
+- no fake open frontier for solved or decided problems
+- route/ticket packets exist to preserve archive discipline, not to cosplay theorem pressure
+- the public job is to keep solved/decided records reusable as method exemplars and clean references
 
 ## Archive mode
 
@@ -320,7 +349,9 @@ erdos problem artifacts 857 --json
 erdos cluster list
 erdos cluster show sunflower
 erdos cluster show number-theory
+erdos cluster show graph-theory
 erdos workspace show
+erdos workspace show --json
 erdos orp show
 erdos orp sync
 erdos sunflower status 857
@@ -338,6 +369,13 @@ erdos number-theory status 1
 erdos number-theory frontier 1
 erdos number-theory routes 1
 erdos number-theory tickets 1
+erdos number-theory route 1 distinct_subset_sum_lower_bound
+erdos number-theory ticket 1 N1
+erdos number-theory atom 1 N1.G1.A1
+erdos graph-theory status 1008
+erdos graph-theory frontier 22
+erdos graph-theory routes 1008
+erdos graph-theory tickets 19
 erdos sunflower status --json
 erdos dossier show
 erdos upstream show
@@ -404,7 +442,14 @@ For number-theory starter-cockpit problems, the CLI now also surfaces:
 - pack README context
 - per-problem context files under `packs/number-theory/problems/<id>/`
 - route packets, frontier notes, route histories, checkpoint/report templates, and ops-detail packets
+- route/ticket/atom drill-down packets through `erdos number-theory route|ticket|atom`
 - archive posture for disproved problems through `erdos number-theory status`
+
+For graph-theory archive-cockpit problems, the CLI now also surfaces:
+- pack README context
+- per-problem context files under `packs/graph-theory/problems/<id>/`
+- route packets, frontier notes, route histories, checkpoint/report templates, and ops-detail packets
+- archive and decision posture through `erdos graph-theory status|frontier|routes|tickets`
 
 ## Notes
 

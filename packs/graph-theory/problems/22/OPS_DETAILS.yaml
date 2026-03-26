@@ -1,0 +1,25 @@
+packet_id: gt22_ops_details_v1
+summary: Proof archive cockpit packet for the Ramsey-Turan `K_4` record.
+routes:
+  - route_id: ramsey_turan_k4_archive
+    title: Ramsey-Turan `K_4` Proof Archive
+    status: archival
+    summary: Keep the solved Ramsey-Turan record explicit and preserve the extremal-graph proof framing.
+    why_now: This is the honest public posture for Problem 22.
+    next_move: Freeze the strongest proof reference and checkpoint the archive packet.
+tickets:
+  - ticket_id: G22
+    title: Tighten the Ramsey-Turan proof archive packet
+    route_id: ramsey_turan_k4_archive
+    status: active
+    summary: Package the solved record clearly enough that agents cannot mistake it for an open frontier.
+    current_blocker: The archive still needs a stronger primary proof hook.
+    next_move: Close `G22.G1.A1`.
+atoms:
+  - atom_id: G22.G1.A1
+    title: Freeze the primary solved-reference hook for the Ramsey-Turan record
+    route_id: ramsey_turan_k4_archive
+    ticket_id: G22
+    status: ready
+    summary: This is the smallest honest archive move for Problem 22.
+    next_move: Record the strongest public proof hook and checkpoint the archive packet.

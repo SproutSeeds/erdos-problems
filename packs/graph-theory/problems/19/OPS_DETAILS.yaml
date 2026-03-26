@@ -1,0 +1,25 @@
+packet_id: gt19_ops_details_v1
+summary: Decision/archive cockpit packet for the chromatic-number record.
+routes:
+  - route_id: chromatic_decision_record
+    title: Chromatic Decision Record
+    status: archival
+    summary: Keep the public decision posture and chromatic-number framing synchronized.
+    why_now: This is the honest archive framing for Problem 19 today.
+    next_move: Freeze the best source hook describing the decision record.
+tickets:
+  - ticket_id: G19
+    title: Tighten the chromatic decision archive packet
+    route_id: chromatic_decision_record
+    status: active
+    summary: Package the decision record clearly enough that future agents do not misread the dossier.
+    current_blocker: The primary source hook for the decision posture is still too loose.
+    next_move: Close `G19.G1.A1`.
+atoms:
+  - atom_id: G19.G1.A1
+    title: Freeze the primary chromatic-number decision source hook
+    route_id: chromatic_decision_record
+    ticket_id: G19
+    status: ready
+    summary: This is the smallest honest archive move for Problem 19.
+    next_move: Record the strongest public source hook and checkpoint the archive packet.

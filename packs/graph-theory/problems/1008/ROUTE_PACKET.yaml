@@ -1,0 +1,13 @@
+route_packet_id: gt1008_c4_free_lean_archive_v1
+route_id: c4_free_lean_archive
+frontier_claim: Preserve the solved `C_4`-free density record as a Lean-facing archive packet and keep the source trail synchronized with the dossier.
+theorem_module: ""
+checkpoint_packet: CHECKPOINT_TEMPLATE.md
+report_packet: REPORT_TEMPLATE.md
+ready_prompts:
+  - Which exact source or formalization hook should anchor the Lean archive packet first?
+  - Which wording best preserves the solved posture without inflating the public claim?
+verification_hook:
+  - erdos graph-theory status 1008
+  - erdos archive show 1008 --json
+  - erdos archive scaffold 1008 --json

@@ -716,3 +716,82 @@ test('orp sync and show expose the bundled protocol kit', () => {
   assert.match(showOutput, /Workspace protocol:/);
   assert.match(showOutput, /Workspace templates:/);
 });
+
+
+test('cluster list can emit json', () => {
+  const output = runCli(['cluster', 'list', '--json']);
+  const payload = JSON.parse(output);
+  const graphTheory = payload.find((cluster) => cluster.name === 'graph-theory');
+  assert.equal(Array.isArray(payload), true);
+  assert.equal(graphTheory.problems.length, 3);
+});
+
+test('cluster show graph-theory summarizes the archive cockpit slice', () => {
+  const output = runCli(['cluster', 'show', 'graph-theory']);
+  assert.match(output, /Problems: 19, 22, 1008/);
+  assert.match(output, /Decision archive cockpit: 19/);
+  assert.match(output, /Proof archive cockpit: 22/);
+  assert.match(output, /Lean proof archive cockpit: 1008/);
+});
+
+test('number-theory route ticket and atom drill-down are available for 1', () => {
+  const workspace = fs.mkdtempSync(path.join(os.tmpdir(), 'erdos-number-theory-detail-1-'));
+  const route = runCli(['number-theory', 'route', '1', 'distinct_subset_sum_lower_bound'], { cwd: workspace });
+  assert.match(route, /Erdos Problem #1 number-theory route distinct_subset_sum_lower_bound/);
+  assert.match(route, /Title: Distinct Subset-Sum Lower Bound/);
+
+  const ticket = runCli(['number-theory', 'ticket', '1', 'N1'], { cwd: workspace });
+  assert.match(ticket, /Erdos Problem #1 number-theory ticket N1/);
+  assert.match(ticket, /Current blocker:/);
+
+  const atom = runCli(['number-theory', 'atom', '1', 'N1.G1.A1'], { cwd: workspace });
+  assert.match(atom, /Erdos Problem #1 number-theory atom N1.G1.A1/);
+  assert.match(atom, /Current frontier atom: yes/);
+});
+
+test('workspace show can emit json with graph-theory pack state', () => {
+  const workspace = fs.mkdtempSync(path.join(os.tmpdir(), 'erdos-workspace-graph-json-'));
+  runCli(['problem', 'use', '1008'], { cwd: workspace });
+  const output = runCli(['workspace', 'show', '--json'], { cwd: workspace });
+  const payload = JSON.parse(output);
+  assert.equal(payload.activeProblem, '1008');
+  assert.equal(payload.graphTheory.problemId, '1008');
+  assert.equal(payload.graphTheory.archiveMode, 'method_exemplar');
+  assert.equal(payload.graphTheory.firstReadyAtom.atom_id, 'G1008.G1.A1');
+});
+
+test('archive show and scaffold can emit json', () => {
+  const workspace = fs.mkdtempSync(path.join(os.tmpdir(), 'erdos-archive-json-'));
+  const showPayload = JSON.parse(runCli(['archive', 'show', '1008', '--json'], { cwd: workspace }));
+  assert.equal(showPayload.problemId, '1008');
+  assert.equal(showPayload.solved, true);
+
+  const scaffoldPayload = JSON.parse(runCli(['archive', 'scaffold', '1008', '--json'], { cwd: workspace }));
+  assert.equal(scaffoldPayload.payload.problemId, '1008');
+  assert.equal(fs.existsSync(path.join(scaffoldPayload.archiveDir, 'ARCHIVE.json')), true);
+});
+
+test('graph-theory status shows the lean archive cockpit for 1008', () => {
+  const workspace = fs.mkdtempSync(path.join(os.tmpdir(), 'erdos-graph-theory-1008-'));
+  const output = runCli(['graph-theory', 'status', '1008'], { cwd: workspace });
+  assert.match(output, /Erdos Problem #1008 graph-theory harness/);
+  assert.match(output, /Harness profile: lean_archive_cockpit/);
+  assert.match(output, /Archive mode: method_exemplar/);
+  assert.match(output, /Problem solved: yes/);
+  assert.match(output, /First ready atom: G1008.G1.A1/);
+});
+
+test('graph-theory frontier routes and tickets expose the archive cockpit surfaces', () => {
+  const workspace = fs.mkdtempSync(path.join(os.tmpdir(), 'erdos-graph-theory-archive-'));
+  const frontier = runCli(['graph-theory', 'frontier', '22'], { cwd: workspace });
+  assert.match(frontier, /Erdos Problem #22 graph-theory frontier/);
+  assert.match(frontier, /Archive mode: proof_archive/);
+
+  const routes = runCli(['graph-theory', 'routes', '1008'], { cwd: workspace });
+  assert.match(routes, /Erdos Problem #1008 graph-theory routes/);
+  assert.match(routes, /c4_free_lean_archive \[active, closed\]/);
+
+  const tickets = runCli(['graph-theory', 'tickets', '19'], { cwd: workspace });
+  assert.match(tickets, /Erdos Problem #19 graph-theory tickets/);
+  assert.match(tickets, /G19 \[active\]/);
+});

@@ -1,11 +1,12 @@
 import { getProblem } from '../atlas/catalog.js';
 import { loadConfig } from '../runtime/config.js';
+import { buildGraphTheoryStatusSnapshot } from '../runtime/graph-theory.js';
 import { buildNumberTheoryStatusSnapshot } from '../runtime/number-theory.js';
 import { buildSunflowerStatusSnapshot } from '../runtime/sunflower.js';
 import { getWorkspaceSummary } from '../runtime/workspace.js';
 
 export function runWorkspaceCommand(args) {
-  const [subcommand] = args;
+  const [subcommand, ...rest] = args;
 
   if (!subcommand || subcommand === 'help' || subcommand === '--help') {
     console.log('Usage:');
@@ -18,8 +19,30 @@ export function runWorkspaceCommand(args) {
     return 1;
   }
 
+  const asJson = rest.includes('--json');
+
   const summary = getWorkspaceSummary();
   const config = loadConfig();
+  if (asJson) {
+    const payload = {
+      ...summary,
+      preferredAgent: config.preferredAgent,
+    };
+    if (summary.activeProblem) {
+      const problem = getProblem(summary.activeProblem);
+      if (problem?.cluster === 'sunflower') {
+        payload.sunflower = buildSunflowerStatusSnapshot(problem);
+      }
+      if (problem?.cluster === 'number-theory') {
+        payload.numberTheory = buildNumberTheoryStatusSnapshot(problem);
+      }
+      if (problem?.cluster === 'graph-theory') {
+        payload.graphTheory = buildGraphTheoryStatusSnapshot(problem);
+      }
+    }
+    console.log(JSON.stringify(payload, null, 2));
+    return 0;
+  }
   console.log(`Workspace root: ${summary.workspaceRoot}`);
   console.log(`State dir: ${summary.stateDir}`);
   console.log(`Initialized: ${summary.hasState ? 'yes' : 'no'}`);
@@ -90,6 +113,21 @@ export function runWorkspaceCommand(args) {
       console.log(`Number-theory ready atoms: ${numberTheory.readyAtomCount}`);
       if (numberTheory.firstReadyAtom) {
         console.log(`Number-theory first ready atom: ${numberTheory.firstReadyAtom.atom_id} — ${numberTheory.firstReadyAtom.title}`);
+      }
+    }
+    if (problem?.cluster === 'graph-theory') {
+      const graphTheory = buildGraphTheoryStatusSnapshot(problem);
+      console.log(`Graph-theory family role: ${graphTheory.familyRole ?? '(none)'}`);
+      console.log(`Graph-theory harness profile: ${graphTheory.harnessProfile ?? '(none)'}`);
+      console.log(`Graph-theory route: ${graphTheory.activeRoute ?? '(none)'}`);
+      console.log(`Graph-theory frontier: ${graphTheory.frontierDetail ?? '(none)'}`);
+      console.log(`Graph-theory frontier note: ${graphTheory.frontierNotePath ?? '(none)'}`);
+      console.log(`Graph-theory route history: ${graphTheory.routeHistoryPath ?? '(none)'}`);
+      console.log(`Graph-theory archive mode: ${graphTheory.archiveMode ?? '(none)'}`);
+      console.log(`Graph-theory active ticket: ${graphTheory.activeTicketDetail?.ticket_id ?? '(none)'}`);
+      console.log(`Graph-theory ready atoms: ${graphTheory.readyAtomCount}`);
+      if (graphTheory.firstReadyAtom) {
+        console.log(`Graph-theory first ready atom: ${graphTheory.firstReadyAtom.atom_id} — ${graphTheory.firstReadyAtom.title}`);
       }
     }
   }

@@ -1,6 +1,6 @@
 {
   "name": "erdos-problems",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "CLI atlas and staged research harness for Paul Erdos problems.",
   "type": "module",
   "bin": {

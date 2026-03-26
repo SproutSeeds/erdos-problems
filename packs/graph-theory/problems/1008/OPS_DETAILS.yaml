@@ -1,0 +1,25 @@
+packet_id: gt1008_ops_details_v1
+summary: Lean-facing proof archive cockpit packet for the `C_4`-free density result.
+routes:
+  - route_id: c4_free_lean_archive
+    title: "`C_4`-Free Lean Proof Archive"
+    status: closed
+    summary: Keep the solved `C_4`-free density record explicit and preserve the Lean-facing archive posture.
+    why_now: This is the honest archive framing for Problem 1008.
+    next_move: Freeze the best Lean-facing source hook and checkpoint the archive packet.
+tickets:
+  - ticket_id: G1008
+    title: "Tighten the `C_4`-free Lean archive packet"
+    route_id: c4_free_lean_archive
+    status: active
+    summary: Package the solved record clearly enough that the archive stays usable as a method exemplar.
+    current_blocker: The archive still needs a sharper Lean-facing source hook.
+    next_move: Close `G1008.G1.A1`.
+atoms:
+  - atom_id: G1008.G1.A1
+    title: "Freeze the primary Lean-facing archive hook for the `C_4`-free density result"
+    route_id: c4_free_lean_archive
+    ticket_id: G1008
+    status: ready
+    summary: This is the smallest honest archive move for Problem 1008.
+    next_move: Record the best public/formalization hook and checkpoint the archive packet.

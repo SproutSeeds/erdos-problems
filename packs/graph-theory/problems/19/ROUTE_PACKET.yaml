@@ -1,0 +1,13 @@
+route_packet_id: gt19_chromatic_decision_archive_v1
+route_id: chromatic_decision_record
+frontier_claim: Preserve the chromatic-number decision record as a clean archive packet and keep the source trail synchronized with the dossier.
+theorem_module: ""
+checkpoint_packet: CHECKPOINT_TEMPLATE.md
+report_packet: REPORT_TEMPLATE.md
+ready_prompts:
+  - Which exact source or note should anchor the decision archive first?
+  - Which wording most clearly prevents future agents from treating this as an open frontier?
+verification_hook:
+  - erdos graph-theory status 19
+  - erdos graph-theory tickets 19
+  - erdos archive show 19 --json
