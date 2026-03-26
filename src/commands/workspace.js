@@ -29,10 +29,12 @@ export function runWorkspaceCommand(args) {
   console.log(`Question ledger: ${summary.questionLedgerPath}`);
   console.log(`Checkpoint shelf: ${summary.checkpointIndexPath}`);
   console.log(`Workspace upstream dir: ${summary.upstreamDir}`);
+  console.log(`Workspace seeded-problems dir: ${summary.seededProblemsDir}`);
   console.log(`Workspace scaffold dir: ${summary.scaffoldDir}`);
   console.log(`Workspace pull dir: ${summary.pullDir}`);
   console.log(`Workspace artifact dir: ${summary.artifactDir}`);
   console.log(`Workspace literature dir: ${summary.literatureDir}`);
+  console.log(`Active seeded dossier dir: ${summary.seededProblemDir}`);
   console.log(`Preferred agent: ${config.preferredAgent}`);
   console.log(`Continuation mode: ${summary.continuationMode ?? config.continuation}`);
   console.log(`Active route: ${summary.activeRoute ?? '(none)'}`);

@@ -1,18 +1,15 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { parse } from 'yaml';
-import { getProblemDir, repoRoot } from '../runtime/paths.js';
+import { getProblemDir, getWorkspaceRoot, getWorkspaceSeededProblemsDir, repoRoot } from '../runtime/paths.js';
 
-let cachedProblems = null;
-
-function readProblemRecord(problemId) {
-  const problemDir = getProblemDir(problemId);
+function readProblemRecordFromDir(problemDir) {
   const yamlPath = path.join(problemDir, 'problem.yaml');
   const record = parse(fs.readFileSync(yamlPath, 'utf8'));
   return { problemDir, record };
 }
 
-function toCatalogProblem(problemDir, record) {
+function toCatalogProblem(problemDir, record, sourceKind) {
   const statementRelative = record.statement?.normalized_md_path ?? 'STATEMENT.md';
   const referencesRelative = record.references_path ?? 'REFERENCES.md';
   const evidenceRelative = record.evidence_path ?? 'EVIDENCE.md';
@@ -47,47 +44,58 @@ function toCatalogProblem(problemDir, record) {
     problemDir,
     problemYamlPath: path.join(problemDir, 'problem.yaml'),
     record,
+    sourceKind,
   };
 }
 
-export function loadLocalProblems() {
-  if (cachedProblems) {
-    return cachedProblems;
+function listProblemDirectories(rootDir) {
+  if (!fs.existsSync(rootDir)) {
+    return [];
   }
-  const problemsRoot = path.join(repoRoot, 'problems');
-  const directories = fs
-    .readdirSync(problemsRoot, { withFileTypes: true })
+  return fs
+    .readdirSync(rootDir, { withFileTypes: true })
     .filter((entry) => entry.isDirectory())
-    .map((entry) => entry.name)
-    .sort((a, b) => Number(a) - Number(b));
-
-  cachedProblems = directories.map((problemId) => {
-    const { problemDir, record } = readProblemRecord(problemId);
-    return toCatalogProblem(problemDir, record);
-  });
-  return cachedProblems;
+    .map((entry) => path.join(rootDir, entry.name));
 }
 
-export function listProblems(filters = {}) {
+export function loadLocalProblems(workspaceRoot = getWorkspaceRoot()) {
+  const packageRoot = path.join(repoRoot, 'problems');
+  const workspaceRootDir = getWorkspaceSeededProblemsDir(workspaceRoot);
+  const merged = new Map();
+
+  for (const problemDir of listProblemDirectories(packageRoot)) {
+    const { record } = readProblemRecordFromDir(problemDir);
+    merged.set(String(record.problem_id), toCatalogProblem(problemDir, record, 'package'));
+  }
+
+  for (const problemDir of listProblemDirectories(workspaceRootDir)) {
+    const { record } = readProblemRecordFromDir(problemDir);
+    merged.set(String(record.problem_id), toCatalogProblem(problemDir, record, 'workspace'));
+  }
+
+  return [...merged.values()].sort((left, right) => Number(left.problemId) - Number(right.problemId));
+}
+
+export function listProblems(filters = {}, workspaceRoot = getWorkspaceRoot()) {
   const cluster = filters.cluster ? String(filters.cluster).toLowerCase() : null;
   const repoStatus = filters.repoStatus ? String(filters.repoStatus).toLowerCase() : null;
   const harnessDepth = filters.harnessDepth ? String(filters.harnessDepth).toLowerCase() : null;
   const siteStatus = filters.siteStatus ? String(filters.siteStatus).toLowerCase() : null;
 
-  return loadLocalProblems()
+  return loadLocalProblems(workspaceRoot)
     .filter((entry) => (cluster ? entry.cluster === cluster : true))
     .filter((entry) => (repoStatus ? entry.repoStatus === repoStatus : true))
     .filter((entry) => (harnessDepth ? entry.harnessDepth === harnessDepth : true))
     .filter((entry) => (siteStatus ? entry.siteStatus === siteStatus : true));
 }
 
-export function getProblem(problemId) {
-  return loadLocalProblems().find((entry) => entry.problemId === String(problemId));
+export function getProblem(problemId, workspaceRoot = getWorkspaceRoot()) {
+  return loadLocalProblems(workspaceRoot).find((entry) => entry.problemId === String(problemId));
 }
 
-export function getCluster(clusterName) {
+export function getCluster(clusterName, workspaceRoot = getWorkspaceRoot()) {
   const name = String(clusterName).toLowerCase();
-  const problems = listProblems({ cluster: name });
+  const problems = listProblems({ cluster: name }, workspaceRoot);
   if (problems.length === 0) {
     return null;
   }
@@ -99,11 +107,11 @@ export function getCluster(clusterName) {
   };
 }
 
-export function listClusters() {
-  const names = [...new Set(loadLocalProblems().map((entry) => entry.cluster))].sort();
-  return names.map((name) => getCluster(name));
+export function listClusters(workspaceRoot = getWorkspaceRoot()) {
+  const names = [...new Set(loadLocalProblems(workspaceRoot).map((entry) => entry.cluster))].sort();
+  return names.map((name) => getCluster(name, workspaceRoot));
 }
 
 export function clearCatalogCache() {
-  cachedProblems = null;
+  return null;
 }

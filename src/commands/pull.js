@@ -257,22 +257,29 @@ function writeRootProblemBundle(rootDir, problemId, localProblem, upstreamRecord
   return problemRecord;
 }
 
-export async function runPullCommand(args) {
+export async function runPullCommand(args, options = {}) {
+  const silent = options.silent === true;
   if (args.length === 0 || args[0] === 'help' || args[0] === '--help') {
-    console.log('Usage:');
-    console.log('  erdos pull problem <id> [--dest <path>] [--include-site] [--refresh-upstream]');
-    console.log('  erdos pull artifacts <id> [--dest <path>] [--refresh-upstream]');
-    console.log('  erdos pull literature <id> [--dest <path>] [--include-site] [--refresh-upstream]');
+    if (!silent) {
+      console.log('Usage:');
+      console.log('  erdos pull problem <id> [--dest <path>] [--include-site] [--refresh-upstream]');
+      console.log('  erdos pull artifacts <id> [--dest <path>] [--refresh-upstream]');
+      console.log('  erdos pull literature <id> [--dest <path>] [--include-site] [--refresh-upstream]');
+    }
     return 0;
   }
 
   const parsed = parsePullArgs(args);
   if (parsed.error) {
-    console.error(parsed.error);
+    if (!silent) {
+      console.error(parsed.error);
+    }
     return 1;
   }
   if (!parsed.problemId) {
-    console.error('Missing problem id.');
+    if (!silent) {
+      console.error('Missing problem id.');
+    }
     return 1;
   }
 
@@ -285,7 +292,9 @@ export async function runPullCommand(args) {
   const upstreamRecord = snapshot?.index?.by_number?.[String(parsed.problemId)] ?? null;
 
   if (!localProblem && !upstreamRecord) {
-    console.error(`Problem ${parsed.problemId} is not present in the local dossier set or upstream snapshot.`);
+    if (!silent) {
+      console.error(`Problem ${parsed.problemId} is not present in the local dossier set or upstream snapshot.`);
+    }
     return 1;
   }
 
@@ -294,10 +303,12 @@ export async function runPullCommand(args) {
       ? path.resolve(parsed.destination)
       : getWorkspaceProblemArtifactDir(parsed.problemId);
     const result = writeArtifactsLane(String(parsed.problemId), destination, localProblem, upstreamRecord, snapshot);
-    console.log(`Artifact bundle created: ${destination}`);
-    console.log(`Local canonical dossier included: ${localProblem ? 'yes' : 'no'}`);
-    console.log(`Upstream record included: ${upstreamRecord ? 'yes' : 'no'}`);
-    console.log(`Artifacts copied: ${result.copiedArtifacts?.length ?? result.artifactsCopied ?? 0}`);
+    if (!silent) {
+      console.log(`Artifact bundle created: ${destination}`);
+      console.log(`Local canonical dossier included: ${localProblem ? 'yes' : 'no'}`);
+      console.log(`Upstream record included: ${upstreamRecord ? 'yes' : 'no'}`);
+      console.log(`Artifacts copied: ${result.copiedArtifacts?.length ?? result.artifactsCopied ?? 0}`);
+    }
     return 0;
   }
 
@@ -306,12 +317,14 @@ export async function runPullCommand(args) {
       ? path.resolve(parsed.destination)
       : getWorkspaceProblemLiteratureDir(parsed.problemId);
     const result = await writeLiteratureLane(String(parsed.problemId), destination, localProblem, upstreamRecord, parsed.includeSite);
-    console.log(`Literature bundle created: ${destination}`);
-    console.log(`Local dossier context included: ${localProblem ? 'yes' : 'no'}`);
-    console.log(`Upstream record included: ${upstreamRecord ? 'yes' : 'no'}`);
-    console.log(`Live site snapshot included: ${result.siteStatus.included ? 'yes' : 'no'}`);
-    if (result.siteStatus.error) {
-      console.log(`Live site snapshot note: ${result.siteStatus.error}`);
+    if (!silent) {
+      console.log(`Literature bundle created: ${destination}`);
+      console.log(`Local dossier context included: ${localProblem ? 'yes' : 'no'}`);
+      console.log(`Upstream record included: ${upstreamRecord ? 'yes' : 'no'}`);
+      console.log(`Live site snapshot included: ${result.siteStatus.included ? 'yes' : 'no'}`);
+      if (result.siteStatus.error) {
+        console.log(`Live site snapshot note: ${result.siteStatus.error}`);
+      }
     }
     return 0;
   }
@@ -341,14 +354,16 @@ export async function runPullCommand(args) {
     siteSnapshotError: literatureResult.siteStatus.error,
   });
 
-  console.log(`Pull bundle created: ${rootDestination}`);
-  console.log(`Artifact lane: ${artifactDestination}`);
-  console.log(`Literature lane: ${literatureDestination}`);
-  console.log(`Local canonical dossier included: ${localProblem ? 'yes' : 'no'}`);
-  console.log(`Upstream record included: ${upstreamRecord ? 'yes' : 'no'}`);
-  console.log(`Live site snapshot included: ${literatureResult.siteStatus.included ? 'yes' : 'no'}`);
-  if (literatureResult.siteStatus.error) {
-    console.log(`Live site snapshot note: ${literatureResult.siteStatus.error}`);
+  if (!silent) {
+    console.log(`Pull bundle created: ${rootDestination}`);
+    console.log(`Artifact lane: ${artifactDestination}`);
+    console.log(`Literature lane: ${literatureDestination}`);
+    console.log(`Local canonical dossier included: ${localProblem ? 'yes' : 'no'}`);
+    console.log(`Upstream record included: ${upstreamRecord ? 'yes' : 'no'}`);
+    console.log(`Live site snapshot included: ${literatureResult.siteStatus.included ? 'yes' : 'no'}`);
+    if (literatureResult.siteStatus.error) {
+      console.log(`Live site snapshot note: ${literatureResult.siteStatus.error}`);
+    }
   }
   return 0;
 }

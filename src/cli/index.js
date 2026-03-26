@@ -8,6 +8,7 @@ import { runPreflightCommand } from '../commands/preflight.js';
 import { runProblemCommand } from '../commands/problem.js';
 import { runPullCommand } from '../commands/pull.js';
 import { runScaffoldCommand } from '../commands/scaffold.js';
+import { runSeedCommand } from '../commands/seed.js';
 import { runStateCommand } from '../commands/state.js';
 import { runSunflowerCommand } from '../commands/sunflower.js';
 import { runUpstreamCommand } from '../commands/upstream.js';
@@ -38,6 +39,7 @@ function printUsage() {
   console.log('  erdos upstream diff [--write-package-report]');
   console.log('  erdos scaffold problem <id> [--dest <path>]');
   console.log('  erdos bootstrap problem <id> [--dest <path>] [--sync-upstream]');
+  console.log('  erdos seed problem <id> [--include-site] [--refresh-upstream] [--cluster <name>] [--repo-status <status>] [--harness-depth <depth>] [--title <title>] [--family-tag <tag>] [--related <id>] [--formalization-status <status>] [--active-route <route>] [--route-breakthrough] [--problem-solved] [--dest-root <path>] [--no-activate] [--no-loop-sync] [--force] [--json]');
   console.log('  erdos pull problem <id> [--dest <path>] [--include-site] [--refresh-upstream]');
   console.log('  erdos pull artifacts <id> [--dest <path>] [--refresh-upstream]');
   console.log('  erdos pull literature <id> [--dest <path>] [--include-site] [--refresh-upstream]');
@@ -75,6 +77,8 @@ if (!command || command === 'help' || command === '--help') {
   exitCode = runScaffoldCommand(rest);
 } else if (command === 'bootstrap') {
   exitCode = await runBootstrapCommand(rest);
+} else if (command === 'seed') {
+  exitCode = await runSeedCommand(rest);
 } else if (command === 'pull') {
   exitCode = await runPullCommand(rest);
 } else if (command === 'maintainer') {

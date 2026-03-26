@@ -356,6 +356,45 @@ test('workspace show includes research loop paths and continuation mode', () => 
   assert.match(output, /State markdown:/);
   assert.match(output, /Question ledger:/);
   assert.match(output, /Checkpoint shelf:/);
+  assert.match(output, /Workspace seeded-problems dir:/);
+  assert.match(output, /Active seeded dossier dir:/);
   assert.match(output, /Continuation mode: route/);
   assert.match(output, /Next honest move:/);
+});
+
+test('seed problem creates a workspace-local dossier and activates the research loop in one step', () => {
+  const workspace = fs.mkdtempSync(path.join(os.tmpdir(), 'erdos-seed-one-step-'));
+  const output = runCli(['seed', 'problem', '1', '--cluster', 'number-theory'], { cwd: workspace });
+  assert.match(output, /Seeded local dossier for problem 1/);
+  assert.match(output, /Workspace overlay visible: yes/);
+  assert.match(output, /Activated: yes/);
+  assert.match(output, /Loop synced: yes/);
+
+  const seededDir = path.join(workspace, '.erdos', 'seeded-problems', '1');
+  assert.equal(fs.existsSync(path.join(seededDir, 'problem.yaml')), true);
+  assert.equal(fs.existsSync(path.join(seededDir, 'STATEMENT.md')), true);
+  assert.equal(fs.existsSync(path.join(workspace, '.erdos', 'STATE.md')), true);
+  assert.equal(fs.existsSync(path.join(workspace, '.erdos', 'checkpoints', 'CHECKPOINTS.md')), true);
+
+  const currentProblem = JSON.parse(fs.readFileSync(path.join(workspace, '.erdos', 'current-problem.json'), 'utf8'));
+  assert.equal(currentProblem.problemId, '1');
+
+  const shown = runCli(['problem', 'show', '1'], { cwd: workspace });
+  assert.match(shown, /Erdos Problem #1/);
+  assert.match(shown, /Repo status: local_seeded/);
+
+  const listed = runCli(['problem', 'list', '--repo-status', 'local_seeded'], { cwd: workspace });
+  assert.match(listed, /1/);
+});
+
+test('seed problem can emit json for agents', () => {
+  const workspace = fs.mkdtempSync(path.join(os.tmpdir(), 'erdos-seed-json-'));
+  const output = runCli(['seed', 'problem', '1', '--cluster', 'number-theory', '--json'], { cwd: workspace });
+  const payload = JSON.parse(output);
+  assert.equal(payload.problemId, '1');
+  assert.equal(payload.workspaceOverlayVisible, true);
+  assert.equal(payload.activated, true);
+  assert.equal(payload.loopSynced, true);
+  assert.equal(payload.activeProblem, '1');
+  assert.equal(typeof payload.nextHonestMove, 'string');
 });

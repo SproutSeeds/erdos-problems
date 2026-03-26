@@ -36,6 +36,17 @@ erdos checkpoints sync
 erdos workspace show
 ```
 
+For problems that are not yet packaged as native dossiers, the loop can start with one-step self-seeding:
+
+```bash
+erdos seed problem 1 --include-site --cluster number-theory
+erdos preflight
+erdos continuation use route
+erdos checkpoints sync
+```
+
+That flow writes the local dossier into `.erdos/seeded-problems/<id>/`, makes it visible to the atlas inside the current workspace, and immediately syncs the same state/checkpoint machinery used by packaged dossiers.
+
 ## Status ladder
 
 The public package uses the same ladder we converged on in the lab:

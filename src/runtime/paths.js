@@ -92,6 +92,14 @@ export function getWorkspaceProblemLiteratureDir(problemId, workspaceRoot = getW
   return path.join(getWorkspaceProblemPullDir(problemId, workspaceRoot), 'literature');
 }
 
+export function getWorkspaceSeededProblemsDir(workspaceRoot = getWorkspaceRoot()) {
+  return path.join(getWorkspaceDir(workspaceRoot), 'seeded-problems');
+}
+
+export function getWorkspaceSeededProblemDir(problemId, workspaceRoot = getWorkspaceRoot()) {
+  return path.join(getWorkspaceSeededProblemsDir(workspaceRoot), String(problemId));
+}
+
 export function getWorkspaceCheckpointsDir(workspaceRoot = getWorkspaceRoot()) {
   return path.join(getWorkspaceDir(workspaceRoot), 'checkpoints');
 }

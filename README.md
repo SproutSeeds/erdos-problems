@@ -38,12 +38,27 @@ erdos sunflower status 857
 erdos dossier show 857
 ```
 
+For an unseeded problem, the one-step self-seeding flow is now:
+
+```bash
+erdos seed problem 1 --include-site --cluster number-theory
+erdos problem show 1
+erdos workspace show
+```
+
 What `bootstrap` does:
 - sets the active workspace problem
 - scaffolds the canonical dossier files into `.erdos/scaffolds/<id>/`
 - includes the upstream record when a bundled or workspace snapshot is available
 - copies pack-specific context and compute packets when the problem has them
 - gives an agent a ready-to-read local artifact bundle immediately after install
+
+What `seed` does:
+- creates a pull bundle for any problem in the upstream snapshot
+- promotes that bundle into `.erdos/seeded-problems/<id>/`
+- auto-selects the problem in the workspace
+- syncs the staged research loop state and checkpoint shelf
+- makes the new dossier visible to the atlas commands immediately inside that workspace
 
 ## Pull lanes
 
@@ -138,6 +153,7 @@ erdos upstream diff
 erdos scaffold problem 857
 erdos bootstrap problem 857
 erdos bootstrap problem 857 --sync-upstream
+erdos seed problem 1 --include-site --cluster number-theory
 erdos pull problem 857
 erdos pull artifacts 857
 erdos pull literature 857
@@ -166,6 +182,7 @@ The CLI can surface these directly:
 - `erdos problem artifacts <id> --json` emits machine-readable inventory
 - `erdos scaffold problem <id>` copies the seeded dossier into the active workspace
 - `erdos bootstrap problem <id>` selects the problem and creates the scaffold in one step
+- `erdos seed problem <id>` self-seeds an unseeded problem into `.erdos/seeded-problems/` and syncs the loop
 - `erdos pull problem <id>` creates a workspace bundle for any problem in the upstream snapshot
 - `erdos maintainer seed problem <id>` promotes a pull bundle into a canonical local dossier
 
@@ -212,6 +229,10 @@ The public package uses the same status ladder we settled on in the lab:
 - active route
 - route breakthrough
 - problem solved
+
+That means a fresh install now supports two clean research starts:
+- `erdos bootstrap problem <seeded-id>` for native packaged dossiers
+- `erdos seed problem <unseeded-id>` for workspace-local self-seeding with the same loop
 
 See also:
 - `docs/RESEARCH_LOOP.md`
