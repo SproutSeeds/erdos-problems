@@ -1,9 +1,9 @@
 problem_id: "22"
 family_role: ramsey_turan_proof_archive
-harness_profile: proof_archive_cockpit
+harness_profile: proof_archive_workspace
 default_active_route: ramsey_turan_k4_archive
 bootstrap_focus: Freeze the solved Ramsey-Turan `K_4` record as a proof archive and keep its dossier wording aligned with the public solved status.
-route_story: Problem 22 is a proof archive cockpit. The public job is to preserve the solved status, the Ramsey-Turan framing, and the main source trail without pretending there is a live frontier here.
+route_story: Problem 22 is a proof archive workspace. The public job is to preserve the solved status, the Ramsey-Turan framing, and the main source trail without pretending there is a live frontier here.
 frontier_label: ramsey_turan_k4_archive
 frontier_detail: Preserve the affirmative proof posture and the extremal graph framing without blurring it into an open program.
 checkpoint_focus: Keep the proof archive wording, the public solved status, and the main source trail synchronized.
@@ -20,7 +20,7 @@ question_ledger:
   open_questions:
     - Which exact reference should anchor the proof archive packet first?
   active_route_notes:
-    - Treat Problem 22 as a proof archive, not as a live open cockpit.
+    - Treat Problem 22 as a proof archive, not as a live open workspace.
   route_breakthroughs: []
   problem_solved:
     - The public site marks this problem as proved.

@@ -1,5 +1,5 @@
 packet_id: gt19_ops_details_v1
-summary: Decision/archive cockpit packet for the chromatic-number record.
+summary: Decision/archive workspace packet for the chromatic-number record.
 routes:
   - route_id: chromatic_decision_record
     title: Chromatic Decision Record

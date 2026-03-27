@@ -1,6 +1,6 @@
 problem_id: "1008"
 family_role: c4_free_lean_archive
-harness_profile: lean_archive_cockpit
+harness_profile: lean_archive_workspace
 default_active_route: c4_free_lean_archive
 bootstrap_focus: Freeze the `C_4`-free density result as a Lean-facing archive packet and keep the solved status synchronized with the public dossier.
 route_story: Problem 1008 is a formalization-flavored proof archive. The public job is to preserve the solved record, the Lean-facing posture, and the core extremal-graph framing without re-opening a closed problem.

@@ -108,11 +108,11 @@ test('cluster show sunflower lists the seed cluster', () => {
   assert.match(output, /Deep harness: 20, 857/);
 });
 
-test('cluster show number-theory summarizes the starter cockpit slice', () => {
+test('cluster show number-theory summarizes the starter workspace slice', () => {
   const output = runCli(['cluster', 'show', 'number-theory']);
   assert.match(output, /Problems: 1, 2, 3, 4, 5, 6, 7, 18, 542/);
-  assert.match(output, /Open starter cockpit: 1/);
-  assert.match(output, /Counterexample\/archive cockpit: 2/);
+  assert.match(output, /Open starter workspace: 1/);
+  assert.match(output, /Counterexample\/archive workspace: 2/);
 });
 
 test('problem use writes workspace state and current problem', () => {
@@ -208,11 +208,11 @@ test('sunflower status records a no-compute dossier bridge cleanly for 536', () 
   assert.equal(fs.existsSync(path.join(workspace, '.erdos', 'registry', 'compute', 'latest__p536.json')), true);
 });
 
-test('number-theory status shows the starter cockpit for 1', () => {
+test('number-theory status shows the starter workspace for 1', () => {
   const workspace = fs.mkdtempSync(path.join(os.tmpdir(), 'erdos-number-theory-1-'));
   const output = runCli(['number-theory', 'status', '1'], { cwd: workspace });
   assert.match(output, /Erdos Problem #1 number-theory harness/);
-  assert.match(output, /Harness profile: starter_cockpit/);
+  assert.match(output, /Harness profile: starter_workspace/);
   assert.match(output, /Active route: distinct_subset_sum_lower_bound/);
   assert.match(output, /Route packet present: yes/);
   assert.match(output, /Frontier note:/);
@@ -220,7 +220,7 @@ test('number-theory status shows the starter cockpit for 1', () => {
   assert.match(output, /Ready atoms: 1/);
 });
 
-test('number-theory frontier and routes expose the open cockpit for 1', () => {
+test('number-theory frontier and routes expose the open workspace for 1', () => {
   const workspace = fs.mkdtempSync(path.join(os.tmpdir(), 'erdos-number-theory-frontier-1-'));
   const frontier = runCli(['number-theory', 'frontier', '1'], { cwd: workspace });
   assert.match(frontier, /Erdos Problem #1 number-theory frontier/);
@@ -312,7 +312,7 @@ test('sunflower routes prints the public bridge route table for 536', () => {
   assert.match(output, /natural_density_lcm_bridge \[active\]: loose 0\/3, strict 0\/3/);
 });
 
-test('sunflower frontier prints the compressed cockpit for 857', () => {
+test('sunflower frontier prints the compressed frontier view for 857', () => {
   const workspace = fs.mkdtempSync(path.join(os.tmpdir(), 'erdos-sunflower-frontier-857-'));
   const output = runCli(['sunflower', 'frontier', '857'], { cwd: workspace });
   assert.match(output, /Erdos Problem #857 sunflower frontier/);
@@ -632,7 +632,7 @@ test('workspace show includes research loop paths and continuation mode', () => 
   assert.match(output, /Sunflower first ready atom: T10.G3.A2/);
 });
 
-test('workspace show includes number-theory cockpit context for problem 1', () => {
+test('workspace show includes number-theory workspace context for problem 1', () => {
   const workspace = fs.mkdtempSync(path.join(os.tmpdir(), 'erdos-workspace-number-theory-'));
   runCli(['problem', 'use', '1'], { cwd: workspace });
   const output = runCli(['workspace', 'show'], { cwd: workspace });
@@ -726,12 +726,12 @@ test('cluster list can emit json', () => {
   assert.equal(graphTheory.problems.length, 3);
 });
 
-test('cluster show graph-theory summarizes the archive cockpit slice', () => {
+test('cluster show graph-theory summarizes the archive workspace slice', () => {
   const output = runCli(['cluster', 'show', 'graph-theory']);
   assert.match(output, /Problems: 19, 22, 1008/);
-  assert.match(output, /Decision archive cockpit: 19/);
-  assert.match(output, /Proof archive cockpit: 22/);
-  assert.match(output, /Lean proof archive cockpit: 1008/);
+  assert.match(output, /Decision archive workspace: 19/);
+  assert.match(output, /Proof archive workspace: 22/);
+  assert.match(output, /Lean proof archive workspace: 1008/);
 });
 
 test('number-theory route ticket and atom drill-down are available for 1', () => {
@@ -771,17 +771,17 @@ test('archive show and scaffold can emit json', () => {
   assert.equal(fs.existsSync(path.join(scaffoldPayload.archiveDir, 'ARCHIVE.json')), true);
 });
 
-test('graph-theory status shows the lean archive cockpit for 1008', () => {
+test('graph-theory status shows the lean archive workspace for 1008', () => {
   const workspace = fs.mkdtempSync(path.join(os.tmpdir(), 'erdos-graph-theory-1008-'));
   const output = runCli(['graph-theory', 'status', '1008'], { cwd: workspace });
   assert.match(output, /Erdos Problem #1008 graph-theory harness/);
-  assert.match(output, /Harness profile: lean_archive_cockpit/);
+  assert.match(output, /Harness profile: lean_archive_workspace/);
   assert.match(output, /Archive mode: method_exemplar/);
   assert.match(output, /Problem solved: yes/);
   assert.match(output, /First ready atom: G1008.G1.A1/);
 });
 
-test('graph-theory frontier routes and tickets expose the archive cockpit surfaces', () => {
+test('graph-theory frontier routes and tickets expose the archive workspace surfaces', () => {
   const workspace = fs.mkdtempSync(path.join(os.tmpdir(), 'erdos-graph-theory-archive-'));
   const frontier = runCli(['graph-theory', 'frontier', '22'], { cwd: workspace });
   assert.match(frontier, /Erdos Problem #22 graph-theory frontier/);

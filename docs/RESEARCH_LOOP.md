@@ -75,7 +75,7 @@ For sunflower compute lanes, ORP sits above `breakthroughs`:
 - `erdos sunflower board <id>` exposes the packaged atomic or bridge board for the active sunflower problem
 - `erdos sunflower ready <id>` exposes the dependency-satisfied ready queue for the packaged board
 - `erdos sunflower ladder <id>` exposes the first-principles ladder for the packaged board
-- `erdos sunflower frontier <id>` exposes the compressed cockpit view for the active board
+- `erdos sunflower frontier <id>` exposes the compressed frontier view for the active board
 - `erdos sunflower routes <id>` exposes the public route table for the packaged board
 - `erdos sunflower tickets <id>` exposes the ticket table for the packaged board
 - `erdos sunflower route <id> <route-id>` exposes the deeper public route packet

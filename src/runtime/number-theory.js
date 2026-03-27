@@ -144,7 +144,7 @@ export function buildNumberTheoryStatusSnapshot(problem) {
     title: problem.title,
     cluster: problem.cluster,
     familyRole: context.family_role ?? 'number_theory_pack',
-    harnessProfile: context.harness_profile ?? 'starter_cockpit',
+    harnessProfile: context.harness_profile ?? 'starter_workspace',
     activeRoute,
     routeBreakthrough,
     problemSolved,

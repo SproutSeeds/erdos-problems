@@ -1,18 +1,18 @@
 packet_id: nt1_ops_details_v1
-summary: Starter cockpit packet for the distinct-subset-sum lower-bound route.
+summary: Starter workspace packet for the distinct-subset-sum lower-bound route.
 routes:
   - route_id: distinct_subset_sum_lower_bound
     title: Distinct Subset-Sum Lower Bound
     status: active
     summary: Keep the problem centered on the exponential-growth lower-bound route implied by distinct subset sums.
-    why_now: This is the smallest honest route that turns the dossier into a real cockpit.
+    why_now: This is the smallest honest route that turns the dossier into a real workspace.
     next_move: Freeze the first exact reduction and connect it to the canonical references.
 tickets:
   - ticket_id: N1
     title: Freeze the lower-bound route note
     route_id: distinct_subset_sum_lower_bound
     status: active
-    summary: Turn the starter dossier into a stable lower-bound cockpit.
+    summary: Turn the starter dossier into a stable lower-bound workspace.
     current_blocker: The first exact reduction and evidence stack are not yet frozen together.
     next_move: Close `N1.G1.A1`.
 atoms:
@@ -21,5 +21,5 @@ atoms:
     route_id: distinct_subset_sum_lower_bound
     ticket_id: N1
     status: ready
-    summary: This is the smallest honest move that upgrades the dossier into a route-aware cockpit.
+    summary: This is the smallest honest move that upgrades the dossier into a route-aware workspace.
     next_move: Record the first reduction and checkpoint it without overclaiming theorem progress.

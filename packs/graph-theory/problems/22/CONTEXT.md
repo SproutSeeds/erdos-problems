@@ -2,7 +2,7 @@
 
 Role in pack:
 - Ramsey-Turan proof archive
-- solved graph-theory cockpit rather than a live open frontier
+- solved graph-theory workspace rather than a live open frontier
 
 Bootstrap focus:
 - preserve the solved status cleanly

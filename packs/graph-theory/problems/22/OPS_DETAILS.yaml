@@ -1,5 +1,5 @@
 packet_id: gt22_ops_details_v1
-summary: Proof archive cockpit packet for the Ramsey-Turan `K_4` record.
+summary: Proof archive workspace packet for the Ramsey-Turan `K_4` record.
 routes:
   - route_id: ramsey_turan_k4_archive
     title: Ramsey-Turan `K_4` Proof Archive

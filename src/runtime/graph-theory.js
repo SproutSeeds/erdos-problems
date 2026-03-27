@@ -121,7 +121,7 @@ export function buildGraphTheoryStatusSnapshot(problem) {
     title: problem.title,
     cluster: problem.cluster,
     familyRole: context.family_role ?? 'graph_theory_pack',
-    harnessProfile: context.harness_profile ?? 'starter_cockpit',
+    harnessProfile: context.harness_profile ?? 'starter_workspace',
     activeRoute,
     routeBreakthrough,
     problemSolved,

@@ -2,7 +2,7 @@
 
 Role in pack:
 - Lean-facing proof archive for the `C_4`-free density problem
-- solved graph-theory cockpit rather than a live open frontier
+- solved graph-theory workspace rather than a live open frontier
 
 Bootstrap focus:
 - preserve the solved status and Lean-facing badge

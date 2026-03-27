@@ -23,7 +23,7 @@ export function getArchiveView(problemId) {
     solved: isSolved(problem),
     archiveMode: isSolved(problem) ? 'method_exemplar' : 'inactive',
     nextMove: isSolved(problem)
-      ? 'Extract reusable methods, references, and formalization hooks without treating this as an open-problem cockpit.'
+      ? 'Extract reusable methods, references, and formalization hooks without treating this as an open-problem workspace.'
       : 'This problem is not currently in solved archival mode.',
   };
 }

@@ -98,7 +98,7 @@ Checkpoint focus: keep the board packet honest around T10 while preserving the o
 $ erdos graph-theory status 1008
 Erdos Problem #1008 graph-theory harness
 Family role: c4_free_lean_archive
-Harness profile: lean_archive_cockpit
+Harness profile: lean_archive_workspace
 Archive mode: method_exemplar
 Problem solved: yes
 First ready atom: G1008.G1.A1 — Freeze the primary Lean-facing archive hook for the `C_4`-free density result

@@ -11,13 +11,13 @@ function printCluster(cluster) {
     console.log('  Strong sunflower sibling: 20');
     console.log('  Related analogues: 536, 856');
   } else if (cluster.name === 'number-theory') {
-    console.log('  Open starter cockpit: 1');
-    console.log('  Counterexample/archive cockpit: 2');
+    console.log('  Open starter workspace: 1');
+    console.log('  Counterexample/archive workspace: 2');
     console.log('  Additional dossier seeds: 3, 4, 5, 6, 7, 18, 542');
   } else if (cluster.name === 'graph-theory') {
-    console.log('  Decision archive cockpit: 19');
-    console.log('  Proof archive cockpit: 22');
-    console.log('  Lean proof archive cockpit: 1008');
+    console.log('  Decision archive workspace: 19');
+    console.log('  Proof archive workspace: 22');
+    console.log('  Lean proof archive workspace: 1008');
   }
 }
 

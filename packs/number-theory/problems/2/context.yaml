@@ -1,6 +1,6 @@
 problem_id: "2"
 family_role: covering_systems_counterexample_archive
-harness_profile: archive_cockpit
+harness_profile: archive_workspace
 default_active_route: counterexample_archive
 bootstrap_focus: Freeze the exact disproval record, the dossier provenance, and the counterexample-facing archive packet.
 route_story: This problem is not a live open frontier; the honest public job is to preserve the disproval and keep it usable as a method/counterexample exemplar.
@@ -20,6 +20,6 @@ question_ledger:
   open_questions:
     - Which exact disproval or counterexample references should be frozen first in the archive packet?
   active_route_notes:
-    - Treat this as an archive cockpit, not a live open-problem route.
+    - Treat this as an archive workspace, not a live open-problem route.
   route_breakthroughs: []
   problem_solved: []

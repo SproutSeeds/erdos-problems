@@ -1,5 +1,5 @@
 packet_id: gt1008_ops_details_v1
-summary: Lean-facing proof archive cockpit packet for the `C_4`-free density result.
+summary: Lean-facing proof archive workspace packet for the `C_4`-free density result.
 routes:
   - route_id: c4_free_lean_archive
     title: "`C_4`-Free Lean Proof Archive"

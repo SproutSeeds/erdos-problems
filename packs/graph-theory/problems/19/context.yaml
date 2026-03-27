@@ -1,9 +1,9 @@
 problem_id: "19"
 family_role: chromatic_number_decision_archive
-harness_profile: decision_archive_cockpit
+harness_profile: decision_archive_workspace
 default_active_route: chromatic_decision_record
 bootstrap_focus: Freeze the exact chromatic-number decision posture, the dossier provenance, and the archive packet without drifting back into open-problem language.
-route_story: Problem 19 is currently best treated as a decision/archive cockpit. The public job is to preserve the decision record and its references cleanly enough that future agents do not mis-handle it as a live open frontier.
+route_story: Problem 19 is currently best treated as a decision/archive workspace. The public job is to preserve the decision record and its references cleanly enough that future agents do not mis-handle it as a live open frontier.
 frontier_label: chromatic_decision_record
 frontier_detail: Keep the decision posture and the primary chromatic-number source trail explicit.
 checkpoint_focus: Synchronize the public decision status, archive packet, and primary references every time this dossier is touched.

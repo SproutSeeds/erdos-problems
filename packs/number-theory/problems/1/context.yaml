@@ -1,9 +1,9 @@
 problem_id: "1"
 family_role: additive_number_theory_seed
-harness_profile: starter_cockpit
+harness_profile: starter_workspace
 default_active_route: distinct_subset_sum_lower_bound
 bootstrap_focus: Freeze the exact problem statement, the local dossier, and the first honest lower-bound route for distinct subset sums.
-route_story: This problem now has a starter cockpit whose job is to keep the lower-bound route explicit without pretending we already have a deep theorem engine.
+route_story: This problem now has a starter workspace whose job is to keep the lower-bound route explicit without pretending we already have a deep theorem engine.
 frontier_label: distinct_subset_sum_lower_bound
 frontier_detail: Keep the problem anchored to the binary-growth lower-bound route and freeze the exact first reduction before widening claims.
 checkpoint_focus: Preserve provenance, the exact lower-bound route, and the open-problem boundary in every checkpoint.

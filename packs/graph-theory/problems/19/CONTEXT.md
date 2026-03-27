@@ -2,7 +2,7 @@
 
 Role in pack:
 - chromatic-number decision archive
-- graph-theory archive cockpit rather than a live theorem frontier today
+- graph-theory archive workspace rather than a live theorem frontier today
 
 Bootstrap focus:
 - keep the public decision posture explicit

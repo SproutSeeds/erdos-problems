@@ -1,5 +1,5 @@
 packet_id: nt2_ops_details_v1
-summary: Archive cockpit packet for the disproved covering-systems problem.
+summary: Archive workspace packet for the disproved covering-systems problem.
 routes:
   - route_id: counterexample_archive
     title: Counterexample Archive
