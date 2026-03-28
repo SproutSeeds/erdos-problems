@@ -1,6 +1,6 @@
 {
   "name": "erdos-problems",
-  "version": "0.2.8",
+  "version": "0.2.9",
   "description": "CLI atlas and workspace tools for Paul Erdos problems.",
   "type": "module",
   "bin": {
@@ -36,6 +36,7 @@
     "agents",
     "sunflower"
   ],
+  "author": "Fractal Research Group <cody@frg.earth>",
   "dependencies": {
     "breakthroughs": "^0.1.1",
     "yaml": "^2.8.3"

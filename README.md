@@ -1,5 +1,7 @@
 # erdos-problems
 
+Maintained by Fractal Research Group (`frg.earth`).
+
 > CLI and workspace for Paul Erdos problems.
 >
 > Browse the atlas, scaffold a dossier, and keep public status, local route state, and verification records separate.
