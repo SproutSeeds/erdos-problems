@@ -39,6 +39,16 @@ A short example from the first minute:
 - pack-specific views where this repo already has enough structure to support them
 - an ORP-based workflow for claims, checkpoints, and run artifacts
 
+## Repo, npm, and Upstream
+
+- the npm package is the installable CLI plus the bundled atlas snapshot, packaged dossiers, and pack assets
+- the GitHub repo is the central collaboration space for dossiers, pack packets, docs, issues, discussions, and pull requests
+- `.erdos/` is local workspace state created by the CLI; it is not the canonical public collaboration surface
+- `erdos upstream show` tells you whether you are currently using the bundled package snapshot or a workspace-local refreshed snapshot
+- `erdos upstream sync` refreshes a workspace-local snapshot from `teorth/erdosproblems` without mutating the packaged bundle
+- `erdos upstream sync --write-package-snapshot` is the maintainer path for intentionally updating the bundled snapshot in this repo
+- repo-only collaboration files can live in the public repo without shipping in the npm tarball; see the GitHub contribution guide: https://github.com/SproutSeeds/erdos-problems/blob/main/CONTRIBUTING.md
+
 ## Start In 60 Seconds
 
 Install:

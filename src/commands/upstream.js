@@ -1,4 +1,5 @@
 import { getProblem } from '../atlas/catalog.js';
+import { getBundledUpstreamDir, getWorkspaceUpstreamDir } from '../runtime/paths.js';
 import { fetchProblemSiteSnapshot } from '../upstream/site.js';
 import { buildUpstreamDiff, loadActiveUpstreamSnapshot, syncUpstream, writeDiffArtifacts } from '../upstream/sync.js';
 
@@ -48,10 +49,18 @@ export async function runUpstreamCommand(args) {
       return 0;
     }
     console.log(`Snapshot kind: ${snapshot.kind}`);
+    console.log(`Active source: ${snapshot.kind === 'workspace' ? 'workspace override' : 'bundled package snapshot'}`);
     console.log(`Upstream repo: ${snapshot.manifest.upstream_repo}`);
     console.log(`Upstream commit: ${snapshot.manifest.upstream_commit ?? '(unknown)'}`);
     console.log(`Fetched at: ${snapshot.manifest.fetched_at}`);
     console.log(`Entries: ${snapshot.manifest.entry_count}`);
+    console.log(`Active manifest: ${snapshot.manifestPath}`);
+    console.log(`Active index: ${snapshot.indexPath}`);
+    console.log(`Active yaml: ${snapshot.yamlPath}`);
+    console.log(`Bundled snapshot dir: ${getBundledUpstreamDir()}`);
+    console.log(`Workspace snapshot dir: ${getWorkspaceUpstreamDir()}`);
+    console.log('Refresh workspace snapshot: erdos upstream sync');
+    console.log('Refresh bundled package snapshot (maintainers): erdos upstream sync --write-package-snapshot');
     return 0;
   }
 

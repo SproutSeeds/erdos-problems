@@ -373,8 +373,11 @@ test('dossier show uses active problem when omitted', () => {
 test('upstream show reports bundled snapshot', () => {
   const output = runCli(['upstream', 'show']);
   assert.match(output, /Snapshot kind: bundled/);
+  assert.match(output, /Active source: bundled package snapshot/);
   assert.match(output, /Upstream repo: https:\/\/github.com\/teorth\/erdosproblems/);
   assert.match(output, /Entries: 1183/);
+  assert.match(output, /Workspace snapshot dir:/);
+  assert.match(output, /Refresh workspace snapshot: erdos upstream sync/);
 });
 
 test('upstream diff writes workspace report from bundled snapshot', () => {

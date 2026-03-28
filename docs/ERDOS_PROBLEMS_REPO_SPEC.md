@@ -45,6 +45,21 @@ The package ships a bundled snapshot of `teorth/erdosproblems` and can refresh a
 Selected problem families get deeper pack-specific context.
 The first pack is `sunflower`.
 
+## Collaboration model
+
+The GitHub repo is the central public collaboration space.
+
+- canonical dossiers live under `problems/<id>/`
+- pack-specific packets live under `packs/<family>/`
+- CLI/runtime behavior lives under `src/`
+- local runtime state lives under `.erdos/` and should not be treated as canonical repo truth
+
+The npm package is the installable distribution channel, not the only collaboration surface.
+
+- the package ships the CLI, bundled upstream snapshot, canonical dossiers, and packaged pack assets
+- the public repo may also contain contribution guides, issue templates, maintainer notes, and other repo-only collaboration files that do not need to ship in the npm tarball
+- workspace-local upstream refreshes should be explicit and inspectable
+
 ## Repository shape
 
 ```text
