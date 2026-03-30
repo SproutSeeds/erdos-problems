@@ -66,10 +66,10 @@ function printUsage() {
   console.log('  erdos sunflower atom <problem-id> <atom-id> [--json]');
   console.log('  erdos sunflower compute run [<id>] [--json]');
   console.log('  erdos dossier show <id>');
-  console.log('  erdos upstream show');
-  console.log('  erdos upstream sync [--write-package-snapshot]');
-  console.log('  erdos upstream diff [--write-package-report]');
-  console.log('  erdos upstream drift [<id>] [--include-site] [--json]');
+  console.log('  erdos import show');
+  console.log('  erdos import sync [--write-package-snapshot]');
+  console.log('  erdos import diff [--write-package-report]');
+  console.log('  erdos import drift [<id>] [--include-site] [--json]');
   console.log('  erdos scaffold problem <id> [--dest <path>]');
   console.log('  erdos bootstrap problem <id> [--dest <path>] [--sync-upstream]');
   console.log('  erdos seed problem <id> [--include-site|--no-site] [--include-public-search|--no-public-search] [--refresh-upstream] [--cluster <name>] [--repo-status <status>] [--harness-depth <depth>] [--title <title>] [--family-tag <tag>] [--related <id>] [--formalization-status <status>] [--active-route <route>] [--route-breakthrough] [--problem-solved] [--allow-non-open] [--dest-root <path>] [--no-activate] [--no-loop-sync] [--force] [--json]');
@@ -115,7 +115,7 @@ if (!command || command === 'help' || command === '--help') {
   exitCode = runSunflowerCommand(rest);
 } else if (command === 'dossier') {
   exitCode = runDossierCommand(rest);
-} else if (command === 'upstream') {
+} else if (command === 'upstream' || command === 'import') {
   exitCode = await runUpstreamCommand(rest);
 } else if (command === 'scaffold') {
   exitCode = runScaffoldCommand(rest);

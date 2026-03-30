@@ -13,8 +13,8 @@ status:
   site_status: solved
   site_badge: SOLVED
   repo_status: historical
-  upstream_status: solved
-  upstream_last_update: 2025-08-31
+  imported_status: solved
+  imported_last_update: 2025-08-31
 cluster: number-theory
 prize:
   display: no
@@ -34,5 +34,5 @@ evidence_path: EVIDENCE.md
 formalization_path: FORMALIZATION.md
 formalization:
   status: unstarted
-  upstream_state: no
-  upstream_last_update: 2025-08-31
+  imported_state: no
+  imported_last_update: 2025-08-31

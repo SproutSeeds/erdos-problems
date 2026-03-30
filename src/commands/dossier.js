@@ -49,7 +49,7 @@ export function runDossierCommand(args) {
   console.log(`- cluster: ${problem.cluster}`);
   console.log(`- repo status: ${problem.repoStatus}`);
   console.log(`- harness depth: ${problem.harnessDepth}`);
-  console.log(`- external source number: ${problem.externalSource?.number ?? problem.upstream?.number ?? '(unset)'}`);
+  console.log(`- external source number: ${problem.externalSource?.number ?? '(unset)'}`);
   if (fs.existsSync(problem.statementPath)) {
     console.log('');
     console.log('Statement preview:');

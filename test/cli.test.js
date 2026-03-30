@@ -417,19 +417,19 @@ test('dossier show uses active problem when omitted', () => {
   assert.match(output, /STATEMENT.md: present/);
 });
 
-test('upstream show reports bundled snapshot', () => {
-  const output = runCli(['upstream', 'show']);
+test('import show reports bundled snapshot', () => {
+  const output = runCli(['import', 'show']);
   assert.match(output, /Snapshot kind: bundled/);
   assert.match(output, /Active source: bundled import snapshot/);
   assert.match(output, /External import repo: https:\/\/github.com\/teorth\/erdosproblems/);
   assert.match(output, /Entries: 1183/);
   assert.match(output, /Workspace snapshot dir:/);
-  assert.match(output, /Refresh workspace import snapshot: erdos upstream sync/);
+  assert.match(output, /Refresh workspace import snapshot: erdos import sync/);
 });
 
-test('upstream diff writes workspace report from bundled snapshot', () => {
+test('import diff writes workspace report from bundled snapshot', () => {
   const workspace = fs.mkdtempSync(path.join(os.tmpdir(), 'erdos-upstream-'));
-  const output = runCli(['upstream', 'diff'], { cwd: workspace });
+  const output = runCli(['import', 'diff'], { cwd: workspace });
   assert.match(output, /Local seeded problems: 18/);
   assert.match(output, /External atlas total problems: 1183/);
   const diffPath = path.join(workspace, '.erdos', 'reports', 'UPSTREAM_DIFF.md');
@@ -437,22 +437,28 @@ test('upstream diff writes workspace report from bundled snapshot', () => {
   assert.match(fs.readFileSync(diffPath, 'utf8'), /# External Atlas Diff/);
 });
 
-test('upstream drift shows the packaged dashboard', () => {
-  const output = runCli(['upstream', 'drift']);
+test('import drift shows the packaged dashboard', () => {
+  const output = runCli(['import', 'drift']);
   assert.match(output, /External atlas drift dashboard/);
   assert.match(output, /Local seeded problems:/);
   assert.match(output, /Site-status drifts:/);
 });
 
-test('upstream drift for 857 can emit json without a live site fetch', () => {
-  const output = runCli(['upstream', 'drift', '857', '--json']);
+test('import drift for 857 can emit json without a live site fetch', () => {
+  const output = runCli(['import', 'drift', '857', '--json']);
   const payload = JSON.parse(output);
   assert.equal(payload.problemId, '857');
   assert.equal(payload.local.siteStatus, 'open');
-  assert.equal(payload.upstream.siteStatus, 'open');
+  assert.equal(payload.external.siteStatus, 'open');
 });
 
-test('scaffold problem copies canonical files, pack context, and upstream record', () => {
+test('legacy upstream alias still works', () => {
+  const output = runCli(['upstream', 'show']);
+  assert.match(output, /Snapshot kind: bundled/);
+  assert.match(output, /External import repo:/);
+});
+
+test('scaffold problem copies canonical files, pack context, and imported record', () => {
   const workspace = fs.mkdtempSync(path.join(os.tmpdir(), 'erdos-scaffold-'));
   const output = runCli(['scaffold', 'problem', '857'], { cwd: workspace });
   assert.match(output, /Scaffold created:/);

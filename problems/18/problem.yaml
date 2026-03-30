@@ -13,8 +13,8 @@ status:
   site_status: open
   site_badge: OPEN
   repo_status: cataloged
-  upstream_status: open
-  upstream_last_update: 2025-08-31
+  imported_status: open
+  imported_last_update: 2025-08-31
 cluster: number-theory
 prize:
   display: no
@@ -34,5 +34,5 @@ evidence_path: EVIDENCE.md
 formalization_path: FORMALIZATION.md
 formalization:
   status: statement-formalized
-  upstream_state: yes
-  upstream_last_update: 2026-03-15
+  imported_state: yes
+  imported_last_update: 2026-03-15

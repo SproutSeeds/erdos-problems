@@ -142,7 +142,7 @@ function writeUpstreamOnlyBundle(problemId, destination, upstreamRecord, snapsho
           manifestPath: snapshot.manifestPath,
           indexPath: snapshot.indexPath,
           yamlPath: snapshot.yamlPath,
-          upstreamCommit: snapshot.manifest.upstream_commit ?? null,
+          upstreamCommit: snapshot.manifest.imported_commit ?? snapshot.manifest.upstream_commit ?? null,
           fetchedAt: snapshot.manifest.fetched_at,
         }
       : null,
@@ -511,7 +511,7 @@ function writeRootProblemBundle(rootDir, problemId, localProblem, upstreamRecord
     artifactsDir,
     literatureDir,
     snapshotKind: snapshot?.kind ?? null,
-    upstreamCommit: snapshot?.manifest.upstream_commit ?? null,
+    upstreamCommit: snapshot?.manifest.imported_commit ?? snapshot?.manifest.upstream_commit ?? null,
   });
   writeText(
     path.join(rootDir, 'README.md'),

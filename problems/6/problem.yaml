@@ -13,14 +13,14 @@ provenance:
   seeded_at: 2026-03-26T04:41:26.097Z
   seeded_from:
     kind: pull_bundle
-    upstream_record_included: true
+    imported_record_included: true
     site_snapshot_included: true
 status:
   site_status: proved
   site_badge: PROVED
   repo_status: cataloged
-  upstream_status: proved
-  upstream_last_update: 2025-08-31
+  imported_status: proved
+  imported_last_update: 2025-08-31
 cluster: number-theory
 prize:
   display: $100
@@ -39,5 +39,5 @@ evidence_path: EVIDENCE.md
 formalization_path: FORMALIZATION.md
 formalization:
   status: planned
-  upstream_state: yes
-  upstream_last_update: 2025-09-18
+  imported_state: yes
+  imported_last_update: 2025-09-18

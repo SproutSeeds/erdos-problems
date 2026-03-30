@@ -134,7 +134,7 @@ export function getProblemArtifactInventory(problem) {
           manifestPath: snapshot.manifestPath,
           indexPath: snapshot.indexPath,
           yamlPath: snapshot.yamlPath,
-          upstreamCommit: snapshot.manifest.upstream_commit ?? null,
+          upstreamCommit: snapshot.manifest.imported_commit ?? snapshot.manifest.upstream_commit ?? null,
           fetchedAt: snapshot.manifest.fetched_at,
         }
       : null,

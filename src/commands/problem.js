@@ -99,8 +99,8 @@ function printProblem(problem) {
   }
   console.log(`Prize: ${problem.prize ?? '(none)'}`);
   console.log(`Formalization: ${problem.formalizationStatus}`);
-  console.log(`Imported formalized: ${problem.upstreamFormalizedState ?? '(unknown)'}`);
-  console.log(`Imported last update: ${problem.upstreamLastUpdate ?? '(unknown)'}`);
+  console.log(`Imported formalized: ${problem.importedFormalizedState ?? '(unknown)'}`);
+  console.log(`Imported last update: ${problem.importedLastUpdate ?? '(unknown)'}`);
   console.log(`Related: ${problem.relatedProblems.join(', ') || '(none)'}`);
   console.log(`Tags: ${problem.familyTags.join(', ') || '(none)'}`);
   console.log(`Statement: ${problem.shortStatement}`);

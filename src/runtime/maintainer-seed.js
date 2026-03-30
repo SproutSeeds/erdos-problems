@@ -230,7 +230,7 @@ function buildProblemRecord(problemId, bundle, options) {
       seeded_at: new Date().toISOString(),
       seeded_from: {
         kind: 'pull_bundle',
-        upstream_record_included: Boolean(bundle.upstreamRecord),
+        imported_record_included: Boolean(bundle.upstreamRecord),
         site_snapshot_included: Boolean(bundle.siteExtract || bundle.siteSummary),
         public_search_review_included: Boolean(bundle.publicStatusReview || bundle.publicStatusReviewMarkdown),
       },
@@ -239,8 +239,8 @@ function buildProblemRecord(problemId, bundle, options) {
       site_status: siteStatus,
       site_badge: uppercaseBadge(siteStatus),
       repo_status: options.repoStatus,
-      upstream_status: upstreamRecord.status?.state ?? null,
-      upstream_last_update: upstreamRecord.status?.last_update ?? null,
+      imported_status: upstreamRecord.status?.state ?? null,
+      imported_last_update: upstreamRecord.status?.last_update ?? null,
     },
     cluster: options.cluster ?? inferClusterFromTags(upstreamRecord.tags),
     prize: {
@@ -260,8 +260,8 @@ function buildProblemRecord(problemId, bundle, options) {
     formalization_path: 'FORMALIZATION.md',
     formalization: {
       status: options.formalizationStatus,
-      upstream_state: upstreamRecord.formalized?.state ?? 'unknown',
-      upstream_last_update: upstreamRecord.formalized?.last_update ?? null,
+      imported_state: upstreamRecord.formalized?.state ?? 'unknown',
+      imported_last_update: upstreamRecord.formalized?.last_update ?? null,
     },
   };
 
@@ -368,8 +368,8 @@ function renderFormalizationMarkdown(record) {
     '# Formalization',
     '',
     `- Local status: ${record.formalization.status}`,
-    `- Imported formalized state: ${record.formalization.upstream_state}`,
-    `- Imported formalized last update: ${record.formalization.upstream_last_update ?? '(unknown)'}`,
+    `- Imported formalized state: ${record.formalization.imported_state}`,
+    `- Imported formalized last update: ${record.formalization.imported_last_update ?? '(unknown)'}`,
     '',
     'Seed note:',
     '- this file was created automatically from a pull bundle and should be upgraded as local formal work begins.',

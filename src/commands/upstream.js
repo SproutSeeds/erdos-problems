@@ -24,7 +24,7 @@ function parseDriftArgs(args) {
       parsed.problemId = token;
       continue;
     }
-    return { error: `Unknown upstream drift option: ${token}` };
+    return { error: `Unknown import drift option: ${token}` };
   }
 
   return parsed;
@@ -35,17 +35,17 @@ export async function runUpstreamCommand(args) {
 
   if (!subcommand || subcommand === 'help' || subcommand === '--help') {
     console.log('Usage:');
-    console.log('  erdos upstream show');
-    console.log('  erdos upstream sync [--write-package-snapshot]');
-    console.log('  erdos upstream diff [--write-package-report]');
-    console.log('  erdos upstream drift [<id>] [--include-site] [--json]');
+    console.log('  erdos import show');
+    console.log('  erdos import sync [--write-package-snapshot]');
+    console.log('  erdos import diff [--write-package-report]');
+    console.log('  erdos import drift [<id>] [--include-site] [--json]');
     return 0;
   }
 
   if (subcommand === 'show') {
     const snapshot = loadActiveUpstreamSnapshot();
     if (!snapshot) {
-      console.log('No upstream snapshot available yet. Run `erdos upstream sync`.');
+      console.log('No import snapshot available yet. Run `erdos import sync`.');
       return 0;
     }
     const manifest = snapshot.manifest;
@@ -62,15 +62,15 @@ export async function runUpstreamCommand(args) {
     console.log(`Active yaml: ${snapshot.yamlPath}`);
     console.log(`Bundled snapshot dir: ${getBundledUpstreamDir()}`);
     console.log(`Workspace snapshot dir: ${getWorkspaceUpstreamDir()}`);
-    console.log('Refresh workspace import snapshot: erdos upstream sync');
-    console.log('Refresh bundled import snapshot (maintainers): erdos upstream sync --write-package-snapshot');
+    console.log('Refresh workspace import snapshot: erdos import sync');
+    console.log('Refresh bundled import snapshot (maintainers): erdos import sync --write-package-snapshot');
     return 0;
   }
 
   if (subcommand === 'sync') {
     const writePackageSnapshot = rest.includes('--write-package-snapshot');
     const result = await syncUpstream({ writePackageSnapshot });
-    console.log(`Fetched import commit: ${result.snapshot.manifest.imported_commit ?? result.snapshot.manifest.upstream_commit ?? '(unknown)'}`);
+    console.log(`Fetched import commit: ${result.snapshot.manifest.imported_commit ?? '(unknown)'}`);
     console.log(`Workspace snapshot: ${result.workspacePaths.manifestPath}`);
     if (result.bundledPaths) {
       console.log(`Bundled snapshot: ${result.bundledPaths.manifestPath}`);
@@ -161,13 +161,6 @@ export async function runUpstreamCommand(args) {
             title: problem.title,
           }
         : null,
-      upstream: upstreamRecord
-        ? {
-            siteStatus: upstreamRecord.status?.state ?? null,
-            formalizedState: upstreamRecord.formalized?.state ?? null,
-            tags: upstreamRecord.tags ?? [],
-          }
-        : null,
       external: upstreamRecord
         ? {
             siteStatus: upstreamRecord.status?.state ?? null,
@@ -192,17 +185,17 @@ export async function runUpstreamCommand(args) {
 
     console.log(`External atlas drift for problem ${parsed.problemId}`);
     console.log(`Local site status: ${payload.local?.siteStatus ?? '(none)'}`);
-    console.log(`External atlas site status: ${payload.upstream?.siteStatus ?? '(none)'}`);
+    console.log(`External atlas site status: ${payload.external?.siteStatus ?? '(none)'}`);
     console.log(`Site snapshot status: ${payload.site?.siteStatus ?? '(not fetched)'}`);
     console.log(`Local repo status: ${payload.local?.repoStatus ?? '(none)'}`);
-    console.log(`Imported formalized state: ${payload.upstream?.formalizedState ?? '(none)'}`);
-    console.log(`External tags: ${payload.upstream?.tags?.join(', ') || '(none)'}`);
+    console.log(`Imported formalized state: ${payload.external?.formalizedState ?? '(none)'}`);
+    console.log(`External tags: ${payload.external?.tags?.join(', ') || '(none)'}`);
     if (siteError) {
       console.log(`Site fetch note: ${siteError}`);
     }
     return 0;
   }
 
-  console.error(`Unknown upstream subcommand: ${subcommand}`);
+  console.error(`Unknown import subcommand: ${subcommand}`);
   return 1;
 }

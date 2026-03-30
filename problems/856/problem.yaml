@@ -13,8 +13,8 @@ status:
   site_status: open
   site_badge: OPEN
   repo_status: active
-  upstream_status: open
-  upstream_last_update: 2025-08-31
+  imported_status: open
+  imported_last_update: 2025-08-31
 cluster: sunflower
 prize:
   display: no
@@ -35,8 +35,8 @@ evidence_path: EVIDENCE.md
 formalization_path: FORMALIZATION.md
 formalization:
   status: planned
-  upstream_state: no
-  upstream_last_update: 2025-08-31
+  imported_state: no
+  imported_last_update: 2025-08-31
 research_state:
   open_problem: true
   active_route: harmonic_density_lcm_bridge

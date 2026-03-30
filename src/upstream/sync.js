@@ -86,12 +86,6 @@ export async function fetchUpstreamSnapshot() {
     imported_commit: commit,
     raw_sha256: sha256(rawYaml),
     entry_count: records.length,
-    // Legacy aliases kept for compatibility while the product moves from
-    // "upstream truth" wording to "external import" wording.
-    upstream_repo: EXTERNAL_REPO_URL,
-    source_url: EXTERNAL_RAW_PROBLEMS_URL,
-    source_file: 'data/problems.yaml',
-    upstream_commit: commit,
   };
   const byNumber = Object.fromEntries(records.map((record) => [record.number, record]));
   return {
@@ -160,7 +154,7 @@ function compareTagSets(localProblem, upstreamRecord) {
 export function buildUpstreamDiff() {
   const snapshot = loadActiveUpstreamSnapshot();
   if (!snapshot) {
-    throw new Error('No upstream snapshot available. Run `erdos upstream sync` first.');
+    throw new Error('No import snapshot available. Run `erdos import sync` first.');
   }
 
   const localProblems = loadLocalProblems();
@@ -176,7 +170,7 @@ export function buildUpstreamDiff() {
     }
 
     const statusMatches = normalizeStatus(problem.siteStatus) === normalizeStatus(upstream.status.state);
-    const formalizedMatches = normalizeStatus(problem.upstreamFormalizedState) === normalizeStatus(upstream.formalized.state);
+    const formalizedMatches = normalizeStatus(problem.importedFormalizedState) === normalizeStatus(upstream.formalized.state);
     const tagDiff = compareTagSets(problem, upstream);
 
     overlaps.push({
@@ -186,7 +180,7 @@ export function buildUpstreamDiff() {
       localSiteStatus: problem.siteStatus,
       upstreamSiteStatus: upstream.status.state,
       statusMatches,
-      localFormalized: problem.upstreamFormalizedState,
+      localFormalized: problem.importedFormalizedState,
       upstreamFormalized: upstream.formalized.state,
       formalizedMatches,
       localPrize: problem.prize,
@@ -218,7 +212,7 @@ export function renderUpstreamDiffMarkdown(diff) {
   lines.push(`Snapshot kind: \
 ${diff.snapshot.kind}`.replace('\
 ', ''));
-  lines.push(`Imported commit: ${diff.snapshot.manifest.imported_commit ?? diff.snapshot.manifest.upstream_commit ?? '(unknown)'}`);
+  lines.push(`Imported commit: ${diff.snapshot.manifest.imported_commit ?? '(unknown)'}`);
   lines.push(`Fetched at: ${diff.snapshot.manifest.fetched_at}`);
   lines.push(`Local seeded problems: ${diff.localProblemCount}`);
   lines.push(`External atlas total problems: ${diff.upstreamProblemCount}`);

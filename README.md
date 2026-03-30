@@ -46,9 +46,9 @@ A short example from the first minute:
 - the npm package is the installable CLI plus the bundled import snapshot, packaged dossiers, and packaged pack assets
 - the GitHub repo is the broader public collaboration space for dossiers, pack packets, docs, issues, discussions, PRs, and future deep research bundles
 - `.erdos/` is local workspace state created by the CLI; it is not canonical repo truth
-- `erdos upstream show` reports whether you are using the bundled import snapshot or a workspace-local refreshed import snapshot
-- `erdos upstream sync` currently refreshes an external atlas import snapshot from `teorth/erdosproblems` without mutating the canonical local dossier layer
-- `erdos upstream sync --write-package-snapshot` is the maintainer path for intentionally updating the bundled import snapshot in this repo
+- `erdos import show` reports whether you are using the bundled import snapshot or a workspace-local refreshed import snapshot
+- `erdos import sync` currently refreshes an external atlas import snapshot from `teorth/erdosproblems` without mutating the canonical local dossier layer
+- `erdos import sync --write-package-snapshot` is the maintainer path for intentionally updating the bundled import snapshot in this repo
 - repo-only deep-research directories such as `research/`, `formal/`, `paper/`, `imports/`, and `analysis/` are intentionally kept out of npm by staying outside the `package.json` `files` list
 - repo-only public research can live in this GitHub repo without shipping in the npm tarball; see the contribution guide: https://github.com/SproutSeeds/erdos-problems/blob/main/CONTRIBUTING.md
 
@@ -270,7 +270,7 @@ Useful commands for agent workflows:
 erdos problem artifacts 857 --json
 erdos workspace show --json
 erdos pull literature 857 --include-crossref --include-openalex --json
-erdos upstream drift 857 --json
+erdos import drift 857 --json
 ```
 
 ## ORP And Truth Hygiene

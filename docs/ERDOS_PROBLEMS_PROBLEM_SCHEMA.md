@@ -10,7 +10,7 @@ Goals:
 - every Erdős problem has a consistent local home
 - local dossier truth stays separate from imported public truth
 - agents can bootstrap from canonical artifacts immediately after install
-- pulled upstream/site bundles can be promoted into canonical dossiers without losing provenance
+- pulled import/site bundles can be promoted into canonical dossiers without losing provenance
 
 ## Canonical files
 
@@ -21,7 +21,7 @@ Each seeded problem should have:
 - `problems/<id>/EVIDENCE.md`
 - `problems/<id>/FORMALIZATION.md`
 
-Bundled upstream snapshot artifacts live in:
+Bundled import snapshot artifacts live in:
 - `data/upstream/erdosproblems/problems.yaml`
 - `data/upstream/erdosproblems/PROBLEMS_INDEX.json`
 - `data/upstream/erdosproblems/SYNC_MANIFEST.json`
@@ -76,8 +76,8 @@ status:
   site_status: "open"
   site_badge: "OPEN"
   repo_status: "active"
-  upstream_status: "open"
-  upstream_last_update: "2025-08-31"
+  imported_status: "open"
+  imported_last_update: "2025-08-31"
 cluster: "sunflower"
 prize:
   display: "no"
@@ -98,8 +98,8 @@ evidence_path: "EVIDENCE.md"
 formalization_path: "FORMALIZATION.md"
 formalization:
   status: "active"
-  upstream_state: "no"
-  upstream_last_update: "2025-08-31"
+  imported_state: "no"
+  imported_last_update: "2025-08-31"
 research_state:
   open_problem: true
   active_route: "anchored_selector_linearization"
@@ -116,7 +116,7 @@ provenance:
   seeded_at: "2026-03-25T..."
   seeded_from:
     kind: "pull_bundle"
-    upstream_record_included: true
+    imported_record_included: true
     site_snapshot_included: false
 ```
 
@@ -183,7 +183,7 @@ That legacy spelling should be treated as imported external provenance, not as a
 `erdos scaffold problem <id>` should create a workspace-ready bundle containing:
 - copied canonical dossier files
 - `problem.yaml`
-- upstream record snapshot when available
+- imported record snapshot when available
 - pack README context when available
 - per-problem pack context when available
 - compute packets when available
@@ -195,7 +195,7 @@ That legacy spelling should be treated as imported external provenance, not as a
 - a root pull manifest
 - an `artifacts/` lane
 - a `literature/` lane
-- upstream record snapshot when available
+- imported record snapshot when available
 - local dossier artifacts when the problem is already seeded locally
 - optional live site snapshot and extracted text when `--include-site` is used
 
@@ -208,4 +208,4 @@ That legacy spelling should be treated as imported external provenance, not as a
 - `EVIDENCE.md`
 - `FORMALIZATION.md`
 
-The resulting dossier should preserve upstream/site provenance and be safe for later manual curation.
+The resulting dossier should preserve imported provenance and site provenance and be safe for later manual curation.
