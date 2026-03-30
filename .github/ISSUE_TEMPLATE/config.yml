@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Contribution Guide
+    url: https://github.com/SproutSeeds/erdos-problems/blob/main/CONTRIBUTING.md
+    about: Read the contribution guide before opening a submission.
+  - name: Discussions
+    url: https://github.com/SproutSeeds/erdos-problems/discussions
+    about: Use Discussions for open-ended questions or early conversation before filing a structured issue.
