@@ -1,0 +1,298 @@
+{
+  "generatedAt": "2026-03-30T22:13:09.444Z",
+  "problemId": "20",
+  "title": "Strong Sunflower Problem",
+  "sourceUrl": "https://www.erdosproblems.com/20",
+  "canonicalRepo": "https://github.com/SproutSeeds/erdos-problems",
+  "externalSource": {
+    "repo": "https://github.com/teorth/erdosproblems",
+    "data_file": "data/problems.yaml",
+    "number": "20"
+  },
+  "researchState": {
+    "open_problem": true,
+    "active_route": "uniform_k3_frontier",
+    "route_breakthrough": false,
+    "problem_solved": false
+  },
+  "canonicalArtifacts": [
+    {
+      "label": "problem.yaml",
+      "kind": "canonical_dossier",
+      "scope": "repo",
+      "path": "problems/20/problem.yaml",
+      "note": null,
+      "exists": true,
+      "status": null,
+      "claimLevelGoal": null
+    },
+    {
+      "label": "STATEMENT.md",
+      "kind": "canonical_dossier",
+      "scope": "repo",
+      "path": "problems/20/STATEMENT.md",
+      "note": null,
+      "exists": true,
+      "status": null,
+      "claimLevelGoal": null
+    },
+    {
+      "label": "REFERENCES.md",
+      "kind": "canonical_dossier",
+      "scope": "repo",
+      "path": "problems/20/REFERENCES.md",
+      "note": null,
+      "exists": true,
+      "status": null,
+      "claimLevelGoal": null
+    },
+    {
+      "label": "EVIDENCE.md",
+      "kind": "canonical_dossier",
+      "scope": "repo",
+      "path": "problems/20/EVIDENCE.md",
+      "note": null,
+      "exists": true,
+      "status": null,
+      "claimLevelGoal": null
+    },
+    {
+      "label": "FORMALIZATION.md",
+      "kind": "canonical_dossier",
+      "scope": "repo",
+      "path": "problems/20/FORMALIZATION.md",
+      "note": null,
+      "exists": true,
+      "status": null,
+      "claimLevelGoal": null
+    }
+  ],
+  "starterArtifacts": [],
+  "packContext": {
+    "label": "PACK_CONTEXT.md",
+    "kind": "pack_context",
+    "scope": "repo",
+    "path": "packs/sunflower/README.md",
+    "note": null,
+    "exists": true,
+    "status": null,
+    "claimLevelGoal": null
+  },
+  "packProblemArtifacts": [
+    {
+      "label": "AGENT_START.md",
+      "kind": "pack_problem",
+      "scope": "repo",
+      "path": "packs/sunflower/problems/20/AGENT_START.md",
+      "note": null,
+      "exists": true,
+      "status": null,
+      "claimLevelGoal": null
+    },
+    {
+      "label": "ATOMIC_BOARD.md",
+      "kind": "pack_problem",
+      "scope": "repo",
+      "path": "packs/sunflower/problems/20/ATOMIC_BOARD.md",
+      "note": null,
+      "exists": true,
+      "status": null,
+      "claimLevelGoal": null
+    },
+    {
+      "label": "ATOMIC_BOARD.yaml",
+      "kind": "pack_problem",
+      "scope": "repo",
+      "path": "packs/sunflower/problems/20/ATOMIC_BOARD.yaml",
+      "note": null,
+      "exists": true,
+      "status": null,
+      "claimLevelGoal": null
+    },
+    {
+      "label": "CHECKPOINT_PACKET.md",
+      "kind": "pack_problem",
+      "scope": "repo",
+      "path": "packs/sunflower/problems/20/CHECKPOINT_PACKET.md",
+      "note": null,
+      "exists": true,
+      "status": null,
+      "claimLevelGoal": null
+    },
+    {
+      "label": "CHECKPOINT_TEMPLATE.md",
+      "kind": "pack_problem",
+      "scope": "repo",
+      "path": "packs/sunflower/problems/20/CHECKPOINT_TEMPLATE.md",
+      "note": null,
+      "exists": true,
+      "status": null,
+      "claimLevelGoal": null
+    },
+    {
+      "label": "CONTEXT.md",
+      "kind": "pack_problem",
+      "scope": "repo",
+      "path": "packs/sunflower/problems/20/CONTEXT.md",
+      "note": null,
+      "exists": true,
+      "status": null,
+      "claimLevelGoal": null
+    },
+    {
+      "label": "context.yaml",
+      "kind": "pack_problem",
+      "scope": "repo",
+      "path": "packs/sunflower/problems/20/context.yaml",
+      "note": null,
+      "exists": true,
+      "status": null,
+      "claimLevelGoal": null
+    },
+    {
+      "label": "FRONTIER_NOTE.md",
+      "kind": "pack_problem",
+      "scope": "repo",
+      "path": "packs/sunflower/problems/20/FRONTIER_NOTE.md",
+      "note": null,
+      "exists": true,
+      "status": null,
+      "claimLevelGoal": null
+    },
+    {
+      "label": "OPS_DETAILS.yaml",
+      "kind": "pack_problem",
+      "scope": "repo",
+      "path": "packs/sunflower/problems/20/OPS_DETAILS.yaml",
+      "note": null,
+      "exists": true,
+      "status": null,
+      "claimLevelGoal": null
+    },
+    {
+      "label": "REPORT_PACKET.md",
+      "kind": "pack_problem",
+      "scope": "repo",
+      "path": "packs/sunflower/problems/20/REPORT_PACKET.md",
+      "note": null,
+      "exists": true,
+      "status": null,
+      "claimLevelGoal": null
+    },
+    {
+      "label": "REPORT_TEMPLATE.md",
+      "kind": "pack_problem",
+      "scope": "repo",
+      "path": "packs/sunflower/problems/20/REPORT_TEMPLATE.md",
+      "note": null,
+      "exists": true,
+      "status": null,
+      "claimLevelGoal": null
+    },
+    {
+      "label": "ROUTE_HISTORY.md",
+      "kind": "pack_problem",
+      "scope": "repo",
+      "path": "packs/sunflower/problems/20/ROUTE_HISTORY.md",
+      "note": null,
+      "exists": true,
+      "status": null,
+      "claimLevelGoal": null
+    },
+    {
+      "label": "ROUTE_PACKET.yaml",
+      "kind": "pack_problem",
+      "scope": "repo",
+      "path": "packs/sunflower/problems/20/ROUTE_PACKET.yaml",
+      "note": null,
+      "exists": true,
+      "status": null,
+      "claimLevelGoal": null
+    }
+  ],
+  "computePackets": [
+    {
+      "label": "u3_uniform_transfer_window_v0",
+      "kind": "compute_packet",
+      "scope": "repo",
+      "path": "packs/sunflower/compute/20/u3_uniform_transfer_window_v0.yaml",
+      "note": null,
+      "exists": true,
+      "status": "ready_for_local_scout",
+      "claimLevelGoal": "Verified"
+    }
+  ],
+  "repoBundlePointers": [
+    {
+      "label": "paper_root",
+      "purpose": "Repo-only paper workspace root",
+      "scope": "repo",
+      "path": "paper",
+      "note": null
+    },
+    {
+      "label": "formal_lean_root",
+      "purpose": "Repo-local Lean and formalization root",
+      "scope": "repo",
+      "path": "formal/lean",
+      "note": null
+    }
+  ],
+  "suggestedReadingOrder": [
+    {
+      "label": "problem.yaml",
+      "path": "problems/20/problem.yaml",
+      "why": "Canonical problem record and current public metadata."
+    },
+    {
+      "label": "STATEMENT.md",
+      "path": "problems/20/STATEMENT.md",
+      "why": "Shortest clean statement of the problem."
+    },
+    {
+      "label": "REFERENCES.md",
+      "path": "problems/20/REFERENCES.md",
+      "why": "Reference ledger and public literature trail."
+    },
+    {
+      "label": "EVIDENCE.md",
+      "path": "problems/20/EVIDENCE.md",
+      "why": "Current evidence posture and public route notes."
+    },
+    {
+      "label": "FORMALIZATION.md",
+      "path": "problems/20/FORMALIZATION.md",
+      "why": "Formalization posture and proof assistant boundary."
+    },
+    {
+      "label": "PACK_CONTEXT.md",
+      "path": "packs/sunflower/README.md",
+      "why": "Family-level framing when the problem lives in a deeper pack."
+    },
+    {
+      "label": "FRONTIER_NOTE.md",
+      "path": "packs/sunflower/problems/20/FRONTIER_NOTE.md",
+      "why": "Current frontier and next honest move."
+    },
+    {
+      "label": "ATOMIC_BOARD.md",
+      "path": "packs/sunflower/problems/20/ATOMIC_BOARD.md",
+      "why": "Operational dependency graph for the active route."
+    },
+    {
+      "label": "u3_uniform_transfer_window_v0",
+      "path": "packs/sunflower/compute/20/u3_uniform_transfer_window_v0.yaml",
+      "why": "Computational or certification packet relevant to proof and verification scope."
+    },
+    {
+      "label": "paper_root",
+      "path": "paper",
+      "why": "Repo-only paper workspace root"
+    },
+    {
+      "label": "formal_lean_root",
+      "path": "formal/lean",
+      "why": "Repo-local Lean and formalization root"
+    }
+  ]
+}

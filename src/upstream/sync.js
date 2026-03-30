@@ -17,9 +17,9 @@ import {
   getWorkspaceUpstreamYamlPath,
 } from '../runtime/paths.js';
 
-const UPSTREAM_REPO_URL = 'https://github.com/teorth/erdosproblems';
-const RAW_PROBLEMS_URL = 'https://raw.githubusercontent.com/teorth/erdosproblems/master/data/problems.yaml';
-const COMMIT_API_URL = 'https://api.github.com/repos/teorth/erdosproblems/commits?path=data/problems.yaml&per_page=1';
+const EXTERNAL_REPO_URL = 'https://github.com/teorth/erdosproblems';
+const EXTERNAL_RAW_PROBLEMS_URL = 'https://raw.githubusercontent.com/teorth/erdosproblems/master/data/problems.yaml';
+const EXTERNAL_COMMIT_API_URL = 'https://api.github.com/repos/teorth/erdosproblems/commits?path=data/problems.yaml&per_page=1';
 
 function sha256(text) {
   return crypto.createHash('sha256').update(text).digest('hex');
@@ -51,7 +51,7 @@ function normalizeUpstreamRecord(entry) {
 }
 
 async function fetchUpstreamCommit() {
-  const response = await fetch(COMMIT_API_URL, {
+  const response = await fetch(EXTERNAL_COMMIT_API_URL, {
     headers: {
       'User-Agent': 'erdos-problems-cli',
       Accept: 'application/vnd.github+json',
@@ -65,7 +65,7 @@ async function fetchUpstreamCommit() {
 }
 
 export async function fetchUpstreamSnapshot() {
-  const response = await fetch(RAW_PROBLEMS_URL, {
+  const response = await fetch(EXTERNAL_RAW_PROBLEMS_URL, {
     headers: {
       'User-Agent': 'erdos-problems-cli',
       Accept: 'text/plain',
@@ -79,13 +79,19 @@ export async function fetchUpstreamSnapshot() {
   const records = parsed.map(normalizeUpstreamRecord);
   const commit = await fetchUpstreamCommit();
   const manifest = {
-    upstream_repo: UPSTREAM_REPO_URL,
-    source_url: RAW_PROBLEMS_URL,
-    source_file: 'data/problems.yaml',
+    external_repo: EXTERNAL_REPO_URL,
+    external_source_url: EXTERNAL_RAW_PROBLEMS_URL,
+    external_source_file: 'data/problems.yaml',
     fetched_at: new Date().toISOString(),
-    upstream_commit: commit,
+    imported_commit: commit,
     raw_sha256: sha256(rawYaml),
     entry_count: records.length,
+    // Legacy aliases kept for compatibility while the product moves from
+    // "upstream truth" wording to "external import" wording.
+    upstream_repo: EXTERNAL_REPO_URL,
+    source_url: EXTERNAL_RAW_PROBLEMS_URL,
+    source_file: 'data/problems.yaml',
+    upstream_commit: commit,
   };
   const byNumber = Object.fromEntries(records.map((record) => [record.number, record]));
   return {
@@ -207,20 +213,20 @@ export function buildUpstreamDiff() {
 
 export function renderUpstreamDiffMarkdown(diff) {
   const lines = [];
-  lines.push('# Upstream Diff');
+  lines.push('# External Atlas Diff');
   lines.push('');
   lines.push(`Snapshot kind: \
 ${diff.snapshot.kind}`.replace('\
 ', ''));
-  lines.push(`Upstream commit: ${diff.snapshot.manifest.upstream_commit ?? '(unknown)'}`);
+  lines.push(`Imported commit: ${diff.snapshot.manifest.imported_commit ?? diff.snapshot.manifest.upstream_commit ?? '(unknown)'}`);
   lines.push(`Fetched at: ${diff.snapshot.manifest.fetched_at}`);
   lines.push(`Local seeded problems: ${diff.localProblemCount}`);
-  lines.push(`Upstream total problems: ${diff.upstreamProblemCount}`);
-  lines.push(`Upstream-only problems not yet locally seeded: ${diff.upstreamOnlyCount}`);
+  lines.push(`External atlas total problems: ${diff.upstreamProblemCount}`);
+  lines.push(`External-only problems not yet locally seeded: ${diff.upstreamOnlyCount}`);
   lines.push('');
   lines.push('## Overlap');
   lines.push('');
-  lines.push('| ID | Cluster | Local site | Upstream site | Status | Local formalized | Upstream formalized | Tags |');
+  lines.push('| ID | Cluster | Local site | External site | Status | Local formalized | Imported formalized | Tags |');
   lines.push('| --- | --- | --- | --- | --- | --- | --- | --- |');
   for (const row of diff.overlaps) {
     const status = row.statusMatches ? 'match' : 'DIFF';
@@ -235,7 +241,7 @@ ${diff.snapshot.kind}`.replace('\
     lines.push(`| ${row.problemId} | ${row.cluster} | ${row.localSiteStatus} | ${row.upstreamSiteStatus} | ${status} | ${row.localFormalized ?? '(unset)'} | ${row.upstreamFormalized ?? '(unset)'} | ${tagNotes.join('; ') || 'match'} |`);
   }
   lines.push('');
-  lines.push('## Upstream-Only Preview');
+  lines.push('## External-Only Preview');
   lines.push('');
   lines.push(diff.upstreamOnlyPreview.join(', ') || '(none)');
   lines.push('');

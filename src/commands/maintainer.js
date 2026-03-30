@@ -168,7 +168,7 @@ export function runMaintainerCommand(args) {
       console.log(`Review checklist: ${result.reviewPath}`);
       console.log(`Proposed destination: ${result.destinationDir}`);
       console.log(`Title: ${result.title}`);
-      console.log(`Upstream record used: ${result.usedUpstreamRecord ? 'yes' : 'no'}`);
+      console.log(`Imported record used: ${result.usedUpstreamRecord ? 'yes' : 'no'}`);
       console.log(`Site snapshot used: ${result.usedSiteSnapshot ? 'yes' : 'no'}`);
       console.log(`Public status review used: ${result.usedPublicStatusReview ? 'yes' : 'no'}`);
       return 0;
@@ -196,7 +196,7 @@ export function runMaintainerCommand(args) {
     console.log(`Title: ${result.record.title}`);
     console.log(`Cluster: ${result.record.cluster}`);
     console.log(`Harness depth: ${result.record.harness.depth}`);
-    console.log(`Upstream record used: ${result.usedUpstreamRecord ? 'yes' : 'no'}`);
+    console.log(`Imported record used: ${result.usedUpstreamRecord ? 'yes' : 'no'}`);
     console.log(`Site snapshot used: ${result.usedSiteSnapshot ? 'yes' : 'no'}`);
     console.log(`Public status review used: ${result.usedPublicStatusReview ? 'yes' : 'no'}`);
     return 0;

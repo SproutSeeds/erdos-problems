@@ -1,6 +1,6 @@
 # Erdos Problems Repo Spec
 
-Last updated: 2026-03-25
+Last updated: 2026-03-30
 
 ## Purpose
 
@@ -26,7 +26,7 @@ Targets:
 It is not:
 - a raw mirror of `sunflower-coda`
 - a generic research framework
-- a place where local route state silently overwrites public upstream truth
+- a place where local route state silently overwrites imported public evidence
 
 ## Core model
 
@@ -36,9 +36,9 @@ The repo has three layers.
 
 All seeded Erdős problems live here with canonical local dossiers.
 
-### 2. Upstream truth layer
+### 2. External import layer
 
-The package ships a bundled snapshot of `teorth/erdosproblems` and can refresh a workspace-local snapshot.
+The package can carry a bundled external atlas snapshot and refresh a workspace-local import snapshot for reconciliation and seeding.
 
 ### 3. Harness layer
 
@@ -56,9 +56,10 @@ The GitHub repo is the central public collaboration space.
 
 The npm package is the installable distribution channel, not the only collaboration surface.
 
-- the package ships the CLI, bundled upstream snapshot, canonical dossiers, and packaged pack assets
+- the package ships the CLI, bundled external import snapshot, canonical dossiers, and packaged pack assets
+- repo-only directories such as `research/`, `formal/`, `paper/`, `imports/`, and `analysis/` may hold deeper public material without shipping in npm
 - the public repo may also contain contribution guides, issue templates, maintainer notes, and other repo-only collaboration files that do not need to ship in the npm tarball
-- workspace-local upstream refreshes should be explicit and inspectable
+- workspace-local external imports should be explicit and inspectable
 
 ## Repository shape
 
@@ -81,6 +82,13 @@ erdos-problems/
       README.md
       problems/<id>/
       compute/<id>/
+  research/
+    problems/<id>/
+  formal/
+    lean/
+  paper/
+  imports/
+  analysis/
   data/upstream/erdosproblems/
   docs/
 ```
@@ -123,8 +131,8 @@ Each canonical seeded dossier contains:
 `erdos maintainer seed problem <id>` promotes a pulled bundle into a canonical local dossier.
 
 This is the disciplined bridge from:
-- public upstream/site truth
-- to local canonical dossier truth
+- imported public site / atlas evidence
+- to canonical local dossier truth
 
 ## Sunflower pack model
 
@@ -175,14 +183,15 @@ erdos sunflower status 857 --json
 
 ## Canonical truth split
 
-Public upstream truth:
+Canonical repo truth:
+- `SproutSeeds/erdos-problems`
+- `problems/<id>/problem.yaml`
+- dossier markdown files beside it
+
+External import sources:
 - `teorth/erdosproblems`
 - `data/problems.yaml`
 - `erdosproblems.com`
-
-Local atlas truth:
-- `problems/<id>/problem.yaml`
-- dossier markdown files beside it
 
 Local harness truth:
 - research state

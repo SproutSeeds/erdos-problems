@@ -1,8 +1,8 @@
 # Formalization
 
 - Local status: planned
-- Upstream formalized state: yes
-- Upstream formalized last update: 2025-09-18
+- Imported formalized state: yes
+- Imported formalized last update: 2025-09-18
 
 Seed note:
 - this file was created automatically from a pull bundle and should be upgraded as local formal work begins.

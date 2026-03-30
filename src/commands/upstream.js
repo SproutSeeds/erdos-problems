@@ -48,26 +48,29 @@ export async function runUpstreamCommand(args) {
       console.log('No upstream snapshot available yet. Run `erdos upstream sync`.');
       return 0;
     }
+    const manifest = snapshot.manifest;
+    const externalRepo = manifest.external_repo ?? manifest.upstream_repo;
+    const importedCommit = manifest.imported_commit ?? manifest.upstream_commit;
     console.log(`Snapshot kind: ${snapshot.kind}`);
-    console.log(`Active source: ${snapshot.kind === 'workspace' ? 'workspace override' : 'bundled package snapshot'}`);
-    console.log(`Upstream repo: ${snapshot.manifest.upstream_repo}`);
-    console.log(`Upstream commit: ${snapshot.manifest.upstream_commit ?? '(unknown)'}`);
-    console.log(`Fetched at: ${snapshot.manifest.fetched_at}`);
-    console.log(`Entries: ${snapshot.manifest.entry_count}`);
+    console.log(`Active source: ${snapshot.kind === 'workspace' ? 'workspace import override' : 'bundled import snapshot'}`);
+    console.log(`External import repo: ${externalRepo}`);
+    console.log(`Imported commit: ${importedCommit ?? '(unknown)'}`);
+    console.log(`Fetched at: ${manifest.fetched_at}`);
+    console.log(`Entries: ${manifest.entry_count}`);
     console.log(`Active manifest: ${snapshot.manifestPath}`);
     console.log(`Active index: ${snapshot.indexPath}`);
     console.log(`Active yaml: ${snapshot.yamlPath}`);
     console.log(`Bundled snapshot dir: ${getBundledUpstreamDir()}`);
     console.log(`Workspace snapshot dir: ${getWorkspaceUpstreamDir()}`);
-    console.log('Refresh workspace snapshot: erdos upstream sync');
-    console.log('Refresh bundled package snapshot (maintainers): erdos upstream sync --write-package-snapshot');
+    console.log('Refresh workspace import snapshot: erdos upstream sync');
+    console.log('Refresh bundled import snapshot (maintainers): erdos upstream sync --write-package-snapshot');
     return 0;
   }
 
   if (subcommand === 'sync') {
     const writePackageSnapshot = rest.includes('--write-package-snapshot');
     const result = await syncUpstream({ writePackageSnapshot });
-    console.log(`Fetched upstream commit: ${result.snapshot.manifest.upstream_commit ?? '(unknown)'}`);
+    console.log(`Fetched import commit: ${result.snapshot.manifest.imported_commit ?? result.snapshot.manifest.upstream_commit ?? '(unknown)'}`);
     console.log(`Workspace snapshot: ${result.workspacePaths.manifestPath}`);
     if (result.bundledPaths) {
       console.log(`Bundled snapshot: ${result.bundledPaths.manifestPath}`);
@@ -85,8 +88,8 @@ export async function runUpstreamCommand(args) {
     const diffArtifacts = writeDiffArtifacts({ writePackageReport });
     const diff = buildUpstreamDiff();
     console.log(`Local seeded problems: ${diff.localProblemCount}`);
-    console.log(`Upstream total problems: ${diff.upstreamProblemCount}`);
-    console.log(`Upstream-only count: ${diff.upstreamOnlyCount}`);
+    console.log(`External atlas total problems: ${diff.upstreamProblemCount}`);
+    console.log(`External-only count: ${diff.upstreamOnlyCount}`);
     console.log(`Workspace diff report: ${diffArtifacts.workspaceDiffPath}`);
     if (diffArtifacts.repoDiffPath) {
       console.log(`Repo diff report: ${diffArtifacts.repoDiffPath}`);
@@ -122,9 +125,9 @@ export async function runUpstreamCommand(args) {
         return 0;
       }
 
-      console.log('Upstream drift dashboard');
+      console.log('External atlas drift dashboard');
       console.log(`Local seeded problems: ${payload.localProblemCount}`);
-      console.log(`Upstream total problems: ${payload.upstreamProblemCount}`);
+      console.log(`External atlas total problems: ${payload.upstreamProblemCount}`);
       console.log(`Site-status drifts: ${payload.statusDriftCount}`);
       console.log(`Formalization drifts: ${payload.formalizationDriftCount}`);
       console.log(`Tag drifts: ${payload.tagDriftCount}`);
@@ -165,6 +168,13 @@ export async function runUpstreamCommand(args) {
             tags: upstreamRecord.tags ?? [],
           }
         : null,
+      external: upstreamRecord
+        ? {
+            siteStatus: upstreamRecord.status?.state ?? null,
+            formalizedState: upstreamRecord.formalized?.state ?? null,
+            tags: upstreamRecord.tags ?? [],
+          }
+        : null,
       site: siteSnapshot
         ? {
             siteStatus: siteSnapshot.siteStatus,
@@ -180,13 +190,13 @@ export async function runUpstreamCommand(args) {
       return 0;
     }
 
-    console.log(`Upstream drift for problem ${parsed.problemId}`);
+    console.log(`External atlas drift for problem ${parsed.problemId}`);
     console.log(`Local site status: ${payload.local?.siteStatus ?? '(none)'}`);
-    console.log(`Upstream site status: ${payload.upstream?.siteStatus ?? '(none)'}`);
+    console.log(`External atlas site status: ${payload.upstream?.siteStatus ?? '(none)'}`);
     console.log(`Site snapshot status: ${payload.site?.siteStatus ?? '(not fetched)'}`);
     console.log(`Local repo status: ${payload.local?.repoStatus ?? '(none)'}`);
-    console.log(`Upstream formalized state: ${payload.upstream?.formalizedState ?? '(none)'}`);
-    console.log(`Upstream tags: ${payload.upstream?.tags?.join(', ') || '(none)'}`);
+    console.log(`Imported formalized state: ${payload.upstream?.formalizedState ?? '(none)'}`);
+    console.log(`External tags: ${payload.upstream?.tags?.join(', ') || '(none)'}`);
     if (siteError) {
       console.log(`Site fetch note: ${siteError}`);
     }

@@ -99,8 +99,8 @@ function printProblem(problem) {
   }
   console.log(`Prize: ${problem.prize ?? '(none)'}`);
   console.log(`Formalization: ${problem.formalizationStatus}`);
-  console.log(`Upstream formalized: ${problem.upstreamFormalizedState ?? '(unknown)'}`);
-  console.log(`Upstream last update: ${problem.upstreamLastUpdate ?? '(unknown)'}`);
+  console.log(`Imported formalized: ${problem.upstreamFormalizedState ?? '(unknown)'}`);
+  console.log(`Imported last update: ${problem.upstreamLastUpdate ?? '(unknown)'}`);
   console.log(`Related: ${problem.relatedProblems.join(', ') || '(none)'}`);
   console.log(`Tags: ${problem.familyTags.join(', ') || '(none)'}`);
   console.log(`Statement: ${problem.shortStatement}`);
@@ -111,11 +111,11 @@ function printProblem(problem) {
     console.log(`  route breakthrough: ${problem.researchState.route_breakthrough ? 'yes' : 'no'}`);
     console.log(`  problem solved: ${problem.researchState.problem_solved ? 'yes' : 'no'}`);
   }
-  if (problem.upstream) {
-    console.log('Upstream provenance:');
-    console.log(`  repo: ${problem.upstream.repo}`);
-    console.log(`  data file: ${problem.upstream.data_file}`);
-    console.log(`  number: ${problem.upstream.number}`);
+  if (problem.externalSource) {
+    console.log('External import provenance:');
+    console.log(`  repo: ${problem.externalSource.repo}`);
+    console.log(`  data file: ${problem.externalSource.data_file}`);
+    console.log(`  number: ${problem.externalSource.number}`);
   }
 }
 
@@ -154,13 +154,13 @@ function printArtifactInventory(problem, inventory, asJson) {
     }
   }
   if (inventory.upstreamSnapshot) {
-    console.log('Upstream snapshot:');
+    console.log('External import snapshot:');
     console.log(`- kind: ${inventory.upstreamSnapshot.kind}`);
     console.log(`- manifest: ${inventory.upstreamSnapshot.manifestPath}`);
     console.log(`- index: ${inventory.upstreamSnapshot.indexPath}`);
     console.log(`- commit: ${inventory.upstreamSnapshot.upstreamCommit ?? '(unknown)'}`);
   }
-  console.log(`Upstream record available: ${inventory.upstreamRecordIncluded ? 'yes' : 'no'}`);
+  console.log(`Imported record available: ${inventory.upstreamRecordIncluded ? 'yes' : 'no'}`);
 }
 
 export function runProblemCommand(args) {

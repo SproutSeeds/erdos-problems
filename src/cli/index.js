@@ -8,6 +8,7 @@ import { runGraphTheoryCommand } from '../commands/graph-theory.js';
 import { runMaintainerCommand } from '../commands/maintainer.js';
 import { runNumberTheoryCommand } from '../commands/number-theory.js';
 import { runOrpCommand } from '../commands/orp.js';
+import { runPaperCommand } from '../commands/paper.js';
 import { runPreflightCommand } from '../commands/preflight.js';
 import { runProblemCommand } from '../commands/problem.js';
 import { runPullCommand } from '../commands/pull.js';
@@ -45,6 +46,8 @@ function printUsage() {
   console.log('  erdos workspace show [--json]');
   console.log('  erdos orp show [--json]');
   console.log('  erdos orp sync [--json]');
+  console.log('  erdos paper init [<id>] [--dest <path>] [--json]');
+  console.log('  erdos paper show [<id>] [--dest <path>] [--json]');
   console.log('  erdos state sync [--json]');
   console.log('  erdos state show [--json]');
   console.log('  erdos continuation show [--json]');
@@ -98,6 +101,8 @@ if (!command || command === 'help' || command === '--help') {
   exitCode = runWorkspaceCommand(rest);
 } else if (command === 'orp') {
   exitCode = runOrpCommand(rest);
+} else if (command === 'paper') {
+  exitCode = runPaperCommand(rest);
 } else if (command === 'state') {
   exitCode = runStateCommand(rest);
 } else if (command === 'continuation') {

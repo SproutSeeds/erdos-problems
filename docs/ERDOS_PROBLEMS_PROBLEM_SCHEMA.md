@@ -1,6 +1,6 @@
 # Erdos Problems Problem Schema
 
-Last updated: 2026-03-25
+Last updated: 2026-03-30
 
 ## Purpose
 
@@ -8,7 +8,7 @@ This schema defines the canonical local dossier record for each seeded problem i
 
 Goals:
 - every Erdős problem has a consistent local home
-- local dossier truth stays separate from upstream public truth
+- local dossier truth stays separate from imported public truth
 - agents can bootstrap from canonical artifacts immediately after install
 - pulled upstream/site bundles can be promoted into canonical dossiers without losing provenance
 
@@ -40,14 +40,15 @@ Workspace-generated artifacts may live in:
 
 ## Canonical truth split
 
-External public truth:
-- tracked, not rewritten
-- upstream structured repo: `teorth/erdosproblems`
-- public presentation site: `erdosproblems.com`
-
-Local atlas truth:
+Canonical repo truth:
+- `SproutSeeds/erdos-problems`
 - `problems/<id>/problem.yaml`
 - dossier markdown files beside it
+
+External imported public truth:
+- tracked, not silently rewritten
+- external structured repo: `teorth/erdosproblems`
+- public presentation site: `erdosproblems.com`
 
 Local harness truth:
 - route state
@@ -67,7 +68,7 @@ source:
   site: "erdosproblems.com"
   url: "https://www.erdosproblems.com/857"
   external_id: "857"
-upstream:
+external_source:
   repo: "https://github.com/teorth/erdosproblems"
   data_file: "data/problems.yaml"
   number: "857"
@@ -125,7 +126,7 @@ provenance:
 - `display_name`
 - `title`
 - `source`
-- `upstream`
+- `external_source`
 - `status`
 - `cluster`
 - `family_tags`
@@ -170,6 +171,12 @@ Repo-local examples:
 - `statement-formalized`
 - `site-proved-lean`
 - `unstarted`
+
+## Legacy compatibility
+
+During migration, older dossiers may still use an `upstream` block instead of `external_source`.
+
+That legacy spelling should be treated as imported external provenance, not as a statement that another repo outranks the canonical local dossier.
 
 ## Scaffold contract
 

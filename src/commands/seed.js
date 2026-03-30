@@ -271,7 +271,7 @@ export async function runSeedCommand(args) {
   console.log(`Title: ${result.record.title}`);
   console.log(`Cluster: ${result.record.cluster}`);
   console.log(`Harness depth: ${result.record.harness.depth}`);
-  console.log(`Upstream record used: ${result.usedUpstreamRecord ? 'yes' : 'no'}`);
+  console.log(`Imported record used: ${result.usedUpstreamRecord ? 'yes' : 'no'}`);
   console.log(`Site snapshot used: ${result.usedSiteSnapshot ? 'yes' : 'no'}`);
   console.log(`Public status review used: ${result.usedPublicStatusReview ? 'yes' : 'no'}`);
   console.log(`ORP protocol: ${orp.protocolPath}`);

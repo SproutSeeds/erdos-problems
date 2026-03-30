@@ -1,0 +1,104 @@
+{
+  "generatedAt": "2026-03-30T22:13:09.445Z",
+  "problemId": "857",
+  "sections": [
+    {
+      "key": "abstract",
+      "fileName": "ABSTRACT.md",
+      "title": "Abstract",
+      "purpose": "State the exact scope of the paper and separate proved statements from targets or heuristics.",
+      "primaryInputs": [
+        "problems/857/STATEMENT.md",
+        "problems/857/EVIDENCE.md",
+        "packs/sunflower/problems/857/FRONTIER_NOTE.md"
+      ]
+    },
+    {
+      "key": "introduction",
+      "fileName": "INTRODUCTION.md",
+      "title": "Introduction",
+      "purpose": "Explain why the problem matters, what the current route is, and how the paper is organized.",
+      "primaryInputs": [
+        "problems/857/STATEMENT.md",
+        "problems/857/REFERENCES.md",
+        "packs/sunflower/problems/857/FRONTIER_NOTE.md",
+        "packs/sunflower/README.md"
+      ]
+    },
+    {
+      "key": "preliminaries",
+      "fileName": "PRELIMINARIES.md",
+      "title": "Preliminaries",
+      "purpose": "Define notation, setup, and prior results that the rest of the paper relies on.",
+      "primaryInputs": [
+        "problems/857/STATEMENT.md",
+        "problems/857/REFERENCES.md",
+        "problems/857/FORMALIZATION.md"
+      ]
+    },
+    {
+      "key": "related_work",
+      "fileName": "RELATED_WORK.md",
+      "title": "Related Work",
+      "purpose": "Place the current route in the context of prior literature and nearby approaches.",
+      "primaryInputs": [
+        "problems/857/REFERENCES.md",
+        "problems/857/EVIDENCE.md",
+        "packs/sunflower/problems/857/FRONTIER_NOTE.md"
+      ]
+    },
+    {
+      "key": "main_results",
+      "fileName": "MAIN_RESULTS.md",
+      "title": "Main Results",
+      "purpose": "List the exact theorems, propositions, or route claims supported by the current public record.",
+      "primaryInputs": [
+        "problems/857/EVIDENCE.md",
+        "problems/857/FORMALIZATION.md",
+        "packs/sunflower/problems/857/FRONTIER_NOTE.md"
+      ]
+    },
+    {
+      "key": "proof_overview",
+      "fileName": "PROOF_OVERVIEW.md",
+      "title": "Proof Overview",
+      "purpose": "Give the roadmap of the argument and the dependency chain between major steps.",
+      "primaryInputs": [
+        "problems/857/EVIDENCE.md",
+        "packs/sunflower/problems/857/ATOMIC_BOARD.md",
+        "packs/sunflower/problems/857/FRONTIER_NOTE.md"
+      ]
+    },
+    {
+      "key": "proof_details",
+      "fileName": "PROOF_DETAILS.md",
+      "title": "Proof Details",
+      "purpose": "Write the technical proof content or the best current public decomposition when the proof is incomplete.",
+      "primaryInputs": [
+        "problems/857/EVIDENCE.md",
+        "packs/sunflower/problems/857/ATOMIC_BOARD.md",
+        "packs/sunflower/problems/857/ROUTE_PACKET.yaml"
+      ]
+    },
+    {
+      "key": "computational_and_formal_evidence",
+      "fileName": "COMPUTATIONAL_AND_FORMAL_EVIDENCE.md",
+      "title": "Computational and Formal Evidence",
+      "purpose": "Summarize computational packets, certificates, and formalization posture without inflating them into stronger claims.",
+      "primaryInputs": [
+        "problems/857/FORMALIZATION.md",
+        "packs/sunflower/compute/857/m8_exactness_cube_and_certificate_v0.yaml"
+      ]
+    },
+    {
+      "key": "limitations_and_open_problems",
+      "fileName": "LIMITATIONS_AND_OPEN_PROBLEMS.md",
+      "title": "Limitations and Open Problems",
+      "purpose": "Leave a clean handoff for the next researcher with honest boundaries and unresolved tasks.",
+      "primaryInputs": [
+        "packs/sunflower/problems/857/FRONTIER_NOTE.md",
+        "packs/sunflower/problems/857/ATOMIC_BOARD.md"
+      ]
+    }
+  ]
+}

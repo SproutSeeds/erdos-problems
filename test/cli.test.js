@@ -69,7 +69,7 @@ test('problem artifacts shows canonical file inventory', () => {
   assert.match(output, /problem.yaml: present/);
   assert.match(output, /PACK_CONTEXT.md: present/);
   assert.match(output, /Pack problem artifacts:/);
-  assert.match(output, /Upstream record available: yes/);
+  assert.match(output, /Imported record available: yes/);
 });
 
 test('problem artifacts show starter loop artifacts for newly packaged dossiers', () => {
@@ -156,6 +156,53 @@ test('workspace show reports active problem plus artifact and literature dirs', 
   assert.match(output, /Sunflower board ready atoms: 1/);
   assert.match(output, /Sunflower first ready atom: T10.G3.A2/);
   assert.match(output, /Sunflower compute lane: m8_exactness_cube_and_certificate_v0 \[ready_for_local_scout\]/);
+});
+
+test('paper init scaffolds a public-safe bundle in workspace mode outside the repo', () => {
+  const workspace = fs.mkdtempSync(path.join(os.tmpdir(), 'erdos-paper-'));
+  const output = runCli(['paper', 'init', '857'], { cwd: workspace });
+  assert.match(output, /Paper bundle initialized:/);
+
+  const bundleDir = path.join(workspace, '.erdos', 'papers', '857');
+  const manifestPath = path.join(bundleDir, 'MANIFEST.json');
+  const evidenceIndexPath = path.join(bundleDir, 'PUBLIC_EVIDENCE_INDEX.json');
+
+  assert.equal(fs.existsSync(manifestPath), true);
+  assert.equal(fs.existsSync(path.join(bundleDir, 'WRITER_BRIEF.md')), true);
+  assert.equal(fs.existsSync(path.join(bundleDir, 'SECTION_STATUS.md')), true);
+
+  const manifestText = fs.readFileSync(manifestPath, 'utf8');
+  const manifest = JSON.parse(manifestText);
+  const evidenceIndex = JSON.parse(fs.readFileSync(evidenceIndexPath, 'utf8'));
+
+  assert.equal(manifest.problem.problemId, '857');
+  assert.equal(manifest.bundlePath, null);
+  assert.equal(manifest.bundlePathScope, 'local_omitted');
+  assert.equal(manifest.canonicalPaths.problemDir.path, 'problems/857');
+  assert.equal(manifestText.includes('/Volumes/Code_2TB'), false);
+  assert.equal(evidenceIndex.canonicalArtifacts[0].path, 'problems/857/problem.yaml');
+});
+
+test('paper init resumes without overwriting edited sections and paper show reports the bundle', () => {
+  const workspace = fs.mkdtempSync(path.join(os.tmpdir(), 'erdos-paper-resume-'));
+  runCli(['paper', 'init', '857'], { cwd: workspace });
+
+  const bundleDir = path.join(workspace, '.erdos', 'papers', '857');
+  const abstractPath = path.join(bundleDir, 'ABSTRACT.md');
+  const styleGuidePath = path.join(bundleDir, 'STYLE_GUIDE.md');
+
+  fs.writeFileSync(abstractPath, '# Custom Abstract\n\nKeep this.\n');
+  fs.unlinkSync(styleGuidePath);
+
+  const output = runCli(['paper', 'init', '857'], { cwd: workspace });
+  assert.match(output, /Paper bundle resumed:/);
+  assert.equal(fs.readFileSync(abstractPath, 'utf8'), '# Custom Abstract\n\nKeep this.\n');
+  assert.equal(fs.existsSync(styleGuidePath), true);
+
+  const overview = JSON.parse(runCli(['paper', 'show', '857', '--json'], { cwd: workspace }));
+  assert.equal(overview.problemId, '857');
+  assert.equal(overview.paperMode, 'claim_safe_progress_or_route_paper');
+  assert.equal(overview.sections.some((section) => section.fileName === 'ABSTRACT.md' && section.exists), true);
 });
 
 test('sunflower status shows packaged compute lane and family context for 857', () => {
@@ -373,26 +420,26 @@ test('dossier show uses active problem when omitted', () => {
 test('upstream show reports bundled snapshot', () => {
   const output = runCli(['upstream', 'show']);
   assert.match(output, /Snapshot kind: bundled/);
-  assert.match(output, /Active source: bundled package snapshot/);
-  assert.match(output, /Upstream repo: https:\/\/github.com\/teorth\/erdosproblems/);
+  assert.match(output, /Active source: bundled import snapshot/);
+  assert.match(output, /External import repo: https:\/\/github.com\/teorth\/erdosproblems/);
   assert.match(output, /Entries: 1183/);
   assert.match(output, /Workspace snapshot dir:/);
-  assert.match(output, /Refresh workspace snapshot: erdos upstream sync/);
+  assert.match(output, /Refresh workspace import snapshot: erdos upstream sync/);
 });
 
 test('upstream diff writes workspace report from bundled snapshot', () => {
   const workspace = fs.mkdtempSync(path.join(os.tmpdir(), 'erdos-upstream-'));
   const output = runCli(['upstream', 'diff'], { cwd: workspace });
   assert.match(output, /Local seeded problems: 18/);
-  assert.match(output, /Upstream total problems: 1183/);
+  assert.match(output, /External atlas total problems: 1183/);
   const diffPath = path.join(workspace, '.erdos', 'reports', 'UPSTREAM_DIFF.md');
   assert.equal(fs.existsSync(diffPath), true);
-  assert.match(fs.readFileSync(diffPath, 'utf8'), /# Upstream Diff/);
+  assert.match(fs.readFileSync(diffPath, 'utf8'), /# External Atlas Diff/);
 });
 
 test('upstream drift shows the packaged dashboard', () => {
   const output = runCli(['upstream', 'drift']);
-  assert.match(output, /Upstream drift dashboard/);
+  assert.match(output, /External atlas drift dashboard/);
   assert.match(output, /Local seeded problems:/);
   assert.match(output, /Site-status drifts:/);
 });
@@ -409,7 +456,7 @@ test('scaffold problem copies canonical files, pack context, and upstream record
   const workspace = fs.mkdtempSync(path.join(os.tmpdir(), 'erdos-scaffold-'));
   const output = runCli(['scaffold', 'problem', '857'], { cwd: workspace });
   assert.match(output, /Scaffold created:/);
-  assert.match(output, /Upstream record included: yes/);
+  assert.match(output, /Imported record included: yes/);
   const scaffoldDir = path.join(workspace, '.erdos', 'scaffolds', '857');
   assert.equal(fs.existsSync(path.join(scaffoldDir, 'problem.yaml')), true);
   assert.equal(fs.existsSync(path.join(scaffoldDir, 'STATEMENT.md')), true);
@@ -491,7 +538,7 @@ test('pull problem creates upstream-only bundle for unseeded problem', () => {
   const output = runCli(['pull', 'problem', '25'], { cwd: workspace });
   assert.match(output, /Pull bundle created:/);
   assert.match(output, /Local canonical dossier included: no/);
-  assert.match(output, /Upstream record included: yes/);
+  assert.match(output, /Imported record included: yes/);
   const pullDir = path.join(workspace, '.erdos', 'pulls', '25');
   assert.equal(fs.existsSync(path.join(pullDir, 'UPSTREAM_RECORD.json')), true);
   assert.equal(fs.existsSync(path.join(pullDir, 'artifacts', 'PROBLEM.json')), true);

@@ -1,0 +1,71 @@
+{
+  "bundleVersion": 1,
+  "createdAt": "2026-03-30T22:13:09.445Z",
+  "lastInitializedAt": "2026-03-30T22:13:09.445Z",
+  "canonicalRepo": "https://github.com/SproutSeeds/erdos-problems",
+  "problem": {
+    "problemId": "20",
+    "displayName": "Erdos Problem #20",
+    "title": "Strong Sunflower Problem",
+    "cluster": "sunflower",
+    "sourceUrl": "https://www.erdosproblems.com/20",
+    "siteStatus": "open",
+    "repoStatus": "active",
+    "harnessDepth": "deep",
+    "formalizationStatus": "active",
+    "sourceKind": "package",
+    "activeRoute": "uniform_k3_frontier",
+    "routeBreakthrough": false,
+    "problemSolved": false,
+    "openProblem": true
+  },
+  "paperMode": "claim_safe_progress_or_route_paper",
+  "bundlePath": "paper/problems/20",
+  "bundlePathScope": "repo",
+  "bundlePathNote": null,
+  "canonicalPaths": {
+    "problemDir": {
+      "scope": "repo",
+      "path": "problems/20"
+    },
+    "packProblemDir": {
+      "scope": "repo",
+      "path": "packs/sunflower/problems/20"
+    },
+    "paperDir": {
+      "scope": "repo",
+      "path": "paper"
+    }
+  },
+  "publicEvidenceSummary": {
+    "canonicalArtifacts": 5,
+    "starterArtifacts": 0,
+    "packProblemArtifacts": 13,
+    "computePackets": 1,
+    "importedRecordIncluded": true
+  },
+  "externalProvenance": {
+    "repo": "https://github.com/teorth/erdosproblems",
+    "data_file": "data/problems.yaml",
+    "number": "20"
+  },
+  "policy": {
+    "privacy": [
+      "Do not include secrets, credentials, tokens, or unpublished private correspondence.",
+      "Do not serialize local absolute filesystem paths into committed paper artifacts.",
+      "Treat only repo-public material and explicitly cited public sources as publication inputs."
+    ],
+    "claimSafety": [
+      "Use theorem-style language only for claims supported by the current public record.",
+      "Mark heuristics, computational evidence, and route targets with their true status.",
+      "Leave unresolved seams visible instead of smoothing them over in prose."
+    ],
+    "citationDiscipline": [
+      "Every external mathematical claim should have a row in CITATION_LEDGER.md before it lands in prose.",
+      "Imported external atlases are provenance inputs, not canonical authority.",
+      "Prefer exact URLs, paper identifiers, theorem labels, and publication metadata when available."
+    ]
+  },
+  "publicEvidenceIndexFile": "PUBLIC_EVIDENCE_INDEX.json",
+  "sectionIndexFile": "SECTION_INDEX.json"
+}

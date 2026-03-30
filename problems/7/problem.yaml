@@ -5,7 +5,7 @@ source:
   site: erdosproblems.com
   url: https://www.erdosproblems.com/7
   external_id: "7"
-upstream:
+external_source:
   repo: https://github.com/teorth/erdosproblems
   data_file: data/problems.yaml
   number: "7"

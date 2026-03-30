@@ -14,6 +14,7 @@ function toCatalogProblem(problemDir, record, sourceKind) {
   const referencesRelative = record.references_path ?? 'REFERENCES.md';
   const evidenceRelative = record.evidence_path ?? 'EVIDENCE.md';
   const formalizationRelative = record.formalization_path ?? 'FORMALIZATION.md';
+  const externalSource = record.external_source ?? record.upstream ?? null;
 
   return {
     problemId: String(record.problem_id),
@@ -24,8 +25,8 @@ function toCatalogProblem(problemDir, record, sourceKind) {
     siteStatus: record.status?.site_status ?? 'unknown',
     siteBadge: record.status?.site_badge ?? String(record.status?.site_status ?? 'unknown').toUpperCase(),
     repoStatus: record.status?.repo_status ?? 'cataloged',
-    upstreamStatus: record.status?.upstream_status ?? null,
-    upstreamLastUpdate: record.status?.upstream_last_update ?? null,
+    upstreamStatus: record.status?.imported_status ?? record.status?.upstream_status ?? null,
+    upstreamLastUpdate: record.status?.imported_last_update ?? record.status?.upstream_last_update ?? null,
     cluster: record.cluster ?? 'uncategorized',
     prize: record.prize?.display ?? null,
     familyTags: record.family_tags ?? [],
@@ -33,10 +34,11 @@ function toCatalogProblem(problemDir, record, sourceKind) {
     harnessDepth: record.harness?.depth ?? 'dossier',
     shortStatement: record.statement?.short ?? '',
     formalizationStatus: record.formalization?.status ?? 'unstarted',
-    upstreamFormalizedState: record.formalization?.upstream_state ?? null,
-    upstreamFormalizedLastUpdate: record.formalization?.upstream_last_update ?? null,
+    upstreamFormalizedState: record.formalization?.imported_state ?? record.formalization?.upstream_state ?? null,
+    upstreamFormalizedLastUpdate: record.formalization?.imported_last_update ?? record.formalization?.upstream_last_update ?? null,
     researchState: record.research_state ?? null,
-    upstream: record.upstream ?? null,
+    externalSource,
+    upstream: externalSource,
     statementPath: path.join(problemDir, statementRelative),
     referencesPath: path.join(problemDir, referencesRelative),
     evidencePath: path.join(problemDir, evidenceRelative),

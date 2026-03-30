@@ -33,21 +33,24 @@ A short example from the first minute:
 
 ## What It Includes
 
-- a bundled snapshot of the Erdős problem atlas
+- a bundled external atlas import snapshot for provenance and seeding
 - local dossiers and workspace bundles
 - separate surfaces for public status, local route state, and verification records
 - pack-specific views where this repo already has enough structure to support them
 - an ORP-based workflow for claims, checkpoints, and run artifacts
+- a paper writer bundle mode for public-safe, citation-safe, agent-friendly drafting
 
-## Repo, npm, and Upstream
+## Repo, npm, and External Imports
 
-- the npm package is the installable CLI plus the bundled atlas snapshot, packaged dossiers, and pack assets
-- the GitHub repo is the central collaboration space for dossiers, pack packets, docs, issues, discussions, and pull requests
-- `.erdos/` is local workspace state created by the CLI; it is not the canonical public collaboration surface
-- `erdos upstream show` tells you whether you are currently using the bundled package snapshot or a workspace-local refreshed snapshot
-- `erdos upstream sync` refreshes a workspace-local snapshot from `teorth/erdosproblems` without mutating the packaged bundle
-- `erdos upstream sync --write-package-snapshot` is the maintainer path for intentionally updating the bundled snapshot in this repo
-- repo-only collaboration files can live in the public repo without shipping in the npm tarball; see the GitHub contribution guide: https://github.com/SproutSeeds/erdos-problems/blob/main/CONTRIBUTING.md
+- `SproutSeeds/erdos-problems` is the canonical public home for this project's atlas, dossiers, packs, and contribution workflow
+- the npm package is the installable CLI plus the bundled import snapshot, packaged dossiers, and packaged pack assets
+- the GitHub repo is the broader public collaboration space for dossiers, pack packets, docs, issues, discussions, PRs, and future deep research bundles
+- `.erdos/` is local workspace state created by the CLI; it is not canonical repo truth
+- `erdos upstream show` reports whether you are using the bundled import snapshot or a workspace-local refreshed import snapshot
+- `erdos upstream sync` currently refreshes an external atlas import snapshot from `teorth/erdosproblems` without mutating the canonical local dossier layer
+- `erdos upstream sync --write-package-snapshot` is the maintainer path for intentionally updating the bundled import snapshot in this repo
+- repo-only deep-research directories such as `research/`, `formal/`, `paper/`, `imports/`, and `analysis/` are intentionally kept out of npm by staying outside the `package.json` `files` list
+- repo-only public research can live in this GitHub repo without shipping in the npm tarball; see the contribution guide: https://github.com/SproutSeeds/erdos-problems/blob/main/CONTRIBUTING.md
 
 ## Start In 60 Seconds
 
@@ -74,6 +77,13 @@ erdos problem show 25
 erdos checkpoints sync
 ```
 
+Initialize or resume a paper bundle:
+
+```bash
+erdos paper init 857
+erdos paper show 857
+```
+
 Archive a solved problem:
 
 ```bash
@@ -85,7 +95,7 @@ erdos archive scaffold 1008 --json
 
 | Surface | Coverage |
 | --- | --- |
-| Bundled upstream atlas | `1183` problems |
+| Bundled external atlas snapshot | `1183` problems |
 | Native packaged dossiers | `18` |
 | Sunflower pack | `20`, `536`, `856`, `857` |
 | Number-theory pack | `1`, `2` |
@@ -140,7 +150,7 @@ erdos seed problem 25 --cluster number-theory
 ```
 
 What this does:
-- pulls upstream public metadata into a workspace bundle
+- pulls external public metadata into a workspace bundle
 - includes live site review and an agent websearch brief by default
 - seeds a local dossier into `.erdos/seeded-problems/<id>/`
 - syncs state, checkpoints, and ORP automatically
@@ -160,6 +170,19 @@ Use this when you want a research bundle first and a canonical dossier later.
 erdos maintainer review problem 25 --from-pull .erdos/pulls/25
 erdos maintainer seed problem 25 --from-pull .erdos/pulls/25 --cluster number-theory
 ```
+
+### 5. Initialize a paper writer bundle
+
+```bash
+erdos paper init 857
+erdos paper show 857
+```
+
+What this does:
+- creates or resumes a paper bundle for the problem
+- writes machine-readable public evidence and section indexes
+- scaffolds claim-safe section drafts, a citation ledger, and a privacy review
+- defaults to `paper/problems/<id>/` when run inside this repo and to `.erdos/papers/<id>/` elsewhere
 
 ## Packs
 
@@ -233,7 +256,7 @@ Design rule:
 
 If you are using Codex, Claude Code, or another coding agent, the package provides:
 - canonical dossier files
-- upstream provenance
+- external import provenance when available
 - pack-aware context where it exists
 - `.erdos/` workspace state
 - ORP templates and protocol guidance
@@ -260,8 +283,8 @@ erdos upstream drift 857 --json
 - `templates/FAILED_TOPIC.md`
 
 The package keeps these layers separate:
-- upstream public truth
-- local canonical dossier truth
+- canonical repo truth
+- external imported public truth
 - workspace bundle truth
 - pack-specific route / checkpoint / run truth
 
@@ -294,13 +317,14 @@ erdos maintainer review problem 25 --from-pull .erdos/pulls/25
 erdos archive scaffold 1008 --json
 ```
 
-## Canonical Sources
+## Canonical Home And External Inputs
 
+- canonical repo: <https://github.com/SproutSeeds/erdos-problems>
 - local dossier truth: `problems/<id>/problem.yaml`
-- bundled upstream snapshot: `data/upstream/erdosproblems/`
-- workspace upstream snapshot: `.erdos/upstream/erdosproblems/`
-- live upstream repo: <https://github.com/teorth/erdosproblems>
-- live public site: <https://www.erdosproblems.com/>
+- bundled external import snapshot: `data/upstream/erdosproblems/`
+- workspace external import snapshot: `.erdos/upstream/erdosproblems/`
+- external atlas import repo: <https://github.com/teorth/erdosproblems>
+- external public site: <https://www.erdosproblems.com/>
 
 ## Docs
 
@@ -321,7 +345,7 @@ If you are preparing a public post, start here:
 
 ### What is the difference between this and erdosproblems.com?
 
-`erdosproblems.com` is a public problem atlas. `erdos-problems` uses that public record, but adds local dossiers, workspace scaffolding, checkpoints, and pack-specific views for the problems that already have more structure here.
+`erdosproblems.com` is an external public problem source. `erdos-problems` imports from public sources when helpful, but keeps its canonical dossiers, packs, workflow, and contribution surface in this repo.
 
 ### Can I use this with Codex, Claude Code, or another agent?
 

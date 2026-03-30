@@ -263,7 +263,7 @@ export function scaffoldProblem(problem, destination) {
       `- Source: ${problem.sourceUrl}`,
       `- Repo status: ${problem.repoStatus}`,
       `- Harness depth: ${problem.harnessDepth}`,
-      `- Upstream record included: ${inventory.upstreamRecordIncluded ? 'yes' : 'no'}`,
+      `- Imported record included: ${inventory.upstreamRecordIncluded ? 'yes' : 'no'}`,
       `- Starter loop artifacts copied: ${copiedStarterArtifacts.length}`,
       `- Pack problem artifacts copied: ${packProblemArtifacts.length}`,
       `- Compute packets copied: ${computeArtifacts.length}`,

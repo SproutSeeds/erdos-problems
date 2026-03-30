@@ -55,6 +55,6 @@ export function runScaffoldCommand(args) {
   const result = scaffoldProblem(problem, destination);
   console.log(`Scaffold created: ${result.destination}`);
   console.log(`Artifacts copied: ${result.copiedArtifacts.length}`);
-  console.log(`Upstream record included: ${result.inventory.upstreamRecordIncluded ? 'yes' : 'no'}`);
+  console.log(`Imported record included: ${result.inventory.upstreamRecordIncluded ? 'yes' : 'no'}`);
   return 0;
 }

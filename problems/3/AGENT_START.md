@@ -14,4 +14,4 @@ Working assumptions:
 - Harness depth: dossier
 
 First honest move:
-- tighten the local dossier for problem 3 against its pull bundle, references, and upstream provenance before widening claims.
+- tighten the local dossier for problem 3 against its pull bundle, references, and import provenance before widening claims.

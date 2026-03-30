@@ -156,7 +156,7 @@ function deriveGenericProblemSummary(problem) {
     routeStory: activeRoute
       ? `Advance ${activeRoute} without blurring local route state into global problem status.`
       : 'No active route is recorded for this dossier yet.',
-    checkpointFocus: 'Keep dossier truth, upstream provenance, and local route state sharply separated.',
+    checkpointFocus: 'Keep dossier truth, import provenance, and local route state sharply separated.',
     nextHonestMove,
     packArtifacts: null,
     activeTicketId: null,

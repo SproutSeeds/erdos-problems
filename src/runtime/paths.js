@@ -136,6 +136,14 @@ export function getWorkspaceArchiveDir(problemId, workspaceRoot = getWorkspaceRo
   return path.join(getWorkspaceArchivesDir(workspaceRoot), String(problemId));
 }
 
+export function getWorkspacePapersDir(workspaceRoot = getWorkspaceRoot()) {
+  return path.join(getWorkspaceDir(workspaceRoot), 'papers');
+}
+
+export function getWorkspaceProblemPaperDir(problemId, workspaceRoot = getWorkspaceRoot()) {
+  return path.join(getWorkspacePapersDir(workspaceRoot), String(problemId));
+}
+
 export function getWorkspaceProblemCheckpointsDir(workspaceRoot = getWorkspaceRoot()) {
   return path.join(getWorkspaceCheckpointsDir(workspaceRoot), 'problem-checkpoints');
 }
@@ -194,6 +202,14 @@ export function getRepoAnalysisDir() {
 
 export function getRepoUpstreamDiffPath() {
   return path.join(getRepoAnalysisDir(), 'UPSTREAM_DIFF.md');
+}
+
+export function getRepoPaperDir() {
+  return path.join(repoRoot, 'paper');
+}
+
+export function getRepoProblemPaperDir(problemId) {
+  return path.join(getRepoPaperDir(), 'problems', String(problemId));
 }
 
 export function getPackDir(packName) {

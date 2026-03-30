@@ -1,7 +1,7 @@
 # Evidence
 
 - This dossier was seeded for Erdos Problem #5 from a pull bundle.
-- Upstream record included: yes
+- Imported record included: yes
 - Site snapshot included: yes
 - Repo status at seed time: cataloged
 - Harness depth at seed time: dossier

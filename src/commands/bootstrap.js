@@ -84,7 +84,7 @@ export async function runBootstrapCommand(args) {
   console.log(`Scaffold dir: ${result.destination}`);
   console.log(`Artifacts copied: ${result.copiedArtifacts.length}`);
   console.log(`ORP protocol: ${orp.protocolPath}`);
-  console.log(`Upstream record included: ${result.inventory.upstreamRecordIncluded ? 'yes' : 'no'}`);
+  console.log(`Imported record included: ${result.inventory.upstreamRecordIncluded ? 'yes' : 'no'}`);
   console.log(`Checkpoint shelf: ${checkpoints.indexPath}`);
   console.log(`Next honest move: ${state.nextHonestMove}`);
   return 0;
