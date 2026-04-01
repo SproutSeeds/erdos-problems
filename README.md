@@ -60,7 +60,7 @@ Install:
 npm install -g erdos-problems
 ```
 
-Bootstrap a seeded problem:
+If you already know the problem you want, the fastest path is:
 
 ```bash
 erdos bootstrap problem 857
@@ -69,13 +69,186 @@ erdos sunflower ready 857
 erdos workspace show --json
 ```
 
-Seed a new problem into the current workspace:
+If you want to start from a new local seed:
 
 ```bash
 erdos seed problem 25 --cluster number-theory
 erdos problem show 25
 erdos checkpoints sync
 ```
+
+## Beginner Flow
+
+This is the zero-assumption path for a new user.
+
+### 1. Install the CLI once
+
+```bash
+npm install -g erdos-problems
+```
+
+This gives you a global `erdos` command. The workspace state it creates is local to the folder you are in.
+
+### 2. Make a clean working folder
+
+```bash
+mkdir erdos-work
+cd erdos-work
+```
+
+Later, the CLI will create a local `.erdos/` directory here for workspace state, checkpoints, ORP files, and pulled artifacts.
+
+### 3. Browse everything first
+
+```bash
+erdos problem list
+```
+
+Use this when you do not yet know a problem number or cluster.
+
+### 4. Inspect one problem in plain English
+
+```bash
+erdos problem show 857
+```
+
+This shows the title, status, cluster, short statement, and research-state posture for that problem.
+
+### 5. Learn the families only after that
+
+```bash
+erdos cluster list
+erdos cluster show sunflower
+```
+
+Once you know what a cluster is, you can narrow the atlas:
+
+```bash
+erdos problem list --cluster sunflower
+```
+
+### 6. Start a workspace on a well-packaged problem
+
+```bash
+erdos bootstrap problem 857
+```
+
+What this does:
+- creates `.erdos/` in the current folder
+- activates the problem locally
+- syncs the ORP kit
+- scaffolds the workspace for the next research move
+
+### 7. Orient yourself immediately
+
+```bash
+erdos workspace show
+erdos state show
+erdos problem artifacts 857 --json
+```
+
+Use these to understand the workspace layout, current route/frontier state, and the artifact surface that already exists for the problem.
+
+### 8. Run the first honest-state sync
+
+```bash
+erdos orp sync
+erdos state sync
+erdos preflight
+```
+
+This refreshes the protocol kit, recomputes local research state, and checks whether the workspace is in a sane posture to continue.
+
+### 9. Set your continuation mode
+
+```bash
+erdos continuation show
+erdos continuation use route
+```
+
+For most new users, `route` is the right default. It keeps the loop focused on the current route instead of bouncing between surfaces.
+
+### 10. Sync checkpoints before doing real work
+
+```bash
+erdos checkpoints sync
+```
+
+This writes the checkpoint shelf and keeps the workspace history honest.
+
+### 11. Look at the actual frontier
+
+```bash
+erdos sunflower status 857
+erdos sunflower frontier 857
+erdos sunflower ready 857
+```
+
+This is where the problem becomes actionable instead of just descriptive.
+
+### 12. Drill down to the next unit of work
+
+```bash
+erdos sunflower routes 857
+erdos sunflower ticket 857 T10
+erdos sunflower atom 857 T10.G3.A2
+```
+
+That is the real research loop:
+- inspect route
+- inspect ticket
+- inspect atom
+- do the next honest move
+
+### 13. Close the loop cleanly
+
+```bash
+erdos state sync
+erdos checkpoints sync
+erdos workspace show
+```
+
+If the problem is not already deeply packaged, use one-step local seeding instead of bootstrapping:
+
+```bash
+erdos seed problem 25 --cluster number-theory
+erdos preflight
+erdos continuation use route
+erdos checkpoints sync
+erdos workspace show
+```
+
+In that flow, the seeded dossier is written under `.erdos/seeded-problems/<id>/` and enters the same state/checkpoint loop as packaged dossiers.
+
+## Daily Loop
+
+Once a workspace already exists, this is the main operating loop:
+
+```bash
+erdos state sync
+erdos preflight
+erdos continuation use route
+erdos checkpoints sync
+erdos workspace show
+```
+
+Then inspect the current frontier and active unit of work:
+
+```bash
+erdos sunflower frontier 857
+erdos sunflower atom 857 T10.G3.A2
+```
+
+After a real step, sync checkpoints again:
+
+```bash
+erdos checkpoints sync
+```
+
+The guiding rule is simple:
+- inspect frontier
+- work the next honest move
+- checkpoint at honest boundaries
 
 Initialize or resume a paper bundle:
 

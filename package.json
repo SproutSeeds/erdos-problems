@@ -1,6 +1,6 @@
 {
   "name": "erdos-problems",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "CLI atlas and workspace tools for Paul Erdos problems.",
   "type": "module",
   "bin": {
