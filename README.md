@@ -1,6 +1,6 @@
 # erdos-problems
 
-Maintained by Fractal Research Group (`frg.earth`).
+Maintained by SproutSeeds. Research stewardship: Fractal Research Group ([frg.earth](https://frg.earth)).
 
 > CLI and workspace for Paul Erdos problems.
 >
