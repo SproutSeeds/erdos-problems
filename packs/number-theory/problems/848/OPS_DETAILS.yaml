@@ -1,0 +1,59 @@
+packet_id: nt848_ops_details_v1
+summary: Decidable-gap workspace packet for the squarefree ab+1 extremal set problem.
+routes:
+  - route_id: finite_check_gap_closure
+    title: Finite-Check Gap Closure
+    status: active
+    summary: Convert the sufficiently-large-N theorem into a complete all-N resolution without overstating what is already closed.
+    why_now: This is the honest live frontier after the public asymptotic result.
+    next_move: Spend the now-frozen weakest-branch slack on the first explicit Lemma 2.1 inequality.
+  - route_id: formalization_coverage_audit
+    title: Formalization Coverage Audit
+    status: support
+    summary: Determine exactly what the public Lean files certify and what finite remainder they leave open.
+    why_now: Formalization chatter is useful support evidence, but it should not be mistaken for full closure.
+    next_move: Keep this as support context until the threshold ledger is frozen.
+tickets:
+  - ticket_id: N848
+    title: Convert the frozen weakest-branch budget into explicit inequalities
+    route_id: finite_check_gap_closure
+    status: active
+    summary: The weakest branch and its conservative slack budget are now frozen; the next job is to quantify the explicit analytic losses against that budget.
+    current_blocker: Lemma 2.1 still hides its tail and inclusion-exclusion remainder behind `<<` and `N^(o(1))`.
+    next_move: Close `N848.G1.A4`.
+  - ticket_id: N848F
+    title: Audit public formalization coverage
+    route_id: formalization_coverage_audit
+    status: support
+    summary: Separate asymptotic Lean coverage from finite sample checks and full closure claims.
+    current_blocker: The current dossier only records public chatter, not a precise coverage map.
+    next_move: Keep as a support lane until the main threshold ledger is stable.
+atoms:
+  - atom_id: N848.G1.A1
+    title: Enumerate every sufficiently-large input in Sawhney's proof and classify it as explicit, weakly explicit, or existential
+    route_id: finite_check_gap_closure
+    ticket_id: N848
+    status: done
+    summary: The threshold ledger is now frozen in canonical pack notes.
+    next_move: Keep as support context for the extraction checklist.
+  - atom_id: N848.G1.A2
+    title: Record the weakest margin case and extract the checklist for making the threshold explicit
+    route_id: finite_check_gap_closure
+    ticket_id: N848
+    status: done
+    summary: The weakest branch and its first extraction checklist are now frozen in canonical pack notes.
+    next_move: Use the weakest-case budget sheet as the next source-backed frontier surface.
+  - atom_id: N848.G1.A3
+    title: Freeze the usable slack behind the `0.0377` branch before spending it on explicit error terms
+    route_id: finite_check_gap_closure
+    ticket_id: N848
+    status: done
+    summary: The branch budget is now numerically frozen in canonical pack notes.
+    next_move: Use the frozen branch slack as the target budget for explicit remainder extraction.
+  - atom_id: N848.G1.A4
+    title: Make the Lemma 2.1 remainder terms explicit against the frozen weakest-branch budget
+    route_id: finite_check_gap_closure
+    ticket_id: N848
+    status: ready
+    summary: The branch-level slack is now frozen; the next unresolved inequality is the Lemma 2.1 tail plus inclusion-exclusion remainder.
+    next_move: Write explicit upper bounds for the `N / T` tail and the small-prime inclusion-exclusion remainder with `T = floor(sqrt(log N))`.

@@ -1,0 +1,41 @@
+problem_id: "848"
+family_role: finite_check_number_theory_workspace
+harness_profile: decidable_gap_workspace
+default_active_route: finite_check_gap_closure
+bootstrap_focus: Freeze the explicit finite-check gap before choosing analytic threshold extraction or direct bounded computation.
+route_story: Problem 848 is already asymptotically resolved in public, but not yet packaged here as a full all-N resolution. The honest job is to map the finite remainder precisely.
+frontier_label: finite_check_gap_closure
+frontier_detail: Keep the route centered on explicit threshold extraction plus bounded finite verification, not on rediscovering the sufficiently-large-N theorem.
+checkpoint_focus: Preserve the distinction between existential N0, explicit N0, sample finite checks, and full closure.
+next_honest_move: Spend the frozen weakest-branch slack on the first explicit inequality, namely the Lemma 2.1 tail plus inclusion-exclusion remainder.
+related_core_problems:
+  - "844"
+literature_focus:
+  - squarefree values
+  - sieve bounds
+  - explicit threshold extraction
+artifact_focus:
+  - STATEMENT.md
+  - REFERENCES.md
+  - EVIDENCE.md
+  - FORMALIZATION.md
+  - THRESHOLD_LEDGER.md
+  - EXTRACTION_CHECKLIST.md
+  - WEAKEST_CASE_BUDGET.md
+question_ledger:
+  open_questions:
+    - Can the existing sufficiently-large-N proof be made explicit enough to give a practical threshold?
+    - How much of the remaining small-N range has actually been checked publicly?
+    - How much of the nominal `0.0023` weakest-branch slack survives once the rounded branch numerics are frozen exactly?
+    - Can Lemma 2.1 be made explicit without consuming most of the roughly `0.002388` frozen branch slack?
+  active_route_notes:
+    - Keep the asymptotic theorem separate from the unresolved finite closure.
+    - Treat public Lean claims as support evidence until the exact coverage is audited.
+    - Do not spend the full `0.0023` branch slack until the repo freezes the exact main-term constants behind `0.0252` and `0.0125`.
+    - The branch budget is now frozen numerically; the next uncertainty is analytic, not case-selection.
+  route_breakthroughs:
+    - Public asymptotic resolution by Sawhney is already in hand.
+    - The threshold ledger separating existential and explicit claims is now frozen.
+    - The weakest public branch is now isolated in a dedicated budget sheet.
+    - The weakest public branch is now numerically frozen at about `0.0376113`.
+  problem_solved: []

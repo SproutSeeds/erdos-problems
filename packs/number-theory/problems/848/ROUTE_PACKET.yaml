@@ -1,0 +1,14 @@
+route_packet_id: nt848_finite_check_gap_closure_v1
+route_id: finite_check_gap_closure
+frontier_claim: Preserve the sufficiently-large-N theorem for Problem 848 while turning the remaining finite-check gap into an explicit threshold-plus-verification workspace.
+theorem_module: ""
+checkpoint_packet: CHECKPOINT_TEMPLATE.md
+report_packet: REPORT_TEMPLATE.md
+ready_prompts:
+  - Which case in the proof has the smallest slack to 1/25?
+  - How much of the roughly `0.002388` weakest-branch slack can be safely assigned to Lemma 2.1?
+  - Can the Lemma 2.1 tail and inclusion-exclusion remainder be made explicit without exhausting the branch budget?
+verification_hook:
+  - erdos number-theory status 848
+  - erdos number-theory routes 848
+  - erdos problem show 848

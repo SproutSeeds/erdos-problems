@@ -1,0 +1,21 @@
+# References
+
+- Public problem page:
+  - <https://www.erdosproblems.com/848>
+- Original source pointer recorded on the public page:
+  - `[Er92b, p.239]`
+- Publicly linked sufficiently-large-`N` note:
+  - <https://www.math.columbia.edu/~msawhney/Problem_848.pdf>
+- Public discussion thread with explicit-threshold and finite-check remarks:
+  - <https://www.erdosproblems.com/forum/thread/848>
+- Publicly surfaced formalization discussion:
+  - <https://github.com/The-Obstacle-Is-The-Way/erdos-banger/blob/main/formal/lean/Erdos/Problem848.lean>
+- Public formalization milestone thread:
+  - <https://github.com/The-Obstacle-Is-The-Way/erdos-banger/blob/main/formal/lean/Erdos/Problem848_FINAL.lean>
+- Publicly suggested reference from the discussion thread:
+  - <https://arxiv.org/abs/2511.16072>
+- External imported atlas data:
+  - <https://github.com/teorth/erdosproblems>
+  - `data/problems.yaml`
+- Related problem:
+  - <https://www.erdosproblems.com/844>

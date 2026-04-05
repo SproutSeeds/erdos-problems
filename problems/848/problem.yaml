@@ -1,0 +1,52 @@
+problem_id: "848"
+display_name: "Erdos Problem #848"
+title: Squarefree ab+1 Extremal Set Problem
+source:
+  site: erdosproblems.com
+  url: https://www.erdosproblems.com/848
+  external_id: "848"
+external_source:
+  repo: https://github.com/teorth/erdosproblems
+  data_file: data/problems.yaml
+  number: "848"
+provenance:
+  seeded_at: 2026-04-05T06:31:37.131Z
+  seeded_from:
+    kind: pull_bundle
+    imported_record_included: true
+    site_snapshot_included: true
+    public_search_review_included: true
+status:
+  site_status: decidable
+  site_badge: DECIDABLE
+  repo_status: active
+  imported_status: decidable
+  imported_last_update: 2025-10-19
+cluster: number-theory
+prize:
+  display: no
+related_problems:
+  - "844"
+family_tags:
+  - squarefree
+  - extremal-sets
+  - number-theory
+harness:
+  depth: dossier
+statement:
+  short: Determine the largest subsets A of [N] for which ab+1 is never
+    squarefree, with the remaining public gap reduced to a finite check after
+    Sawhney's sufficiently-large-N theorem.
+  normalized_md_path: STATEMENT.md
+references_path: REFERENCES.md
+evidence_path: EVIDENCE.md
+formalization_path: FORMALIZATION.md
+formalization:
+  status: statement-formalized
+  imported_state: yes
+  imported_last_update: 2026-02-01
+research_state:
+  open_problem: false
+  active_route: finite_check_gap_closure
+  route_breakthrough: true
+  problem_solved: false

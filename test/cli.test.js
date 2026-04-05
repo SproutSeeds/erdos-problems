@@ -96,7 +96,7 @@ test('problem artifacts can emit json for agents with pack context and compute p
 test('cluster list shows multiple seeded clusters', () => {
   const output = runCli(['cluster', 'list']);
   assert.match(output, /sunflower: 4 problems, 2 deep-harness/);
-  assert.match(output, /number-theory: 9 problems, 0 deep-harness/);
+  assert.match(output, /number-theory: 10 problems, 0 deep-harness/);
   assert.match(output, /combinatorics: 1 problems, 0 deep-harness/);
   assert.match(output, /graph-theory: 3 problems, 0 deep-harness/);
   assert.match(output, /geometry: 1 problems, 0 deep-harness/);
@@ -110,7 +110,7 @@ test('cluster show sunflower lists the seed cluster', () => {
 
 test('cluster show number-theory summarizes the starter workspace slice', () => {
   const output = runCli(['cluster', 'show', 'number-theory']);
-  assert.match(output, /Problems: 1, 2, 3, 4, 5, 6, 7, 18, 542/);
+  assert.match(output, /Problems: 1, 2, 3, 4, 5, 6, 7, 18, 542, 848/);
   assert.match(output, /Open starter workspace: 1/);
   assert.match(output, /Counterexample\/archive workspace: 2/);
 });
@@ -291,6 +291,18 @@ test('number-theory status records archive posture for disproved problem 2', () 
   assert.equal(payload.readyAtomCount, 1);
 });
 
+test('number-theory status exposes the finite-check workspace for 848', () => {
+  const workspace = fs.mkdtempSync(path.join(os.tmpdir(), 'erdos-number-theory-848-'));
+  const output = runCli(['number-theory', 'status', '848'], { cwd: workspace });
+  assert.match(output, /Erdos Problem #848 number-theory harness/);
+  assert.match(output, /Harness profile: decidable_gap_workspace/);
+  assert.match(output, /Active route: finite_check_gap_closure/);
+  assert.match(output, /Open problem: no/);
+  assert.match(output, /Route packet present: yes/);
+  assert.match(output, /Active ticket: N848/);
+  assert.match(output, /First ready atom: N848\.G1\.A4/);
+});
+
 test('sunflower board prints the mirrored atomic frontier for 857', () => {
   const workspace = fs.mkdtempSync(path.join(os.tmpdir(), 'erdos-sunflower-board-857-'));
   const output = runCli(['sunflower', 'board', '857'], { cwd: workspace });
@@ -418,7 +430,8 @@ test('dossier show uses active problem when omitted', () => {
 });
 
 test('import show reports bundled snapshot', () => {
-  const output = runCli(['import', 'show']);
+  const workspace = fs.mkdtempSync(path.join(os.tmpdir(), 'erdos-import-show-'));
+  const output = runCli(['import', 'show'], { cwd: workspace });
   assert.match(output, /Snapshot kind: bundled/);
   assert.match(output, /Active source: bundled import snapshot/);
   assert.match(output, /External import repo: https:\/\/github.com\/teorth\/erdosproblems/);
@@ -430,7 +443,7 @@ test('import show reports bundled snapshot', () => {
 test('import diff writes workspace report from bundled snapshot', () => {
   const workspace = fs.mkdtempSync(path.join(os.tmpdir(), 'erdos-upstream-'));
   const output = runCli(['import', 'diff'], { cwd: workspace });
-  assert.match(output, /Local seeded problems: 18/);
+  assert.match(output, /Local seeded problems: 19/);
   assert.match(output, /External atlas total problems: 1183/);
   const diffPath = path.join(workspace, '.erdos', 'reports', 'UPSTREAM_DIFF.md');
   assert.equal(fs.existsSync(diffPath), true);
@@ -453,7 +466,8 @@ test('import drift for 857 can emit json without a live site fetch', () => {
 });
 
 test('legacy upstream alias still works', () => {
-  const output = runCli(['upstream', 'show']);
+  const workspace = fs.mkdtempSync(path.join(os.tmpdir(), 'erdos-upstream-show-'));
+  const output = runCli(['upstream', 'show'], { cwd: workspace });
   assert.match(output, /Snapshot kind: bundled/);
   assert.match(output, /External import repo:/);
 });
