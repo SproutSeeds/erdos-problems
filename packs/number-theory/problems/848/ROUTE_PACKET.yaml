@@ -1,6 +1,6 @@
 route_packet_id: nt848_finite_check_gap_closure_v1
 route_id: finite_check_gap_closure
-frontier_claim: Preserve the sufficiently-large-N theorem for Problem 848 while turning the remaining finite-check gap into an explicit threshold-plus-verification workspace.
+frontier_claim: Close the finite decidable gap for Problem 848 while keeping imported threshold progress separate from repo-owned audited claims.
 theorem_module: ""
 checkpoint_packet: CHECKPOINT_TEMPLATE.md
 report_packet: REPORT_TEMPLATE.md
@@ -13,7 +13,8 @@ ready_prompts:
   - What exactly should the repo claim at the proposition level right now, and what should it still leave provisional?
   - Which remaining obligations would still change the mathematics, and which are only writeup-quality obligations?
   - What is the shortest claim-safe outward summary of the current candidate?
-  - What is the smallest clean review unit for committing or opening review on the surfaced candidate package?
+  - What is the best imported explicit `N0` currently visible on the public thread, and how trusted is it?
+  - Would the next cycle be better spent lowering `N0` further, or reducing the remaining finite range by bounded verification?
 verification_hook:
   - erdos number-theory status 848
   - erdos number-theory routes 848

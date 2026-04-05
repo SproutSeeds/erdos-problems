@@ -18,8 +18,23 @@
   - a public Lean formalization thread exists, but the exact finite closure surface still
     needs review
 
+## Optimization target
+
+- Primary objective: decide the full truth value by closing the finite remainder.
+- Secondary objective: lower the explicit threshold `N0` only insofar as it shrinks the
+  finite remainder that still has to be checked.
+- Hygiene objective: keep imported public threshold improvements separate from the repo's own
+  audited candidate statements.
+
 ## Subroutes
 
+- `external_threshold_tracking`
+  - record the best imported public `N0` timeline without automatically adopting it as
+    canonical repo truth
+  - current imported timeline:
+    - `7 x 10^17` on 2026-03-21
+    - `3.3 x 10^17` on 2026-03-22
+    - `2.64 x 10^17` on 2026-03-23
 - `explicit_threshold_extraction`
   - extract or improve an explicit `N0` from Sawhney's proof
   - likely pressure points:
@@ -41,6 +56,7 @@
 ## Route discipline
 
 - Do not widen `decidable` into `solved` without an explicit finite completion artifact.
+- Do not confuse "best imported public threshold" with "repo-owned audited threshold."
 - Count a route breakthrough only if we either:
   - extract a fully explicit threshold that reduces the remainder to a bounded finite check, or
   - finish the finite range directly.
@@ -49,25 +65,14 @@
 
 ## Immediate next move
 
-- Keep the explicit-threshold lane honest: Lemma 2.1 is now explicit enough to show that the
-  large-prime tail, not the small-prime discretization, is the current blocker in the weakest
-  branch.
-- The next serious analytic lane is now clearer:
-  - keep the one-sided explicit Lemma 2.1 route
-  - enlarge the truncation parameter beyond `T = floor(sqrt(log N))`
-  - then carry that larger `T` through Lemma 2.2 and the final weakest-branch bookkeeping
-- The current witness value is `T = 250`, which already leaves substantial room in the
-  weakest branch after the currently frozen lemma tails.
-- The Lemma 2.2 prime-count term is now bounded explicitly at the witness scale.
-- The weakest branch now has a working witness `eta = 10^-4`.
-- The same witness now appears to dominate the other public branches too.
-- The repo now has a proposition-level explicit candidate built from that shared witness.
-- The remaining obligations are now split cleanly.
-- The current witness is now numerically hardened at the ledger level.
-- The repo now has a theorem-style explicit proof note for the current candidate.
-- The candidate is now surfaced in both the paper bundle and a dossier-level review artifact.
-- The paper bundle now has drafted introduction, preliminaries, and related-work sections.
-- The next unresolved move is operational: commit the current surfaced package or open review
-  on it without widening the current claim-safe wording.
-- Keep the bounded finite-verification lane open in parallel, but do not treat it as a full
-  replacement for the analytic threshold work until the explicit `N0` posture is clearer.
+- The repo now has a committed, claim-safe review package for its own audited explicit
+  candidate.
+- The imported public thread currently reports a better external threshold
+  `N0 = 2.64 x 10^17` on 2026-03-23.
+- So the next real choice is not whether to "share" the package; that step is already done.
+- The next real choice is mathematical:
+  - keep pushing the explicit-threshold lane below the best imported `N0`, or
+  - start a bounded finite-verification program under the best trusted threshold currently
+    available
+- The right optimization target is the size of the remaining finite gap, not the threshold
+  race in isolation.

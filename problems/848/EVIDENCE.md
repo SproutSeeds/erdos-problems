@@ -21,9 +21,13 @@ Current public evidence captured locally:
   arXiv reference for the sufficiently-large-`N` result.
 - Sawhney's public four-page note proves the existence of an `N0`, but does not give an
   explicit threshold in the statement of Proposition 1.1.
-- The public forum discussion says that straightforward threshold extraction is currently
-  huge, with one GPT-assisted route reaching `exp(1958)` and later discussion treating
-  `exp(1420)` as a plausible intermediate bound rather than a final clean resolution.
+- The public forum discussion records an explicit-threshold timeline:
+  - `N0 = 7 x 10^17` on 2026-03-21
+  - `N0 = 3.3 x 10^17` on 2026-03-22
+  - `N0 = 2.64 x 10^17` on 2026-03-23
+- The same thread also records earlier larger threshold exploration, including
+  `exp(1958)`-scale discussion and `exp(1420)` as a plausible intermediate explicit route
+  rather than a final clean resolution.
 - The same thread suggests the real technical bottleneck is improving the error terms in
   Lemma 2.1 and especially Lemma 2.2 enough to make the explicit threshold and the finite
   range practically closable.
@@ -60,12 +64,19 @@ Current public evidence captured locally:
   review note, with a short share-ready summary.
 - The local paper bundle now has drafted introduction, preliminaries, and related-work
   sections, and the bundle has been refreshed so that no placeholder paper text remains.
+- The current repo candidate is weaker than the best imported threshold value currently
+  visible on the public thread, so its main value is auditability and handoff structure,
+  not "best known `N0`" status.
 
 Claim-safe local posture:
 - Exact: the public status is `decidable`, not `open` and not fully `solved`.
 - Exact: a formalized statement is publicly claimed by the imported atlas.
 - Exact: the remaining public gap is not a new asymptotic theorem, but the bridge from
   existential `N0` to an explicit or fully checked all-`N` statement.
+- Exact: as of 2026-03-23, the best imported public-thread threshold visible in the dossier
+  is `N0 = 2.64 x 10^17`.
+- Exact: the repo's own audited candidate is currently weaker than that imported threshold,
+  so it should not be described as the best-known public bound.
 - Exact: the current repo explicitization of Lemma 2.1 isolates the large-prime tail as the
   live analytic blocker in the weakest branch.
 - Exact: within the one-sided explicit route, enlarging `T` is now justified and appears to
@@ -93,4 +104,7 @@ Next maintainer step:
 - keep the dossier centered on the finite-check gap rather than re-opening the asymptotic
   theorem lane
 - preserve the current claim-safe package as a clean review unit
-- decide whether to commit and open review on the surfaced package
+- treat imported threshold improvements as external progress markers unless they are
+  re-audited inside the repo
+- decide whether the next closure cycle should lower `N0` further or reduce the remaining
+  finite range by bounded verification

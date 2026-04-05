@@ -13,7 +13,11 @@ Checkpoint prompts:
 - What route, evidence, and formalization notes should be promoted out of scratch space into canonical dossier files?
 - Did we improve the explicit threshold side, the finite-computation side, or only our
   understanding of the gap between them?
+- Are we optimizing the right thing right now: a smaller imported `N0`, or a smaller
+  remaining finite range to verify?
 - Is any new `N0` claim actually checked line-by-line against Sawhney's note, or is it still
   forum-level heuristic discussion?
+- Have we cleanly separated the best imported threshold claim from the repo's own audited
+  explicit candidate?
 - What exactly does the current public Lean development certify, and what does it still leave
   open?

@@ -2,6 +2,11 @@
 
 This note closes `N848.G1.A9`.
 
+Public context:
+- this note records the repo's audited explicit candidate package
+- it does not claim to be the best imported public threshold currently visible on the
+  Problem 848 forum thread
+
 ## Candidate repo statement
 
 The current repo evidence supports the following **candidate**:

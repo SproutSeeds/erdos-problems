@@ -5,6 +5,12 @@ Current repo candidate:
 - `T = 250`
 - `eta = 10^-4`
 
+Important context:
+- this is the repo's current audited candidate package
+- it is not the best imported public threshold currently visible on the forum thread
+- as of 2026-03-23, the public thread reports `N0 = 2.64 x 10^17` as a stronger external
+  threshold claim
+
 Claim-safe conclusion:
 - if `A subseteq [N]` and `ab + 1` is never squarefree for all `a, b in A`
 - and `|A| >= (1/25 - 10^-4) * N`
@@ -20,6 +26,7 @@ What is not being claimed:
 - not full all-`N` closure in the repo
 - not a publication-ready proof artifact
 - not an update from `decidable` to `solved`
+- not the current best public `N0`
 
 Best pointers:
 - `problems/848/EXPLICIT_CANDIDATE_REVIEW.md`

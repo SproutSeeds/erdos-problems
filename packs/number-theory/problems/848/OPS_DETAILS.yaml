@@ -4,9 +4,21 @@ routes:
   - route_id: finite_check_gap_closure
     title: Finite-Check Gap Closure
     status: active
-    summary: Convert the sufficiently-large-N theorem into a complete all-N resolution without overstating what is already closed.
-    why_now: This is the honest live frontier after the public asymptotic result.
-    next_move: Commit or open review on the surfaced candidate package.
+    summary: Convert the sufficiently-large-N theorem into a complete all-N resolution without overstating what is already closed or confusing imported thresholds with repo-owned claims.
+    why_now: The share package is already committed; the live question is which closure lane now shrinks the remaining finite gap fastest.
+    next_move: Choose whether the next closure cycle should lower `N0` further or expand bounded finite verification.
+  - route_id: external_threshold_tracking
+    title: External Threshold Tracking
+    status: support
+    summary: Track the best imported public `N0` claims so the finite remainder is sized honestly.
+    why_now: Public threshold improvements change the scale of the remaining bounded verification problem.
+    next_move: Keep the 2026-03-21 to 2026-03-23 imported timeline current without silently adopting it as canonical repo truth.
+  - route_id: bounded_finite_verification
+    title: Bounded Finite Verification
+    status: support
+    summary: Reduce the finite remainder directly once a threshold is trusted enough to be operationally useful.
+    why_now: Lowering `N0` matters because it reduces this lane, not because "smallest threshold" is the whole problem.
+    next_move: Keep this lane visible while deciding whether to invest the next cycle here or in further threshold extraction.
   - route_id: formalization_coverage_audit
     title: Formalization Coverage Audit
     status: support
@@ -15,12 +27,12 @@ routes:
     next_move: Keep this as support context until the threshold ledger is frozen.
 tickets:
   - ticket_id: N848
-    title: Promote the `T = 250` weakest-branch witness into a genuine explicit-threshold candidate
+    title: Close the decidable gap without confusing imported threshold progress and repo-owned candidate work
     route_id: finite_check_gap_closure
     status: active
-    summary: The weakest branch and the other public branches are all now controlled by the same explicit witness, and the repo has surfaced that witness in both the paper bundle and a dossier-level public review note; the next job is to turn that package into a clean review unit.
-    current_blocker: The repo has not yet turned the surfaced candidate package into a committed review unit.
-    next_move: Close `N848.G1.A15`.
+    summary: The repo now has a committed review package for its audited `exp(1420)` candidate, while the imported forum timeline currently points to a stronger external threshold. The live question is which lane now closes the finite remainder fastest.
+    current_blocker: The repo has not yet chosen whether the next mathematical cycle should chase a lower explicit `N0` or bounded finite verification under the best trusted threshold.
+    next_move: Close `N848.G1.A17`.
   - ticket_id: N848F
     title: Audit public formalization coverage
     route_id: formalization_coverage_audit
@@ -131,6 +143,20 @@ atoms:
     title: Commit or open review on the surfaced candidate package
     route_id: finite_check_gap_closure
     ticket_id: N848
+    status: done
+    summary: The review-ready 848 package is now committed and pushed on `main`, so this is no longer the live frontier.
+    next_move: Record the imported threshold timeline and restate the optimization target clearly.
+  - atom_id: N848.G1.A16
+    title: Record the imported threshold timeline and clarify the closure objective
+    route_id: finite_check_gap_closure
+    ticket_id: N848
+    status: done
+    summary: The dossier now distinguishes imported public thresholds from the repo's own audited candidate and states clearly that the real objective is finite-gap closure.
+    next_move: Choose the next closure lane under the best imported threshold currently tracked.
+  - atom_id: N848.G1.A17
+    title: Choose the next closure lane under the best imported threshold
+    route_id: finite_check_gap_closure
+    ticket_id: N848
     status: ready
-    summary: The current explicit-candidate package is internally reviewed and ready to be shared without widening the claims.
-    next_move: Commit the 848 package or open review with the current claim-safe wording intact.
+    summary: The imported forum timeline currently reaches `N0 = 2.64 x 10^17` on 2026-03-23, while the repo's own audited candidate is weaker but cleaner. The next move is to choose whether to spend the next cycle on lowering `N0` further or on bounded finite verification.
+    next_move: Decide whether the next serious push is threshold-lowering or finite verification under the best trusted `N0`.

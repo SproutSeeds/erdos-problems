@@ -8,6 +8,10 @@
   - <https://www.math.columbia.edu/~msawhney/Problem_848.pdf>
 - Public discussion thread with explicit-threshold and finite-check remarks:
   - <https://www.erdosproblems.com/forum/thread/848>
+  - useful recent timeline:
+    - 2026-03-21: `N0 = 7 x 10^17`
+    - 2026-03-22: `N0 = 3.3 x 10^17`
+    - 2026-03-23: `N0 = 2.64 x 10^17`
 - Publicly surfaced formalization discussion:
   - <https://github.com/The-Obstacle-Is-The-Way/erdos-banger/blob/main/formal/lean/Erdos/Problem848.lean>
 - Public formalization milestone thread:

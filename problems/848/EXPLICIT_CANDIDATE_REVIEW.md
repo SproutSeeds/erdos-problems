@@ -8,6 +8,11 @@ The current repo candidate is:
 - `T = 250`
 - `eta = 10^-4`
 
+Public context:
+- this is the repo's audited explicit candidate, not the best imported public threshold claim
+- the public forum thread records a stronger external threshold timeline through
+  2026-03-23, ending at `N0 = 2.64 x 10^17`
+
 and the claim-safe conclusion is:
 
 - if `A subseteq [N]` and `ab + 1` is never squarefree for all `a, b in A`
