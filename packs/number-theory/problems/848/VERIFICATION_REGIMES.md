@@ -76,10 +76,10 @@ Desired certificate:
 
 ## Current honest posture
 
-- Regime A: first exact interval `1..3000` is now frozen in the repo with a reproducible
+- Regime A: first exact interval `1..10000` is now frozen in the repo with a reproducible
   maximum-clique certificate
-- Regime A warning: a direct jump to `1..5000` did not finish cheaply enough to treat blind
-  brute-force extension as the only serious next move
+- Regime A note: an incremental verifier removed the earlier false cost wall caused by
+  rebuilding the graph and clique search from scratch for each `N`
 - Regime B: not frozen in this repo
 - Regime C: public attempts exist, but some were explicitly criticized on the forum as
   difficult to verify or likely incorrect
@@ -87,6 +87,6 @@ Desired certificate:
   yet repo-audited
 
 So the next honest move is to decide whether exact-small-`N` coverage should be extended
-directly beyond `3000` in smaller certified steps, or whether the next gain comes from
+directly beyond `10000`, or whether the next gain comes from
 auditing imported computation or
 switching method class.

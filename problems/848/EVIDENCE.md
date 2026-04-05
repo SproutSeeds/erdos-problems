@@ -74,9 +74,9 @@ Current public evidence captured locally:
   values to size the finite remainder without being silently promoted to canonical theorem
   truth.
 - A reproducible exact maximum-clique scan now verifies the expected extremal size for every
-  `N` in `1..3000`, giving the bounded-verification lane a larger trusted covered interval.
-- An exploratory jump to `1..5000` no longer looks cheap enough to treat blind brute-force
-  extension as the default next move.
+  `N` in `1..10000`, giving the bounded-verification lane a much larger trusted covered interval.
+- The exact verifier has been rebuilt incrementally, so the old post-`3000` cost wall is now
+  understood to have been mostly a tooling artifact rather than a serious mathematical barrier.
 
 Claim-safe local posture:
 - Exact: the public status is `decidable`, not `open` and not fully `solved`.
@@ -116,5 +116,5 @@ Next maintainer step:
 - preserve the current claim-safe package as a clean review unit
 - treat imported threshold improvements as external progress markers unless they are
   re-audited inside the repo
-- decide whether exact verified coverage should be extended beyond `3000` in smaller steps
-  or whether the next gain now needs a different method class
+- decide whether exact verified coverage should be extended beyond `10000` or whether the
+  next gain now needs a different method class

@@ -301,7 +301,7 @@ test('number-theory status exposes the finite-check workspace for 848', () => {
   assert.match(output, /Open problem: no/);
   assert.match(output, /Route packet present: yes/);
   assert.match(output, /Active ticket: N848/);
-  assert.match(output, /First ready atom: N848\.G1\.A22/);
+  assert.match(output, /First ready atom: N848\.G1\.A23/);
 });
 
 test('sunflower board prints the mirrored atomic frontier for 857', () => {

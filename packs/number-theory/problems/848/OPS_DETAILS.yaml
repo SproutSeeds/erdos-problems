@@ -6,7 +6,7 @@ routes:
     status: active
     summary: Convert the sufficiently-large-N theorem into a complete all-N resolution without overstating what is already closed or confusing imported thresholds with repo-owned claims.
     why_now: The share package is already committed, the bounded-verification lane is now frozen, and the repo has a first verified interval.
-    next_move: Decide whether to extend exact verified coverage beyond `3000` in smaller steps or switch method class.
+    next_move: Decide whether to extend exact verified coverage beyond `10000` or switch method class.
   - route_id: external_threshold_tracking
     title: External Threshold Tracking
     status: support
@@ -18,7 +18,7 @@ routes:
     status: active_support
     summary: Reduce the finite remainder directly once a threshold is trusted enough to be operationally useful.
     why_now: Lowering `N0` matters because it reduces this lane, not because "smallest threshold" is the whole problem.
-    next_move: Build on the exact `1..3000` base interval and decide the next extension rule.
+    next_move: Build on the exact `1..10000` base interval and decide the next extension rule.
   - route_id: formalization_coverage_audit
     title: Formalization Coverage Audit
     status: support
@@ -30,9 +30,9 @@ tickets:
     title: Close the decidable gap without confusing imported threshold progress and repo-owned candidate work
     route_id: finite_check_gap_closure
     status: active
-    summary: The repo now has a committed review package for its audited `exp(1420)` candidate, a chosen bounded-verification lane, and an exact verified base interval `1..3000`. The live question is how to extend coverage from that foothold without pretending brute-force still scales cheaply.
-    current_blocker: The repo has not yet chosen whether the next interval extension should stay in the exact clique-scan regime in smaller certified steps or switch to a different verification method.
-    next_move: Close `N848.G1.A22`.
+    summary: The repo now has a committed review package for its audited `exp(1420)` candidate, a chosen bounded-verification lane, and an exact verified base interval `1..10000`. The live question is how to extend coverage from that foothold while taking advantage of the new incremental verifier honestly.
+    current_blocker: The repo has not yet chosen whether the next interval extension should stay in the exact clique-scan regime or whether the right next gain is a breakpoint-style compression of the exact lane.
+    next_move: Close `N848.G1.A23`.
   - ticket_id: N848F
     title: Audit public formalization coverage
     route_id: formalization_coverage_audit
@@ -189,9 +189,16 @@ atoms:
     summary: The repo now has a second exact certificate extending the bounded-verification base interval from `1..2000` to `1..3000`, while also showing that a blind jump to `1..5000` is no longer cheap enough to count as the default next move.
     next_move: Choose the post-`3000` extension policy.
   - atom_id: N848.G1.A22
-    title: Choose the post-`3000` verified interval policy
+    title: Rebuild the exact verifier and remove the false post-`3000` policy wall
+    route_id: finite_check_gap_closure
+    ticket_id: N848
+    status: done
+    summary: The exact verifier now uses an incremental update rule, the compact certificate format keeps packets small, and the exact bounded-verification base interval now reaches `1..10000`.
+    next_move: Choose the post-`10000` interval policy.
+  - atom_id: N848.G1.A23
+    title: Choose the post-`10000` verified interval policy
     route_id: finite_check_gap_closure
     ticket_id: N848
     status: ready
-    summary: The bounded-verification lane now starts from a real certified base interval `1..3000`. The next choice is whether exact coverage should continue in smaller certified steps, or whether the next gain should come from breakpoint or audit methods.
-    next_move: Decide whether to extend exact verified coverage beyond `3000` in smaller steps or switch method class.
+    summary: The bounded-verification lane now starts from a real certified base interval `1..10000`. The next choice is whether exact coverage should continue directly beyond that range, or whether the new exact data should be compressed into a stronger breakpoint method.
+    next_move: Decide whether to extend exact verified coverage beyond `10000` or switch method class.

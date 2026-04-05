@@ -23,5 +23,6 @@
 - Twentieth refinement: freeze the operational threshold posture so imported `N0` claims can size the finite remainder without being silently promoted to canonical repo theorem truth.
 - Twenty-first refinement: certify the exact interval `1..2000` by a reproducible maximum-clique scan, giving the bounded-verification lane its first genuine covered interval.
 - Twenty-second refinement: extend the exact certificate to `1..3000`, and record that a direct jump to `1..5000` no longer looks cheap enough to treat as the obvious default next move.
-- Current public pack posture: active route `finite_check_gap_closure`, with asymptotic theorem already in hand, a committed audited candidate package in the repo, and a real exact base interval `1..3000` now covered in the bounded-verification lane.
-- Next maturity threshold: choose the post-`3000` extension policy in the most efficient trustworthy way.
+- Twenty-third refinement: rebuild the exact verifier incrementally, compact the witness packet format, and extend the exact certificate all the way to `1..10000`.
+- Current public pack posture: active route `finite_check_gap_closure`, with asymptotic theorem already in hand, a committed audited candidate package in the repo, and a real exact base interval `1..10000` now covered in the bounded-verification lane.
+- Next maturity threshold: choose the post-`10000` extension policy in the most efficient trustworthy way.

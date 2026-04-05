@@ -26,52 +26,34 @@ function parseArgs(argv) {
   return args;
 }
 
+const squarefreeCache = new Map();
+
 function isSquarefree(n) {
+  if (squarefreeCache.has(n)) return squarefreeCache.get(n);
   let x = n;
   for (let p = 2; p * p <= x; p += 1) {
     if (x % p !== 0) continue;
     x /= p;
-    if (x % p === 0) return false;
+    if (x % p === 0) {
+      squarefreeCache.set(n, false);
+      return false;
+    }
     while (x % p === 0) x /= p;
   }
+  squarefreeCache.set(n, true);
   return true;
 }
 
-function residueClass(N, residue) {
-  const result = [];
-  for (let n = 1; n <= N; n += 1) {
-    if (n % 25 === residue) result.push(n);
-  }
-  return result;
+function residueClassSize(N, residue) {
+  if (N < residue) return 0;
+  return Math.floor((N - residue) / 25) + 1;
 }
 
-function sameSortedSet(left, right) {
-  if (left.length !== right.length) return false;
-  const a = [...left].sort((x, y) => x - y);
-  const b = [...right].sort((x, y) => x - y);
-  return a.every((value, index) => value === b[index]);
+function isPureResidueClass(clique, N, residue) {
+  return clique.length === residueClassSize(N, residue) && clique.every((value) => value % 25 === residue);
 }
 
-function buildGraph(N) {
-  const vertices = [];
-  for (let a = 1; a <= N; a += 1) {
-    if (!isSquarefree(a * a + 1)) vertices.push(a);
-  }
-  const adjacency = Array.from({ length: vertices.length }, () => new Set());
-  for (let i = 0; i < vertices.length; i += 1) {
-    for (let j = i + 1; j < vertices.length; j += 1) {
-      const a = vertices[i];
-      const b = vertices[j];
-      if (!isSquarefree(a * b + 1)) {
-        adjacency[i].add(j);
-        adjacency[j].add(i);
-      }
-    }
-  }
-  return { vertices, adjacency };
-}
-
-function maximumClique(vertices, adjacency) {
+function maximumCliqueIndices(adjacency, candidateIndices, lowerBound = 0) {
   let best = [];
 
   function bronKerbosch(R, P, X) {
@@ -79,7 +61,7 @@ function maximumClique(vertices, adjacency) {
       if (R.length > best.length) best = [...R];
       return;
     }
-    if (R.length + P.length <= best.length) return;
+    if (R.length + P.length <= Math.max(best.length, lowerBound)) return;
 
     let pivot = null;
     let pivotNeighborsInP = -1;
@@ -109,29 +91,63 @@ function maximumClique(vertices, adjacency) {
     }
   }
 
-  bronKerbosch([], vertices.map((_, index) => index), []);
-  return best.map((index) => vertices[index]).sort((a, b) => a - b);
+  bronKerbosch([], [...candidateIndices], []);
+  return best.sort((a, b) => a - b);
 }
 
 function scanInterval(minN, maxN) {
   const rows = [];
-  for (let N = minN; N <= maxN; N += 1) {
-    const residue7 = residueClass(N, 7);
-    const residue18 = residueClass(N, 18);
-    const { vertices, adjacency } = buildGraph(N);
-    const clique = maximumClique(vertices, adjacency);
+  const vertices = [];
+  const adjacency = [];
+  let bestCliqueIndices = [];
+
+  for (let N = 1; N <= maxN; N += 1) {
+    const residue7Size = residueClassSize(N, 7);
+    const residue18Size = residueClassSize(N, 18);
+
+    if (!isSquarefree(N * N + 1)) {
+      const newIndex = vertices.length;
+      const neighbors = [];
+      for (let i = 0; i < vertices.length; i += 1) {
+        if (!isSquarefree(vertices[i] * N + 1)) {
+          adjacency[i].add(newIndex);
+          neighbors.push(i);
+        }
+      }
+      adjacency.push(new Set(neighbors));
+      vertices.push(N);
+
+      if (neighbors.length + 1 > bestCliqueIndices.length) {
+        const neighborClique = maximumCliqueIndices(
+          adjacency,
+          neighbors,
+          Math.max(0, bestCliqueIndices.length - 1),
+        );
+        if (neighborClique.length + 1 > bestCliqueIndices.length) {
+          bestCliqueIndices = [...neighborClique, newIndex].sort((a, b) => a - b);
+        }
+      }
+    }
+
+    const clique = bestCliqueIndices.map((index) => vertices[index]);
     const maxSize = clique.length;
-    const residue7Size = residue7.length;
-    const residue18Size = residue18.length;
+    if (N < minN) continue;
+    const exampleResidueClass = isPureResidueClass(clique, N, 7)
+      ? 7
+      : isPureResidueClass(clique, N, 18)
+        ? 18
+        : null;
+
     rows.push({
       N,
       maxCliqueSize: maxSize,
       residue7Size,
       residue18Size,
       candidateAchievesMaximum: residue7Size === maxSize,
-      exampleMaximumClique: clique,
-      exampleMatchesResidue7: sameSortedSet(clique, residue7),
-      exampleMatchesResidue18: sameSortedSet(clique, residue18),
+      exampleResidueClass,
+      exampleMaximumClique: exampleResidueClass === null ? clique : undefined,
+      exampleMatchesResidue7: exampleResidueClass === 7,
+      exampleMatchesResidue18: exampleResidueClass === 18,
     });
   }
   return rows;
@@ -153,6 +169,7 @@ const rows = scanInterval(args.min, args.max);
 const payload = {
   generatedAt: new Date().toISOString(),
   method: 'exact_maximum_clique_scan',
+  resultEncoding: 'residue_class_when_possible',
   problemId: '848',
   parameters: {
     min: args.min,
