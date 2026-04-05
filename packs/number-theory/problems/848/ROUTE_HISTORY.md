@@ -24,5 +24,6 @@
 - Twenty-first refinement: certify the exact interval `1..2000` by a reproducible maximum-clique scan, giving the bounded-verification lane its first genuine covered interval.
 - Twenty-second refinement: extend the exact certificate to `1..3000`, and record that a direct jump to `1..5000` no longer looks cheap enough to treat as the obvious default next move.
 - Twenty-third refinement: rebuild the exact verifier incrementally, compact the witness packet format, and extend the exact certificate all the way to `1..10000`.
-- Current public pack posture: active route `finite_check_gap_closure`, with asymptotic theorem already in hand, a committed audited candidate package in the repo, and a real exact base interval `1..10000` now covered in the bounded-verification lane.
-- Next maturity threshold: choose the post-`10000` extension policy in the most efficient trustworthy way.
+- Twenty-fourth refinement: mine the exact packet for structure, isolate the four-anchor obstruction `{7, 32, 57, 82}` with no failures in `30..10000`, and record that this is the first route that looks theorem-shaped rather than purely computational.
+- Current public pack posture: active route `finite_check_gap_closure`, with asymptotic theorem already in hand, a committed audited candidate package in the repo, a real exact base interval `1..10000`, and a four-anchor theorem candidate now visible in the bounded-verification lane.
+- Next maturity threshold: formalize the four-anchor obstruction lemma and connect it to the breakpoint law suggested by the exact packet.

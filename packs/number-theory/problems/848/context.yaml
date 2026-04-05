@@ -3,11 +3,11 @@ family_role: finite_check_number_theory_workspace
 harness_profile: decidable_gap_workspace
 default_active_route: finite_check_gap_closure
 bootstrap_focus: Treat Problem 848 as a finite-gap closure problem and freeze the certificate surface before claiming bounded verification progress.
-route_story: Problem 848 is already asymptotically resolved in public, but not yet closed here for all N. The honest job is to shrink the finite remainder with audited threshold tracking and reproducible bounded verification, beginning from the verified base interval `1..10000`.
+route_story: Problem 848 is already asymptotically resolved in public, but not yet closed here for all N. The honest job is to shrink the finite remainder with audited threshold tracking and reproducible bounded verification, and then turn the exact packet into a short structural theorem.
 frontier_label: finite_check_gap_closure
-frontier_detail: The repo now has a verified exact interval `1..10000`, and an incremental verifier has made larger exact tranches practical again. The next question is whether to keep extending that exact lane or compress it into a stronger breakpoint method.
+frontier_detail: The repo now has a verified exact interval `1..10000`, a four-anchor obstruction candidate with no failures in `30..10000`, and evidence that this is the first serious theorem route. The next question is how to prove that obstruction and convert it into a breakpoint law.
 checkpoint_focus: Preserve the distinction between existential N0, explicit N0, sample finite checks, and full closure.
-next_honest_move: Decide whether to extend the exact clique scan beyond `10000` or pivot to a different bounded-verification method.
+next_honest_move: Promote the four-anchor obstruction from recon to a proof-shaped lemma candidate with explicit proof obligations.
 related_core_problems:
   - "844"
 literature_focus:
@@ -28,17 +28,22 @@ artifact_focus:
   - EXTERNAL_VERIFICATION_LEDGER.md
   - INTERVAL_WORK_QUEUE.yaml
   - EXACT_SMALL_N_1_10000_CERTIFICATE.md
+  - ANCHOR_OBSTRUCTION_RECON.md
+  - ANCHOR_MINIMALITY_LEDGER.md
+  - FOUR_ANCHOR_LEMMA_CANDIDATE.md
 question_ledger:
   open_questions:
     - Which imported threshold value is trusted enough to size the finite remainder operationally?
     - What certificate format is strong enough to prevent repeat low-trust verification claims?
-    - How far can the exact clique scan be pushed before a different method class is needed?
+    - Can the four-anchor obstruction be proved for all `n >= 30`?
+    - Can the four-anchor obstruction be converted into a breakpoint law for clique growth?
     - Which public verification attempts are worth auditing rather than rebuilding from scratch?
   active_route_notes:
     - Keep the asymptotic theorem separate from the unresolved finite closure.
     - Keep imported threshold claims separate from repo-owned audited claims.
     - Prefer interval certificates to raw "checked up to X" claims.
     - Use past public verification criticism as a design constraint, not just background chatter.
+    - Treat the exact verifier as a structure miner, not just a brute-force machine.
   route_breakthroughs:
     - Public asymptotic resolution by Sawhney is already in hand.
     - The threshold ledger separating existential and explicit claims is now frozen.
@@ -46,4 +51,5 @@ question_ledger:
     - The repo has now chosen bounded finite verification as the next closure lane.
     - The repo now has an exact verified base interval `1..10000`.
     - The exact verifier now uses an incremental update rule rather than rebuilding every instance from scratch.
+    - The repo now has a four-anchor obstruction candidate with no failures in `30..10000`.
   problem_solved: []

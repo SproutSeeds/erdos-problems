@@ -77,6 +77,13 @@ Current public evidence captured locally:
   `N` in `1..10000`, giving the bounded-verification lane a much larger trusted covered interval.
 - The exact verifier has been rebuilt incrementally, so the old post-`3000` cost wall is now
   understood to have been mostly a tooling artifact rather than a serious mathematical barrier.
+- The exact packet now exposes a structural clue: every maximum witness through `10000` is the
+  pure `7 mod 25` class, the clique size only jumps when `N equiv 7 (mod 25)`, and the fixed
+  anchor set `{7, 32, 57, 82}` obstructs every outsider `n >= 30` found so far.
+- A small-anchor search over the first ten `7 mod 25` values suggests that the four-anchor set
+  `{7, 32, 57, 82}` is unusually strong: no tested three-anchor set gets a comparable startup
+  threshold, while this four-anchor set already covers everything from `30` onward in the
+  current scan window.
 
 Claim-safe local posture:
 - Exact: the public status is `decidable`, not `open` and not fully `solved`.
@@ -116,5 +123,6 @@ Next maintainer step:
 - preserve the current claim-safe package as a clean review unit
 - treat imported threshold improvements as external progress markers unless they are
   re-audited inside the repo
-- decide whether exact verified coverage should be extended beyond `10000` or whether the
-  next gain now needs a different method class
+- turn the four-anchor obstruction into a proof-shaped lemma candidate with explicit proof
+  obligations
+- use that lemma candidate to attack the breakpoint law suggested by the exact packet

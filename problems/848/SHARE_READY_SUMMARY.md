@@ -24,6 +24,7 @@ What is ready now:
 - a bounded finite-verification lane with regimes, certificate requirements, and external
   audit notes
 - an exact verified base interval `1..10000`
+- a four-anchor obstruction candidate and minimality ledger for the first theorem-style route
 
 What is not being claimed:
 - not full all-`N` closure in the repo

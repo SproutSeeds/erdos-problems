@@ -32,14 +32,16 @@ The current package is already internally reviewed enough for handoff:
 - tests and publish-surface checks are green
 
 Chosen next lane:
-- bounded finite verification under the best imported threshold currently tracked
+- prove the four-anchor obstruction and turn it into a breakpoint theorem candidate
 
 Why this lane wins the next cycle:
-- the real objective is to close the finite remainder, not just publish a smaller `N0`
-- imported threshold progress already exists, so the repo needs an interval-certification
-  surface to make use of it
-- the public thread already contains one verification attempt that was later corrected and
-  criticized as difficult to verify, so trust and reproducibility have to be first-class
+- the exact verifier now reaches `1..10000`, so the finite-check surface is no longer tiny
+- the exact packet already exhibits a rigid breakpoint law: clique size only jumps at
+  `N equiv 7 (mod 25)`
+- the new anchor recon suggests a fixed finite obstruction set `{7, 32, 57, 82}` beyond the
+  tiny startup range
+- that is the first route that looks like a real theorem rather than an endless extension of
+  raw exact search
 
 Read next:
 - `BOUNDED_VERIFICATION_PLAN.md`
@@ -48,3 +50,6 @@ Read next:
 - `EXTERNAL_VERIFICATION_LEDGER.md`
 - `INTERVAL_WORK_QUEUE.yaml`
 - `EXACT_SMALL_N_1_10000_CERTIFICATE.md`
+- `ANCHOR_OBSTRUCTION_RECON.md`
+- `ANCHOR_MINIMALITY_LEDGER.md`
+- `FOUR_ANCHOR_LEMMA_CANDIDATE.md`

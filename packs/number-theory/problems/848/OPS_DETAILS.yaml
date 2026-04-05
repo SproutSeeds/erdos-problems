@@ -6,7 +6,7 @@ routes:
     status: active
     summary: Convert the sufficiently-large-N theorem into a complete all-N resolution without overstating what is already closed or confusing imported thresholds with repo-owned claims.
     why_now: The share package is already committed, the bounded-verification lane is now frozen, and the repo has a first verified interval.
-    next_move: Decide whether to extend exact verified coverage beyond `10000` or switch method class.
+    next_move: Promote the four-anchor obstruction from recon to a proof-shaped lemma candidate.
   - route_id: external_threshold_tracking
     title: External Threshold Tracking
     status: support
@@ -18,7 +18,7 @@ routes:
     status: active_support
     summary: Reduce the finite remainder directly once a threshold is trusted enough to be operationally useful.
     why_now: Lowering `N0` matters because it reduces this lane, not because "smallest threshold" is the whole problem.
-    next_move: Build on the exact `1..10000` base interval and decide the next extension rule.
+    next_move: Build on the exact `1..10000` base interval by extracting a structural theorem rather than defaulting to another raw interval.
   - route_id: formalization_coverage_audit
     title: Formalization Coverage Audit
     status: support
@@ -30,9 +30,9 @@ tickets:
     title: Close the decidable gap without confusing imported threshold progress and repo-owned candidate work
     route_id: finite_check_gap_closure
     status: active
-    summary: The repo now has a committed review package for its audited `exp(1420)` candidate, a chosen bounded-verification lane, and an exact verified base interval `1..10000`. The live question is how to extend coverage from that foothold while taking advantage of the new incremental verifier honestly.
-    current_blocker: The repo has not yet chosen whether the next interval extension should stay in the exact clique-scan regime or whether the right next gain is a breakpoint-style compression of the exact lane.
-    next_move: Close `N848.G1.A23`.
+    summary: The repo now has a committed review package for its audited `exp(1420)` candidate, a chosen bounded-verification lane, an exact verified base interval `1..10000`, and a four-anchor obstruction candidate. The live question is how to turn that structure into a proof.
+    current_blocker: The repo has not yet promoted the four-anchor obstruction from empirical recon into a proof-shaped lemma with clear obligations and a breakpoint consequence.
+    next_move: Close `N848.G1.A24`.
   - ticket_id: N848F
     title: Audit public formalization coverage
     route_id: formalization_coverage_audit
@@ -199,6 +199,16 @@ atoms:
     title: Choose the post-`10000` verified interval policy
     route_id: finite_check_gap_closure
     ticket_id: N848
+    status: done
+    summary: >-
+      The repo has chosen the structure-first route: use the `1..10000` exact
+      packet as evidence for a four-anchor obstruction and a breakpoint law,
+      rather than defaulting immediately to a larger raw interval.
+    next_move: Formalize the four-anchor lemma candidate.
+  - atom_id: N848.G1.A24
+    title: Formalize the four-anchor obstruction lemma candidate
+    route_id: finite_check_gap_closure
+    ticket_id: N848
     status: ready
-    summary: The bounded-verification lane now starts from a real certified base interval `1..10000`. The next choice is whether exact coverage should continue directly beyond that range, or whether the new exact data should be compressed into a stronger breakpoint method.
-    next_move: Decide whether to extend exact verified coverage beyond `10000` or switch method class.
+    summary: The repo now has a four-anchor obstruction candidate with no failures in `30..10000`, plus a minimality ledger showing that `{7, 32, 57, 82}` is unusually strong among small anchor sets. The next move is to package that into a proof-shaped lemma with explicit obligations.
+    next_move: Write the theorem candidate and proof-obligation surface for the four-anchor obstruction.
