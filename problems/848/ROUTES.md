@@ -69,10 +69,10 @@
   candidate.
 - The imported public thread currently reports a better external threshold
   `N0 = 2.64 x 10^17` on 2026-03-23.
-- So the next real choice is not whether to "share" the package; that step is already done.
-- The next real choice is mathematical:
-  - keep pushing the explicit-threshold lane below the best imported `N0`, or
-  - start a bounded finite-verification program under the best trusted threshold currently
-    available
-- The right optimization target is the size of the remaining finite gap, not the threshold
-  race in isolation.
+- The repo has now chosen the bounded finite-verification lane for the next cycle.
+- The next concrete task is to freeze:
+  - a regime split for the finite remainder
+  - a certificate format for bounded interval claims
+  - an audit ledger for imported verification work
+- The right optimization target remains the size of the remaining finite gap, not the
+  threshold race in isolation.

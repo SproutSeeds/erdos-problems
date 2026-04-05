@@ -5,8 +5,8 @@ routes:
     title: Finite-Check Gap Closure
     status: active
     summary: Convert the sufficiently-large-N theorem into a complete all-N resolution without overstating what is already closed or confusing imported thresholds with repo-owned claims.
-    why_now: The share package is already committed; the live question is which closure lane now shrinks the remaining finite gap fastest.
-    next_move: Choose whether the next closure cycle should lower `N0` further or expand bounded finite verification.
+    why_now: The share package is already committed, and the repo has now chosen bounded finite verification as the next closure lane.
+    next_move: Freeze the bounded finite-verification program and its certificate surface.
   - route_id: external_threshold_tracking
     title: External Threshold Tracking
     status: support
@@ -15,10 +15,10 @@ routes:
     next_move: Keep the 2026-03-21 to 2026-03-23 imported timeline current without silently adopting it as canonical repo truth.
   - route_id: bounded_finite_verification
     title: Bounded Finite Verification
-    status: support
+    status: active_support
     summary: Reduce the finite remainder directly once a threshold is trusted enough to be operationally useful.
     why_now: Lowering `N0` matters because it reduces this lane, not because "smallest threshold" is the whole problem.
-    next_move: Keep this lane visible while deciding whether to invest the next cycle here or in further threshold extraction.
+    next_move: Partition the finite remainder into regimes and define the certificate required before any interval counts as covered.
   - route_id: formalization_coverage_audit
     title: Formalization Coverage Audit
     status: support
@@ -30,9 +30,9 @@ tickets:
     title: Close the decidable gap without confusing imported threshold progress and repo-owned candidate work
     route_id: finite_check_gap_closure
     status: active
-    summary: The repo now has a committed review package for its audited `exp(1420)` candidate, while the imported forum timeline currently points to a stronger external threshold. The live question is which lane now closes the finite remainder fastest.
-    current_blocker: The repo has not yet chosen whether the next mathematical cycle should chase a lower explicit `N0` or bounded finite verification under the best trusted threshold.
-    next_move: Close `N848.G1.A17`.
+    summary: The repo now has a committed review package for its audited `exp(1420)` candidate, while the imported forum timeline currently points to a stronger external threshold. The chosen next lane is bounded finite verification under the best trusted threshold.
+    current_blocker: The repo has not yet frozen the certificate surface needed for any bounded interval claim to count as canonical coverage.
+    next_move: Close `N848.G1.A18`.
   - ticket_id: N848F
     title: Audit public formalization coverage
     route_id: formalization_coverage_audit
@@ -157,6 +157,13 @@ atoms:
     title: Choose the next closure lane under the best imported threshold
     route_id: finite_check_gap_closure
     ticket_id: N848
+    status: done
+    summary: The repo has chosen bounded finite verification as the next closure lane under the best imported threshold currently tracked.
+    next_move: Freeze the bounded finite-verification program and the certificate spec.
+  - atom_id: N848.G1.A18
+    title: Freeze the bounded finite-verification program and certificate surface
+    route_id: finite_check_gap_closure
+    ticket_id: N848
     status: ready
-    summary: The imported forum timeline currently reaches `N0 = 2.64 x 10^17` on 2026-03-23, while the repo's own audited candidate is weaker but cleaner. The next move is to choose whether to spend the next cycle on lowering `N0` further or on bounded finite verification.
-    next_move: Decide whether the next serious push is threshold-lowering or finite verification under the best trusted `N0`.
+    summary: The next closure cycle should start by partitioning the finite remainder into regimes and defining what evidence is strong enough for a bounded interval claim to count.
+    next_move: Promote the bounded verification plan, regimes, certificate spec, and external ledger into the live handoff surface.

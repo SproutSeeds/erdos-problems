@@ -21,6 +21,8 @@ What is ready now:
 - a theorem-style proof note in the paper bundle
 - a dossier-level explicit-candidate review note
 - supporting explicit ledgers for the branch bounds and numerical witness
+- a bounded finite-verification lane with regimes, certificate requirements, and external
+  audit notes
 
 What is not being claimed:
 - not full all-`N` closure in the repo

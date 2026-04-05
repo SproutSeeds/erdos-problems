@@ -5,16 +5,11 @@ theorem_module: ""
 checkpoint_packet: CHECKPOINT_TEMPLATE.md
 report_packet: REPORT_TEMPLATE.md
 ready_prompts:
-  - Which case in the proof has the smallest slack to 1/25?
-  - How much of the roughly `0.002388` weakest-branch slack can be safely assigned to Lemma 2.1?
-  - After making Lemma 2.1 explicit, is the live bottleneck the large-prime tail or the small-prime discretization?
-  - With `T = 250`, how much `eta` room remains after all currently frozen lemma-level costs?
-  - Does the shared witness now dominate all public proof branches?
-  - What exactly should the repo claim at the proposition level right now, and what should it still leave provisional?
-  - Which remaining obligations would still change the mathematics, and which are only writeup-quality obligations?
-  - What is the shortest claim-safe outward summary of the current candidate?
   - What is the best imported explicit `N0` currently visible on the public thread, and how trusted is it?
-  - Would the next cycle be better spent lowering `N0` further, or reducing the remaining finite range by bounded verification?
+  - What exact interval should the repo try to certify first in the bounded-verification lane?
+  - What certificate format is required before a claimed interval counts as canonically covered?
+  - Which public verification attempts should be treated as audit inputs rather than accepted coverage?
+  - How should the finite remainder be partitioned into regimes so that methods and trust levels stay visible?
 verification_hook:
   - erdos number-theory status 848
   - erdos number-theory routes 848

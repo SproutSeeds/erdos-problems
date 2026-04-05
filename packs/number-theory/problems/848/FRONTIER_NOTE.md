@@ -31,13 +31,18 @@ The current package is already internally reviewed enough for handoff:
 - the surfaced candidate package has no remaining placeholder text
 - tests and publish-surface checks are green
 
-So the next move is mathematical again:
-- choose whether the next closure cycle should lower the imported threshold further, or
-- choose whether to start shrinking the remaining finite range by bounded verification
+Chosen next lane:
+- bounded finite verification under the best imported threshold currently tracked
 
-Read first:
-- `PROPOSITION_EXPLICIT_CANDIDATE.md`
-- `THEOREM_STYLE_EXPLICIT_NOTE.md`
-- `CERTIFIED_NUMERICAL_LEDGER.md`
-- `BRANCH_COMPARISON_LEDGER.md`
-- `PROOF_OBLIGATIONS.md`
+Why this lane wins the next cycle:
+- the real objective is to close the finite remainder, not just publish a smaller `N0`
+- imported threshold progress already exists, so the repo needs an interval-certification
+  surface to make use of it
+- the public thread already contains one verification attempt that was later corrected and
+  criticized as difficult to verify, so trust and reproducibility have to be first-class
+
+Read next:
+- `BOUNDED_VERIFICATION_PLAN.md`
+- `VERIFICATION_REGIMES.md`
+- `VERIFICATION_CERTIFICATE_SPEC.md`
+- `EXTERNAL_VERIFICATION_LEDGER.md`

@@ -67,6 +67,9 @@ Current public evidence captured locally:
 - The current repo candidate is weaker than the best imported threshold value currently
   visible on the public thread, so its main value is auditability and handoff structure,
   not "best known `N0`" status.
+- The repo has now chosen bounded finite verification as the next closure lane and frozen
+  first-pass notes for verification regimes, certificate requirements, and imported
+  verification audit.
 
 Claim-safe local posture:
 - Exact: the public status is `decidable`, not `open` and not fully `solved`.
@@ -106,5 +109,4 @@ Next maintainer step:
 - preserve the current claim-safe package as a clean review unit
 - treat imported threshold improvements as external progress markers unless they are
   re-audited inside the repo
-- decide whether the next closure cycle should lower `N0` further or reduce the remaining
-  finite range by bounded verification
+- freeze the bounded finite-verification program before counting any interval as covered
