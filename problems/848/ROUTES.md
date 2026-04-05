@@ -74,8 +74,9 @@
   - a regime split for the finite remainder
   - a certificate format for bounded interval claims
   - an audit ledger for imported verification work
-  - an exact verified base interval `1..2000`
+  - an exact verified base interval `1..3000`
 - The next concrete task is to decide whether the exact clique scan should be extended
-  directly beyond `2000` or whether the next gain now needs a different method class.
+  directly beyond `3000` in smaller steps or whether the next gain now needs a different
+  method class.
 - The right optimization target remains the size of the remaining finite gap, not the
   threshold race in isolation.

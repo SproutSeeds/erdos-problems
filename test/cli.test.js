@@ -4,8 +4,9 @@ import { execFileSync } from 'node:child_process';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 
-const cli = '/Volumes/Code_2TB/code/erdos-problems/src/cli/index.js';
+const cli = fileURLToPath(new URL('../src/cli/index.js', import.meta.url));
 
 function runCli(args, options = {}) {
   return execFileSync('node', [cli, ...args], {
@@ -300,7 +301,7 @@ test('number-theory status exposes the finite-check workspace for 848', () => {
   assert.match(output, /Open problem: no/);
   assert.match(output, /Route packet present: yes/);
   assert.match(output, /Active ticket: N848/);
-  assert.match(output, /First ready atom: N848\.G1\.A21/);
+  assert.match(output, /First ready atom: N848\.G1\.A22/);
 });
 
 test('sunflower board prints the mirrored atomic frontier for 857', () => {

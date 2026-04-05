@@ -7,22 +7,22 @@ operational_threshold:
 intervals:
   - interval_id: N848.V1
     label: exact_small_n_base_interval
-    range: "1..2000"
+    range: "1..3000"
     status: done
     method_class: exact_small_n
     claim_level: verified
-    certificate: EXACT_SMALL_N_1_2000_CERTIFICATE.md
-    data_packet: EXACT_SMALL_N_1_2000_RESULTS.json
-    next_move: Use this as the first trusted base interval and decide whether the next extension is another exact interval or an imported-computation audit.
+    certificate: EXACT_SMALL_N_1_3000_CERTIFICATE.md
+    data_packet: EXACT_SMALL_N_1_3000_RESULTS.json
+    next_move: Use this as the current trusted base interval and decide whether the next extension is another exact interval or an imported-computation audit.
   - interval_id: N848.V2
     label: exact_small_n_extension
-    range: "2001..?"
+    range: "3001..?"
     status: ready
     method_class: exact_small_n
     claim_level: target
     certificate: ""
     data_packet: ""
-    next_move: Decide how far the exact clique scan can be pushed before a different method class is needed.
+    next_move: Decide whether exact coverage should continue in smaller certified steps beyond `3000` or whether the next gain should come from a different method class.
   - interval_id: N848.V3
     label: imported_computation_audit
     range: "public_claimed_interval"

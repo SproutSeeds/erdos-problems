@@ -38,7 +38,8 @@ What success would look like:
 - the remaining uncovered range shrinks monotonically
 
 Current progress:
-- the repo now has an exact small-`N` certificate for `1..2000`
+- the repo now has an exact small-`N` certificate for `1..3000`
+- a direct jump to `1..5000` no longer looks cheap enough to treat as the default next move
 
 What this lane is not:
 - not brute force to `2.64 x 10^17`

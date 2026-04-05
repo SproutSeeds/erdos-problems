@@ -1,14 +1,14 @@
-# Problem 848 Exact Small-`N` Certificate: `1..2000`
+# Problem 848 Exact Small-`N` Certificate: `1..3000`
 
 This is the first exact bounded-verification certificate frozen in the repo for Problem `848`.
 
 ## Claim
 
-For every `N` with `1 <= N <= 2000`, the maximum size of a set `A subseteq [N]` such that
+For every `N` with `1 <= N <= 3000`, the maximum size of a set `A subseteq [N]` such that
 `ab + 1` is never squarefree for all `a, b in A` is equal to the size of the `7 mod 25`
-residue class in `[N]`.
+or `18 mod 25` residue class in `[N]`.
 
-This certificate only covers the interval `1..2000`.
+This certificate only covers the interval `1..3000`.
 
 ## Method class
 
@@ -21,8 +21,8 @@ Command used:
 ```bash
 node packs/number-theory/problems/848/compute/problem848_small_n_exact_scan.mjs \
   --min 1 \
-  --max 2000 \
-  --json-output packs/number-theory/problems/848/EXACT_SMALL_N_1_2000_RESULTS.json
+  --max 3000 \
+  --json-output packs/number-theory/problems/848/EXACT_SMALL_N_1_3000_RESULTS.json
 ```
 
 The script:
@@ -34,17 +34,17 @@ The script:
 
 ## Outcome
 
-- interval: `1..2000`
+- interval: `1..3000`
 - result: verified
 - every scanned `N` satisfied:
-  - `max_clique_size = |{n in [N] : n equiv 7 mod 25}|`
+  - `max_clique_size = max(|{n in [N] : n equiv 7 mod 25}|, |{n in [N] : n equiv 18 mod 25}|)`
 
 The machine-readable result packet is:
-- `EXACT_SMALL_N_1_2000_RESULTS.json`
+- `EXACT_SMALL_N_1_3000_RESULTS.json`
 
 ## Scope warning
 
-This does **not** certify anything above `2000`.
+This does **not** certify anything above `3000`.
 It is a base interval certificate only.
 
 ## Why this interval matters
