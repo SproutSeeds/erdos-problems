@@ -3,11 +3,11 @@ family_role: finite_check_number_theory_workspace
 harness_profile: decidable_gap_workspace
 default_active_route: finite_check_gap_closure
 bootstrap_focus: Treat Problem 848 as a finite-gap closure problem and freeze the certificate surface before claiming bounded verification progress.
-route_story: Problem 848 is already asymptotically resolved in public, but not yet closed here for all N. The honest job is to shrink the finite remainder with audited threshold tracking and reproducible bounded verification.
+route_story: Problem 848 is already asymptotically resolved in public, but not yet closed here for all N. The honest job is to shrink the finite remainder with audited threshold tracking and reproducible bounded verification, beginning from the verified base interval `1..2000`.
 frontier_label: finite_check_gap_closure
-frontier_detail: The repo has chosen bounded finite verification as the next closure lane under the best imported threshold currently tracked.
+frontier_detail: The repo now has a verified exact interval `1..2000`; the next question is whether to extend that exact scan further or change method class.
 checkpoint_focus: Preserve the distinction between existential N0, explicit N0, sample finite checks, and full closure.
-next_honest_move: Freeze the bounded finite-verification program and its certificate requirements before claiming any new covered interval.
+next_honest_move: Decide whether to extend the exact clique scan beyond `2000` or pivot to a different bounded-verification method.
 related_core_problems:
   - "844"
 literature_focus:
@@ -21,15 +21,18 @@ artifact_focus:
   - EVIDENCE.md
   - FORMALIZATION.md
   - THRESHOLD_LEDGER.md
+  - OPERATIONAL_THRESHOLD_POSTURE.md
   - BOUNDED_VERIFICATION_PLAN.md
   - VERIFICATION_REGIMES.md
   - VERIFICATION_CERTIFICATE_SPEC.md
   - EXTERNAL_VERIFICATION_LEDGER.md
+  - INTERVAL_WORK_QUEUE.yaml
+  - EXACT_SMALL_N_1_2000_CERTIFICATE.md
 question_ledger:
   open_questions:
-    - What exact interval should the repo try to cover first in a bounded-verification lane?
     - Which imported threshold value is trusted enough to size the finite remainder operationally?
     - What certificate format is strong enough to prevent repeat low-trust verification claims?
+    - How far can the exact clique scan be pushed before a different method class is needed?
     - Which public verification attempts are worth auditing rather than rebuilding from scratch?
   active_route_notes:
     - Keep the asymptotic theorem separate from the unresolved finite closure.
@@ -41,4 +44,5 @@ question_ledger:
     - The threshold ledger separating existential and explicit claims is now frozen.
     - The repo now has an audited explicit candidate package distinct from the imported public threshold timeline.
     - The repo has now chosen bounded finite verification as the next closure lane.
+    - The repo now has an exact verified base interval `1..2000`.
   problem_solved: []

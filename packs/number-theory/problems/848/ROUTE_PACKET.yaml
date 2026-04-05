@@ -10,6 +10,7 @@ ready_prompts:
   - What certificate format is required before a claimed interval counts as canonically covered?
   - Which public verification attempts should be treated as audit inputs rather than accepted coverage?
   - How should the finite remainder be partitioned into regimes so that methods and trust levels stay visible?
+  - How far does the exact small-`N` clique scan now reach, and what should the next extension target be?
 verification_hook:
   - erdos number-theory status 848
   - erdos number-theory routes 848

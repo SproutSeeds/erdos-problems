@@ -70,6 +70,11 @@ Current public evidence captured locally:
 - The repo has now chosen bounded finite verification as the next closure lane and frozen
   first-pass notes for verification regimes, certificate requirements, and imported
   verification audit.
+- The repo now has an operational threshold posture note that allows imported `N0`
+  values to size the finite remainder without being silently promoted to canonical theorem
+  truth.
+- A reproducible exact maximum-clique scan now verifies the expected extremal size for every
+  `N` in `1..2000`, giving the bounded-verification lane its first trusted covered interval.
 
 Claim-safe local posture:
 - Exact: the public status is `decidable`, not `open` and not fully `solved`.
@@ -109,4 +114,5 @@ Next maintainer step:
 - preserve the current claim-safe package as a clean review unit
 - treat imported threshold improvements as external progress markers unless they are
   re-audited inside the repo
-- freeze the bounded finite-verification program before counting any interval as covered
+- decide whether exact verified coverage should be extended beyond `2000` or whether the
+  next gain now needs a different method class

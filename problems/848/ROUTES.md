@@ -70,9 +70,12 @@
 - The imported public thread currently reports a better external threshold
   `N0 = 2.64 x 10^17` on 2026-03-23.
 - The repo has now chosen the bounded finite-verification lane for the next cycle.
-- The next concrete task is to freeze:
+- The repo now has:
   - a regime split for the finite remainder
   - a certificate format for bounded interval claims
   - an audit ledger for imported verification work
+  - an exact verified base interval `1..2000`
+- The next concrete task is to decide whether the exact clique scan should be extended
+  directly beyond `2000` or whether the next gain now needs a different method class.
 - The right optimization target remains the size of the remaining finite gap, not the
   threshold race in isolation.

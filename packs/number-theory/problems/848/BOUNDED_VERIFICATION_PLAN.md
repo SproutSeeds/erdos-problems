@@ -37,6 +37,9 @@ What success would look like:
 - imported public verification work is either accepted with an audit note or left external
 - the remaining uncovered range shrinks monotonically
 
+Current progress:
+- the repo now has an exact small-`N` certificate for `1..2000`
+
 What this lane is not:
 - not brute force to `2.64 x 10^17`
 - not an automatic endorsement of every public verification claim

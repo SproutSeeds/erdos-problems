@@ -76,12 +76,14 @@ Desired certificate:
 
 ## Current honest posture
 
-- Regime A: not frozen in this repo
+- Regime A: first exact interval `1..2000` is now frozen in the repo with a reproducible
+  maximum-clique certificate
 - Regime B: not frozen in this repo
 - Regime C: public attempts exist, but some were explicitly criticized on the forum as
   difficult to verify or likely incorrect
 - Regime D: public asymptotic theorem exists; imported explicit thresholds are tracked but not
   yet repo-audited
 
-So the next honest move is to freeze the certificate format before claiming any new verified
-interval.
+So the next honest move is to decide whether exact-small-`N` coverage should be extended
+directly beyond `2000`, or whether the next gain comes from auditing imported computation or
+switching method class.

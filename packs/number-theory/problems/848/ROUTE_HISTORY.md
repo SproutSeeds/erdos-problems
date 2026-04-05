@@ -20,5 +20,7 @@
 - Seventeenth refinement: commit and push the review-ready 848 package so the audited candidate is now a public repo artifact rather than only a local workspace bundle.
 - Eighteenth refinement: record the imported public-threshold timeline through 2026-03-23 and state explicitly that the optimization target is finite-gap closure, not threshold-lowering in isolation.
 - Nineteenth refinement: choose bounded finite verification as the next closure lane and freeze the first repo artifacts for regimes, certificates, and external verification audit.
-- Current public pack posture: active route `finite_check_gap_closure`, with asymptotic theorem already in hand, a committed audited candidate package in the repo, and the remaining gap centered on building a trusted bounded-verification program under the best imported threshold currently tracked.
-- Next maturity threshold: turn the verification plan into the first concrete covered-interval program.
+- Twentieth refinement: freeze the operational threshold posture so imported `N0` claims can size the finite remainder without being silently promoted to canonical repo theorem truth.
+- Twenty-first refinement: certify the exact interval `1..2000` by a reproducible maximum-clique scan, giving the bounded-verification lane its first genuine covered interval.
+- Current public pack posture: active route `finite_check_gap_closure`, with asymptotic theorem already in hand, a committed audited candidate package in the repo, and a real exact base interval `1..2000` now covered in the bounded-verification lane.
+- Next maturity threshold: extend verified interval coverage beyond `2000` in the most efficient trustworthy way.

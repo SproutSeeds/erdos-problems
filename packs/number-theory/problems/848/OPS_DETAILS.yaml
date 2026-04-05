@@ -5,8 +5,8 @@ routes:
     title: Finite-Check Gap Closure
     status: active
     summary: Convert the sufficiently-large-N theorem into a complete all-N resolution without overstating what is already closed or confusing imported thresholds with repo-owned claims.
-    why_now: The share package is already committed, and the repo has now chosen bounded finite verification as the next closure lane.
-    next_move: Freeze the bounded finite-verification program and its certificate surface.
+    why_now: The share package is already committed, the bounded-verification lane is now frozen, and the repo has a first verified interval.
+    next_move: Decide whether to extend exact verified coverage beyond `2000` or switch method class.
   - route_id: external_threshold_tracking
     title: External Threshold Tracking
     status: support
@@ -18,7 +18,7 @@ routes:
     status: active_support
     summary: Reduce the finite remainder directly once a threshold is trusted enough to be operationally useful.
     why_now: Lowering `N0` matters because it reduces this lane, not because "smallest threshold" is the whole problem.
-    next_move: Partition the finite remainder into regimes and define the certificate required before any interval counts as covered.
+    next_move: Build on the exact `1..2000` base interval and decide the next extension rule.
   - route_id: formalization_coverage_audit
     title: Formalization Coverage Audit
     status: support
@@ -30,9 +30,9 @@ tickets:
     title: Close the decidable gap without confusing imported threshold progress and repo-owned candidate work
     route_id: finite_check_gap_closure
     status: active
-    summary: The repo now has a committed review package for its audited `exp(1420)` candidate, while the imported forum timeline currently points to a stronger external threshold. The chosen next lane is bounded finite verification under the best trusted threshold.
-    current_blocker: The repo has not yet frozen the certificate surface needed for any bounded interval claim to count as canonical coverage.
-    next_move: Close `N848.G1.A18`.
+    summary: The repo now has a committed review package for its audited `exp(1420)` candidate, a chosen bounded-verification lane, and an exact verified base interval `1..2000`. The live question is how to extend coverage from that foothold.
+    current_blocker: The repo has not yet chosen whether the next interval extension should stay in the exact clique-scan regime or switch to a different verification method.
+    next_move: Close `N848.G1.A21`.
   - ticket_id: N848F
     title: Audit public formalization coverage
     route_id: formalization_coverage_audit
@@ -164,6 +164,27 @@ atoms:
     title: Freeze the bounded finite-verification program and certificate surface
     route_id: finite_check_gap_closure
     ticket_id: N848
+    status: done
+    summary: The verification plan, regime split, certificate spec, and external audit ledger are now part of the live handoff surface.
+    next_move: Freeze the operational threshold posture and the first covered interval.
+  - atom_id: N848.G1.A19
+    title: Freeze the operational threshold posture for the bounded-verification lane
+    route_id: finite_check_gap_closure
+    ticket_id: N848
+    status: done
+    summary: The repo now distinguishes operational use of the imported `2.64 x 10^17` threshold from canonical repo-owned theorem language.
+    next_move: Build the first exact covered interval.
+  - atom_id: N848.G1.A20
+    title: Build the first exact covered interval for bounded verification
+    route_id: finite_check_gap_closure
+    ticket_id: N848
+    status: done
+    summary: The repo now has a reproducible exact certificate showing that the conjectured extremal size is correct for every `N` in `1..2000`.
+    next_move: Decide whether to extend the exact clique scan beyond `2000` or change method class.
+  - atom_id: N848.G1.A21
+    title: Choose the next verified interval extension beyond `2000`
+    route_id: finite_check_gap_closure
+    ticket_id: N848
     status: ready
-    summary: The next closure cycle should start by partitioning the finite remainder into regimes and defining what evidence is strong enough for a bounded interval claim to count.
-    next_move: Promote the bounded verification plan, regimes, certificate spec, and external ledger into the live handoff surface.
+    summary: The bounded-verification lane now starts from a real certified base interval `1..2000`. The next choice is whether the exact clique scan still has enough headroom to extend that base efficiently, or whether the next gain should come from breakpoint or audit methods.
+    next_move: Decide whether to extend exact verified coverage beyond `2000` or switch method class.

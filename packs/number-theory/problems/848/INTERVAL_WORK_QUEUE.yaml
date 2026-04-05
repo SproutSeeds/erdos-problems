@@ -1,0 +1,43 @@
+packet_id: nt848_interval_work_queue_v1
+operational_threshold:
+  value: "2.64 x 10^17"
+  source: forum_thread_2026_03_23
+  trust_status: external_public_claim
+  usage: sizing_only
+intervals:
+  - interval_id: N848.V1
+    label: exact_small_n_base_interval
+    range: "1..2000"
+    status: done
+    method_class: exact_small_n
+    claim_level: verified
+    certificate: EXACT_SMALL_N_1_2000_CERTIFICATE.md
+    data_packet: EXACT_SMALL_N_1_2000_RESULTS.json
+    next_move: Use this as the first trusted base interval and decide whether the next extension is another exact interval or an imported-computation audit.
+  - interval_id: N848.V2
+    label: exact_small_n_extension
+    range: "2001..?"
+    status: ready
+    method_class: exact_small_n
+    claim_level: target
+    certificate: ""
+    data_packet: ""
+    next_move: Decide how far the exact clique scan can be pushed before a different method class is needed.
+  - interval_id: N848.V3
+    label: imported_computation_audit
+    range: "public_claimed_interval"
+    status: support
+    method_class: imported_external_computation
+    claim_level: external_only
+    certificate: EXTERNAL_VERIFICATION_LEDGER.md
+    data_packet: ""
+    next_move: Audit public computational claims without silently promoting them to canonical coverage.
+  - interval_id: N848.VA
+    label: asymptotic_handoff
+    range: "[2.64 x 10^17, inf)"
+    status: support
+    method_class: asymptotic_handoff
+    claim_level: external_only
+    certificate: OPERATIONAL_THRESHOLD_POSTURE.md
+    data_packet: ""
+    next_move: Keep the imported handoff threshold visible and separate from repo-audited theorem language.
