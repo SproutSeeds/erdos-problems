@@ -6,7 +6,7 @@ routes:
     status: active
     summary: Convert the sufficiently-large-N theorem into a complete all-N resolution without overstating what is already closed.
     why_now: This is the honest live frontier after the public asymptotic result.
-    next_move: Spend the now-frozen weakest-branch slack on the first explicit Lemma 2.1 inequality.
+    next_move: Commit or open review on the surfaced candidate package.
   - route_id: formalization_coverage_audit
     title: Formalization Coverage Audit
     status: support
@@ -15,12 +15,12 @@ routes:
     next_move: Keep this as support context until the threshold ledger is frozen.
 tickets:
   - ticket_id: N848
-    title: Convert the frozen weakest-branch budget into explicit inequalities
+    title: Promote the `T = 250` weakest-branch witness into a genuine explicit-threshold candidate
     route_id: finite_check_gap_closure
     status: active
-    summary: The weakest branch and its conservative slack budget are now frozen; the next job is to quantify the explicit analytic losses against that budget.
-    current_blocker: Lemma 2.1 still hides its tail and inclusion-exclusion remainder behind `<<` and `N^(o(1))`.
-    next_move: Close `N848.G1.A4`.
+    summary: The weakest branch and the other public branches are all now controlled by the same explicit witness, and the repo has surfaced that witness in both the paper bundle and a dossier-level public review note; the next job is to turn that package into a clean review unit.
+    current_blocker: The repo has not yet turned the surfaced candidate package into a committed review unit.
+    next_move: Close `N848.G1.A15`.
   - ticket_id: N848F
     title: Audit public formalization coverage
     route_id: formalization_coverage_audit
@@ -54,6 +54,83 @@ atoms:
     title: Make the Lemma 2.1 remainder terms explicit against the frozen weakest-branch budget
     route_id: finite_check_gap_closure
     ticket_id: N848
+    status: done
+    summary: Lemma 2.1 now has a one-sided explicit remainder ledger, and the large-prime tail has emerged as the live bottleneck.
+    next_move: Use the new ledger to decide whether the next move is a sharper prime-tail treatment or a different truncation parameter.
+  - atom_id: N848.G1.A5
+    title: Decide whether the next Lemma 2.1 move is a sharper prime-tail bound or a different truncation parameter
+    route_id: finite_check_gap_closure
+    ticket_id: N848
+    status: done
+    summary: The truncation scan shows that the one-sided route can raise `T` far beyond `sqrt(log N)` without waking the discrete remainder, so the next move is to enlarge `T` before chasing a deeper tail theorem.
+    next_move: Use a larger `T` in the full weakest-branch bookkeeping.
+  - atom_id: N848.G1.A6
+    title: Carry a larger truncation parameter through Lemma 2.2 and the full weakest-branch budget
+    route_id: finite_check_gap_closure
+    ticket_id: N848
+    status: done
+    summary: Lemma 2.2 is now explicit at the witness-budget level, including the prime-count term, and the `T = 250` witness retains about `3.66e-4` room for final `eta` and bookkeeping.
+    next_move: Turn that witness budget into a line-by-line explicit branch assembly.
+  - atom_id: N848.G1.A7
+    title: Turn the `T = 250` witness budget into a line-by-line explicit weakest-branch assembly
+    route_id: finite_check_gap_closure
+    ticket_id: N848
+    status: done
+    summary: The weakest branch now has a line-by-line witness ledger at `T = 250` with a working choice `eta = 10^-4` and about `2.66e-4` visible reserve.
+    next_move: Carry the same witness into the other public proof branches.
+  - atom_id: N848.G1.A8
+    title: Check whether the weakest-branch witness already closes the other public branches
+    route_id: finite_check_gap_closure
+    ticket_id: N848
+    status: done
+    summary: The shared witness also closes the branches `0.0358`, `0.0336`, and `0.0294` at the repo's current explicit level, so no new branch bottleneck has appeared.
+    next_move: Package the shared witness into a proposition-level explicit candidate note.
+  - atom_id: N848.G1.A9
+    title: Package the shared witness into a proposition-level explicit candidate
+    route_id: finite_check_gap_closure
+    ticket_id: N848
+    status: done
+    summary: The repo now has a proposition-level explicit witness candidate with claim-safe wording.
+    next_move: Separate proof obligations from exposition obligations before any stronger claim is made.
+  - atom_id: N848.G1.A10
+    title: Write the proof-obligation ledger for the proposition-level explicit candidate
+    route_id: finite_check_gap_closure
+    ticket_id: N848
+    status: done
+    summary: The remaining obligations are now split cleanly into mathematical hardening work versus presentation-quality work.
+    next_move: Harden the decimal inputs used by the current witness.
+  - atom_id: N848.G1.A11
+    title: Replace the displayed decimal inputs with certified numerical bounds
+    route_id: finite_check_gap_closure
+    ticket_id: N848
+    status: done
+    summary: The current shared witness now has a conservative machine-interval ledger for its main numerical inputs.
+    next_move: Assemble the hardened witness into a theorem-style note.
+  - atom_id: N848.G1.A12
+    title: Assemble the hardened witness into a theorem-style explicit proof note
+    route_id: finite_check_gap_closure
+    ticket_id: N848
+    status: done
+    summary: The route now has a theorem-shaped proof artifact built from the numerically hardened shared witness candidate.
+    next_move: Decide where to surface that artifact next.
+  - atom_id: N848.G1.A13
+    title: Decide how to surface the theorem-style repo candidate
+    route_id: finite_check_gap_closure
+    ticket_id: N848
+    status: done
+    summary: The theorem-style candidate now lives in both the paper bundle and a dossier-level public review artifact, with a short share-ready summary.
+    next_move: Decide whether to commit and open review on the surfaced package.
+  - atom_id: N848.G1.A14
+    title: Prepare the surfaced candidate package for commit and review
+    route_id: finite_check_gap_closure
+    ticket_id: N848
+    status: done
+    summary: The paper bundle now has drafted review-facing sections, the surfaced package has no remaining placeholder text, and the safety checks are green.
+    next_move: Turn the prepared package into a clean review unit.
+  - atom_id: N848.G1.A15
+    title: Commit or open review on the surfaced candidate package
+    route_id: finite_check_gap_closure
+    ticket_id: N848
     status: ready
-    summary: The branch-level slack is now frozen; the next unresolved inequality is the Lemma 2.1 tail plus inclusion-exclusion remainder.
-    next_move: Write explicit upper bounds for the `N / T` tail and the small-prime inclusion-exclusion remainder with `T = floor(sqrt(log N))`.
+    summary: The current explicit-candidate package is internally reviewed and ready to be shared without widening the claims.
+    next_move: Commit the 848 package or open review with the current claim-safe wording intact.

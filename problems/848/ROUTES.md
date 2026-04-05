@@ -49,11 +49,25 @@
 
 ## Immediate next move
 
-- Read Sawhney's Proposition 1.1 and enumerate every place where `sufficiently large` enters
-  quantitatively.
-- Record whether each such place is:
-  - already explicit in the note
-  - explicit but very weak
-  - still purely existential
-- Only then decide whether the next serious lane is threshold extraction or direct finite
-  computation.
+- Keep the explicit-threshold lane honest: Lemma 2.1 is now explicit enough to show that the
+  large-prime tail, not the small-prime discretization, is the current blocker in the weakest
+  branch.
+- The next serious analytic lane is now clearer:
+  - keep the one-sided explicit Lemma 2.1 route
+  - enlarge the truncation parameter beyond `T = floor(sqrt(log N))`
+  - then carry that larger `T` through Lemma 2.2 and the final weakest-branch bookkeeping
+- The current witness value is `T = 250`, which already leaves substantial room in the
+  weakest branch after the currently frozen lemma tails.
+- The Lemma 2.2 prime-count term is now bounded explicitly at the witness scale.
+- The weakest branch now has a working witness `eta = 10^-4`.
+- The same witness now appears to dominate the other public branches too.
+- The repo now has a proposition-level explicit candidate built from that shared witness.
+- The remaining obligations are now split cleanly.
+- The current witness is now numerically hardened at the ledger level.
+- The repo now has a theorem-style explicit proof note for the current candidate.
+- The candidate is now surfaced in both the paper bundle and a dossier-level review artifact.
+- The paper bundle now has drafted introduction, preliminaries, and related-work sections.
+- The next unresolved move is operational: commit the current surfaced package or open review
+  on it without widening the current claim-safe wording.
+- Keep the bounded finite-verification lane open in parallel, but do not treat it as a full
+  replacement for the analytic threshold work until the explicit `N0` posture is clearer.

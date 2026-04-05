@@ -7,7 +7,13 @@ report_packet: REPORT_TEMPLATE.md
 ready_prompts:
   - Which case in the proof has the smallest slack to 1/25?
   - How much of the roughly `0.002388` weakest-branch slack can be safely assigned to Lemma 2.1?
-  - Can the Lemma 2.1 tail and inclusion-exclusion remainder be made explicit without exhausting the branch budget?
+  - After making Lemma 2.1 explicit, is the live bottleneck the large-prime tail or the small-prime discretization?
+  - With `T = 250`, how much `eta` room remains after all currently frozen lemma-level costs?
+  - Does the shared witness now dominate all public proof branches?
+  - What exactly should the repo claim at the proposition level right now, and what should it still leave provisional?
+  - Which remaining obligations would still change the mathematics, and which are only writeup-quality obligations?
+  - What is the shortest claim-safe outward summary of the current candidate?
+  - What is the smallest clean review unit for committing or opening review on the surfaced candidate package?
 verification_hook:
   - erdos number-theory status 848
   - erdos number-theory routes 848

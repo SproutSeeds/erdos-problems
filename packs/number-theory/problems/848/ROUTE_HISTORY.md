@@ -5,5 +5,17 @@
 - Second refinement: freeze the first threshold ledger separating existential, weakly explicit, and tentative public threshold claims.
 - Third refinement: isolate the `0.0377` branch as the weakest public case and freeze a source-backed branch-budget note for it.
 - Fourth refinement: freeze the weakest-branch main term numerically at about `0.0376113`, with conservative slack about `0.0023887` before analytic error absorption.
+- Fifth refinement: make Lemma 2.1 one-sided explicit and identify the large-prime tail, not the small-prime inclusion-exclusion remainder, as the live analytic bottleneck.
+- Sixth refinement: show that the one-sided route no longer needs `T = floor(sqrt(log N))`, and that raising `T` materially improves the live bottleneck while leaving the discrete term negligible.
+- Seventh refinement: make Lemma 2.2 explicit at the same one-sided level and freeze a provisional `T = 250` weakest-branch tail budget, with the remaining unfrozen blocker concentrated in the Lemma 2.2 prime-count term and final `eta` bookkeeping.
+- Eighth refinement: freeze the Lemma 2.2 prime-count term with an explicit Dusart bound, leaving about `3.66e-4` witness margin at `N >= exp(1420)` for `eta` and final bookkeeping.
+- Ninth refinement: freeze a weakest-branch working witness at `T = 250`, `N >= exp(1420)`, `eta = 10^-4`, leaving about `2.66e-4` visible reserve in that branch.
+- Tenth refinement: compare the same witness against the public branches `0.0358`, `0.0336`, and `0.0294`, and find that all three retain strictly larger visible reserve than the weakest branch.
+- Eleventh refinement: package the shared witness as a proposition-level repo candidate `N >= exp(1420)`, `eta = 10^-4`, while keeping the distinction between repo candidate and finished theorem writeup explicit.
+- Twelfth refinement: separate the remaining proof obligations into mathematical hardening work versus presentation-quality work, and identify certified numerical intervals as the next real blocker.
+- Thirteenth refinement: replace the visible decimal inputs with conservative machine intervals, leaving a certified visible reserve of about `2.66e-4` after the working `eta = 10^-4`.
+- Fourteenth refinement: assemble the hardened witness into a single theorem-style note suitable for paper-writer mode and future public review.
+- Fifteenth refinement: surface the current candidate in both the paper bundle and a dossier-level public review note, with a short share-ready summary.
+- Sixteenth refinement: draft the remaining paper-bundle sections, refresh the indexes, clear the last placeholder text, and verify the package with tests and a publish-surface check.
 - Current public pack posture: active route `finite_check_gap_closure`, with asymptotic theorem already in hand and the remaining gap centered on explicit remainder extraction, threshold budgeting, and bounded finite verification.
-- Next maturity threshold: replace the Lemma 2.1 `<<` and `N^(o(1))` steps with explicit inequalities against the frozen branch budget.
+- Next maturity threshold: commit the surfaced candidate package or open review on it without widening the current claim-safe wording.

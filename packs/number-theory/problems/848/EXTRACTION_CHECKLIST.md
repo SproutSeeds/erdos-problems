@@ -39,6 +39,12 @@ Need:
 Route question:
 - can these be made comfortably smaller than the smallest slack without overcomplicating the rest of the proof?
 
+Current repo answer:
+- yes on explicitization
+- no on comfort: once the bound is written out, the large-prime tail is still too expensive at
+  the public candidate thresholds unless the tail treatment or the truncation parameter improves
+- see `LEMMA21_EXPLICIT_BOUND.md`
+
 ### B. Lemma 2.2 progression error
 
 Need:
@@ -67,13 +73,18 @@ Current belief:
 
 1. Freeze the exact or conservatively certified main-term slack for the `0.0377` branch.
 2. Extract every hidden constant and error input from Lemma 2.1.
-3. Extract every hidden constant and error input from Lemma 2.2.
-4. Decide whether the proof can realistically beat the usable branch slack with explicit estimates.
-5. Only then decide whether to keep pushing analytic extraction or pivot harder into bounded finite computation.
+3. Decide whether the resulting large-prime tail can fit inside the weakest-branch slack at any plausible threshold scale.
+4. If not at `T = floor(sqrt(log N))`, scan larger truncation parameters before demanding a deeper new theorem.
+5. Extract every hidden constant and error input from Lemma 2.2 using the best currently justified truncation choice.
+6. Only then decide whether to keep pushing analytic extraction or pivot harder into bounded finite computation.
 
 Current repo posture:
 - Step 1 is now complete at a conservative numerical level.
-- The next unresolved work is Step 2: make the Lemma 2.1 remainder terms explicit against the branch budget.
+- Step 2 is now complete at a one-sided explicit level.
+- Step 3 is now complete: the route should enlarge `T` before asking for a deeper tail theorem.
+- Step 5 is now complete at a witness-budget level.
+- The next unresolved work is no longer mathematical: it is deciding how to commit and review
+  the surfaced candidate package.
 
 ## What would count as progress
 
@@ -81,6 +92,22 @@ Current repo posture:
 - an exact or conservative usable-slack budget for the weakest branch
 - an explicit declaration of which branch sets the threshold
 - a clean budget statement for how much of the roughly `0.002388` branch slack is available to Lemma 2.1, Lemma 2.2, and `eta`
+- a clear statement of whether the large-prime tail or the small-prime discretization is the
+  real bottleneck
+- a clear statement of whether the proof should first change `T` or first seek a sharper tail
+  theorem
+- a line-by-line weakest-branch assembly for at least one concrete witness value of `T`
+- a line-by-line ledger for the surviving `eta` room after all lemma-level costs
+- a branch comparison ledger showing whether the weakest-branch witness already dominates the
+  rest of the proof
+- a proposition-level explicit witness note saying exactly what the repo now claims and what it
+  still does not claim
+- a proof-obligation ledger saying what still has to be frozen before a public-truth update
+- a certified numerical ledger for every decimal input used in the current witness
+- a theorem-style note that assembles the current witness in one proof-shaped artifact
+- a publication handoff decision for whether that theorem-style note belongs in the paper
+  bundle, a public review artifact, or both
+- a short share-ready summary for maintainers or public-facing notes
 - a justified statement like:
   - “the current proof architecture plausibly yields an explicit threshold”
   - or

@@ -1,0 +1,101 @@
+{
+  "generatedAt": "2026-04-05T09:52:55.950Z",
+  "problemId": "848",
+  "sections": [
+    {
+      "key": "abstract",
+      "fileName": "ABSTRACT.md",
+      "title": "Abstract",
+      "purpose": "State the exact scope of the paper and separate proved statements from targets or heuristics.",
+      "primaryInputs": [
+        "problems/848/STATEMENT.md",
+        "problems/848/EVIDENCE.md",
+        "packs/number-theory/problems/848/FRONTIER_NOTE.md"
+      ]
+    },
+    {
+      "key": "introduction",
+      "fileName": "INTRODUCTION.md",
+      "title": "Introduction",
+      "purpose": "Explain why the problem matters, what the current route is, and how the paper is organized.",
+      "primaryInputs": [
+        "problems/848/STATEMENT.md",
+        "problems/848/REFERENCES.md",
+        "packs/number-theory/problems/848/FRONTIER_NOTE.md",
+        "packs/number-theory/README.md"
+      ]
+    },
+    {
+      "key": "preliminaries",
+      "fileName": "PRELIMINARIES.md",
+      "title": "Preliminaries",
+      "purpose": "Define notation, setup, and prior results that the rest of the paper relies on.",
+      "primaryInputs": [
+        "problems/848/STATEMENT.md",
+        "problems/848/REFERENCES.md",
+        "problems/848/FORMALIZATION.md"
+      ]
+    },
+    {
+      "key": "related_work",
+      "fileName": "RELATED_WORK.md",
+      "title": "Related Work",
+      "purpose": "Place the current route in the context of prior literature and nearby approaches.",
+      "primaryInputs": [
+        "problems/848/REFERENCES.md",
+        "problems/848/EVIDENCE.md",
+        "packs/number-theory/problems/848/FRONTIER_NOTE.md"
+      ]
+    },
+    {
+      "key": "main_results",
+      "fileName": "MAIN_RESULTS.md",
+      "title": "Main Results",
+      "purpose": "List the exact theorems, propositions, or route claims supported by the current public record.",
+      "primaryInputs": [
+        "problems/848/EVIDENCE.md",
+        "problems/848/FORMALIZATION.md",
+        "packs/number-theory/problems/848/FRONTIER_NOTE.md"
+      ]
+    },
+    {
+      "key": "proof_overview",
+      "fileName": "PROOF_OVERVIEW.md",
+      "title": "Proof Overview",
+      "purpose": "Give the roadmap of the argument and the dependency chain between major steps.",
+      "primaryInputs": [
+        "problems/848/EVIDENCE.md",
+        "packs/number-theory/problems/848/FRONTIER_NOTE.md"
+      ]
+    },
+    {
+      "key": "proof_details",
+      "fileName": "PROOF_DETAILS.md",
+      "title": "Proof Details",
+      "purpose": "Write the technical proof content or the best current public decomposition when the proof is incomplete.",
+      "primaryInputs": [
+        "problems/848/EVIDENCE.md",
+        "packs/number-theory/problems/848/ROUTE_PACKET.yaml"
+      ]
+    },
+    {
+      "key": "computational_and_formal_evidence",
+      "fileName": "COMPUTATIONAL_AND_FORMAL_EVIDENCE.md",
+      "title": "Computational and Formal Evidence",
+      "purpose": "Summarize computational packets, certificates, and formalization posture without inflating them into stronger claims.",
+      "primaryInputs": [
+        "problems/848/FORMALIZATION.md"
+      ]
+    },
+    {
+      "key": "limitations_and_open_problems",
+      "fileName": "LIMITATIONS_AND_OPEN_PROBLEMS.md",
+      "title": "Limitations and Open Problems",
+      "purpose": "Leave a clean handoff for the next researcher with honest boundaries and unresolved tasks.",
+      "primaryInputs": [
+        "packs/number-theory/problems/848/FRONTIER_NOTE.md",
+        "problems/848/CHECKPOINT_NOTES.md"
+      ]
+    }
+  ]
+}

@@ -9,11 +9,26 @@ The live route is `finite_check_gap_closure`:
 
 The smallest honest next move is not “solve 848”.
 It is:
-- use the frozen threshold ledger and weakest-case budget sheet to isolate the real usable slack
-- spend that slack on the first explicit inequality, namely Lemma 2.1
-- only then decide how much of the remainder is computational versus analytic
+- keep the current repo candidate claim-safe while turning it into a review unit
+- maintain the distinction between:
+  - theorem-style repo candidate
+  - public review artifact
+  - finished publication proof
+- use the current explicit witness package as the handoff surface, not as a reason to
+  silently upgrade the problem to `solved`
+
+The current package is already internally reviewed enough for handoff:
+- the paper bundle now has drafted introduction, preliminaries, and related-work sections
+- the surfaced candidate package has no remaining placeholder text
+- tests and publish-surface checks are green
+
+So the next move is external rather than mathematical:
+- commit the 848 package, or
+- open review on it with the current claim-safe wording intact
 
 Read first:
-- `THRESHOLD_LEDGER.md`
-- `EXTRACTION_CHECKLIST.md`
-- `WEAKEST_CASE_BUDGET.md`
+- `PROPOSITION_EXPLICIT_CANDIDATE.md`
+- `THEOREM_STYLE_EXPLICIT_NOTE.md`
+- `CERTIFIED_NUMERICAL_LEDGER.md`
+- `BRANCH_COMPARISON_LEDGER.md`
+- `PROOF_OBLIGATIONS.md`
