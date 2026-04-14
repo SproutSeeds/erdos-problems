@@ -21,6 +21,9 @@
 - Eighteenth refinement: record the imported public-threshold timeline through 2026-03-23 and state explicitly that the optimization target is finite-gap closure, not threshold-lowering in isolation.
 - Nineteenth refinement: choose bounded finite verification as the next closure lane and freeze the first repo artifacts for regimes, certificates, and external verification audit.
 - Twentieth refinement: freeze the operational threshold posture so imported `N0` claims can size the finite remainder without being silently promoted to canonical repo theorem truth.
-- Twenty-first refinement: certify the exact interval `1..10000` by a reproducible maximum-clique scan, giving the bounded-verification lane its first substantial covered interval.
-- Current public pack posture: active route `finite_check_gap_closure`, with asymptotic theorem already in hand, a committed audited candidate package in the repo, and a real exact base interval `1..10000` now covered in the bounded-verification lane.
-- Next maturity threshold: extend verified interval coverage beyond `10000` in the most efficient trustworthy way.
+- Twenty-first refinement: certify the exact interval `1..2000` by a reproducible maximum-clique scan, giving the bounded-verification lane its first genuine covered interval.
+- Twenty-second refinement: extend the exact certificate to `1..3000`, and record that a direct jump to `1..5000` no longer looks cheap enough to treat as the obvious default next move.
+- Twenty-third refinement: rebuild the exact verifier incrementally, compact the witness packet format, and extend the exact certificate all the way to `1..10000`.
+- Twenty-fourth refinement: mine the exact packet for structure, isolate the four-anchor obstruction `{7, 32, 57, 82}` with no failures in `30..10000`, and record that this is the first route that looks theorem-shaped rather than purely computational.
+- Current public pack posture: active route `finite_check_gap_closure`, with asymptotic theorem already in hand, a committed audited candidate package in the repo, a real exact base interval `1..10000`, and a four-anchor theorem candidate now visible in the bounded-verification lane.
+- Next maturity threshold: formalize the four-anchor obstruction lemma and connect it to the breakpoint law suggested by the exact packet.

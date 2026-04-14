@@ -76,19 +76,17 @@ Desired certificate:
 
 ## Current honest posture
 
-- Regime A: exact interval `1..40500` is now frozen in the repo with a reproducible
+- Regime A: first exact interval `1..10000` is now frozen in the repo with a reproducible
   maximum-clique certificate
-- Regime B: endpoint-monotonicity breakpoint certificate and endpoint exact verifier are
-  active over the current exact base; additionally, the full mixed-base structural verifier
-  now gives bounded structural coverage for `7307..20000` by repairing all safe-union
-  failures with exact mixed-base clique checks. The structural lift miner now converts all
-  2646 exact mixed-base rows into a theorem-obligation packet: prove the cross-side matching
-  bound, then lift the `p = 13` and `p = 17` exact-prime margin families.
+- Regime A note: an incremental verifier removed the earlier false cost wall caused by
+  rebuilding the graph and clique search from scratch for each `N`
+- Regime B: not frozen in this repo
 - Regime C: public attempts exist, but some were explicitly criticized on the forum as
   difficult to verify or likely incorrect
 - Regime D: public asymptotic theorem exists; imported explicit thresholds are tracked but not
   yet repo-audited
 
 So the next honest move is to decide whether exact-small-`N` coverage should be extended
-directly beyond `40500`, or whether the next gain comes from auditing imported computation or
+directly beyond `10000`, or whether the next gain comes from
+auditing imported computation or
 switching method class.

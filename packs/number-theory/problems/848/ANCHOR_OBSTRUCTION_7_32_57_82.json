@@ -1,0 +1,293 @@
+{
+  "generatedAt": "2026-04-05T11:59:54.427Z",
+  "method": "anchor_obstruction_scan",
+  "problemId": "848",
+  "parameters": {
+    "anchors": [
+      7,
+      32,
+      57,
+      82
+    ],
+    "threshold": 30,
+    "max": 10000
+  },
+  "summary": {
+    "failureCount": 0,
+    "tailStart": 30,
+    "allCoveredFromThreshold": true,
+    "witnessCounts": {
+      "7": 6187,
+      "32": 2941,
+      "57": 402,
+      "82": 42
+    }
+  },
+  "failures": [],
+  "residueStats": [
+    {
+      "residue": 0,
+      "witnessCounts": {
+        "7": 260,
+        "32": 122,
+        "57": 17,
+        "82": 0
+      },
+      "firstFailure": null,
+      "failureCount": 0
+    },
+    {
+      "residue": 1,
+      "witnessCounts": {
+        "7": 258,
+        "32": 122,
+        "57": 17,
+        "82": 1
+      },
+      "firstFailure": null,
+      "failureCount": 0
+    },
+    {
+      "residue": 2,
+      "witnessCounts": {
+        "7": 258,
+        "32": 122,
+        "57": 17,
+        "82": 1
+      },
+      "firstFailure": null,
+      "failureCount": 0
+    },
+    {
+      "residue": 3,
+      "witnessCounts": {
+        "7": 257,
+        "32": 122,
+        "57": 17,
+        "82": 2
+      },
+      "firstFailure": null,
+      "failureCount": 0
+    },
+    {
+      "residue": 4,
+      "witnessCounts": {
+        "7": 255,
+        "32": 127,
+        "57": 16,
+        "82": 0
+      },
+      "firstFailure": null,
+      "failureCount": 0
+    },
+    {
+      "residue": 5,
+      "witnessCounts": {
+        "7": 260,
+        "32": 118,
+        "57": 18,
+        "82": 3
+      },
+      "firstFailure": null,
+      "failureCount": 0
+    },
+    {
+      "residue": 6,
+      "witnessCounts": {
+        "7": 259,
+        "32": 121,
+        "57": 16,
+        "82": 3
+      },
+      "firstFailure": null,
+      "failureCount": 0
+    },
+    {
+      "residue": 8,
+      "witnessCounts": {
+        "7": 256,
+        "32": 125,
+        "57": 17,
+        "82": 1
+      },
+      "firstFailure": null,
+      "failureCount": 0
+    },
+    {
+      "residue": 9,
+      "witnessCounts": {
+        "7": 258,
+        "32": 120,
+        "57": 19,
+        "82": 2
+      },
+      "firstFailure": null,
+      "failureCount": 0
+    },
+    {
+      "residue": 10,
+      "witnessCounts": {
+        "7": 253,
+        "32": 123,
+        "57": 20,
+        "82": 3
+      },
+      "firstFailure": null,
+      "failureCount": 0
+    },
+    {
+      "residue": 11,
+      "witnessCounts": {
+        "7": 257,
+        "32": 124,
+        "57": 17,
+        "82": 1
+      },
+      "firstFailure": null,
+      "failureCount": 0
+    },
+    {
+      "residue": 12,
+      "witnessCounts": {
+        "7": 258,
+        "32": 123,
+        "57": 17,
+        "82": 1
+      },
+      "firstFailure": null,
+      "failureCount": 0
+    },
+    {
+      "residue": 13,
+      "witnessCounts": {
+        "7": 258,
+        "32": 124,
+        "57": 14,
+        "82": 3
+      },
+      "firstFailure": null,
+      "failureCount": 0
+    },
+    {
+      "residue": 14,
+      "witnessCounts": {
+        "7": 259,
+        "32": 121,
+        "57": 17,
+        "82": 2
+      },
+      "firstFailure": null,
+      "failureCount": 0
+    },
+    {
+      "residue": 15,
+      "witnessCounts": {
+        "7": 258,
+        "32": 124,
+        "57": 15,
+        "82": 2
+      },
+      "firstFailure": null,
+      "failureCount": 0
+    },
+    {
+      "residue": 16,
+      "witnessCounts": {
+        "7": 256,
+        "32": 124,
+        "57": 17,
+        "82": 2
+      },
+      "firstFailure": null,
+      "failureCount": 0
+    },
+    {
+      "residue": 17,
+      "witnessCounts": {
+        "7": 258,
+        "32": 123,
+        "57": 17,
+        "82": 1
+      },
+      "firstFailure": null,
+      "failureCount": 0
+    },
+    {
+      "residue": 18,
+      "witnessCounts": {
+        "7": 257,
+        "32": 122,
+        "57": 15,
+        "82": 5
+      },
+      "firstFailure": null,
+      "failureCount": 0
+    },
+    {
+      "residue": 19,
+      "witnessCounts": {
+        "7": 259,
+        "32": 121,
+        "57": 16,
+        "82": 3
+      },
+      "firstFailure": null,
+      "failureCount": 0
+    },
+    {
+      "residue": 20,
+      "witnessCounts": {
+        "7": 257,
+        "32": 125,
+        "57": 17,
+        "82": 0
+      },
+      "firstFailure": null,
+      "failureCount": 0
+    },
+    {
+      "residue": 21,
+      "witnessCounts": {
+        "7": 260,
+        "32": 123,
+        "57": 13,
+        "82": 3
+      },
+      "firstFailure": null,
+      "failureCount": 0
+    },
+    {
+      "residue": 22,
+      "witnessCounts": {
+        "7": 261,
+        "32": 119,
+        "57": 19,
+        "82": 0
+      },
+      "firstFailure": null,
+      "failureCount": 0
+    },
+    {
+      "residue": 23,
+      "witnessCounts": {
+        "7": 259,
+        "32": 121,
+        "57": 18,
+        "82": 1
+      },
+      "firstFailure": null,
+      "failureCount": 0
+    },
+    {
+      "residue": 24,
+      "witnessCounts": {
+        "7": 256,
+        "32": 125,
+        "57": 16,
+        "82": 2
+      },
+      "firstFailure": null,
+      "failureCount": 0
+    }
+  ]
+}

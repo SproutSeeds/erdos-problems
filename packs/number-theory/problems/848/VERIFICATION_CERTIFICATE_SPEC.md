@@ -40,6 +40,9 @@ Any bounded-verification claim for Problem `848` should attach a certificate wit
   - a second script, proof note, or reviewer confirmation
 - `cost_profile`
   - rough runtime or proof complexity
+- `witness_encoding`
+  - if the certificate omits raw witness lists because they are derivable, state that
+    encoding explicitly, for example "pure residue class mod 25 when possible"
 
 ## Rejection triggers
 

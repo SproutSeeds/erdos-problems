@@ -38,14 +38,9 @@ What success would look like:
 - the remaining uncovered range shrinks monotonically
 
 Current progress:
-- the repo now has an exact small-`N` certificate for `1..40500`
-- the repo now has a bounded full mixed-base structural verifier for `7307..20000`;
-  it certifies 18522 structural rows, repairs 2646 safe-union failures by exact mixed-base
-  clique checks over 137706 threatening active outsiders, and records zero mixed failures
-- the repo now has a structural lift miner for the full mixed-base verifier; it mines all
-  2646 exact mixed rows, identifies `p = 13` and `p = 17` as the exact-prime pressure lane,
-  and records the next theorem obligations as cross-side matching followed by exact-prime
-  margin lift
+- the repo now has an exact small-`N` certificate for `1..10000`
+- an incremental verifier replaced the misleading earlier cost wall and made larger exact
+  tranches practical again
 
 What this lane is not:
 - not brute force to `2.64 x 10^17`

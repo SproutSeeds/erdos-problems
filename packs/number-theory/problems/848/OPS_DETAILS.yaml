@@ -4,251 +4,211 @@ routes:
   - route_id: finite_check_gap_closure
     title: Finite-Check Gap Closure
     status: active
-    summary: Convert the sufficiently-large-N theorem into a complete all-N
-      resolution without overstating what is already closed or confusing
-      imported thresholds with repo-owned claims.
-    why_now: The share package is already committed, the bounded-verification lane
-      is now frozen, and the repo has a first verified interval.
-    next_move: Decide whether to extend exact verified coverage beyond `40500` or
-      switch method class.
+    summary: Convert the sufficiently-large-N theorem into a complete all-N resolution without overstating what is already closed or confusing imported thresholds with repo-owned claims.
+    why_now: The share package is already committed, the bounded-verification lane is now frozen, and the repo has a first verified interval.
+    next_move: Promote the four-anchor obstruction from recon to a proof-shaped lemma candidate.
   - route_id: external_threshold_tracking
     title: External Threshold Tracking
     status: support
-    summary: Track the best imported public `N0` claims so the finite remainder is
-      sized honestly.
-    why_now: Public threshold improvements change the scale of the remaining bounded
-      verification problem.
-    next_move: Keep the 2026-03-21 to 2026-03-23 imported timeline current without
-      silently adopting it as canonical repo truth.
+    summary: Track the best imported public `N0` claims so the finite remainder is sized honestly.
+    why_now: Public threshold improvements change the scale of the remaining bounded verification problem.
+    next_move: Keep the 2026-03-21 to 2026-03-23 imported timeline current without silently adopting it as canonical repo truth.
   - route_id: bounded_finite_verification
     title: Bounded Finite Verification
     status: active_support
-    summary: Reduce the finite remainder directly once a threshold is trusted enough
-      to be operationally useful.
-    why_now: Lowering `N0` matters because it reduces this lane, not because
-      "smallest threshold" is the whole problem.
-    next_move: Build on the exact `1..40500` base interval and decide the next
-      extension rule.
+    summary: Reduce the finite remainder directly once a threshold is trusted enough to be operationally useful.
+    why_now: Lowering `N0` matters because it reduces this lane, not because "smallest threshold" is the whole problem.
+    next_move: Build on the exact `1..10000` base interval by extracting a structural theorem rather than defaulting to another raw interval.
   - route_id: formalization_coverage_audit
     title: Formalization Coverage Audit
     status: support
-    summary: Determine exactly what the public Lean files certify and what finite
-      remainder they leave open.
-    why_now: Formalization chatter is useful support evidence, but it should not be
-      mistaken for full closure.
+    summary: Determine exactly what the public Lean files certify and what finite remainder they leave open.
+    why_now: Formalization chatter is useful support evidence, but it should not be mistaken for full closure.
     next_move: Keep this as support context until the threshold ledger is frozen.
 tickets:
   - ticket_id: N848
-    title: Close the decidable gap without confusing imported threshold progress and
-      repo-owned candidate work
+    title: Close the decidable gap without confusing imported threshold progress and repo-owned candidate work
     route_id: finite_check_gap_closure
     status: active
-    summary: The repo now has a committed review package for its audited `exp(1420)`
-      candidate, a chosen bounded-verification lane, and an exact verified base
-      interval `1..40500`. The live question is how to extend coverage from that
-      foothold.
-    current_blocker: The repo has not yet chosen whether the next interval extension
-      should stay in the exact clique-scan regime or switch to a different
-      verification method.
-    next_move: Close `N848.G1.A21`.
+    summary: The repo now has a committed review package for its audited `exp(1420)` candidate, a chosen bounded-verification lane, an exact verified base interval `1..10000`, and a four-anchor obstruction candidate. The live question is how to turn that structure into a proof.
+    current_blocker: The repo has not yet promoted the four-anchor obstruction from empirical recon into a proof-shaped lemma with clear obligations and a breakpoint consequence.
+    next_move: Close `N848.G1.A24`.
   - ticket_id: N848F
     title: Audit public formalization coverage
     route_id: formalization_coverage_audit
     status: support
-    summary: Separate asymptotic Lean coverage from finite sample checks and full
-      closure claims.
-    current_blocker: The current dossier only records public chatter, not a precise
-      coverage map.
+    summary: Separate asymptotic Lean coverage from finite sample checks and full closure claims.
+    current_blocker: The current dossier only records public chatter, not a precise coverage map.
     next_move: Keep as a support lane until the main threshold ledger is stable.
 atoms:
   - atom_id: N848.G1.A1
-    title: Enumerate every sufficiently-large input in Sawhney's proof and classify
-      it as explicit, weakly explicit, or existential
+    title: Enumerate every sufficiently-large input in Sawhney's proof and classify it as explicit, weakly explicit, or existential
     route_id: finite_check_gap_closure
     ticket_id: N848
     status: done
     summary: The threshold ledger is now frozen in canonical pack notes.
     next_move: Keep as support context for the extraction checklist.
   - atom_id: N848.G1.A2
-    title: Record the weakest margin case and extract the checklist for making the
-      threshold explicit
+    title: Record the weakest margin case and extract the checklist for making the threshold explicit
     route_id: finite_check_gap_closure
     ticket_id: N848
     status: done
-    summary: The weakest branch and its first extraction checklist are now frozen in
-      canonical pack notes.
-    next_move: Use the weakest-case budget sheet as the next source-backed frontier
-      surface.
+    summary: The weakest branch and its first extraction checklist are now frozen in canonical pack notes.
+    next_move: Use the weakest-case budget sheet as the next source-backed frontier surface.
   - atom_id: N848.G1.A3
-    title: Freeze the usable slack behind the `0.0377` branch before spending it on
-      explicit error terms
+    title: Freeze the usable slack behind the `0.0377` branch before spending it on explicit error terms
     route_id: finite_check_gap_closure
     ticket_id: N848
     status: done
     summary: The branch budget is now numerically frozen in canonical pack notes.
-    next_move: Use the frozen branch slack as the target budget for explicit
-      remainder extraction.
+    next_move: Use the frozen branch slack as the target budget for explicit remainder extraction.
   - atom_id: N848.G1.A4
-    title: Make the Lemma 2.1 remainder terms explicit against the frozen
-      weakest-branch budget
+    title: Make the Lemma 2.1 remainder terms explicit against the frozen weakest-branch budget
     route_id: finite_check_gap_closure
     ticket_id: N848
     status: done
-    summary: Lemma 2.1 now has a one-sided explicit remainder ledger, and the
-      large-prime tail has emerged as the live bottleneck.
-    next_move: Use the new ledger to decide whether the next move is a sharper
-      prime-tail treatment or a different truncation parameter.
+    summary: Lemma 2.1 now has a one-sided explicit remainder ledger, and the large-prime tail has emerged as the live bottleneck.
+    next_move: Use the new ledger to decide whether the next move is a sharper prime-tail treatment or a different truncation parameter.
   - atom_id: N848.G1.A5
-    title: Decide whether the next Lemma 2.1 move is a sharper prime-tail bound or a
-      different truncation parameter
+    title: Decide whether the next Lemma 2.1 move is a sharper prime-tail bound or a different truncation parameter
     route_id: finite_check_gap_closure
     ticket_id: N848
     status: done
-    summary: The truncation scan shows that the one-sided route can raise `T` far
-      beyond `sqrt(log N)` without waking the discrete remainder, so the next
-      move is to enlarge `T` before chasing a deeper tail theorem.
+    summary: The truncation scan shows that the one-sided route can raise `T` far beyond `sqrt(log N)` without waking the discrete remainder, so the next move is to enlarge `T` before chasing a deeper tail theorem.
     next_move: Use a larger `T` in the full weakest-branch bookkeeping.
   - atom_id: N848.G1.A6
-    title: Carry a larger truncation parameter through Lemma 2.2 and the full
-      weakest-branch budget
+    title: Carry a larger truncation parameter through Lemma 2.2 and the full weakest-branch budget
     route_id: finite_check_gap_closure
     ticket_id: N848
     status: done
-    summary: Lemma 2.2 is now explicit at the witness-budget level, including the
-      prime-count term, and the `T = 250` witness retains about `3.66e-4` room
-      for final `eta` and bookkeeping.
+    summary: Lemma 2.2 is now explicit at the witness-budget level, including the prime-count term, and the `T = 250` witness retains about `3.66e-4` room for final `eta` and bookkeeping.
     next_move: Turn that witness budget into a line-by-line explicit branch assembly.
   - atom_id: N848.G1.A7
-    title: Turn the `T = 250` witness budget into a line-by-line explicit
-      weakest-branch assembly
+    title: Turn the `T = 250` witness budget into a line-by-line explicit weakest-branch assembly
     route_id: finite_check_gap_closure
     ticket_id: N848
     status: done
-    summary: The weakest branch now has a line-by-line witness ledger at `T = 250`
-      with a working choice `eta = 10^-4` and about `2.66e-4` visible reserve.
+    summary: The weakest branch now has a line-by-line witness ledger at `T = 250` with a working choice `eta = 10^-4` and about `2.66e-4` visible reserve.
     next_move: Carry the same witness into the other public proof branches.
   - atom_id: N848.G1.A8
-    title: Check whether the weakest-branch witness already closes the other public
-      branches
+    title: Check whether the weakest-branch witness already closes the other public branches
     route_id: finite_check_gap_closure
     ticket_id: N848
     status: done
-    summary: The shared witness also closes the branches `0.0358`, `0.0336`, and
-      `0.0294` at the repo's current explicit level, so no new branch bottleneck
-      has appeared.
-    next_move: Package the shared witness into a proposition-level explicit
-      candidate note.
+    summary: The shared witness also closes the branches `0.0358`, `0.0336`, and `0.0294` at the repo's current explicit level, so no new branch bottleneck has appeared.
+    next_move: Package the shared witness into a proposition-level explicit candidate note.
   - atom_id: N848.G1.A9
     title: Package the shared witness into a proposition-level explicit candidate
     route_id: finite_check_gap_closure
     ticket_id: N848
     status: done
-    summary: The repo now has a proposition-level explicit witness candidate with
-      claim-safe wording.
-    next_move: Separate proof obligations from exposition obligations before any
-      stronger claim is made.
+    summary: The repo now has a proposition-level explicit witness candidate with claim-safe wording.
+    next_move: Separate proof obligations from exposition obligations before any stronger claim is made.
   - atom_id: N848.G1.A10
-    title: Write the proof-obligation ledger for the proposition-level explicit
-      candidate
+    title: Write the proof-obligation ledger for the proposition-level explicit candidate
     route_id: finite_check_gap_closure
     ticket_id: N848
     status: done
-    summary: The remaining obligations are now split cleanly into mathematical
-      hardening work versus presentation-quality work.
+    summary: The remaining obligations are now split cleanly into mathematical hardening work versus presentation-quality work.
     next_move: Harden the decimal inputs used by the current witness.
   - atom_id: N848.G1.A11
     title: Replace the displayed decimal inputs with certified numerical bounds
     route_id: finite_check_gap_closure
     ticket_id: N848
     status: done
-    summary: The current shared witness now has a conservative machine-interval
-      ledger for its main numerical inputs.
+    summary: The current shared witness now has a conservative machine-interval ledger for its main numerical inputs.
     next_move: Assemble the hardened witness into a theorem-style note.
   - atom_id: N848.G1.A12
     title: Assemble the hardened witness into a theorem-style explicit proof note
     route_id: finite_check_gap_closure
     ticket_id: N848
     status: done
-    summary: The route now has a theorem-shaped proof artifact built from the
-      numerically hardened shared witness candidate.
+    summary: The route now has a theorem-shaped proof artifact built from the numerically hardened shared witness candidate.
     next_move: Decide where to surface that artifact next.
   - atom_id: N848.G1.A13
     title: Decide how to surface the theorem-style repo candidate
     route_id: finite_check_gap_closure
     ticket_id: N848
     status: done
-    summary: The theorem-style candidate now lives in both the paper bundle and a
-      dossier-level public review artifact, with a short share-ready summary.
+    summary: The theorem-style candidate now lives in both the paper bundle and a dossier-level public review artifact, with a short share-ready summary.
     next_move: Decide whether to commit and open review on the surfaced package.
   - atom_id: N848.G1.A14
     title: Prepare the surfaced candidate package for commit and review
     route_id: finite_check_gap_closure
     ticket_id: N848
     status: done
-    summary: The paper bundle now has drafted review-facing sections, the surfaced
-      package has no remaining placeholder text, and the safety checks are
-      green.
+    summary: The paper bundle now has drafted review-facing sections, the surfaced package has no remaining placeholder text, and the safety checks are green.
     next_move: Turn the prepared package into a clean review unit.
   - atom_id: N848.G1.A15
     title: Commit or open review on the surfaced candidate package
     route_id: finite_check_gap_closure
     ticket_id: N848
     status: done
-    summary: The review-ready 848 package is now committed and pushed on `main`, so
-      this is no longer the live frontier.
-    next_move: Record the imported threshold timeline and restate the optimization
-      target clearly.
+    summary: The review-ready 848 package is now committed and pushed on `main`, so this is no longer the live frontier.
+    next_move: Record the imported threshold timeline and restate the optimization target clearly.
   - atom_id: N848.G1.A16
     title: Record the imported threshold timeline and clarify the closure objective
     route_id: finite_check_gap_closure
     ticket_id: N848
     status: done
-    summary: The dossier now distinguishes imported public thresholds from the
-      repo's own audited candidate and states clearly that the real objective is
-      finite-gap closure.
-    next_move: Choose the next closure lane under the best imported threshold
-      currently tracked.
+    summary: The dossier now distinguishes imported public thresholds from the repo's own audited candidate and states clearly that the real objective is finite-gap closure.
+    next_move: Choose the next closure lane under the best imported threshold currently tracked.
   - atom_id: N848.G1.A17
     title: Choose the next closure lane under the best imported threshold
     route_id: finite_check_gap_closure
     ticket_id: N848
     status: done
-    summary: The repo has chosen bounded finite verification as the next closure
-      lane under the best imported threshold currently tracked.
+    summary: The repo has chosen bounded finite verification as the next closure lane under the best imported threshold currently tracked.
     next_move: Freeze the bounded finite-verification program and the certificate spec.
   - atom_id: N848.G1.A18
     title: Freeze the bounded finite-verification program and certificate surface
     route_id: finite_check_gap_closure
     ticket_id: N848
     status: done
-    summary: The verification plan, regime split, certificate spec, and external
-      audit ledger are now part of the live handoff surface.
+    summary: The verification plan, regime split, certificate spec, and external audit ledger are now part of the live handoff surface.
     next_move: Freeze the operational threshold posture and the first covered interval.
   - atom_id: N848.G1.A19
     title: Freeze the operational threshold posture for the bounded-verification lane
     route_id: finite_check_gap_closure
     ticket_id: N848
     status: done
-    summary: The repo now distinguishes operational use of the imported `2.64 x
-      10^17` threshold from canonical repo-owned theorem language.
+    summary: The repo now distinguishes operational use of the imported `2.64 x 10^17` threshold from canonical repo-owned theorem language.
     next_move: Build the first exact covered interval.
   - atom_id: N848.G1.A20
     title: Build the first exact covered interval for bounded verification
     route_id: finite_check_gap_closure
     ticket_id: N848
     status: done
-    summary: The repo now has a reproducible exact certificate showing that the
-      conjectured extremal size is correct for every `N` in `1..40500`.
-    next_move: Decide whether to extend the exact clique scan beyond `40500` or
-      change method class.
+    summary: The repo now has a reproducible exact certificate showing that the conjectured extremal size is correct for every `N` in `1..2000`.
+    next_move: Decide whether to extend the exact clique scan beyond `2000` or change method class.
   - atom_id: N848.G1.A21
-    title: Choose the next verified interval extension beyond `40500`
+    title: Extend the exact verified base interval beyond `2000`
+    route_id: finite_check_gap_closure
+    ticket_id: N848
+    status: done
+    summary: The repo now has a second exact certificate extending the bounded-verification base interval from `1..2000` to `1..3000`, while also showing that a blind jump to `1..5000` is no longer cheap enough to count as the default next move.
+    next_move: Choose the post-`3000` extension policy.
+  - atom_id: N848.G1.A22
+    title: Rebuild the exact verifier and remove the false post-`3000` policy wall
+    route_id: finite_check_gap_closure
+    ticket_id: N848
+    status: done
+    summary: The exact verifier now uses an incremental update rule, the compact certificate format keeps packets small, and the exact bounded-verification base interval now reaches `1..10000`.
+    next_move: Choose the post-`10000` interval policy.
+  - atom_id: N848.G1.A23
+    title: Choose the post-`10000` verified interval policy
+    route_id: finite_check_gap_closure
+    ticket_id: N848
+    status: done
+    summary: >-
+      The repo has chosen the structure-first route: use the `1..10000` exact
+      packet as evidence for a four-anchor obstruction and a breakpoint law,
+      rather than defaulting immediately to a larger raw interval.
+    next_move: Formalize the four-anchor lemma candidate.
+  - atom_id: N848.G1.A24
+    title: Formalize the four-anchor obstruction lemma candidate
     route_id: finite_check_gap_closure
     ticket_id: N848
     status: ready
-    summary: The bounded-verification lane now starts from a real certified base
-      interval `1..40500`. The next choice is whether the exact clique scan
-      still has enough headroom to extend that base efficiently, or whether the
-      next gain should come from breakpoint or audit methods.
-    next_move: Decide whether to extend exact verified coverage beyond `40500` or
-      switch method class.
+    summary: The repo now has a four-anchor obstruction candidate with no failures in `30..10000`, plus a minimality ledger showing that `{7, 32, 57, 82}` is unusually strong among small anchor sets. The next move is to package that into a proof-shaped lemma with explicit obligations.
+    next_move: Write the theorem candidate and proof-obligation surface for the four-anchor obstruction.
