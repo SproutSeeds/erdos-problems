@@ -1,0 +1,112 @@
+{
+  "schema": "erdos.number_theory.p848_dynamic_margin_proof/1",
+  "generatedAt": "2026-04-12T21:04:03Z",
+  "problemId": "848",
+  "proofId": "p848_dynamic_margin_proof_D2_p13_dynamic_margin_exact_mixed_matching_injection_selected_cross_squarefree_lift_outP2_70_out25_23_smaller_side7_outs",
+  "atomId": "D2_p13_dynamic_margin_exact_mixed_matching_injection_selected_cross_squarefree_lift_outP2_70_out25_23_smaller_side7_outsider_6323",
+  "parentAtomId": "D2_p13_dynamic_margin_exact_mixed_matching_injection_residue_direct_selector_lift_outP2_70_out25_23_smaller_side7_outsider_6323",
+  "status": "bounded_selected_cross_squarefree_falsified_exception_menu_needed",
+  "proofKind": "bounded_first_square_divisor_exception",
+  "promotesAllNClaim": false,
+  "splitKey": "outP2=70|out25=23|smaller=side7",
+  "outsider": 6323,
+  "selectorRule": {
+    "name": "previous_93_mod100_side18_slot",
+    "deltaSet": [
+      -14,
+      -39,
+      -64,
+      -89
+    ],
+    "selectedRightFormula": "right is the largest integer below left with right == 93 (mod 100)"
+  },
+  "boundedPrefixReplay": {
+    "minLeft": 7307,
+    "checkedSide7CompatibleRowsUntilFailure": 11,
+    "coveredBeforeFailure": 10,
+    "firstFailureLeft": 8107
+  },
+  "firstSquareDivisorException": {
+    "left": 8107,
+    "right": 8093,
+    "delta": -14,
+    "leftMod25": 7,
+    "rightMod25": 18,
+    "leftMod100": 7,
+    "rightMod100": 93,
+    "leftOutsiderCompatibility": {
+      "productPlusOne": 51260562,
+      "squareWitness": {
+        "prime": 3,
+        "square": 9,
+        "quotient": 5695618
+      }
+    },
+    "rightOutsiderCompatibility": {
+      "productPlusOne": 51172040,
+      "squareWitness": {
+        "prime": 2,
+        "square": 4,
+        "quotient": 12793010
+      }
+    },
+    "selectedCrossProductPlusOne": 65609952,
+    "selectedCrossSquareDivisor": {
+      "prime": 2,
+      "square": 4,
+      "quotient": 16402488
+    },
+    "interpretation": "The four-slot endpoint selector is false as a selected cross-squarefree lift: for left == 8107, the selected endpoint is active and side18-compatible, but left * right + 1 is not squarefree."
+  },
+  "localRepairProbe": {
+    "searchWindow": {
+      "minDelta": -5000,
+      "deltaCongruenceMod25": 11
+    },
+    "firstValidRepair": {
+      "left": 8107,
+      "right": 7918,
+      "delta": -189,
+      "leftMod100": 7,
+      "rightMod100": 18,
+      "rightOutsiderCompatibility": {
+        "productPlusOne": 50065515,
+        "squareWitness": {
+          "prime": 3,
+          "square": 9,
+          "quotient": 5562835
+        }
+      },
+      "crossProductPlusOne": 64191227,
+      "crossSquarefree": true
+    },
+    "interpretation": "The first failure has a small direct repair, but this packet does not promote delta -189 as a new singleton rung. The durable next move is an exception/replacement menu for the selected-cross-squarefree obstruction class."
+  },
+  "correctionNotes": [
+    "The previous direct-selector sublemma remains valid: endpoint existence is proved by the mod-4 four-slot rule.",
+    "This packet falsifies only the stronger selected cross-squarefree claim for that fixed endpoint selector.",
+    "A replacement menu must handle the square-divisor exception before the lane can move to collision-free matching updates."
+  ],
+  "proofBoundary": "This is a bounded falsifier packet, not an all-N proof of the replacement rule. It records the first selected endpoint whose cross product is non-squarefree and seeds a replacement-menu theorem target.",
+  "nextSubatom": {
+    "atomId": "D2_p13_dynamic_margin_exact_mixed_matching_injection_selected_cross_squarefree_exception_menu_outP2_70_out25_23_smaller_side7_outsider_6323_left_8107",
+    "status": "needed",
+    "term": "outsider-6323 selected cross-squarefree exception menu",
+    "statement": "Build a replacement menu for the selected cross-squarefree obstruction class starting at left=8107: replace the failing previous-93 endpoint by a side18-compatible squarefree-cross endpoint such as the observed delta -189 repair, or emit the first side7-compatible row with no bounded replacement.",
+    "completionRule": "A symbolic replacement menu handles the selected endpoint square-divisor exceptions without adding singleton deltas, or the first uncovered replacement row becomes the next deterministic packet.",
+    "seedException": {
+      "left": 8107,
+      "failingRight": 8093,
+      "repairRight": 7918,
+      "repairDelta": -189
+    },
+    "remainingAfterDischarge": [
+      "selector_collision_or_augmentation_lift"
+    ],
+    "proofBoundary": "The replacement menu may prove a finite residue rule or emit a smaller obstruction; do not treat the local delta -189 repair as an all-N branch."
+  },
+  "nextAction": [
+    "Prove D2_p13_dynamic_margin_exact_mixed_matching_injection_selected_cross_squarefree_exception_menu_outP2_70_out25_23_smaller_side7_outsider_6323_left_8107 next.",
+    "Do not spawn a singleton direct-delta -189 rung unless the exception-menu task itself emits it as a bounded obstruction."
+  ]
+}

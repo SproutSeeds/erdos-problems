@@ -1,0 +1,167 @@
+{
+  "atomId": "D2_p13_dynamic_margin_exact_mixed_matching_injection_selected_cross_squarefree_exception_period_shifted_endpoint_menu_p7_shift_q17_residual_lift_outP2_70_out25_23_smaller_side7_outsider_6323",
+  "status": "bounded_q17_residual_falsified_cross_bad_fallback_needed",
+  "proofId": "p848_dynamic_margin_exact_mixed_matching_injection_selected_cross_squarefree_exception_period_shifted_endpoint_menu_p7_shift_q17_residual_lift",
+  "proofKind": "bounded_p7_shift_q17_residual_cross_bad_obstruction",
+  "generatedAt": "2026-04-12T23:06:00Z",
+  "dependsOn": [
+    "D2_p13_dynamic_margin_exact_mixed_matching_injection_selected_cross_squarefree_exception_period_shifted_endpoint_menu_squarefree_sieve_lift_outP2_70_out25_23_smaller_side7_outsider_6323"
+  ],
+  "statement": "The bounded p7-shift plus q17 residual fallback is false as a standalone cross-squarefree selector: the first residual-class row after N=20000000 where the q17 endpoint is cross-blocked is left=20016257.",
+  "endpointFormulae": {
+    "p7": {
+      "kFormula": "k_7(left) = (2*left - 27) mod 49",
+      "dFormula": "d_7(left) = -14 - 25*k_7(left)",
+      "compatibility": "49 divides 6323*(left + d_7(left)) + 1"
+    },
+    "q17": {
+      "kFormula": "k_17(left) = (185*left + 47) mod 289",
+      "dFormula": "d_17(left) = -14 - 25*k_17(left)",
+      "compatibility": "289 divides 6323*(left + d_17(left)) + 1"
+    }
+  },
+  "residualClass": {
+    "description": "left == 5882 mod 11025",
+    "modulus": 11025,
+    "residue": 5882,
+    "leftMod1225": 982,
+    "p7Delta": -664,
+    "p7K": 26
+  },
+  "boundedResidualScan": {
+    "priorProfileMaxN": 20000000,
+    "scanKind": "targeted_residual_class_exact_square_divisor_check",
+    "checkedRowsAfterPriorBoundBeforeFailure": 2,
+    "certifiedRows": [
+      {
+        "left": 20005232,
+        "leftMod11025": 5882,
+        "q17K": 154,
+        "q17Delta": -3864,
+        "q17Right": 20001368,
+        "q17RightMod25": 18,
+        "q17CompatibilityMod289": 0,
+        "crossProductPlusOne": "400132007157377",
+        "squareDivisorPrime": null,
+        "squarefree": true,
+        "primeCountChecked": 1270807,
+        "maxPrimeChecked": 20003299
+      },
+      {
+        "left": 20016257,
+        "leftMod11025": 5882,
+        "q17K": 17,
+        "q17Delta": -439,
+        "q17Right": 20015818,
+        "q17RightMod25": 18,
+        "q17CompatibilityMod289": 0,
+        "crossProductPlusOne": "400641757153227",
+        "squareDivisorPrime": 3,
+        "squareDivisor": 9,
+        "squarefree": false,
+        "primeCountChecked": 1271557,
+        "maxPrimeChecked": 20016037
+      }
+    ],
+    "firstQ17CrossBadRow": {
+      "left": 20016257,
+      "right": 20015818,
+      "delta": -439,
+      "k": 17,
+      "squareDivisorPrime": 3,
+      "squareDivisor": 9,
+      "crossProductPlusOne": "400641757153227"
+    }
+  },
+  "localFallbackSeed": {
+    "left": 20016257,
+    "seedWindow": 10000,
+    "candidateEndpoints": [
+      {
+        "prime": 11,
+        "k": 117,
+        "delta": -2939,
+        "right": 20013318,
+        "rightMod25": 18,
+        "compatibilityModPrimeSquare": 0,
+        "smallSquareDivisorPrime": null,
+        "crossProductPlusOne": "400591716510727",
+        "primeCountChecked": 1271482,
+        "maxPrimeChecked": 20014787,
+        "boundedSquarefree": true
+      },
+      {
+        "prime": 19,
+        "k": 83,
+        "delta": -2089,
+        "right": 20014168,
+        "rightMod25": 18,
+        "compatibilityModPrimeSquare": 0,
+        "smallSquareDivisorPrime": null,
+        "crossProductPlusOne": "400608730329177",
+        "primeCountChecked": 1271507,
+        "maxPrimeChecked": 20015212,
+        "boundedSquarefree": true
+      },
+      {
+        "prime": 23,
+        "k": 183,
+        "delta": -4589,
+        "right": 20011668,
+        "rightMod25": 18,
+        "compatibilityModPrimeSquare": 0,
+        "smallSquareDivisorPrime": null,
+        "crossProductPlusOne": "400558689686677",
+        "primeCountChecked": 1271433,
+        "maxPrimeChecked": 20013962,
+        "boundedSquarefree": true
+      },
+      {
+        "prime": 31,
+        "k": 345,
+        "delta": -8639,
+        "right": 20007618,
+        "rightMod25": 18,
+        "compatibilityModPrimeSquare": 0,
+        "smallSquareDivisorPrime": null,
+        "crossProductPlusOne": "400477623845827",
+        "primeCountChecked": 1271316,
+        "maxPrimeChecked": 20011937,
+        "boundedSquarefree": true
+      }
+    ]
+  },
+  "claims": {
+    "provesAllN": false,
+    "provesCollisionFreeMatching": false,
+    "provesQ17ResidualFallback": false,
+    "falsifiesStandaloneQ17ResidualFallback": true,
+    "emitsNextFallbackSelector": true
+  },
+  "proofBoundary": "This packet only falsifies the standalone q17 residual fallback at the first certified residual-class row after the 20M bounded handoff. The local fallback seed is not an all-N proof and does not claim collision-free online matching.",
+  "nextSubatom": {
+    "atomId": "D2_p13_dynamic_margin_exact_mixed_matching_injection_selected_cross_squarefree_exception_period_shifted_endpoint_menu_q17_residual_cross_bad_fallback_lift_outP2_70_out25_23_smaller_side7_outsider_6323",
+    "status": "needed",
+    "term": "outsider-6323 q17 residual cross-bad fallback selector lift",
+    "statement": "Prove that every q17 residual cross-bad row has a squarefree side18-compatible fallback endpoint in the small-prime local menu, or emit the first row with no bounded fallback endpoint.",
+    "completionRule": "A symbolic fallback selector covers q17 residual cross-bad rows without singleton repairs, or the first fully fallback-blocked row becomes the next deterministic packet.",
+    "dependsOnSublemma": "selected_cross_squarefree_exception_period_shifted_endpoint_menu_p7_shift_q17_residual_lift",
+    "seedPrimeSet": [
+      11,
+      19,
+      23,
+      31
+    ],
+    "seedEscapeWindow": 10000,
+    "firstCrossBadSeed": {
+      "left": 20016257,
+      "q17Right": 20015818,
+      "q17Delta": -439,
+      "q17SquareDivisorPrime": 3
+    },
+    "remainingAfterDischarge": [
+      "selector_collision_or_augmentation_lift"
+    ],
+    "proofBoundary": "This fallback subatom is still cross-squarefree endpoint selection only. It must not claim all-N coverage from bounded seeds or collision-free matching."
+  }
+}

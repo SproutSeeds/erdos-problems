@@ -1,0 +1,70 @@
+{
+  "schema": "erdos.p848_dynamic_margin_exact_mixed_symbolic_lift_reduction/1",
+  "generatedAt": "2026-04-12T19:18:31Z",
+  "problemId": "848",
+  "atomId": "D2_p13_dynamic_margin_exact_mixed_symbolic_lift_outP2_70_out25_23_smaller_side7_outsider_6323",
+  "splitKey": "outP2=70|out25=23|smaller=side7",
+  "outsider": 6323,
+  "outsiderMod169": 70,
+  "outsiderMod25": 23,
+  "status": "symbolic_lift_reduced_to_matching_injection_and_margin_floor",
+  "promotesAllNClaim": false,
+  "proofKind": "theorem_obligation_decomposition",
+  "dependsOn": [
+    "D2_p13_dynamic_margin_exact_mixed_successor_outP2_70_out25_23_smaller_side7_outsider_6323"
+  ],
+  "targetInequality": "matching saturates the smaller side and strictBaseThreshold - mixedBaseCliqueSize >= 1 for every future row in the outsider-6323 family",
+  "boundedProfileUsed": {
+    "sourceAtomId": "D2_p13_dynamic_margin_exact_mixed_successor_outP2_70_out25_23_smaller_side7_outsider_6323",
+    "rowCount": 277,
+    "nRange": "7307..10000",
+    "allRowsSaturateSmallerSide": true,
+    "allRowsHavePositiveExactMixedMargin": true,
+    "exactMixedMarginRange": "18..31",
+    "proofBoundary": "The bounded profile motivates the decomposition but does not prove either symbolic sublemma."
+  },
+  "symbolicReduction": {
+    "compatibleSides": {
+      "smallerSide": "side7",
+      "largerSide": "side18",
+      "boundedSide7CountRange": "105..145",
+      "boundedSide18CountRange": "110..148",
+      "boundedRowsAllHaveSide7AtMostSide18": true
+    },
+    "matchingSaturationSublemma": {
+      "atomId": "D2_p13_dynamic_margin_exact_mixed_matching_injection_outP2_70_out25_23_smaller_side7_outsider_6323",
+      "statement": "Construct an injective matching from every side7-compatible base vertex for outsider 6323 into a distinct side18-compatible base vertex along missing cross edges of the side7/side18 compatibility graph.",
+      "effect": "If proved, matchingSizeInMissingCrossGraph = side7Count and mixedBaseCliqueSize = side18Count for this family."
+    },
+    "marginFloorSublemma": {
+      "atomId": "D2_p13_dynamic_margin_exact_mixed_margin_floor_outP2_70_out25_23_smaller_side7_outsider_6323",
+      "statement": "Prove strictBaseThreshold - side18Count >= 1 for every future row in the same split/outsider family.",
+      "effect": "Together with matching saturation, this gives strictBaseThreshold - mixedBaseCliqueSize >= 1."
+    },
+    "composition": [
+      "matching saturation gives mixedBaseCliqueSize = side7Count + side18Count - side7Count = side18Count",
+      "the margin-floor sublemma gives strictBaseThreshold - side18Count >= 1",
+      "therefore strictBaseThreshold - mixedBaseCliqueSize >= 1"
+    ]
+  },
+  "nextSubatom": {
+    "atomId": "D2_p13_dynamic_margin_exact_mixed_matching_injection_outP2_70_out25_23_smaller_side7_outsider_6323",
+    "status": "needed",
+    "term": "outsider-6323 exact mixed matching injection",
+    "statement": "Prove the side7-to-side18 missing-cross injection for outsider 6323, or emit the first exact residue/root-universe row where side7 cannot be saturated.",
+    "completionRule": "The matching injection saturates the side7-compatible set for this split family, or the first unmatched residue/root-universe obstruction becomes the next deterministic atom.",
+    "nextAfterDischarge": "D2_p13_dynamic_margin_exact_mixed_margin_floor_outP2_70_out25_23_smaller_side7_outsider_6323"
+  },
+  "remainingSubatoms": [
+    {
+      "atomId": "D2_p13_dynamic_margin_exact_mixed_margin_floor_outP2_70_out25_23_smaller_side7_outsider_6323",
+      "status": "blocked_by_matching_injection",
+      "statement": "After matching saturation is symbolic, prove strictBaseThreshold - side18Count >= 1 for the outsider-6323 family."
+    }
+  ],
+  "proofBoundary": "This packet is a theorem-facing decomposition, not a proof of the exact mixed-margin lift. It records the two symbolic sublemmas needed to promote the bounded outsider-6323 evidence.",
+  "nextTheoremActions": [
+    "Attack D2_p13_dynamic_margin_exact_mixed_matching_injection_outP2_70_out25_23_smaller_side7_outsider_6323 next.",
+    "Do not claim the exact mixed-margin lift until both the matching injection and the strictBaseThreshold - side18Count margin floor are proved symbolically."
+  ]
+}

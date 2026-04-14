@@ -1,0 +1,93 @@
+{
+  "schema": "erdos.p848_dmax_tail_prime_progression_proof/1",
+  "problemId": "848",
+  "atomId": "D2_p13_dmax_tail_q97_progression_outP2_70_out25_23_smaller_side7",
+  "parentTailAtomId": "D2_p13_dmax_tail_recombination_outP2_70_out25_23_smaller_side7",
+  "parentGrowthAtomId": "D2_p13_dmax_growth_outP2_70_out25_23_smaller_side7",
+  "predecessorAtomId": "D2_p13_dmax_tail_q89_progression_outP2_70_out25_23_smaller_side7",
+  "splitKey": "outP2=70|out25=23|smaller=side7",
+  "status": "symbolic_upper_bound_verified",
+  "promotesAllNClaim": false,
+  "proofKind": "two_sided_crt_floor_function_tail_prime_upper_bound",
+  "q": 97,
+  "squareDivisor": 9409,
+  "scope": {
+    "term": "same-prime dMax tail-prime degree contribution",
+    "boundedProfileRange": "7307..12000",
+    "claimBoundary": "This proves only the q=97 tail-prime upper-bound component via two witness-side CRT floor bounds. It does not prove the full dMax tail envelope or any side-count floor."
+  },
+  "witnessBounds": [
+    {
+      "side": "plus",
+      "witnessValue": 1591,
+      "oppositeSide": "minus",
+      "oppositeResidueMod169": 99,
+      "productCondition": "9409 divides 1591*m + 1",
+      "coefficientMod9409": 1591,
+      "requiredOppositeValueMod9409": 2129,
+      "crtProgression": {
+        "variable": "m",
+        "residue": 783076,
+        "modulus": 1590121,
+        "formula": "m = 783076 + 1590121*t",
+        "tLowerBound": 0
+      },
+      "rawCountUpperBound": "max(0, floor((N - 783076) / 1590121) + 1)",
+      "observedCheck": {
+        "N": 12000,
+        "rawFormulaCount": 0,
+        "observedSquareEventCount": 0,
+        "upperBoundPassed": true
+      }
+    },
+    {
+      "side": "minus",
+      "witnessValue": 9563,
+      "oppositeSide": "plus",
+      "oppositeResidueMod169": 70,
+      "productCondition": "9409 divides 9563*m + 1",
+      "coefficientMod9409": 154,
+      "requiredOppositeValueMod9409": 6904,
+      "crtProgression": {
+        "variable": "m",
+        "residue": 279765,
+        "modulus": 1590121,
+        "formula": "m = 279765 + 1590121*t",
+        "tLowerBound": 0
+      },
+      "rawCountUpperBound": "max(0, floor((N - 279765) / 1590121) + 1)",
+      "observedCheck": {
+        "N": 12000,
+        "rawFormulaCount": 0,
+        "observedSquareEventCount": 0,
+        "upperBoundPassed": true
+      }
+    }
+  ],
+  "overlapBoundary": {
+    "status": "raw_floor_bounds_suffice_for_upper_bound",
+    "reason": "Prior-q overlaps, base-residue exclusions, and lower least-square-witness exclusions can only reduce these q=97 raw CRT counts."
+  },
+  "checkedIdentities": [
+    "97^2 = 9409 and 169*9409 = 1590121.",
+    "1591 mod 9409 = 1591 and gcd(1591, 9409) = 1.",
+    "1591*2129 + 1 is divisible by 9409.",
+    "CRT(m = 99 mod 169, m = 2129 mod 9409) gives m = 783076 mod 1590121.",
+    "9563 mod 9409 = 154 and gcd(154, 9409) = 1.",
+    "154*6904 + 1 is divisible by 9409.",
+    "CRT(m = 70 mod 169, m = 6904 mod 9409) gives m = 279765 mod 1590121.",
+    "Both q=97 raw floor functions evaluate to zero at N = 12000, matching the bounded growth profile."
+  ],
+  "nextSubatom": {
+    "atomId": "D2_p13_dmax_tail_q101_progression_outP2_70_out25_23_smaller_side7",
+    "status": "needed",
+    "q": 101,
+    "statement": "Prove the q=101 tail-prime same-prime degree progression upper bound for both witness sides, starting from m = 1382181 mod 1723969 and m = 253570 mod 1723969.",
+    "completionRule": "The q=101 tail contribution is bounded by CRT floor functions for both witnesses, or the next unresolved tail-prime/range becomes the next atom."
+  },
+  "proofBoundary": "This certificate discharges q=97 as a residual tail-prime upper-bound component. It intentionally leaves q=101 open as the next residual tail-prime CRT component.",
+  "nextTheoremActions": [
+    "Attack D2_p13_dmax_tail_q101_progression_outP2_70_out25_23_smaller_side7 next.",
+    "Certify q=101 as a two-sided tail-prime CRT floor-bound component before attempting any aggregate tail estimate."
+  ]
+}

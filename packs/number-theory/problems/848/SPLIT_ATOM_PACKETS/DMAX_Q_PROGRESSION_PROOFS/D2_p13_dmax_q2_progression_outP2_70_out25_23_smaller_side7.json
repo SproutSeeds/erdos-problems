@@ -1,0 +1,156 @@
+{
+  "schema": "erdos.p848_dmax_q_progression_proof/1",
+  "problemId": "848",
+  "atomId": "D2_p13_dmax_q2_progression_outP2_70_out25_23_smaller_side7",
+  "parentGrowthAtomId": "D2_p13_dmax_growth_outP2_70_out25_23_smaller_side7",
+  "splitKey": "outP2=70|out25=23|smaller=side7",
+  "status": "symbolic_upper_bound_verified",
+  "promotesAllNClaim": false,
+  "q": 2,
+  "squareDivisor": 4,
+  "proofKind": "crt_floor_function_upper_bound_with_base_residue_exclusions",
+  "scope": {
+    "term": "same-prime dMax degree contribution",
+    "boundedProfileRange": "7307..12000",
+    "claimBoundary": "This proves only the q=2 square-divisor progression upper bound for the named dMax growth profile. It does not prove the full dMax growth envelope or the all-N side-count floor."
+  },
+  "witnessBounds": [
+    {
+      "side": "plus",
+      "witnessValue": 1591,
+      "oppositeSide": "minus",
+      "oppositeResidueMod169": 99,
+      "productCondition": "4 divides 1591*m + 1",
+      "coefficientMod4": 3,
+      "requiredOppositeValueMod4": 1,
+      "crtProgression": {
+        "variable": "m",
+        "residue": 437,
+        "modulus": 676,
+        "formula": "m = 437 + 676*t",
+        "tLowerBound": 0
+      },
+      "rawCountUpperBound": "max(0, floor((N - 437) / 676) + 1)",
+      "baseResidueExclusions": [
+        {
+          "excludedResidueMod25": 7,
+          "crtResidue": 13957,
+          "crtModulus": 16900,
+          "countFormula": "max(0, floor((N - 13957) / 16900) + 1)"
+        },
+        {
+          "excludedResidueMod25": 18,
+          "crtResidue": 4493,
+          "crtModulus": 16900,
+          "countFormula": "max(0, floor((N - 4493) / 16900) + 1)"
+        }
+      ],
+      "observedCheck": {
+        "N": 12000,
+        "rawFormulaCount": 18,
+        "observedDominantEventCount": 17,
+        "observedDominantValues": [
+          437,
+          1113,
+          1789,
+          2465,
+          3141,
+          3817,
+          5169,
+          5845,
+          6521,
+          7197,
+          7873,
+          8549,
+          9225,
+          9901,
+          10577,
+          11253,
+          11929
+        ],
+        "rawValuesRemovedByBaseResidues": [
+          4493
+        ],
+        "upperBoundPassed": true
+      }
+    },
+    {
+      "side": "minus",
+      "witnessValue": 9563,
+      "oppositeSide": "plus",
+      "oppositeResidueMod169": 70,
+      "productCondition": "4 divides 9563*m + 1",
+      "coefficientMod4": 3,
+      "requiredOppositeValueMod4": 1,
+      "crtProgression": {
+        "variable": "m",
+        "residue": 577,
+        "modulus": 676,
+        "formula": "m = 577 + 676*t",
+        "tLowerBound": 0
+      },
+      "rawCountUpperBound": "max(0, floor((N - 577) / 676) + 1)",
+      "baseResidueExclusions": [
+        {
+          "excludedResidueMod25": 7,
+          "crtResidue": 3957,
+          "crtModulus": 16900,
+          "countFormula": "max(0, floor((N - 3957) / 16900) + 1)"
+        },
+        {
+          "excludedResidueMod25": 18,
+          "crtResidue": 11393,
+          "crtModulus": 16900,
+          "countFormula": "max(0, floor((N - 11393) / 16900) + 1)"
+        }
+      ],
+      "observedCheck": {
+        "N": 12000,
+        "rawFormulaCount": 17,
+        "observedDominantEventCount": 15,
+        "observedDominantValues": [
+          577,
+          1253,
+          1929,
+          2605,
+          3281,
+          4633,
+          5309,
+          5985,
+          6661,
+          7337,
+          8013,
+          8689,
+          9365,
+          10041,
+          10717
+        ],
+        "rawValuesRemovedByBaseResidues": [
+          3957,
+          11393
+        ],
+        "upperBoundPassed": true
+      }
+    }
+  ],
+  "checkedIdentities": [
+    "1591 mod 4 = 3 and 9563 mod 4 = 3.",
+    "For each witness, 4 divides witness*m + 1 only when m mod 4 = 1.",
+    "CRT(m = 99 mod 169, m = 1 mod 4) gives m = 437 mod 676.",
+    "CRT(m = 70 mod 169, m = 1 mod 4) gives m = 577 mod 676.",
+    "Base residues m = 7 or 18 mod 25 are excluded from the candidate side and can only reduce the raw q=2 upper bound.",
+    "Lower least-square-witness exclusions can only reduce the raw q=2 upper bound."
+  ],
+  "nextSubatom": {
+    "atomId": "D2_p13_dmax_q3_progression_outP2_70_out25_23_smaller_side7",
+    "status": "needed",
+    "q": 3,
+    "statement": "Prove the q=3 same-prime degree progression upper bound for the same split, including overlap/base-residue/lower-witness exclusions.",
+    "completionRule": "The q=3 progression contribution is bounded by CRT floor functions, or the first unresolved q=3 exclusion/overlap class becomes the next atom."
+  },
+  "proofBoundary": "This certificate discharges the q=2 progression atom as an upper-bound component. It intentionally leaves q=3, q=5, higher square-divisor families, and recombination into a full dMax envelope open.",
+  "nextTheoremActions": [
+    "Attack D2_p13_dmax_q3_progression_outP2_70_out25_23_smaller_side7 next.",
+    "After q=3 and q=5 are bounded, recombine the square-divisor progression bounds into a symbolic dMax growth envelope."
+  ]
+}

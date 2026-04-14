@@ -1,0 +1,4 @@
+artifacts/
+build/
+src/*.egg-info/
+experiments/**/live-frontier-sync/

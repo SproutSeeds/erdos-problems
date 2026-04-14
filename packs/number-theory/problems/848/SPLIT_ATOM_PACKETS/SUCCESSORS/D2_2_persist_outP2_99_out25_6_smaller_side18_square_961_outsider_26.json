@@ -1,0 +1,292 @@
+{
+  "schema": "erdos.p848_split_atom_successor_packet/1",
+  "generatedAt": "2026-04-14T11:46:09.842Z",
+  "problemId": "848",
+  "packetId": "p848_split_atom_successor_packet_D2_2_persist_outP2_99_out25_6_smaller_side18_square_961_outsider_26",
+  "parentPacketId": "p848_split_atom_packet_D2_2_persist_outP2_99_out25_6_smaller_side18",
+  "parentAtomId": "D2.2_persist_outP2=99_out25=6_smaller=side18",
+  "successorAtomId": "D2.2_persist_outP2=99_out25=6_smaller=side18.square_961_out_26",
+  "successorRank": 5,
+  "conditionId": "square_961_outsider_26",
+  "priority": "dominant_refinement_successor",
+  "status": "candidate_successor_obligation_verified",
+  "splitRefinement": {
+    "parentSplitKey": "outP2=99|out25=6|smaller=side18",
+    "successorSplitKey": "outP2=99|out25=6|smaller=side18|out961=26",
+    "parentSplitModulus": 4225,
+    "successorSplitModulus": 4060225,
+    "square": 961,
+    "divisor": 31,
+    "requiredOutsiderResidueModSquare": 26,
+    "compatibleWithCurrentSplit": true
+  },
+  "symbolicVertexFamilyLemma": {
+    "lemmaId": "square_961_outsider_26_vertex_family",
+    "status": "symbolic_vertex_family_lemma_verified",
+    "statement": "If outsider ≡ 26 (mod 961) and vertex ≡ 924 (mod 961), then outsider * vertex + 1 ≡ 0 (mod 961).",
+    "outsiderResidueModSquare": 26,
+    "vertexResidueModSquare": 924,
+    "square": 961,
+    "affectedAtomCount": 2,
+    "verifiedAtomCount": 2,
+    "failedAtomCount": 0,
+    "checks": [
+      {
+        "atomId": "D2.2_persist_outP2=99_out25=6_smaller=side18.V57.left_3807",
+        "value": 3807,
+        "residueModSquare": 924,
+        "expectedVertexResidueModSquare": 924,
+        "vertexMatchesResidueFamily": true,
+        "productPlusOneResidueModSquare": 0
+      },
+      {
+        "atomId": "D2.2_persist_outP2=99_out25=6_smaller=side18.V174.right_4768",
+        "value": 4768,
+        "residueModSquare": 924,
+        "expectedVertexResidueModSquare": 924,
+        "vertexMatchesResidueFamily": true,
+        "productPlusOneResidueModSquare": 0
+      }
+    ],
+    "proofBoundary": "This proves the square-residue vertex-presence family for this successor condition only; sibling conditions still need their own family lemmas."
+  },
+  "theoremObligation": {
+    "kind": "square_residue_vertex_presence_subobligation",
+    "parentObligationId": "D2_p13_matching_lower_bound",
+    "targetObligationId": "D4_matching_bound_implies_sMaxMixed_bound",
+    "statement": "Under outP2=99|out25=6|smaller=side18|out961=26, stabilize the 2 literal vertex-presence atoms whose first square witness is 961.",
+    "proofBoundary": "This successor packet stabilizes one vertex-presence subfamily only; it is not a full split lemma until the sibling refinement conditions and matching/edge obligations are promoted too."
+  },
+  "affectedVertexPresenceAtoms": [
+    {
+      "atomId": "D2.2_persist_outP2=99_out25=6_smaller=side18.V57.left_3807",
+      "side": "side7",
+      "value": 3807,
+      "residues": {
+        "value": 3807,
+        "mod25": 7,
+        "modP": 11,
+        "modP2": 89
+      },
+      "residueModSquare": 924,
+      "successorChecks": [
+        {
+          "N": 7307,
+          "outsider": 4831,
+          "productPlusOne": 18391618,
+          "firstSquareDivisorWitness": {
+            "divisor": 31,
+            "square": 961,
+            "quotient": 19138,
+            "stableUnderCurrentSplitModulus": false
+          },
+          "requiredOutsiderResidueModSquare": 26,
+          "witnessOutsiderResidueModSquare": 26,
+          "witnessSatisfiesSuccessorResidue": true,
+          "stableUnderSuccessorSplitModulus": true
+        },
+        {
+          "N": 7318,
+          "outsider": 4831,
+          "productPlusOne": 18391618,
+          "firstSquareDivisorWitness": {
+            "divisor": 31,
+            "square": 961,
+            "quotient": 19138,
+            "stableUnderCurrentSplitModulus": false
+          },
+          "requiredOutsiderResidueModSquare": 26,
+          "witnessOutsiderResidueModSquare": 26,
+          "witnessSatisfiesSuccessorResidue": true,
+          "stableUnderSuccessorSplitModulus": true
+        },
+        {
+          "N": 7337,
+          "outsider": 4831,
+          "productPlusOne": 18391618,
+          "firstSquareDivisorWitness": {
+            "divisor": 31,
+            "square": 961,
+            "quotient": 19138,
+            "stableUnderCurrentSplitModulus": false
+          },
+          "requiredOutsiderResidueModSquare": 26,
+          "witnessOutsiderResidueModSquare": 26,
+          "witnessSatisfiesSuccessorResidue": true,
+          "stableUnderSuccessorSplitModulus": true
+        },
+        {
+          "N": 7343,
+          "outsider": 4831,
+          "productPlusOne": 18391618,
+          "firstSquareDivisorWitness": {
+            "divisor": 31,
+            "square": 961,
+            "quotient": 19138,
+            "stableUnderCurrentSplitModulus": false
+          },
+          "requiredOutsiderResidueModSquare": 26,
+          "witnessOutsiderResidueModSquare": 26,
+          "witnessSatisfiesSuccessorResidue": true,
+          "stableUnderSuccessorSplitModulus": true
+        },
+        {
+          "N": 7357,
+          "outsider": 4831,
+          "productPlusOne": 18391618,
+          "firstSquareDivisorWitness": {
+            "divisor": 31,
+            "square": 961,
+            "quotient": 19138,
+            "stableUnderCurrentSplitModulus": false
+          },
+          "requiredOutsiderResidueModSquare": 26,
+          "witnessOutsiderResidueModSquare": 26,
+          "witnessSatisfiesSuccessorResidue": true,
+          "stableUnderSuccessorSplitModulus": true
+        }
+      ],
+      "status": "bounded_presence_stabilized_by_successor_square_residue"
+    },
+    {
+      "atomId": "D2.2_persist_outP2=99_out25=6_smaller=side18.V174.right_4768",
+      "side": "side18",
+      "value": 4768,
+      "residues": {
+        "value": 4768,
+        "mod25": 18,
+        "modP": 10,
+        "modP2": 36
+      },
+      "residueModSquare": 924,
+      "successorChecks": [
+        {
+          "N": 7307,
+          "outsider": 4831,
+          "productPlusOne": 23034209,
+          "firstSquareDivisorWitness": {
+            "divisor": 31,
+            "square": 961,
+            "quotient": 23969,
+            "stableUnderCurrentSplitModulus": false
+          },
+          "requiredOutsiderResidueModSquare": 26,
+          "witnessOutsiderResidueModSquare": 26,
+          "witnessSatisfiesSuccessorResidue": true,
+          "stableUnderSuccessorSplitModulus": true
+        },
+        {
+          "N": 7318,
+          "outsider": 4831,
+          "productPlusOne": 23034209,
+          "firstSquareDivisorWitness": {
+            "divisor": 31,
+            "square": 961,
+            "quotient": 23969,
+            "stableUnderCurrentSplitModulus": false
+          },
+          "requiredOutsiderResidueModSquare": 26,
+          "witnessOutsiderResidueModSquare": 26,
+          "witnessSatisfiesSuccessorResidue": true,
+          "stableUnderSuccessorSplitModulus": true
+        },
+        {
+          "N": 7337,
+          "outsider": 4831,
+          "productPlusOne": 23034209,
+          "firstSquareDivisorWitness": {
+            "divisor": 31,
+            "square": 961,
+            "quotient": 23969,
+            "stableUnderCurrentSplitModulus": false
+          },
+          "requiredOutsiderResidueModSquare": 26,
+          "witnessOutsiderResidueModSquare": 26,
+          "witnessSatisfiesSuccessorResidue": true,
+          "stableUnderSuccessorSplitModulus": true
+        },
+        {
+          "N": 7343,
+          "outsider": 4831,
+          "productPlusOne": 23034209,
+          "firstSquareDivisorWitness": {
+            "divisor": 31,
+            "square": 961,
+            "quotient": 23969,
+            "stableUnderCurrentSplitModulus": false
+          },
+          "requiredOutsiderResidueModSquare": 26,
+          "witnessOutsiderResidueModSquare": 26,
+          "witnessSatisfiesSuccessorResidue": true,
+          "stableUnderSuccessorSplitModulus": true
+        },
+        {
+          "N": 7357,
+          "outsider": 4831,
+          "productPlusOne": 23034209,
+          "firstSquareDivisorWitness": {
+            "divisor": 31,
+            "square": 961,
+            "quotient": 23969,
+            "stableUnderCurrentSplitModulus": false
+          },
+          "requiredOutsiderResidueModSquare": 26,
+          "witnessOutsiderResidueModSquare": 26,
+          "witnessSatisfiesSuccessorResidue": true,
+          "stableUnderSuccessorSplitModulus": true
+        }
+      ],
+      "status": "bounded_presence_stabilized_by_successor_square_residue"
+    }
+  ],
+  "checks": {
+    "affectedAtomCount": 2,
+    "stabilizedAtomCount": 2,
+    "failedAtomCount": 0,
+    "allAffectedAtomsPresent": true,
+    "allAffectedAtomsStabilized": true,
+    "witnessRowCount": 5,
+    "witnessRows": [
+      {
+        "witnessIndex": 0,
+        "N": 7307,
+        "outsider": 4831,
+        "productPlusOne": 18391618,
+        "quotient": 19138
+      },
+      {
+        "witnessIndex": 1,
+        "N": 7318,
+        "outsider": 4831,
+        "productPlusOne": 18391618,
+        "quotient": 19138
+      },
+      {
+        "witnessIndex": 2,
+        "N": 7337,
+        "outsider": 4831,
+        "productPlusOne": 18391618,
+        "quotient": 19138
+      },
+      {
+        "witnessIndex": 3,
+        "N": 7343,
+        "outsider": 4831,
+        "productPlusOne": 18391618,
+        "quotient": 19138
+      },
+      {
+        "witnessIndex": 4,
+        "N": 7357,
+        "outsider": 4831,
+        "productPlusOne": 18391618,
+        "quotient": 19138
+      }
+    ]
+  },
+  "nextTheoremActions": [
+    "Promote this square-residue successor into a symbolic vertex-family lemma.",
+    "After this condition is proved, attack the next sibling square-residue successor condition.",
+    "Do not treat this sub-obligation as a full split proof until all sibling vertex conditions and edge obstructions are handled."
+  ]
+}

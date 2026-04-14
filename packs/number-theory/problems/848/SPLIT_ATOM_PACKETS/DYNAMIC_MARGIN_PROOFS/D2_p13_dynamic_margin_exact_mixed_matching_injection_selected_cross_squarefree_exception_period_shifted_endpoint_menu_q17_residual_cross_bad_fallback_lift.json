@@ -1,0 +1,139 @@
+{
+  "atomId": "D2_p13_dynamic_margin_exact_mixed_matching_injection_selected_cross_squarefree_exception_period_shifted_endpoint_menu_q17_residual_cross_bad_fallback_lift_outP2_70_out25_23_smaller_side7_outsider_6323",
+  "status": "bounded_seed_fallback_menu_falsified_p13_expanded_menu_needed",
+  "proofId": "p848_dynamic_margin_exact_mixed_matching_injection_selected_cross_squarefree_exception_period_shifted_endpoint_menu_q17_residual_cross_bad_fallback_lift",
+  "proofKind": "bounded_q17_residual_cross_bad_seed_menu_obstruction",
+  "generatedAt": "2026-04-12T23:20:55Z",
+  "dependsOn": [
+    "D2_p13_dynamic_margin_exact_mixed_matching_injection_selected_cross_squarefree_exception_period_shifted_endpoint_menu_p7_shift_q17_residual_lift_outP2_70_out25_23_smaller_side7_outsider_6323"
+  ],
+  "statement": "The q17 residual cross-bad seed fallback menu {11,19,23,31} is false under the 10000 local window. The first exactly certified fully fallback-blocked row is left=25153907, and the p=13 endpoint gives the next general repair seed.",
+  "residualClass": {
+    "description": "left == 5882 mod 11025",
+    "modulus": 11025,
+    "residue": 5882
+  },
+  "seedMenu": {
+    "primeSet": [
+      11,
+      19,
+      23,
+      31
+    ],
+    "escapeWindow": 10000,
+    "endpointRule": "For prime p, choose k in [0,p^2) so that p^2 divides 6323*(left - 14 - 25*k) + 1 and set right=left-14-25*k."
+  },
+  "exactBoundedReplay": {
+    "priorProfileMaxN": 20000000,
+    "checkedThrough": 25153907,
+    "residualRowsChecked": 468,
+    "primeLimit": 27755824,
+    "primeCount": 1727233,
+    "q17CrossBadRowsBeforeAndAtFailure": 121,
+    "q17CrossBadRowsCoveredBeforeFailure": 120,
+    "q11CoversBeforeFailure": 86,
+    "windowEnforced": true,
+    "verificationKind": "exact_prime_square_divisor_scan_for_q17_endpoint_and_seed_fallback_candidates"
+  },
+  "firstFullyFallbackBlockedRow": {
+    "left": 25153907,
+    "leftMod11025": 5882,
+    "q17K": 44,
+    "q17Delta": -1114,
+    "q17Right": 25152793,
+    "q17RightMod25": 18,
+    "q17CompatibilityMod289": 0,
+    "q17CrossProductPlusOne": "632691015912252",
+    "q17SquareDivisorPrime": 2,
+    "q17SquareDivisor": 4,
+    "seedFallbackResults": [
+      {
+        "prime": 11,
+        "k": 44,
+        "delta": -1114,
+        "right": 25152793,
+        "availableWithinWindow": true,
+        "squareDivisorPrime": 2,
+        "squareDivisor": 4,
+        "squarefree": false
+      },
+      {
+        "prime": 19,
+        "k": 180,
+        "delta": -4514,
+        "right": 25149393,
+        "availableWithinWindow": true,
+        "squareDivisorPrime": 2,
+        "squareDivisor": 4,
+        "squarefree": false
+      },
+      {
+        "prime": 23,
+        "k": 437,
+        "delta": -10939,
+        "right": 25142968,
+        "availableWithinWindow": false,
+        "squareDivisorPrime": null,
+        "squarefree": false
+      },
+      {
+        "prime": 31,
+        "k": 197,
+        "delta": -4939,
+        "right": 25148968,
+        "availableWithinWindow": true,
+        "squareDivisorPrime": 3,
+        "squareDivisor": 9,
+        "squarefree": false
+      }
+    ]
+  },
+  "localP13RepairSeed": {
+    "prime": 13,
+    "k": 150,
+    "delta": -3764,
+    "right": 25150143,
+    "rightMod25": 18,
+    "compatibilityModPrimeSquare": 0,
+    "crossProductPlusOne": "632624358058702",
+    "primeCountChecked": 1574955,
+    "maxPrimeChecked": 25152025,
+    "squareDivisorPrime": null,
+    "squarefree": true,
+    "withinSeedWindow": true
+  },
+  "claims": {
+    "provesAllN": false,
+    "provesCollisionFreeMatching": false,
+    "provesSeedMenuFallback": false,
+    "falsifiesSeedMenuFallback": true,
+    "emitsP13ExpandedFallbackMenu": true
+  },
+  "proofBoundary": "This packet exactly falsifies only the {11,19,23,31} seed fallback menu through the first fully fallback-blocked q17 residual row under the 10000 window. The p=13 repair seed is a next theorem target, not an all-N proof or collision-free matching claim.",
+  "nextSubatom": {
+    "atomId": "D2_p13_dynamic_margin_exact_mixed_matching_injection_selected_cross_squarefree_exception_period_shifted_endpoint_menu_q17_residual_p13_expanded_fallback_menu_lift_outP2_70_out25_23_smaller_side7_outsider_6323",
+    "status": "needed",
+    "term": "outsider-6323 q17 residual p13-expanded fallback menu lift",
+    "statement": "Prove that every q17 residual cross-bad row has a squarefree side18-compatible endpoint in the expanded local menu {11,13,19,23,31}, or emit the first row outside that expanded menu.",
+    "completionRule": "A symbolic expanded fallback selector covers q17 residual cross-bad rows without singleton repairs, or the first fully expanded-menu-blocked row becomes the next deterministic packet.",
+    "dependsOnSublemma": "selected_cross_squarefree_exception_period_shifted_endpoint_menu_q17_residual_cross_bad_fallback_lift",
+    "seedPrimeSet": [
+      11,
+      13,
+      19,
+      23,
+      31
+    ],
+    "seedEscapeWindow": 10000,
+    "firstRepairSeed": {
+      "left": 25153907,
+      "prime": 13,
+      "right": 25150143,
+      "delta": -3764
+    },
+    "remainingAfterDischarge": [
+      "selector_collision_or_augmentation_lift"
+    ],
+    "proofBoundary": "This expanded fallback subatom is still cross-squarefree endpoint selection only. It must not claim all-N coverage from the seed or collision-free matching."
+  }
+}

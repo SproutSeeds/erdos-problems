@@ -1,0 +1,82 @@
+{
+  "schema": "erdos.p848_dmax_tail_prime_progression_proof/1",
+  "problemId": "848",
+  "atomId": "D2_p13_dmax_tail_q131_progression_outP2_70_out25_23_smaller_side7",
+  "parentTailAtomId": "D2_p13_dmax_tail_recombination_outP2_70_out25_23_smaller_side7",
+  "parentGrowthAtomId": "D2_p13_dmax_growth_outP2_70_out25_23_smaller_side7",
+  "predecessorAtomId": "D2_p13_dmax_tail_q127_progression_outP2_70_out25_23_smaller_side7",
+  "splitKey": "outP2=70|out25=23|smaller=side7",
+  "status": "symbolic_upper_bound_verified",
+  "promotesAllNClaim": false,
+  "proofKind": "plus_crt_floor_function_minus_witness_divisibility_exclusion_tail_prime_upper_bound",
+  "q": 131,
+  "squareDivisor": 17161,
+  "scope": {
+    "term": "same-prime dMax tail-prime degree contribution",
+    "boundedProfileRange": "7307..12000",
+    "claimBoundary": "This proves only the q=131 tail-prime upper-bound component: plus-side CRT floor bound and minus-side witness-divisibility exclusion. It does not prove the full dMax tail envelope or any side-count floor."
+  },
+  "witnessExclusions": [
+    {
+      "side": "minus",
+      "witnessValue": 9563,
+      "oppositeSide": "plus",
+      "oppositeResidueMod169": 70,
+      "exclusionReason": "131 divides 9563, so 9563*m + 1 is congruent to 1 mod 131 for every integer m.",
+      "coefficientMod17161": 9563,
+      "gcdCoefficientSquareDivisor": 131,
+      "productPlusOneResidueMod131": 1,
+      "conclusion": "17161 never divides 9563*m + 1."
+    }
+  ],
+  "witnessBounds": [
+    {
+      "side": "plus",
+      "witnessValue": 1591,
+      "oppositeSide": "minus",
+      "oppositeResidueMod169": 99,
+      "productCondition": "17161 divides 1591*m + 1",
+      "coefficientMod17161": 1591,
+      "requiredOppositeValueMod17161": 6612,
+      "crtProgression": {
+        "variable": "m",
+        "residue": 1345170,
+        "modulus": 2900209,
+        "formula": "m = 1345170 + 2900209*t",
+        "tLowerBound": 0
+      },
+      "rawCountUpperBound": "max(0, floor((N - 1345170) / 2900209) + 1)",
+      "observedCheck": {
+        "N": 12000,
+        "rawFormulaCount": 0,
+        "observedSquareEventCount": 0,
+        "upperBoundPassed": true
+      }
+    }
+  ],
+  "overlapBoundary": {
+    "status": "raw_floor_bound_suffices_for_upper_bound",
+    "reason": "The minus side is excluded. Prior-q overlaps, base-residue exclusions, and lower least-square-witness exclusions can only reduce the plus-side q=131 raw CRT count."
+  },
+  "checkedIdentities": [
+    "131^2 = 17161 and 169*17161 = 2900209.",
+    "9563 = 73*131, so 9563*m + 1 is congruent to 1 mod 131 for every integer m.",
+    "9563 mod 17161 = 9563 and gcd(9563, 17161) = 131.",
+    "1591 mod 17161 = 1591 and gcd(1591, 17161) = 1.",
+    "1591*6612 + 1 is divisible by 17161.",
+    "CRT(m = 99 mod 169, m = 6612 mod 17161) gives m = 1345170 mod 2900209.",
+    "The q=131 plus-side raw floor function evaluates to zero at N = 12000, matching the bounded growth profile."
+  ],
+  "nextSubatom": {
+    "atomId": "D2_p13_dmax_tail_q137_progression_outP2_70_out25_23_smaller_side7",
+    "status": "needed",
+    "q": 137,
+    "statement": "Prove the q=137 tail-prime same-prime degree progression upper bound for both witness sides, starting from m = 2767643 mod 3171961 and m = 1021675 mod 3171961.",
+    "completionRule": "The q=137 tail contribution is bounded by CRT floor functions for both witnesses, or the next unresolved tail-prime/range becomes the next atom."
+  },
+  "proofBoundary": "This certificate discharges q=131 as a residual tail-prime upper-bound component. It intentionally leaves q=137 open as the next residual tail-prime CRT component.",
+  "nextTheoremActions": [
+    "Attack D2_p13_dmax_tail_q137_progression_outP2_70_out25_23_smaller_side7 next.",
+    "Certify q=137 as a two-sided tail-prime CRT floor-bound component before attempting any aggregate tail estimate."
+  ]
+}

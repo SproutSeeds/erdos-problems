@@ -1,0 +1,433 @@
+{
+  "schema": "p848.dynamicMarginProof.v1",
+  "generatedAt": "2026-04-12T19:54:19Z",
+  "problemId": 848,
+  "proofId": "p848_dynamic_margin_proof_D2_p13_dynamic_margin_exact_mixed_matching_injection_parametric_lift_outP2_70_out25_23_smaller_side7_outsider_6323",
+  "atomId": "D2_p13_dynamic_margin_exact_mixed_matching_injection_parametric_lift_outP2_70_out25_23_smaller_side7_outsider_6323",
+  "status": "bounded_online_augmentation_profile_verified_finite_menu_needed",
+  "proofKind": "bounded_online_augmenting_path_profile",
+  "predecessorAtomId": "D2_p13_dynamic_margin_exact_mixed_matching_injection_outP2_70_out25_23_smaller_side7_outsider_6323",
+  "predecessorProofId": "p848_dynamic_margin_proof_D2_p13_dynamic_margin_exact_mixed_matching_injection_outP2_70_out25_23_smaller_side7_outsider_6323",
+  "targetPrime": 13,
+  "splitKey": "outP2=70|out25=23|smaller=side7",
+  "outsider": 6323,
+  "targetInjection": "Match every side7-compatible vertex to a side18-compatible missing-cross neighbor in the outsider-6323 exact mixed row family.",
+  "promotesAllNClaim": false,
+  "boundedEventScan": {
+    "minN": 7307,
+    "maxN": 40000,
+    "eventRowCount": 953,
+    "leftInsertionEventCount": 474,
+    "rightOnlyEventCount": 479,
+    "initialSide7Count": 105,
+    "initialSide18Count": 110,
+    "finalSide7Count": 579,
+    "finalSide18Count": 589,
+    "finalMatchingSize": 579,
+    "allEventRowsSaturateSide7": true,
+    "firstEventSaturationFailure": null,
+    "minSide18MinusSide7": 0,
+    "minMatchingSlackAboveSide7": 0,
+    "interpretation": "The online matching stays side7-saturating at every side-compatible event row through 40000, but this bounded scan only identifies a small augmenting-path menu for the next symbolic proof."
+  },
+  "onlineAugmentingPathProfile": {
+    "initialMatchingN": 7307,
+    "initialMatchingSize": 105,
+    "leftInsertionCount": 474,
+    "directInsertionCount": 471,
+    "replacementPathCount": 3,
+    "pathNodeDistribution": [
+      {
+        "nodes": 2,
+        "count": 471
+      },
+      {
+        "nodes": 4,
+        "count": 3
+      }
+    ],
+    "leftResidueMod100Distribution": [
+      {
+        "key": "7",
+        "count": 47
+      },
+      {
+        "key": "32",
+        "count": 49
+      },
+      {
+        "key": "57",
+        "count": 327
+      },
+      {
+        "key": "82",
+        "count": 51
+      }
+    ],
+    "directDeltaDistribution": [
+      {
+        "key": "-864",
+        "count": 5
+      },
+      {
+        "key": "-789",
+        "count": 1
+      },
+      {
+        "key": "-764",
+        "count": 10
+      },
+      {
+        "key": "-739",
+        "count": 7
+      },
+      {
+        "key": "-689",
+        "count": 2
+      },
+      {
+        "key": "-664",
+        "count": 13
+      },
+      {
+        "key": "-639",
+        "count": 30
+      },
+      {
+        "key": "-589",
+        "count": 9
+      },
+      {
+        "key": "-564",
+        "count": 58
+      },
+      {
+        "key": "-539",
+        "count": 31
+      },
+      {
+        "key": "-489",
+        "count": 15
+      },
+      {
+        "key": "-464",
+        "count": 69
+      },
+      {
+        "key": "-439",
+        "count": 8
+      },
+      {
+        "key": "-414",
+        "count": 2
+      },
+      {
+        "key": "-389",
+        "count": 12
+      },
+      {
+        "key": "-364",
+        "count": 40
+      },
+      {
+        "key": "-339",
+        "count": 11
+      },
+      {
+        "key": "-289",
+        "count": 13
+      },
+      {
+        "key": "-264",
+        "count": 49
+      },
+      {
+        "key": "-239",
+        "count": 10
+      },
+      {
+        "key": "-189",
+        "count": 34
+      },
+      {
+        "key": "-164",
+        "count": 12
+      },
+      {
+        "key": "-139",
+        "count": 3
+      },
+      {
+        "key": "-89",
+        "count": 7
+      },
+      {
+        "key": "-64",
+        "count": 20
+      }
+    ],
+    "topDirectResidueDeltaPairs": [
+      {
+        "key": "57->-464",
+        "count": 65
+      },
+      {
+        "key": "57->-564",
+        "count": 58
+      },
+      {
+        "key": "57->-264",
+        "count": 47
+      },
+      {
+        "key": "57->-364",
+        "count": 38
+      },
+      {
+        "key": "82->-639",
+        "count": 20
+      },
+      {
+        "key": "57->-64",
+        "count": 19
+      },
+      {
+        "key": "7->-189",
+        "count": 19
+      },
+      {
+        "key": "32->-539",
+        "count": 13
+      },
+      {
+        "key": "57->-164",
+        "count": 12
+      },
+      {
+        "key": "57->-539",
+        "count": 12
+      },
+      {
+        "key": "57->-664",
+        "count": 12
+      },
+      {
+        "key": "57->-764",
+        "count": 10
+      },
+      {
+        "key": "57->-389",
+        "count": 9
+      },
+      {
+        "key": "32->-339",
+        "count": 8
+      },
+      {
+        "key": "57->-489",
+        "count": 8
+      },
+      {
+        "key": "82->-289",
+        "count": 8
+      },
+      {
+        "key": "32->-439",
+        "count": 7
+      },
+      {
+        "key": "57->-589",
+        "count": 7
+      },
+      {
+        "key": "57->-189",
+        "count": 6
+      },
+      {
+        "key": "57->-289",
+        "count": 5
+      }
+    ],
+    "replacementPaths": [
+      {
+        "N": 10807,
+        "newLeft": 10807,
+        "newLeftMod100": 7,
+        "path": [
+          {
+            "side": "L",
+            "value": 10807
+          },
+          {
+            "side": "R",
+            "value": 268
+          },
+          {
+            "side": "L",
+            "value": 232
+          },
+          {
+            "side": "R",
+            "value": 10693
+          }
+        ],
+        "replacementTemplate": {
+          "newLeftTakes": 268,
+          "displacedLeft": 232,
+          "displacedLeftReroutesTo": 10693
+        },
+        "edgeDeltas": [
+          -10539,
+          36,
+          10461
+        ]
+      },
+      {
+        "N": 12407,
+        "newLeft": 12407,
+        "newLeftMod100": 7,
+        "path": [
+          {
+            "side": "L",
+            "value": 12407
+          },
+          {
+            "side": "R",
+            "value": 318
+          },
+          {
+            "side": "L",
+            "value": 357
+          },
+          {
+            "side": "R",
+            "value": 12193
+          }
+        ],
+        "replacementTemplate": {
+          "newLeftTakes": 318,
+          "displacedLeft": 357,
+          "displacedLeftReroutesTo": 12193
+        },
+        "edgeDeltas": [
+          -12089,
+          -39,
+          11836
+        ]
+      },
+      {
+        "N": 14407,
+        "newLeft": 14407,
+        "newLeftMod100": 7,
+        "path": [
+          {
+            "side": "L",
+            "value": 14407
+          },
+          {
+            "side": "R",
+            "value": 718
+          },
+          {
+            "side": "L",
+            "value": 757
+          },
+          {
+            "side": "R",
+            "value": 14293
+          }
+        ],
+        "replacementTemplate": {
+          "newLeftTakes": 718,
+          "displacedLeft": 757,
+          "displacedLeftReroutesTo": 14293
+        },
+        "edgeDeltas": [
+          -13689,
+          -39,
+          13536
+        ]
+      }
+    ],
+    "directInsertionSamples": {
+      "firstFive": [
+        {
+          "N": 7357,
+          "left": 7357,
+          "right": 7093,
+          "delta": -264
+        },
+        {
+          "N": 7432,
+          "left": 7432,
+          "right": 7168,
+          "delta": -264
+        },
+        {
+          "N": 7457,
+          "left": 7457,
+          "right": 7193,
+          "delta": -264
+        },
+        {
+          "N": 7557,
+          "left": 7557,
+          "right": 7468,
+          "delta": -89
+        },
+        {
+          "N": 7657,
+          "left": 7657,
+          "right": 7293,
+          "delta": -364
+        }
+      ],
+      "lastFive": [
+        {
+          "N": 39657,
+          "left": 39657,
+          "right": 38993,
+          "delta": -664
+        },
+        {
+          "N": 39757,
+          "left": 39757,
+          "right": 39093,
+          "delta": -664
+        },
+        {
+          "N": 39832,
+          "left": 39832,
+          "right": 39193,
+          "delta": -639
+        },
+        {
+          "N": 39857,
+          "left": 39857,
+          "right": 39293,
+          "delta": -564
+        },
+        {
+          "N": 39957,
+          "left": 39957,
+          "right": 39393,
+          "delta": -564
+        }
+      ]
+    }
+  },
+  "finiteMenuCandidate": {
+    "directCase": "For each future new side7 vertex, prove one of the finite residue/delta direct edges is present as a missing-cross edge to a currently free side18 vertex.",
+    "replacementCase": "Only three bounded rows through 40000 require a one-replacement augmenting path: N=10807, N=12407, and N=14407. The next theorem object should prove these are the initial members of a finite exceptional menu or emit the first future event row requiring a longer path.",
+    "menuBoundary": "The listed direct deltas and replacement paths are a bounded menu mined through 40000; they are not yet a residue-complete all-N augmenting-path proof."
+  },
+  "nextSubatom": {
+    "atomId": "D2_p13_dynamic_margin_exact_mixed_matching_injection_finite_augmenting_menu_outP2_70_out25_23_smaller_side7_outsider_6323",
+    "status": "needed",
+    "term": "outsider-6323 finite augmenting-path menu",
+    "statement": "Prove the finite direct-insertion plus short replacement-path menu for every future side7-compatible event row in the outsider-6323 split family, or emit the first event row whose side7 vertex needs a new obstruction atom.",
+    "completionRule": "A residue/block augmenting-path menu saturates side7 for every future event row, or the first future event row outside the menu becomes the next deterministic atom.",
+    "proofBoundary": "This is the symbolic menu target exposed by the bounded online augmentation profile; it must not be treated as discharged until the residue cases are proved."
+  },
+  "proofBoundary": "This certificate is bounded evidence through N=40000. It verifies online side7 saturation and isolates the finite augmenting-path menu to prove next, but it does not prove the all-N outsider-6323 matching injection."
+}

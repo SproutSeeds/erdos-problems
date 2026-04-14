@@ -1,0 +1,93 @@
+{
+  "schema": "erdos.p848_dmax_tail_prime_progression_proof/1",
+  "problemId": "848",
+  "atomId": "D2_p13_dmax_tail_q499_progression_outP2_70_out25_23_smaller_side7",
+  "parentTailAtomId": "D2_p13_dmax_tail_recombination_outP2_70_out25_23_smaller_side7",
+  "parentGrowthAtomId": "D2_p13_dmax_growth_outP2_70_out25_23_smaller_side7",
+  "predecessorAtomId": "D2_p13_dmax_tail_q491_progression_outP2_70_out25_23_smaller_side7",
+  "splitKey": "outP2=70|out25=23|smaller=side7",
+  "status": "symbolic_upper_bound_verified",
+  "promotesAllNClaim": false,
+  "proofKind": "two_sided_crt_floor_function_tail_prime_upper_bound",
+  "q": 499,
+  "squareDivisor": 249001,
+  "scope": {
+    "term": "same-prime dMax tail-prime degree contribution",
+    "boundedProfileRange": "7307..12000",
+    "claimBoundary": "This proves only the q=499 tail-prime upper-bound component via two witness-side CRT floor bounds. It does not prove the full dMax tail envelope or any side-count floor."
+  },
+  "witnessBounds": [
+    {
+      "side": "plus",
+      "witnessValue": 1591,
+      "oppositeSide": "minus",
+      "oppositeResidueMod169": 99,
+      "productCondition": "249001 divides 1591*m + 1",
+      "coefficientMod249001": 1591,
+      "requiredOppositeValueMod249001": 104859,
+      "crtProgression": {
+        "variable": "m",
+        "residue": 8072891,
+        "modulus": 42081169,
+        "formula": "m = 8072891 + 42081169*t",
+        "tLowerBound": 0
+      },
+      "rawCountUpperBound": "max(0, floor((N - 8072891) / 42081169) + 1)",
+      "observedCheck": {
+        "N": 12000,
+        "rawFormulaCount": 0,
+        "observedSquareEventCount": 0,
+        "upperBoundPassed": true
+      }
+    },
+    {
+      "side": "minus",
+      "witnessValue": 9563,
+      "oppositeSide": "plus",
+      "oppositeResidueMod169": 70,
+      "productCondition": "249001 divides 9563*m + 1",
+      "coefficientMod249001": 9563,
+      "requiredOppositeValueMod249001": 103579,
+      "crtProgression": {
+        "variable": "m",
+        "residue": 26746686,
+        "modulus": 42081169,
+        "formula": "m = 26746686 + 42081169*t",
+        "tLowerBound": 0
+      },
+      "rawCountUpperBound": "max(0, floor((N - 26746686) / 42081169) + 1)",
+      "observedCheck": {
+        "N": 12000,
+        "rawFormulaCount": 0,
+        "observedSquareEventCount": 0,
+        "upperBoundPassed": true
+      }
+    }
+  ],
+  "overlapBoundary": {
+    "status": "raw_floor_bounds_suffice_for_upper_bound",
+    "reason": "Prior-q overlaps, base-residue exclusions, and lower least-square-witness exclusions can only reduce these q=499 raw CRT counts."
+  },
+  "checkedIdentities": [
+    "499^2 = 249001 and 169*249001 = 42081169.",
+    "1591 mod 249001 = 1591 and gcd(1591, 249001) = 1.",
+    "1591*104859 + 1 is divisible by 249001.",
+    "CRT(m = 99 mod 169, m = 104859 mod 249001) gives m = 8072891 mod 42081169.",
+    "9563 mod 249001 = 9563 and gcd(9563, 249001) = 1.",
+    "9563*103579 + 1 is divisible by 249001.",
+    "CRT(m = 70 mod 169, m = 103579 mod 249001) gives m = 26746686 mod 42081169.",
+    "Both q=499 raw floor functions evaluate to zero at N = 12000, matching the bounded growth profile."
+  ],
+  "nextSubatom": {
+    "atomId": "D2_p13_dmax_tail_q503_progression_outP2_70_out25_23_smaller_side7",
+    "status": "needed",
+    "q": 503,
+    "statement": "Prove the q=503 tail-prime same-prime degree progression upper bound for both witness sides, starting from m = 42056425 mod 42758521 and m = 19404650 mod 42758521.",
+    "completionRule": "The q=503 tail contribution is bounded by CRT floor functions for both witnesses, or the next unresolved tail-prime/range becomes the next atom."
+  },
+  "proofBoundary": "This certificate discharges q=499 as a residual tail-prime upper-bound component. It intentionally leaves q=503 open as the next residual tail-prime CRT component.",
+  "nextTheoremActions": [
+    "Attack D2_p13_dmax_tail_q503_progression_outP2_70_out25_23_smaller_side7 next.",
+    "Certify q=503 via two witness-side CRT floor bounds before attempting any aggregate tail estimate."
+  ]
+}

@@ -1,0 +1,2159 @@
+{
+  "schema": "erdos.number_theory.p848_endpoint_menu_compiler/1",
+  "generatedAt": "2026-04-14T03:01:44.700Z",
+  "problemId": "848",
+  "target": {
+    "description": "q17 residual window-relaxed fallback endpoint-menu selector",
+    "predecessorProof": "/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DYNAMIC_MARGIN_PROOFS/D2_p13_dynamic_margin_exact_mixed_matching_injection_selected_cross_squarefree_exception_period_shifted_endpoint_menu_q17_residual_p13_expanded_fallback_menu_lift.json",
+    "outsider": 6323,
+    "residualClass": {
+      "residue": 5882,
+      "modulus": 11025
+    },
+    "start": 34414907,
+    "end": 34414907,
+    "rowCount": 1,
+    "targetWindow": 25000,
+    "predecessorWindow": 10000,
+    "squareCheck": {
+      "checkedPrimeLimit": 34414903,
+      "exactForPrimaryCoveredEndpoints": false,
+      "exactForAllCoveredEndpoints": false,
+      "interpretation": "No full-menu covered endpoint was selected in this profile; inspect candidate square-divisor statuses and window availability."
+    }
+  },
+  "endpointRule": {
+    "statement": "For each menu prime p, choose k_p(left) modulo p^2 so p^2 divides outsider*(left - 14 - 25*k_p(left)) + 1, then set right_p(left)=left-14-25*k_p(left).",
+    "invariant": "Every compiled endpoint has right congruent to 18 mod 25 and is outsider-compatible by construction."
+  },
+  "primaryMenu": {
+    "primeSet": [
+      23,
+      31,
+      37,
+      41,
+      61,
+      67
+    ],
+    "formulasByPrime": {
+      "23": {
+        "prime": 23,
+        "primeSquare": 529,
+        "kFormula": {
+          "leftCoefficient": 127,
+          "constant": 79,
+          "modulus": 529,
+          "text": "k_23(left) = (127*left + 79) mod 529"
+        },
+        "deltaRange": {
+          "min": -13214,
+          "max": -14
+        },
+        "universallyWithinWindows": {
+          "10000": false,
+          "25000": true
+        }
+      },
+      "31": {
+        "prime": 31,
+        "primeSquare": 961,
+        "kFormula": {
+          "leftCoefficient": 346,
+          "constant": 669,
+          "modulus": 961,
+          "text": "k_31(left) = (346*left + 669) mod 961"
+        },
+        "deltaRange": {
+          "min": -24014,
+          "max": -14
+        },
+        "universallyWithinWindows": {
+          "10000": false,
+          "25000": true
+        }
+      },
+      "37": {
+        "prime": 37,
+        "primeSquare": 1369,
+        "kFormula": {
+          "leftCoefficient": 1150,
+          "constant": 651,
+          "modulus": 1369,
+          "text": "k_37(left) = (1150*left + 651) mod 1369"
+        },
+        "deltaRange": {
+          "min": -34214,
+          "max": -14
+        },
+        "universallyWithinWindows": {
+          "10000": false,
+          "25000": false
+        }
+      },
+      "41": {
+        "prime": 41,
+        "primeSquare": 1681,
+        "kFormula": {
+          "leftCoefficient": 269,
+          "constant": 1029,
+          "modulus": 1681,
+          "text": "k_41(left) = (269*left + 1029) mod 1681"
+        },
+        "deltaRange": {
+          "min": -42014,
+          "max": -14
+        },
+        "universallyWithinWindows": {
+          "10000": false,
+          "25000": false
+        }
+      },
+      "61": {
+        "prime": 61,
+        "primeSquare": 3721,
+        "kFormula": {
+          "leftCoefficient": 2828,
+          "constant": 2221,
+          "modulus": 3721,
+          "text": "k_61(left) = (2828*left + 2221) mod 3721"
+        },
+        "deltaRange": {
+          "min": -93014,
+          "max": -14
+        },
+        "universallyWithinWindows": {
+          "10000": false,
+          "25000": false
+        }
+      },
+      "67": {
+        "prime": 67,
+        "primeSquare": 4489,
+        "kFormula": {
+          "leftCoefficient": 2873,
+          "constant": 511,
+          "modulus": 4489,
+          "text": "k_67(left) = (2873*left + 511) mod 4489"
+        },
+        "deltaRange": {
+          "min": -112214,
+          "max": -14
+        },
+        "universallyWithinWindows": {
+          "10000": false,
+          "25000": false
+        }
+      }
+    },
+    "universalWindowAvailability": false
+  },
+  "fallbackMenu": {
+    "primeSet": [
+      71,
+      73,
+      79,
+      83,
+      89,
+      97,
+      101,
+      103,
+      107,
+      109,
+      113
+    ],
+    "formulasByPrime": {
+      "71": {
+        "prime": 71,
+        "primeSquare": 5041,
+        "kFormula": {
+          "leftCoefficient": 2823,
+          "constant": 4760,
+          "modulus": 5041,
+          "text": "k_71(left) = (2823*left + 4760) mod 5041"
+        },
+        "deltaRange": {
+          "min": -126014,
+          "max": -14
+        },
+        "universallyWithinWindows": {
+          "10000": false,
+          "25000": false
+        }
+      },
+      "73": {
+        "prime": 73,
+        "primeSquare": 5329,
+        "kFormula": {
+          "leftCoefficient": 1279,
+          "constant": 5218,
+          "modulus": 5329,
+          "text": "k_73(left) = (1279*left + 5218) mod 5329"
+        },
+        "deltaRange": {
+          "min": -133214,
+          "max": -14
+        },
+        "universallyWithinWindows": {
+          "10000": false,
+          "25000": false
+        }
+      },
+      "79": {
+        "prime": 79,
+        "primeSquare": 6241,
+        "kFormula": {
+          "leftCoefficient": 3495,
+          "constant": 4770,
+          "modulus": 6241,
+          "text": "k_79(left) = (3495*left + 4770) mod 6241"
+        },
+        "deltaRange": {
+          "min": -156014,
+          "max": -14
+        },
+        "universallyWithinWindows": {
+          "10000": false,
+          "25000": false
+        }
+      },
+      "83": {
+        "prime": 83,
+        "primeSquare": 6889,
+        "kFormula": {
+          "leftCoefficient": 4409,
+          "constant": 2738,
+          "modulus": 6889,
+          "text": "k_83(left) = (4409*left + 2738) mod 6889"
+        },
+        "deltaRange": {
+          "min": -172214,
+          "max": -14
+        },
+        "universallyWithinWindows": {
+          "10000": false,
+          "25000": false
+        }
+      },
+      "89": {
+        "prime": 89,
+        "primeSquare": 7921,
+        "kFormula": {
+          "leftCoefficient": 6020,
+          "constant": 1152,
+          "modulus": 7921,
+          "text": "k_89(left) = (6020*left + 1152) mod 7921"
+        },
+        "deltaRange": {
+          "min": -198014,
+          "max": -14
+        },
+        "universallyWithinWindows": {
+          "10000": false,
+          "25000": false
+        }
+      },
+      "97": {
+        "prime": 97,
+        "primeSquare": 9409,
+        "kFormula": {
+          "leftCoefficient": 4140,
+          "constant": 4932,
+          "modulus": 9409,
+          "text": "k_97(left) = (4140*left + 4932) mod 9409"
+        },
+        "deltaRange": {
+          "min": -235214,
+          "max": -14
+        },
+        "universallyWithinWindows": {
+          "10000": false,
+          "25000": false
+        }
+      },
+      "101": {
+        "prime": 101,
+        "primeSquare": 10201,
+        "kFormula": {
+          "leftCoefficient": 9793,
+          "constant": 9742,
+          "modulus": 10201,
+          "text": "k_101(left) = (9793*left + 9742) mod 10201"
+        },
+        "deltaRange": {
+          "min": -255014,
+          "max": -14
+        },
+        "universallyWithinWindows": {
+          "10000": false,
+          "25000": false
+        }
+      },
+      "103": {
+        "prime": 103,
+        "primeSquare": 10609,
+        "kFormula": {
+          "leftCoefficient": 4668,
+          "constant": 4197,
+          "modulus": 10609,
+          "text": "k_103(left) = (4668*left + 4197) mod 10609"
+        },
+        "deltaRange": {
+          "min": -265214,
+          "max": -14
+        },
+        "universallyWithinWindows": {
+          "10000": false,
+          "25000": false
+        }
+      },
+      "107": {
+        "prime": 107,
+        "primeSquare": 11449,
+        "kFormula": {
+          "leftCoefficient": 458,
+          "constant": 2044,
+          "modulus": 11449,
+          "text": "k_107(left) = (458*left + 2044) mod 11449"
+        },
+        "deltaRange": {
+          "min": -286214,
+          "max": -14
+        },
+        "universallyWithinWindows": {
+          "10000": false,
+          "25000": false
+        }
+      },
+      "109": {
+        "prime": 109,
+        "primeSquare": 11881,
+        "kFormula": {
+          "leftCoefficient": 1901,
+          "constant": 4499,
+          "modulus": 11881,
+          "text": "k_109(left) = (1901*left + 4499) mod 11881"
+        },
+        "deltaRange": {
+          "min": -297014,
+          "max": -14
+        },
+        "universallyWithinWindows": {
+          "10000": false,
+          "25000": false
+        }
+      },
+      "113": {
+        "prime": 113,
+        "primeSquare": 12769,
+        "kFormula": {
+          "leftCoefficient": 10726,
+          "constant": 9326,
+          "modulus": 12769,
+          "text": "k_113(left) = (10726*left + 9326) mod 12769"
+        },
+        "deltaRange": {
+          "min": -319214,
+          "max": -14
+        },
+        "universallyWithinWindows": {
+          "10000": false,
+          "25000": false
+        }
+      }
+    },
+    "universalWindowAvailability": false
+  },
+  "allMenu": {
+    "primeSet": [
+      23,
+      31,
+      37,
+      41,
+      61,
+      67,
+      71,
+      73,
+      79,
+      83,
+      89,
+      97,
+      101,
+      103,
+      107,
+      109,
+      113
+    ],
+    "formulasByPrime": {
+      "23": {
+        "prime": 23,
+        "primeSquare": 529,
+        "kFormula": {
+          "leftCoefficient": 127,
+          "constant": 79,
+          "modulus": 529,
+          "text": "k_23(left) = (127*left + 79) mod 529"
+        },
+        "deltaRange": {
+          "min": -13214,
+          "max": -14
+        },
+        "universallyWithinWindows": {
+          "10000": false,
+          "25000": true
+        }
+      },
+      "31": {
+        "prime": 31,
+        "primeSquare": 961,
+        "kFormula": {
+          "leftCoefficient": 346,
+          "constant": 669,
+          "modulus": 961,
+          "text": "k_31(left) = (346*left + 669) mod 961"
+        },
+        "deltaRange": {
+          "min": -24014,
+          "max": -14
+        },
+        "universallyWithinWindows": {
+          "10000": false,
+          "25000": true
+        }
+      },
+      "37": {
+        "prime": 37,
+        "primeSquare": 1369,
+        "kFormula": {
+          "leftCoefficient": 1150,
+          "constant": 651,
+          "modulus": 1369,
+          "text": "k_37(left) = (1150*left + 651) mod 1369"
+        },
+        "deltaRange": {
+          "min": -34214,
+          "max": -14
+        },
+        "universallyWithinWindows": {
+          "10000": false,
+          "25000": false
+        }
+      },
+      "41": {
+        "prime": 41,
+        "primeSquare": 1681,
+        "kFormula": {
+          "leftCoefficient": 269,
+          "constant": 1029,
+          "modulus": 1681,
+          "text": "k_41(left) = (269*left + 1029) mod 1681"
+        },
+        "deltaRange": {
+          "min": -42014,
+          "max": -14
+        },
+        "universallyWithinWindows": {
+          "10000": false,
+          "25000": false
+        }
+      },
+      "61": {
+        "prime": 61,
+        "primeSquare": 3721,
+        "kFormula": {
+          "leftCoefficient": 2828,
+          "constant": 2221,
+          "modulus": 3721,
+          "text": "k_61(left) = (2828*left + 2221) mod 3721"
+        },
+        "deltaRange": {
+          "min": -93014,
+          "max": -14
+        },
+        "universallyWithinWindows": {
+          "10000": false,
+          "25000": false
+        }
+      },
+      "67": {
+        "prime": 67,
+        "primeSquare": 4489,
+        "kFormula": {
+          "leftCoefficient": 2873,
+          "constant": 511,
+          "modulus": 4489,
+          "text": "k_67(left) = (2873*left + 511) mod 4489"
+        },
+        "deltaRange": {
+          "min": -112214,
+          "max": -14
+        },
+        "universallyWithinWindows": {
+          "10000": false,
+          "25000": false
+        }
+      },
+      "71": {
+        "prime": 71,
+        "primeSquare": 5041,
+        "kFormula": {
+          "leftCoefficient": 2823,
+          "constant": 4760,
+          "modulus": 5041,
+          "text": "k_71(left) = (2823*left + 4760) mod 5041"
+        },
+        "deltaRange": {
+          "min": -126014,
+          "max": -14
+        },
+        "universallyWithinWindows": {
+          "10000": false,
+          "25000": false
+        }
+      },
+      "73": {
+        "prime": 73,
+        "primeSquare": 5329,
+        "kFormula": {
+          "leftCoefficient": 1279,
+          "constant": 5218,
+          "modulus": 5329,
+          "text": "k_73(left) = (1279*left + 5218) mod 5329"
+        },
+        "deltaRange": {
+          "min": -133214,
+          "max": -14
+        },
+        "universallyWithinWindows": {
+          "10000": false,
+          "25000": false
+        }
+      },
+      "79": {
+        "prime": 79,
+        "primeSquare": 6241,
+        "kFormula": {
+          "leftCoefficient": 3495,
+          "constant": 4770,
+          "modulus": 6241,
+          "text": "k_79(left) = (3495*left + 4770) mod 6241"
+        },
+        "deltaRange": {
+          "min": -156014,
+          "max": -14
+        },
+        "universallyWithinWindows": {
+          "10000": false,
+          "25000": false
+        }
+      },
+      "83": {
+        "prime": 83,
+        "primeSquare": 6889,
+        "kFormula": {
+          "leftCoefficient": 4409,
+          "constant": 2738,
+          "modulus": 6889,
+          "text": "k_83(left) = (4409*left + 2738) mod 6889"
+        },
+        "deltaRange": {
+          "min": -172214,
+          "max": -14
+        },
+        "universallyWithinWindows": {
+          "10000": false,
+          "25000": false
+        }
+      },
+      "89": {
+        "prime": 89,
+        "primeSquare": 7921,
+        "kFormula": {
+          "leftCoefficient": 6020,
+          "constant": 1152,
+          "modulus": 7921,
+          "text": "k_89(left) = (6020*left + 1152) mod 7921"
+        },
+        "deltaRange": {
+          "min": -198014,
+          "max": -14
+        },
+        "universallyWithinWindows": {
+          "10000": false,
+          "25000": false
+        }
+      },
+      "97": {
+        "prime": 97,
+        "primeSquare": 9409,
+        "kFormula": {
+          "leftCoefficient": 4140,
+          "constant": 4932,
+          "modulus": 9409,
+          "text": "k_97(left) = (4140*left + 4932) mod 9409"
+        },
+        "deltaRange": {
+          "min": -235214,
+          "max": -14
+        },
+        "universallyWithinWindows": {
+          "10000": false,
+          "25000": false
+        }
+      },
+      "101": {
+        "prime": 101,
+        "primeSquare": 10201,
+        "kFormula": {
+          "leftCoefficient": 9793,
+          "constant": 9742,
+          "modulus": 10201,
+          "text": "k_101(left) = (9793*left + 9742) mod 10201"
+        },
+        "deltaRange": {
+          "min": -255014,
+          "max": -14
+        },
+        "universallyWithinWindows": {
+          "10000": false,
+          "25000": false
+        }
+      },
+      "103": {
+        "prime": 103,
+        "primeSquare": 10609,
+        "kFormula": {
+          "leftCoefficient": 4668,
+          "constant": 4197,
+          "modulus": 10609,
+          "text": "k_103(left) = (4668*left + 4197) mod 10609"
+        },
+        "deltaRange": {
+          "min": -265214,
+          "max": -14
+        },
+        "universallyWithinWindows": {
+          "10000": false,
+          "25000": false
+        }
+      },
+      "107": {
+        "prime": 107,
+        "primeSquare": 11449,
+        "kFormula": {
+          "leftCoefficient": 458,
+          "constant": 2044,
+          "modulus": 11449,
+          "text": "k_107(left) = (458*left + 2044) mod 11449"
+        },
+        "deltaRange": {
+          "min": -286214,
+          "max": -14
+        },
+        "universallyWithinWindows": {
+          "10000": false,
+          "25000": false
+        }
+      },
+      "109": {
+        "prime": 109,
+        "primeSquare": 11881,
+        "kFormula": {
+          "leftCoefficient": 1901,
+          "constant": 4499,
+          "modulus": 11881,
+          "text": "k_109(left) = (1901*left + 4499) mod 11881"
+        },
+        "deltaRange": {
+          "min": -297014,
+          "max": -14
+        },
+        "universallyWithinWindows": {
+          "10000": false,
+          "25000": false
+        }
+      },
+      "113": {
+        "prime": 113,
+        "primeSquare": 12769,
+        "kFormula": {
+          "leftCoefficient": 10726,
+          "constant": 9326,
+          "modulus": 12769,
+          "text": "k_113(left) = (10726*left + 9326) mod 12769"
+        },
+        "deltaRange": {
+          "min": -319214,
+          "max": -14
+        },
+        "universallyWithinWindows": {
+          "10000": false,
+          "25000": false
+        }
+      }
+    }
+  },
+  "coverage": {
+    "primaryCovered": 0,
+    "primaryMisses": 1,
+    "allCovered": 0,
+    "allMisses": 1,
+    "firstPrimaryMiss": {
+      "left": 34414907,
+      "leftModResidualClass": 5882,
+      "primaryEndpoints": [
+        {
+          "prime": 23,
+          "k": 48,
+          "delta": -1214,
+          "right": 34413693,
+          "rightMod25": 18,
+          "withinWindow": true,
+          "compatibilityModPrimeSquare": 0,
+          "crossProductPlusOne": "1184344044121552",
+          "checkedSquarePrimeLimit": 34414903,
+          "squareDivisorPrime": 2,
+          "squareDivisor": 4,
+          "squarefree": false,
+          "squarefreeStatus": "non_squarefree",
+          "profileUsable": false
+        },
+        {
+          "prime": 31,
+          "k": 652,
+          "delta": -16314,
+          "right": 34398593,
+          "rightMod25": 18,
+          "withinWindow": true,
+          "compatibilityModPrimeSquare": 0,
+          "crossProductPlusOne": "1183824379025852",
+          "checkedSquarePrimeLimit": 34414903,
+          "squareDivisorPrime": 2,
+          "squareDivisor": 4,
+          "squarefree": false,
+          "squarefreeStatus": "non_squarefree",
+          "profileUsable": false
+        },
+        {
+          "prime": 37,
+          "k": 1238,
+          "delta": -30964,
+          "right": 34383943,
+          "rightMod25": 18,
+          "withinWindow": false,
+          "compatibilityModPrimeSquare": 0,
+          "crossProductPlusOne": "1183320200638302",
+          "checkedSquarePrimeLimit": 34414903,
+          "squareDivisorPrime": null,
+          "squareDivisor": null,
+          "squarefree": true,
+          "squarefreeStatus": "exact_squarefree",
+          "profileUsable": true
+        },
+        {
+          "prime": 41,
+          "k": 1088,
+          "delta": -27214,
+          "right": 34387693,
+          "rightMod25": 18,
+          "withinWindow": false,
+          "compatibilityModPrimeSquare": 0,
+          "crossProductPlusOne": "1183449256539552",
+          "checkedSquarePrimeLimit": 34414903,
+          "squareDivisorPrime": 2,
+          "squareDivisor": 4,
+          "squarefree": false,
+          "squarefreeStatus": "non_squarefree",
+          "profileUsable": false
+        },
+        {
+          "prime": 61,
+          "k": 3238,
+          "delta": -80964,
+          "right": 34333943,
+          "rightMod25": 18,
+          "withinWindow": false,
+          "compatibilityModPrimeSquare": 0,
+          "crossProductPlusOne": "1181599455288302",
+          "checkedSquarePrimeLimit": 34414903,
+          "squareDivisorPrime": null,
+          "squareDivisor": null,
+          "squarefree": true,
+          "squarefreeStatus": "exact_squarefree",
+          "profileUsable": true
+        },
+        {
+          "prime": 67,
+          "k": 1139,
+          "delta": -28489,
+          "right": 34386418,
+          "rightMod25": 18,
+          "withinWindow": false,
+          "compatibilityModPrimeSquare": 0,
+          "crossProductPlusOne": "1183405377533127",
+          "checkedSquarePrimeLimit": 34414903,
+          "squareDivisorPrime": null,
+          "squareDivisor": null,
+          "squarefree": true,
+          "squarefreeStatus": "exact_squarefree",
+          "profileUsable": true
+        }
+      ],
+      "fallbackEndpoints": [
+        {
+          "prime": 71,
+          "k": 4760,
+          "delta": -119014,
+          "right": 34295893,
+          "rightMod25": 18,
+          "withinWindow": false,
+          "compatibilityModPrimeSquare": 0,
+          "crossProductPlusOne": "1180289968076952",
+          "checkedSquarePrimeLimit": 34414903,
+          "squareDivisorPrime": 2,
+          "squareDivisor": 4,
+          "squarefree": false,
+          "squarefreeStatus": "non_squarefree",
+          "profileUsable": false
+        },
+        {
+          "prime": 73,
+          "k": 5227,
+          "delta": -130689,
+          "right": 34284218,
+          "rightMod25": 18,
+          "withinWindow": false,
+          "compatibilityModPrimeSquare": 0,
+          "crossProductPlusOne": "1179888174037727",
+          "checkedSquarePrimeLimit": 34414903,
+          "squareDivisorPrime": null,
+          "squareDivisor": null,
+          "squarefree": true,
+          "squarefreeStatus": "exact_squarefree",
+          "profileUsable": true
+        },
+        {
+          "prime": 79,
+          "k": 1606,
+          "delta": -40164,
+          "right": 34374743,
+          "rightMod25": 18,
+          "withinWindow": false,
+          "compatibilityModPrimeSquare": 0,
+          "crossProductPlusOne": "1183003583493902",
+          "checkedSquarePrimeLimit": 34414903,
+          "squareDivisorPrime": null,
+          "squareDivisor": null,
+          "squarefree": true,
+          "squarefreeStatus": "exact_squarefree",
+          "profileUsable": true
+        },
+        {
+          "prime": 83,
+          "k": 4841,
+          "delta": -121039,
+          "right": 34293868,
+          "rightMod25": 18,
+          "withinWindow": false,
+          "compatibilityModPrimeSquare": 0,
+          "crossProductPlusOne": "1180220277890277",
+          "checkedSquarePrimeLimit": 34414903,
+          "squareDivisorPrime": 3,
+          "squareDivisor": 9,
+          "squarefree": false,
+          "squarefreeStatus": "non_squarefree",
+          "profileUsable": false
+        },
+        {
+          "prime": 89,
+          "k": 2029,
+          "delta": -50739,
+          "right": 34364168,
+          "rightMod25": 18,
+          "withinWindow": false,
+          "compatibilityModPrimeSquare": 0,
+          "crossProductPlusOne": "1182639645852377",
+          "checkedSquarePrimeLimit": 34414903,
+          "squareDivisorPrime": null,
+          "squareDivisor": null,
+          "squarefree": true,
+          "squarefreeStatus": "exact_squarefree",
+          "profileUsable": true
+        },
+        {
+          "prime": 97,
+          "k": 8567,
+          "delta": -214189,
+          "right": 34200718,
+          "rightMod25": 18,
+          "withinWindow": false,
+          "compatibilityModPrimeSquare": 0,
+          "crossProductPlusOne": "1177014529303227",
+          "checkedSquarePrimeLimit": 34414903,
+          "squareDivisorPrime": 3,
+          "squareDivisor": 9,
+          "squarefree": false,
+          "squarefreeStatus": "non_squarefree",
+          "profileUsable": false
+        },
+        {
+          "prime": 101,
+          "k": 6347,
+          "delta": -158689,
+          "right": 34256218,
+          "rightMod25": 18,
+          "withinWindow": false,
+          "compatibilityModPrimeSquare": 0,
+          "crossProductPlusOne": "1178924556641727",
+          "checkedSquarePrimeLimit": 34414903,
+          "squareDivisorPrime": 7,
+          "squareDivisor": 49,
+          "squarefree": false,
+          "squarefreeStatus": "non_squarefree",
+          "profileUsable": false
+        },
+        {
+          "prime": 103,
+          "k": 2472,
+          "delta": -61814,
+          "right": 34353093,
+          "rightMod25": 18,
+          "withinWindow": false,
+          "compatibilityModPrimeSquare": 0,
+          "crossProductPlusOne": "1182258500757352",
+          "checkedSquarePrimeLimit": 34414903,
+          "squareDivisorPrime": 2,
+          "squareDivisor": 4,
+          "squarefree": false,
+          "squarefreeStatus": "non_squarefree",
+          "profileUsable": false
+        },
+        {
+          "prime": 107,
+          "k": 7966,
+          "delta": -199164,
+          "right": 34215743,
+          "rightMod25": 18,
+          "withinWindow": false,
+          "compatibilityModPrimeSquare": 0,
+          "crossProductPlusOne": "1177531613280902",
+          "checkedSquarePrimeLimit": 34414903,
+          "squareDivisorPrime": 11,
+          "squareDivisor": 121,
+          "squarefree": false,
+          "squarefreeStatus": "non_squarefree",
+          "profileUsable": false
+        },
+        {
+          "prime": 109,
+          "k": 4325,
+          "delta": -108139,
+          "right": 34306768,
+          "rightMod25": 18,
+          "withinWindow": false,
+          "compatibilityModPrimeSquare": 0,
+          "crossProductPlusOne": "1180664230190577",
+          "checkedSquarePrimeLimit": 34414903,
+          "squareDivisorPrime": null,
+          "squareDivisor": null,
+          "squarefree": true,
+          "squarefreeStatus": "exact_squarefree",
+          "profileUsable": true
+        },
+        {
+          "prime": 113,
+          "k": 5338,
+          "delta": -133464,
+          "right": 34281443,
+          "rightMod25": 18,
+          "withinWindow": false,
+          "compatibilityModPrimeSquare": 0,
+          "crossProductPlusOne": "1179792672670802",
+          "checkedSquarePrimeLimit": 34414903,
+          "squareDivisorPrime": null,
+          "squareDivisor": null,
+          "squarefree": true,
+          "squarefreeStatus": "exact_squarefree",
+          "profileUsable": true
+        }
+      ],
+      "firstPrimarySquarefree": null,
+      "firstAnySquarefree": null,
+      "primaryCovered": false,
+      "allCovered": false
+    },
+    "firstAllMiss": {
+      "left": 34414907,
+      "leftModResidualClass": 5882,
+      "primaryEndpoints": [
+        {
+          "prime": 23,
+          "k": 48,
+          "delta": -1214,
+          "right": 34413693,
+          "rightMod25": 18,
+          "withinWindow": true,
+          "compatibilityModPrimeSquare": 0,
+          "crossProductPlusOne": "1184344044121552",
+          "checkedSquarePrimeLimit": 34414903,
+          "squareDivisorPrime": 2,
+          "squareDivisor": 4,
+          "squarefree": false,
+          "squarefreeStatus": "non_squarefree",
+          "profileUsable": false
+        },
+        {
+          "prime": 31,
+          "k": 652,
+          "delta": -16314,
+          "right": 34398593,
+          "rightMod25": 18,
+          "withinWindow": true,
+          "compatibilityModPrimeSquare": 0,
+          "crossProductPlusOne": "1183824379025852",
+          "checkedSquarePrimeLimit": 34414903,
+          "squareDivisorPrime": 2,
+          "squareDivisor": 4,
+          "squarefree": false,
+          "squarefreeStatus": "non_squarefree",
+          "profileUsable": false
+        },
+        {
+          "prime": 37,
+          "k": 1238,
+          "delta": -30964,
+          "right": 34383943,
+          "rightMod25": 18,
+          "withinWindow": false,
+          "compatibilityModPrimeSquare": 0,
+          "crossProductPlusOne": "1183320200638302",
+          "checkedSquarePrimeLimit": 34414903,
+          "squareDivisorPrime": null,
+          "squareDivisor": null,
+          "squarefree": true,
+          "squarefreeStatus": "exact_squarefree",
+          "profileUsable": true
+        },
+        {
+          "prime": 41,
+          "k": 1088,
+          "delta": -27214,
+          "right": 34387693,
+          "rightMod25": 18,
+          "withinWindow": false,
+          "compatibilityModPrimeSquare": 0,
+          "crossProductPlusOne": "1183449256539552",
+          "checkedSquarePrimeLimit": 34414903,
+          "squareDivisorPrime": 2,
+          "squareDivisor": 4,
+          "squarefree": false,
+          "squarefreeStatus": "non_squarefree",
+          "profileUsable": false
+        },
+        {
+          "prime": 61,
+          "k": 3238,
+          "delta": -80964,
+          "right": 34333943,
+          "rightMod25": 18,
+          "withinWindow": false,
+          "compatibilityModPrimeSquare": 0,
+          "crossProductPlusOne": "1181599455288302",
+          "checkedSquarePrimeLimit": 34414903,
+          "squareDivisorPrime": null,
+          "squareDivisor": null,
+          "squarefree": true,
+          "squarefreeStatus": "exact_squarefree",
+          "profileUsable": true
+        },
+        {
+          "prime": 67,
+          "k": 1139,
+          "delta": -28489,
+          "right": 34386418,
+          "rightMod25": 18,
+          "withinWindow": false,
+          "compatibilityModPrimeSquare": 0,
+          "crossProductPlusOne": "1183405377533127",
+          "checkedSquarePrimeLimit": 34414903,
+          "squareDivisorPrime": null,
+          "squareDivisor": null,
+          "squarefree": true,
+          "squarefreeStatus": "exact_squarefree",
+          "profileUsable": true
+        }
+      ],
+      "fallbackEndpoints": [
+        {
+          "prime": 71,
+          "k": 4760,
+          "delta": -119014,
+          "right": 34295893,
+          "rightMod25": 18,
+          "withinWindow": false,
+          "compatibilityModPrimeSquare": 0,
+          "crossProductPlusOne": "1180289968076952",
+          "checkedSquarePrimeLimit": 34414903,
+          "squareDivisorPrime": 2,
+          "squareDivisor": 4,
+          "squarefree": false,
+          "squarefreeStatus": "non_squarefree",
+          "profileUsable": false
+        },
+        {
+          "prime": 73,
+          "k": 5227,
+          "delta": -130689,
+          "right": 34284218,
+          "rightMod25": 18,
+          "withinWindow": false,
+          "compatibilityModPrimeSquare": 0,
+          "crossProductPlusOne": "1179888174037727",
+          "checkedSquarePrimeLimit": 34414903,
+          "squareDivisorPrime": null,
+          "squareDivisor": null,
+          "squarefree": true,
+          "squarefreeStatus": "exact_squarefree",
+          "profileUsable": true
+        },
+        {
+          "prime": 79,
+          "k": 1606,
+          "delta": -40164,
+          "right": 34374743,
+          "rightMod25": 18,
+          "withinWindow": false,
+          "compatibilityModPrimeSquare": 0,
+          "crossProductPlusOne": "1183003583493902",
+          "checkedSquarePrimeLimit": 34414903,
+          "squareDivisorPrime": null,
+          "squareDivisor": null,
+          "squarefree": true,
+          "squarefreeStatus": "exact_squarefree",
+          "profileUsable": true
+        },
+        {
+          "prime": 83,
+          "k": 4841,
+          "delta": -121039,
+          "right": 34293868,
+          "rightMod25": 18,
+          "withinWindow": false,
+          "compatibilityModPrimeSquare": 0,
+          "crossProductPlusOne": "1180220277890277",
+          "checkedSquarePrimeLimit": 34414903,
+          "squareDivisorPrime": 3,
+          "squareDivisor": 9,
+          "squarefree": false,
+          "squarefreeStatus": "non_squarefree",
+          "profileUsable": false
+        },
+        {
+          "prime": 89,
+          "k": 2029,
+          "delta": -50739,
+          "right": 34364168,
+          "rightMod25": 18,
+          "withinWindow": false,
+          "compatibilityModPrimeSquare": 0,
+          "crossProductPlusOne": "1182639645852377",
+          "checkedSquarePrimeLimit": 34414903,
+          "squareDivisorPrime": null,
+          "squareDivisor": null,
+          "squarefree": true,
+          "squarefreeStatus": "exact_squarefree",
+          "profileUsable": true
+        },
+        {
+          "prime": 97,
+          "k": 8567,
+          "delta": -214189,
+          "right": 34200718,
+          "rightMod25": 18,
+          "withinWindow": false,
+          "compatibilityModPrimeSquare": 0,
+          "crossProductPlusOne": "1177014529303227",
+          "checkedSquarePrimeLimit": 34414903,
+          "squareDivisorPrime": 3,
+          "squareDivisor": 9,
+          "squarefree": false,
+          "squarefreeStatus": "non_squarefree",
+          "profileUsable": false
+        },
+        {
+          "prime": 101,
+          "k": 6347,
+          "delta": -158689,
+          "right": 34256218,
+          "rightMod25": 18,
+          "withinWindow": false,
+          "compatibilityModPrimeSquare": 0,
+          "crossProductPlusOne": "1178924556641727",
+          "checkedSquarePrimeLimit": 34414903,
+          "squareDivisorPrime": 7,
+          "squareDivisor": 49,
+          "squarefree": false,
+          "squarefreeStatus": "non_squarefree",
+          "profileUsable": false
+        },
+        {
+          "prime": 103,
+          "k": 2472,
+          "delta": -61814,
+          "right": 34353093,
+          "rightMod25": 18,
+          "withinWindow": false,
+          "compatibilityModPrimeSquare": 0,
+          "crossProductPlusOne": "1182258500757352",
+          "checkedSquarePrimeLimit": 34414903,
+          "squareDivisorPrime": 2,
+          "squareDivisor": 4,
+          "squarefree": false,
+          "squarefreeStatus": "non_squarefree",
+          "profileUsable": false
+        },
+        {
+          "prime": 107,
+          "k": 7966,
+          "delta": -199164,
+          "right": 34215743,
+          "rightMod25": 18,
+          "withinWindow": false,
+          "compatibilityModPrimeSquare": 0,
+          "crossProductPlusOne": "1177531613280902",
+          "checkedSquarePrimeLimit": 34414903,
+          "squareDivisorPrime": 11,
+          "squareDivisor": 121,
+          "squarefree": false,
+          "squarefreeStatus": "non_squarefree",
+          "profileUsable": false
+        },
+        {
+          "prime": 109,
+          "k": 4325,
+          "delta": -108139,
+          "right": 34306768,
+          "rightMod25": 18,
+          "withinWindow": false,
+          "compatibilityModPrimeSquare": 0,
+          "crossProductPlusOne": "1180664230190577",
+          "checkedSquarePrimeLimit": 34414903,
+          "squareDivisorPrime": null,
+          "squareDivisor": null,
+          "squarefree": true,
+          "squarefreeStatus": "exact_squarefree",
+          "profileUsable": true
+        },
+        {
+          "prime": 113,
+          "k": 5338,
+          "delta": -133464,
+          "right": 34281443,
+          "rightMod25": 18,
+          "withinWindow": false,
+          "compatibilityModPrimeSquare": 0,
+          "crossProductPlusOne": "1179792672670802",
+          "checkedSquarePrimeLimit": 34414903,
+          "squareDivisorPrime": null,
+          "squareDivisor": null,
+          "squarefree": true,
+          "squarefreeStatus": "exact_squarefree",
+          "profileUsable": true
+        }
+      ],
+      "firstPrimarySquarefree": null,
+      "firstAnySquarefree": null,
+      "primaryCovered": false,
+      "allCovered": false
+    },
+    "primaryCoverPrimeCounts": [],
+    "allCoverPrimeCounts": []
+  },
+  "seedCheck": null,
+  "rowSamples": {
+    "firstRows": [
+      {
+        "left": 34414907,
+        "leftModResidualClass": 5882,
+        "primaryEndpoints": [
+          {
+            "prime": 23,
+            "k": 48,
+            "delta": -1214,
+            "right": 34413693,
+            "rightMod25": 18,
+            "withinWindow": true,
+            "compatibilityModPrimeSquare": 0,
+            "crossProductPlusOne": "1184344044121552",
+            "checkedSquarePrimeLimit": 34414903,
+            "squareDivisorPrime": 2,
+            "squareDivisor": 4,
+            "squarefree": false,
+            "squarefreeStatus": "non_squarefree",
+            "profileUsable": false
+          },
+          {
+            "prime": 31,
+            "k": 652,
+            "delta": -16314,
+            "right": 34398593,
+            "rightMod25": 18,
+            "withinWindow": true,
+            "compatibilityModPrimeSquare": 0,
+            "crossProductPlusOne": "1183824379025852",
+            "checkedSquarePrimeLimit": 34414903,
+            "squareDivisorPrime": 2,
+            "squareDivisor": 4,
+            "squarefree": false,
+            "squarefreeStatus": "non_squarefree",
+            "profileUsable": false
+          },
+          {
+            "prime": 37,
+            "k": 1238,
+            "delta": -30964,
+            "right": 34383943,
+            "rightMod25": 18,
+            "withinWindow": false,
+            "compatibilityModPrimeSquare": 0,
+            "crossProductPlusOne": "1183320200638302",
+            "checkedSquarePrimeLimit": 34414903,
+            "squareDivisorPrime": null,
+            "squareDivisor": null,
+            "squarefree": true,
+            "squarefreeStatus": "exact_squarefree",
+            "profileUsable": true
+          },
+          {
+            "prime": 41,
+            "k": 1088,
+            "delta": -27214,
+            "right": 34387693,
+            "rightMod25": 18,
+            "withinWindow": false,
+            "compatibilityModPrimeSquare": 0,
+            "crossProductPlusOne": "1183449256539552",
+            "checkedSquarePrimeLimit": 34414903,
+            "squareDivisorPrime": 2,
+            "squareDivisor": 4,
+            "squarefree": false,
+            "squarefreeStatus": "non_squarefree",
+            "profileUsable": false
+          },
+          {
+            "prime": 61,
+            "k": 3238,
+            "delta": -80964,
+            "right": 34333943,
+            "rightMod25": 18,
+            "withinWindow": false,
+            "compatibilityModPrimeSquare": 0,
+            "crossProductPlusOne": "1181599455288302",
+            "checkedSquarePrimeLimit": 34414903,
+            "squareDivisorPrime": null,
+            "squareDivisor": null,
+            "squarefree": true,
+            "squarefreeStatus": "exact_squarefree",
+            "profileUsable": true
+          },
+          {
+            "prime": 67,
+            "k": 1139,
+            "delta": -28489,
+            "right": 34386418,
+            "rightMod25": 18,
+            "withinWindow": false,
+            "compatibilityModPrimeSquare": 0,
+            "crossProductPlusOne": "1183405377533127",
+            "checkedSquarePrimeLimit": 34414903,
+            "squareDivisorPrime": null,
+            "squareDivisor": null,
+            "squarefree": true,
+            "squarefreeStatus": "exact_squarefree",
+            "profileUsable": true
+          }
+        ],
+        "fallbackEndpoints": [
+          {
+            "prime": 71,
+            "k": 4760,
+            "delta": -119014,
+            "right": 34295893,
+            "rightMod25": 18,
+            "withinWindow": false,
+            "compatibilityModPrimeSquare": 0,
+            "crossProductPlusOne": "1180289968076952",
+            "checkedSquarePrimeLimit": 34414903,
+            "squareDivisorPrime": 2,
+            "squareDivisor": 4,
+            "squarefree": false,
+            "squarefreeStatus": "non_squarefree",
+            "profileUsable": false
+          },
+          {
+            "prime": 73,
+            "k": 5227,
+            "delta": -130689,
+            "right": 34284218,
+            "rightMod25": 18,
+            "withinWindow": false,
+            "compatibilityModPrimeSquare": 0,
+            "crossProductPlusOne": "1179888174037727",
+            "checkedSquarePrimeLimit": 34414903,
+            "squareDivisorPrime": null,
+            "squareDivisor": null,
+            "squarefree": true,
+            "squarefreeStatus": "exact_squarefree",
+            "profileUsable": true
+          },
+          {
+            "prime": 79,
+            "k": 1606,
+            "delta": -40164,
+            "right": 34374743,
+            "rightMod25": 18,
+            "withinWindow": false,
+            "compatibilityModPrimeSquare": 0,
+            "crossProductPlusOne": "1183003583493902",
+            "checkedSquarePrimeLimit": 34414903,
+            "squareDivisorPrime": null,
+            "squareDivisor": null,
+            "squarefree": true,
+            "squarefreeStatus": "exact_squarefree",
+            "profileUsable": true
+          },
+          {
+            "prime": 83,
+            "k": 4841,
+            "delta": -121039,
+            "right": 34293868,
+            "rightMod25": 18,
+            "withinWindow": false,
+            "compatibilityModPrimeSquare": 0,
+            "crossProductPlusOne": "1180220277890277",
+            "checkedSquarePrimeLimit": 34414903,
+            "squareDivisorPrime": 3,
+            "squareDivisor": 9,
+            "squarefree": false,
+            "squarefreeStatus": "non_squarefree",
+            "profileUsable": false
+          },
+          {
+            "prime": 89,
+            "k": 2029,
+            "delta": -50739,
+            "right": 34364168,
+            "rightMod25": 18,
+            "withinWindow": false,
+            "compatibilityModPrimeSquare": 0,
+            "crossProductPlusOne": "1182639645852377",
+            "checkedSquarePrimeLimit": 34414903,
+            "squareDivisorPrime": null,
+            "squareDivisor": null,
+            "squarefree": true,
+            "squarefreeStatus": "exact_squarefree",
+            "profileUsable": true
+          },
+          {
+            "prime": 97,
+            "k": 8567,
+            "delta": -214189,
+            "right": 34200718,
+            "rightMod25": 18,
+            "withinWindow": false,
+            "compatibilityModPrimeSquare": 0,
+            "crossProductPlusOne": "1177014529303227",
+            "checkedSquarePrimeLimit": 34414903,
+            "squareDivisorPrime": 3,
+            "squareDivisor": 9,
+            "squarefree": false,
+            "squarefreeStatus": "non_squarefree",
+            "profileUsable": false
+          },
+          {
+            "prime": 101,
+            "k": 6347,
+            "delta": -158689,
+            "right": 34256218,
+            "rightMod25": 18,
+            "withinWindow": false,
+            "compatibilityModPrimeSquare": 0,
+            "crossProductPlusOne": "1178924556641727",
+            "checkedSquarePrimeLimit": 34414903,
+            "squareDivisorPrime": 7,
+            "squareDivisor": 49,
+            "squarefree": false,
+            "squarefreeStatus": "non_squarefree",
+            "profileUsable": false
+          },
+          {
+            "prime": 103,
+            "k": 2472,
+            "delta": -61814,
+            "right": 34353093,
+            "rightMod25": 18,
+            "withinWindow": false,
+            "compatibilityModPrimeSquare": 0,
+            "crossProductPlusOne": "1182258500757352",
+            "checkedSquarePrimeLimit": 34414903,
+            "squareDivisorPrime": 2,
+            "squareDivisor": 4,
+            "squarefree": false,
+            "squarefreeStatus": "non_squarefree",
+            "profileUsable": false
+          },
+          {
+            "prime": 107,
+            "k": 7966,
+            "delta": -199164,
+            "right": 34215743,
+            "rightMod25": 18,
+            "withinWindow": false,
+            "compatibilityModPrimeSquare": 0,
+            "crossProductPlusOne": "1177531613280902",
+            "checkedSquarePrimeLimit": 34414903,
+            "squareDivisorPrime": 11,
+            "squareDivisor": 121,
+            "squarefree": false,
+            "squarefreeStatus": "non_squarefree",
+            "profileUsable": false
+          },
+          {
+            "prime": 109,
+            "k": 4325,
+            "delta": -108139,
+            "right": 34306768,
+            "rightMod25": 18,
+            "withinWindow": false,
+            "compatibilityModPrimeSquare": 0,
+            "crossProductPlusOne": "1180664230190577",
+            "checkedSquarePrimeLimit": 34414903,
+            "squareDivisorPrime": null,
+            "squareDivisor": null,
+            "squarefree": true,
+            "squarefreeStatus": "exact_squarefree",
+            "profileUsable": true
+          },
+          {
+            "prime": 113,
+            "k": 5338,
+            "delta": -133464,
+            "right": 34281443,
+            "rightMod25": 18,
+            "withinWindow": false,
+            "compatibilityModPrimeSquare": 0,
+            "crossProductPlusOne": "1179792672670802",
+            "checkedSquarePrimeLimit": 34414903,
+            "squareDivisorPrime": null,
+            "squareDivisor": null,
+            "squarefree": true,
+            "squarefreeStatus": "exact_squarefree",
+            "profileUsable": true
+          }
+        ],
+        "firstPrimarySquarefree": null,
+        "firstAnySquarefree": null,
+        "primaryCovered": false,
+        "allCovered": false
+      }
+    ],
+    "primaryMisses": [
+      {
+        "left": 34414907,
+        "leftModResidualClass": 5882,
+        "primaryEndpoints": [
+          {
+            "prime": 23,
+            "k": 48,
+            "delta": -1214,
+            "right": 34413693,
+            "rightMod25": 18,
+            "withinWindow": true,
+            "compatibilityModPrimeSquare": 0,
+            "crossProductPlusOne": "1184344044121552",
+            "checkedSquarePrimeLimit": 34414903,
+            "squareDivisorPrime": 2,
+            "squareDivisor": 4,
+            "squarefree": false,
+            "squarefreeStatus": "non_squarefree",
+            "profileUsable": false
+          },
+          {
+            "prime": 31,
+            "k": 652,
+            "delta": -16314,
+            "right": 34398593,
+            "rightMod25": 18,
+            "withinWindow": true,
+            "compatibilityModPrimeSquare": 0,
+            "crossProductPlusOne": "1183824379025852",
+            "checkedSquarePrimeLimit": 34414903,
+            "squareDivisorPrime": 2,
+            "squareDivisor": 4,
+            "squarefree": false,
+            "squarefreeStatus": "non_squarefree",
+            "profileUsable": false
+          },
+          {
+            "prime": 37,
+            "k": 1238,
+            "delta": -30964,
+            "right": 34383943,
+            "rightMod25": 18,
+            "withinWindow": false,
+            "compatibilityModPrimeSquare": 0,
+            "crossProductPlusOne": "1183320200638302",
+            "checkedSquarePrimeLimit": 34414903,
+            "squareDivisorPrime": null,
+            "squareDivisor": null,
+            "squarefree": true,
+            "squarefreeStatus": "exact_squarefree",
+            "profileUsable": true
+          },
+          {
+            "prime": 41,
+            "k": 1088,
+            "delta": -27214,
+            "right": 34387693,
+            "rightMod25": 18,
+            "withinWindow": false,
+            "compatibilityModPrimeSquare": 0,
+            "crossProductPlusOne": "1183449256539552",
+            "checkedSquarePrimeLimit": 34414903,
+            "squareDivisorPrime": 2,
+            "squareDivisor": 4,
+            "squarefree": false,
+            "squarefreeStatus": "non_squarefree",
+            "profileUsable": false
+          },
+          {
+            "prime": 61,
+            "k": 3238,
+            "delta": -80964,
+            "right": 34333943,
+            "rightMod25": 18,
+            "withinWindow": false,
+            "compatibilityModPrimeSquare": 0,
+            "crossProductPlusOne": "1181599455288302",
+            "checkedSquarePrimeLimit": 34414903,
+            "squareDivisorPrime": null,
+            "squareDivisor": null,
+            "squarefree": true,
+            "squarefreeStatus": "exact_squarefree",
+            "profileUsable": true
+          },
+          {
+            "prime": 67,
+            "k": 1139,
+            "delta": -28489,
+            "right": 34386418,
+            "rightMod25": 18,
+            "withinWindow": false,
+            "compatibilityModPrimeSquare": 0,
+            "crossProductPlusOne": "1183405377533127",
+            "checkedSquarePrimeLimit": 34414903,
+            "squareDivisorPrime": null,
+            "squareDivisor": null,
+            "squarefree": true,
+            "squarefreeStatus": "exact_squarefree",
+            "profileUsable": true
+          }
+        ],
+        "fallbackEndpoints": [
+          {
+            "prime": 71,
+            "k": 4760,
+            "delta": -119014,
+            "right": 34295893,
+            "rightMod25": 18,
+            "withinWindow": false,
+            "compatibilityModPrimeSquare": 0,
+            "crossProductPlusOne": "1180289968076952",
+            "checkedSquarePrimeLimit": 34414903,
+            "squareDivisorPrime": 2,
+            "squareDivisor": 4,
+            "squarefree": false,
+            "squarefreeStatus": "non_squarefree",
+            "profileUsable": false
+          },
+          {
+            "prime": 73,
+            "k": 5227,
+            "delta": -130689,
+            "right": 34284218,
+            "rightMod25": 18,
+            "withinWindow": false,
+            "compatibilityModPrimeSquare": 0,
+            "crossProductPlusOne": "1179888174037727",
+            "checkedSquarePrimeLimit": 34414903,
+            "squareDivisorPrime": null,
+            "squareDivisor": null,
+            "squarefree": true,
+            "squarefreeStatus": "exact_squarefree",
+            "profileUsable": true
+          },
+          {
+            "prime": 79,
+            "k": 1606,
+            "delta": -40164,
+            "right": 34374743,
+            "rightMod25": 18,
+            "withinWindow": false,
+            "compatibilityModPrimeSquare": 0,
+            "crossProductPlusOne": "1183003583493902",
+            "checkedSquarePrimeLimit": 34414903,
+            "squareDivisorPrime": null,
+            "squareDivisor": null,
+            "squarefree": true,
+            "squarefreeStatus": "exact_squarefree",
+            "profileUsable": true
+          },
+          {
+            "prime": 83,
+            "k": 4841,
+            "delta": -121039,
+            "right": 34293868,
+            "rightMod25": 18,
+            "withinWindow": false,
+            "compatibilityModPrimeSquare": 0,
+            "crossProductPlusOne": "1180220277890277",
+            "checkedSquarePrimeLimit": 34414903,
+            "squareDivisorPrime": 3,
+            "squareDivisor": 9,
+            "squarefree": false,
+            "squarefreeStatus": "non_squarefree",
+            "profileUsable": false
+          },
+          {
+            "prime": 89,
+            "k": 2029,
+            "delta": -50739,
+            "right": 34364168,
+            "rightMod25": 18,
+            "withinWindow": false,
+            "compatibilityModPrimeSquare": 0,
+            "crossProductPlusOne": "1182639645852377",
+            "checkedSquarePrimeLimit": 34414903,
+            "squareDivisorPrime": null,
+            "squareDivisor": null,
+            "squarefree": true,
+            "squarefreeStatus": "exact_squarefree",
+            "profileUsable": true
+          },
+          {
+            "prime": 97,
+            "k": 8567,
+            "delta": -214189,
+            "right": 34200718,
+            "rightMod25": 18,
+            "withinWindow": false,
+            "compatibilityModPrimeSquare": 0,
+            "crossProductPlusOne": "1177014529303227",
+            "checkedSquarePrimeLimit": 34414903,
+            "squareDivisorPrime": 3,
+            "squareDivisor": 9,
+            "squarefree": false,
+            "squarefreeStatus": "non_squarefree",
+            "profileUsable": false
+          },
+          {
+            "prime": 101,
+            "k": 6347,
+            "delta": -158689,
+            "right": 34256218,
+            "rightMod25": 18,
+            "withinWindow": false,
+            "compatibilityModPrimeSquare": 0,
+            "crossProductPlusOne": "1178924556641727",
+            "checkedSquarePrimeLimit": 34414903,
+            "squareDivisorPrime": 7,
+            "squareDivisor": 49,
+            "squarefree": false,
+            "squarefreeStatus": "non_squarefree",
+            "profileUsable": false
+          },
+          {
+            "prime": 103,
+            "k": 2472,
+            "delta": -61814,
+            "right": 34353093,
+            "rightMod25": 18,
+            "withinWindow": false,
+            "compatibilityModPrimeSquare": 0,
+            "crossProductPlusOne": "1182258500757352",
+            "checkedSquarePrimeLimit": 34414903,
+            "squareDivisorPrime": 2,
+            "squareDivisor": 4,
+            "squarefree": false,
+            "squarefreeStatus": "non_squarefree",
+            "profileUsable": false
+          },
+          {
+            "prime": 107,
+            "k": 7966,
+            "delta": -199164,
+            "right": 34215743,
+            "rightMod25": 18,
+            "withinWindow": false,
+            "compatibilityModPrimeSquare": 0,
+            "crossProductPlusOne": "1177531613280902",
+            "checkedSquarePrimeLimit": 34414903,
+            "squareDivisorPrime": 11,
+            "squareDivisor": 121,
+            "squarefree": false,
+            "squarefreeStatus": "non_squarefree",
+            "profileUsable": false
+          },
+          {
+            "prime": 109,
+            "k": 4325,
+            "delta": -108139,
+            "right": 34306768,
+            "rightMod25": 18,
+            "withinWindow": false,
+            "compatibilityModPrimeSquare": 0,
+            "crossProductPlusOne": "1180664230190577",
+            "checkedSquarePrimeLimit": 34414903,
+            "squareDivisorPrime": null,
+            "squareDivisor": null,
+            "squarefree": true,
+            "squarefreeStatus": "exact_squarefree",
+            "profileUsable": true
+          },
+          {
+            "prime": 113,
+            "k": 5338,
+            "delta": -133464,
+            "right": 34281443,
+            "rightMod25": 18,
+            "withinWindow": false,
+            "compatibilityModPrimeSquare": 0,
+            "crossProductPlusOne": "1179792672670802",
+            "checkedSquarePrimeLimit": 34414903,
+            "squareDivisorPrime": null,
+            "squareDivisor": null,
+            "squarefree": true,
+            "squarefreeStatus": "exact_squarefree",
+            "profileUsable": true
+          }
+        ],
+        "firstPrimarySquarefree": null,
+        "firstAnySquarefree": null,
+        "primaryCovered": false,
+        "allCovered": false
+      }
+    ],
+    "allMisses": [
+      {
+        "left": 34414907,
+        "leftModResidualClass": 5882,
+        "primaryEndpoints": [
+          {
+            "prime": 23,
+            "k": 48,
+            "delta": -1214,
+            "right": 34413693,
+            "rightMod25": 18,
+            "withinWindow": true,
+            "compatibilityModPrimeSquare": 0,
+            "crossProductPlusOne": "1184344044121552",
+            "checkedSquarePrimeLimit": 34414903,
+            "squareDivisorPrime": 2,
+            "squareDivisor": 4,
+            "squarefree": false,
+            "squarefreeStatus": "non_squarefree",
+            "profileUsable": false
+          },
+          {
+            "prime": 31,
+            "k": 652,
+            "delta": -16314,
+            "right": 34398593,
+            "rightMod25": 18,
+            "withinWindow": true,
+            "compatibilityModPrimeSquare": 0,
+            "crossProductPlusOne": "1183824379025852",
+            "checkedSquarePrimeLimit": 34414903,
+            "squareDivisorPrime": 2,
+            "squareDivisor": 4,
+            "squarefree": false,
+            "squarefreeStatus": "non_squarefree",
+            "profileUsable": false
+          },
+          {
+            "prime": 37,
+            "k": 1238,
+            "delta": -30964,
+            "right": 34383943,
+            "rightMod25": 18,
+            "withinWindow": false,
+            "compatibilityModPrimeSquare": 0,
+            "crossProductPlusOne": "1183320200638302",
+            "checkedSquarePrimeLimit": 34414903,
+            "squareDivisorPrime": null,
+            "squareDivisor": null,
+            "squarefree": true,
+            "squarefreeStatus": "exact_squarefree",
+            "profileUsable": true
+          },
+          {
+            "prime": 41,
+            "k": 1088,
+            "delta": -27214,
+            "right": 34387693,
+            "rightMod25": 18,
+            "withinWindow": false,
+            "compatibilityModPrimeSquare": 0,
+            "crossProductPlusOne": "1183449256539552",
+            "checkedSquarePrimeLimit": 34414903,
+            "squareDivisorPrime": 2,
+            "squareDivisor": 4,
+            "squarefree": false,
+            "squarefreeStatus": "non_squarefree",
+            "profileUsable": false
+          },
+          {
+            "prime": 61,
+            "k": 3238,
+            "delta": -80964,
+            "right": 34333943,
+            "rightMod25": 18,
+            "withinWindow": false,
+            "compatibilityModPrimeSquare": 0,
+            "crossProductPlusOne": "1181599455288302",
+            "checkedSquarePrimeLimit": 34414903,
+            "squareDivisorPrime": null,
+            "squareDivisor": null,
+            "squarefree": true,
+            "squarefreeStatus": "exact_squarefree",
+            "profileUsable": true
+          },
+          {
+            "prime": 67,
+            "k": 1139,
+            "delta": -28489,
+            "right": 34386418,
+            "rightMod25": 18,
+            "withinWindow": false,
+            "compatibilityModPrimeSquare": 0,
+            "crossProductPlusOne": "1183405377533127",
+            "checkedSquarePrimeLimit": 34414903,
+            "squareDivisorPrime": null,
+            "squareDivisor": null,
+            "squarefree": true,
+            "squarefreeStatus": "exact_squarefree",
+            "profileUsable": true
+          }
+        ],
+        "fallbackEndpoints": [
+          {
+            "prime": 71,
+            "k": 4760,
+            "delta": -119014,
+            "right": 34295893,
+            "rightMod25": 18,
+            "withinWindow": false,
+            "compatibilityModPrimeSquare": 0,
+            "crossProductPlusOne": "1180289968076952",
+            "checkedSquarePrimeLimit": 34414903,
+            "squareDivisorPrime": 2,
+            "squareDivisor": 4,
+            "squarefree": false,
+            "squarefreeStatus": "non_squarefree",
+            "profileUsable": false
+          },
+          {
+            "prime": 73,
+            "k": 5227,
+            "delta": -130689,
+            "right": 34284218,
+            "rightMod25": 18,
+            "withinWindow": false,
+            "compatibilityModPrimeSquare": 0,
+            "crossProductPlusOne": "1179888174037727",
+            "checkedSquarePrimeLimit": 34414903,
+            "squareDivisorPrime": null,
+            "squareDivisor": null,
+            "squarefree": true,
+            "squarefreeStatus": "exact_squarefree",
+            "profileUsable": true
+          },
+          {
+            "prime": 79,
+            "k": 1606,
+            "delta": -40164,
+            "right": 34374743,
+            "rightMod25": 18,
+            "withinWindow": false,
+            "compatibilityModPrimeSquare": 0,
+            "crossProductPlusOne": "1183003583493902",
+            "checkedSquarePrimeLimit": 34414903,
+            "squareDivisorPrime": null,
+            "squareDivisor": null,
+            "squarefree": true,
+            "squarefreeStatus": "exact_squarefree",
+            "profileUsable": true
+          },
+          {
+            "prime": 83,
+            "k": 4841,
+            "delta": -121039,
+            "right": 34293868,
+            "rightMod25": 18,
+            "withinWindow": false,
+            "compatibilityModPrimeSquare": 0,
+            "crossProductPlusOne": "1180220277890277",
+            "checkedSquarePrimeLimit": 34414903,
+            "squareDivisorPrime": 3,
+            "squareDivisor": 9,
+            "squarefree": false,
+            "squarefreeStatus": "non_squarefree",
+            "profileUsable": false
+          },
+          {
+            "prime": 89,
+            "k": 2029,
+            "delta": -50739,
+            "right": 34364168,
+            "rightMod25": 18,
+            "withinWindow": false,
+            "compatibilityModPrimeSquare": 0,
+            "crossProductPlusOne": "1182639645852377",
+            "checkedSquarePrimeLimit": 34414903,
+            "squareDivisorPrime": null,
+            "squareDivisor": null,
+            "squarefree": true,
+            "squarefreeStatus": "exact_squarefree",
+            "profileUsable": true
+          },
+          {
+            "prime": 97,
+            "k": 8567,
+            "delta": -214189,
+            "right": 34200718,
+            "rightMod25": 18,
+            "withinWindow": false,
+            "compatibilityModPrimeSquare": 0,
+            "crossProductPlusOne": "1177014529303227",
+            "checkedSquarePrimeLimit": 34414903,
+            "squareDivisorPrime": 3,
+            "squareDivisor": 9,
+            "squarefree": false,
+            "squarefreeStatus": "non_squarefree",
+            "profileUsable": false
+          },
+          {
+            "prime": 101,
+            "k": 6347,
+            "delta": -158689,
+            "right": 34256218,
+            "rightMod25": 18,
+            "withinWindow": false,
+            "compatibilityModPrimeSquare": 0,
+            "crossProductPlusOne": "1178924556641727",
+            "checkedSquarePrimeLimit": 34414903,
+            "squareDivisorPrime": 7,
+            "squareDivisor": 49,
+            "squarefree": false,
+            "squarefreeStatus": "non_squarefree",
+            "profileUsable": false
+          },
+          {
+            "prime": 103,
+            "k": 2472,
+            "delta": -61814,
+            "right": 34353093,
+            "rightMod25": 18,
+            "withinWindow": false,
+            "compatibilityModPrimeSquare": 0,
+            "crossProductPlusOne": "1182258500757352",
+            "checkedSquarePrimeLimit": 34414903,
+            "squareDivisorPrime": 2,
+            "squareDivisor": 4,
+            "squarefree": false,
+            "squarefreeStatus": "non_squarefree",
+            "profileUsable": false
+          },
+          {
+            "prime": 107,
+            "k": 7966,
+            "delta": -199164,
+            "right": 34215743,
+            "rightMod25": 18,
+            "withinWindow": false,
+            "compatibilityModPrimeSquare": 0,
+            "crossProductPlusOne": "1177531613280902",
+            "checkedSquarePrimeLimit": 34414903,
+            "squareDivisorPrime": 11,
+            "squareDivisor": 121,
+            "squarefree": false,
+            "squarefreeStatus": "non_squarefree",
+            "profileUsable": false
+          },
+          {
+            "prime": 109,
+            "k": 4325,
+            "delta": -108139,
+            "right": 34306768,
+            "rightMod25": 18,
+            "withinWindow": false,
+            "compatibilityModPrimeSquare": 0,
+            "crossProductPlusOne": "1180664230190577",
+            "checkedSquarePrimeLimit": 34414903,
+            "squareDivisorPrime": null,
+            "squareDivisor": null,
+            "squarefree": true,
+            "squarefreeStatus": "exact_squarefree",
+            "profileUsable": true
+          },
+          {
+            "prime": 113,
+            "k": 5338,
+            "delta": -133464,
+            "right": 34281443,
+            "rightMod25": 18,
+            "withinWindow": false,
+            "compatibilityModPrimeSquare": 0,
+            "crossProductPlusOne": "1179792672670802",
+            "checkedSquarePrimeLimit": 34414903,
+            "squareDivisorPrime": null,
+            "squareDivisor": null,
+            "squarefree": true,
+            "squarefreeStatus": "exact_squarefree",
+            "profileUsable": true
+          }
+        ],
+        "firstPrimarySquarefree": null,
+        "firstAnySquarefree": null,
+        "primaryCovered": false,
+        "allCovered": false
+      }
+    ]
+  },
+  "claims": {
+    "provesAllN": false,
+    "provesCollisionFreeMatching": false,
+    "provesEndpointFormulas": true,
+    "provesUniversalWindowAvailabilityForPrimaryMenu": false,
+    "provesBoundedPrimaryMenuCoverage": false,
+    "provesBoundedAllMenuCoverage": false,
+    "screensBoundedPrimaryMenuCoverage": false,
+    "screensBoundedAllMenuCoverage": false
+  },
+  "nextTheoremOptions": [
+    {
+      "id": "primary_menu_first_miss",
+      "status": "needed",
+      "statement": "The primary menu misses at left=34414907; inspect this miss before adding more abstraction."
+    },
+    {
+      "id": "full_menu_first_miss",
+      "status": "needed",
+      "statement": "The full menu misses at left=34414907; emit this row as the next deterministic obstruction."
+    },
+    {
+      "id": "fallback_window_availability_split",
+      "status": "optional",
+      "statement": "Some fallback primes are not universally inside the window; split fallback usage into availability residues before relying on them symbolically."
+    }
+  ]
+}

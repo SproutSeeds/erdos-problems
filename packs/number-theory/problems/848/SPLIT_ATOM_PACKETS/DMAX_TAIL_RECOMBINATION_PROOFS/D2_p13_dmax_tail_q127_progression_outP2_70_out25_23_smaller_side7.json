@@ -1,0 +1,93 @@
+{
+  "schema": "erdos.p848_dmax_tail_prime_progression_proof/1",
+  "problemId": "848",
+  "atomId": "D2_p13_dmax_tail_q127_progression_outP2_70_out25_23_smaller_side7",
+  "parentTailAtomId": "D2_p13_dmax_tail_recombination_outP2_70_out25_23_smaller_side7",
+  "parentGrowthAtomId": "D2_p13_dmax_growth_outP2_70_out25_23_smaller_side7",
+  "predecessorAtomId": "D2_p13_dmax_tail_q113_progression_outP2_70_out25_23_smaller_side7",
+  "splitKey": "outP2=70|out25=23|smaller=side7",
+  "status": "symbolic_upper_bound_verified",
+  "promotesAllNClaim": false,
+  "proofKind": "two_sided_crt_floor_function_tail_prime_upper_bound",
+  "q": 127,
+  "squareDivisor": 16129,
+  "scope": {
+    "term": "same-prime dMax tail-prime degree contribution",
+    "boundedProfileRange": "7307..12000",
+    "claimBoundary": "This proves only the q=127 tail-prime upper-bound component via two witness-side CRT floor bounds. It does not prove the full dMax tail envelope or any side-count floor."
+  },
+  "witnessBounds": [
+    {
+      "side": "plus",
+      "witnessValue": 1591,
+      "oppositeSide": "minus",
+      "oppositeResidueMod169": 99,
+      "productCondition": "16129 divides 1591*m + 1",
+      "coefficientMod16129": 1591,
+      "requiredOppositeValueMod16129": 13625,
+      "crtProgression": {
+        "variable": "m",
+        "residue": 1191042,
+        "modulus": 2725801,
+        "formula": "m = 1191042 + 2725801*t",
+        "tLowerBound": 0
+      },
+      "rawCountUpperBound": "max(0, floor((N - 1191042) / 2725801) + 1)",
+      "observedCheck": {
+        "N": 12000,
+        "rawFormulaCount": 0,
+        "observedSquareEventCount": 0,
+        "upperBoundPassed": true
+      }
+    },
+    {
+      "side": "minus",
+      "witnessValue": 9563,
+      "oppositeSide": "plus",
+      "oppositeResidueMod169": 70,
+      "productCondition": "16129 divides 9563*m + 1",
+      "coefficientMod16129": 9563,
+      "requiredOppositeValueMod16129": 4709,
+      "crtProgression": {
+        "variable": "m",
+        "residue": 2198253,
+        "modulus": 2725801,
+        "formula": "m = 2198253 + 2725801*t",
+        "tLowerBound": 0
+      },
+      "rawCountUpperBound": "max(0, floor((N - 2198253) / 2725801) + 1)",
+      "observedCheck": {
+        "N": 12000,
+        "rawFormulaCount": 0,
+        "observedSquareEventCount": 0,
+        "upperBoundPassed": true
+      }
+    }
+  ],
+  "overlapBoundary": {
+    "status": "raw_floor_bounds_suffice_for_upper_bound",
+    "reason": "Prior-q overlaps, base-residue exclusions, and lower least-square-witness exclusions can only reduce these q=127 raw CRT counts."
+  },
+  "checkedIdentities": [
+    "127^2 = 16129 and 169*16129 = 2725801.",
+    "1591 mod 16129 = 1591 and gcd(1591, 16129) = 1.",
+    "1591*13625 + 1 is divisible by 16129.",
+    "CRT(m = 99 mod 169, m = 13625 mod 16129) gives m = 1191042 mod 2725801.",
+    "9563 mod 16129 = 9563 and gcd(9563, 16129) = 1.",
+    "9563*4709 + 1 is divisible by 16129.",
+    "CRT(m = 70 mod 169, m = 4709 mod 16129) gives m = 2198253 mod 2725801.",
+    "Both q=127 raw floor functions evaluate to zero at N = 12000, matching the bounded growth profile."
+  ],
+  "nextSubatom": {
+    "atomId": "D2_p13_dmax_tail_q131_progression_outP2_70_out25_23_smaller_side7",
+    "status": "needed",
+    "q": 131,
+    "statement": "Prove the q=131 tail-prime same-prime degree progression upper bound: plus-side CRT floor bound from m = 1345170 mod 2900209, and minus-side exclusion because 131 divides 9563.",
+    "completionRule": "The q=131 tail contribution is bounded by the plus-side CRT floor function plus the minus-side witness-divisibility exclusion, or the next unresolved tail-prime/range becomes the next atom."
+  },
+  "proofBoundary": "This certificate discharges q=127 as a residual tail-prime upper-bound component. It intentionally leaves q=131 open as the next residual tail-prime CRT/exclusion component.",
+  "nextTheoremActions": [
+    "Attack D2_p13_dmax_tail_q131_progression_outP2_70_out25_23_smaller_side7 next.",
+    "Certify q=131 via the plus-side CRT floor bound and the minus-side witness-divisibility exclusion before attempting any aggregate tail estimate."
+  ]
+}

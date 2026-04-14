@@ -1,0 +1,164 @@
+{
+  "schema": "erdos.p848_dmax_q_progression_proof/1",
+  "problemId": "848",
+  "atomId": "D2_p13_dmax_q3_progression_outP2_70_out25_23_smaller_side7",
+  "parentGrowthAtomId": "D2_p13_dmax_growth_outP2_70_out25_23_smaller_side7",
+  "predecessorAtomId": "D2_p13_dmax_q2_progression_outP2_70_out25_23_smaller_side7",
+  "splitKey": "outP2=70|out25=23|smaller=side7",
+  "status": "symbolic_upper_bound_verified",
+  "promotesAllNClaim": false,
+  "q": 3,
+  "squareDivisor": 9,
+  "proofKind": "crt_floor_function_upper_bound_with_q2_overlap_and_base_residue_exclusions",
+  "scope": {
+    "term": "same-prime dMax degree contribution",
+    "boundedProfileRange": "7307..12000",
+    "claimBoundary": "This proves only the q=3 square-divisor progression upper bound, including the q=2 overlap classes needed for later recombination. It does not prove the full dMax growth envelope or the all-N side-count floor."
+  },
+  "witnessBounds": [
+    {
+      "side": "plus",
+      "witnessValue": 1591,
+      "oppositeSide": "minus",
+      "oppositeResidueMod169": 99,
+      "productCondition": "9 divides 1591*m + 1",
+      "coefficientMod9": 7,
+      "requiredOppositeValueMod9": 5,
+      "crtProgression": {
+        "variable": "m",
+        "residue": 437,
+        "modulus": 1521,
+        "formula": "m = 437 + 1521*t",
+        "tLowerBound": 0
+      },
+      "rawCountUpperBound": "max(0, floor((N - 437) / 1521) + 1)",
+      "q2Overlap": {
+        "predecessorProgression": "m = 437 + 676*t",
+        "crtResidue": 437,
+        "crtModulus": 6084,
+        "formula": "m = 437 + 6084*t",
+        "countFormula": "max(0, floor((N - 437) / 6084) + 1)",
+        "q3OnlyUpperBound": "raw_q3_count - max(0, floor((N - 437) / 6084) + 1)"
+      },
+      "baseResidueExclusions": [
+        {
+          "excludedResidueMod25": 7,
+          "crtResidue": 30857,
+          "crtModulus": 38025,
+          "countFormula": "max(0, floor((N - 30857) / 38025) + 1)"
+        },
+        {
+          "excludedResidueMod25": 18,
+          "crtResidue": 17168,
+          "crtModulus": 38025,
+          "countFormula": "max(0, floor((N - 17168) / 38025) + 1)"
+        }
+      ],
+      "observedCheck": {
+        "N": 12000,
+        "rawFormulaCount": 8,
+        "observedSquareEventCount": 8,
+        "q2OverlapFormulaCount": 2,
+        "q3OnlyAfterQ2UpperBound": 6,
+        "observedRawValues": [
+          437,
+          1958,
+          3479,
+          5000,
+          6521,
+          8042,
+          9563,
+          11084
+        ],
+        "observedValuesAlsoInQ2": [
+          437,
+          6521
+        ],
+        "upperBoundPassed": true
+      }
+    },
+    {
+      "side": "minus",
+      "witnessValue": 9563,
+      "oppositeSide": "plus",
+      "oppositeResidueMod169": 70,
+      "productCondition": "9 divides 9563*m + 1",
+      "coefficientMod9": 5,
+      "requiredOppositeValueMod9": 7,
+      "crtProgression": {
+        "variable": "m",
+        "residue": 70,
+        "modulus": 1521,
+        "formula": "m = 70 + 1521*t",
+        "tLowerBound": 0
+      },
+      "rawCountUpperBound": "max(0, floor((N - 70) / 1521) + 1)",
+      "q2Overlap": {
+        "predecessorProgression": "m = 577 + 676*t",
+        "crtResidue": 4633,
+        "crtModulus": 6084,
+        "formula": "m = 4633 + 6084*t",
+        "countFormula": "max(0, floor((N - 4633) / 6084) + 1)",
+        "q3OnlyUpperBound": "raw_q3_count - max(0, floor((N - 4633) / 6084) + 1)"
+      },
+      "baseResidueExclusions": [
+        {
+          "excludedResidueMod25": 7,
+          "crtResidue": 33532,
+          "crtModulus": 38025,
+          "countFormula": "max(0, floor((N - 33532) / 38025) + 1)"
+        },
+        {
+          "excludedResidueMod25": 18,
+          "crtResidue": 19843,
+          "crtModulus": 38025,
+          "countFormula": "max(0, floor((N - 19843) / 38025) + 1)"
+        }
+      ],
+      "observedCheck": {
+        "N": 12000,
+        "rawFormulaCount": 8,
+        "observedSquareEventCount": 8,
+        "q2OverlapFormulaCount": 2,
+        "q3OnlyAfterQ2UpperBound": 6,
+        "observedRawValues": [
+          70,
+          1591,
+          3112,
+          4633,
+          6154,
+          7675,
+          9196,
+          10717
+        ],
+        "observedValuesAlsoInQ2": [
+          4633,
+          10717
+        ],
+        "upperBoundPassed": true
+      }
+    }
+  ],
+  "checkedIdentities": [
+    "1591 mod 9 = 7 and 9563 mod 9 = 5.",
+    "9 divides 1591*m + 1 only when m mod 9 = 5.",
+    "9 divides 9563*m + 1 only when m mod 9 = 7.",
+    "CRT(m = 99 mod 169, m = 5 mod 9) gives m = 437 mod 1521.",
+    "CRT(m = 70 mod 169, m = 7 mod 9) gives m = 70 mod 1521.",
+    "The plus-side q=3 progression overlaps the q=2 progression exactly on m = 437 mod 6084.",
+    "The minus-side q=3 progression overlaps the q=2 progression exactly on m = 4633 mod 6084.",
+    "Base residues m = 7 or 18 mod 25 and lower least-square-witness exclusions can only reduce the raw q=3 upper bound."
+  ],
+  "nextSubatom": {
+    "atomId": "D2_p13_dmax_q5_progression_outP2_70_out25_23_smaller_side7",
+    "status": "needed",
+    "q": 5,
+    "statement": "Prove the q=5 same-prime degree progression upper bound for the same split, including q=2/q=3 overlap and base-residue/lower-witness exclusions.",
+    "completionRule": "The q=5 progression contribution is bounded by CRT floor functions, or the first unresolved q=5 exclusion/overlap class becomes the next atom."
+  },
+  "proofBoundary": "This certificate discharges the q=3 progression atom as an upper-bound component and records the q=2-overlap classes required for later union bounds. It intentionally leaves q=5, higher square-divisor families, and recombination into a full dMax envelope open.",
+  "nextTheoremActions": [
+    "Attack D2_p13_dmax_q5_progression_outP2_70_out25_23_smaller_side7 next.",
+    "After q=5 is bounded, continue through the remaining one-off square-divisor families before recombining the dMax growth envelope."
+  ]
+}

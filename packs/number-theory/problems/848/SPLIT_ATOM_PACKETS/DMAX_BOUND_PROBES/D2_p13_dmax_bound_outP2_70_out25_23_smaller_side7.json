@@ -1,0 +1,44 @@
+{
+  "schema": "erdos.p848_dmax_bound_probe/1",
+  "problemId": "848",
+  "atomId": "D2_p13_dmax_bound_outP2_70_out25_23_smaller_side7",
+  "successorAtomId": "D2_p13_dmax_growth_outP2_70_out25_23_smaller_side7",
+  "parentSideCountFloorAtomId": "D2_p13_side_count_floor_outP2_70_out25_23_smaller_side7",
+  "splitKey": "outP2=70|out25=23|smaller=side7",
+  "targetBound": 18,
+  "status": "bounded_counterexample_to_constant_dmax_bound",
+  "promotesAllNClaim": false,
+  "probeCommand": "node packs/number-theory/problems/848/compute/problem848_full_mixed_base_structural_verifier.mjs --max 12000 --min-structural-n 7307 --row-sample-limit 5 --json-output /tmp/p848_step17_dmax_probe_12000.json",
+  "probeRange": "7307..12000",
+  "targetRowCount": 492,
+  "firstCounterexample": {
+    "N": 7873,
+    "outP2": 70,
+    "out25": 23,
+    "smallerSide": "side7",
+    "outsider": 6323,
+    "dMax": 19,
+    "dMaxWitnessSide": "plus",
+    "dMaxWitnessValue": 1591,
+    "candidateSize": 315,
+    "rGreater": 113,
+    "compatibleSide7Count": 112,
+    "compatibleSide18Count": 118,
+    "matchingSlack": 17
+  },
+  "maxObservedDMax": 29,
+  "maxObservedDMaxWitnesses": [
+    {
+      "dMax": 29,
+      "dMaxWitnessSide": "plus",
+      "dMaxWitnessValue": 1591,
+      "firstObservedN": 11929
+    }
+  ],
+  "proofBoundary": "This bounded probe falsifies the constant dMax <= 18 outside the original 7307..7600 witness packet. It does not prove an all-N growth envelope; the successor atom must bound the same-prime degree term symbolically.",
+  "nextTheoremActions": [
+    "Replace the false constant dMax <= 18 with a symbolic growth envelope for the same-prime degree term in this split.",
+    "Start from the persistent plus witness value 1591 and the later minus witness value 9563; prove their same-prime degree is absorbed by the residual dynamic margin or split by the first degree-growth residue obstruction.",
+    "Do not use the 7307..7600 constant bound as an all-N lemma."
+  ]
+}

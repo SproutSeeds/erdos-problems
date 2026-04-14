@@ -1,0 +1,148 @@
+{
+  "schema": "erdos.p848_dmax_q_progression_proof/1",
+  "problemId": "848",
+  "atomId": "D2_p13_dmax_q5_progression_outP2_70_out25_23_smaller_side7",
+  "parentGrowthAtomId": "D2_p13_dmax_growth_outP2_70_out25_23_smaller_side7",
+  "predecessorAtomId": "D2_p13_dmax_q3_progression_outP2_70_out25_23_smaller_side7",
+  "splitKey": "outP2=70|out25=23|smaller=side7",
+  "status": "symbolic_upper_bound_verified",
+  "promotesAllNClaim": false,
+  "q": 5,
+  "squareDivisor": 25,
+  "proofKind": "crt_floor_function_upper_bound_with_prior_q_overlap_bookkeeping",
+  "scope": {
+    "term": "same-prime dMax degree contribution",
+    "boundedProfileRange": "7307..12000",
+    "claimBoundary": "This proves only the q=5 square-divisor progression upper bound, including q=2/q=3 overlap bookkeeping. It does not prove the full dMax growth envelope or the all-N side-count floor."
+  },
+  "witnessBounds": [
+    {
+      "side": "plus",
+      "witnessValue": 1591,
+      "oppositeSide": "minus",
+      "oppositeResidueMod169": 99,
+      "productCondition": "25 divides 1591*m + 1",
+      "coefficientMod25": 16,
+      "requiredOppositeValueMod25": 14,
+      "crtProgression": {
+        "variable": "m",
+        "residue": 1789,
+        "modulus": 4225,
+        "formula": "m = 1789 + 4225*t",
+        "tLowerBound": 0
+      },
+      "rawCountUpperBound": "max(0, floor((N - 1789) / 4225) + 1)",
+      "priorQOverlaps": [
+        {
+          "q": 2,
+          "predecessorProgression": "m = 437 + 676*t",
+          "crtResidue": 1789,
+          "crtModulus": 16900,
+          "formula": "m = 1789 + 16900*t",
+          "countFormula": "max(0, floor((N - 1789) / 16900) + 1)"
+        },
+        {
+          "q": 3,
+          "predecessorProgression": "m = 437 + 1521*t",
+          "crtResidue": 18689,
+          "crtModulus": 38025,
+          "formula": "m = 18689 + 38025*t",
+          "countFormula": "max(0, floor((N - 18689) / 38025) + 1)"
+        }
+      ],
+      "baseResidueExclusions": [],
+      "baseResidueExclusionReason": "The q=5 congruence fixes m mod 25 = 14, so it is disjoint from the excluded base residues 7 and 18.",
+      "observedCheck": {
+        "N": 12000,
+        "rawFormulaCount": 3,
+        "observedSquareEventCount": 3,
+        "q2OverlapFormulaCount": 1,
+        "q3OverlapFormulaCount": 0,
+        "q5OnlyAfterPriorQUpperBound": 2,
+        "observedRawValues": [
+          1789,
+          6014,
+          10239
+        ],
+        "observedValuesAlsoInPriorQ": [
+          1789
+        ],
+        "upperBoundPassed": true
+      }
+    },
+    {
+      "side": "minus",
+      "witnessValue": 9563,
+      "oppositeSide": "plus",
+      "oppositeResidueMod169": 70,
+      "productCondition": "25 divides 9563*m + 1",
+      "coefficientMod25": 13,
+      "requiredOppositeValueMod25": 23,
+      "crtProgression": {
+        "variable": "m",
+        "residue": 2098,
+        "modulus": 4225,
+        "formula": "m = 2098 + 4225*t",
+        "tLowerBound": 0
+      },
+      "rawCountUpperBound": "max(0, floor((N - 2098) / 4225) + 1)",
+      "priorQOverlaps": [
+        {
+          "q": 2,
+          "predecessorProgression": "m = 577 + 676*t",
+          "crtResidue": 14773,
+          "crtModulus": 16900,
+          "formula": "m = 14773 + 16900*t",
+          "countFormula": "max(0, floor((N - 14773) / 16900) + 1)"
+        },
+        {
+          "q": 3,
+          "predecessorProgression": "m = 70 + 1521*t",
+          "crtResidue": 27448,
+          "crtModulus": 38025,
+          "formula": "m = 27448 + 38025*t",
+          "countFormula": "max(0, floor((N - 27448) / 38025) + 1)"
+        }
+      ],
+      "baseResidueExclusions": [],
+      "baseResidueExclusionReason": "The q=5 congruence fixes m mod 25 = 23, so it is disjoint from the excluded base residues 7 and 18.",
+      "observedCheck": {
+        "N": 12000,
+        "rawFormulaCount": 3,
+        "observedSquareEventCount": 3,
+        "q2OverlapFormulaCount": 0,
+        "q3OverlapFormulaCount": 0,
+        "q5OnlyAfterPriorQUpperBound": 3,
+        "observedRawValues": [
+          2098,
+          6323,
+          10548
+        ],
+        "observedValuesAlsoInPriorQ": [],
+        "upperBoundPassed": true
+      }
+    }
+  ],
+  "checkedIdentities": [
+    "1591 mod 25 = 16 and 9563 mod 25 = 13.",
+    "25 divides 1591*m + 1 only when m mod 25 = 14.",
+    "25 divides 9563*m + 1 only when m mod 25 = 23.",
+    "CRT(m = 99 mod 169, m = 14 mod 25) gives m = 1789 mod 4225.",
+    "CRT(m = 70 mod 169, m = 23 mod 25) gives m = 2098 mod 4225.",
+    "The plus q=5 progression overlaps q=2 on m = 1789 mod 16900 and q=3 on m = 18689 mod 38025.",
+    "The minus q=5 progression overlaps q=2 on m = 14773 mod 16900 and q=3 on m = 27448 mod 38025.",
+    "Both q=5 progressions are disjoint from base residues 7 and 18 mod 25."
+  ],
+  "nextSubatom": {
+    "atomId": "D2_p13_dmax_q7_progression_outP2_70_out25_23_smaller_side7",
+    "status": "needed",
+    "q": 7,
+    "statement": "Prove the q=7 same-prime degree progression upper bound for the same split, including prior-q overlap and lower-witness exclusions.",
+    "completionRule": "The q=7 progression contribution is bounded by CRT floor functions, or the first unresolved q=7 exclusion/overlap class becomes the next atom."
+  },
+  "proofBoundary": "This certificate discharges the q=5 progression atom as an upper-bound component and records prior-q overlap classes required for later union bounds. It intentionally leaves q=7, higher one-off square-divisor families, and recombination into a full dMax envelope open.",
+  "nextTheoremActions": [
+    "Attack D2_p13_dmax_q7_progression_outP2_70_out25_23_smaller_side7 next.",
+    "After q=7 is bounded, continue through the remaining one-off square-divisor families before recombining the dMax growth envelope."
+  ]
+}

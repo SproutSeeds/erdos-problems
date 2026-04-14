@@ -1,0 +1,150 @@
+{
+  "schema": "erdos.p848_dynamic_margin_exact_mixed_successor_profile/1",
+  "generatedAt": "2026-04-12T19:05:43Z",
+  "problemId": "848",
+  "atomId": "D2_p13_dynamic_margin_exact_mixed_successor_outP2_70_out25_23_smaller_side7_outsider_6323",
+  "splitKey": "outP2=70|out25=23|smaller=side7",
+  "outsider": 6323,
+  "outsiderMod169": 70,
+  "outsiderMod25": 23,
+  "status": "bounded_exact_mixed_margin_profile_verified_symbolic_lift_needed",
+  "promotesAllNClaim": false,
+  "proofKind": "bounded_exact_mixed_margin_successor_profile",
+  "dependsOn": [
+    "D2_p13_residual_dynamic_margin_symbolic_lift_outP2_70_out25_23_smaller_side7_side18"
+  ],
+  "replacesFalseAtomId": "D2_p13_residual_dynamic_margin_symbolic_lift_outP2_70_out25_23_smaller_side7_side18",
+  "parentObstructionProof": {
+    "atomId": "D2_p13_residual_dynamic_margin_symbolic_lift_outP2_70_out25_23_smaller_side7_side18",
+    "status": "bounded_symbolic_lift_falsified_successor_atom_needed",
+    "firstObstruction": {
+      "N": 7307,
+      "outsider": 6323,
+      "targetLeftSide": 17,
+      "targetRequiredLowerBound": 20,
+      "targetDeficit": 3,
+      "mixedBaseCliqueSize": 110,
+      "matchingSizeInMissingCrossGraph": 105,
+      "saturatesSmallerSide": true,
+      "exactMixedMargin": 18
+    }
+  },
+  "targetInequality": "matching saturates the smaller side and strictBaseThreshold - mixedBaseCliqueSize >= 1 for every future row in the outsider-6323 family",
+  "boundedProfile": {
+    "verifier": "problem848_full_mixed_base_structural_verifier.mjs",
+    "verifierParameters": {
+      "maxN": 10000,
+      "minStructuralN": 7307,
+      "rowSampleLimit": 20,
+      "assessedRange": "7307..10000"
+    },
+    "rowCount": 277,
+    "nRange": "7307..10000",
+    "allRowsSaturateSmallerSide": true,
+    "saturationDeficitRange": "0..0",
+    "saturationDeficitDistribution": {
+      "0": 277
+    },
+    "allRowsHavePositiveExactMixedMargin": true,
+    "exactMixedMarginRange": "18..31",
+    "exactMixedMarginDistribution": {
+      "18": 4,
+      "19": 11,
+      "20": 35,
+      "21": 44,
+      "22": 33,
+      "23": 15,
+      "24": 9,
+      "25": 18,
+      "26": 19,
+      "27": 19,
+      "28": 22,
+      "29": 27,
+      "30": 18,
+      "31": 3
+    },
+    "minimumExactMixedMarginRows": [
+      {
+        "N": 7307,
+        "nMod25": 7,
+        "candidateSize": 293,
+        "strictBaseThreshold": 128,
+        "mixedBaseCliqueSize": 110,
+        "exactMixedMargin": 18,
+        "side7Count": 105,
+        "side18Count": 110,
+        "matchingSizeInMissingCrossGraph": 105,
+        "smallerSideSize": 105,
+        "saturationDeficit": 0,
+        "requiredMatchingLowerBound": 88,
+        "matchingSlack": 17,
+        "dominantMixedCliqueSide": "side18"
+      },
+      {
+        "N": 7318,
+        "nMod25": 18,
+        "candidateSize": 293,
+        "strictBaseThreshold": 128,
+        "mixedBaseCliqueSize": 110,
+        "exactMixedMargin": 18,
+        "side7Count": 105,
+        "side18Count": 110,
+        "matchingSizeInMissingCrossGraph": 105,
+        "smallerSideSize": 105,
+        "saturationDeficit": 0,
+        "requiredMatchingLowerBound": 88,
+        "matchingSlack": 17,
+        "dominantMixedCliqueSide": "side18"
+      },
+      {
+        "N": 7337,
+        "nMod25": 12,
+        "candidateSize": 294,
+        "strictBaseThreshold": 128,
+        "mixedBaseCliqueSize": 110,
+        "exactMixedMargin": 18,
+        "side7Count": 105,
+        "side18Count": 110,
+        "matchingSizeInMissingCrossGraph": 105,
+        "smallerSideSize": 105,
+        "saturationDeficit": 0,
+        "requiredMatchingLowerBound": 88,
+        "matchingSlack": 17,
+        "dominantMixedCliqueSide": "side18"
+      },
+      {
+        "N": 7343,
+        "nMod25": 18,
+        "candidateSize": 294,
+        "strictBaseThreshold": 128,
+        "mixedBaseCliqueSize": 110,
+        "exactMixedMargin": 18,
+        "side7Count": 105,
+        "side18Count": 110,
+        "matchingSizeInMissingCrossGraph": 105,
+        "smallerSideSize": 105,
+        "saturationDeficit": 0,
+        "requiredMatchingLowerBound": 88,
+        "matchingSlack": 17,
+        "dominantMixedCliqueSide": "side18"
+      }
+    ]
+  },
+  "checkedIdentities": [
+    "For the outsider-6323 bounded family, exactMixedMargin = strictBaseThreshold - mixedBaseCliqueSize.",
+    "Every checked row has matchingSizeInMissingCrossGraph = smallerSideSize, so the missing-cross matching saturates the smaller compatible side.",
+    "Every checked row has exactMixedMargin >= 18, so the exact mixed-base replacement leaves positive bounded margin.",
+    "This profile repairs the first obstruction to the false side18 threshold lift on the bounded 7307..10000 verifier range only."
+  ],
+  "nextSubatom": {
+    "atomId": "D2_p13_dynamic_margin_exact_mixed_symbolic_lift_outP2_70_out25_23_smaller_side7_outsider_6323",
+    "status": "needed",
+    "statement": "Lift the bounded exact mixed-margin successor profile for outsider 6323 into a symbolic theorem: prove smaller-side matching saturation and strictBaseThreshold - mixedBaseCliqueSize >= 1 for every future row in split outP2=70|out25=23|smaller=side7, or emit the first exact residue/root-universe obstruction.",
+    "completionRule": "The exact mixed-margin successor is proved symbolically for the outsider-6323 family, or the first residue/root-universe obstruction becomes the next deterministic atom."
+  },
+  "proofBoundary": "This certificate verifies the exact mixed-margin successor only on the bounded 7307..10000 outsider-6323 profile. It does not prove the all-N matching saturation or exact mixed-margin lift.",
+  "nextTheoremActions": [
+    "Attack D2_p13_dynamic_margin_exact_mixed_symbolic_lift_outP2_70_out25_23_smaller_side7_outsider_6323 next.",
+    "Prove the matching saturation and strictBaseThreshold - mixedBaseCliqueSize >= 1 identities symbolically for the outsider-6323 family, or emit the first exact residue/root-universe obstruction."
+  ]
+}

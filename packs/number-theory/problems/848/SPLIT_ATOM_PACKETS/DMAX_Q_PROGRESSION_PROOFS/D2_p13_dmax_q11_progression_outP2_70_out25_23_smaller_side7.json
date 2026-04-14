@@ -1,0 +1,126 @@
+{
+  "schema": "erdos.p848_dmax_q_progression_proof/1",
+  "problemId": "848",
+  "atomId": "D2_p13_dmax_q11_progression_outP2_70_out25_23_smaller_side7",
+  "parentGrowthAtomId": "D2_p13_dmax_growth_outP2_70_out25_23_smaller_side7",
+  "predecessorAtomId": "D2_p13_dmax_q7_progression_outP2_70_out25_23_smaller_side7",
+  "splitKey": "outP2=70|out25=23|smaller=side7",
+  "status": "symbolic_upper_bound_verified",
+  "promotesAllNClaim": false,
+  "q": 11,
+  "squareDivisor": 121,
+  "proofKind": "crt_floor_function_singleton_upper_bound_with_prior_q_overlap_bookkeeping",
+  "scope": {
+    "term": "same-prime dMax degree contribution",
+    "boundedProfileRange": "7307..12000",
+    "claimBoundary": "This proves only the observed plus-side q=11 square-divisor progression upper bound. It does not prove the full dMax growth envelope, the minus-side q=11 tail, or the all-N side-count floor."
+  },
+  "witnessBounds": [
+    {
+      "side": "plus",
+      "witnessValue": 1591,
+      "oppositeSide": "minus",
+      "oppositeResidueMod169": 99,
+      "productCondition": "121 divides 1591*m + 1",
+      "coefficientMod121": 18,
+      "requiredOppositeValueMod121": 47,
+      "crtProgression": {
+        "variable": "m",
+        "residue": 1620,
+        "modulus": 20449,
+        "formula": "m = 1620 + 20449*t",
+        "tLowerBound": 0
+      },
+      "rawCountUpperBound": "max(0, floor((N - 1620) / 20449) + 1)",
+      "priorQOverlaps": [
+        {
+          "q": 2,
+          "crtResidue": 22069,
+          "crtModulus": 81796,
+          "formula": "m = 22069 + 81796*t",
+          "countFormula": "max(0, floor((N - 22069) / 81796) + 1)"
+        },
+        {
+          "q": 3,
+          "crtResidue": 103865,
+          "crtModulus": 184041,
+          "formula": "m = 103865 + 184041*t",
+          "countFormula": "max(0, floor((N - 103865) / 184041) + 1)"
+        },
+        {
+          "q": 5,
+          "crtResidue": 124314,
+          "crtModulus": 511225,
+          "formula": "m = 124314 + 511225*t",
+          "countFormula": "max(0, floor((N - 124314) / 511225) + 1)"
+        },
+        {
+          "q": 7,
+          "crtResidue": 144763,
+          "crtModulus": 1002001,
+          "formula": "m = 144763 + 1002001*t",
+          "countFormula": "max(0, floor((N - 144763) / 1002001) + 1)"
+        }
+      ],
+      "baseResidueExclusions": [
+        {
+          "excludedResidueMod25": 7,
+          "crtResidue": 267457,
+          "crtModulus": 511225,
+          "countFormula": "max(0, floor((N - 267457) / 511225) + 1)"
+        },
+        {
+          "excludedResidueMod25": 18,
+          "crtResidue": 42518,
+          "crtModulus": 511225,
+          "countFormula": "max(0, floor((N - 42518) / 511225) + 1)"
+        }
+      ],
+      "observedCheck": {
+        "N": 12000,
+        "rawFormulaCount": 1,
+        "observedSquareEventCount": 1,
+        "priorQOverlapFormulaCounts": {
+          "q2": 0,
+          "q3": 0,
+          "q5": 0,
+          "q7": 0
+        },
+        "q11OnlyAfterPriorQUpperBound": 1,
+        "observedRawValues": [
+          1620
+        ],
+        "observedValuesAlsoInPriorQ": [],
+        "upperBoundPassed": true
+      }
+    }
+  ],
+  "nonObservedProfileNote": {
+    "side": "minus",
+    "witnessValue": 9563,
+    "q": 11,
+    "boundedProfileEventCount": 0,
+    "firstCrtResidue": 16970,
+    "crtModulus": 20449,
+    "note": "The bounded growth profile has no minus-side q=11 event below 12000, so this packet intentionally certifies only the observed plus-side singleton component."
+  },
+  "checkedIdentities": [
+    "1591 mod 121 = 18.",
+    "121 divides 1591*m + 1 only when m mod 121 = 47.",
+    "CRT(m = 99 mod 169, m = 47 mod 121) gives m = 1620 mod 20449.",
+    "The observed plus-side q=11 progression has no prior-q overlap below N = 12000.",
+    "Base residues m = 7 or 18 mod 25 and lower least-square-witness exclusions can only reduce the raw q=11 upper bound."
+  ],
+  "nextSubatom": {
+    "atomId": "D2_p13_dmax_q19_progression_outP2_70_out25_23_smaller_side7",
+    "status": "needed",
+    "q": 19,
+    "statement": "Prove the q=19 same-prime degree singleton progression upper bound for the minus witness, including prior-q overlap and lower-witness exclusions.",
+    "completionRule": "The q=19 progression contribution is bounded by a CRT floor function, or the first unresolved q=19 exclusion/overlap class becomes the next atom."
+  },
+  "proofBoundary": "This certificate discharges the observed plus-side q=11 progression atom as an upper-bound component. It intentionally leaves q=19, q=23, q=31, q=251, and a later general tail/recombination step open.",
+  "nextTheoremActions": [
+    "Attack D2_p13_dmax_q19_progression_outP2_70_out25_23_smaller_side7 next.",
+    "After the remaining one-off observed families are bounded, emit a general tail/recombination atom before promoting any full dMax envelope."
+  ]
+}

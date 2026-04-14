@@ -1,0 +1,216 @@
+{
+  "atomId": "D2_p13_dynamic_margin_exact_mixed_matching_injection_selected_cross_squarefree_exception_period_shifted_endpoint_menu_q17_residual_p13_expanded_fallback_menu_lift_outP2_70_out25_23_smaller_side7_outsider_6323",
+  "status": "bounded_p13_expanded_fallback_menu_falsified_window_relaxation_needed",
+  "proofId": "p848_dynamic_margin_exact_mixed_matching_injection_selected_cross_squarefree_exception_period_shifted_endpoint_menu_q17_residual_p13_expanded_fallback_menu_lift",
+  "proofKind": "bounded_q17_residual_p13_expanded_menu_obstruction",
+  "generatedAt": "2026-04-12T23:45:00Z",
+  "dependsOn": [
+    "D2_p13_dynamic_margin_exact_mixed_matching_injection_selected_cross_squarefree_exception_period_shifted_endpoint_menu_q17_residual_cross_bad_fallback_lift_outP2_70_out25_23_smaller_side7_outsider_6323"
+  ],
+  "statement": "The q17 residual p13-expanded fallback menu {11,13,19,23,31} is false under the 10000 local window. The first exactly certified fully expanded-menu-blocked row is left=27932207, and the local repairs move to a window-relaxed selector rather than a singleton prime rung.",
+  "residualClass": {
+    "description": "left == 5882 mod 11025",
+    "modulus": 11025,
+    "residue": 5882
+  },
+  "expandedMenu": {
+    "primeSet": [
+      11,
+      13,
+      19,
+      23,
+      31
+    ],
+    "escapeWindow": 10000,
+    "endpointRule": "For prime p, choose k in [0,p^2) so that p^2 divides 6323*(left - 14 - 25*k) + 1 and set right=left-14-25*k."
+  },
+  "exactBoundedReplay": {
+    "priorProfileMaxN": 20000000,
+    "checkedThrough": 27932207,
+    "residualRowsChecked": 720,
+    "primeLimit": 27932224,
+    "primeCount": 1737493,
+    "q17CrossBadRowsBeforeAndAtFailure": 190,
+    "q17CrossBadRowsCoveredBeforeFailure": 189,
+    "firstCoverPrimeCountsBeforeFailure": {
+      "11": 131,
+      "13": 38,
+      "19": 17,
+      "23": 2,
+      "31": 1
+    },
+    "windowEnforced": true,
+    "verificationKind": "exact_prime_square_divisor_scan_for_q17_endpoint_and_p13_expanded_fallback_candidates"
+  },
+  "firstFullyExpandedMenuBlockedRow": {
+    "left": 27932207,
+    "leftMod11025": 5882,
+    "q17K": 200,
+    "q17Delta": -5014,
+    "q17Right": 27927193,
+    "q17RightMod25": 18,
+    "q17CompatibilityMod289": 0,
+    "q17CrossProductPlusOne": "780068135804952",
+    "q17SquareDivisorPrime": 2,
+    "q17SquareDivisor": 4,
+    "expandedFallbackResults": [
+      {
+        "prime": 11,
+        "k": 98,
+        "delta": -2464,
+        "right": 27929743,
+        "availableWithinWindow": true,
+        "squareDivisorPrime": 3,
+        "squareDivisor": 9,
+        "squarefree": false
+      },
+      {
+        "prime": 13,
+        "k": 80,
+        "delta": -2014,
+        "right": 27930193,
+        "availableWithinWindow": true,
+        "squareDivisorPrime": 2,
+        "squareDivisor": 4,
+        "squarefree": false
+      },
+      {
+        "prime": 19,
+        "k": 124,
+        "delta": -3114,
+        "right": 27929093,
+        "availableWithinWindow": true,
+        "squareDivisorPrime": 2,
+        "squareDivisor": 4,
+        "squarefree": false
+      },
+      {
+        "prime": 23,
+        "k": 479,
+        "delta": -11989,
+        "right": 27920218,
+        "availableWithinWindow": false,
+        "squareDivisorPrime": null,
+        "squarefree": false
+      },
+      {
+        "prime": 31,
+        "k": 814,
+        "delta": -20364,
+        "right": 27911843,
+        "availableWithinWindow": false,
+        "squareDivisorPrime": null,
+        "squarefree": false
+      }
+    ]
+  },
+  "windowRelaxedRepairSeeds": [
+    {
+      "prime": 23,
+      "k": 479,
+      "delta": -11989,
+      "right": 27920218,
+      "rightMod25": 18,
+      "compatibilityModPrimeSquare": 0,
+      "crossProductPlusOne": "779873308661127",
+      "squareDivisorPrime": null,
+      "squarefree": true,
+      "within10000Window": false,
+      "within25000Window": true
+    },
+    {
+      "prime": 31,
+      "k": 814,
+      "delta": -20364,
+      "right": 27911843,
+      "rightMod25": 18,
+      "compatibilityModPrimeSquare": 0,
+      "crossProductPlusOne": "779639376427502",
+      "squareDivisorPrime": null,
+      "squarefree": true,
+      "within10000Window": false,
+      "within25000Window": true
+    },
+    {
+      "prime": 37,
+      "k": 671,
+      "delta": -16789,
+      "right": 27915418,
+      "rightMod25": 18,
+      "compatibilityModPrimeSquare": 0,
+      "crossProductPlusOne": "779739234067527",
+      "squareDivisorPrime": null,
+      "squarefree": true,
+      "within10000Window": false,
+      "within25000Window": true
+    },
+    {
+      "prime": 41,
+      "k": 654,
+      "delta": -16364,
+      "right": 27915843,
+      "rightMod25": 18,
+      "compatibilityModPrimeSquare": 0,
+      "crossProductPlusOne": "779751105255502",
+      "squareDivisorPrime": null,
+      "squarefree": true,
+      "within10000Window": false,
+      "within25000Window": true
+    },
+    {
+      "prime": 61,
+      "k": 679,
+      "delta": -16989,
+      "right": 27915218,
+      "rightMod25": 18,
+      "compatibilityModPrimeSquare": 0,
+      "crossProductPlusOne": "779733647626127",
+      "squareDivisorPrime": null,
+      "squarefree": true,
+      "within10000Window": false,
+      "within25000Window": true
+    }
+  ],
+  "claims": {
+    "provesAllN": false,
+    "provesCollisionFreeMatching": false,
+    "provesP13ExpandedFallbackMenu": false,
+    "falsifiesP13ExpandedFallbackMenu": true,
+    "emitsWindowRelaxedFallbackMenu": true
+  },
+  "proofBoundary": "This packet exactly falsifies only the {11,13,19,23,31} p13-expanded fallback menu through the first fully expanded-menu-blocked q17 residual row under the 10000 window. The window-relaxed repair seeds are next theorem targets, not all-N coverage or collision-free matching claims.",
+  "nextSubatom": {
+    "atomId": "D2_p13_dynamic_margin_exact_mixed_matching_injection_selected_cross_squarefree_exception_period_shifted_endpoint_menu_q17_residual_window_relaxed_fallback_menu_lift_outP2_70_out25_23_smaller_side7_outsider_6323",
+    "status": "needed",
+    "term": "outsider-6323 q17 residual window-relaxed fallback menu lift",
+    "statement": "Prove that every q17 residual cross-bad row blocked by the 10000-window expanded menu has a squarefree side18-compatible endpoint in a controlled 25000-window menu, or emit the first fully window-relaxed blocked row.",
+    "completionRule": "A symbolic window-relaxed fallback selector covers q17 residual cross-bad rows without singleton prime repairs, or the first fully window-relaxed blocked row becomes the next deterministic packet.",
+    "dependsOnSublemma": "selected_cross_squarefree_exception_period_shifted_endpoint_menu_q17_residual_p13_expanded_fallback_menu_lift",
+    "seedPrimeSet": [
+      23,
+      31,
+      37,
+      41,
+      61
+    ],
+    "seedEscapeWindow": 25000,
+    "firstRepairSeeds": [
+      {
+        "left": 27932207,
+        "prime": 23,
+        "right": 27920218,
+        "delta": -11989
+      },
+      {
+        "left": 27932207,
+        "prime": 31,
+        "right": 27911843,
+        "delta": -20364
+      }
+    ],
+    "remainingAfterDischarge": [
+      "selector_collision_or_augmentation_lift"
+    ],
+    "proofBoundary": "This window-relaxed fallback subatom is still cross-squarefree endpoint selection only. It must not claim all-N coverage from the seed or collision-free matching."
+  }
+}

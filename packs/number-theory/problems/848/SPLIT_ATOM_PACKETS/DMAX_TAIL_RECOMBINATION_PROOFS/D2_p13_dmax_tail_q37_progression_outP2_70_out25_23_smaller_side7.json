@@ -1,0 +1,81 @@
+{
+  "schema": "erdos.p848_dmax_tail_prime_progression_proof/1",
+  "problemId": "848",
+  "atomId": "D2_p13_dmax_tail_q37_progression_outP2_70_out25_23_smaller_side7",
+  "parentTailAtomId": "D2_p13_dmax_tail_recombination_outP2_70_out25_23_smaller_side7",
+  "parentGrowthAtomId": "D2_p13_dmax_growth_outP2_70_out25_23_smaller_side7",
+  "predecessorAtomId": "D2_p13_dmax_tail_q29_progression_outP2_70_out25_23_smaller_side7",
+  "splitKey": "outP2=70|out25=23|smaller=side7",
+  "status": "symbolic_upper_bound_verified",
+  "promotesAllNClaim": false,
+  "proofKind": "witness_divisibility_exclusion_plus_crt_floor_function_tail_prime_upper_bound",
+  "q": 37,
+  "squareDivisor": 1369,
+  "scope": {
+    "term": "same-prime dMax tail-prime degree contribution",
+    "boundedProfileRange": "7307..12000",
+    "claimBoundary": "This proves only the q=37 tail-prime upper-bound component: plus-side exclusion and minus-side CRT floor bound. It does not prove the full dMax tail envelope or any side-count floor."
+  },
+  "witnessExclusions": [
+    {
+      "side": "plus",
+      "witnessValue": 1591,
+      "oppositeSide": "minus",
+      "oppositeResidueMod169": 99,
+      "exclusionReason": "37 divides 1591, so 1591*m + 1 is congruent to 1 mod 37 for every integer m.",
+      "coefficientMod1369": 222,
+      "gcdCoefficientSquareDivisor": 37,
+      "productPlusOneResidueMod37": 1,
+      "conclusion": "1369 never divides 1591*m + 1."
+    }
+  ],
+  "witnessBounds": [
+    {
+      "side": "minus",
+      "witnessValue": 9563,
+      "oppositeSide": "plus",
+      "oppositeResidueMod169": 70,
+      "productCondition": "1369 divides 9563*m + 1",
+      "coefficientMod1369": 1349,
+      "requiredOppositeValueMod1369": 753,
+      "crtProgression": {
+        "variable": "m",
+        "residue": 136284,
+        "modulus": 231361,
+        "formula": "m = 136284 + 231361*t",
+        "tLowerBound": 0
+      },
+      "rawCountUpperBound": "max(0, floor((N - 136284) / 231361) + 1)",
+      "observedCheck": {
+        "N": 12000,
+        "rawFormulaCount": 0,
+        "observedSquareEventCount": 0,
+        "upperBoundPassed": true
+      }
+    }
+  ],
+  "overlapBoundary": {
+    "status": "raw_floor_bound_suffices_for_upper_bound",
+    "reason": "The plus side is excluded. Prior-q overlaps, base-residue exclusions, and lower least-square-witness exclusions can only reduce the minus-side q=37 raw CRT count."
+  },
+  "checkedIdentities": [
+    "1591 = 37*43, so 1591*m + 1 is congruent to 1 mod 37 for every integer m.",
+    "1591 mod 1369 = 222 and gcd(222, 1369) = 37.",
+    "9563 mod 1369 = 1349.",
+    "1349*753 + 1 is divisible by 1369.",
+    "CRT(m = 70 mod 169, m = 753 mod 1369) gives m = 136284 mod 231361.",
+    "The q=37 minus-side raw floor function evaluates to zero at N = 12000, matching the bounded growth profile."
+  ],
+  "nextSubatom": {
+    "atomId": "D2_p13_dmax_tail_q41_progression_outP2_70_out25_23_smaller_side7",
+    "status": "needed",
+    "q": 41,
+    "statement": "Prove the q=41 tail-prime same-prime degree progression upper bound for both witness sides, starting from m = 251571 mod 284089 and m = 26941 mod 284089.",
+    "completionRule": "The q=41 tail contribution is bounded by CRT floor functions for both witnesses, or the next unresolved tail-prime/range becomes the next atom."
+  },
+  "proofBoundary": "This certificate discharges q=37 as a residual tail-prime upper-bound component. It intentionally leaves q=41 open as the next residual tail-prime CRT component.",
+  "nextTheoremActions": [
+    "Attack D2_p13_dmax_tail_q41_progression_outP2_70_out25_23_smaller_side7 next.",
+    "Certify q=41 as a two-sided tail-prime CRT floor-bound component before attempting any aggregate tail estimate."
+  ]
+}

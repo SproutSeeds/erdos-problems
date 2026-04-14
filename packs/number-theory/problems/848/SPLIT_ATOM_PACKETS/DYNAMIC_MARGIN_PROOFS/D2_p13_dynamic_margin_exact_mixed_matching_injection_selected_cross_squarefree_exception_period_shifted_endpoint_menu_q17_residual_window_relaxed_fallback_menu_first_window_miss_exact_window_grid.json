@@ -1,0 +1,293 @@
+{
+  "schema": "erdos.number_theory.p848_endpoint_window_grid/1",
+  "generatedAt": "2026-04-14T03:03:13.641Z",
+  "problemId": "848",
+  "target": {
+    "description": "q17 residual window-relaxed fallback endpoint-menu selector window grid",
+    "predecessorProof": "/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DYNAMIC_MARGIN_PROOFS/D2_p13_dynamic_margin_exact_mixed_matching_injection_selected_cross_squarefree_exception_period_shifted_endpoint_menu_q17_residual_p13_expanded_fallback_menu_lift.json",
+    "outsider": 6323,
+    "residualClass": {
+      "residue": 5882,
+      "modulus": 11025
+    },
+    "start": 34414907,
+    "end": 34414907,
+    "rowCount": 1,
+    "windows": [
+      25000,
+      28500
+    ],
+    "squareCheck": "Every covered endpoint selected by each profiled full menu is exactly squarefree-certified."
+  },
+  "primaryMenu": [
+    23,
+    31,
+    37,
+    41,
+    61,
+    67
+  ],
+  "fallbackMenu": [
+    71,
+    73,
+    79,
+    83,
+    89,
+    97,
+    101,
+    103,
+    107,
+    109,
+    113
+  ],
+  "firstScreenPrimaryCoveredWindow": 28500,
+  "firstScreenAllCoveredWindow": 28500,
+  "firstProvedPrimaryCoveredWindow": 28500,
+  "firstProvedAllCoveredWindow": 28500,
+  "summaries": [
+    {
+      "window": 25000,
+      "rowCount": 1,
+      "squareCheck": {
+        "checkedPrimeLimit": 34414903,
+        "exactForPrimaryCoveredEndpoints": false,
+        "exactForAllCoveredEndpoints": false,
+        "interpretation": "No full-menu covered endpoint was selected in this profile; inspect candidate square-divisor statuses and window availability."
+      },
+      "primaryCovered": 0,
+      "primaryMisses": 1,
+      "allCovered": 0,
+      "allMisses": 1,
+      "firstPrimaryMiss": {
+        "left": 34414907,
+        "leftModResidualClass": 5882,
+        "usableWithinWindow": [],
+        "nearestUsableOutsideWindow": [
+          {
+            "prime": 67,
+            "k": 1139,
+            "delta": -28489,
+            "right": 34386418,
+            "withinWindow": false,
+            "squarefreeStatus": "exact_squarefree",
+            "squareDivisorPrime": null,
+            "squareDivisor": null,
+            "checkedSquarePrimeLimit": 34414903
+          },
+          {
+            "prime": 37,
+            "k": 1238,
+            "delta": -30964,
+            "right": 34383943,
+            "withinWindow": false,
+            "squarefreeStatus": "exact_squarefree",
+            "squareDivisorPrime": null,
+            "squareDivisor": null,
+            "checkedSquarePrimeLimit": 34414903
+          },
+          {
+            "prime": 79,
+            "k": 1606,
+            "delta": -40164,
+            "right": 34374743,
+            "withinWindow": false,
+            "squarefreeStatus": "exact_squarefree",
+            "squareDivisorPrime": null,
+            "squareDivisor": null,
+            "checkedSquarePrimeLimit": 34414903
+          },
+          {
+            "prime": 89,
+            "k": 2029,
+            "delta": -50739,
+            "right": 34364168,
+            "withinWindow": false,
+            "squarefreeStatus": "exact_squarefree",
+            "squareDivisorPrime": null,
+            "squareDivisor": null,
+            "checkedSquarePrimeLimit": 34414903
+          },
+          {
+            "prime": 61,
+            "k": 3238,
+            "delta": -80964,
+            "right": 34333943,
+            "withinWindow": false,
+            "squarefreeStatus": "exact_squarefree",
+            "squareDivisorPrime": null,
+            "squareDivisor": null,
+            "checkedSquarePrimeLimit": 34414903
+          }
+        ],
+        "blockedWithinWindow": [
+          {
+            "prime": 23,
+            "k": 48,
+            "delta": -1214,
+            "right": 34413693,
+            "withinWindow": true,
+            "squarefreeStatus": "non_squarefree",
+            "squareDivisorPrime": 2,
+            "squareDivisor": 4,
+            "checkedSquarePrimeLimit": 34414903
+          },
+          {
+            "prime": 31,
+            "k": 652,
+            "delta": -16314,
+            "right": 34398593,
+            "withinWindow": true,
+            "squarefreeStatus": "non_squarefree",
+            "squareDivisorPrime": 2,
+            "squareDivisor": 4,
+            "checkedSquarePrimeLimit": 34414903
+          }
+        ]
+      },
+      "firstAllMiss": {
+        "left": 34414907,
+        "leftModResidualClass": 5882,
+        "usableWithinWindow": [],
+        "nearestUsableOutsideWindow": [
+          {
+            "prime": 67,
+            "k": 1139,
+            "delta": -28489,
+            "right": 34386418,
+            "withinWindow": false,
+            "squarefreeStatus": "exact_squarefree",
+            "squareDivisorPrime": null,
+            "squareDivisor": null,
+            "checkedSquarePrimeLimit": 34414903
+          },
+          {
+            "prime": 37,
+            "k": 1238,
+            "delta": -30964,
+            "right": 34383943,
+            "withinWindow": false,
+            "squarefreeStatus": "exact_squarefree",
+            "squareDivisorPrime": null,
+            "squareDivisor": null,
+            "checkedSquarePrimeLimit": 34414903
+          },
+          {
+            "prime": 79,
+            "k": 1606,
+            "delta": -40164,
+            "right": 34374743,
+            "withinWindow": false,
+            "squarefreeStatus": "exact_squarefree",
+            "squareDivisorPrime": null,
+            "squareDivisor": null,
+            "checkedSquarePrimeLimit": 34414903
+          },
+          {
+            "prime": 89,
+            "k": 2029,
+            "delta": -50739,
+            "right": 34364168,
+            "withinWindow": false,
+            "squarefreeStatus": "exact_squarefree",
+            "squareDivisorPrime": null,
+            "squareDivisor": null,
+            "checkedSquarePrimeLimit": 34414903
+          },
+          {
+            "prime": 61,
+            "k": 3238,
+            "delta": -80964,
+            "right": 34333943,
+            "withinWindow": false,
+            "squarefreeStatus": "exact_squarefree",
+            "squareDivisorPrime": null,
+            "squareDivisor": null,
+            "checkedSquarePrimeLimit": 34414903
+          }
+        ],
+        "blockedWithinWindow": [
+          {
+            "prime": 23,
+            "k": 48,
+            "delta": -1214,
+            "right": 34413693,
+            "withinWindow": true,
+            "squarefreeStatus": "non_squarefree",
+            "squareDivisorPrime": 2,
+            "squareDivisor": 4,
+            "checkedSquarePrimeLimit": 34414903
+          },
+          {
+            "prime": 31,
+            "k": 652,
+            "delta": -16314,
+            "right": 34398593,
+            "withinWindow": true,
+            "squarefreeStatus": "non_squarefree",
+            "squareDivisorPrime": 2,
+            "squareDivisor": 4,
+            "checkedSquarePrimeLimit": 34414903
+          }
+        ]
+      },
+      "primaryCoverPrimeCounts": [],
+      "allCoverPrimeCounts": [],
+      "claims": {
+        "provesBoundedPrimaryMenuCoverage": false,
+        "provesBoundedAllMenuCoverage": false,
+        "screensBoundedPrimaryMenuCoverage": false,
+        "screensBoundedAllMenuCoverage": false
+      }
+    },
+    {
+      "window": 28500,
+      "rowCount": 1,
+      "squareCheck": {
+        "checkedPrimeLimit": 34414903,
+        "exactForPrimaryCoveredEndpoints": true,
+        "exactForAllCoveredEndpoints": true,
+        "interpretation": "Every covered endpoint selected by the full menu is exactly squarefree-certified."
+      },
+      "primaryCovered": 1,
+      "primaryMisses": 0,
+      "allCovered": 1,
+      "allMisses": 0,
+      "firstPrimaryMiss": null,
+      "firstAllMiss": null,
+      "primaryCoverPrimeCounts": [
+        {
+          "key": 67,
+          "count": 1
+        }
+      ],
+      "allCoverPrimeCounts": [
+        {
+          "key": 67,
+          "count": 1
+        }
+      ],
+      "claims": {
+        "provesBoundedPrimaryMenuCoverage": true,
+        "provesBoundedAllMenuCoverage": true,
+        "screensBoundedPrimaryMenuCoverage": true,
+        "screensBoundedAllMenuCoverage": true
+      }
+    }
+  ],
+  "interpretation": {
+    "windowGridProvesAllN": false,
+    "warning": "A window grid is a bounded selector profile. It can identify the next theorem boundary but does not prove all-N coverage or matching by itself."
+  },
+  "nextTheoremOptions": [
+    {
+      "id": "window_relaxation_candidate",
+      "status": "candidate",
+      "statement": "The full menu first covers the bounded scan at window=28500; decide whether that relaxation is theorem-legal or requires a replacement-path handoff."
+    },
+    {
+      "id": "availability_strata_lift",
+      "status": "needed",
+      "statement": "Convert the observed window thresholds into residue-class availability strata rather than continuing a row-by-row staircase."
+    }
+  ]
+}

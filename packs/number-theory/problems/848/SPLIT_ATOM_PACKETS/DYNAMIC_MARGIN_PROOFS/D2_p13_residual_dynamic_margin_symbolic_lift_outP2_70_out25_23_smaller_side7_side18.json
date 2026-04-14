@@ -1,0 +1,106 @@
+{
+  "schema": "erdos.p848_dynamic_margin_symbolic_lift_obstruction/1",
+  "generatedAt": "2026-04-12T18:55:27Z",
+  "problemId": "848",
+  "proofId": "p848_dynamic_margin_proof_D2_p13_residual_dynamic_margin_symbolic_lift_outP2_70_out25_23_smaller_side7_side18",
+  "atomId": "D2_p13_residual_dynamic_margin_symbolic_lift_outP2_70_out25_23_smaller_side7_side18",
+  "parentAtomId": "D2_p13_dynamic_margin_outP2_70_out25_23_smaller_side7_side18",
+  "status": "bounded_symbolic_lift_falsified_successor_atom_needed",
+  "proofKind": "bounded_future_row_obstruction_to_side18_threshold_lift",
+  "promotesAllNClaim": false,
+  "targetPrime": 13,
+  "splitKey": "outP2=70|out25=23|smaller=side7",
+  "largerSideLabel": "side18",
+  "targetInequality": "strictBaseThreshold - 1 - side18Count >= 20",
+  "boundedExtensionVerifier": {
+    "script": "packs/number-theory/problems/848/compute/problem848_full_mixed_base_structural_verifier.mjs",
+    "parameters": {
+      "maxN": 10000,
+      "minStructuralN": 7307,
+      "rowSampleLimit": 20
+    },
+    "summary": {
+      "assessedRange": "7307..10000",
+      "witnessBlockCount": 10,
+      "breakpointCount": 277,
+      "checkCount": 2770,
+      "globalRootEventCount": 257,
+      "unionCertifiedRowCount": 2216,
+      "exactMixedRowCount": 554,
+      "threateningOutsiderCheckCount": 17824,
+      "mixedFailureCount": 0,
+      "allMixedChecksPass": true,
+      "minCertifiedMargin": 16,
+      "minExactMixedMargin": 16
+    }
+  },
+  "obstructionSummary": {
+    "targetSplitThreatRowCount": 277,
+    "targetSplitNRange": "7307..10000",
+    "targetSplitOutsiders": [
+      6323
+    ],
+    "targetLeftSideRange": "17..30",
+    "targetMarginRangeAgainstRequired20": "-3..10",
+    "rowsBelowTarget": 50,
+    "targetLeftSideDistribution": {
+      "17": 4,
+      "18": 11,
+      "19": 35,
+      "20": 44,
+      "21": 33,
+      "22": 15,
+      "23": 9,
+      "24": 18,
+      "25": 19,
+      "26": 19,
+      "27": 22,
+      "28": 27,
+      "29": 18,
+      "30": 3
+    }
+  },
+  "firstObstruction": {
+    "N": 7307,
+    "outsider": 6323,
+    "outsiderMod169": 70,
+    "outsiderMod25": 23,
+    "nMod25": 7,
+    "candidateSize": 293,
+    "vMax": 43,
+    "dMax": 18,
+    "rGreater": 104,
+    "strictBaseThreshold": 128,
+    "side7Count": 105,
+    "side18Count": 110,
+    "targetLeftSide": 17,
+    "targetRequiredLowerBound": 20,
+    "targetDeficit": 3,
+    "unionCount": 215,
+    "mixedBaseCliqueSize": 110,
+    "matchingSizeInMissingCrossGraph": 105,
+    "requiredMatchingLowerBound": 88,
+    "matchingSlack": 17,
+    "smallerSideSize": 105,
+    "saturatesSmallerSide": true,
+    "dominantMixedCliqueSide": "side18",
+    "exactMixedMargin": 18,
+    "exactMixedMarginIdentity": "candidateSize - mixedBaseCliqueSize - vMax - dMax - rGreater = 293 - 110 - 43 - 18 - 104 = 18"
+  },
+  "falsificationReason": [
+    "The earlier bounded dynamic-margin replay used the 7307..7600 verifier surface, where this split had strictBaseThreshold - 1 - side18Count in 21..25.",
+    "Re-running the same verifier to maxN=10000 expands the higher-root event universe; at N=7307 the p13 row has rGreater=104 and strictBaseThreshold=128.",
+    "For the same target split and outsider 6323, strictBaseThreshold - 1 - side18Count = 17, so the proposed >=20 symbolic lift is false as stated.",
+    "The full exact mixed-base verifier still passes on 7307..10000, so the successor should use exact mixed-margin/matching saturation rather than the stronger side-count floor."
+  ],
+  "nextSubatom": {
+    "atomId": "D2_p13_dynamic_margin_exact_mixed_successor_outP2_70_out25_23_smaller_side7_outsider_6323",
+    "status": "needed",
+    "term": "side18 exact mixed-margin successor",
+    "targetInequality": "matching saturates the smaller side and candidateSize - mixedBaseCliqueSize - vMax - dMax - rGreater >= 1",
+    "statement": "Replace the false side18 threshold lift for split outP2=70|out25=23|smaller=side7 with an exact mixed-margin successor: prove the missing-cross matching saturates the smaller side for the outsider-6323 family and leaves positive exact mixed margin, or emit the first sharper root-universe/rGreater obstruction.",
+    "completionRule": "The exact mixed-margin/matching-saturation successor is proved symbolically for this split family, or the first residue/root-universe obstruction becomes the next deterministic atom.",
+    "proofBoundary": "This successor is forced by a bounded obstruction to the side18 threshold lift; it is not an all-N proof of exact mixed margin."
+  },
+  "proofBoundary": "This packet falsifies only the proposed symbolic threshold lift by bounded extension evidence and emits a sharper theorem-facing successor. It does not promote the bounded exact mixed-base verifier to an all-N proof."
+}

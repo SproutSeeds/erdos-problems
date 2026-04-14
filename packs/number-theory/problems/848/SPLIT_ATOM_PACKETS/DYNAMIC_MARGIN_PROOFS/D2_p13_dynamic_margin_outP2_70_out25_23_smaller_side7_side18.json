@@ -1,0 +1,115 @@
+{
+  "schema": "erdos.p848_residual_dynamic_margin_replay/1",
+  "problemId": "848",
+  "atomId": "D2_p13_dynamic_margin_outP2_70_out25_23_smaller_side7_side18",
+  "splitKey": "outP2=70|out25=23|smaller=side7",
+  "status": "bounded_dynamic_margin_replay_verified_symbolic_lift_needed",
+  "promotesAllNClaim": false,
+  "proofKind": "bounded_residual_dynamic_margin_formula_replay",
+  "dependsOn": [
+    "D2_p13_dmax_tail_q_ge_587_parametric_zero_floor_outP2_70_out25_23_smaller_side7",
+    "D2_p13_dmax_growth_outP2_70_out25_23_smaller_side7"
+  ],
+  "targetInequality": "side18Count + vMax + rGreater + 39 <= candidateSize",
+  "boundedProfile": {
+    "rowCount": 32,
+    "nRange": "7307..7600",
+    "outsider": 6323,
+    "side18CountRange": "110..114",
+    "side7CountRange": "105..109",
+    "strictBaseThresholdRange": "132..138",
+    "candidateSizeRange": "293..304",
+    "vMaxRange": "43..45",
+    "dMaxRange": "18..18",
+    "rGreaterRange": "100..103",
+    "sideCountSlackFormulaRange": "21..25",
+    "residualDynamicMarginRange": "1..5",
+    "structuralMarginRange": "1..5",
+    "marginDistribution": {
+      "1": 4,
+      "2": 8,
+      "3": 14,
+      "4": 5,
+      "5": 1
+    },
+    "minimumMarginRows": [
+      {
+        "N": 7307,
+        "outsider": 6323,
+        "side7Count": 105,
+        "side18Count": 110,
+        "strictBaseThreshold": 132,
+        "candidateSize": 293,
+        "vMax": 43,
+        "dMax": 18,
+        "rGreater": 100,
+        "sideCountSlackFormula": 21,
+        "residualDynamicMargin": 1
+      },
+      {
+        "N": 7318,
+        "outsider": 6323,
+        "side7Count": 105,
+        "side18Count": 110,
+        "strictBaseThreshold": 132,
+        "candidateSize": 293,
+        "vMax": 43,
+        "dMax": 18,
+        "rGreater": 100,
+        "sideCountSlackFormula": 21,
+        "residualDynamicMargin": 1
+      },
+      {
+        "N": 7337,
+        "outsider": 6323,
+        "side7Count": 105,
+        "side18Count": 110,
+        "strictBaseThreshold": 132,
+        "candidateSize": 294,
+        "vMax": 44,
+        "dMax": 18,
+        "rGreater": 100,
+        "sideCountSlackFormula": 21,
+        "residualDynamicMargin": 1
+      },
+      {
+        "N": 7343,
+        "outsider": 6323,
+        "side7Count": 105,
+        "side18Count": 110,
+        "strictBaseThreshold": 132,
+        "candidateSize": 294,
+        "vMax": 44,
+        "dMax": 18,
+        "rGreater": 100,
+        "sideCountSlackFormula": 21,
+        "residualDynamicMargin": 1
+      }
+    ]
+  },
+  "algebraicReduction": {
+    "reconstructedVMax": "vMax = candidateSize - strictBaseThreshold - dMax - rGreater",
+    "residualMarginDefinition": "candidateSize - side18Count - vMax - rGreater - 39",
+    "substitution": "candidateSize - side18Count - (candidateSize - strictBaseThreshold - dMax - rGreater) - rGreater - 39 = strictBaseThreshold + dMax - side18Count - 39",
+    "boundedDMaxProfile": "dMax = 18 on all 32 bounded rows in this split",
+    "slackIdentity": "strictBaseThreshold + 18 - side18Count - 39 = strictBaseThreshold - 1 - side18Count - 20",
+    "symbolicLiftTarget": "strictBaseThreshold - 1 - side18Count >= 20"
+  },
+  "checkedIdentities": [
+    "Every bounded row in outP2=70|out25=23|smaller=side7 has dMax = 18 after the dMax tail profile is closed.",
+    "For every bounded row, candidateSize - side18Count - vMax - rGreater - 39 equals strictBaseThreshold - 1 - side18Count - 20.",
+    "For every bounded row, strictBaseThreshold - 1 - side18Count equals the stored side-count slack formula and lies in 21..25.",
+    "The bounded residual dynamic margin is therefore sideCountSlackFormula - 20 and lies in 1..5."
+  ],
+  "nextSubatom": {
+    "atomId": "D2_p13_residual_dynamic_margin_symbolic_lift_outP2_70_out25_23_smaller_side7_side18",
+    "status": "needed",
+    "statement": "Lift the bounded residual dynamic-margin replay to a symbolic side18 threshold lemma: prove strictBaseThreshold - 1 - side18Count >= 20 for every future row in split outP2=70|out25=23|smaller=side7, or emit the first future-row residue/threshold obstruction.",
+    "completionRule": "The side18 threshold inequality is proved symbolically for this split, or the first exact obstruction becomes a sharper side-count/rGreater successor atom."
+  },
+  "proofBoundary": "This certificate verifies the residual dynamic-margin inequality only on the bounded 32-row profile and records the exact algebraic reduction needed for the next theorem move. It does not prove the all-N side18 threshold inequality or the full side-count floor.",
+  "nextTheoremActions": [
+    "Attack D2_p13_residual_dynamic_margin_symbolic_lift_outP2_70_out25_23_smaller_side7_side18 next.",
+    "Prove strictBaseThreshold - 1 - side18Count >= 20 for this split, or emit the first exact future-row obstruction instead of treating the bounded replay as an all-N proof."
+  ]
+}

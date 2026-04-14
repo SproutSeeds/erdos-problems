@@ -1,0 +1,106 @@
+{
+  "schema": "erdos.p848_split_atom_successor_packet/1",
+  "generatedAt": "2026-04-14T11:46:09.844Z",
+  "problemId": "848",
+  "packetId": "p848_split_atom_successor_packet_D2_3_persist_outP2_99_out25_14_smaller_side7_square_961_outsider_828",
+  "parentPacketId": "p848_split_atom_packet_D2_3_persist_outP2_99_out25_14_smaller_side7",
+  "parentAtomId": "D2.3_persist_outP2=99_out25=14_smaller=side7",
+  "successorAtomId": "D2.3_persist_outP2=99_out25=14_smaller=side7.square_961_out_828",
+  "successorRank": 8,
+  "conditionId": "square_961_outsider_828",
+  "priority": "dominant_refinement_successor",
+  "status": "candidate_successor_obligation_verified",
+  "splitRefinement": {
+    "parentSplitKey": "outP2=99|out25=14|smaller=side7",
+    "successorSplitKey": "outP2=99|out25=14|smaller=side7|out961=828",
+    "parentSplitModulus": 4225,
+    "successorSplitModulus": 4060225,
+    "square": 961,
+    "divisor": 31,
+    "requiredOutsiderResidueModSquare": 828,
+    "compatibleWithCurrentSplit": true
+  },
+  "symbolicVertexFamilyLemma": {
+    "lemmaId": "square_961_outsider_828_vertex_family",
+    "status": "symbolic_vertex_family_lemma_verified",
+    "statement": "If outsider ≡ 828 (mod 961) and vertex ≡ 224 (mod 961), then outsider * vertex + 1 ≡ 0 (mod 961).",
+    "outsiderResidueModSquare": 828,
+    "vertexResidueModSquare": 224,
+    "square": 961,
+    "affectedAtomCount": 1,
+    "verifiedAtomCount": 1,
+    "failedAtomCount": 0,
+    "checks": [
+      {
+        "atomId": "D2.3_persist_outP2=99_out25=14_smaller=side7.V170.right_4068",
+        "value": 4068,
+        "residueModSquare": 224,
+        "expectedVertexResidueModSquare": 224,
+        "vertexMatchesResidueFamily": true,
+        "productPlusOneResidueModSquare": 0
+      }
+    ],
+    "proofBoundary": "This proves the square-residue vertex-presence family for this successor condition only; sibling conditions still need their own family lemmas."
+  },
+  "theoremObligation": {
+    "kind": "square_residue_vertex_presence_subobligation",
+    "parentObligationId": "D2_p13_matching_lower_bound",
+    "targetObligationId": "D4_matching_bound_implies_sMaxMixed_bound",
+    "statement": "Under outP2=99|out25=14|smaller=side7|out961=828, stabilize the 1 literal vertex-presence atoms whose first square witness is 961.",
+    "proofBoundary": "This successor packet stabilizes one vertex-presence subfamily only; it is not a full split lemma until the sibling refinement conditions and matching/edge obligations are promoted too."
+  },
+  "affectedVertexPresenceAtoms": [
+    {
+      "atomId": "D2.3_persist_outP2=99_out25=14_smaller=side7.V170.right_4068",
+      "side": "side18",
+      "value": 4068,
+      "residues": {
+        "value": 4068,
+        "mod25": 18,
+        "modP": 12,
+        "modP2": 12
+      },
+      "residueModSquare": 224,
+      "successorChecks": [
+        {
+          "N": 7343,
+          "outsider": 1789,
+          "productPlusOne": 7277653,
+          "firstSquareDivisorWitness": {
+            "divisor": 31,
+            "square": 961,
+            "quotient": 7573,
+            "stableUnderCurrentSplitModulus": false
+          },
+          "requiredOutsiderResidueModSquare": 828,
+          "witnessOutsiderResidueModSquare": 828,
+          "witnessSatisfiesSuccessorResidue": true,
+          "stableUnderSuccessorSplitModulus": true
+        }
+      ],
+      "status": "bounded_presence_stabilized_by_successor_square_residue"
+    }
+  ],
+  "checks": {
+    "affectedAtomCount": 1,
+    "stabilizedAtomCount": 1,
+    "failedAtomCount": 0,
+    "allAffectedAtomsPresent": true,
+    "allAffectedAtomsStabilized": true,
+    "witnessRowCount": 1,
+    "witnessRows": [
+      {
+        "witnessIndex": 0,
+        "N": 7343,
+        "outsider": 1789,
+        "productPlusOne": 7277653,
+        "quotient": 7573
+      }
+    ]
+  },
+  "nextTheoremActions": [
+    "Promote this square-residue successor into a symbolic vertex-family lemma.",
+    "After this condition is proved, attack the next sibling square-residue successor condition.",
+    "Do not treat this sub-obligation as a full split proof until all sibling vertex conditions and edge obstructions are handled."
+  ]
+}
