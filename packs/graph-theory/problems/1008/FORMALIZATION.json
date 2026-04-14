@@ -1,0 +1,194 @@
+{
+  "schema": "erdos.problem_formalization/1",
+  "generatedAt": "2026-04-10T08:11:06.269Z",
+  "problemId": "1008",
+  "displayName": "Erdos Problem #1008",
+  "title": "C4-Free Subgraph Density Problem",
+  "cluster": "graph-theory",
+  "sourceKind": "claim_pass_only",
+  "formalizationMode": "baseline",
+  "currentClaimSurface": "route_scaffolding",
+  "currentState": {
+    "activeRoute": "c4_free_lean_archive",
+    "routeSummary": "Keep the solved `C_4`-free density record explicit and preserve the Lean-facing archive posture.",
+    "nextHonestMove": "Record the best public/formalization hook and checkpoint the archive packet.",
+    "latestVerifiedInterval": null,
+    "sourceRefresh": null
+  },
+  "currentTarget": {
+    "formalizationId": "graph-theory_1008_promote_ready_atom_v1",
+    "focusId": "promote_ready_atom",
+    "title": "Promote Ready Atom",
+    "status": "ready",
+    "lane": "theorem_formalization",
+    "sourceRecommendationId": "promote_ready_atom",
+    "summary": "Record the best public/formalization hook and checkpoint the archive packet.",
+    "statement": "Candidate formalization target: Record the best public/formalization hook and checkpoint the archive packet.",
+    "whyThisExists": "This packet exists to turn a claim-pass recommendation into a concrete theorem-facing proof obligation with explicit falsifiers and promotion criteria.",
+    "whyNow": "Record the best public/formalization hook and checkpoint the archive packet.",
+    "evidenceBasis": [
+      "Current claim surface: route_scaffolding.",
+      "Active route: c4_free_lean_archive.",
+      "No canonical verified interval is currently frozen."
+    ],
+    "proofObligations": [
+      {
+        "obligationId": "state_claim_honestly",
+        "status": "ready",
+        "task": "State the candidate theorem-facing claim in pack language without overstating current support.",
+        "why": "This keeps the formalization target narrower than the current evidence boundary.",
+        "dischargeWith": "Write a claim statement that is no stronger than the active claim-pass support surface."
+      },
+      {
+        "obligationId": "freeze_support_artifacts",
+        "status": "ready",
+        "task": "List the exact canonical artifacts that support the claim and the artifacts that could still falsify it.",
+        "why": "The theorem lane should point at stable evidence, not drifting interpretation.",
+        "dischargeWith": "Attach theorem-loop, claim-pass, and any bridge-backed packet paths directly to the packet."
+      },
+      {
+        "obligationId": "define_promotion_boundary",
+        "status": "ready",
+        "task": "Promote the target only when its support survives the current claim-pass falsifiers.",
+        "why": "This prevents formalization packets from silently outrunning the rest of the loop.",
+        "dischargeWith": "Record explicit promotion criteria tied to current falsifiers."
+      }
+    ],
+    "falsifierChecks": [
+      {
+        "checkId": "claim_pass_survival",
+        "status": "ready",
+        "task": "A refreshed claim pass drops the target recommendation or marks the underlying claim unsupported.",
+        "why": "If the recommendation itself no longer survives refresh, the formalization target is stale.",
+        "command": "erdos problem claim-pass-refresh 1008"
+      },
+      {
+        "checkId": "artifact_boundary_check",
+        "status": "ready",
+        "task": "A canonical artifact boundary check shows the statement is stronger than the current pack evidence.",
+        "why": "The packet should fail early if it is stronger than what the pack actually certifies.",
+        "command": "erdos problem theorem-loop 1008"
+      }
+    ],
+    "promotionCriteria": [
+      {
+        "criterionId": "top_recommendation_survives",
+        "status": "ready",
+        "task": "The current target remains the top theorem-formalization recommendation after refresh."
+      },
+      {
+        "criterionId": "statement_stays_narrow",
+        "status": "ready",
+        "task": "The candidate statement is narrower than or equal to the current claim-pass support surface."
+      },
+      {
+        "criterionId": "obligations_are_actionable",
+        "status": "ready",
+        "task": "The remaining proof obligations are explicit enough to guide search or exact follow-up."
+      }
+    ],
+    "supportingCommands": [
+      "erdos problem theorem-loop 1008",
+      "erdos problem claim-pass 1008",
+      "erdos problem claim-pass-refresh 1008"
+    ]
+  },
+  "summary": {
+    "proofObligations": {
+      "total": 3,
+      "ready": 3,
+      "inProgress": 0,
+      "blocked": 0,
+      "done": 0
+    },
+    "falsifierChecks": {
+      "total": 2,
+      "ready": 2,
+      "inProgress": 0,
+      "blocked": 0,
+      "done": 0
+    },
+    "promotionCriteria": {
+      "total": 3,
+      "ready": 3,
+      "inProgress": 0,
+      "blocked": 0,
+      "done": 0
+    }
+  },
+  "theoremHooks": [
+    {
+      "hook_id": "active_route_recorded",
+      "status": "supported",
+      "note": "The pack records an active route, currently `c4_free_lean_archive`."
+    },
+    {
+      "hook_id": "ready_atom_present",
+      "status": "supported",
+      "note": "The live route already has a ready atom, `G1008.G1.A1`, which can feed the theorem lane."
+    },
+    {
+      "hook_id": "frontier_note_present",
+      "status": "supported",
+      "note": "The pack already carries a frontier note that can anchor theorem-facing updates."
+    }
+  ],
+  "claimAssessments": [
+    {
+      "claim_id": "promote_ready_atom",
+      "source": "theorem_agenda",
+      "verdict": "actionable",
+      "evidenceClass": "theorem_agenda",
+      "theoremReady": false,
+      "supportSatisfied": true,
+      "summary": "Turn ready atom `G1008.G1.A1` into the next theorem-facing checkpoint.",
+      "rationale": "Record the best public/formalization hook and checkpoint the archive packet.",
+      "nextAction": "promote_ready_atom"
+    },
+    {
+      "claim_id": "tighten_active_route_claim",
+      "source": "theorem_agenda",
+      "verdict": "actionable",
+      "evidenceClass": "theorem_agenda",
+      "theoremReady": false,
+      "supportSatisfied": true,
+      "summary": "Compress the active route `c4_free_lean_archive` into the next honest theorem-facing claim unit.",
+      "rationale": "Record the best public/formalization hook and checkpoint the archive packet.",
+      "nextAction": "tighten_active_route_claim"
+    }
+  ],
+  "recommendationLedger": [
+    {
+      "recommendation_id": "promote_ready_atom",
+      "priority": "medium",
+      "lane": "theorem_formalization",
+      "reason": "Record the best public/formalization hook and checkpoint the archive packet.",
+      "command": "erdos problem formalization 1008"
+    }
+  ],
+  "commands": {
+    "problemShow": "erdos problem show 1008",
+    "problemArtifacts": "erdos problem artifacts 1008",
+    "theoremLoop": "erdos problem theorem-loop 1008",
+    "claimLoop": "erdos problem claim-loop 1008",
+    "claimPass": "erdos problem claim-pass 1008",
+    "formalization": "erdos problem formalization 1008",
+    "formalizationRefresh": "erdos problem formalization-refresh 1008",
+    "formalizationWork": "erdos problem formalization-work 1008",
+    "formalizationWorkRefresh": "erdos problem formalization-work-refresh 1008",
+    "sourceRefresh": null
+  },
+  "sources": {
+    "packProblemDir": "/Volumes/Code_2TB/code/erdos-problems/packs/graph-theory/problems/1008",
+    "formalizationJsonPath": "/Volumes/Code_2TB/code/erdos-problems/packs/graph-theory/problems/1008/FORMALIZATION.json",
+    "formalizationMarkdownPath": "/Volumes/Code_2TB/code/erdos-problems/packs/graph-theory/problems/1008/FORMALIZATION.md",
+    "theoremLoopJsonPath": "/Volumes/Code_2TB/code/erdos-problems/packs/graph-theory/problems/1008/THEOREM_LOOP.json",
+    "theoremLoopMarkdownPath": "/Volumes/Code_2TB/code/erdos-problems/packs/graph-theory/problems/1008/THEOREM_LOOP.md",
+    "claimLoopJsonPath": "/Volumes/Code_2TB/code/erdos-problems/packs/graph-theory/problems/1008/CLAIM_LOOP.json",
+    "claimLoopMarkdownPath": "/Volumes/Code_2TB/code/erdos-problems/packs/graph-theory/problems/1008/CLAIM_LOOP.md",
+    "claimPassJsonPath": "/Volumes/Code_2TB/code/erdos-problems/packs/graph-theory/problems/1008/CLAIM_PASS.json",
+    "claimPassMarkdownPath": "/Volumes/Code_2TB/code/erdos-problems/packs/graph-theory/problems/1008/CLAIM_PASS.md",
+    "legacyBridgeJsonPath": null,
+    "legacyBridgeMarkdownPath": null
+  }
+}

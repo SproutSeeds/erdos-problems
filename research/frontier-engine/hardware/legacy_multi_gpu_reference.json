@@ -1,0 +1,10 @@
+{
+  "profile_id": "legacy_multi_gpu_reference",
+  "os": "mixed",
+  "gpu": "multi_gpu_reference",
+  "role": "historical_scaling_reference",
+  "notes": [
+    "Historical systems may have assumed larger aggregate GPU volume.",
+    "Keep those assumptions as scale-up notes rather than prototype requirements."
+  ]
+}

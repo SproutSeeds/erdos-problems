@@ -1,0 +1,311 @@
+{
+  "schema": "erdos.problem_formalization/1",
+  "generatedAt": "2026-04-14T11:45:59.647Z",
+  "problemId": "848",
+  "displayName": "Erdos Problem #848",
+  "title": "Squarefree ab+1 Extremal Set Problem",
+  "cluster": "number-theory",
+  "sourceKind": "claim_pass_plus_bridge",
+  "formalizationMode": "bridge_backed",
+  "currentClaimSurface": "bridge_backed_frontier_support",
+  "currentState": {
+    "activeRoute": "finite_check_gap_closure",
+    "routeSummary": "Convert the sufficiently-large-N theorem into a complete all-N resolution without overstating what is already closed or confusing imported thresholds with repo-owned claims.",
+    "nextHonestMove": "Decide whether to extend exact verified coverage beyond `40500` or switch method class.",
+    "latestVerifiedInterval": "1..40500",
+    "sourceRefresh": "erdos number-theory bridge-refresh 848"
+  },
+  "currentTarget": {
+    "formalizationId": "p848_282_alignment_formalization_v1",
+    "focusId": "formalize_282_alignment",
+    "title": "Formalize the 282 Obstruction Alignment",
+    "status": "in_progress",
+    "lane": "theorem_formalization",
+    "sourceRecommendationId": "formalize_282_alignment",
+    "sourceClaimId": "p848_next_unmatched_alignment_claim",
+    "sourceHookId": "next_unmatched_equals_282_failure",
+    "summary": "The live 137720141 / 282 obstruction packet is checked at finite-menu scope; the remaining theorem work is the narrower symbolic-lift boundary.",
+    "statement": "Checked finite-menu statement: the shared-prefix obstruction represented at n=137720141 aligns with continuation tail 282 through the 841 witness class, with the 132-row lift and activation certificates replayed; a universal symbolic lift remains separate.",
+    "whyThisExists": "This packet exists to bridge the gap between search evidence and proof. Without it, the loop only says the alignment is suggestive; with it, the theorem lane gets an explicit object to prove, falsify, or narrow.",
+    "whyNow": "The canonical bridge freezes next unmatched representative 137720141, and the claim pass already marks its equality with the first failure of tail 282 as supported.",
+    "evidenceBasis": [
+      "The canonical bridge records next unmatched representative 137720141.",
+      "The tracked-tail matrix records continuation 282 failing first at 137720141.",
+      "The current family menu already contains representative 137720141 with tuple key 4, 23^2, 7^2, 9, 17^2, 11^2 and tuple rows 7->4/1, 32->529/281, 57->49/6, 82->9/8, 132->289/81, 182->121/119.",
+      "On that family-menu row, only continuation 282 fails among the tracked tails, and it does so via witness modulus 841.",
+      "The strongest completed structured tail remains 332, so this packet isolates the 282 obstruction mechanism rather than conflating it with the current family-aware leader 432.",
+      "The finite exact base is already certified through 1..40500, so the open work is structural rather than basic interval bookkeeping.",
+      "Formalization-work checker p848_132_activation_row_certificate_checker_v1 replayed 17 activation rows with 0 failures.",
+      "Formalization-work checker p848_132_lift_crt_checker_v1 proved the 132-row lift with k=147 and residue 504 mod 841.",
+      "The top repair-class side packet is also checked: +2 finite-menu replay plus 74 mod-50 lane exchange rows pass."
+    ],
+    "proofObligations": [
+      {
+        "obligationId": "define_shared_prefix_obstruction_class",
+        "status": "done",
+        "task": "Define the shared-prefix obstruction class precisely enough that the representative n=137720141 and the 282 continuation can be discussed in the same language.",
+        "why": "Without a shared obstruction language, the current equality is still only a numerical coincidence.",
+        "dischargeWith": "Use the family-menu row language: shared-prefix tuple rows plus representative/modulus/residue plus tracked-tail repair rows."
+      },
+      {
+        "obligationId": "explain_282_first_failure_mechanism",
+        "status": "done",
+        "task": "Explain why the 282 continuation first fails on that obstruction class rather than merely sharing the same first failing n by accident.",
+        "why": "This is the core mechanism claim that would upgrade the bridge fact into a theorem-facing lemma candidate.",
+        "dischargeWith": "Use the checked packet: p848_132_activation_row_certificate_checker_v1 plus p848_132_lift_crt_checker_v1 certify the finite-menu mechanism, while keeping the universal lift out of scope."
+      },
+      {
+        "obligationId": "separate_alignment_from_leaderboard_artifacts",
+        "status": "done",
+        "task": "Separate this obstruction-alignment claim from unrelated leaderboard behavior of 432, 782, and 832 so the statement stays narrow and honest.",
+        "why": "The 282 packet should not inherit unsupported claims from the current repair-class leaderboard.",
+        "dischargeWith": "Freeze the local repair boundary: 282 fails on this class while 157, 232, 332, 382, 432, 782, 832 remain squarefree."
+      },
+      {
+        "obligationId": "freeze_alignment_falsifier_boundary",
+        "status": "done",
+        "task": "Record what extra bridge or exact evidence would count as a genuine falsifier of the alignment mechanism.",
+        "why": "A theorem packet is more trustworthy when it names its own failure modes.",
+        "dischargeWith": "Bind the packet to the explicit falsifier boundary: a lower representative in the 841 witness class, a different first 282 witness, or bridge loss of the 137720141 <-> 282 alignment."
+      },
+      {
+        "obligationId": "lift_132_activation_schema_beyond_finite_menu",
+        "status": "ready",
+        "task": "Decide whether the checked finite-menu 132 activation schema can be lifted into a symbolic CRT lemma beyond the current family menu.",
+        "why": "This is now the honest successor to the discharged 282 mechanism packet: the mechanism is checked finitely, but the universal theorem should not inherit it without a symbolic lift.",
+        "dischargeWith": "Prove parameterized tuple-row CRT hypotheses that force pre-132 misses, unique 132 target activation, and 182 preservation beyond the current finite menu."
+      }
+    ],
+    "falsifierChecks": [
+      {
+        "checkId": "bridge_next_unmatched_stability",
+        "status": "ready",
+        "task": "A refreshed bridge no longer lists 137720141 as the next unmatched representative.",
+        "why": "If the bridge frontier moves, the current packet may no longer be pointing at the right obstruction.",
+        "command": "erdos number-theory bridge-refresh 848"
+      },
+      {
+        "checkId": "tracked_tail_282_stability",
+        "status": "ready",
+        "task": "A refreshed tracked-tail matrix no longer gives continuation 282 first failure 137720141.",
+        "why": "The packet is only interesting if the 282-tail boundary stays synchronized with the shared-prefix representative.",
+        "command": "erdos problem claim-pass-refresh 848"
+      },
+      {
+        "checkId": "obstruction_class_mismatch",
+        "status": "ready",
+        "task": "Packet replay or family-menu analysis shows that the shared-prefix representative and the 282 failure belong to different obstruction classes.",
+        "why": "This would directly break the mechanism-level interpretation of the alignment.",
+        "command": "erdos number-theory dispatch 848 --apply --action cpu_family_search"
+      }
+    ],
+    "promotionCriteria": [
+      {
+        "criterionId": "alignment_hook_survives",
+        "status": "done",
+        "task": "The next_unmatched_equals_282_failure hook stays supported after refresh."
+      },
+      {
+        "criterionId": "statement_is_mechanism_level",
+        "status": "done",
+        "task": "The candidate statement is expressed as an obstruction-class alignment, not as a full theorem of closure."
+      },
+      {
+        "criterionId": "mechanism_is_testable",
+        "status": "done",
+        "task": "The packet identifies at least one mechanism-level explanation to test, not just a repeated equality of two numbers."
+      },
+      {
+        "criterionId": "finite_menu_mechanism_checked",
+        "status": "done",
+        "task": "The finite-menu 282 mechanism is checked by activation-row and CRT-lift replay certificates."
+      }
+    ],
+    "supportingCommands": [
+      "erdos number-theory bridge-refresh 848",
+      "erdos problem claim-pass-refresh 848",
+      "erdos problem formalization-work 848",
+      "erdos number-theory dispatch 848 --apply --action cpu_family_search",
+      "erdos number-theory dispatch 848 --apply --action exact_followup_rollout"
+    ]
+  },
+  "summary": {
+    "proofObligations": {
+      "total": 5,
+      "ready": 1,
+      "inProgress": 0,
+      "blocked": 0,
+      "done": 4
+    },
+    "falsifierChecks": {
+      "total": 3,
+      "ready": 3,
+      "inProgress": 0,
+      "blocked": 0,
+      "done": 0
+    },
+    "promotionCriteria": {
+      "total": 4,
+      "ready": 0,
+      "inProgress": 0,
+      "blocked": 0,
+      "done": 4
+    }
+  },
+  "theoremHooks": [
+    {
+      "hook_id": "next_unmatched_equals_282_failure",
+      "status": "supported",
+      "note": ""
+    },
+    {
+      "hook_id": "completed_tail_vs_search_leader_split",
+      "status": "supported",
+      "note": ""
+    },
+    {
+      "hook_id": "repair_pool_not_closed",
+      "status": "supported",
+      "note": ""
+    },
+    {
+      "hook_id": "top_repair_class_cluster",
+      "status": "supported",
+      "note": ""
+    }
+  ],
+  "claimAssessments": [
+    {
+      "claim_id": "choose_next_finite_gap_move",
+      "source": "theorem_agenda",
+      "verdict": "actionable",
+      "evidenceClass": "theorem_agenda",
+      "theoremReady": false,
+      "supportSatisfied": true,
+      "summary": "Choose the next finite-gap closure move and keep the theorem-facing claim surface honest.",
+      "rationale": "The current canonical exact base is 1..40500; the next interval is still open.",
+      "nextAction": "decide_post_40500_verification_lane"
+    },
+    {
+      "claim_id": "explain_next_unmatched_alignment",
+      "source": "theorem_agenda",
+      "verdict": "actionable",
+      "evidenceClass": "theorem_agenda",
+      "theoremReady": false,
+      "supportSatisfied": true,
+      "summary": "Explain structurally why shared-prefix representative `137720141` aligns with the first failure of tail `282`.",
+      "rationale": "If that alignment is structural rather than accidental, it turns a search coincidence into a theorem-facing obstruction class.",
+      "nextAction": "formalize_alignment_mechanism"
+    },
+    {
+      "claim_id": "explain_completed_vs_search_leader_split",
+      "source": "theorem_agenda",
+      "verdict": "actionable",
+      "evidenceClass": "theorem_agenda",
+      "theoremReady": false,
+      "supportSatisfied": true,
+      "summary": "Explain why completed structured tail `332` differs from current family-aware leader `432`.",
+      "rationale": "That split tells us whether the live frontier is a finite-window artifact or a genuinely better structural continuation class.",
+      "nextAction": "explain_search_leader_split"
+    },
+    {
+      "claim_id": "model_repair_pool_growth",
+      "source": "theorem_agenda",
+      "verdict": "actionable",
+      "evidenceClass": "theorem_agenda",
+      "theoremReady": false,
+      "supportSatisfied": true,
+      "summary": "Model the repaired square-modulus pool as a growing family rather than treating it as already closed.",
+      "rationale": "Recent packets introduced new square moduli, so the theorem lane should aim for controlled growth, not premature closure.",
+      "nextAction": "model_repair_pool_growth"
+    },
+    {
+      "claim_id": "characterize_top_repair_cluster",
+      "source": "theorem_agenda",
+      "verdict": "actionable",
+      "evidenceClass": "theorem_agenda",
+      "theoremReady": false,
+      "supportSatisfied": true,
+      "summary": "Characterize what the top repair cluster `432, 782, 832` shares structurally.",
+      "rationale": "If the tied tails share a common repair mechanism, that mechanism is a strong candidate for the next lemma-level abstraction.",
+      "nextAction": "formalize_repair_cluster_mechanism"
+    },
+    {
+      "claim_id": "p848_next_unmatched_alignment_claim",
+      "source": "search_bridge",
+      "verdict": "supported",
+      "evidenceClass": "search_bridge_alignment",
+      "theoremReady": false,
+      "supportSatisfied": true,
+      "summary": "Shared-prefix representative 137720141 aligns structurally with the first failure of tail 282.",
+      "rationale": "The bridge matches shared-prefix representative 137720141 with tracked tail 282 first failure 137720141.",
+      "nextAction": "formalize_alignment_mechanism"
+    },
+    {
+      "claim_id": "p848_top_repair_cluster_claim",
+      "source": "search_bridge",
+      "verdict": "supported",
+      "evidenceClass": "gpu_leaderboard_cluster",
+      "theoremReady": false,
+      "supportSatisfied": true,
+      "summary": "Top repair class 432, 782, 832 shares a common repair mechanism.",
+      "rationale": "Top cluster 432, 782, 832 shares repaired-known=26, repaired-predicted=242, clean-through=250075000.",
+      "nextAction": "formalize_repair_cluster_mechanism"
+    }
+  ],
+  "recommendationLedger": [
+    {
+      "recommendation_id": "formalize_282_alignment",
+      "priority": "high",
+      "lane": "theorem_formalization",
+      "reason": "The bridge matches shared-prefix representative 137720141 with tracked tail 282 first failure 137720141.",
+      "command": "erdos problem formalization 848"
+    },
+    {
+      "recommendation_id": "formalize_top_repair_cluster",
+      "priority": "high",
+      "lane": "theorem_formalization",
+      "reason": "Top cluster 432, 782, 832 shares repaired-known=26, repaired-predicted=242, clean-through=250075000.",
+      "command": "erdos problem formalization 848"
+    },
+    {
+      "recommendation_id": "decide_post_40500_verification_lane",
+      "priority": "high",
+      "lane": "exact_verifier",
+      "reason": "The canonical exact base currently ends at 1..40500. The next verification move is still open.",
+      "command": "erdos number-theory dispatch 848"
+    },
+    {
+      "recommendation_id": "model_repair_pool_growth",
+      "priority": "medium",
+      "lane": "theorem_formalization",
+      "reason": "Recent bridge packets introduced new square moduli: 1369, 841, 17161, 1849.",
+      "command": "erdos problem formalization 848"
+    }
+  ],
+  "commands": {
+    "problemShow": "erdos problem show 848",
+    "problemArtifacts": "erdos problem artifacts 848",
+    "theoremLoop": "erdos problem theorem-loop 848",
+    "claimLoop": "erdos problem claim-loop 848",
+    "claimPass": "erdos problem claim-pass 848",
+    "formalization": "erdos problem formalization 848",
+    "formalizationRefresh": "erdos problem formalization-refresh 848",
+    "formalizationWork": "erdos problem formalization-work 848",
+    "formalizationWorkRefresh": "erdos problem formalization-work-refresh 848",
+    "sourceRefresh": "erdos number-theory bridge-refresh 848"
+  },
+  "sources": {
+    "packProblemDir": "/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848",
+    "formalizationJsonPath": "/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/FORMALIZATION.json",
+    "formalizationMarkdownPath": "/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/FORMALIZATION.md",
+    "theoremLoopJsonPath": "/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/THEOREM_LOOP.json",
+    "theoremLoopMarkdownPath": "/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/THEOREM_LOOP.md",
+    "claimLoopJsonPath": "/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/CLAIM_LOOP.json",
+    "claimLoopMarkdownPath": "/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/CLAIM_LOOP.md",
+    "claimPassJsonPath": "/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/CLAIM_PASS.json",
+    "claimPassMarkdownPath": "/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/CLAIM_PASS.md",
+    "legacyBridgeJsonPath": "/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SEARCH_THEOREM_BRIDGE.json",
+    "legacyBridgeMarkdownPath": "/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SEARCH_THEOREM_BRIDGE.md"
+  }
+}

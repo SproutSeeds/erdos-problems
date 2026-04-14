@@ -1,0 +1,21 @@
+{
+  "profile_id": "m8_sat_rail_windows_rtx4090_v1",
+  "benchmark_id": "m8_sat_rail",
+  "hardware_profile": "windows_rtx4090",
+  "generator": "m8_adaptive_mutation_sampler",
+  "runtime_mode": "auto",
+  "device": "auto",
+  "seed": 857,
+  "initial_batch_size": 64,
+  "generations": 5,
+  "parent_limit": 8,
+  "children_per_parent": 12,
+  "mutation_count": 3,
+  "random_injections": 16,
+  "notes": [
+    "This is the first proving profile for the Windows RTX 4090 rig.",
+    "The current rail can resolve to Python or Torch depending on local capabilities.",
+    "On the target 4090 box, auto mode should resolve to Torch on CUDA.",
+    "The first Triton port should preserve these knobs so baseline and GPU runs stay directly comparable."
+  ]
+}

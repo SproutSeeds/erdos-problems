@@ -1,0 +1,6 @@
+I’ve updated my public `erdos-problems` workspace for Problem 848 on the finite-check side. No new best `N_0` claim here; the update is mainly a bounded-verification workflow that separates imported threshold claims from repo-audited claims and requires explicit certificates for interval-coverage claims.
+
+More broadly, I built `erdos-problems` as an npm workspace for working on any Erdős problem against a canonical public repo. The idea is that when someone boots a problem from scratch, they inherit the current dossier, route notes, and review artifacts instead of starting from zero, and anyone can improve that shared base by contributing back to the repo.
+
+Repo: https://github.com/SproutSeeds/erdos-problems
+npm: https://www.npmjs.com/package/erdos-problems

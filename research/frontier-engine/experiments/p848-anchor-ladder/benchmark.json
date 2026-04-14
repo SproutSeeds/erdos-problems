@@ -1,0 +1,12 @@
+{
+  "lane_id": "p848_anchor_ladder",
+  "problem_id": "848",
+  "family": "number_theory",
+  "route_posture": "finite_check_gap_closure",
+  "search_objective": "Extend the +50 repair ladder and convert recurring finite repair into a structural explanation.",
+  "candidate_shape": "structured tail continuation {7,32,57,82,132,182,t}",
+  "finite_gap": "maximize direct_clean_through and explained_packet_repairs while minimizing unexplained first-failure packets",
+  "primary_hardware_profile": "windows_rtx4090",
+  "primary_backend": "batched_anchor_tail_scan",
+  "artifact_kind": "anchor_tail_seed_bundle"
+}

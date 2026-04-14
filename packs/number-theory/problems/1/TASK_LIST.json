@@ -1,0 +1,445 @@
+{
+  "schema": "erdos.problem_task_list/1",
+  "generatedAt": "2026-04-14T11:46:21.807Z",
+  "problemId": "1",
+  "displayName": "Erdos Problem #1",
+  "title": "Erdos Problem #1",
+  "cluster": "number-theory",
+  "sourceKind": "claim_pass_only",
+  "taskListMode": "baseline",
+  "currentState": {
+    "activeRoute": "distinct_subset_sum_lower_bound",
+    "currentClaimSurface": "route_scaffolding",
+    "routeSummary": "Keep the problem centered on the exponential-growth lower-bound route implied by distinct subset sums.",
+    "nextHonestMove": "Record the first reduction and checkpoint it without overclaiming theorem progress.",
+    "latestVerifiedInterval": null
+  },
+  "finiteGapStrategy": null,
+  "granularBreakdownMode": {
+    "status": "core_loop_enabled",
+    "modeId": "granular-breakdown",
+    "label": "ORP Granular Breakdown",
+    "topic": "problem 1 | State Claim Honestly",
+    "activationPhrase": "Break it down until it can move.",
+    "invocationRule": "Use the full breakdown before executing a complex theorem/search packet; use the nudge card whenever the agent or user is confused, the target feels too broad, or the next action is not deterministic.",
+    "commands": {
+      "fullBreakdown": "orp mode breakdown granular-breakdown --topic \"problem 1 | State Claim Honestly\" --json",
+      "nudge": "orp mode nudge granular-breakdown --json",
+      "unscopedBreakdown": "orp mode breakdown granular-breakdown --json"
+    },
+    "outputContract": [
+      "Broad Frame",
+      "Boundary",
+      "Major Lanes",
+      "Subclaims",
+      "Atomic Obligations",
+      "Dependency Ladder",
+      "Active Target",
+      "Durable Checklist",
+      "Next Verification"
+    ],
+    "loopIntegration": [
+      "Run the full breakdown after the theorem/search surfaces are audited and before executing the current work packet.",
+      "Write operationally important decompositions into TASK_LIST, FORMALIZATION_WORK, or a dedicated checklist artifact rather than leaving them in chat.",
+      "Use the nudge card for quick reorientation when a step becomes blurry during implementation.",
+      "Compress the breakdown back into one active target and one verification command before continuing."
+    ],
+    "durableArtifactRule": "If the breakdown changes what we should do, refresh the canonical task list so the new dependency ladder becomes repo-owned state."
+  },
+  "orpModeOverlays": {
+    "status": "core_loop_palette_enabled",
+    "sourceCommand": "orp mode list --json",
+    "defaultModeId": "granular-breakdown",
+    "selectionRule": "Select the smallest ORP overlay that reduces ambiguity or friction; do not run every mode by default.",
+    "alwaysDurableWhenOperational": true,
+    "overlays": [
+      {
+        "modeId": "granular-breakdown",
+        "label": "Granular Breakdown",
+        "role": "core_decomposition_loop",
+        "useWhen": "The work is broad, confusing, theorem-heavy, or needs a durable dependency ladder before execution.",
+        "command": "orp mode breakdown granular-breakdown --topic \"problem 1 | State Claim Honestly\" --json",
+        "nudgeCommand": "orp mode nudge granular-breakdown --json",
+        "loopPlacement": "Before execute_current_work_packet and whenever the active target becomes fuzzy.",
+        "outputExpectation": "Boundary, lanes, subclaims, atomic obligations, dependency ladder, active target, durable checklist, and next verification."
+      },
+      {
+        "modeId": "ruthless-simplification",
+        "label": "Ruthless Simplification",
+        "role": "compression_and_signal_filter",
+        "useWhen": "A plan, proof surface, or final response is swollen, repetitive, or hiding the single live decision.",
+        "command": "orp mode nudge ruthless-simplification --json",
+        "nudgeCommand": "orp mode nudge ruthless-simplification --json",
+        "loopPlacement": "After granular decomposition, before committing a plan to TASK_LIST, and before final summaries.",
+        "outputExpectation": "One core sentence, one surviving move, and a list of noise to delete or defer."
+      },
+      {
+        "modeId": "systems-constellation",
+        "label": "Systems Constellation",
+        "role": "dependency_and_downstream_effects",
+        "useWhen": "A change touches multiple surfaces such as erdos-problems, ORP, frontier-engine, local/remote compute, task lists, or user workflow.",
+        "command": "orp mode nudge systems-constellation --json",
+        "nudgeCommand": "orp mode nudge systems-constellation --json",
+        "loopPlacement": "Before cross-system integration, paid/remote compute decisions, or changes to canonical source/writeback flow.",
+        "outputExpectation": "Upstreams, downstreams, feedback loops, hidden costs, and the system-level decision."
+      },
+      {
+        "modeId": "bold-concept-generation",
+        "label": "Bold Concept Generation",
+        "role": "candidate_generation_when_stuck",
+        "useWhen": "The active theorem/search lane has converged too early, needs new candidate lemmas, or a split atom fails and needs alternative constructions.",
+        "command": "orp mode nudge bold-concept-generation --json",
+        "nudgeCommand": "orp mode nudge bold-concept-generation --json",
+        "loopPlacement": "After a falsifier, before launching broad compute, or when inventing the next symbolic construction.",
+        "outputExpectation": "Several meaningfully different candidate moves, with the boldest one grounded into a quick experiment."
+      },
+      {
+        "modeId": "sleek-minimal-progressive",
+        "label": "Sleek Minimal Progressive",
+        "role": "fresh_lens_and_low_friction_motion",
+        "useWhen": "The work feels flat, overly linear, or technically correct but hard for future collaborators to pick up.",
+        "command": "orp mode nudge sleek-minimal-progressive --json",
+        "nudgeCommand": "orp mode nudge sleek-minimal-progressive --json",
+        "loopPlacement": "When refining docs, task-list readability, handoff artifacts, UI surfaces, or the shape of the next user-facing explanation.",
+        "outputExpectation": "One subtraction, one tasteful surprise, and one concrete next move that keeps momentum."
+      }
+    ]
+  },
+  "agentFlow": {
+    "schema": "erdos.problem_agent_flow/1",
+    "status": "ready",
+    "audience": "agent",
+    "problemId": "1",
+    "purpose": "Give agents one compact execution contract without forcing humans or agents through every task-list section.",
+    "operatingRule": "Read this object first; execute the primary next action unless a guardrail blocks it or the task list is stale.",
+    "primaryNextAction": {
+      "source": "formalization_work",
+      "stepId": "gap_1",
+      "status": "next",
+      "task": "state_claim_honestly: Write a claim statement that is no stronger than the active claim-pass support surface.",
+      "command": "erdos problem formalization-work-refresh 1",
+      "completionRule": null,
+      "packetAtomId": null,
+      "packetId": null,
+      "packetJsonPath": null,
+      "packetMarkdownPath": null,
+      "manifestJsonPath": null,
+      "manifestMarkdownPath": null
+    },
+    "modePolicy": {
+      "defaultAction": "execute_primary_next_action",
+      "doNotRunEveryMode": true,
+      "selectionRule": "Select the smallest ORP overlay that reduces ambiguity or friction; do not run every mode by default.",
+      "granularBreakdown": {
+        "modeId": "granular-breakdown",
+        "useWhen": "Use when the primary action is broad, fuzzy, theorem-heavy, or has unclear dependencies.",
+        "fullBreakdownCommand": "orp mode breakdown granular-breakdown --topic \"problem 1 | State Claim Honestly\" --json",
+        "nudgeCommand": "orp mode nudge granular-breakdown --json",
+        "compressionRule": "After any breakdown, compress back to one active target and one verification command."
+      },
+      "situationalOverlays": [
+        {
+          "modeId": "ruthless-simplification",
+          "role": "compression_and_signal_filter",
+          "useWhen": "A plan, proof surface, or final response is swollen, repetitive, or hiding the single live decision.",
+          "command": "orp mode nudge ruthless-simplification --json",
+          "loopPlacement": "After granular decomposition, before committing a plan to TASK_LIST, and before final summaries.",
+          "outputExpectation": "One core sentence, one surviving move, and a list of noise to delete or defer."
+        },
+        {
+          "modeId": "systems-constellation",
+          "role": "dependency_and_downstream_effects",
+          "useWhen": "A change touches multiple surfaces such as erdos-problems, ORP, frontier-engine, local/remote compute, task lists, or user workflow.",
+          "command": "orp mode nudge systems-constellation --json",
+          "loopPlacement": "Before cross-system integration, paid/remote compute decisions, or changes to canonical source/writeback flow.",
+          "outputExpectation": "Upstreams, downstreams, feedback loops, hidden costs, and the system-level decision."
+        },
+        {
+          "modeId": "bold-concept-generation",
+          "role": "candidate_generation_when_stuck",
+          "useWhen": "The active theorem/search lane has converged too early, needs new candidate lemmas, or a split atom fails and needs alternative constructions.",
+          "command": "orp mode nudge bold-concept-generation --json",
+          "loopPlacement": "After a falsifier, before launching broad compute, or when inventing the next symbolic construction.",
+          "outputExpectation": "Several meaningfully different candidate moves, with the boldest one grounded into a quick experiment."
+        },
+        {
+          "modeId": "sleek-minimal-progressive",
+          "role": "fresh_lens_and_low_friction_motion",
+          "useWhen": "The work feels flat, overly linear, or technically correct but hard for future collaborators to pick up.",
+          "command": "orp mode nudge sleek-minimal-progressive --json",
+          "loopPlacement": "When refining docs, task-list readability, handoff artifacts, UI surfaces, or the shape of the next user-facing explanation.",
+          "outputExpectation": "One subtraction, one tasteful surprise, and one concrete next move that keeps momentum."
+        }
+      ]
+    },
+    "executionLoop": [
+      "Load agentFlow.primaryNextAction.",
+      "If the action is clear, execute its command or implement the named task directly.",
+      "If the action is fuzzy, run the granular nudge or full breakdown, then compress to one target and one command.",
+      "Use at most one additional ORP overlay when it clearly reduces friction for the current decision.",
+      "Refresh the canonical task list after material progress and continue from the regenerated agentFlow."
+    ],
+    "guardrails": [
+      "Do not run paid or remote compute unless the frontier configuration explicitly enables that paid rung.",
+      "Prefer local/free compute before opt-in paid compute.",
+      "Do not treat bounded search evidence as an all-N proof without a theorem-facing handoff.",
+      "Do not run every ORP mode by default.",
+      "Persist operationally important changes into canonical artifacts rather than chat-only state."
+    ],
+    "writeback": {
+      "refreshCommand": "erdos problem task-list-refresh 1",
+      "taskListCommand": "erdos problem task-list 1",
+      "durableArtifactRule": "If the breakdown changes what we should do, refresh the canonical task list so the new dependency ladder becomes repo-owned state."
+    }
+  },
+  "splitCoreAtomizationPlan": null,
+  "structuralVerifierAudit": null,
+  "baseSideScout": null,
+  "structuralTwoSideScout": null,
+  "mixedBaseFailureScout": null,
+  "fullMixedBaseStructuralVerifier": null,
+  "structuralLiftMiner": null,
+  "structuralLiftChecklist": null,
+  "executionRule": {
+    "stance": "concrete_execution",
+    "summary": "Treat the task list as a concrete research loop for problem 1: execute the highest-value task itself, not wrapper prose about the task.",
+    "afterEachCompletion": [
+      "Cross off the completed task.",
+      "Re-read the theorem loop, claim pass, formalization packet, formalization work packet, and verifier boundary.",
+      "Use ORP granular breakdown when the next step is broad or confusing: orp mode nudge granular-breakdown --json",
+      "Use the smallest relevant ORP mode overlay when it simplifies the work: simplification for bloat, systems for cross-surface consequences, bold generation for new candidates, and sleek-progressive for clearer handoff shape.",
+      "Invent the next highest-value step from the updated evidence rather than following a stale fixed script.",
+      "Append that next step to the task list and refresh the canonical task-list artifacts."
+    ],
+    "granularBreakdownMode": {
+      "modeId": "granular-breakdown",
+      "status": "core_loop_enabled",
+      "fullBreakdownCommand": "orp mode breakdown granular-breakdown --topic \"problem 1 | State Claim Honestly\" --json",
+      "nudgeCommand": "orp mode nudge granular-breakdown --json"
+    },
+    "repetitionProtocol": "To execute this loop 10 times or 100 times, complete the first ready task, refresh the task list, then use the regenerated ordering for the next pass.",
+    "lowStressLongHorizonNote": "This loop is meant to be safe for long-horizon execution because it re-ranks after every pass instead of committing to a blind fixed plan."
+  },
+  "loopTemplate": [
+    {
+      "stepId": "freeze_current_state",
+      "title": "Freeze the current north star and active theorem packet",
+      "task": "Freeze the current route `distinct_subset_sum_lower_bound`, claim surface `route_scaffolding`, and active theorem packet before widening the search.",
+      "completionRule": "The theorem loop, claim pass, and formalization packet all agree on the current route, next honest move, and active target.",
+      "command": "erdos problem theorem-loop 1"
+    },
+    {
+      "stepId": "audit_theorem_surfaces",
+      "title": "Audit theorem, claim, and formalization surfaces for consistency",
+      "task": "Audit the theorem loop, claim loop, claim pass, formalization packet, and formalization work packet for drift or contradictory wording.",
+      "completionRule": "The canonical theorem/search surfaces tell one consistent story about what is supported, what is open, and what the active work unit is.",
+      "command": "erdos problem task-list 1"
+    },
+    {
+      "stepId": "verify_canonical_inputs",
+      "title": "Verify canonical pack inputs against the latest route and verifier artifacts",
+      "task": "Verify that the pack-backed theorem surfaces still match the latest route packet, OPS details, and verifier-facing artifacts.",
+      "completionRule": "The canonical input packet for this loop remains current and trustworthy.",
+      "command": "erdos problem theorem-loop-refresh 1"
+    },
+    {
+      "stepId": "verify_primary_structural_hook",
+      "title": "Verify the current highest-value structural hook remains canonical",
+      "task": "Verify that the strongest supported structural hook still survives across the theorem and claim surfaces.",
+      "completionRule": "The primary theorem-facing hook still survives refresh and remains narrow enough to formalize honestly.",
+      "command": "erdos problem claim-pass-refresh 1"
+    },
+    {
+      "stepId": "verify_verifier_boundary",
+      "title": "Verify the current verifier boundary and next target",
+      "task": "Verify that the current verifier boundary and next target are stated honestly across the pack surfaces.",
+      "completionRule": "The verifier-facing boundary remains explicit even without a dedicated interval queue.",
+      "command": "erdos number-theory dispatch 1"
+    },
+    {
+      "stepId": "apply_granular_breakdown",
+      "title": "Apply ORP granular breakdown before execution",
+      "task": "Run ORP granular breakdown on the active topic `problem 1 | State Claim Honestly` and compress it into one active target plus one verification command.",
+      "completionRule": "The broad work packet has been decomposed into boundary, lanes, atomic obligations, dependency ladder, active target, durable checklist, and next verification.",
+      "command": "orp mode breakdown granular-breakdown --topic \"problem 1 | State Claim Honestly\" --json"
+    },
+    {
+      "stepId": "execute_current_work_packet",
+      "title": "State Claim Honestly",
+      "task": "State the candidate theorem-facing claim in pack language without overstating current support.",
+      "completionRule": "The first remaining gap is either discharged, narrowed, or replaced by a sharper one: state_claim_honestly: Write a claim statement that is no stronger than the active claim-pass support surface.",
+      "command": "erdos problem formalization-work 1"
+    },
+    {
+      "stepId": "refresh_and_rerank",
+      "title": "Refresh the task list and rerank the next step",
+      "task": "Refresh the canonical task list after the completed work so the next iteration is driven by the newest theorem/search/verifier evidence.",
+      "completionRule": "The refreshed task list records the next highest-value action instead of relying on a stale fixed script.",
+      "command": "erdos problem task-list-refresh 1"
+    }
+  ],
+  "currentObjective": {
+    "formalizationId": "number-theory_1_promote_ready_atom_v1",
+    "focusId": "promote_ready_atom",
+    "title": "Promote Ready Atom",
+    "activeWorkId": "number-theory_1_state_claim_honestly_v1",
+    "activeWorkTitle": "State Claim Honestly",
+    "activeWorkStatus": "ready"
+  },
+  "currentTasks": [
+    {
+      "taskId": "freeze_current_state",
+      "status": "ready",
+      "title": "Freeze the current north star and active theorem packet",
+      "task": "Freeze the current route `distinct_subset_sum_lower_bound`, claim surface `route_scaffolding`, and active theorem packet before widening the search.",
+      "why": null,
+      "completionRule": "The theorem loop, claim pass, and formalization packet all agree on the current route, next honest move, and active target.",
+      "command": "erdos problem theorem-loop 1"
+    },
+    {
+      "taskId": "audit_theorem_surfaces",
+      "status": "ready",
+      "title": "Audit theorem, claim, and formalization surfaces for consistency",
+      "task": "Audit the theorem loop, claim loop, claim pass, formalization packet, and formalization work packet for drift or contradictory wording.",
+      "why": null,
+      "completionRule": "The canonical theorem/search surfaces tell one consistent story about what is supported, what is open, and what the active work unit is.",
+      "command": "erdos problem task-list 1"
+    },
+    {
+      "taskId": "verify_canonical_inputs",
+      "status": "ready",
+      "title": "Verify canonical pack inputs against the latest route and verifier artifacts",
+      "task": "Verify that the pack-backed theorem surfaces still match the latest route packet, OPS details, and verifier-facing artifacts.",
+      "why": null,
+      "completionRule": "The canonical input packet for this loop remains current and trustworthy.",
+      "command": "erdos problem theorem-loop-refresh 1"
+    },
+    {
+      "taskId": "verify_primary_structural_hook",
+      "status": "ready",
+      "title": "Verify the current highest-value structural hook remains canonical",
+      "task": "Verify that the strongest supported structural hook still survives across the theorem and claim surfaces.",
+      "why": null,
+      "completionRule": "The primary theorem-facing hook still survives refresh and remains narrow enough to formalize honestly.",
+      "command": "erdos problem claim-pass-refresh 1"
+    },
+    {
+      "taskId": "verify_verifier_boundary",
+      "status": "ready",
+      "title": "Verify the current verifier boundary and next target",
+      "task": "Verify that the current verifier boundary and next target are stated honestly across the pack surfaces.",
+      "why": null,
+      "completionRule": "The verifier-facing boundary remains explicit even without a dedicated interval queue.",
+      "command": "erdos number-theory dispatch 1"
+    },
+    {
+      "taskId": "apply_granular_breakdown",
+      "status": "ready",
+      "title": "Apply ORP granular breakdown before execution",
+      "task": "Run ORP granular breakdown on the active topic `problem 1 | State Claim Honestly` and compress it into one active target plus one verification command.",
+      "why": null,
+      "completionRule": "The broad work packet has been decomposed into boundary, lanes, atomic obligations, dependency ladder, active target, durable checklist, and next verification.",
+      "command": "orp mode breakdown granular-breakdown --topic \"problem 1 | State Claim Honestly\" --json"
+    },
+    {
+      "taskId": "execute_current_work_packet",
+      "status": "ready",
+      "title": "State Claim Honestly",
+      "task": "State the candidate theorem-facing claim in pack language without overstating current support.",
+      "why": "Record the first reduction and checkpoint it without overclaiming theorem progress.",
+      "completionRule": "The first remaining gap is either discharged, narrowed, or replaced by a sharper one: state_claim_honestly: Write a claim statement that is no stronger than the active claim-pass support surface.",
+      "command": "erdos problem formalization-work 1"
+    },
+    {
+      "taskId": "discharge_first_remaining_gap",
+      "status": "ready",
+      "title": "Discharge the first remaining gap in the active theorem packet",
+      "task": "state_claim_honestly: Write a claim statement that is no stronger than the active claim-pass support surface.",
+      "why": "This is the sharpest unresolved statement already named by the active theorem-work packet.",
+      "completionRule": "The first remaining gap is either resolved or replaced by a more precise successor gap.",
+      "command": "erdos problem formalization-work-refresh 1"
+    },
+    {
+      "taskId": "refresh_and_rerank",
+      "status": "ready",
+      "title": "Refresh the task list and rerank the next step",
+      "task": "Refresh the canonical task list after the completed work so the next iteration is driven by the newest theorem/search/verifier evidence.",
+      "why": null,
+      "completionRule": "The refreshed task list records the next highest-value action instead of relying on a stale fixed script.",
+      "command": "erdos problem task-list-refresh 1"
+    }
+  ],
+  "completedAnchors": [],
+  "nextNeededSteps": [
+    {
+      "stepId": "gap_1",
+      "status": "next",
+      "task": "state_claim_honestly: Write a claim statement that is no stronger than the active claim-pass support surface.",
+      "source": "formalization_work",
+      "command": "erdos problem formalization-work-refresh 1"
+    },
+    {
+      "stepId": "gap_2",
+      "status": "next",
+      "task": "freeze_support_artifacts: Attach theorem-loop, claim-pass, and any bridge-backed packet paths directly to the packet.",
+      "source": "formalization_work",
+      "command": "erdos problem formalization-work-refresh 1"
+    },
+    {
+      "stepId": "gap_3",
+      "status": "next",
+      "task": "define_promotion_boundary: Record explicit promotion criteria tied to current falsifiers.",
+      "source": "formalization_work",
+      "command": "erdos problem formalization-work-refresh 1"
+    },
+    {
+      "stepId": "promote_ready_atom",
+      "status": "medium",
+      "task": "Record the first reduction and checkpoint it without overclaiming theorem progress.",
+      "source": "theorem_formalization",
+      "command": "erdos problem formalization 1"
+    }
+  ],
+  "commands": {
+    "problemShow": "erdos problem show 1",
+    "problemArtifacts": "erdos problem artifacts 1",
+    "taskList": "erdos problem task-list 1",
+    "taskListRefresh": "erdos problem task-list-refresh 1",
+    "taskListRun": "erdos problem task-list-run 1 --passes 10",
+    "orpModeList": "orp mode list --json",
+    "granularBreakdown": "orp mode breakdown granular-breakdown --topic \"problem 1 | State Claim Honestly\" --json",
+    "granularNudge": "orp mode nudge granular-breakdown --json",
+    "theoremLoop": "erdos problem theorem-loop 1",
+    "claimPass": "erdos problem claim-pass 1",
+    "formalization": "erdos problem formalization 1",
+    "formalizationWork": "erdos problem formalization-work 1",
+    "sourceRefresh": null
+  },
+  "sources": {
+    "packProblemDir": "/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/1",
+    "taskListJsonPath": "/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/1/TASK_LIST.json",
+    "taskListMarkdownPath": "/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/1/TASK_LIST.md",
+    "theoremLoopJsonPath": "/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/1/THEOREM_LOOP.json",
+    "claimPassJsonPath": "/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/1/CLAIM_PASS.json",
+    "formalizationJsonPath": "/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/1/FORMALIZATION.json",
+    "formalizationWorkJsonPath": "/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/1/FORMALIZATION_WORK.json",
+    "intervalQueuePath": "/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/1/INTERVAL_WORK_QUEUE.yaml",
+    "exactBreakpointScoutJsonPath": null,
+    "exactBreakpointCertificateJsonPath": null,
+    "externalStructuralVerifierAuditJsonPath": null,
+    "externalStructuralVerifierAuditMarkdownPath": null,
+    "baseSideScoutJsonPath": null,
+    "baseSideScoutMarkdownPath": null,
+    "structuralTwoSideScoutJsonPath": null,
+    "structuralTwoSideScoutMarkdownPath": null,
+    "mixedBaseFailureScoutJsonPath": null,
+    "mixedBaseFailureScoutMarkdownPath": null,
+    "fullMixedBaseStructuralVerifierJsonPath": null,
+    "fullMixedBaseStructuralVerifierMarkdownPath": null,
+    "structuralLiftMinerJsonPath": null,
+    "structuralLiftMinerMarkdownPath": null,
+    "structuralLiftChecklistJsonPath": null,
+    "structuralLiftChecklistMarkdownPath": null,
+    "legacyBridgeJsonPath": null
+  }
+}

@@ -1,0 +1,64 @@
+{
+  "schema": "erdos.problem_formalization_work/1",
+  "generatedAt": "2026-04-10T08:11:06.272Z",
+  "problemId": "1008",
+  "displayName": "Erdos Problem #1008",
+  "title": "C4-Free Subgraph Density Problem",
+  "cluster": "graph-theory",
+  "sourceKind": "claim_pass_only",
+  "formalizationWorkMode": "baseline",
+  "currentClaimSurface": "route_scaffolding",
+  "currentState": {
+    "activeRoute": "c4_free_lean_archive",
+    "routeSummary": "Keep the solved `C_4`-free density record explicit and preserve the Lean-facing archive posture.",
+    "nextHonestMove": "Record the best public/formalization hook and checkpoint the archive packet.",
+    "latestVerifiedInterval": null
+  },
+  "currentWork": {
+    "workId": "graph-theory_1008_state_claim_honestly_v1",
+    "focusFormalizationId": "graph-theory_1008_promote_ready_atom_v1",
+    "focusId": "state_claim_honestly",
+    "title": "State Claim Honestly",
+    "status": "ready",
+    "summary": "State the candidate theorem-facing claim in pack language without overstating current support.",
+    "why": "This keeps the formalization target narrower than the current evidence boundary.",
+    "workingDefinition": [
+      "Candidate formalization target: Record the best public/formalization hook and checkpoint the archive packet."
+    ],
+    "currentEvidence": [
+      "Current claim surface: route_scaffolding.",
+      "Active route: c4_free_lean_archive.",
+      "No canonical verified interval is currently frozen."
+    ],
+    "dischargedWork": [],
+    "remainingGaps": [
+      "state_claim_honestly: Write a claim statement that is no stronger than the active claim-pass support surface.",
+      "freeze_support_artifacts: Attach theorem-loop, claim-pass, and any bridge-backed packet paths directly to the packet.",
+      "define_promotion_boundary: Record explicit promotion criteria tied to current falsifiers."
+    ],
+    "nextCommands": [
+      "erdos problem formalization-refresh 1008",
+      "erdos problem formalization 1008"
+    ]
+  },
+  "commands": {
+    "problemShow": "erdos problem show 1008",
+    "problemArtifacts": "erdos problem artifacts 1008",
+    "formalization": "erdos problem formalization 1008",
+    "formalizationRefresh": "erdos problem formalization-refresh 1008",
+    "formalizationWork": "erdos problem formalization-work 1008",
+    "formalizationWorkRefresh": "erdos problem formalization-work-refresh 1008",
+    "claimPass": "erdos problem claim-pass 1008",
+    "sourceRefresh": null
+  },
+  "sources": {
+    "packProblemDir": "/Volumes/Code_2TB/code/erdos-problems/packs/graph-theory/problems/1008",
+    "formalizationWorkJsonPath": "/Volumes/Code_2TB/code/erdos-problems/packs/graph-theory/problems/1008/FORMALIZATION_WORK.json",
+    "formalizationWorkMarkdownPath": "/Volumes/Code_2TB/code/erdos-problems/packs/graph-theory/problems/1008/FORMALIZATION_WORK.md",
+    "formalizationWorkSvgPath": "/Volumes/Code_2TB/code/erdos-problems/packs/graph-theory/problems/1008/FORMALIZATION_WORK.svg",
+    "formalizationJsonPath": "/Volumes/Code_2TB/code/erdos-problems/packs/graph-theory/problems/1008/FORMALIZATION.json",
+    "formalizationMarkdownPath": "/Volumes/Code_2TB/code/erdos-problems/packs/graph-theory/problems/1008/FORMALIZATION.md",
+    "theoremLoopJsonPath": "/Volumes/Code_2TB/code/erdos-problems/packs/graph-theory/problems/1008/THEOREM_LOOP.json",
+    "legacyBridgeJsonPath": null
+  }
+}

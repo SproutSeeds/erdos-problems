@@ -1,0 +1,4145 @@
+{
+  "schema": "erdos.number_theory.p848_base_side_scout/1",
+  "generatedAt": "2026-04-11T20:36:43.797Z",
+  "problemId": "848",
+  "method": "bounded_base_side_compatibility_scout",
+  "parameters": {
+    "maxN": 200
+  },
+  "status": "counterexample_to_global_7_side_domination_found",
+  "summary": {
+    "interval": "1..200",
+    "outsiderCount": 5,
+    "side7CountAtMax": 8,
+    "side18CountAtMax": 8,
+    "globalMaxSide18Minus7": 1,
+    "globalMaxPerOutsider18Minus7": 1,
+    "maxSide18ExceedsSide7": true,
+    "perOutsiderSide18ExceedsSide7": true
+  },
+  "strongestSide18MaxRow": {
+    "N": 143,
+    "maxSide7": 2,
+    "maxSide18": 3,
+    "maxSide7Outsider": 41,
+    "maxSide18Outsider": 117,
+    "maxSide18Minus7": 1,
+    "maxPerOutsider18Minus7": 1,
+    "maxPerOutsider7Minus18": 1,
+    "perOutsider18Winner": {
+      "outsider": 117,
+      "side7": 2,
+      "side18": 3,
+      "delta18Minus7": 1
+    },
+    "perOutsider7Winner": {
+      "outsider": 38,
+      "side7": 1,
+      "side18": 0,
+      "delta7Minus18": 1
+    }
+  },
+  "strongestPerOutsider18Row": {
+    "N": 143,
+    "maxSide7": 2,
+    "maxSide18": 3,
+    "maxSide7Outsider": 41,
+    "maxSide18Outsider": 117,
+    "maxSide18Minus7": 1,
+    "maxPerOutsider18Minus7": 1,
+    "maxPerOutsider7Minus18": 1,
+    "perOutsider18Winner": {
+      "outsider": 117,
+      "side7": 2,
+      "side18": 3,
+      "delta18Minus7": 1
+    },
+    "perOutsider7Winner": {
+      "outsider": 38,
+      "side7": 1,
+      "side18": 0,
+      "delta7Minus18": 1
+    }
+  },
+  "firstNWithSide18MaxExceedingSide7": {
+    "N": 143,
+    "maxSide7": 2,
+    "maxSide18": 3,
+    "maxSide7Outsider": 41,
+    "maxSide18Outsider": 117,
+    "maxSide18Minus7": 1,
+    "maxPerOutsider18Minus7": 1,
+    "maxPerOutsider7Minus18": 1,
+    "perOutsider18Winner": {
+      "outsider": 117,
+      "side7": 2,
+      "side18": 3,
+      "delta18Minus7": 1
+    },
+    "perOutsider7Winner": {
+      "outsider": 38,
+      "side7": 1,
+      "side18": 0,
+      "delta7Minus18": 1
+    }
+  },
+  "firstNWithPerOutsider18ExceedingSide7": {
+    "N": 143,
+    "maxSide7": 2,
+    "maxSide18": 3,
+    "maxSide7Outsider": 41,
+    "maxSide18Outsider": 117,
+    "maxSide18Minus7": 1,
+    "maxPerOutsider18Minus7": 1,
+    "maxPerOutsider7Minus18": 1,
+    "perOutsider18Winner": {
+      "outsider": 117,
+      "side7": 2,
+      "side18": 3,
+      "delta18Minus7": 1
+    },
+    "perOutsider7Winner": {
+      "outsider": 38,
+      "side7": 1,
+      "side18": 0,
+      "delta7Minus18": 1
+    }
+  },
+  "rows": [
+    {
+      "N": 1,
+      "maxSide7": 0,
+      "maxSide18": 0,
+      "maxSide7Outsider": null,
+      "maxSide18Outsider": null,
+      "maxSide18Minus7": 0,
+      "maxPerOutsider18Minus7": null,
+      "maxPerOutsider7Minus18": null,
+      "perOutsider18Winner": null,
+      "perOutsider7Winner": null
+    },
+    {
+      "N": 2,
+      "maxSide7": 0,
+      "maxSide18": 0,
+      "maxSide7Outsider": null,
+      "maxSide18Outsider": null,
+      "maxSide18Minus7": 0,
+      "maxPerOutsider18Minus7": null,
+      "maxPerOutsider7Minus18": null,
+      "perOutsider18Winner": null,
+      "perOutsider7Winner": null
+    },
+    {
+      "N": 3,
+      "maxSide7": 0,
+      "maxSide18": 0,
+      "maxSide7Outsider": null,
+      "maxSide18Outsider": null,
+      "maxSide18Minus7": 0,
+      "maxPerOutsider18Minus7": null,
+      "maxPerOutsider7Minus18": null,
+      "perOutsider18Winner": null,
+      "perOutsider7Winner": null
+    },
+    {
+      "N": 4,
+      "maxSide7": 0,
+      "maxSide18": 0,
+      "maxSide7Outsider": null,
+      "maxSide18Outsider": null,
+      "maxSide18Minus7": 0,
+      "maxPerOutsider18Minus7": null,
+      "maxPerOutsider7Minus18": null,
+      "perOutsider18Winner": null,
+      "perOutsider7Winner": null
+    },
+    {
+      "N": 5,
+      "maxSide7": 0,
+      "maxSide18": 0,
+      "maxSide7Outsider": null,
+      "maxSide18Outsider": null,
+      "maxSide18Minus7": 0,
+      "maxPerOutsider18Minus7": null,
+      "maxPerOutsider7Minus18": null,
+      "perOutsider18Winner": null,
+      "perOutsider7Winner": null
+    },
+    {
+      "N": 6,
+      "maxSide7": 0,
+      "maxSide18": 0,
+      "maxSide7Outsider": null,
+      "maxSide18Outsider": null,
+      "maxSide18Minus7": 0,
+      "maxPerOutsider18Minus7": null,
+      "maxPerOutsider7Minus18": null,
+      "perOutsider18Winner": null,
+      "perOutsider7Winner": null
+    },
+    {
+      "N": 7,
+      "maxSide7": 0,
+      "maxSide18": 0,
+      "maxSide7Outsider": null,
+      "maxSide18Outsider": null,
+      "maxSide18Minus7": 0,
+      "maxPerOutsider18Minus7": null,
+      "maxPerOutsider7Minus18": null,
+      "perOutsider18Winner": null,
+      "perOutsider7Winner": null
+    },
+    {
+      "N": 8,
+      "maxSide7": 0,
+      "maxSide18": 0,
+      "maxSide7Outsider": null,
+      "maxSide18Outsider": null,
+      "maxSide18Minus7": 0,
+      "maxPerOutsider18Minus7": null,
+      "maxPerOutsider7Minus18": null,
+      "perOutsider18Winner": null,
+      "perOutsider7Winner": null
+    },
+    {
+      "N": 9,
+      "maxSide7": 0,
+      "maxSide18": 0,
+      "maxSide7Outsider": null,
+      "maxSide18Outsider": null,
+      "maxSide18Minus7": 0,
+      "maxPerOutsider18Minus7": null,
+      "maxPerOutsider7Minus18": null,
+      "perOutsider18Winner": null,
+      "perOutsider7Winner": null
+    },
+    {
+      "N": 10,
+      "maxSide7": 0,
+      "maxSide18": 0,
+      "maxSide7Outsider": null,
+      "maxSide18Outsider": null,
+      "maxSide18Minus7": 0,
+      "maxPerOutsider18Minus7": null,
+      "maxPerOutsider7Minus18": null,
+      "perOutsider18Winner": null,
+      "perOutsider7Winner": null
+    },
+    {
+      "N": 11,
+      "maxSide7": 0,
+      "maxSide18": 0,
+      "maxSide7Outsider": null,
+      "maxSide18Outsider": null,
+      "maxSide18Minus7": 0,
+      "maxPerOutsider18Minus7": null,
+      "maxPerOutsider7Minus18": null,
+      "perOutsider18Winner": null,
+      "perOutsider7Winner": null
+    },
+    {
+      "N": 12,
+      "maxSide7": 0,
+      "maxSide18": 0,
+      "maxSide7Outsider": null,
+      "maxSide18Outsider": null,
+      "maxSide18Minus7": 0,
+      "maxPerOutsider18Minus7": null,
+      "maxPerOutsider7Minus18": null,
+      "perOutsider18Winner": null,
+      "perOutsider7Winner": null
+    },
+    {
+      "N": 13,
+      "maxSide7": 0,
+      "maxSide18": 0,
+      "maxSide7Outsider": null,
+      "maxSide18Outsider": null,
+      "maxSide18Minus7": 0,
+      "maxPerOutsider18Minus7": null,
+      "maxPerOutsider7Minus18": null,
+      "perOutsider18Winner": null,
+      "perOutsider7Winner": null
+    },
+    {
+      "N": 14,
+      "maxSide7": 0,
+      "maxSide18": 0,
+      "maxSide7Outsider": null,
+      "maxSide18Outsider": null,
+      "maxSide18Minus7": 0,
+      "maxPerOutsider18Minus7": null,
+      "maxPerOutsider7Minus18": null,
+      "perOutsider18Winner": null,
+      "perOutsider7Winner": null
+    },
+    {
+      "N": 15,
+      "maxSide7": 0,
+      "maxSide18": 0,
+      "maxSide7Outsider": null,
+      "maxSide18Outsider": null,
+      "maxSide18Minus7": 0,
+      "maxPerOutsider18Minus7": null,
+      "maxPerOutsider7Minus18": null,
+      "perOutsider18Winner": null,
+      "perOutsider7Winner": null
+    },
+    {
+      "N": 16,
+      "maxSide7": 0,
+      "maxSide18": 0,
+      "maxSide7Outsider": null,
+      "maxSide18Outsider": null,
+      "maxSide18Minus7": 0,
+      "maxPerOutsider18Minus7": null,
+      "maxPerOutsider7Minus18": null,
+      "perOutsider18Winner": null,
+      "perOutsider7Winner": null
+    },
+    {
+      "N": 17,
+      "maxSide7": 0,
+      "maxSide18": 0,
+      "maxSide7Outsider": null,
+      "maxSide18Outsider": null,
+      "maxSide18Minus7": 0,
+      "maxPerOutsider18Minus7": null,
+      "maxPerOutsider7Minus18": null,
+      "perOutsider18Winner": null,
+      "perOutsider7Winner": null
+    },
+    {
+      "N": 18,
+      "maxSide7": 0,
+      "maxSide18": 0,
+      "maxSide7Outsider": null,
+      "maxSide18Outsider": null,
+      "maxSide18Minus7": 0,
+      "maxPerOutsider18Minus7": null,
+      "maxPerOutsider7Minus18": null,
+      "perOutsider18Winner": null,
+      "perOutsider7Winner": null
+    },
+    {
+      "N": 19,
+      "maxSide7": 0,
+      "maxSide18": 0,
+      "maxSide7Outsider": null,
+      "maxSide18Outsider": null,
+      "maxSide18Minus7": 0,
+      "maxPerOutsider18Minus7": null,
+      "maxPerOutsider7Minus18": null,
+      "perOutsider18Winner": null,
+      "perOutsider7Winner": null
+    },
+    {
+      "N": 20,
+      "maxSide7": 0,
+      "maxSide18": 0,
+      "maxSide7Outsider": null,
+      "maxSide18Outsider": null,
+      "maxSide18Minus7": 0,
+      "maxPerOutsider18Minus7": null,
+      "maxPerOutsider7Minus18": null,
+      "perOutsider18Winner": null,
+      "perOutsider7Winner": null
+    },
+    {
+      "N": 21,
+      "maxSide7": 0,
+      "maxSide18": 0,
+      "maxSide7Outsider": null,
+      "maxSide18Outsider": null,
+      "maxSide18Minus7": 0,
+      "maxPerOutsider18Minus7": null,
+      "maxPerOutsider7Minus18": null,
+      "perOutsider18Winner": null,
+      "perOutsider7Winner": null
+    },
+    {
+      "N": 22,
+      "maxSide7": 0,
+      "maxSide18": 0,
+      "maxSide7Outsider": null,
+      "maxSide18Outsider": null,
+      "maxSide18Minus7": 0,
+      "maxPerOutsider18Minus7": null,
+      "maxPerOutsider7Minus18": null,
+      "perOutsider18Winner": null,
+      "perOutsider7Winner": null
+    },
+    {
+      "N": 23,
+      "maxSide7": 0,
+      "maxSide18": 0,
+      "maxSide7Outsider": null,
+      "maxSide18Outsider": null,
+      "maxSide18Minus7": 0,
+      "maxPerOutsider18Minus7": null,
+      "maxPerOutsider7Minus18": null,
+      "perOutsider18Winner": null,
+      "perOutsider7Winner": null
+    },
+    {
+      "N": 24,
+      "maxSide7": 0,
+      "maxSide18": 0,
+      "maxSide7Outsider": null,
+      "maxSide18Outsider": null,
+      "maxSide18Minus7": 0,
+      "maxPerOutsider18Minus7": null,
+      "maxPerOutsider7Minus18": null,
+      "perOutsider18Winner": null,
+      "perOutsider7Winner": null
+    },
+    {
+      "N": 25,
+      "maxSide7": 0,
+      "maxSide18": 0,
+      "maxSide7Outsider": null,
+      "maxSide18Outsider": null,
+      "maxSide18Minus7": 0,
+      "maxPerOutsider18Minus7": null,
+      "maxPerOutsider7Minus18": null,
+      "perOutsider18Winner": null,
+      "perOutsider7Winner": null
+    },
+    {
+      "N": 26,
+      "maxSide7": 0,
+      "maxSide18": 0,
+      "maxSide7Outsider": null,
+      "maxSide18Outsider": null,
+      "maxSide18Minus7": 0,
+      "maxPerOutsider18Minus7": null,
+      "maxPerOutsider7Minus18": null,
+      "perOutsider18Winner": null,
+      "perOutsider7Winner": null
+    },
+    {
+      "N": 27,
+      "maxSide7": 0,
+      "maxSide18": 0,
+      "maxSide7Outsider": null,
+      "maxSide18Outsider": null,
+      "maxSide18Minus7": 0,
+      "maxPerOutsider18Minus7": null,
+      "maxPerOutsider7Minus18": null,
+      "perOutsider18Winner": null,
+      "perOutsider7Winner": null
+    },
+    {
+      "N": 28,
+      "maxSide7": 0,
+      "maxSide18": 0,
+      "maxSide7Outsider": null,
+      "maxSide18Outsider": null,
+      "maxSide18Minus7": 0,
+      "maxPerOutsider18Minus7": null,
+      "maxPerOutsider7Minus18": null,
+      "perOutsider18Winner": null,
+      "perOutsider7Winner": null
+    },
+    {
+      "N": 29,
+      "maxSide7": 0,
+      "maxSide18": 0,
+      "maxSide7Outsider": null,
+      "maxSide18Outsider": null,
+      "maxSide18Minus7": 0,
+      "maxPerOutsider18Minus7": null,
+      "maxPerOutsider7Minus18": null,
+      "perOutsider18Winner": null,
+      "perOutsider7Winner": null
+    },
+    {
+      "N": 30,
+      "maxSide7": 0,
+      "maxSide18": 0,
+      "maxSide7Outsider": null,
+      "maxSide18Outsider": null,
+      "maxSide18Minus7": 0,
+      "maxPerOutsider18Minus7": null,
+      "maxPerOutsider7Minus18": null,
+      "perOutsider18Winner": null,
+      "perOutsider7Winner": null
+    },
+    {
+      "N": 31,
+      "maxSide7": 0,
+      "maxSide18": 0,
+      "maxSide7Outsider": null,
+      "maxSide18Outsider": null,
+      "maxSide18Minus7": 0,
+      "maxPerOutsider18Minus7": null,
+      "maxPerOutsider7Minus18": null,
+      "perOutsider18Winner": null,
+      "perOutsider7Winner": null
+    },
+    {
+      "N": 32,
+      "maxSide7": 0,
+      "maxSide18": 0,
+      "maxSide7Outsider": null,
+      "maxSide18Outsider": null,
+      "maxSide18Minus7": 0,
+      "maxPerOutsider18Minus7": null,
+      "maxPerOutsider7Minus18": null,
+      "perOutsider18Winner": null,
+      "perOutsider7Winner": null
+    },
+    {
+      "N": 33,
+      "maxSide7": 0,
+      "maxSide18": 0,
+      "maxSide7Outsider": null,
+      "maxSide18Outsider": null,
+      "maxSide18Minus7": 0,
+      "maxPerOutsider18Minus7": null,
+      "maxPerOutsider7Minus18": null,
+      "perOutsider18Winner": null,
+      "perOutsider7Winner": null
+    },
+    {
+      "N": 34,
+      "maxSide7": 0,
+      "maxSide18": 0,
+      "maxSide7Outsider": null,
+      "maxSide18Outsider": null,
+      "maxSide18Minus7": 0,
+      "maxPerOutsider18Minus7": null,
+      "maxPerOutsider7Minus18": null,
+      "perOutsider18Winner": null,
+      "perOutsider7Winner": null
+    },
+    {
+      "N": 35,
+      "maxSide7": 0,
+      "maxSide18": 0,
+      "maxSide7Outsider": null,
+      "maxSide18Outsider": null,
+      "maxSide18Minus7": 0,
+      "maxPerOutsider18Minus7": null,
+      "maxPerOutsider7Minus18": null,
+      "perOutsider18Winner": null,
+      "perOutsider7Winner": null
+    },
+    {
+      "N": 36,
+      "maxSide7": 0,
+      "maxSide18": 0,
+      "maxSide7Outsider": null,
+      "maxSide18Outsider": null,
+      "maxSide18Minus7": 0,
+      "maxPerOutsider18Minus7": null,
+      "maxPerOutsider7Minus18": null,
+      "perOutsider18Winner": null,
+      "perOutsider7Winner": null
+    },
+    {
+      "N": 37,
+      "maxSide7": 0,
+      "maxSide18": 0,
+      "maxSide7Outsider": null,
+      "maxSide18Outsider": null,
+      "maxSide18Minus7": 0,
+      "maxPerOutsider18Minus7": null,
+      "maxPerOutsider7Minus18": null,
+      "perOutsider18Winner": null,
+      "perOutsider7Winner": null
+    },
+    {
+      "N": 38,
+      "maxSide7": 0,
+      "maxSide18": 0,
+      "maxSide7Outsider": null,
+      "maxSide18Outsider": null,
+      "maxSide18Minus7": 0,
+      "maxPerOutsider18Minus7": 0,
+      "maxPerOutsider7Minus18": 0,
+      "perOutsider18Winner": {
+        "outsider": 38,
+        "side7": 0,
+        "side18": 0,
+        "delta18Minus7": 0
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 0,
+        "side18": 0,
+        "delta7Minus18": 0
+      }
+    },
+    {
+      "N": 39,
+      "maxSide7": 0,
+      "maxSide18": 0,
+      "maxSide7Outsider": null,
+      "maxSide18Outsider": null,
+      "maxSide18Minus7": 0,
+      "maxPerOutsider18Minus7": 0,
+      "maxPerOutsider7Minus18": 0,
+      "perOutsider18Winner": {
+        "outsider": 38,
+        "side7": 0,
+        "side18": 0,
+        "delta18Minus7": 0
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 0,
+        "side18": 0,
+        "delta7Minus18": 0
+      }
+    },
+    {
+      "N": 40,
+      "maxSide7": 0,
+      "maxSide18": 0,
+      "maxSide7Outsider": null,
+      "maxSide18Outsider": null,
+      "maxSide18Minus7": 0,
+      "maxPerOutsider18Minus7": 0,
+      "maxPerOutsider7Minus18": 0,
+      "perOutsider18Winner": {
+        "outsider": 38,
+        "side7": 0,
+        "side18": 0,
+        "delta18Minus7": 0
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 0,
+        "side18": 0,
+        "delta7Minus18": 0
+      }
+    },
+    {
+      "N": 41,
+      "maxSide7": 1,
+      "maxSide18": 0,
+      "maxSide7Outsider": 41,
+      "maxSide18Outsider": null,
+      "maxSide18Minus7": -1,
+      "maxPerOutsider18Minus7": 0,
+      "maxPerOutsider7Minus18": 1,
+      "perOutsider18Winner": {
+        "outsider": 38,
+        "side7": 0,
+        "side18": 0,
+        "delta18Minus7": 0
+      },
+      "perOutsider7Winner": {
+        "outsider": 41,
+        "side7": 1,
+        "side18": 0,
+        "delta7Minus18": 1
+      }
+    },
+    {
+      "N": 42,
+      "maxSide7": 1,
+      "maxSide18": 0,
+      "maxSide7Outsider": 41,
+      "maxSide18Outsider": null,
+      "maxSide18Minus7": -1,
+      "maxPerOutsider18Minus7": 0,
+      "maxPerOutsider7Minus18": 1,
+      "perOutsider18Winner": {
+        "outsider": 38,
+        "side7": 0,
+        "side18": 0,
+        "delta18Minus7": 0
+      },
+      "perOutsider7Winner": {
+        "outsider": 41,
+        "side7": 1,
+        "side18": 0,
+        "delta7Minus18": 1
+      }
+    },
+    {
+      "N": 43,
+      "maxSide7": 1,
+      "maxSide18": 1,
+      "maxSide7Outsider": 41,
+      "maxSide18Outsider": 41,
+      "maxSide18Minus7": 0,
+      "maxPerOutsider18Minus7": 0,
+      "maxPerOutsider7Minus18": 0,
+      "perOutsider18Winner": {
+        "outsider": 38,
+        "side7": 0,
+        "side18": 0,
+        "delta18Minus7": 0
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 0,
+        "side18": 0,
+        "delta7Minus18": 0
+      }
+    },
+    {
+      "N": 44,
+      "maxSide7": 1,
+      "maxSide18": 1,
+      "maxSide7Outsider": 41,
+      "maxSide18Outsider": 41,
+      "maxSide18Minus7": 0,
+      "maxPerOutsider18Minus7": 0,
+      "maxPerOutsider7Minus18": 0,
+      "perOutsider18Winner": {
+        "outsider": 38,
+        "side7": 0,
+        "side18": 0,
+        "delta18Minus7": 0
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 0,
+        "side18": 0,
+        "delta7Minus18": 0
+      }
+    },
+    {
+      "N": 45,
+      "maxSide7": 1,
+      "maxSide18": 1,
+      "maxSide7Outsider": 41,
+      "maxSide18Outsider": 41,
+      "maxSide18Minus7": 0,
+      "maxPerOutsider18Minus7": 0,
+      "maxPerOutsider7Minus18": 0,
+      "perOutsider18Winner": {
+        "outsider": 38,
+        "side7": 0,
+        "side18": 0,
+        "delta18Minus7": 0
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 0,
+        "side18": 0,
+        "delta7Minus18": 0
+      }
+    },
+    {
+      "N": 46,
+      "maxSide7": 1,
+      "maxSide18": 1,
+      "maxSide7Outsider": 41,
+      "maxSide18Outsider": 41,
+      "maxSide18Minus7": 0,
+      "maxPerOutsider18Minus7": 0,
+      "maxPerOutsider7Minus18": 0,
+      "perOutsider18Winner": {
+        "outsider": 38,
+        "side7": 0,
+        "side18": 0,
+        "delta18Minus7": 0
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 0,
+        "side18": 0,
+        "delta7Minus18": 0
+      }
+    },
+    {
+      "N": 47,
+      "maxSide7": 1,
+      "maxSide18": 1,
+      "maxSide7Outsider": 41,
+      "maxSide18Outsider": 41,
+      "maxSide18Minus7": 0,
+      "maxPerOutsider18Minus7": 0,
+      "maxPerOutsider7Minus18": 0,
+      "perOutsider18Winner": {
+        "outsider": 38,
+        "side7": 0,
+        "side18": 0,
+        "delta18Minus7": 0
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 0,
+        "side18": 0,
+        "delta7Minus18": 0
+      }
+    },
+    {
+      "N": 48,
+      "maxSide7": 1,
+      "maxSide18": 1,
+      "maxSide7Outsider": 41,
+      "maxSide18Outsider": 41,
+      "maxSide18Minus7": 0,
+      "maxPerOutsider18Minus7": 0,
+      "maxPerOutsider7Minus18": 0,
+      "perOutsider18Winner": {
+        "outsider": 38,
+        "side7": 0,
+        "side18": 0,
+        "delta18Minus7": 0
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 0,
+        "side18": 0,
+        "delta7Minus18": 0
+      }
+    },
+    {
+      "N": 49,
+      "maxSide7": 1,
+      "maxSide18": 1,
+      "maxSide7Outsider": 41,
+      "maxSide18Outsider": 41,
+      "maxSide18Minus7": 0,
+      "maxPerOutsider18Minus7": 0,
+      "maxPerOutsider7Minus18": 0,
+      "perOutsider18Winner": {
+        "outsider": 38,
+        "side7": 0,
+        "side18": 0,
+        "delta18Minus7": 0
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 0,
+        "side18": 0,
+        "delta7Minus18": 0
+      }
+    },
+    {
+      "N": 50,
+      "maxSide7": 1,
+      "maxSide18": 1,
+      "maxSide7Outsider": 41,
+      "maxSide18Outsider": 41,
+      "maxSide18Minus7": 0,
+      "maxPerOutsider18Minus7": 0,
+      "maxPerOutsider7Minus18": 0,
+      "perOutsider18Winner": {
+        "outsider": 38,
+        "side7": 0,
+        "side18": 0,
+        "delta18Minus7": 0
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 0,
+        "side18": 0,
+        "delta7Minus18": 0
+      }
+    },
+    {
+      "N": 51,
+      "maxSide7": 1,
+      "maxSide18": 1,
+      "maxSide7Outsider": 41,
+      "maxSide18Outsider": 41,
+      "maxSide18Minus7": 0,
+      "maxPerOutsider18Minus7": 0,
+      "maxPerOutsider7Minus18": 0,
+      "perOutsider18Winner": {
+        "outsider": 38,
+        "side7": 0,
+        "side18": 0,
+        "delta18Minus7": 0
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 0,
+        "side18": 0,
+        "delta7Minus18": 0
+      }
+    },
+    {
+      "N": 52,
+      "maxSide7": 1,
+      "maxSide18": 1,
+      "maxSide7Outsider": 41,
+      "maxSide18Outsider": 41,
+      "maxSide18Minus7": 0,
+      "maxPerOutsider18Minus7": 0,
+      "maxPerOutsider7Minus18": 0,
+      "perOutsider18Winner": {
+        "outsider": 38,
+        "side7": 0,
+        "side18": 0,
+        "delta18Minus7": 0
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 0,
+        "side18": 0,
+        "delta7Minus18": 0
+      }
+    },
+    {
+      "N": 53,
+      "maxSide7": 1,
+      "maxSide18": 1,
+      "maxSide7Outsider": 41,
+      "maxSide18Outsider": 41,
+      "maxSide18Minus7": 0,
+      "maxPerOutsider18Minus7": 0,
+      "maxPerOutsider7Minus18": 0,
+      "perOutsider18Winner": {
+        "outsider": 38,
+        "side7": 0,
+        "side18": 0,
+        "delta18Minus7": 0
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 0,
+        "side18": 0,
+        "delta7Minus18": 0
+      }
+    },
+    {
+      "N": 54,
+      "maxSide7": 1,
+      "maxSide18": 1,
+      "maxSide7Outsider": 41,
+      "maxSide18Outsider": 41,
+      "maxSide18Minus7": 0,
+      "maxPerOutsider18Minus7": 0,
+      "maxPerOutsider7Minus18": 0,
+      "perOutsider18Winner": {
+        "outsider": 38,
+        "side7": 0,
+        "side18": 0,
+        "delta18Minus7": 0
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 0,
+        "side18": 0,
+        "delta7Minus18": 0
+      }
+    },
+    {
+      "N": 55,
+      "maxSide7": 1,
+      "maxSide18": 1,
+      "maxSide7Outsider": 41,
+      "maxSide18Outsider": 41,
+      "maxSide18Minus7": 0,
+      "maxPerOutsider18Minus7": 0,
+      "maxPerOutsider7Minus18": 0,
+      "perOutsider18Winner": {
+        "outsider": 38,
+        "side7": 0,
+        "side18": 0,
+        "delta18Minus7": 0
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 0,
+        "side18": 0,
+        "delta7Minus18": 0
+      }
+    },
+    {
+      "N": 56,
+      "maxSide7": 1,
+      "maxSide18": 1,
+      "maxSide7Outsider": 41,
+      "maxSide18Outsider": 41,
+      "maxSide18Minus7": 0,
+      "maxPerOutsider18Minus7": 0,
+      "maxPerOutsider7Minus18": 0,
+      "perOutsider18Winner": {
+        "outsider": 38,
+        "side7": 0,
+        "side18": 0,
+        "delta18Minus7": 0
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 0,
+        "side18": 0,
+        "delta7Minus18": 0
+      }
+    },
+    {
+      "N": 57,
+      "maxSide7": 1,
+      "maxSide18": 1,
+      "maxSide7Outsider": 41,
+      "maxSide18Outsider": 41,
+      "maxSide18Minus7": 0,
+      "maxPerOutsider18Minus7": 0,
+      "maxPerOutsider7Minus18": 0,
+      "perOutsider18Winner": {
+        "outsider": 38,
+        "side7": 0,
+        "side18": 0,
+        "delta18Minus7": 0
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 0,
+        "side18": 0,
+        "delta7Minus18": 0
+      }
+    },
+    {
+      "N": 58,
+      "maxSide7": 1,
+      "maxSide18": 1,
+      "maxSide7Outsider": 41,
+      "maxSide18Outsider": 41,
+      "maxSide18Minus7": 0,
+      "maxPerOutsider18Minus7": 0,
+      "maxPerOutsider7Minus18": 0,
+      "perOutsider18Winner": {
+        "outsider": 38,
+        "side7": 0,
+        "side18": 0,
+        "delta18Minus7": 0
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 0,
+        "side18": 0,
+        "delta7Minus18": 0
+      }
+    },
+    {
+      "N": 59,
+      "maxSide7": 1,
+      "maxSide18": 1,
+      "maxSide7Outsider": 41,
+      "maxSide18Outsider": 41,
+      "maxSide18Minus7": 0,
+      "maxPerOutsider18Minus7": 0,
+      "maxPerOutsider7Minus18": 0,
+      "perOutsider18Winner": {
+        "outsider": 38,
+        "side7": 0,
+        "side18": 0,
+        "delta18Minus7": 0
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 0,
+        "side18": 0,
+        "delta7Minus18": 0
+      }
+    },
+    {
+      "N": 60,
+      "maxSide7": 1,
+      "maxSide18": 1,
+      "maxSide7Outsider": 41,
+      "maxSide18Outsider": 41,
+      "maxSide18Minus7": 0,
+      "maxPerOutsider18Minus7": 0,
+      "maxPerOutsider7Minus18": 0,
+      "perOutsider18Winner": {
+        "outsider": 38,
+        "side7": 0,
+        "side18": 0,
+        "delta18Minus7": 0
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 0,
+        "side18": 0,
+        "delta7Minus18": 0
+      }
+    },
+    {
+      "N": 61,
+      "maxSide7": 1,
+      "maxSide18": 1,
+      "maxSide7Outsider": 41,
+      "maxSide18Outsider": 41,
+      "maxSide18Minus7": 0,
+      "maxPerOutsider18Minus7": 0,
+      "maxPerOutsider7Minus18": 0,
+      "perOutsider18Winner": {
+        "outsider": 38,
+        "side7": 0,
+        "side18": 0,
+        "delta18Minus7": 0
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 0,
+        "side18": 0,
+        "delta7Minus18": 0
+      }
+    },
+    {
+      "N": 62,
+      "maxSide7": 1,
+      "maxSide18": 1,
+      "maxSide7Outsider": 41,
+      "maxSide18Outsider": 41,
+      "maxSide18Minus7": 0,
+      "maxPerOutsider18Minus7": 0,
+      "maxPerOutsider7Minus18": 0,
+      "perOutsider18Winner": {
+        "outsider": 38,
+        "side7": 0,
+        "side18": 0,
+        "delta18Minus7": 0
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 0,
+        "side18": 0,
+        "delta7Minus18": 0
+      }
+    },
+    {
+      "N": 63,
+      "maxSide7": 1,
+      "maxSide18": 1,
+      "maxSide7Outsider": 41,
+      "maxSide18Outsider": 41,
+      "maxSide18Minus7": 0,
+      "maxPerOutsider18Minus7": 0,
+      "maxPerOutsider7Minus18": 0,
+      "perOutsider18Winner": {
+        "outsider": 38,
+        "side7": 0,
+        "side18": 0,
+        "delta18Minus7": 0
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 0,
+        "side18": 0,
+        "delta7Minus18": 0
+      }
+    },
+    {
+      "N": 64,
+      "maxSide7": 1,
+      "maxSide18": 1,
+      "maxSide7Outsider": 41,
+      "maxSide18Outsider": 41,
+      "maxSide18Minus7": 0,
+      "maxPerOutsider18Minus7": 0,
+      "maxPerOutsider7Minus18": 0,
+      "perOutsider18Winner": {
+        "outsider": 38,
+        "side7": 0,
+        "side18": 0,
+        "delta18Minus7": 0
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 0,
+        "side18": 0,
+        "delta7Minus18": 0
+      }
+    },
+    {
+      "N": 65,
+      "maxSide7": 1,
+      "maxSide18": 1,
+      "maxSide7Outsider": 41,
+      "maxSide18Outsider": 41,
+      "maxSide18Minus7": 0,
+      "maxPerOutsider18Minus7": 0,
+      "maxPerOutsider7Minus18": 0,
+      "perOutsider18Winner": {
+        "outsider": 38,
+        "side7": 0,
+        "side18": 0,
+        "delta18Minus7": 0
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 0,
+        "side18": 0,
+        "delta7Minus18": 0
+      }
+    },
+    {
+      "N": 66,
+      "maxSide7": 1,
+      "maxSide18": 1,
+      "maxSide7Outsider": 41,
+      "maxSide18Outsider": 41,
+      "maxSide18Minus7": 0,
+      "maxPerOutsider18Minus7": 0,
+      "maxPerOutsider7Minus18": 0,
+      "perOutsider18Winner": {
+        "outsider": 38,
+        "side7": 0,
+        "side18": 0,
+        "delta18Minus7": 0
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 0,
+        "side18": 0,
+        "delta7Minus18": 0
+      }
+    },
+    {
+      "N": 67,
+      "maxSide7": 1,
+      "maxSide18": 1,
+      "maxSide7Outsider": 41,
+      "maxSide18Outsider": 41,
+      "maxSide18Minus7": 0,
+      "maxPerOutsider18Minus7": 0,
+      "maxPerOutsider7Minus18": 0,
+      "perOutsider18Winner": {
+        "outsider": 38,
+        "side7": 0,
+        "side18": 0,
+        "delta18Minus7": 0
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 0,
+        "side18": 0,
+        "delta7Minus18": 0
+      }
+    },
+    {
+      "N": 68,
+      "maxSide7": 1,
+      "maxSide18": 1,
+      "maxSide7Outsider": 41,
+      "maxSide18Outsider": 41,
+      "maxSide18Minus7": 0,
+      "maxPerOutsider18Minus7": 0,
+      "maxPerOutsider7Minus18": 0,
+      "perOutsider18Winner": {
+        "outsider": 38,
+        "side7": 0,
+        "side18": 0,
+        "delta18Minus7": 0
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 0,
+        "side18": 0,
+        "delta7Minus18": 0
+      }
+    },
+    {
+      "N": 69,
+      "maxSide7": 1,
+      "maxSide18": 1,
+      "maxSide7Outsider": 41,
+      "maxSide18Outsider": 41,
+      "maxSide18Minus7": 0,
+      "maxPerOutsider18Minus7": 0,
+      "maxPerOutsider7Minus18": 0,
+      "perOutsider18Winner": {
+        "outsider": 38,
+        "side7": 0,
+        "side18": 0,
+        "delta18Minus7": 0
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 0,
+        "side18": 0,
+        "delta7Minus18": 0
+      }
+    },
+    {
+      "N": 70,
+      "maxSide7": 1,
+      "maxSide18": 1,
+      "maxSide7Outsider": 41,
+      "maxSide18Outsider": 41,
+      "maxSide18Minus7": 0,
+      "maxPerOutsider18Minus7": 0,
+      "maxPerOutsider7Minus18": 0,
+      "perOutsider18Winner": {
+        "outsider": 38,
+        "side7": 0,
+        "side18": 0,
+        "delta18Minus7": 0
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 0,
+        "side18": 0,
+        "delta7Minus18": 0
+      }
+    },
+    {
+      "N": 71,
+      "maxSide7": 1,
+      "maxSide18": 1,
+      "maxSide7Outsider": 41,
+      "maxSide18Outsider": 41,
+      "maxSide18Minus7": 0,
+      "maxPerOutsider18Minus7": 0,
+      "maxPerOutsider7Minus18": 0,
+      "perOutsider18Winner": {
+        "outsider": 38,
+        "side7": 0,
+        "side18": 0,
+        "delta18Minus7": 0
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 0,
+        "side18": 0,
+        "delta7Minus18": 0
+      }
+    },
+    {
+      "N": 72,
+      "maxSide7": 1,
+      "maxSide18": 1,
+      "maxSide7Outsider": 41,
+      "maxSide18Outsider": 41,
+      "maxSide18Minus7": 0,
+      "maxPerOutsider18Minus7": 0,
+      "maxPerOutsider7Minus18": 0,
+      "perOutsider18Winner": {
+        "outsider": 38,
+        "side7": 0,
+        "side18": 0,
+        "delta18Minus7": 0
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 0,
+        "side18": 0,
+        "delta7Minus18": 0
+      }
+    },
+    {
+      "N": 73,
+      "maxSide7": 1,
+      "maxSide18": 1,
+      "maxSide7Outsider": 41,
+      "maxSide18Outsider": 41,
+      "maxSide18Minus7": 0,
+      "maxPerOutsider18Minus7": 0,
+      "maxPerOutsider7Minus18": 0,
+      "perOutsider18Winner": {
+        "outsider": 38,
+        "side7": 0,
+        "side18": 0,
+        "delta18Minus7": 0
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 0,
+        "side18": 0,
+        "delta7Minus18": 0
+      }
+    },
+    {
+      "N": 74,
+      "maxSide7": 1,
+      "maxSide18": 1,
+      "maxSide7Outsider": 41,
+      "maxSide18Outsider": 41,
+      "maxSide18Minus7": 0,
+      "maxPerOutsider18Minus7": 0,
+      "maxPerOutsider7Minus18": 0,
+      "perOutsider18Winner": {
+        "outsider": 38,
+        "side7": 0,
+        "side18": 0,
+        "delta18Minus7": 0
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 0,
+        "side18": 0,
+        "delta7Minus18": 0
+      }
+    },
+    {
+      "N": 75,
+      "maxSide7": 1,
+      "maxSide18": 1,
+      "maxSide7Outsider": 41,
+      "maxSide18Outsider": 41,
+      "maxSide18Minus7": 0,
+      "maxPerOutsider18Minus7": 0,
+      "maxPerOutsider7Minus18": 0,
+      "perOutsider18Winner": {
+        "outsider": 38,
+        "side7": 0,
+        "side18": 0,
+        "delta18Minus7": 0
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 0,
+        "side18": 0,
+        "delta7Minus18": 0
+      }
+    },
+    {
+      "N": 76,
+      "maxSide7": 1,
+      "maxSide18": 1,
+      "maxSide7Outsider": 41,
+      "maxSide18Outsider": 41,
+      "maxSide18Minus7": 0,
+      "maxPerOutsider18Minus7": 0,
+      "maxPerOutsider7Minus18": 0,
+      "perOutsider18Winner": {
+        "outsider": 38,
+        "side7": 0,
+        "side18": 0,
+        "delta18Minus7": 0
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 0,
+        "side18": 0,
+        "delta7Minus18": 0
+      }
+    },
+    {
+      "N": 77,
+      "maxSide7": 1,
+      "maxSide18": 1,
+      "maxSide7Outsider": 41,
+      "maxSide18Outsider": 41,
+      "maxSide18Minus7": 0,
+      "maxPerOutsider18Minus7": 0,
+      "maxPerOutsider7Minus18": 0,
+      "perOutsider18Winner": {
+        "outsider": 38,
+        "side7": 0,
+        "side18": 0,
+        "delta18Minus7": 0
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 0,
+        "side18": 0,
+        "delta7Minus18": 0
+      }
+    },
+    {
+      "N": 78,
+      "maxSide7": 1,
+      "maxSide18": 1,
+      "maxSide7Outsider": 41,
+      "maxSide18Outsider": 41,
+      "maxSide18Minus7": 0,
+      "maxPerOutsider18Minus7": 0,
+      "maxPerOutsider7Minus18": 0,
+      "perOutsider18Winner": {
+        "outsider": 38,
+        "side7": 0,
+        "side18": 0,
+        "delta18Minus7": 0
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 0,
+        "side18": 0,
+        "delta7Minus18": 0
+      }
+    },
+    {
+      "N": 79,
+      "maxSide7": 1,
+      "maxSide18": 1,
+      "maxSide7Outsider": 41,
+      "maxSide18Outsider": 41,
+      "maxSide18Minus7": 0,
+      "maxPerOutsider18Minus7": 0,
+      "maxPerOutsider7Minus18": 0,
+      "perOutsider18Winner": {
+        "outsider": 38,
+        "side7": 0,
+        "side18": 0,
+        "delta18Minus7": 0
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 0,
+        "side18": 0,
+        "delta7Minus18": 0
+      }
+    },
+    {
+      "N": 80,
+      "maxSide7": 1,
+      "maxSide18": 1,
+      "maxSide7Outsider": 41,
+      "maxSide18Outsider": 41,
+      "maxSide18Minus7": 0,
+      "maxPerOutsider18Minus7": 0,
+      "maxPerOutsider7Minus18": 0,
+      "perOutsider18Winner": {
+        "outsider": 38,
+        "side7": 0,
+        "side18": 0,
+        "delta18Minus7": 0
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 0,
+        "side18": 0,
+        "delta7Minus18": 0
+      }
+    },
+    {
+      "N": 81,
+      "maxSide7": 1,
+      "maxSide18": 1,
+      "maxSide7Outsider": 41,
+      "maxSide18Outsider": 41,
+      "maxSide18Minus7": 0,
+      "maxPerOutsider18Minus7": 0,
+      "maxPerOutsider7Minus18": 0,
+      "perOutsider18Winner": {
+        "outsider": 38,
+        "side7": 0,
+        "side18": 0,
+        "delta18Minus7": 0
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 0,
+        "side18": 0,
+        "delta7Minus18": 0
+      }
+    },
+    {
+      "N": 82,
+      "maxSide7": 1,
+      "maxSide18": 1,
+      "maxSide7Outsider": 41,
+      "maxSide18Outsider": 41,
+      "maxSide18Minus7": 0,
+      "maxPerOutsider18Minus7": 0,
+      "maxPerOutsider7Minus18": 0,
+      "perOutsider18Winner": {
+        "outsider": 38,
+        "side7": 0,
+        "side18": 0,
+        "delta18Minus7": 0
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 0,
+        "side18": 0,
+        "delta7Minus18": 0
+      }
+    },
+    {
+      "N": 83,
+      "maxSide7": 1,
+      "maxSide18": 1,
+      "maxSide7Outsider": 41,
+      "maxSide18Outsider": 41,
+      "maxSide18Minus7": 0,
+      "maxPerOutsider18Minus7": 0,
+      "maxPerOutsider7Minus18": 0,
+      "perOutsider18Winner": {
+        "outsider": 38,
+        "side7": 0,
+        "side18": 0,
+        "delta18Minus7": 0
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 0,
+        "side18": 0,
+        "delta7Minus18": 0
+      }
+    },
+    {
+      "N": 84,
+      "maxSide7": 1,
+      "maxSide18": 1,
+      "maxSide7Outsider": 41,
+      "maxSide18Outsider": 41,
+      "maxSide18Minus7": 0,
+      "maxPerOutsider18Minus7": 0,
+      "maxPerOutsider7Minus18": 0,
+      "perOutsider18Winner": {
+        "outsider": 38,
+        "side7": 0,
+        "side18": 0,
+        "delta18Minus7": 0
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 0,
+        "side18": 0,
+        "delta7Minus18": 0
+      }
+    },
+    {
+      "N": 85,
+      "maxSide7": 1,
+      "maxSide18": 1,
+      "maxSide7Outsider": 41,
+      "maxSide18Outsider": 41,
+      "maxSide18Minus7": 0,
+      "maxPerOutsider18Minus7": 0,
+      "maxPerOutsider7Minus18": 0,
+      "perOutsider18Winner": {
+        "outsider": 38,
+        "side7": 0,
+        "side18": 0,
+        "delta18Minus7": 0
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 0,
+        "side18": 0,
+        "delta7Minus18": 0
+      }
+    },
+    {
+      "N": 86,
+      "maxSide7": 1,
+      "maxSide18": 1,
+      "maxSide7Outsider": 41,
+      "maxSide18Outsider": 41,
+      "maxSide18Minus7": 0,
+      "maxPerOutsider18Minus7": 0,
+      "maxPerOutsider7Minus18": 0,
+      "perOutsider18Winner": {
+        "outsider": 38,
+        "side7": 0,
+        "side18": 0,
+        "delta18Minus7": 0
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 0,
+        "side18": 0,
+        "delta7Minus18": 0
+      }
+    },
+    {
+      "N": 87,
+      "maxSide7": 1,
+      "maxSide18": 1,
+      "maxSide7Outsider": 41,
+      "maxSide18Outsider": 41,
+      "maxSide18Minus7": 0,
+      "maxPerOutsider18Minus7": 0,
+      "maxPerOutsider7Minus18": 0,
+      "perOutsider18Winner": {
+        "outsider": 38,
+        "side7": 0,
+        "side18": 0,
+        "delta18Minus7": 0
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 0,
+        "side18": 0,
+        "delta7Minus18": 0
+      }
+    },
+    {
+      "N": 88,
+      "maxSide7": 1,
+      "maxSide18": 1,
+      "maxSide7Outsider": 41,
+      "maxSide18Outsider": 41,
+      "maxSide18Minus7": 0,
+      "maxPerOutsider18Minus7": 0,
+      "maxPerOutsider7Minus18": 0,
+      "perOutsider18Winner": {
+        "outsider": 38,
+        "side7": 0,
+        "side18": 0,
+        "delta18Minus7": 0
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 0,
+        "side18": 0,
+        "delta7Minus18": 0
+      }
+    },
+    {
+      "N": 89,
+      "maxSide7": 1,
+      "maxSide18": 1,
+      "maxSide7Outsider": 41,
+      "maxSide18Outsider": 41,
+      "maxSide18Minus7": 0,
+      "maxPerOutsider18Minus7": 0,
+      "maxPerOutsider7Minus18": 0,
+      "perOutsider18Winner": {
+        "outsider": 38,
+        "side7": 0,
+        "side18": 0,
+        "delta18Minus7": 0
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 0,
+        "side18": 0,
+        "delta7Minus18": 0
+      }
+    },
+    {
+      "N": 90,
+      "maxSide7": 1,
+      "maxSide18": 1,
+      "maxSide7Outsider": 41,
+      "maxSide18Outsider": 41,
+      "maxSide18Minus7": 0,
+      "maxPerOutsider18Minus7": 0,
+      "maxPerOutsider7Minus18": 0,
+      "perOutsider18Winner": {
+        "outsider": 38,
+        "side7": 0,
+        "side18": 0,
+        "delta18Minus7": 0
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 0,
+        "side18": 0,
+        "delta7Minus18": 0
+      }
+    },
+    {
+      "N": 91,
+      "maxSide7": 1,
+      "maxSide18": 1,
+      "maxSide7Outsider": 41,
+      "maxSide18Outsider": 41,
+      "maxSide18Minus7": 0,
+      "maxPerOutsider18Minus7": 0,
+      "maxPerOutsider7Minus18": 0,
+      "perOutsider18Winner": {
+        "outsider": 38,
+        "side7": 0,
+        "side18": 0,
+        "delta18Minus7": 0
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 0,
+        "side18": 0,
+        "delta7Minus18": 0
+      }
+    },
+    {
+      "N": 92,
+      "maxSide7": 1,
+      "maxSide18": 1,
+      "maxSide7Outsider": 41,
+      "maxSide18Outsider": 41,
+      "maxSide18Minus7": 0,
+      "maxPerOutsider18Minus7": 0,
+      "maxPerOutsider7Minus18": 0,
+      "perOutsider18Winner": {
+        "outsider": 38,
+        "side7": 0,
+        "side18": 0,
+        "delta18Minus7": 0
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 0,
+        "side18": 0,
+        "delta7Minus18": 0
+      }
+    },
+    {
+      "N": 93,
+      "maxSide7": 1,
+      "maxSide18": 1,
+      "maxSide7Outsider": 41,
+      "maxSide18Outsider": 41,
+      "maxSide18Minus7": 0,
+      "maxPerOutsider18Minus7": 0,
+      "maxPerOutsider7Minus18": 0,
+      "perOutsider18Winner": {
+        "outsider": 38,
+        "side7": 0,
+        "side18": 0,
+        "delta18Minus7": 0
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 0,
+        "side18": 0,
+        "delta7Minus18": 0
+      }
+    },
+    {
+      "N": 94,
+      "maxSide7": 1,
+      "maxSide18": 1,
+      "maxSide7Outsider": 41,
+      "maxSide18Outsider": 41,
+      "maxSide18Minus7": 0,
+      "maxPerOutsider18Minus7": 0,
+      "maxPerOutsider7Minus18": 0,
+      "perOutsider18Winner": {
+        "outsider": 38,
+        "side7": 0,
+        "side18": 0,
+        "delta18Minus7": 0
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 0,
+        "side18": 0,
+        "delta7Minus18": 0
+      }
+    },
+    {
+      "N": 95,
+      "maxSide7": 1,
+      "maxSide18": 1,
+      "maxSide7Outsider": 41,
+      "maxSide18Outsider": 41,
+      "maxSide18Minus7": 0,
+      "maxPerOutsider18Minus7": 0,
+      "maxPerOutsider7Minus18": 0,
+      "perOutsider18Winner": {
+        "outsider": 38,
+        "side7": 0,
+        "side18": 0,
+        "delta18Minus7": 0
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 0,
+        "side18": 0,
+        "delta7Minus18": 0
+      }
+    },
+    {
+      "N": 96,
+      "maxSide7": 1,
+      "maxSide18": 1,
+      "maxSide7Outsider": 41,
+      "maxSide18Outsider": 41,
+      "maxSide18Minus7": 0,
+      "maxPerOutsider18Minus7": 0,
+      "maxPerOutsider7Minus18": 0,
+      "perOutsider18Winner": {
+        "outsider": 38,
+        "side7": 0,
+        "side18": 0,
+        "delta18Minus7": 0
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 0,
+        "side18": 0,
+        "delta7Minus18": 0
+      }
+    },
+    {
+      "N": 97,
+      "maxSide7": 1,
+      "maxSide18": 1,
+      "maxSide7Outsider": 41,
+      "maxSide18Outsider": 41,
+      "maxSide18Minus7": 0,
+      "maxPerOutsider18Minus7": 0,
+      "maxPerOutsider7Minus18": 0,
+      "perOutsider18Winner": {
+        "outsider": 38,
+        "side7": 0,
+        "side18": 0,
+        "delta18Minus7": 0
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 0,
+        "side18": 0,
+        "delta7Minus18": 0
+      }
+    },
+    {
+      "N": 98,
+      "maxSide7": 1,
+      "maxSide18": 1,
+      "maxSide7Outsider": 41,
+      "maxSide18Outsider": 41,
+      "maxSide18Minus7": 0,
+      "maxPerOutsider18Minus7": 0,
+      "maxPerOutsider7Minus18": 0,
+      "perOutsider18Winner": {
+        "outsider": 38,
+        "side7": 0,
+        "side18": 0,
+        "delta18Minus7": 0
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 0,
+        "side18": 0,
+        "delta7Minus18": 0
+      }
+    },
+    {
+      "N": 99,
+      "maxSide7": 1,
+      "maxSide18": 1,
+      "maxSide7Outsider": 41,
+      "maxSide18Outsider": 41,
+      "maxSide18Minus7": 0,
+      "maxPerOutsider18Minus7": 0,
+      "maxPerOutsider7Minus18": 0,
+      "perOutsider18Winner": {
+        "outsider": 38,
+        "side7": 0,
+        "side18": 0,
+        "delta18Minus7": 0
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 0,
+        "side18": 0,
+        "delta7Minus18": 0
+      }
+    },
+    {
+      "N": 100,
+      "maxSide7": 1,
+      "maxSide18": 1,
+      "maxSide7Outsider": 41,
+      "maxSide18Outsider": 41,
+      "maxSide18Minus7": 0,
+      "maxPerOutsider18Minus7": 0,
+      "maxPerOutsider7Minus18": 0,
+      "perOutsider18Winner": {
+        "outsider": 38,
+        "side7": 0,
+        "side18": 0,
+        "delta18Minus7": 0
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 0,
+        "side18": 0,
+        "delta7Minus18": 0
+      }
+    },
+    {
+      "N": 101,
+      "maxSide7": 1,
+      "maxSide18": 1,
+      "maxSide7Outsider": 41,
+      "maxSide18Outsider": 41,
+      "maxSide18Minus7": 0,
+      "maxPerOutsider18Minus7": 0,
+      "maxPerOutsider7Minus18": 0,
+      "perOutsider18Winner": {
+        "outsider": 38,
+        "side7": 0,
+        "side18": 0,
+        "delta18Minus7": 0
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 0,
+        "side18": 0,
+        "delta7Minus18": 0
+      }
+    },
+    {
+      "N": 102,
+      "maxSide7": 1,
+      "maxSide18": 1,
+      "maxSide7Outsider": 41,
+      "maxSide18Outsider": 41,
+      "maxSide18Minus7": 0,
+      "maxPerOutsider18Minus7": 0,
+      "maxPerOutsider7Minus18": 0,
+      "perOutsider18Winner": {
+        "outsider": 38,
+        "side7": 0,
+        "side18": 0,
+        "delta18Minus7": 0
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 0,
+        "side18": 0,
+        "delta7Minus18": 0
+      }
+    },
+    {
+      "N": 103,
+      "maxSide7": 1,
+      "maxSide18": 1,
+      "maxSide7Outsider": 41,
+      "maxSide18Outsider": 41,
+      "maxSide18Minus7": 0,
+      "maxPerOutsider18Minus7": 0,
+      "maxPerOutsider7Minus18": 0,
+      "perOutsider18Winner": {
+        "outsider": 38,
+        "side7": 0,
+        "side18": 0,
+        "delta18Minus7": 0
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 0,
+        "side18": 0,
+        "delta7Minus18": 0
+      }
+    },
+    {
+      "N": 104,
+      "maxSide7": 1,
+      "maxSide18": 1,
+      "maxSide7Outsider": 41,
+      "maxSide18Outsider": 41,
+      "maxSide18Minus7": 0,
+      "maxPerOutsider18Minus7": 0,
+      "maxPerOutsider7Minus18": 0,
+      "perOutsider18Winner": {
+        "outsider": 38,
+        "side7": 0,
+        "side18": 0,
+        "delta18Minus7": 0
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 0,
+        "side18": 0,
+        "delta7Minus18": 0
+      }
+    },
+    {
+      "N": 105,
+      "maxSide7": 1,
+      "maxSide18": 1,
+      "maxSide7Outsider": 41,
+      "maxSide18Outsider": 41,
+      "maxSide18Minus7": 0,
+      "maxPerOutsider18Minus7": 0,
+      "maxPerOutsider7Minus18": 0,
+      "perOutsider18Winner": {
+        "outsider": 38,
+        "side7": 0,
+        "side18": 0,
+        "delta18Minus7": 0
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 0,
+        "side18": 0,
+        "delta7Minus18": 0
+      }
+    },
+    {
+      "N": 106,
+      "maxSide7": 1,
+      "maxSide18": 1,
+      "maxSide7Outsider": 41,
+      "maxSide18Outsider": 41,
+      "maxSide18Minus7": 0,
+      "maxPerOutsider18Minus7": 0,
+      "maxPerOutsider7Minus18": 0,
+      "perOutsider18Winner": {
+        "outsider": 38,
+        "side7": 0,
+        "side18": 0,
+        "delta18Minus7": 0
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 0,
+        "side18": 0,
+        "delta7Minus18": 0
+      }
+    },
+    {
+      "N": 107,
+      "maxSide7": 2,
+      "maxSide18": 1,
+      "maxSide7Outsider": 41,
+      "maxSide18Outsider": 41,
+      "maxSide18Minus7": -1,
+      "maxPerOutsider18Minus7": 0,
+      "maxPerOutsider7Minus18": 1,
+      "perOutsider18Winner": {
+        "outsider": 70,
+        "side7": 1,
+        "side18": 1,
+        "delta18Minus7": 0
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 1,
+        "side18": 0,
+        "delta7Minus18": 1
+      }
+    },
+    {
+      "N": 108,
+      "maxSide7": 2,
+      "maxSide18": 1,
+      "maxSide7Outsider": 41,
+      "maxSide18Outsider": 41,
+      "maxSide18Minus7": -1,
+      "maxPerOutsider18Minus7": 0,
+      "maxPerOutsider7Minus18": 1,
+      "perOutsider18Winner": {
+        "outsider": 70,
+        "side7": 1,
+        "side18": 1,
+        "delta18Minus7": 0
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 1,
+        "side18": 0,
+        "delta7Minus18": 1
+      }
+    },
+    {
+      "N": 109,
+      "maxSide7": 2,
+      "maxSide18": 1,
+      "maxSide7Outsider": 41,
+      "maxSide18Outsider": 41,
+      "maxSide18Minus7": -1,
+      "maxPerOutsider18Minus7": 0,
+      "maxPerOutsider7Minus18": 1,
+      "perOutsider18Winner": {
+        "outsider": 70,
+        "side7": 1,
+        "side18": 1,
+        "delta18Minus7": 0
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 1,
+        "side18": 0,
+        "delta7Minus18": 1
+      }
+    },
+    {
+      "N": 110,
+      "maxSide7": 2,
+      "maxSide18": 1,
+      "maxSide7Outsider": 41,
+      "maxSide18Outsider": 41,
+      "maxSide18Minus7": -1,
+      "maxPerOutsider18Minus7": 0,
+      "maxPerOutsider7Minus18": 1,
+      "perOutsider18Winner": {
+        "outsider": 70,
+        "side7": 1,
+        "side18": 1,
+        "delta18Minus7": 0
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 1,
+        "side18": 0,
+        "delta7Minus18": 1
+      }
+    },
+    {
+      "N": 111,
+      "maxSide7": 2,
+      "maxSide18": 1,
+      "maxSide7Outsider": 41,
+      "maxSide18Outsider": 41,
+      "maxSide18Minus7": -1,
+      "maxPerOutsider18Minus7": 0,
+      "maxPerOutsider7Minus18": 1,
+      "perOutsider18Winner": {
+        "outsider": 70,
+        "side7": 1,
+        "side18": 1,
+        "delta18Minus7": 0
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 1,
+        "side18": 0,
+        "delta7Minus18": 1
+      }
+    },
+    {
+      "N": 112,
+      "maxSide7": 2,
+      "maxSide18": 1,
+      "maxSide7Outsider": 41,
+      "maxSide18Outsider": 41,
+      "maxSide18Minus7": -1,
+      "maxPerOutsider18Minus7": 0,
+      "maxPerOutsider7Minus18": 1,
+      "perOutsider18Winner": {
+        "outsider": 70,
+        "side7": 1,
+        "side18": 1,
+        "delta18Minus7": 0
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 1,
+        "side18": 0,
+        "delta7Minus18": 1
+      }
+    },
+    {
+      "N": 113,
+      "maxSide7": 2,
+      "maxSide18": 1,
+      "maxSide7Outsider": 41,
+      "maxSide18Outsider": 41,
+      "maxSide18Minus7": -1,
+      "maxPerOutsider18Minus7": 0,
+      "maxPerOutsider7Minus18": 1,
+      "perOutsider18Winner": {
+        "outsider": 70,
+        "side7": 1,
+        "side18": 1,
+        "delta18Minus7": 0
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 1,
+        "side18": 0,
+        "delta7Minus18": 1
+      }
+    },
+    {
+      "N": 114,
+      "maxSide7": 2,
+      "maxSide18": 1,
+      "maxSide7Outsider": 41,
+      "maxSide18Outsider": 41,
+      "maxSide18Minus7": -1,
+      "maxPerOutsider18Minus7": 0,
+      "maxPerOutsider7Minus18": 1,
+      "perOutsider18Winner": {
+        "outsider": 70,
+        "side7": 1,
+        "side18": 1,
+        "delta18Minus7": 0
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 1,
+        "side18": 0,
+        "delta7Minus18": 1
+      }
+    },
+    {
+      "N": 115,
+      "maxSide7": 2,
+      "maxSide18": 1,
+      "maxSide7Outsider": 41,
+      "maxSide18Outsider": 41,
+      "maxSide18Minus7": -1,
+      "maxPerOutsider18Minus7": 0,
+      "maxPerOutsider7Minus18": 1,
+      "perOutsider18Winner": {
+        "outsider": 70,
+        "side7": 1,
+        "side18": 1,
+        "delta18Minus7": 0
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 1,
+        "side18": 0,
+        "delta7Minus18": 1
+      }
+    },
+    {
+      "N": 116,
+      "maxSide7": 2,
+      "maxSide18": 1,
+      "maxSide7Outsider": 41,
+      "maxSide18Outsider": 41,
+      "maxSide18Minus7": -1,
+      "maxPerOutsider18Minus7": 0,
+      "maxPerOutsider7Minus18": 1,
+      "perOutsider18Winner": {
+        "outsider": 70,
+        "side7": 1,
+        "side18": 1,
+        "delta18Minus7": 0
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 1,
+        "side18": 0,
+        "delta7Minus18": 1
+      }
+    },
+    {
+      "N": 117,
+      "maxSide7": 2,
+      "maxSide18": 2,
+      "maxSide7Outsider": 41,
+      "maxSide18Outsider": 117,
+      "maxSide18Minus7": 0,
+      "maxPerOutsider18Minus7": 0,
+      "maxPerOutsider7Minus18": 1,
+      "perOutsider18Winner": {
+        "outsider": 70,
+        "side7": 1,
+        "side18": 1,
+        "delta18Minus7": 0
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 1,
+        "side18": 0,
+        "delta7Minus18": 1
+      }
+    },
+    {
+      "N": 118,
+      "maxSide7": 2,
+      "maxSide18": 2,
+      "maxSide7Outsider": 41,
+      "maxSide18Outsider": 117,
+      "maxSide18Minus7": 0,
+      "maxPerOutsider18Minus7": 0,
+      "maxPerOutsider7Minus18": 1,
+      "perOutsider18Winner": {
+        "outsider": 70,
+        "side7": 1,
+        "side18": 1,
+        "delta18Minus7": 0
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 1,
+        "side18": 0,
+        "delta7Minus18": 1
+      }
+    },
+    {
+      "N": 119,
+      "maxSide7": 2,
+      "maxSide18": 2,
+      "maxSide7Outsider": 41,
+      "maxSide18Outsider": 117,
+      "maxSide18Minus7": 0,
+      "maxPerOutsider18Minus7": 0,
+      "maxPerOutsider7Minus18": 1,
+      "perOutsider18Winner": {
+        "outsider": 70,
+        "side7": 1,
+        "side18": 1,
+        "delta18Minus7": 0
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 1,
+        "side18": 0,
+        "delta7Minus18": 1
+      }
+    },
+    {
+      "N": 120,
+      "maxSide7": 2,
+      "maxSide18": 2,
+      "maxSide7Outsider": 41,
+      "maxSide18Outsider": 117,
+      "maxSide18Minus7": 0,
+      "maxPerOutsider18Minus7": 0,
+      "maxPerOutsider7Minus18": 1,
+      "perOutsider18Winner": {
+        "outsider": 70,
+        "side7": 1,
+        "side18": 1,
+        "delta18Minus7": 0
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 1,
+        "side18": 0,
+        "delta7Minus18": 1
+      }
+    },
+    {
+      "N": 121,
+      "maxSide7": 2,
+      "maxSide18": 2,
+      "maxSide7Outsider": 41,
+      "maxSide18Outsider": 117,
+      "maxSide18Minus7": 0,
+      "maxPerOutsider18Minus7": 0,
+      "maxPerOutsider7Minus18": 1,
+      "perOutsider18Winner": {
+        "outsider": 70,
+        "side7": 1,
+        "side18": 1,
+        "delta18Minus7": 0
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 1,
+        "side18": 0,
+        "delta7Minus18": 1
+      }
+    },
+    {
+      "N": 122,
+      "maxSide7": 2,
+      "maxSide18": 2,
+      "maxSide7Outsider": 41,
+      "maxSide18Outsider": 117,
+      "maxSide18Minus7": 0,
+      "maxPerOutsider18Minus7": 0,
+      "maxPerOutsider7Minus18": 1,
+      "perOutsider18Winner": {
+        "outsider": 70,
+        "side7": 1,
+        "side18": 1,
+        "delta18Minus7": 0
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 1,
+        "side18": 0,
+        "delta7Minus18": 1
+      }
+    },
+    {
+      "N": 123,
+      "maxSide7": 2,
+      "maxSide18": 2,
+      "maxSide7Outsider": 41,
+      "maxSide18Outsider": 117,
+      "maxSide18Minus7": 0,
+      "maxPerOutsider18Minus7": 0,
+      "maxPerOutsider7Minus18": 1,
+      "perOutsider18Winner": {
+        "outsider": 70,
+        "side7": 1,
+        "side18": 1,
+        "delta18Minus7": 0
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 1,
+        "side18": 0,
+        "delta7Minus18": 1
+      }
+    },
+    {
+      "N": 124,
+      "maxSide7": 2,
+      "maxSide18": 2,
+      "maxSide7Outsider": 41,
+      "maxSide18Outsider": 117,
+      "maxSide18Minus7": 0,
+      "maxPerOutsider18Minus7": 0,
+      "maxPerOutsider7Minus18": 1,
+      "perOutsider18Winner": {
+        "outsider": 70,
+        "side7": 1,
+        "side18": 1,
+        "delta18Minus7": 0
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 1,
+        "side18": 0,
+        "delta7Minus18": 1
+      }
+    },
+    {
+      "N": 125,
+      "maxSide7": 2,
+      "maxSide18": 2,
+      "maxSide7Outsider": 41,
+      "maxSide18Outsider": 117,
+      "maxSide18Minus7": 0,
+      "maxPerOutsider18Minus7": 0,
+      "maxPerOutsider7Minus18": 1,
+      "perOutsider18Winner": {
+        "outsider": 70,
+        "side7": 1,
+        "side18": 1,
+        "delta18Minus7": 0
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 1,
+        "side18": 0,
+        "delta7Minus18": 1
+      }
+    },
+    {
+      "N": 126,
+      "maxSide7": 2,
+      "maxSide18": 2,
+      "maxSide7Outsider": 41,
+      "maxSide18Outsider": 117,
+      "maxSide18Minus7": 0,
+      "maxPerOutsider18Minus7": 0,
+      "maxPerOutsider7Minus18": 1,
+      "perOutsider18Winner": {
+        "outsider": 70,
+        "side7": 1,
+        "side18": 1,
+        "delta18Minus7": 0
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 1,
+        "side18": 0,
+        "delta7Minus18": 1
+      }
+    },
+    {
+      "N": 127,
+      "maxSide7": 2,
+      "maxSide18": 2,
+      "maxSide7Outsider": 41,
+      "maxSide18Outsider": 117,
+      "maxSide18Minus7": 0,
+      "maxPerOutsider18Minus7": 0,
+      "maxPerOutsider7Minus18": 1,
+      "perOutsider18Winner": {
+        "outsider": 70,
+        "side7": 1,
+        "side18": 1,
+        "delta18Minus7": 0
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 1,
+        "side18": 0,
+        "delta7Minus18": 1
+      }
+    },
+    {
+      "N": 128,
+      "maxSide7": 2,
+      "maxSide18": 2,
+      "maxSide7Outsider": 41,
+      "maxSide18Outsider": 117,
+      "maxSide18Minus7": 0,
+      "maxPerOutsider18Minus7": 0,
+      "maxPerOutsider7Minus18": 1,
+      "perOutsider18Winner": {
+        "outsider": 70,
+        "side7": 1,
+        "side18": 1,
+        "delta18Minus7": 0
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 1,
+        "side18": 0,
+        "delta7Minus18": 1
+      }
+    },
+    {
+      "N": 129,
+      "maxSide7": 2,
+      "maxSide18": 2,
+      "maxSide7Outsider": 41,
+      "maxSide18Outsider": 117,
+      "maxSide18Minus7": 0,
+      "maxPerOutsider18Minus7": 0,
+      "maxPerOutsider7Minus18": 1,
+      "perOutsider18Winner": {
+        "outsider": 70,
+        "side7": 1,
+        "side18": 1,
+        "delta18Minus7": 0
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 1,
+        "side18": 0,
+        "delta7Minus18": 1
+      }
+    },
+    {
+      "N": 130,
+      "maxSide7": 2,
+      "maxSide18": 2,
+      "maxSide7Outsider": 41,
+      "maxSide18Outsider": 117,
+      "maxSide18Minus7": 0,
+      "maxPerOutsider18Minus7": 0,
+      "maxPerOutsider7Minus18": 1,
+      "perOutsider18Winner": {
+        "outsider": 70,
+        "side7": 1,
+        "side18": 1,
+        "delta18Minus7": 0
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 1,
+        "side18": 0,
+        "delta7Minus18": 1
+      }
+    },
+    {
+      "N": 131,
+      "maxSide7": 2,
+      "maxSide18": 2,
+      "maxSide7Outsider": 41,
+      "maxSide18Outsider": 117,
+      "maxSide18Minus7": 0,
+      "maxPerOutsider18Minus7": 0,
+      "maxPerOutsider7Minus18": 1,
+      "perOutsider18Winner": {
+        "outsider": 70,
+        "side7": 1,
+        "side18": 1,
+        "delta18Minus7": 0
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 1,
+        "side18": 0,
+        "delta7Minus18": 1
+      }
+    },
+    {
+      "N": 132,
+      "maxSide7": 2,
+      "maxSide18": 2,
+      "maxSide7Outsider": 41,
+      "maxSide18Outsider": 117,
+      "maxSide18Minus7": 0,
+      "maxPerOutsider18Minus7": 0,
+      "maxPerOutsider7Minus18": 1,
+      "perOutsider18Winner": {
+        "outsider": 70,
+        "side7": 1,
+        "side18": 1,
+        "delta18Minus7": 0
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 1,
+        "side18": 0,
+        "delta7Minus18": 1
+      }
+    },
+    {
+      "N": 133,
+      "maxSide7": 2,
+      "maxSide18": 2,
+      "maxSide7Outsider": 41,
+      "maxSide18Outsider": 117,
+      "maxSide18Minus7": 0,
+      "maxPerOutsider18Minus7": 0,
+      "maxPerOutsider7Minus18": 1,
+      "perOutsider18Winner": {
+        "outsider": 70,
+        "side7": 1,
+        "side18": 1,
+        "delta18Minus7": 0
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 1,
+        "side18": 0,
+        "delta7Minus18": 1
+      }
+    },
+    {
+      "N": 134,
+      "maxSide7": 2,
+      "maxSide18": 2,
+      "maxSide7Outsider": 41,
+      "maxSide18Outsider": 117,
+      "maxSide18Minus7": 0,
+      "maxPerOutsider18Minus7": 0,
+      "maxPerOutsider7Minus18": 1,
+      "perOutsider18Winner": {
+        "outsider": 70,
+        "side7": 1,
+        "side18": 1,
+        "delta18Minus7": 0
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 1,
+        "side18": 0,
+        "delta7Minus18": 1
+      }
+    },
+    {
+      "N": 135,
+      "maxSide7": 2,
+      "maxSide18": 2,
+      "maxSide7Outsider": 41,
+      "maxSide18Outsider": 117,
+      "maxSide18Minus7": 0,
+      "maxPerOutsider18Minus7": 0,
+      "maxPerOutsider7Minus18": 1,
+      "perOutsider18Winner": {
+        "outsider": 70,
+        "side7": 1,
+        "side18": 1,
+        "delta18Minus7": 0
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 1,
+        "side18": 0,
+        "delta7Minus18": 1
+      }
+    },
+    {
+      "N": 136,
+      "maxSide7": 2,
+      "maxSide18": 2,
+      "maxSide7Outsider": 41,
+      "maxSide18Outsider": 117,
+      "maxSide18Minus7": 0,
+      "maxPerOutsider18Minus7": 0,
+      "maxPerOutsider7Minus18": 1,
+      "perOutsider18Winner": {
+        "outsider": 70,
+        "side7": 1,
+        "side18": 1,
+        "delta18Minus7": 0
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 1,
+        "side18": 0,
+        "delta7Minus18": 1
+      }
+    },
+    {
+      "N": 137,
+      "maxSide7": 2,
+      "maxSide18": 2,
+      "maxSide7Outsider": 41,
+      "maxSide18Outsider": 117,
+      "maxSide18Minus7": 0,
+      "maxPerOutsider18Minus7": 0,
+      "maxPerOutsider7Minus18": 1,
+      "perOutsider18Winner": {
+        "outsider": 70,
+        "side7": 1,
+        "side18": 1,
+        "delta18Minus7": 0
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 1,
+        "side18": 0,
+        "delta7Minus18": 1
+      }
+    },
+    {
+      "N": 138,
+      "maxSide7": 2,
+      "maxSide18": 2,
+      "maxSide7Outsider": 41,
+      "maxSide18Outsider": 117,
+      "maxSide18Minus7": 0,
+      "maxPerOutsider18Minus7": 0,
+      "maxPerOutsider7Minus18": 1,
+      "perOutsider18Winner": {
+        "outsider": 70,
+        "side7": 1,
+        "side18": 1,
+        "delta18Minus7": 0
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 1,
+        "side18": 0,
+        "delta7Minus18": 1
+      }
+    },
+    {
+      "N": 139,
+      "maxSide7": 2,
+      "maxSide18": 2,
+      "maxSide7Outsider": 41,
+      "maxSide18Outsider": 117,
+      "maxSide18Minus7": 0,
+      "maxPerOutsider18Minus7": 0,
+      "maxPerOutsider7Minus18": 1,
+      "perOutsider18Winner": {
+        "outsider": 70,
+        "side7": 1,
+        "side18": 1,
+        "delta18Minus7": 0
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 1,
+        "side18": 0,
+        "delta7Minus18": 1
+      }
+    },
+    {
+      "N": 140,
+      "maxSide7": 2,
+      "maxSide18": 2,
+      "maxSide7Outsider": 41,
+      "maxSide18Outsider": 117,
+      "maxSide18Minus7": 0,
+      "maxPerOutsider18Minus7": 0,
+      "maxPerOutsider7Minus18": 1,
+      "perOutsider18Winner": {
+        "outsider": 70,
+        "side7": 1,
+        "side18": 1,
+        "delta18Minus7": 0
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 1,
+        "side18": 0,
+        "delta7Minus18": 1
+      }
+    },
+    {
+      "N": 141,
+      "maxSide7": 2,
+      "maxSide18": 2,
+      "maxSide7Outsider": 41,
+      "maxSide18Outsider": 117,
+      "maxSide18Minus7": 0,
+      "maxPerOutsider18Minus7": 0,
+      "maxPerOutsider7Minus18": 1,
+      "perOutsider18Winner": {
+        "outsider": 70,
+        "side7": 1,
+        "side18": 1,
+        "delta18Minus7": 0
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 1,
+        "side18": 0,
+        "delta7Minus18": 1
+      }
+    },
+    {
+      "N": 142,
+      "maxSide7": 2,
+      "maxSide18": 2,
+      "maxSide7Outsider": 41,
+      "maxSide18Outsider": 117,
+      "maxSide18Minus7": 0,
+      "maxPerOutsider18Minus7": 0,
+      "maxPerOutsider7Minus18": 1,
+      "perOutsider18Winner": {
+        "outsider": 70,
+        "side7": 1,
+        "side18": 1,
+        "delta18Minus7": 0
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 1,
+        "side18": 0,
+        "delta7Minus18": 1
+      }
+    },
+    {
+      "N": 143,
+      "maxSide7": 2,
+      "maxSide18": 3,
+      "maxSide7Outsider": 41,
+      "maxSide18Outsider": 117,
+      "maxSide18Minus7": 1,
+      "maxPerOutsider18Minus7": 1,
+      "maxPerOutsider7Minus18": 1,
+      "perOutsider18Winner": {
+        "outsider": 117,
+        "side7": 2,
+        "side18": 3,
+        "delta18Minus7": 1
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 1,
+        "side18": 0,
+        "delta7Minus18": 1
+      }
+    },
+    {
+      "N": 144,
+      "maxSide7": 2,
+      "maxSide18": 3,
+      "maxSide7Outsider": 41,
+      "maxSide18Outsider": 117,
+      "maxSide18Minus7": 1,
+      "maxPerOutsider18Minus7": 1,
+      "maxPerOutsider7Minus18": 1,
+      "perOutsider18Winner": {
+        "outsider": 117,
+        "side7": 2,
+        "side18": 3,
+        "delta18Minus7": 1
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 1,
+        "side18": 0,
+        "delta7Minus18": 1
+      }
+    },
+    {
+      "N": 145,
+      "maxSide7": 2,
+      "maxSide18": 3,
+      "maxSide7Outsider": 41,
+      "maxSide18Outsider": 117,
+      "maxSide18Minus7": 1,
+      "maxPerOutsider18Minus7": 1,
+      "maxPerOutsider7Minus18": 1,
+      "perOutsider18Winner": {
+        "outsider": 117,
+        "side7": 2,
+        "side18": 3,
+        "delta18Minus7": 1
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 1,
+        "side18": 0,
+        "delta7Minus18": 1
+      }
+    },
+    {
+      "N": 146,
+      "maxSide7": 2,
+      "maxSide18": 3,
+      "maxSide7Outsider": 41,
+      "maxSide18Outsider": 117,
+      "maxSide18Minus7": 1,
+      "maxPerOutsider18Minus7": 1,
+      "maxPerOutsider7Minus18": 1,
+      "perOutsider18Winner": {
+        "outsider": 117,
+        "side7": 2,
+        "side18": 3,
+        "delta18Minus7": 1
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 1,
+        "side18": 0,
+        "delta7Minus18": 1
+      }
+    },
+    {
+      "N": 147,
+      "maxSide7": 2,
+      "maxSide18": 3,
+      "maxSide7Outsider": 41,
+      "maxSide18Outsider": 117,
+      "maxSide18Minus7": 1,
+      "maxPerOutsider18Minus7": 1,
+      "maxPerOutsider7Minus18": 1,
+      "perOutsider18Winner": {
+        "outsider": 117,
+        "side7": 2,
+        "side18": 3,
+        "delta18Minus7": 1
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 1,
+        "side18": 0,
+        "delta7Minus18": 1
+      }
+    },
+    {
+      "N": 148,
+      "maxSide7": 2,
+      "maxSide18": 3,
+      "maxSide7Outsider": 41,
+      "maxSide18Outsider": 117,
+      "maxSide18Minus7": 1,
+      "maxPerOutsider18Minus7": 1,
+      "maxPerOutsider7Minus18": 1,
+      "perOutsider18Winner": {
+        "outsider": 117,
+        "side7": 2,
+        "side18": 3,
+        "delta18Minus7": 1
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 1,
+        "side18": 0,
+        "delta7Minus18": 1
+      }
+    },
+    {
+      "N": 149,
+      "maxSide7": 2,
+      "maxSide18": 3,
+      "maxSide7Outsider": 41,
+      "maxSide18Outsider": 117,
+      "maxSide18Minus7": 1,
+      "maxPerOutsider18Minus7": 1,
+      "maxPerOutsider7Minus18": 1,
+      "perOutsider18Winner": {
+        "outsider": 117,
+        "side7": 2,
+        "side18": 3,
+        "delta18Minus7": 1
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 1,
+        "side18": 0,
+        "delta7Minus18": 1
+      }
+    },
+    {
+      "N": 150,
+      "maxSide7": 2,
+      "maxSide18": 3,
+      "maxSide7Outsider": 41,
+      "maxSide18Outsider": 117,
+      "maxSide18Minus7": 1,
+      "maxPerOutsider18Minus7": 1,
+      "maxPerOutsider7Minus18": 1,
+      "perOutsider18Winner": {
+        "outsider": 117,
+        "side7": 2,
+        "side18": 3,
+        "delta18Minus7": 1
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 1,
+        "side18": 0,
+        "delta7Minus18": 1
+      }
+    },
+    {
+      "N": 151,
+      "maxSide7": 2,
+      "maxSide18": 3,
+      "maxSide7Outsider": 41,
+      "maxSide18Outsider": 117,
+      "maxSide18Minus7": 1,
+      "maxPerOutsider18Minus7": 1,
+      "maxPerOutsider7Minus18": 1,
+      "perOutsider18Winner": {
+        "outsider": 117,
+        "side7": 2,
+        "side18": 3,
+        "delta18Minus7": 1
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 1,
+        "side18": 0,
+        "delta7Minus18": 1
+      }
+    },
+    {
+      "N": 152,
+      "maxSide7": 2,
+      "maxSide18": 3,
+      "maxSide7Outsider": 41,
+      "maxSide18Outsider": 117,
+      "maxSide18Minus7": 1,
+      "maxPerOutsider18Minus7": 1,
+      "maxPerOutsider7Minus18": 1,
+      "perOutsider18Winner": {
+        "outsider": 117,
+        "side7": 2,
+        "side18": 3,
+        "delta18Minus7": 1
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 1,
+        "side18": 0,
+        "delta7Minus18": 1
+      }
+    },
+    {
+      "N": 153,
+      "maxSide7": 2,
+      "maxSide18": 3,
+      "maxSide7Outsider": 41,
+      "maxSide18Outsider": 117,
+      "maxSide18Minus7": 1,
+      "maxPerOutsider18Minus7": 1,
+      "maxPerOutsider7Minus18": 1,
+      "perOutsider18Winner": {
+        "outsider": 117,
+        "side7": 2,
+        "side18": 3,
+        "delta18Minus7": 1
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 1,
+        "side18": 0,
+        "delta7Minus18": 1
+      }
+    },
+    {
+      "N": 154,
+      "maxSide7": 2,
+      "maxSide18": 3,
+      "maxSide7Outsider": 41,
+      "maxSide18Outsider": 117,
+      "maxSide18Minus7": 1,
+      "maxPerOutsider18Minus7": 1,
+      "maxPerOutsider7Minus18": 1,
+      "perOutsider18Winner": {
+        "outsider": 117,
+        "side7": 2,
+        "side18": 3,
+        "delta18Minus7": 1
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 1,
+        "side18": 0,
+        "delta7Minus18": 1
+      }
+    },
+    {
+      "N": 155,
+      "maxSide7": 2,
+      "maxSide18": 3,
+      "maxSide7Outsider": 41,
+      "maxSide18Outsider": 117,
+      "maxSide18Minus7": 1,
+      "maxPerOutsider18Minus7": 1,
+      "maxPerOutsider7Minus18": 1,
+      "perOutsider18Winner": {
+        "outsider": 117,
+        "side7": 2,
+        "side18": 3,
+        "delta18Minus7": 1
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 1,
+        "side18": 0,
+        "delta7Minus18": 1
+      }
+    },
+    {
+      "N": 156,
+      "maxSide7": 2,
+      "maxSide18": 3,
+      "maxSide7Outsider": 41,
+      "maxSide18Outsider": 117,
+      "maxSide18Minus7": 1,
+      "maxPerOutsider18Minus7": 1,
+      "maxPerOutsider7Minus18": 1,
+      "perOutsider18Winner": {
+        "outsider": 117,
+        "side7": 2,
+        "side18": 3,
+        "delta18Minus7": 1
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 1,
+        "side18": 0,
+        "delta7Minus18": 1
+      }
+    },
+    {
+      "N": 157,
+      "maxSide7": 2,
+      "maxSide18": 3,
+      "maxSide7Outsider": 38,
+      "maxSide18Outsider": 117,
+      "maxSide18Minus7": 1,
+      "maxPerOutsider18Minus7": 1,
+      "maxPerOutsider7Minus18": 2,
+      "perOutsider18Winner": {
+        "outsider": 117,
+        "side7": 2,
+        "side18": 3,
+        "delta18Minus7": 1
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 2,
+        "side18": 0,
+        "delta7Minus18": 2
+      }
+    },
+    {
+      "N": 158,
+      "maxSide7": 2,
+      "maxSide18": 3,
+      "maxSide7Outsider": 38,
+      "maxSide18Outsider": 117,
+      "maxSide18Minus7": 1,
+      "maxPerOutsider18Minus7": 1,
+      "maxPerOutsider7Minus18": 2,
+      "perOutsider18Winner": {
+        "outsider": 117,
+        "side7": 2,
+        "side18": 3,
+        "delta18Minus7": 1
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 2,
+        "side18": 0,
+        "delta7Minus18": 2
+      }
+    },
+    {
+      "N": 159,
+      "maxSide7": 2,
+      "maxSide18": 3,
+      "maxSide7Outsider": 38,
+      "maxSide18Outsider": 117,
+      "maxSide18Minus7": 1,
+      "maxPerOutsider18Minus7": 1,
+      "maxPerOutsider7Minus18": 2,
+      "perOutsider18Winner": {
+        "outsider": 117,
+        "side7": 2,
+        "side18": 3,
+        "delta18Minus7": 1
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 2,
+        "side18": 0,
+        "delta7Minus18": 2
+      }
+    },
+    {
+      "N": 160,
+      "maxSide7": 2,
+      "maxSide18": 3,
+      "maxSide7Outsider": 38,
+      "maxSide18Outsider": 117,
+      "maxSide18Minus7": 1,
+      "maxPerOutsider18Minus7": 1,
+      "maxPerOutsider7Minus18": 2,
+      "perOutsider18Winner": {
+        "outsider": 117,
+        "side7": 2,
+        "side18": 3,
+        "delta18Minus7": 1
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 2,
+        "side18": 0,
+        "delta7Minus18": 2
+      }
+    },
+    {
+      "N": 161,
+      "maxSide7": 2,
+      "maxSide18": 3,
+      "maxSide7Outsider": 38,
+      "maxSide18Outsider": 117,
+      "maxSide18Minus7": 1,
+      "maxPerOutsider18Minus7": 1,
+      "maxPerOutsider7Minus18": 2,
+      "perOutsider18Winner": {
+        "outsider": 117,
+        "side7": 2,
+        "side18": 3,
+        "delta18Minus7": 1
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 2,
+        "side18": 0,
+        "delta7Minus18": 2
+      }
+    },
+    {
+      "N": 162,
+      "maxSide7": 2,
+      "maxSide18": 3,
+      "maxSide7Outsider": 38,
+      "maxSide18Outsider": 117,
+      "maxSide18Minus7": 1,
+      "maxPerOutsider18Minus7": 1,
+      "maxPerOutsider7Minus18": 2,
+      "perOutsider18Winner": {
+        "outsider": 117,
+        "side7": 2,
+        "side18": 3,
+        "delta18Minus7": 1
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 2,
+        "side18": 0,
+        "delta7Minus18": 2
+      }
+    },
+    {
+      "N": 163,
+      "maxSide7": 2,
+      "maxSide18": 3,
+      "maxSide7Outsider": 38,
+      "maxSide18Outsider": 117,
+      "maxSide18Minus7": 1,
+      "maxPerOutsider18Minus7": 1,
+      "maxPerOutsider7Minus18": 2,
+      "perOutsider18Winner": {
+        "outsider": 117,
+        "side7": 2,
+        "side18": 3,
+        "delta18Minus7": 1
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 2,
+        "side18": 0,
+        "delta7Minus18": 2
+      }
+    },
+    {
+      "N": 164,
+      "maxSide7": 2,
+      "maxSide18": 3,
+      "maxSide7Outsider": 38,
+      "maxSide18Outsider": 117,
+      "maxSide18Minus7": 1,
+      "maxPerOutsider18Minus7": 1,
+      "maxPerOutsider7Minus18": 2,
+      "perOutsider18Winner": {
+        "outsider": 117,
+        "side7": 2,
+        "side18": 3,
+        "delta18Minus7": 1
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 2,
+        "side18": 0,
+        "delta7Minus18": 2
+      }
+    },
+    {
+      "N": 165,
+      "maxSide7": 2,
+      "maxSide18": 3,
+      "maxSide7Outsider": 38,
+      "maxSide18Outsider": 117,
+      "maxSide18Minus7": 1,
+      "maxPerOutsider18Minus7": 1,
+      "maxPerOutsider7Minus18": 2,
+      "perOutsider18Winner": {
+        "outsider": 117,
+        "side7": 2,
+        "side18": 3,
+        "delta18Minus7": 1
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 2,
+        "side18": 0,
+        "delta7Minus18": 2
+      }
+    },
+    {
+      "N": 166,
+      "maxSide7": 2,
+      "maxSide18": 3,
+      "maxSide7Outsider": 38,
+      "maxSide18Outsider": 117,
+      "maxSide18Minus7": 1,
+      "maxPerOutsider18Minus7": 1,
+      "maxPerOutsider7Minus18": 2,
+      "perOutsider18Winner": {
+        "outsider": 117,
+        "side7": 2,
+        "side18": 3,
+        "delta18Minus7": 1
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 2,
+        "side18": 0,
+        "delta7Minus18": 2
+      }
+    },
+    {
+      "N": 167,
+      "maxSide7": 2,
+      "maxSide18": 3,
+      "maxSide7Outsider": 38,
+      "maxSide18Outsider": 117,
+      "maxSide18Minus7": 1,
+      "maxPerOutsider18Minus7": 1,
+      "maxPerOutsider7Minus18": 2,
+      "perOutsider18Winner": {
+        "outsider": 117,
+        "side7": 2,
+        "side18": 3,
+        "delta18Minus7": 1
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 2,
+        "side18": 0,
+        "delta7Minus18": 2
+      }
+    },
+    {
+      "N": 168,
+      "maxSide7": 2,
+      "maxSide18": 3,
+      "maxSide7Outsider": 38,
+      "maxSide18Outsider": 41,
+      "maxSide18Minus7": 1,
+      "maxPerOutsider18Minus7": 1,
+      "maxPerOutsider7Minus18": 2,
+      "perOutsider18Winner": {
+        "outsider": 41,
+        "side7": 2,
+        "side18": 3,
+        "delta18Minus7": 1
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 2,
+        "side18": 0,
+        "delta7Minus18": 2
+      }
+    },
+    {
+      "N": 169,
+      "maxSide7": 2,
+      "maxSide18": 3,
+      "maxSide7Outsider": 38,
+      "maxSide18Outsider": 41,
+      "maxSide18Minus7": 1,
+      "maxPerOutsider18Minus7": 1,
+      "maxPerOutsider7Minus18": 2,
+      "perOutsider18Winner": {
+        "outsider": 41,
+        "side7": 2,
+        "side18": 3,
+        "delta18Minus7": 1
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 2,
+        "side18": 0,
+        "delta7Minus18": 2
+      }
+    },
+    {
+      "N": 170,
+      "maxSide7": 2,
+      "maxSide18": 3,
+      "maxSide7Outsider": 38,
+      "maxSide18Outsider": 41,
+      "maxSide18Minus7": 1,
+      "maxPerOutsider18Minus7": 1,
+      "maxPerOutsider7Minus18": 2,
+      "perOutsider18Winner": {
+        "outsider": 41,
+        "side7": 2,
+        "side18": 3,
+        "delta18Minus7": 1
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 2,
+        "side18": 0,
+        "delta7Minus18": 2
+      }
+    },
+    {
+      "N": 171,
+      "maxSide7": 2,
+      "maxSide18": 3,
+      "maxSide7Outsider": 38,
+      "maxSide18Outsider": 41,
+      "maxSide18Minus7": 1,
+      "maxPerOutsider18Minus7": 1,
+      "maxPerOutsider7Minus18": 2,
+      "perOutsider18Winner": {
+        "outsider": 41,
+        "side7": 2,
+        "side18": 3,
+        "delta18Minus7": 1
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 2,
+        "side18": 0,
+        "delta7Minus18": 2
+      }
+    },
+    {
+      "N": 172,
+      "maxSide7": 2,
+      "maxSide18": 3,
+      "maxSide7Outsider": 38,
+      "maxSide18Outsider": 41,
+      "maxSide18Minus7": 1,
+      "maxPerOutsider18Minus7": 1,
+      "maxPerOutsider7Minus18": 2,
+      "perOutsider18Winner": {
+        "outsider": 41,
+        "side7": 2,
+        "side18": 3,
+        "delta18Minus7": 1
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 2,
+        "side18": 0,
+        "delta7Minus18": 2
+      }
+    },
+    {
+      "N": 173,
+      "maxSide7": 2,
+      "maxSide18": 3,
+      "maxSide7Outsider": 38,
+      "maxSide18Outsider": 41,
+      "maxSide18Minus7": 1,
+      "maxPerOutsider18Minus7": 1,
+      "maxPerOutsider7Minus18": 2,
+      "perOutsider18Winner": {
+        "outsider": 41,
+        "side7": 2,
+        "side18": 3,
+        "delta18Minus7": 1
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 2,
+        "side18": 0,
+        "delta7Minus18": 2
+      }
+    },
+    {
+      "N": 174,
+      "maxSide7": 2,
+      "maxSide18": 3,
+      "maxSide7Outsider": 38,
+      "maxSide18Outsider": 41,
+      "maxSide18Minus7": 1,
+      "maxPerOutsider18Minus7": 1,
+      "maxPerOutsider7Minus18": 2,
+      "perOutsider18Winner": {
+        "outsider": 41,
+        "side7": 2,
+        "side18": 3,
+        "delta18Minus7": 1
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 2,
+        "side18": 0,
+        "delta7Minus18": 2
+      }
+    },
+    {
+      "N": 175,
+      "maxSide7": 2,
+      "maxSide18": 3,
+      "maxSide7Outsider": 38,
+      "maxSide18Outsider": 41,
+      "maxSide18Minus7": 1,
+      "maxPerOutsider18Minus7": 1,
+      "maxPerOutsider7Minus18": 2,
+      "perOutsider18Winner": {
+        "outsider": 41,
+        "side7": 2,
+        "side18": 3,
+        "delta18Minus7": 1
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 2,
+        "side18": 0,
+        "delta7Minus18": 2
+      }
+    },
+    {
+      "N": 176,
+      "maxSide7": 2,
+      "maxSide18": 3,
+      "maxSide7Outsider": 38,
+      "maxSide18Outsider": 41,
+      "maxSide18Minus7": 1,
+      "maxPerOutsider18Minus7": 1,
+      "maxPerOutsider7Minus18": 2,
+      "perOutsider18Winner": {
+        "outsider": 41,
+        "side7": 2,
+        "side18": 3,
+        "delta18Minus7": 1
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 2,
+        "side18": 0,
+        "delta7Minus18": 2
+      }
+    },
+    {
+      "N": 177,
+      "maxSide7": 2,
+      "maxSide18": 3,
+      "maxSide7Outsider": 38,
+      "maxSide18Outsider": 41,
+      "maxSide18Minus7": 1,
+      "maxPerOutsider18Minus7": 1,
+      "maxPerOutsider7Minus18": 2,
+      "perOutsider18Winner": {
+        "outsider": 41,
+        "side7": 2,
+        "side18": 3,
+        "delta18Minus7": 1
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 2,
+        "side18": 0,
+        "delta7Minus18": 2
+      }
+    },
+    {
+      "N": 178,
+      "maxSide7": 2,
+      "maxSide18": 3,
+      "maxSide7Outsider": 38,
+      "maxSide18Outsider": 41,
+      "maxSide18Minus7": 1,
+      "maxPerOutsider18Minus7": 1,
+      "maxPerOutsider7Minus18": 2,
+      "perOutsider18Winner": {
+        "outsider": 41,
+        "side7": 2,
+        "side18": 3,
+        "delta18Minus7": 1
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 2,
+        "side18": 0,
+        "delta7Minus18": 2
+      }
+    },
+    {
+      "N": 179,
+      "maxSide7": 2,
+      "maxSide18": 3,
+      "maxSide7Outsider": 38,
+      "maxSide18Outsider": 41,
+      "maxSide18Minus7": 1,
+      "maxPerOutsider18Minus7": 1,
+      "maxPerOutsider7Minus18": 2,
+      "perOutsider18Winner": {
+        "outsider": 41,
+        "side7": 2,
+        "side18": 3,
+        "delta18Minus7": 1
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 2,
+        "side18": 0,
+        "delta7Minus18": 2
+      }
+    },
+    {
+      "N": 180,
+      "maxSide7": 2,
+      "maxSide18": 3,
+      "maxSide7Outsider": 38,
+      "maxSide18Outsider": 41,
+      "maxSide18Minus7": 1,
+      "maxPerOutsider18Minus7": 1,
+      "maxPerOutsider7Minus18": 2,
+      "perOutsider18Winner": {
+        "outsider": 41,
+        "side7": 2,
+        "side18": 3,
+        "delta18Minus7": 1
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 2,
+        "side18": 0,
+        "delta7Minus18": 2
+      }
+    },
+    {
+      "N": 181,
+      "maxSide7": 2,
+      "maxSide18": 3,
+      "maxSide7Outsider": 38,
+      "maxSide18Outsider": 41,
+      "maxSide18Minus7": 1,
+      "maxPerOutsider18Minus7": 1,
+      "maxPerOutsider7Minus18": 2,
+      "perOutsider18Winner": {
+        "outsider": 41,
+        "side7": 2,
+        "side18": 3,
+        "delta18Minus7": 1
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 2,
+        "side18": 0,
+        "delta7Minus18": 2
+      }
+    },
+    {
+      "N": 182,
+      "maxSide7": 2,
+      "maxSide18": 3,
+      "maxSide7Outsider": 38,
+      "maxSide18Outsider": 41,
+      "maxSide18Minus7": 1,
+      "maxPerOutsider18Minus7": 1,
+      "maxPerOutsider7Minus18": 2,
+      "perOutsider18Winner": {
+        "outsider": 41,
+        "side7": 2,
+        "side18": 3,
+        "delta18Minus7": 1
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 2,
+        "side18": 0,
+        "delta7Minus18": 2
+      }
+    },
+    {
+      "N": 183,
+      "maxSide7": 2,
+      "maxSide18": 3,
+      "maxSide7Outsider": 38,
+      "maxSide18Outsider": 41,
+      "maxSide18Minus7": 1,
+      "maxPerOutsider18Minus7": 1,
+      "maxPerOutsider7Minus18": 2,
+      "perOutsider18Winner": {
+        "outsider": 41,
+        "side7": 2,
+        "side18": 3,
+        "delta18Minus7": 1
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 2,
+        "side18": 0,
+        "delta7Minus18": 2
+      }
+    },
+    {
+      "N": 184,
+      "maxSide7": 2,
+      "maxSide18": 3,
+      "maxSide7Outsider": 38,
+      "maxSide18Outsider": 41,
+      "maxSide18Minus7": 1,
+      "maxPerOutsider18Minus7": 1,
+      "maxPerOutsider7Minus18": 2,
+      "perOutsider18Winner": {
+        "outsider": 41,
+        "side7": 2,
+        "side18": 3,
+        "delta18Minus7": 1
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 2,
+        "side18": 0,
+        "delta7Minus18": 2
+      }
+    },
+    {
+      "N": 185,
+      "maxSide7": 2,
+      "maxSide18": 3,
+      "maxSide7Outsider": 38,
+      "maxSide18Outsider": 41,
+      "maxSide18Minus7": 1,
+      "maxPerOutsider18Minus7": 1,
+      "maxPerOutsider7Minus18": 2,
+      "perOutsider18Winner": {
+        "outsider": 41,
+        "side7": 2,
+        "side18": 3,
+        "delta18Minus7": 1
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 2,
+        "side18": 0,
+        "delta7Minus18": 2
+      }
+    },
+    {
+      "N": 186,
+      "maxSide7": 2,
+      "maxSide18": 3,
+      "maxSide7Outsider": 38,
+      "maxSide18Outsider": 41,
+      "maxSide18Minus7": 1,
+      "maxPerOutsider18Minus7": 1,
+      "maxPerOutsider7Minus18": 2,
+      "perOutsider18Winner": {
+        "outsider": 41,
+        "side7": 2,
+        "side18": 3,
+        "delta18Minus7": 1
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 2,
+        "side18": 0,
+        "delta7Minus18": 2
+      }
+    },
+    {
+      "N": 187,
+      "maxSide7": 2,
+      "maxSide18": 3,
+      "maxSide7Outsider": 38,
+      "maxSide18Outsider": 41,
+      "maxSide18Minus7": 1,
+      "maxPerOutsider18Minus7": 1,
+      "maxPerOutsider7Minus18": 2,
+      "perOutsider18Winner": {
+        "outsider": 41,
+        "side7": 2,
+        "side18": 3,
+        "delta18Minus7": 1
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 2,
+        "side18": 0,
+        "delta7Minus18": 2
+      }
+    },
+    {
+      "N": 188,
+      "maxSide7": 2,
+      "maxSide18": 3,
+      "maxSide7Outsider": 38,
+      "maxSide18Outsider": 41,
+      "maxSide18Minus7": 1,
+      "maxPerOutsider18Minus7": 1,
+      "maxPerOutsider7Minus18": 2,
+      "perOutsider18Winner": {
+        "outsider": 41,
+        "side7": 2,
+        "side18": 3,
+        "delta18Minus7": 1
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 2,
+        "side18": 0,
+        "delta7Minus18": 2
+      }
+    },
+    {
+      "N": 189,
+      "maxSide7": 2,
+      "maxSide18": 3,
+      "maxSide7Outsider": 38,
+      "maxSide18Outsider": 41,
+      "maxSide18Minus7": 1,
+      "maxPerOutsider18Minus7": 1,
+      "maxPerOutsider7Minus18": 2,
+      "perOutsider18Winner": {
+        "outsider": 41,
+        "side7": 2,
+        "side18": 3,
+        "delta18Minus7": 1
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 2,
+        "side18": 0,
+        "delta7Minus18": 2
+      }
+    },
+    {
+      "N": 190,
+      "maxSide7": 2,
+      "maxSide18": 3,
+      "maxSide7Outsider": 38,
+      "maxSide18Outsider": 41,
+      "maxSide18Minus7": 1,
+      "maxPerOutsider18Minus7": 1,
+      "maxPerOutsider7Minus18": 2,
+      "perOutsider18Winner": {
+        "outsider": 41,
+        "side7": 2,
+        "side18": 3,
+        "delta18Minus7": 1
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 2,
+        "side18": 0,
+        "delta7Minus18": 2
+      }
+    },
+    {
+      "N": 191,
+      "maxSide7": 2,
+      "maxSide18": 3,
+      "maxSide7Outsider": 38,
+      "maxSide18Outsider": 41,
+      "maxSide18Minus7": 1,
+      "maxPerOutsider18Minus7": 1,
+      "maxPerOutsider7Minus18": 2,
+      "perOutsider18Winner": {
+        "outsider": 41,
+        "side7": 2,
+        "side18": 3,
+        "delta18Minus7": 1
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 2,
+        "side18": 0,
+        "delta7Minus18": 2
+      }
+    },
+    {
+      "N": 192,
+      "maxSide7": 2,
+      "maxSide18": 3,
+      "maxSide7Outsider": 38,
+      "maxSide18Outsider": 41,
+      "maxSide18Minus7": 1,
+      "maxPerOutsider18Minus7": 1,
+      "maxPerOutsider7Minus18": 2,
+      "perOutsider18Winner": {
+        "outsider": 41,
+        "side7": 2,
+        "side18": 3,
+        "delta18Minus7": 1
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 2,
+        "side18": 0,
+        "delta7Minus18": 2
+      }
+    },
+    {
+      "N": 193,
+      "maxSide7": 2,
+      "maxSide18": 3,
+      "maxSide7Outsider": 38,
+      "maxSide18Outsider": 41,
+      "maxSide18Minus7": 1,
+      "maxPerOutsider18Minus7": 1,
+      "maxPerOutsider7Minus18": 1,
+      "perOutsider18Winner": {
+        "outsider": 41,
+        "side7": 2,
+        "side18": 3,
+        "delta18Minus7": 1
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 2,
+        "side18": 1,
+        "delta7Minus18": 1
+      }
+    },
+    {
+      "N": 194,
+      "maxSide7": 2,
+      "maxSide18": 3,
+      "maxSide7Outsider": 38,
+      "maxSide18Outsider": 41,
+      "maxSide18Minus7": 1,
+      "maxPerOutsider18Minus7": 1,
+      "maxPerOutsider7Minus18": 1,
+      "perOutsider18Winner": {
+        "outsider": 41,
+        "side7": 2,
+        "side18": 3,
+        "delta18Minus7": 1
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 2,
+        "side18": 1,
+        "delta7Minus18": 1
+      }
+    },
+    {
+      "N": 195,
+      "maxSide7": 2,
+      "maxSide18": 3,
+      "maxSide7Outsider": 38,
+      "maxSide18Outsider": 41,
+      "maxSide18Minus7": 1,
+      "maxPerOutsider18Minus7": 1,
+      "maxPerOutsider7Minus18": 1,
+      "perOutsider18Winner": {
+        "outsider": 41,
+        "side7": 2,
+        "side18": 3,
+        "delta18Minus7": 1
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 2,
+        "side18": 1,
+        "delta7Minus18": 1
+      }
+    },
+    {
+      "N": 196,
+      "maxSide7": 2,
+      "maxSide18": 3,
+      "maxSide7Outsider": 38,
+      "maxSide18Outsider": 41,
+      "maxSide18Minus7": 1,
+      "maxPerOutsider18Minus7": 1,
+      "maxPerOutsider7Minus18": 1,
+      "perOutsider18Winner": {
+        "outsider": 41,
+        "side7": 2,
+        "side18": 3,
+        "delta18Minus7": 1
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 2,
+        "side18": 1,
+        "delta7Minus18": 1
+      }
+    },
+    {
+      "N": 197,
+      "maxSide7": 2,
+      "maxSide18": 3,
+      "maxSide7Outsider": 38,
+      "maxSide18Outsider": 41,
+      "maxSide18Minus7": 1,
+      "maxPerOutsider18Minus7": 1,
+      "maxPerOutsider7Minus18": 1,
+      "perOutsider18Winner": {
+        "outsider": 41,
+        "side7": 2,
+        "side18": 3,
+        "delta18Minus7": 1
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 2,
+        "side18": 1,
+        "delta7Minus18": 1
+      }
+    },
+    {
+      "N": 198,
+      "maxSide7": 2,
+      "maxSide18": 3,
+      "maxSide7Outsider": 38,
+      "maxSide18Outsider": 41,
+      "maxSide18Minus7": 1,
+      "maxPerOutsider18Minus7": 1,
+      "maxPerOutsider7Minus18": 1,
+      "perOutsider18Winner": {
+        "outsider": 41,
+        "side7": 2,
+        "side18": 3,
+        "delta18Minus7": 1
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 2,
+        "side18": 1,
+        "delta7Minus18": 1
+      }
+    },
+    {
+      "N": 199,
+      "maxSide7": 2,
+      "maxSide18": 3,
+      "maxSide7Outsider": 38,
+      "maxSide18Outsider": 41,
+      "maxSide18Minus7": 1,
+      "maxPerOutsider18Minus7": 1,
+      "maxPerOutsider7Minus18": 1,
+      "perOutsider18Winner": {
+        "outsider": 41,
+        "side7": 2,
+        "side18": 3,
+        "delta18Minus7": 1
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 2,
+        "side18": 1,
+        "delta7Minus18": 1
+      }
+    },
+    {
+      "N": 200,
+      "maxSide7": 2,
+      "maxSide18": 3,
+      "maxSide7Outsider": 38,
+      "maxSide18Outsider": 41,
+      "maxSide18Minus7": 1,
+      "maxPerOutsider18Minus7": 1,
+      "maxPerOutsider7Minus18": 1,
+      "perOutsider18Winner": {
+        "outsider": 41,
+        "side7": 2,
+        "side18": 3,
+        "delta18Minus7": 1
+      },
+      "perOutsider7Winner": {
+        "outsider": 38,
+        "side7": 2,
+        "side18": 1,
+        "delta7Minus18": 1
+      }
+    }
+  ],
+  "boundary": {
+    "claimLevel": "bounded_scout_not_proof",
+    "note": "This scout compares principal-base compatibility counts on a finite interval only. It does not prove all-N base-side domination.",
+    "nextUse": "A one-sided 7 mod 25 base mask is not safe on this bounded scout; a two-sided structural verifier is needed."
+  }
+}

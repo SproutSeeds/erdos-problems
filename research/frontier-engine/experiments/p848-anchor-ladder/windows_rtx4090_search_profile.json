@@ -1,0 +1,34 @@
+{
+  "profile_id": "p848_anchor_ladder_windows_rtx4090_v1",
+  "lane_id": "p848_anchor_ladder",
+  "hardware_profile": "windows_rtx4090",
+  "prefix_anchors": [7, 32, 57, 82, 132, 182],
+  "candidate_mode": "ladder-sweep",
+  "candidates": [],
+  "base_tail": 332,
+  "ladder_step": 50,
+  "ladder_rounds": 10,
+  "perturb_offsets": [0, -5, 5],
+  "direct_threshold": 250000001,
+  "direct_max": 250050000,
+  "top_k": 12,
+  "runtime_mode": "torch",
+  "device": "auto",
+  "search_backend": "batched_anchor_tail_scan",
+  "n_chunk_size": 4096,
+  "value_chunk_size": 65536,
+  "prime_square_chunk_size": 256,
+  "output_dir": "research/frontier-engine/artifacts/p848-anchor-ladder",
+  "candidate_scan_kind": "many_tails_many_n",
+  "signal_objectives": [
+    "maximize direct clean-through range",
+    "rank continuations by repaired packet count",
+    "cluster first failures by CRT-locked residue class",
+    "identify whether +50 steps escape a stable obstruction menu"
+  ],
+  "notes": [
+    "This lane is ideal for GPU batching because many tail continuations can be scanned across many n values in parallel.",
+    "The first implementation target is batched continuation scoring, not theorem claiming.",
+    "The exact objective is to turn the observed repair ladder into a stable structural menu of obstruction packets."
+  ]
+}

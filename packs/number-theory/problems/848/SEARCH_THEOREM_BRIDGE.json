@@ -1,0 +1,530 @@
+{
+  "schema": "frontier_engine.p848_search_theorem_bridge/1",
+  "generated_at_utc": "2026-04-12T10:07:04Z",
+  "problem_id": "848",
+  "shared_prefix": [
+    7,
+    32,
+    57,
+    82,
+    132,
+    182
+  ],
+  "sources": {
+    "live_frontier_root": "/Volumes/Code_2TB/code/erdos-problems/research/frontier-engine/experiments/p848-anchor-ladder/live-frontier-sync/2026-04-05",
+    "family_menu_source_path": "/Volumes/Code_2TB/code/erdos-problems/research/frontier-engine/experiments/p848-anchor-ladder/live-frontier-sync/2026-04-05/SIX_PREFIX_TWENTY_FOUR_FAMILY_MENU.json",
+    "gpu_manifest_path": "/Volumes/Code_2TB/code/erdos-problems/research/frontier-engine/artifacts/p848-anchor-ladder/p848_anchor_ladder-seeds-20260408T165349Z/manifest.json"
+  },
+  "current_bridge_state": {
+    "shared_prefix_failure_count": 24,
+    "latest_shared_prefix_failure": 136702637,
+    "family_menu_count": 280,
+    "known_family_matches": 25,
+    "next_unmatched_representative": 137720141,
+    "next_unmatched_matches_282_failure": true,
+    "strongest_completed_structured_tail": {
+      "continuation": 332,
+      "clean_through": 250000000
+    },
+    "current_family_aware_leader": {
+      "continuation": 432,
+      "repaired_known_packets": 26,
+      "repaired_predicted_families": 242,
+      "effective_clean_through": 250075000
+    },
+    "top_gpu_tie_class": [
+      432,
+      782,
+      832
+    ],
+    "recent_pool_expansion_moduli": [
+      1369,
+      841,
+      17161,
+      1849
+    ]
+  },
+  "shared_prefix_packet_ledger": [
+    {
+      "n": 90512581,
+      "tuple_key": "4, 7^2, 11^2, 13^2, 19^2, 9",
+      "square_moduli": [
+        4,
+        49,
+        121,
+        169,
+        361,
+        9
+      ],
+      "new_square_moduli": [
+        4,
+        49,
+        121,
+        169,
+        361,
+        9
+      ],
+      "packet_path": "/Volumes/Code_2TB/code/erdos-problems/research/frontier-engine/experiments/p848-anchor-ladder/live-frontier-sync/2026-04-05/chunks/six_anchor_frontier_after_eighteenth_failure/ANCHOR_FIRST_FAILURE_7_32_57_82_132_182_90036164_to_90512581.json",
+      "singleton_crt_path": "/Volumes/Code_2TB/code/erdos-problems/research/frontier-engine/experiments/p848-anchor-ladder/live-frontier-sync/2026-04-05/ANCHOR_SINGLETON_CRT_90512581.json",
+      "singleton_crt_modulus": null,
+      "singleton_crt_residue": null
+    },
+    {
+      "n": 102428617,
+      "tuple_key": "2^7, 19^2, 13^2, 7^2, 17^2, 9",
+      "square_moduli": [
+        4,
+        361,
+        169,
+        49,
+        289,
+        9
+      ],
+      "new_square_moduli": [
+        289
+      ],
+      "packet_path": "/Volumes/Code_2TB/code/erdos-problems/research/frontier-engine/experiments/p848-anchor-ladder/live-frontier-sync/2026-04-05/chunks/six_anchor_frontier_after_nineteenth_failure/ANCHOR_FIRST_FAILURE_7_32_57_82_132_182_101512582_to_102428617.json",
+      "singleton_crt_path": "/Volumes/Code_2TB/code/erdos-problems/research/frontier-engine/experiments/p848-anchor-ladder/live-frontier-sync/2026-04-05/ANCHOR_SINGLETON_CRT_102428617.json",
+      "singleton_crt_modulus": null,
+      "singleton_crt_residue": null
+    },
+    {
+      "n": 106393589,
+      "tuple_key": "4, 37^2, 11^2, 9, 7^2, 17^2",
+      "square_moduli": [
+        4,
+        1369,
+        121,
+        9,
+        49,
+        289
+      ],
+      "new_square_moduli": [
+        1369
+      ],
+      "packet_path": "/Volumes/Code_2TB/code/erdos-problems/research/frontier-engine/experiments/p848-anchor-ladder/live-frontier-sync/2026-04-05/chunks/six_anchor_frontier_after_twentieth_failure/ANCHOR_FIRST_FAILURE_7_32_57_82_132_182_105428618_to_106393589.json",
+      "singleton_crt_path": "/Volumes/Code_2TB/code/erdos-problems/research/frontier-engine/experiments/p848-anchor-ladder/live-frontier-sync/2026-04-05/ANCHOR_SINGLETON_CRT_106393589.json",
+      "singleton_crt_modulus": null,
+      "singleton_crt_residue": null
+    },
+    {
+      "n": 127484267,
+      "tuple_key": "9, 17^2, 4, 29^2, 7^2, 11^2",
+      "square_moduli": [
+        9,
+        289,
+        4,
+        841,
+        49,
+        121
+      ],
+      "new_square_moduli": [
+        841
+      ],
+      "packet_path": "/Volumes/Code_2TB/code/erdos-problems/research/frontier-engine/experiments/p848-anchor-ladder/live-frontier-sync/2026-04-05/chunks/six_anchor_frontier_after_twenty_first_failure/ANCHOR_FIRST_FAILURE_7_32_57_82_132_182_127393590_to_127484267.json",
+      "singleton_crt_path": "/Volumes/Code_2TB/code/erdos-problems/research/frontier-engine/experiments/p848-anchor-ladder/live-frontier-sync/2026-04-05/ANCHOR_SINGLETON_CRT_127484267.json",
+      "singleton_crt_modulus": null,
+      "singleton_crt_residue": null
+    },
+    {
+      "n": 127682743,
+      "tuple_key": "131^2, 11^2, 2^6, 29^2, 13^2, 9",
+      "square_moduli": [
+        17161,
+        121,
+        4,
+        841,
+        169,
+        9
+      ],
+      "new_square_moduli": [
+        17161
+      ],
+      "packet_path": "/Volumes/Code_2TB/code/erdos-problems/research/frontier-engine/experiments/p848-anchor-ladder/live-frontier-sync/2026-04-05/chunks/six_anchor_frontier_after_twenty_second_failure/ANCHOR_FIRST_FAILURE_7_32_57_82_132_182_127484268_to_128484267.json",
+      "singleton_crt_path": "/Volumes/Code_2TB/code/erdos-problems/research/frontier-engine/experiments/p848-anchor-ladder/live-frontier-sync/2026-04-05/ANCHOR_SINGLETON_CRT_127682743.json",
+      "singleton_crt_modulus": null,
+      "singleton_crt_residue": null
+    },
+    {
+      "n": 136702637,
+      "tuple_key": "4, 43^2, 11^2, 9, 7^3, 19^2",
+      "square_moduli": [
+        4,
+        1849,
+        121,
+        9,
+        49,
+        361
+      ],
+      "new_square_moduli": [
+        1849
+      ],
+      "packet_path": "/Volumes/Code_2TB/code/erdos-problems/research/frontier-engine/experiments/p848-anchor-ladder/live-frontier-sync/2026-04-05/chunks/six_anchor_frontier_after_twenty_third_failure/ANCHOR_FIRST_FAILURE_7_32_57_82_132_182_136682744_to_137682743.json",
+      "singleton_crt_path": "/Volumes/Code_2TB/code/erdos-problems/research/frontier-engine/experiments/p848-anchor-ladder/live-frontier-sync/2026-04-05/ANCHOR_SINGLETON_CRT_136702637.json",
+      "singleton_crt_modulus": null,
+      "singleton_crt_residue": null
+    }
+  ],
+  "tracked_tail_matrix": [
+    {
+      "continuation": 157,
+      "observed_status": "fails",
+      "observed_clean_through": null,
+      "observed_first_failure": 19094395,
+      "repaired_known_packets": 16,
+      "missed_known_packets": 10,
+      "repaired_known_family_count": 14,
+      "repaired_predicted_family_count": 110,
+      "first_missed_predicted_representatives": [
+        144139279,
+        152156551,
+        160007135,
+        170465989,
+        187536119,
+        210290957,
+        230927471,
+        241546751
+      ],
+      "effective_clean_through": 19094394,
+      "effective_first_failure": 19094395,
+      "extension_mode": "historical_failure_locked",
+      "direct_scan_performed": false,
+      "direct_scan_skipped": true,
+      "plus50_alignment": false
+    },
+    {
+      "continuation": 232,
+      "observed_status": "fails",
+      "observed_clean_through": null,
+      "observed_first_failure": 27949928,
+      "repaired_known_packets": 20,
+      "missed_known_packets": 6,
+      "repaired_known_family_count": 20,
+      "repaired_predicted_family_count": 201,
+      "first_missed_predicted_representatives": [
+        160007135,
+        187536119,
+        193809001,
+        210290957,
+        248711747,
+        248711747,
+        277343771,
+        287180657
+      ],
+      "effective_clean_through": 27949927,
+      "effective_first_failure": 27949928,
+      "extension_mode": "historical_failure_locked",
+      "direct_scan_performed": false,
+      "direct_scan_skipped": true,
+      "plus50_alignment": true
+    },
+    {
+      "continuation": 282,
+      "observed_status": "fails",
+      "observed_clean_through": null,
+      "observed_first_failure": 137720141,
+      "repaired_known_packets": 25,
+      "missed_known_packets": 1,
+      "repaired_known_family_count": 25,
+      "repaired_predicted_family_count": 244,
+      "first_missed_predicted_representatives": [
+        137720141,
+        210290957,
+        287180657,
+        287180657,
+        517124182,
+        525631657,
+        1229502607,
+        1654841707
+      ],
+      "effective_clean_through": 137720140,
+      "effective_first_failure": 137720141,
+      "extension_mode": "historical_failure_locked",
+      "direct_scan_performed": false,
+      "direct_scan_skipped": true,
+      "plus50_alignment": true
+    },
+    {
+      "continuation": 332,
+      "observed_status": "clean_through",
+      "observed_clean_through": 250000000,
+      "observed_first_failure": null,
+      "repaired_known_packets": 26,
+      "missed_known_packets": 0,
+      "repaired_known_family_count": 25,
+      "repaired_predicted_family_count": 240,
+      "first_missed_predicted_representatives": [
+        210290957,
+        287180657,
+        287180657,
+        517124182,
+        525631657,
+        657348925,
+        695323423,
+        885528547
+      ],
+      "effective_clean_through": 250050000,
+      "effective_first_failure": null,
+      "extension_mode": "contiguous_clean_extension",
+      "direct_scan_performed": true,
+      "direct_scan_skipped": false,
+      "plus50_alignment": true
+    },
+    {
+      "continuation": 382,
+      "observed_status": "unseen",
+      "observed_clean_through": null,
+      "observed_first_failure": null,
+      "repaired_known_packets": 26,
+      "missed_known_packets": 0,
+      "repaired_known_family_count": 25,
+      "repaired_predicted_family_count": 240,
+      "first_missed_predicted_representatives": [
+        210290957,
+        287180657,
+        287180657,
+        342292837,
+        517124182,
+        520923103,
+        525631657,
+        537246638
+      ],
+      "effective_clean_through": 250050000,
+      "effective_first_failure": null,
+      "extension_mode": "direct_window_only",
+      "direct_scan_performed": true,
+      "direct_scan_skipped": false,
+      "plus50_alignment": true
+    },
+    {
+      "continuation": 432,
+      "observed_status": "unseen",
+      "observed_clean_through": null,
+      "observed_first_failure": null,
+      "repaired_known_packets": 26,
+      "missed_known_packets": 0,
+      "repaired_known_family_count": 25,
+      "repaired_predicted_family_count": 242,
+      "first_missed_predicted_representatives": [
+        210290957,
+        287180657,
+        287180657,
+        457148843,
+        517124182,
+        525631657,
+        770426585,
+        1229502607
+      ],
+      "effective_clean_through": 250050000,
+      "effective_first_failure": null,
+      "extension_mode": "direct_window_only",
+      "direct_scan_performed": true,
+      "direct_scan_skipped": false,
+      "plus50_alignment": true
+    },
+    {
+      "continuation": 782,
+      "observed_status": "unseen",
+      "observed_clean_through": null,
+      "observed_first_failure": null,
+      "repaired_known_packets": 26,
+      "missed_known_packets": 0,
+      "repaired_known_family_count": 25,
+      "repaired_predicted_family_count": 242,
+      "first_missed_predicted_representatives": [
+        210290957,
+        287180657,
+        287180657,
+        517124182,
+        525631657,
+        695323423,
+        1079001739,
+        1229502607
+      ],
+      "effective_clean_through": 250050000,
+      "effective_first_failure": null,
+      "extension_mode": "direct_window_only",
+      "direct_scan_performed": true,
+      "direct_scan_skipped": false,
+      "plus50_alignment": true
+    },
+    {
+      "continuation": 832,
+      "observed_status": "unseen",
+      "observed_clean_through": null,
+      "observed_first_failure": null,
+      "repaired_known_packets": 26,
+      "missed_known_packets": 0,
+      "repaired_known_family_count": 25,
+      "repaired_predicted_family_count": 242,
+      "first_missed_predicted_representatives": [
+        210290957,
+        287180657,
+        287180657,
+        517124182,
+        525631657,
+        1229502607,
+        1446717451,
+        1654841707
+      ],
+      "effective_clean_through": 250050000,
+      "effective_first_failure": null,
+      "extension_mode": "direct_window_only",
+      "direct_scan_performed": true,
+      "direct_scan_skipped": false,
+      "plus50_alignment": true
+    }
+  ],
+  "gpu_leaderboard": [
+    {
+      "rank": 1,
+      "continuation": 432,
+      "repaired_known_packets": 26,
+      "repaired_predicted_families": 242,
+      "direct_clean_through": 250075000,
+      "effective_clean_through": 250075000
+    },
+    {
+      "rank": 2,
+      "continuation": 782,
+      "repaired_known_packets": 26,
+      "repaired_predicted_families": 242,
+      "direct_clean_through": 250075000,
+      "effective_clean_through": 250075000
+    },
+    {
+      "rank": 3,
+      "continuation": 832,
+      "repaired_known_packets": 26,
+      "repaired_predicted_families": 242,
+      "direct_clean_through": 250075000,
+      "effective_clean_through": 250075000
+    },
+    {
+      "rank": 4,
+      "continuation": 332,
+      "repaired_known_packets": 26,
+      "repaired_predicted_families": 240,
+      "direct_clean_through": 250075000,
+      "effective_clean_through": 250075000
+    },
+    {
+      "rank": 5,
+      "continuation": 382,
+      "repaired_known_packets": 26,
+      "repaired_predicted_families": 240,
+      "direct_clean_through": 250075000,
+      "effective_clean_through": 250075000
+    },
+    {
+      "rank": 6,
+      "continuation": 1232,
+      "repaired_known_packets": 26,
+      "repaired_predicted_families": 240,
+      "direct_clean_through": 250075000,
+      "effective_clean_through": 250075000
+    },
+    {
+      "rank": 7,
+      "continuation": 882,
+      "repaired_known_packets": 26,
+      "repaired_predicted_families": 236,
+      "direct_clean_through": 250075000,
+      "effective_clean_through": 250075000
+    },
+    {
+      "rank": 8,
+      "continuation": 1182,
+      "repaired_known_packets": 25,
+      "repaired_predicted_families": 242,
+      "direct_clean_through": 250075000,
+      "effective_clean_through": 250075000
+    },
+    {
+      "rank": 9,
+      "continuation": 582,
+      "repaired_known_packets": 25,
+      "repaired_predicted_families": 238,
+      "direct_clean_through": 250075000,
+      "effective_clean_through": 250075000
+    },
+    {
+      "rank": 10,
+      "continuation": 492,
+      "repaired_known_packets": 25,
+      "repaired_predicted_families": 233,
+      "direct_clean_through": 250075000,
+      "effective_clean_through": 250075000
+    },
+    {
+      "rank": 11,
+      "continuation": 942,
+      "repaired_known_packets": 25,
+      "repaired_predicted_families": 232,
+      "direct_clean_through": 250075000,
+      "effective_clean_through": 250075000
+    },
+    {
+      "rank": 12,
+      "continuation": 742,
+      "repaired_known_packets": 25,
+      "repaired_predicted_families": 231,
+      "direct_clean_through": 250075000,
+      "effective_clean_through": 250075000
+    },
+    {
+      "rank": 13,
+      "continuation": 642,
+      "repaired_known_packets": 25,
+      "repaired_predicted_families": 230,
+      "direct_clean_through": 250075000,
+      "effective_clean_through": 250075000
+    },
+    {
+      "rank": 14,
+      "continuation": 342,
+      "repaired_known_packets": 25,
+      "repaired_predicted_families": 229,
+      "direct_clean_through": 250075000,
+      "effective_clean_through": 250075000
+    },
+    {
+      "rank": 15,
+      "continuation": 672,
+      "repaired_known_packets": 24,
+      "repaired_predicted_families": 247,
+      "direct_clean_through": 250075000,
+      "effective_clean_through": 250075000
+    },
+    {
+      "rank": 16,
+      "continuation": 372,
+      "repaired_known_packets": 24,
+      "repaired_predicted_families": 245,
+      "direct_clean_through": 250075000,
+      "effective_clean_through": 250075000
+    }
+  ],
+  "candidate_theorem_hooks": [
+    {
+      "hook_id": "next_unmatched_equals_282_failure",
+      "status": "supported",
+      "detail": "The next unmatched shared-prefix representative currently coincides with the known first failure of the 282 continuation."
+    },
+    {
+      "hook_id": "completed_tail_vs_search_leader_split",
+      "status": "supported",
+      "detail": "The strongest completed structured tail remains 332, while the current family-aware search leader can move on the finite tested window."
+    },
+    {
+      "hook_id": "repair_pool_not_closed",
+      "status": "supported",
+      "detail": "Recent shared-prefix packets introduced new square moduli into the live family menu, so the repaired local square pool is not yet closed."
+    },
+    {
+      "hook_id": "top_repair_class_cluster",
+      "status": "supported",
+      "detail": "The current top continuation class shares the same repaired-known, repaired-predicted, and tested-clean-through profile on the live finite window."
+    }
+  ]
+}

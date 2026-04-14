@@ -1,0 +1,171 @@
+{
+  "schema": "erdos.problem_claim_loop/1",
+  "generatedAt": "2026-04-14T11:46:21.670Z",
+  "problemId": "1",
+  "displayName": "Erdos Problem #1",
+  "title": "Erdos Problem #1",
+  "cluster": "number-theory",
+  "sourceKind": "theorem_loop_only",
+  "claimLoopMode": "baseline",
+  "currentClaimSurface": "route_scaffolding",
+  "currentState": {
+    "theoremLoopMode": "baseline",
+    "activeRoute": "distinct_subset_sum_lower_bound",
+    "nextHonestMove": "Record the first reduction and checkpoint it without overclaiming theorem progress.",
+    "routeSummary": "Keep the problem centered on the exponential-growth lower-bound route implied by distinct subset sums.",
+    "sourceRefresh": null
+  },
+  "featureExtractors": [
+    {
+      "extractor_id": "pack_route_state",
+      "kind": "pack_context",
+      "scope": "all_problems",
+      "status": "ready",
+      "note": "Reads pack route, ticket, and atom state as the baseline theorem-search context."
+    },
+    {
+      "extractor_id": "theorem_loop_snapshot",
+      "kind": "theorem_loop",
+      "scope": "all_problems",
+      "status": "ready",
+      "note": "Uses the canonical theorem-loop as the current claim-surface ledger."
+    },
+    {
+      "extractor_id": "cluster_number_theory_features",
+      "kind": "cluster_adapter",
+      "scope": "number_theory",
+      "status": "ready",
+      "note": "Exposes number-theory specific finite-gap and verifier-facing metadata."
+    }
+  ],
+  "claimGenerators": [
+    {
+      "generator_id": "baseline_route_claims",
+      "kind": "route_state",
+      "scope": "all_problems",
+      "status": "ready",
+      "note": "Promotes active routes, ready atoms, and next-honest-move records into candidate claims."
+    },
+    {
+      "generator_id": "theorem_agenda_claims",
+      "kind": "agenda_projection",
+      "scope": "all_problems",
+      "status": "ready",
+      "note": "Turns theorem agenda items into explicit candidate claim tickets."
+    }
+  ],
+  "claimFalsifiers": [
+    {
+      "falsifier_id": "theorem_loop_consistency_check",
+      "kind": "ledger_consistency",
+      "scope": "all_problems",
+      "status": "ready",
+      "note": "Rejects claims that overstate the current theorem-loop claim surface."
+    },
+    {
+      "falsifier_id": "artifact_boundary_check",
+      "kind": "artifact_boundary",
+      "scope": "all_problems",
+      "status": "ready",
+      "note": "Rejects claims unsupported by canonical artifacts already present in the pack."
+    },
+    {
+      "falsifier_id": "exact_interval_counterexample_scan",
+      "kind": "exact_verifier",
+      "scope": "number_theory",
+      "status": "ready",
+      "note": "Uses bounded exact interval checks to kill false local claims quickly."
+    }
+  ],
+  "verifierAdapters": [
+    {
+      "adapter_id": "canonical_artifact_reader",
+      "kind": "artifact_reader",
+      "scope": "all_problems",
+      "status": "ready",
+      "note": "Reads theorem-loop, route, and pack artifacts as verifier-facing evidence."
+    },
+    {
+      "adapter_id": "exact_small_n",
+      "kind": "exact_verifier",
+      "scope": "number_theory",
+      "status": "ready",
+      "note": "Bounded exact verifier for finite interval certification."
+    }
+  ],
+  "candidateClaims": [
+    {
+      "claim_id": "promote_ready_atom",
+      "status": "ready",
+      "source": "theorem_agenda",
+      "summary": "Turn ready atom `N1.G1.A1` into the next theorem-facing checkpoint.",
+      "why": "Record the first reduction and checkpoint it without overclaiming theorem progress.",
+      "support": [
+        "active_route_recorded",
+        "ready_atom_present",
+        "frontier_note_present"
+      ]
+    },
+    {
+      "claim_id": "tighten_active_route_claim",
+      "status": "ready",
+      "source": "theorem_agenda",
+      "summary": "Compress the active route `distinct_subset_sum_lower_bound` into the next honest theorem-facing claim unit.",
+      "why": "Record the first reduction and checkpoint it without overclaiming theorem progress.",
+      "support": [
+        "active_route_recorded",
+        "ready_atom_present",
+        "frontier_note_present"
+      ]
+    }
+  ],
+  "theoremHooks": [
+    {
+      "hook_id": "active_route_recorded",
+      "status": "supported",
+      "note": "The pack records an active route, currently `distinct_subset_sum_lower_bound`."
+    },
+    {
+      "hook_id": "ready_atom_present",
+      "status": "supported",
+      "note": "The live route already has a ready atom, `N1.G1.A1`, which can feed the theorem lane."
+    },
+    {
+      "hook_id": "frontier_note_present",
+      "status": "supported",
+      "note": "The pack already carries a frontier note that can anchor theorem-facing updates."
+    }
+  ],
+  "theoremAgenda": [
+    {
+      "item_id": "promote_ready_atom",
+      "status": "ready",
+      "task": "Turn ready atom `N1.G1.A1` into the next theorem-facing checkpoint.",
+      "why": "Record the first reduction and checkpoint it without overclaiming theorem progress."
+    },
+    {
+      "item_id": "tighten_active_route_claim",
+      "status": "ready",
+      "task": "Compress the active route `distinct_subset_sum_lower_bound` into the next honest theorem-facing claim unit.",
+      "why": "Record the first reduction and checkpoint it without overclaiming theorem progress."
+    }
+  ],
+  "commands": {
+    "problemShow": "erdos problem show 1",
+    "problemArtifacts": "erdos problem artifacts 1",
+    "theoremLoop": "erdos problem theorem-loop 1",
+    "theoremLoopRefresh": "erdos problem theorem-loop-refresh 1",
+    "claimLoop": "erdos problem claim-loop 1",
+    "claimLoopRefresh": "erdos problem claim-loop-refresh 1",
+    "sourceRefresh": null
+  },
+  "sources": {
+    "claimLoopJsonPath": "/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/1/CLAIM_LOOP.json",
+    "claimLoopMarkdownPath": "/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/1/CLAIM_LOOP.md",
+    "theoremLoopJsonPath": "/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/1/THEOREM_LOOP.json",
+    "theoremLoopMarkdownPath": "/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/1/THEOREM_LOOP.md",
+    "legacyBridgeJsonPath": null,
+    "legacyBridgeMarkdownPath": null,
+    "packProblemDir": "/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/1"
+  }
+}

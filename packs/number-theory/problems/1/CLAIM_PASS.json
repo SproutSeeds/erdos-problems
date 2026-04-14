@@ -1,0 +1,119 @@
+{
+  "schema": "erdos.problem_claim_pass/1",
+  "generatedAt": "2026-04-14T11:46:21.685Z",
+  "problemId": "1",
+  "displayName": "Erdos Problem #1",
+  "title": "Erdos Problem #1",
+  "cluster": "number-theory",
+  "sourceKind": "claim_loop_only",
+  "claimPassMode": "baseline",
+  "currentClaimSurface": "route_scaffolding",
+  "currentState": {
+    "activeRoute": "distinct_subset_sum_lower_bound",
+    "nextHonestMove": "Record the first reduction and checkpoint it without overclaiming theorem progress.",
+    "routeSummary": "Keep the problem centered on the exponential-growth lower-bound route implied by distinct subset sums.",
+    "latestVerifiedInterval": null,
+    "sourceRefresh": null
+  },
+  "summary": {
+    "hooks": {
+      "total": 3,
+      "supported": 3,
+      "actionable": 0,
+      "unresolved": 0,
+      "broken": 0
+    },
+    "claims": {
+      "total": 2,
+      "supported": 0,
+      "actionable": 2,
+      "unresolved": 0,
+      "broken": 0
+    }
+  },
+  "hookAssessments": [
+    {
+      "hook_id": "active_route_recorded",
+      "verdict": "supported",
+      "status": "supported",
+      "evidenceClass": "route_state",
+      "theoremReady": false,
+      "rationale": "The pack records an active route, currently `distinct_subset_sum_lower_bound`.",
+      "nextAction": "promote_route_claim"
+    },
+    {
+      "hook_id": "ready_atom_present",
+      "verdict": "supported",
+      "status": "supported",
+      "evidenceClass": "ready_atom",
+      "theoremReady": false,
+      "rationale": "The live route already has a ready atom, `N1.G1.A1`, which can feed the theorem lane.",
+      "nextAction": "promote_ready_atom"
+    },
+    {
+      "hook_id": "frontier_note_present",
+      "verdict": "supported",
+      "status": "supported",
+      "evidenceClass": "frontier_note",
+      "theoremReady": false,
+      "rationale": "The pack already carries a frontier note that can anchor theorem-facing updates.",
+      "nextAction": "anchor_frontier_note"
+    }
+  ],
+  "claimAssessments": [
+    {
+      "claim_id": "promote_ready_atom",
+      "source": "theorem_agenda",
+      "verdict": "actionable",
+      "evidenceClass": "theorem_agenda",
+      "theoremReady": false,
+      "supportSatisfied": true,
+      "summary": "Turn ready atom `N1.G1.A1` into the next theorem-facing checkpoint.",
+      "rationale": "Record the first reduction and checkpoint it without overclaiming theorem progress.",
+      "nextAction": "promote_ready_atom"
+    },
+    {
+      "claim_id": "tighten_active_route_claim",
+      "source": "theorem_agenda",
+      "verdict": "actionable",
+      "evidenceClass": "theorem_agenda",
+      "theoremReady": false,
+      "supportSatisfied": true,
+      "summary": "Compress the active route `distinct_subset_sum_lower_bound` into the next honest theorem-facing claim unit.",
+      "rationale": "Record the first reduction and checkpoint it without overclaiming theorem progress.",
+      "nextAction": "tighten_active_route_claim"
+    }
+  ],
+  "recommendations": [
+    {
+      "recommendation_id": "promote_ready_atom",
+      "priority": "medium",
+      "lane": "theorem_formalization",
+      "reason": "Record the first reduction and checkpoint it without overclaiming theorem progress.",
+      "command": "erdos problem formalization 1"
+    }
+  ],
+  "commands": {
+    "problemShow": "erdos problem show 1",
+    "problemArtifacts": "erdos problem artifacts 1",
+    "theoremLoop": "erdos problem theorem-loop 1",
+    "theoremLoopRefresh": "erdos problem theorem-loop-refresh 1",
+    "claimLoop": "erdos problem claim-loop 1",
+    "claimLoopRefresh": "erdos problem claim-loop-refresh 1",
+    "claimPass": "erdos problem claim-pass 1",
+    "claimPassRefresh": "erdos problem claim-pass-refresh 1",
+    "sourceRefresh": null
+  },
+  "sources": {
+    "packProblemDir": "/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/1",
+    "theoremLoopJsonPath": "/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/1/THEOREM_LOOP.json",
+    "theoremLoopMarkdownPath": "/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/1/THEOREM_LOOP.md",
+    "claimLoopJsonPath": "/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/1/CLAIM_LOOP.json",
+    "claimLoopMarkdownPath": "/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/1/CLAIM_LOOP.md",
+    "claimPassJsonPath": "/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/1/CLAIM_PASS.json",
+    "claimPassMarkdownPath": "/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/1/CLAIM_PASS.md",
+    "legacyBridgeJsonPath": "/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/1/SEARCH_THEOREM_BRIDGE.json",
+    "legacyBridgeMarkdownPath": "/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/1/SEARCH_THEOREM_BRIDGE.md",
+    "intervalQueuePath": "/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/1/INTERVAL_WORK_QUEUE.yaml"
+  }
+}

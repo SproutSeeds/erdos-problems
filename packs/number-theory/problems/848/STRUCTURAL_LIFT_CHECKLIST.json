@@ -1,0 +1,379 @@
+{
+  "schema": "erdos.number_theory.p848_structural_lift_checklist/1",
+  "generatedAt": "2026-04-11T05:30:00.000Z",
+  "problemId": "848",
+  "title": "Problem 848 Structural Lift Checklist",
+  "status": "active",
+  "sourceArtifacts": {
+    "fullMixedBaseStructuralVerifier": "FULL_MIXED_BASE_STRUCTURAL_VERIFIER.json",
+    "structuralLiftMiner": "STRUCTURAL_LIFT_MINER.json",
+    "exactBaseCertificate": "EXACT_SMALL_N_1_40500_RESULTS.json"
+  },
+  "northStar": "Turn the bounded mixed-base structural verifier into an all-N proof lane by proving the cross-side matching reduction, then the p=13 and p=17 margin lifts, while keeping exact finite coverage separate.",
+  "currentFocus": {
+    "packetId": "D_matching_lower_bounds",
+    "targetStepId": "D4_matching_bound_implies_sMaxMixed_bound",
+    "firstActionableStepId": "D2_p13_matching_lower_bound",
+    "why": "The C graph-reduction packet is theorem-facing through C6, and D1 now extracts the bounded matching target from every current exact mixed-base threatening-outsider row. The next decisive lift is the symbolic p=13 matching lower bound, which is the tightest current D-lane family."
+  },
+  "completionRule": "Each step is complete only when it has a statement, hypotheses, proof sketch or proof artifact, falsifier boundary, dependencies, and the next downstream step updated.",
+  "phases": [
+    {
+      "phaseId": "A_counting_language",
+      "title": "Counting Language",
+      "goal": "Turn verifier counts into exact residue-count and floor-function terms.",
+      "steps": [
+        {
+          "stepId": "A1_residue_count_formula",
+          "status": "todo",
+          "statement": "# {m <= N : m == r mod q} = floor((N - r) / q) + 1 when N >= r, else 0.",
+          "dependsOn": [],
+          "proofType": "floor_count_identity",
+          "falsifierBoundary": "A boundary case with r <= 0, r > q, or N < r is mishandled."
+        },
+        {
+          "stepId": "A2_base_side_count_formula",
+          "status": "todo",
+          "statement": "|B7(N)| and |B18(N)| are residue counts modulo 25, and candidateSize(N) is their maximum.",
+          "dependsOn": [
+            "A1_residue_count_formula"
+          ],
+          "proofType": "floor_count_identity",
+          "falsifierBoundary": "The formula disagrees with the verifier's base-side candidate counts."
+        },
+        {
+          "stepId": "A3_root_progression_count_formula",
+          "status": "todo",
+          "statement": "For each witness prime p == 1 mod 4, n^2 + 1 == 0 mod p^2 has two Hensel-lifted root progressions, counted by residue-count formulas.",
+          "dependsOn": [
+            "A1_residue_count_formula"
+          ],
+          "proofType": "hensel_plus_floor_count",
+          "falsifierBoundary": "A root progression fails the n^2 + 1 == 0 mod p^2 check or the count disagrees with the verifier."
+        },
+        {
+          "stepId": "A4_vmax_formula",
+          "status": "todo",
+          "statement": "vMax(N,p) = max(rawPlus(N,p), rawMinus(N,p)).",
+          "dependsOn": [
+            "A3_root_progression_count_formula"
+          ],
+          "proofType": "definition_alignment",
+          "falsifierBoundary": "The verifier uses a different witness-count maximum."
+        },
+        {
+          "stepId": "A5_higher_root_event_count_formula",
+          "status": "todo",
+          "statement": "rGreater(N,p) is the sum of active root-event counts from witness-prime blocks q > p.",
+          "dependsOn": [
+            "A3_root_progression_count_formula"
+          ],
+          "proofType": "finite_sum_floor_count",
+          "falsifierBoundary": "A higher-prime event is double-counted, omitted, or ordered differently from the verifier."
+        }
+      ]
+    },
+    {
+      "phaseId": "B_compatibility_language",
+      "title": "Compatibility Language",
+      "goal": "Convert outsider/base compatibility into congruence conditions.",
+      "steps": [
+        {
+          "stepId": "B1_square_witness_compatibility",
+          "status": "todo",
+          "statement": "For fixed outsider x and base b, compatibility is witnessed by some prime square q^2 dividing x*b + 1.",
+          "dependsOn": [],
+          "proofType": "definition_alignment",
+          "falsifierBoundary": "The compatibility definition diverges from squarefree/non-squarefree semantics."
+        },
+        {
+          "stepId": "B2_residue_compatibility_condition",
+          "status": "todo",
+          "statement": "If gcd(x,q)=1, then q^2 | x*b + 1 iff b == -x^{-1} mod q^2.",
+          "dependsOn": [
+            "B1_square_witness_compatibility"
+          ],
+          "proofType": "modular_inverse_identity",
+          "falsifierBoundary": "A non-invertible x modulo q^2 is treated as invertible."
+        },
+        {
+          "stepId": "B3_noncoprime_exception_boundary",
+          "status": "todo",
+          "statement": "If gcd(x,q) != 1, compatibility is either impossible or recorded as a finite exception boundary before using inverse formulas.",
+          "dependsOn": [
+            "B2_residue_compatibility_condition"
+          ],
+          "proofType": "case_split",
+          "falsifierBoundary": "A noncoprime case creates a compatibility family not covered by the stated exception boundary."
+        },
+        {
+          "stepId": "B4_compatible_base_union_of_residue_hits",
+          "status": "todo",
+          "statement": "For fixed x and N, the compatible base set is the union of all base-side residue hits produced by active square witnesses.",
+          "dependsOn": [
+            "B1_square_witness_compatibility",
+            "B2_residue_compatibility_condition",
+            "B3_noncoprime_exception_boundary"
+          ],
+          "proofType": "finite_union_of_residue_classes",
+          "falsifierBoundary": "A compatible base vertex is missing from the union or an incompatible vertex is included."
+        }
+      ]
+    },
+    {
+      "phaseId": "C_graph_reduction_packet",
+      "title": "Mixed-Base Graph Reduction",
+      "goal": "Prove the graph identity used by the exact mixed-base verifier.",
+      "steps": [
+        {
+          "stepId": "C1_same_side_base_clique",
+          "status": "done",
+          "statement": "Inside one principal base side, compatible base vertices form a clique for the fixed outsider graph considered by the verifier.",
+          "dependsOn": [
+            "B4_compatible_base_union_of_residue_hits"
+          ],
+          "proofType": "mod25_same_side_clique_identity",
+          "proofArtifact": "p848_C1_same_side_base_clique_checker_v1",
+          "falsifierBoundary": "Two same-side compatible vertices fail the pair compatibility relation used by the verifier."
+        },
+        {
+          "stepId": "C2_two_cliques_plus_cross_edges",
+        "status": "done",
+        "statement": "For fixed outsider x, the compatible mixed-base graph is one clique on B7-compatible vertices, one clique on B18-compatible vertices, plus arbitrary cross edges.",
+        "dependsOn": [
+          "C1_same_side_base_clique"
+        ],
+        "proofType": "graph_decomposition",
+        "proofArtifact": "p848_C2_two_cliques_plus_cross_edges_checker_v1",
+        "falsifierBoundary": "The graph has a same-side missing edge or an extra vertex outside the two compatible sides."
+      },
+      {
+        "stepId": "C3_missing_cross_graph_definition",
+        "status": "done",
+        "statement": "Define H_{x,N} as the bipartite graph whose edges are precisely missing cross edges between compatible B7 and B18 vertices.",
+        "dependsOn": [
+          "C2_two_cliques_plus_cross_edges"
+        ],
+        "proofType": "definition",
+        "proofArtifact": "p848_C3_missing_cross_graph_definition_checker_v1",
+        "falsifierBoundary": "A cross edge is assigned the wrong sign between compatibility and missing-cross membership."
+      },
+      {
+        "stepId": "C4_clique_to_vertex_cover_duality",
+        "status": "done",
+        "statement": "A mixed-base clique equals all compatible vertices minus a vertex cover of H_{x,N}; hence max clique size is |L| + |R| minus minimum vertex cover size.",
+        "dependsOn": [
+          "C3_missing_cross_graph_definition"
+        ],
+        "proofType": "graph_duality",
+        "proofArtifact": "p848_C4_clique_to_vertex_cover_duality_checker_v1",
+        "falsifierBoundary": "A selected clique contains a missing cross edge or a vertex cover removes more vertices than necessary."
+      },
+      {
+        "stepId": "C5_konig_matching_reduction",
+        "status": "done",
+        "statement": "Because H_{x,N} is bipartite, minimum vertex cover size equals maximum matching size.",
+        "dependsOn": [
+          "C3_missing_cross_graph_definition"
+        ],
+        "proofType": "konig_theorem",
+        "proofArtifact": "p848_C5_konig_matching_reduction_checker_v1",
+        "falsifierBoundary": "H_{x,N} is not bipartite or Konig's theorem is used outside its hypotheses."
+      },
+      {
+        "stepId": "C6_mixed_clique_matching_formula",
+        "status": "done",
+        "statement": "sMixed(x,N) = |L| + |R| - maxMatching(H_{x,N}).",
+        "dependsOn": [
+          "C4_clique_to_vertex_cover_duality",
+          "C5_konig_matching_reduction"
+        ],
+        "proofType": "graph_formula",
+        "proofArtifact": "p848_C6_mixed_clique_matching_formula_checker_v1",
+        "falsifierBoundary": "The formula disagrees with the verifier's Hopcroft-Karp mixed-clique computation on a certified row."
+        }
+      ]
+    },
+    {
+      "phaseId": "D_matching_lower_bounds",
+      "title": "Matching Lower Bounds",
+      "goal": "Replace Hopcroft-Karp computation with symbolic matching constructions.",
+      "steps": [
+        {
+          "stepId": "D1_residue_block_matching_injection",
+          "status": "done",
+          "statement": "Extract the current residue-block matching target from all bounded exact mixed-base threatening-outsider rows: K(N,x) = |L| + |R| - strictBaseThreshold + 1, and the recorded matching saturates the smaller compatible side in every current row.",
+          "dependsOn": [
+            "C6_mixed_clique_matching_formula"
+          ],
+          "proofType": "bounded_matching_saturation_extraction",
+          "proofArtifact": "p848_D1_matching_saturation_bound_checker_v1",
+          "falsifierBoundary": "A refreshed exact mixed-base threatening-outsider row has matching below K(N,x), disagrees with the C6 formula replay, or fails the smaller-side saturation pattern. This bounded extraction is not yet the all-N symbolic matching proof."
+        },
+        {
+          "stepId": "D2_p13_matching_lower_bound",
+          "status": "next",
+          "statement": "For p=13 threatening rows, maxMatching(H_{x,N}) is at least the required matching bound extracted from the margin inequality.",
+          "dependsOn": [
+            "D1_residue_block_matching_injection"
+          ],
+          "proofType": "residue_family_matching_bound",
+          "falsifierBoundary": "A p=13 family row fails the claimed lower bound."
+        },
+        {
+          "stepId": "D3_p17_matching_lower_bound",
+          "status": "ready",
+          "statement": "For p=17 threatening rows, maxMatching(H_{x,N}) is at least the required matching bound extracted from the margin inequality.",
+          "dependsOn": [
+            "D1_residue_block_matching_injection"
+          ],
+          "proofType": "residue_family_matching_bound",
+          "falsifierBoundary": "A p=17 family row fails the claimed lower bound."
+        },
+        {
+          "stepId": "D4_matching_bound_implies_sMaxMixed_bound",
+          "status": "blocked_by_D2_D3",
+          "statement": "If maxMatching(H_{x,N}) >= K(N), then sMixed(x,N) <= |L| + |R| - K(N).",
+          "dependsOn": [
+            "C6_mixed_clique_matching_formula",
+            "D2_p13_matching_lower_bound",
+            "D3_p17_matching_lower_bound"
+          ],
+          "proofType": "inequality_substitution",
+          "falsifierBoundary": "The matching lower bound is substituted with the wrong inequality direction."
+        }
+      ]
+    },
+    {
+      "phaseId": "E_margin_lifts",
+      "title": "Margin Lifts",
+      "goal": "Prove eventual positivity of the structural margins.",
+      "steps": [
+        {
+          "stepId": "E1_p13_term_bound",
+          "status": "blocked_by_D4",
+          "statement": "Bound sMaxMixed, vMax, dMax, and rGreater for p=13 by explicit floor-function expressions.",
+          "dependsOn": [
+            "A_counting_language",
+            "D4_matching_bound_implies_sMaxMixed_bound"
+          ],
+          "proofType": "floor_function_bound",
+          "falsifierBoundary": "The symbolic bound is lower than a verifier row term."
+        },
+        {
+          "stepId": "E2_p13_margin_floor_inequality",
+          "status": "blocked_by_E1",
+          "statement": "candidateSize(N) - (sMixedBound13(N) + vMax13(N) + dMax13(N) + rGreater13(N)) > 0 for all N >= T13.",
+          "dependsOn": [
+            "E1_p13_term_bound"
+          ],
+          "proofType": "eventual_floor_inequality",
+          "falsifierBoundary": "A residue class modulo the proof period gives nonpositive margin beyond T13."
+        },
+        {
+          "stepId": "E3_p17_term_bound",
+          "status": "blocked_by_D4",
+          "statement": "Bound sMaxMixed, vMax, dMax, and rGreater for p=17 by explicit floor-function expressions.",
+          "dependsOn": [
+            "A_counting_language",
+            "D4_matching_bound_implies_sMaxMixed_bound"
+          ],
+          "proofType": "floor_function_bound",
+          "falsifierBoundary": "The symbolic bound is lower than a verifier row term."
+        },
+        {
+          "stepId": "E4_p17_margin_floor_inequality",
+          "status": "blocked_by_E3",
+          "statement": "candidateSize(N) - (sMixedBound17(N) + vMax17(N) + dMax17(N) + rGreater17(N)) > 0 for all N >= T17.",
+          "dependsOn": [
+            "E3_p17_term_bound"
+          ],
+          "proofType": "eventual_floor_inequality",
+          "falsifierBoundary": "A residue class modulo the proof period gives nonpositive margin beyond T17."
+        },
+        {
+          "stepId": "E5_easy_prime_union_tail",
+          "status": "blocked_by_A_counting",
+          "statement": "For witness primes outside {13,17}, the safe union-bound structural margin is eventually positive.",
+          "dependsOn": [
+            "A_counting_language"
+          ],
+          "proofType": "union_bound_tail_inequality",
+          "falsifierBoundary": "A non-{13,17} witness-prime block needs exact mixed-base repair beyond the finite verifier range."
+        }
+      ]
+    },
+    {
+      "phaseId": "F_finite_closure",
+      "title": "Finite Closure",
+      "goal": "Attach symbolic lemmas to existing finite certificates without overclaiming.",
+      "steps": [
+        {
+          "stepId": "F1_exact_base_certificate",
+          "status": "available",
+          "statement": "The exact verifier certifies N <= 40500.",
+          "dependsOn": [],
+          "proofType": "repo_artifact_certificate",
+          "falsifierBoundary": "The exact certificate is stale, missing, or fails rerun."
+        },
+        {
+          "stepId": "F2_bounded_structural_certificate",
+          "status": "available",
+          "statement": "The full mixed-base structural verifier certifies 7307..7600 with zero mixed failures.",
+          "dependsOn": [],
+          "proofType": "repo_artifact_certificate",
+          "falsifierBoundary": "The full verifier artifact loses allMixedChecksPass or its parameters drift."
+        },
+        {
+          "stepId": "F3_threshold_overlap",
+          "status": "blocked_by_E2_E4_E5",
+          "statement": "The symbolic thresholds T13, T17, and Ttail overlap the finite exact or structural certificates.",
+          "dependsOn": [
+            "E2_p13_margin_floor_inequality",
+            "E4_p17_margin_floor_inequality",
+            "E5_easy_prime_union_tail"
+          ],
+          "proofType": "interval_cover_check",
+          "falsifierBoundary": "A gap remains between the finite certificate end and a symbolic threshold."
+        },
+        {
+          "stepId": "F4_all_ranges_cover_positive_integers",
+          "status": "blocked_by_F3",
+          "statement": "Exact base plus symbolic structural lift cover all positive integers in the problem claim.",
+          "dependsOn": [
+            "F1_exact_base_certificate",
+            "F2_bounded_structural_certificate",
+            "F3_threshold_overlap"
+          ],
+          "proofType": "range_cover_argument",
+          "falsifierBoundary": "A positive integer N is covered by neither exact verification nor symbolic structural lift."
+        }
+      ]
+    }
+  ],
+  "recommendedNextSteps": [
+    {
+      "stepId": "prove_p13_matching_lower_bound",
+      "priority": "critical",
+      "task": "Prove the symbolic p=13 lower bound that explains why maxMatching(H_{x,N}) always reaches the D1-extracted K(N,x) target in the tightest current exact-mixed family.",
+      "command": "erdos problem formalization-work-refresh 848"
+    },
+    {
+      "stepId": "regression_check_C6_against_verifier",
+      "priority": "high",
+      "task": "Keep the discharged C6 mixed-clique matching formula regression-checked against representative full-verifier rows.",
+      "command": "erdos number-theory dispatch 848 --apply --action structural_lift_miner"
+    },
+    {
+      "stepId": "extract_p13_residue_matching_pattern",
+      "priority": "high",
+      "task": "For the top p=13 families, extract the residue-block pattern behind the smaller-side-saturating matchings so D2 can become a symbolic construction rather than bounded evidence.",
+      "command": "erdos number-theory dispatch 848 --apply --action structural_lift_miner"
+    }
+  ],
+  "boundary": {
+    "claimLevel": "task_checklist_not_proof",
+    "note": "This checklist records a proof plan and dependencies. It does not certify any new N by itself.",
+    "promotionRule": "Only mark a step done after the statement, hypotheses, proof/falsifier boundary, and downstream dependency updates are committed."
+  }
+}
