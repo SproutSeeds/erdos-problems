@@ -17,6 +17,29 @@ function printState(state) {
   console.log(`Current frontier: ${state.currentFrontier.kind} / ${state.currentFrontier.detail}`);
   console.log(`Route story: ${state.routeStory || '(none)'}`);
   console.log(`Checkpoint focus: ${state.checkpointFocus || '(none)'}`);
+  const frontierLoopLabel = state.frontierLoop?.suggested
+    ? `active (${state.frontierLoop?.mode ?? 'unknown'})`
+    : 'inactive';
+  console.log(`Frontier loop: ${frontierLoopLabel}`);
+  if (state.frontierLoop?.suggested) {
+    if (state.frontierLoop?.summary) {
+      console.log(`Frontier loop summary: ${state.frontierLoop.summary}`);
+    }
+    if (state.frontierLoop?.primaryCommand) {
+      console.log(`Frontier loop entry: ${state.frontierLoop.primaryCommand}`);
+    }
+    if (state.frontierLoop?.refreshCommand) {
+      console.log(`Frontier loop refresh: ${state.frontierLoop.refreshCommand}`);
+    }
+    if (state.frontierLoop?.mode === 'cpu' && state.frontierLoop?.upgradeCommand) {
+      console.log(`Frontier loop upgrade: ${state.frontierLoop.upgradeCommand}`);
+    }
+  } else if (state.frontierLoop?.activationCommand) {
+    console.log(`Frontier loop activation: ${state.frontierLoop.activationCommand}`);
+    if (state.frontierLoop?.upgradeCommand) {
+      console.log(`Frontier loop GPU path: ${state.frontierLoop.upgradeCommand}`);
+    }
+  }
   console.log(`Next honest move: ${state.nextHonestMove}`);
   console.log(`State markdown: ${getWorkspaceStateMarkdownPath()}`);
   console.log(`Question ledger: ${getWorkspaceQuestionLedgerPath()}`);

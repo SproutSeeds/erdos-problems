@@ -2,12 +2,19 @@ problem_id: "848"
 family_role: finite_check_number_theory_workspace
 harness_profile: decidable_gap_workspace
 default_active_route: finite_check_gap_closure
-bootstrap_focus: Treat Problem 848 as a finite-gap closure problem and freeze the certificate surface before claiming bounded verification progress.
-route_story: Problem 848 is already asymptotically resolved in public, but not yet closed here for all N. The honest job is to shrink the finite remainder with audited threshold tracking and reproducible bounded verification, beginning from the verified base interval `1..2000`.
+bootstrap_focus: Treat Problem 848 as a finite-gap closure problem and freeze
+  the certificate surface before claiming bounded verification progress.
+route_story: Problem 848 is already asymptotically resolved in public, but not
+  yet closed here for all N. The honest job is to shrink the finite remainder
+  with audited threshold tracking and reproducible bounded verification,
+  beginning from the verified base interval `1..40500`.
 frontier_label: finite_check_gap_closure
-frontier_detail: The repo now has a verified exact interval `1..2000`; the next question is whether to extend that exact scan further or change method class.
-checkpoint_focus: Preserve the distinction between existential N0, explicit N0, sample finite checks, and full closure.
-next_honest_move: Decide whether to extend the exact clique scan beyond `2000` or pivot to a different bounded-verification method.
+frontier_detail: The repo now has a verified exact interval `1..40500`; the next
+  question is whether to extend that exact scan further or change method class.
+checkpoint_focus: Preserve the distinction between existential N0, explicit N0,
+  sample finite checks, and full closure.
+next_honest_move: Decide whether to extend the exact clique scan beyond `40500`
+  or pivot to a different bounded-verification method.
 related_core_problems:
   - "844"
 literature_focus:
@@ -20,6 +27,7 @@ artifact_focus:
   - REFERENCES.md
   - EVIDENCE.md
   - FORMALIZATION.md
+  - SEARCH_THEOREM_BRIDGE.md
   - THRESHOLD_LEDGER.md
   - OPERATIONAL_THRESHOLD_POSTURE.md
   - BOUNDED_VERIFICATION_PLAN.md
@@ -27,22 +35,53 @@ artifact_focus:
   - VERIFICATION_CERTIFICATE_SPEC.md
   - EXTERNAL_VERIFICATION_LEDGER.md
   - INTERVAL_WORK_QUEUE.yaml
-  - EXACT_SMALL_N_1_2000_CERTIFICATE.md
+  - EXACT_SMALL_N_1_40500_CERTIFICATE.md
+frontier_loop:
+  enabled: true
+  title: frontier_engine_support_lane
+  summary: Use frontier-engine whenever the finite-check lane needs family-aware
+    search, GPU ranking, or a refreshed search/theorem bridge for Problem 848.
+  use_when:
+    - the theorem-facing lane needs a refreshed repair matrix or GPU leaderboard
+    - the current route is narrowing a finite gap via structured search rather
+      than pure archival review
+    - a GPU-equipped user can pressure-test continuation tails or family-menu
+      repairs more efficiently than the CPU path
+    - let the runtime choose `system`, `cpu`, or `gpu` execution automatically
+      based on the current frontier task
+  commands:
+    - erdos number-theory dispatch 848
+    - erdos number-theory bridge 848
+    - erdos frontier doctor
+    - erdos frontier setup --cpu
+    - erdos frontier setup --cuda --torch-index-url <url>
+    - erdos number-theory bridge-refresh 848
+  artifacts:
+    - SEARCH_THEOREM_BRIDGE.md
+    - SEARCH_THEOREM_BRIDGE.json
 question_ledger:
   open_questions:
-    - Which imported threshold value is trusted enough to size the finite remainder operationally?
-    - What certificate format is strong enough to prevent repeat low-trust verification claims?
-    - How far can the exact clique scan be pushed before a different method class is needed?
-    - Which public verification attempts are worth auditing rather than rebuilding from scratch?
+    - Which imported threshold value is trusted enough to size the finite
+      remainder operationally?
+    - What certificate format is strong enough to prevent repeat low-trust
+      verification claims?
+    - How far can the exact clique scan be pushed before a different method
+      class is needed?
+    - Which public verification attempts are worth auditing rather than
+      rebuilding from scratch?
   active_route_notes:
     - Keep the asymptotic theorem separate from the unresolved finite closure.
     - Keep imported threshold claims separate from repo-owned audited claims.
     - Prefer interval certificates to raw "checked up to X" claims.
-    - Use past public verification criticism as a design constraint, not just background chatter.
+    - Use past public verification criticism as a design constraint, not just
+      background chatter.
   route_breakthroughs:
     - Public asymptotic resolution by Sawhney is already in hand.
-    - The threshold ledger separating existential and explicit claims is now frozen.
-    - The repo now has an audited explicit candidate package distinct from the imported public threshold timeline.
-    - The repo has now chosen bounded finite verification as the next closure lane.
-    - The repo now has an exact verified base interval `1..2000`.
+    - The threshold ledger separating existential and explicit claims is now
+      frozen.
+    - The repo now has an audited explicit candidate package distinct from the
+      imported public threshold timeline.
+    - The repo has now chosen bounded finite verification as the next closure
+      lane.
+    - The repo now has an exact verified base interval `1..40500`.
   problem_solved: []

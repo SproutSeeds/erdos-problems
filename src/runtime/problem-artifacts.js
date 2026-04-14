@@ -75,12 +75,12 @@ export function getProblemArtifactInventory(problem) {
   const snapshot = loadActiveUpstreamSnapshot();
   const upstreamRecord = snapshot?.index?.by_number?.[problem.problemId] ?? null;
   const canonicalArtifacts = DOSSIER_FILES.map(([label, key, destinationName]) => {
-    const filePath = problem[key];
+    const filePath = problem[key] ?? path.join(problem.problemDir, label);
     return {
       label,
       path: filePath,
       destinationName,
-      exists: fs.existsSync(filePath),
+      exists: Boolean(filePath) && fs.existsSync(filePath),
     };
   });
   const starterArtifacts = STARTER_LOOP_FILES.map(([label, destinationName]) => {

@@ -16,7 +16,11 @@ import {
 } from './paths.js';
 import { getProblemArtifactInventory } from './problem-artifacts.js';
 import { getOrpStatus } from './orp.js';
+import { buildResearchStackSummary } from './research-stack.js';
 import { syncState } from './state.js';
+import { buildGraphTheoryStatusSnapshot } from './graph-theory.js';
+import { buildNumberTheoryStatusSnapshot } from './number-theory.js';
+import { buildSunflowerStatusSnapshot } from './sunflower.js';
 
 function checkpointPath(workspaceRoot) {
   return getWorkspaceCheckpointIndexPath(workspaceRoot);
@@ -30,6 +34,18 @@ export function buildPreflightReport(options = {}, workspaceRoot = getWorkspaceR
   const inventory = problem ? getProblemArtifactInventory(problem) : null;
   const orp = getOrpStatus(workspaceRoot);
   const git = gitSummary(workspaceRoot);
+  const clusterSnapshot = !problem
+    ? null
+    : problem.cluster === 'sunflower'
+      ? buildSunflowerStatusSnapshot(problem)
+      : problem.cluster === 'number-theory'
+        ? buildNumberTheoryStatusSnapshot(problem)
+        : problem.cluster === 'graph-theory'
+          ? buildGraphTheoryStatusSnapshot(problem)
+          : null;
+  const researchStack = problem && inventory
+    ? buildResearchStackSummary(problem, inventory, orp, clusterSnapshot)
+    : null;
 
   const checks = {
     erdosRuntime: {
@@ -111,6 +127,7 @@ export function buildPreflightReport(options = {}, workspaceRoot = getWorkspaceR
     activeAgent: config.preferredAgent,
     currentFrontier: state.currentFrontier,
     nextHonestMove: state.nextHonestMove,
+    researchStack,
     checks,
   };
 

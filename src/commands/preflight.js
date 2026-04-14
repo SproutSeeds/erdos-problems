@@ -37,6 +37,20 @@ export function runPreflightCommand(args) {
   console.log(`- Continuation policy: ${report.continuationDisplay}`);
   console.log(`- Current frontier: ${report.currentFrontier.kind} / ${report.currentFrontier.detail}`);
   console.log(`- Next honest move: ${report.nextHonestMove}`);
+  if (report.researchStack) {
+    console.log('- Research stack:');
+    console.log(`  - Canonical source: ${report.researchStack.canonicalSource.sourceUrl}`);
+    console.log(`  - Import snapshot: ${report.researchStack.canonicalSource.importSnapshotKind ?? '(missing)'}`);
+    console.log(`  - ORP sync: ${report.researchStack.localProtocol.commands.orpSync}`);
+    console.log(`  - Checkpoint sync: ${report.researchStack.localProtocol.commands.checkpointsSync}`);
+    console.log(`  - Theorem loop: ${report.researchStack.theorem.commands.show ?? '(none)'}`);
+    console.log(`  - Theorem refresh: ${report.researchStack.theorem.commands.refresh ?? '(none)'}`);
+    console.log(`  - Compute entry: ${report.researchStack.compute.entryCommand ?? '(none)'}`);
+    if (report.researchStack.compute.hardwareDoctorCommand) {
+      console.log(`  - Hardware doctor: ${report.researchStack.compute.hardwareDoctorCommand}`);
+    }
+    console.log(`  - Canonical writeback: ${report.researchStack.writeback.packagedRefreshCommand ?? '(none)'}`);
+  }
   console.log('Checks:');
   printChecks(report.checks);
   console.log(`Verdict: ${report.verdict}`);
