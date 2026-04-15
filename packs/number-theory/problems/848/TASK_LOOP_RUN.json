@@ -4544,5 +4544,9 @@
     "taskListMarkdownPath": "/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/TASK_LIST.md",
     "taskLoopRunJsonPath": "/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/TASK_LOOP_RUN.json",
     "taskLoopRunMarkdownPath": "/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/TASK_LOOP_RUN.md"
-  }
+  },
+  "bookkeepingStatus": "historical_run_log_not_current_interval_authority",
+  "currentIntervalAuthority": "EXACT_INTERVAL_BOOKKEEPING.md",
+  "publicRepoRawExactInterval": "1..10000",
+  "localIgnoredRolloutInterval": "1..40500"
 }

@@ -2,7 +2,7 @@
   "generatedAt": "2026-04-11T02:57:10.497Z",
   "method": "candidate_plateau_endpoint_monotonicity",
   "problemId": "848",
-  "sourceResultsPath": "/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/EXACT_SMALL_N_1_40500_RESULTS.json",
+  "sourceResultsPath": "output/p848-exact-small-n-rollouts/EXACT_SMALL_N_1_40500_RESULTS.json",
   "status": "certified_from_endpoint_monotonicity",
   "summary": {
     "interval": "1..40500",
@@ -19482,5 +19482,10 @@
     }
   ],
   "failedEndpointChecks": [],
-  "rowFailures": []
+  "rowFailures": [],
+  "sourceResultsStatus": "local_ignored_large_raw_packet",
+  "sourceResultsSha256": "da3546ab3f30faef879c2d4da680f826711361e2c685de8f384eb116df1f8fbc",
+  "publicRepoRawExactPacket": "EXACT_SMALL_N_1_10000_RESULTS.json",
+  "publicRepoRawExactInterval": "1..10000",
+  "bookkeepingArtifact": "EXACT_INTERVAL_BOOKKEEPING.md"
 }

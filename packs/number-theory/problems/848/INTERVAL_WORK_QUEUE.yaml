@@ -15,14 +15,27 @@ intervals:
     data_packet: EXACT_SMALL_N_1_10000_RESULTS.json
     next_move: Use this as the current trusted base interval and decide whether the next extension is another exact interval or an imported-computation audit.
   - interval_id: N848.V2
-    label: exact_small_n_extension
-    range: "10001..?"
-    status: ready
+    label: exact_small_n_local_rollout
+    range: "10001..40500"
+    status: local_unpromoted
+    method_class: exact_small_n
+    claim_level: local_compact_evidence
+    certificate: output/p848-exact-small-n-rollouts/EXACT_SMALL_N_1_40500_CERTIFICATE.md
+    data_packet: output/p848-exact-small-n-rollouts/EXACT_SMALL_N_1_40500_RESULTS.json
+    compact_derivatives:
+      - EXACT_BREAKPOINT_SCOUT.json
+      - EXACT_BREAKPOINT_CERTIFICATE.json
+    bookkeeping: EXACT_INTERVAL_BOOKKEEPING.md
+    next_move: Promote a compact public certificate for the local `1..40500` rollout or keep public raw claims at `1..10000`.
+  - interval_id: N848.V2B
+    label: exact_small_n_next_extension
+    range: "40501..?"
+    status: deferred
     method_class: exact_small_n
     claim_level: target
     certificate: ""
     data_packet: ""
-    next_move: Decide whether exact coverage should continue directly beyond `10000` or whether the next gain should come from a different method class.
+    next_move: Do not extend raw exact coverage blindly; use additional exact checks only as regression evidence for the theorem lane.
   - interval_id: N848.V3
     label: imported_computation_audit
     range: "public_claimed_interval"

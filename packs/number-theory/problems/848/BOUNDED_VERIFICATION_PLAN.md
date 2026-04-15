@@ -41,6 +41,8 @@ Current progress:
 - the repo now has an exact small-`N` certificate for `1..10000`
 - an incremental verifier replaced the misleading earlier cost wall and made larger exact
   tranches practical again
+- local ignored rollout artifacts extend exact small-`N` evidence to `1..40500`, but the
+  440 MB raw packet is not committed or bundled; see `EXACT_INTERVAL_BOOKKEEPING.md`
 
 What this lane is not:
 - not brute force to `2.64 x 10^17`

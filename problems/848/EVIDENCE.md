@@ -75,6 +75,9 @@ Current public evidence captured locally:
   truth.
 - A reproducible exact maximum-clique scan now verifies the expected extremal size for every
   `N` in `1..10000`, giving the bounded-verification lane a much larger trusted covered interval.
+- Local ignored rollout artifacts extend exact small-`N` evidence to `1..40500`; because the
+  raw packet is about 440 MB, public-facing claims must distinguish this local rollout from the
+  committed `1..10000` raw result packet.
 - The exact verifier has been rebuilt incrementally, so the old post-`3000` cost wall is now
   understood to have been mostly a tooling artifact rather than a serious mathematical barrier.
 - The exact packet now exposes a structural clue: every maximum witness through `10000` is the
@@ -111,6 +114,8 @@ Claim-safe local posture:
 - Exact: the repo now also has a theorem-style proof artifact for the current candidate.
 - Exact: the current candidate package is now surfaced for both paper-writing and public
   review workflows.
+- Exact: the committed public raw exact interval is `1..10000`; the `1..40500` interval is
+  local compact rollout evidence until a public compact certificate is promoted.
 - Exact: the paper bundle for the current candidate is now fully drafted at the section-shell
   level and no longer depends on placeholder text in its public-facing sections.
 - Heuristic: the lowest-friction route from here is to work both sides of the bridge:

@@ -86,7 +86,6 @@ Desired certificate:
 - Regime D: public asymptotic theorem exists; imported explicit thresholds are tracked but not
   yet repo-audited
 
-So the next honest move is to decide whether exact-small-`N` coverage should be extended
-directly beyond `10000`, or whether the next gain comes from
-auditing imported computation or
-switching method class.
+So the next honest move is to resolve the local `1..40500` promotion boundary while keeping
+the committed raw exact packet at `1..10000`, then decide whether the next gain comes from
+auditing imported computation, compacting the local rollout, or switching method class.

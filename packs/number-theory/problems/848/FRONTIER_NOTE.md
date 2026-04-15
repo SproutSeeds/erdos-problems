@@ -35,7 +35,8 @@ Chosen next lane:
 - prove the four-anchor obstruction and turn it into a breakpoint theorem candidate
 
 Why this lane wins the next cycle:
-- the exact verifier now reaches `1..10000`, so the finite-check surface is no longer tiny
+- the committed raw exact packet reaches `1..10000`, and local ignored rollout evidence reaches
+  `1..40500`; this distinction is now frozen in `EXACT_INTERVAL_BOOKKEEPING.md`
 - the exact packet already exhibits a rigid breakpoint law: clique size only jumps at
   `N equiv 7 (mod 25)`
 - the new anchor recon suggests a fixed finite obstruction set `{7, 32, 57, 82}` beyond the

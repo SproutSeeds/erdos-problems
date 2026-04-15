@@ -11,13 +11,19 @@
     "activeRoute": "finite_check_gap_closure",
     "currentClaimSurface": "bridge_backed_frontier_support",
     "routeSummary": "Convert the sufficiently-large-N theorem into a complete all-N resolution without overstating what is already closed or confusing imported thresholds with repo-owned claims.",
-    "nextHonestMove": "Decide whether to extend exact verified coverage beyond `40500` or switch method class.",
-    "latestVerifiedInterval": "1..40500"
+    "nextHonestMove": "Promote or reject the local `1..40500` rollout; public raw exact claims remain `1..10000` until that handoff is committed.",
+    "latestVerifiedInterval": "1..10000",
+    "exactIntervalBookkeeping": {
+      "publicRepoRawExactInterval": "1..10000",
+      "localIgnoredRolloutInterval": "1..40500",
+      "bookkeepingArtifact": "EXACT_INTERVAL_BOOKKEEPING.md",
+      "raw40500PacketCommitted": false
+    }
   },
   "finiteGapStrategy": {
     "status": "ready",
     "verdict": "exact_endpoint_rollout_is_not_a_sole_all_N_closure_strategy",
-    "latestVerifiedInterval": "1..40500",
+    "latestVerifiedInterval": "1..10000",
     "exactMax": 40500,
     "operationalThreshold": {
       "raw": "2.64 x 10^17",
@@ -32,7 +38,10 @@
       "rowCount": 40500,
       "endpointCheckCount": 1621,
       "compressionRatio": 24.98457742134485,
-      "approximateRowsPerEndpointCheck": 24.98457742134485
+      "approximateRowsPerEndpointCheck": 24.98457742134485,
+      "sourceStatus": "compact derivative of local ignored 1..40500 rollout",
+      "raw40500PacketCommitted": false,
+      "publicRawPacketInterval": "1..10000"
     },
     "projectedEndpointChecksToOperationalThreshold": "10566518518516898",
     "projectedEndpointChecksToOperationalThresholdLabel": "10,566,518,518,516,898",
@@ -42,7 +51,13 @@
       "Do not wait for direct endpoint checks to close the imported finite gap.",
       "Prioritize auditing the imported threshold handoff or proving a stronger structural verifier lane.",
       "Use GPU/frontier sweeps to generate structural candidates and counterexamples, not as a substitute for the all-N handoff proof."
-    ]
+    ],
+    "publicRepoRawExactInterval": "1..10000",
+    "localIgnoredRolloutInterval": "1..40500",
+    "publicRepoRawExactMax": 10000,
+    "localIgnoredRolloutMax": 40500,
+    "exactMaxMeaning": "local ignored rollout max, not public raw packet max",
+    "bookkeepingArtifact": "EXACT_INTERVAL_BOOKKEEPING.md"
   },
   "granularBreakdownMode": {
     "status": "core_loop_enabled",
@@ -19631,7 +19646,7 @@
     {
       "stepId": "verify_verifier_boundary",
       "title": "Verify the current exact/verifier boundary and next target",
-      "task": "Verify that the certified interval 1..40500 and the next verifier target remain current across the pack surfaces.",
+      "task": "Verify that the public raw interval `1..10000`, the local rollout `1..40500`, and the next verifier target remain current across the pack surfaces.",
       "completionRule": "The interval work queue or verifier boundary packet still matches the theorem-facing status.",
       "command": "erdos number-theory dispatch 848"
     },
@@ -19706,7 +19721,7 @@
       "taskId": "verify_verifier_boundary",
       "status": "ready",
       "title": "Verify the current exact/verifier boundary and next target",
-      "task": "Verify that the certified interval 1..40500 and the next verifier target remain current across the pack surfaces.",
+      "task": "Verify that the public raw interval `1..10000`, the local rollout `1..40500`, and the next verifier target remain current across the pack surfaces.",
       "why": null,
       "completionRule": "The interval work queue or verifier boundary packet still matches the theorem-facing status.",
       "command": "erdos number-theory dispatch 848"
@@ -19958,7 +19973,7 @@
     {
       "stepId": "gap_3",
       "status": "next",
-      "task": "Decide and run the next post-40500 verification lane using local CPU and opt-in local 4090 compute only.",
+      "task": "Resolve the local 1..40500 promotion boundary, then use further exact runs only as local/free regression evidence.",
       "source": "formalization_work",
       "command": "erdos problem formalization-work-refresh 848"
     },
@@ -19979,7 +19994,7 @@
     {
       "stepId": "decide_post_40500_verification_lane",
       "status": "high",
-      "task": "The canonical exact base currently ends at 1..40500. The next verification move is still open.",
+      "task": "Resolve the local 1..40500 promotion boundary; public raw packet currently ends at 1..10000.",
       "source": "exact_verifier",
       "command": "erdos number-theory dispatch 848"
     },
@@ -22198,7 +22213,7 @@
     {
       "stepId": "regime_b_endpoint_verifier_backend",
       "status": "high",
-      "task": "Continue the active endpoint-monotonicity exact verifier beyond 1..40500 (1621 endpoint checks cover 40500 rows; compression 24.98x).",
+      "task": "Treat endpoint-monotonicity checks beyond the local 1..40500 rollout as deferred regression evidence; do not promote them before the compact certificate boundary is settled.",
       "source": "exact_breakpoint_certificate",
       "command": "erdos number-theory dispatch 848 --apply --action exact_followup_rollout --exact-chunks 5 --exact-chunk-size 1000 --endpoint-monotonicity"
     }

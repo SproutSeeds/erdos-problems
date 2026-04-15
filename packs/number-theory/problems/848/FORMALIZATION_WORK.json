@@ -11,8 +11,14 @@
   "currentState": {
     "activeRoute": "finite_check_gap_closure",
     "routeSummary": "Convert the sufficiently-large-N theorem into a complete all-N resolution without overstating what is already closed or confusing imported thresholds with repo-owned claims.",
-    "nextHonestMove": "Decide whether to extend exact verified coverage beyond `40500` or switch method class.",
-    "latestVerifiedInterval": "1..40500"
+    "nextHonestMove": "Promote or reject the local `1..40500` rollout; public raw exact claims remain `1..10000` until that handoff is committed.",
+    "latestVerifiedInterval": "1..10000",
+    "exactIntervalBookkeeping": {
+      "publicRepoRawExactInterval": "1..10000",
+      "localIgnoredRolloutInterval": "1..40500",
+      "bookkeepingArtifact": "EXACT_INTERVAL_BOOKKEEPING.md",
+      "raw40500PacketCommitted": false
+    }
   },
   "currentWork": {
     "workId": "p848_282_first_failure_mechanism_packet_v1",
@@ -113,7 +119,7 @@
     "remainingGaps": [
       "Prove structural-lift atom D2_p13_matching_lower_bound: For p=13 threatening rows, maxMatching(H_{x,N}) is at least the required matching bound extracted from the margin inequality.",
       "Advance the same atomic packet toward target D4_matching_bound_implies_sMaxMixed_bound: If maxMatching(H_{x,N}) >= K(N), then sMixed(x,N) <= |L| + |R| - K(N).",
-      "Decide and run the next post-40500 verification lane using local CPU and opt-in local 4090 compute only."
+      "Resolve the local 1..40500 promotion boundary, then use further exact runs only as local/free regression evidence."
     ],
     "proofObligations": [
       {

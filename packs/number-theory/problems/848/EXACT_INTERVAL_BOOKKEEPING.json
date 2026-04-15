@@ -1,0 +1,25 @@
+{
+  "schema": "erdos.problem848_exact_interval_bookkeeping/1",
+  "problemId": "848",
+  "statusDate": "2026-04-15",
+  "publicRepoRawExactPacket": {
+    "interval": "1..10000",
+    "certificate": "EXACT_SMALL_N_1_10000_CERTIFICATE.md",
+    "rawResultPacket": "EXACT_SMALL_N_1_10000_RESULTS.json",
+    "rawResultSha256": "96748efe7a355621016f4987209e1b634b1d14ac3f79f135dcc3a0a55a3dfcb2"
+  },
+  "localIgnoredRollout": {
+    "interval": "1..40500",
+    "certificate": "output/p848-exact-small-n-rollouts/EXACT_SMALL_N_1_40500_CERTIFICATE.md",
+    "rawResultPacket": "output/p848-exact-small-n-rollouts/EXACT_SMALL_N_1_40500_RESULTS.json",
+    "rawResultSha256": "da3546ab3f30faef879c2d4da680f826711361e2c685de8f384eb116df1f8fbc",
+    "rawResultApproximateSize": "440 MB"
+  },
+  "committedCompactDerivatives": [
+    "EXACT_BREAKPOINT_SCOUT.json",
+    "EXACT_BREAKPOINT_CERTIFICATE.json"
+  ],
+  "claimRule": "Use 1..10000 for the public repo raw exact packet. Use 1..40500 only when explicitly described as local ignored rollout evidence or compact breakpoint/endpoint evidence derived from that rollout.",
+  "npmRule": "The npm package intentionally excludes raw exact small-N result JSON.",
+  "nextResearchUse": "Use the 1..40500 rollout as regression and structure-mining evidence while prioritizing theorem compression over raw interval extension."
+}
