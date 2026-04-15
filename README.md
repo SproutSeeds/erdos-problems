@@ -38,6 +38,7 @@ A short example from the first minute:
 - separate surfaces for public status, local route state, and verification records
 - pack-specific views where this repo already has enough structure to support them
 - an ORP-based workflow for claims, checkpoints, and run artifacts
+- an integrated research stack surface that ties canonical imports, ORP, theorem loops, compute lanes, and writeback commands together
 - a paper writer bundle mode for public-safe, citation-safe, agent-friendly drafting
 
 ## Repo, npm, and External Imports
@@ -49,7 +50,8 @@ A short example from the first minute:
 - `erdos import show` reports whether you are using the bundled import snapshot or a workspace-local refreshed import snapshot
 - `erdos import sync` currently refreshes an external atlas import snapshot from `teorth/erdosproblems` without mutating the canonical local dossier layer
 - `erdos import sync --write-package-snapshot` is the maintainer path for intentionally updating the bundled import snapshot in this repo
-- repo-only deep-research directories such as `research/`, `formal/`, `paper/`, `imports/`, and `analysis/` are intentionally kept out of npm by staying outside the `package.json` `files` list
+- most deep-research directories such as `formal/`, `paper/`, `imports/`, and `analysis/` remain repo-only and are intentionally kept out of npm
+- `research/frontier-engine` is the current exception: it ships as an optional bundled subsystem so users can opt into GPU-oriented frontier search without making base npm install heavier
 - repo-only public research can live in this GitHub repo without shipping in the npm tarball; see the contribution guide: https://github.com/SproutSeeds/erdos-problems/blob/main/CONTRIBUTING.md
 
 ## Start In 60 Seconds
@@ -68,6 +70,36 @@ erdos sunflower frontier 857
 erdos sunflower ready 857
 erdos workspace show --json
 ```
+
+If you want the optional frontier-engine runtime, keep it explicit:
+
+```bash
+erdos frontier doctor
+erdos frontier setup --base
+erdos frontier setup --cpu
+erdos frontier setup --cuda --torch-index-url <url>
+erdos frontier create-brev erdos-h100 --gpu-name H100 --dry-run
+erdos frontier create-brev-fleet erdos-h100x2 --type hyperstack_H100 --count 2 --dry-run
+erdos frontier attach-brev --instance <name> --apply
+erdos frontier sync-fleet erdos-h100x2 --lane p848_anchor_ladder --apply
+erdos number-theory dispatch-fleet 848 --fleet erdos-h100x2 --apply --action gpu_profile_sweep --strategy ladder_cover_v1
+```
+
+The Brev path is meant to be a native frontier rung: preview hardware with `create-brev --dry-run`, then create, attach, and sync a lane into the same SSH-backed frontier loop used by local and fixed remote boxes.
+
+To see how the whole stack connects for the active problem:
+
+```bash
+erdos workspace show
+erdos preflight
+```
+
+Those views now summarize:
+- canonical source and import provenance
+- ORP/checkpoint workflow
+- theorem-loop entry and refresh commands
+- compute entrypoints and hardware setup
+- canonical writeback surfaces
 
 If you want to start from a new local seed:
 

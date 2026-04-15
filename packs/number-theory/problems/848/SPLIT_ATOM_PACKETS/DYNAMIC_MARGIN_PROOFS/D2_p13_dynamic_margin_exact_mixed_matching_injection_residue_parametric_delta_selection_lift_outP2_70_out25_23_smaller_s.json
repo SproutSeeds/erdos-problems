@@ -1,0 +1,210 @@
+{
+  "schema": "p848.dynamicMarginProof.v1",
+  "generatedAt": "2026-04-12T20:46:18Z",
+  "problemId": "848",
+  "proofId": "p848_dynamic_margin_proof_D2_p13_dynamic_margin_exact_mixed_matching_injection_residue_parametric_delta_selection_lift_outP2_70_out25_23_smaller_s",
+  "atomId": "D2_p13_dynamic_margin_exact_mixed_matching_injection_residue_parametric_delta_selection_lift_outP2_70_out25_23_smaller_side7_outsider_6323",
+  "splitKey": "outP2=70|out25=23|smaller=side7",
+  "outsider": 6323,
+  "targetPrime": 13,
+  "status": "residue_parametric_delta_selection_reduced_to_direct_selector_and_collision_sublemmas",
+  "proofKind": "theorem_reduction_to_residue_direct_selector",
+  "promotesAllNClaim": false,
+  "predecessorAtomId": "D2_p13_dynamic_margin_exact_mixed_matching_injection_direct_delta_minus39_successor_outP2_70_out25_23_smaller_side7_outsider_6323",
+  "predecessorProofId": "p848_dynamic_margin_proof_D2_p13_dynamic_margin_exact_mixed_matching_injection_direct_delta_minus39_successor_outP2_70_out25_23_smaller_side7_outs",
+  "phaseGuardDecision": {
+    "status": "decompose_generalization_target",
+    "reason": "The direct-delta staircase produced seed repairs at 73607, 164507, and 468707. The next durable theorem move is to split the residue-parametric lift into direct-selector, cross-squarefree, and collision/augmentation obligations rather than adding another singleton delta."
+  },
+  "seedDirectRepairs": [
+    {
+      "left": 73607,
+      "right": 72518,
+      "delta": -1089,
+      "leftMod25": 7,
+      "rightMod25": 18,
+      "rightSquareWitnessPrime": 11,
+      "rightSquareWitness": 121,
+      "crossSquarefree": true
+    },
+    {
+      "left": 164507,
+      "right": 164468,
+      "delta": -39,
+      "leftMod25": 7,
+      "rightMod25": 18,
+      "rightSquareWitnessPrime": 7,
+      "rightSquareWitness": 49,
+      "crossSquarefree": true
+    },
+    {
+      "left": 468707,
+      "right": 467043,
+      "delta": -1664,
+      "leftMod25": 7,
+      "rightMod25": 18,
+      "rightSquareWitnessPrime": 7,
+      "rightSquareWitness": 49,
+      "crossSquarefree": true,
+      "recordedAsGeneralizationSeedOnly": true
+    }
+  ],
+  "boundedLocalWindowProbe": {
+    "probeKind": "nearest_negative_delta_congruent_11_mod25",
+    "minLeft": 7307,
+    "maxN": 1000000,
+    "checkedSide7CompatibleEventRows": 14557,
+    "originalNamedDeltaMenuCoveredRows": 14552,
+    "originalNamedDeltaMenuMissCount": 5,
+    "windowMaxAbsDelta": 5000,
+    "windowCoveredRows": 14557,
+    "firstWindowMiss": null,
+    "maxAbsDeltaActuallyUsed": 2164,
+    "distinctNearestWindowDeltaCount": 27,
+    "suggestedNearestWindowDeltas": [
+      -64,
+      -39,
+      -89,
+      -189,
+      -164,
+      -14,
+      -139,
+      -264,
+      -239,
+      -339,
+      -539,
+      -289,
+      -639,
+      -114,
+      -464,
+      -364,
+      -489,
+      -1089,
+      -389,
+      -1039,
+      -1064,
+      -1239,
+      -1664,
+      -2164,
+      -564,
+      -764,
+      -864
+    ],
+    "firstOriginalMenuMisses": [
+      {
+        "left": 468707,
+        "leftMod100": 7,
+        "leftMod625": 582,
+        "leftSquareWitnessPrime": 13,
+        "leftSquareWitness": 169
+      },
+      {
+        "left": 529007,
+        "leftMod100": 7,
+        "leftMod625": 257,
+        "leftSquareWitnessPrime": 43,
+        "leftSquareWitness": 1849
+      },
+      {
+        "left": 592007,
+        "leftMod100": 7,
+        "leftMod625": 132,
+        "leftSquareWitnessPrime": 19,
+        "leftSquareWitness": 361
+      },
+      {
+        "left": 925007,
+        "leftMod100": 7,
+        "leftMod625": 7,
+        "leftSquareWitnessPrime": 13,
+        "leftSquareWitness": 169
+      },
+      {
+        "left": 982607,
+        "leftMod100": 7,
+        "leftMod625": 107,
+        "leftSquareWitnessPrime": 877,
+        "leftSquareWitness": 769129
+      }
+    ],
+    "topNearestWindowDeltaCounts": [
+      {
+        "delta": -64,
+        "count": 8089
+      },
+      {
+        "delta": -39,
+        "count": 3112
+      },
+      {
+        "delta": -89,
+        "count": 1391
+      },
+      {
+        "delta": -189,
+        "count": 982
+      },
+      {
+        "delta": -164,
+        "count": 307
+      },
+      {
+        "delta": -14,
+        "count": 254
+      },
+      {
+        "delta": -139,
+        "count": 205
+      }
+    ],
+    "interpretation": "A local nearest-delta selector is a plausible direct-selector target: through N=1000000 every checked side7-compatible event row has a side18-compatible squarefree direct endpoint within the finite negative-delta window. This is bounded evidence only; it does not prove the all-N selector, cross-squarefreeness formula, or collision-free matching update."
+  },
+  "reduction": {
+    "sourceStatement": "Replace the direct-delta staircase with a residue-parametric rule that selects a valid direct missing-cross edge or bounded augmenting path for every future side7-compatible event row in the outsider-6323 family.",
+    "sublemmas": [
+      {
+        "sublemmaId": "residue_direct_selector_lift",
+        "atomId": "D2_p13_dynamic_margin_exact_mixed_matching_injection_residue_direct_selector_lift_outP2_70_out25_23_smaller_side7_outsider_6323",
+        "statement": "For every future side7-compatible event row left in the outsider-6323 family, select a negative delta congruent to 11 mod 25 such that right = left + delta is active, side18-compatible with outsider 6323, and left/right is a missing-cross candidate.",
+        "whyFirst": "The seed repairs all remain direct side7-to-side18 repairs; before proving collision-free matching updates, the theorem lane needs a residue rule that produces the right-side endpoint."
+      },
+      {
+        "sublemmaId": "selected_cross_squarefree_lift",
+        "statement": "For each selected direct endpoint, prove left * right + 1 is squarefree, or route the residue block into a bounded replacement-path exception menu."
+      },
+      {
+        "sublemmaId": "selector_collision_or_augmentation_lift",
+        "statement": "Prove the selected direct endpoints can be used injectively by the online matching, or give a bounded augmenting-path replacement rule for collisions."
+      }
+    ],
+    "dependencyOrder": [
+      "residue_direct_selector_lift",
+      "selected_cross_squarefree_lift",
+      "selector_collision_or_augmentation_lift"
+    ],
+    "completionCriterion": "The residue-parametric delta-selection lift is discharged only when all three sublemmas are symbolic; this packet is only the reduction and handoff to the first sublemma."
+  },
+  "nextSubatom": {
+    "atomId": "D2_p13_dynamic_margin_exact_mixed_matching_injection_residue_direct_selector_lift_outP2_70_out25_23_smaller_side7_outsider_6323",
+    "status": "needed",
+    "term": "outsider-6323 residue direct-selector lift",
+    "statement": "Prove the residue-parametric direct-selector sublemma: every future side7-compatible event row has a residue-selected side18-compatible direct endpoint, or emit the first event row with no selected direct endpoint.",
+    "completionRule": "A residue/mod-square selector produces a side18-compatible direct endpoint for every future side7 event row, or the first uncovered event row becomes the next obstruction packet.",
+    "seedFailures": [
+      73607,
+      164507,
+      468707
+    ],
+    "seedDeltas": [
+      -1089,
+      -39,
+      -1664
+    ],
+    "proofBoundary": "This direct-selector sublemma still does not prove cross-squarefreeness or matching collision-freedom; those remain explicit downstream obligations."
+  },
+  "proofBoundary": "This packet decomposes the residue-parametric delta-selection target into theorem sublemmas. It does not prove the all-N matching injection and does not promote bounded seed repairs as a proof.",
+  "nextTheoremActions": [
+    "Prove D2_p13_dynamic_margin_exact_mixed_matching_injection_residue_direct_selector_lift_outP2_70_out25_23_smaller_side7_outsider_6323 next.",
+    "Do not spawn singleton delta -1664 as a sibling rung unless the direct-selector sublemma itself is falsified and the task model explicitly asks for a bounded obstruction packet."
+  ]
+}

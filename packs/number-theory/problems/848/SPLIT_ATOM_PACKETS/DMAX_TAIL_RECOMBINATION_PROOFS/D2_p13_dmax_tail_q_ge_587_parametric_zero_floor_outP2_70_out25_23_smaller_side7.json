@@ -1,0 +1,91 @@
+{
+  "schema": "erdos.p848_dmax_tail_prime_range_zero_floor_lift/1",
+  "problemId": "848",
+  "atomId": "D2_p13_dmax_tail_q_ge_587_parametric_zero_floor_outP2_70_out25_23_smaller_side7",
+  "parentTailAtomId": "D2_p13_dmax_tail_recombination_outP2_70_out25_23_smaller_side7",
+  "parentGrowthAtomId": "D2_p13_dmax_growth_outP2_70_out25_23_smaller_side7",
+  "predecessorAtomId": "D2_p13_dmax_tail_q587_progression_outP2_70_out25_23_smaller_side7",
+  "splitKey": "outP2=70|out25=23|smaller=side7",
+  "status": "bounded_parametric_zero_floor_verified",
+  "promotesAllNClaim": false,
+  "proofKind": "bounded_tail_prime_range_zero_floor_lift",
+  "qRange": {
+    "statement": "q>=587",
+    "startPrime": 587,
+    "profileRange": "7307..12000",
+    "plusWitnessProductCutoff": 4369,
+    "minusWitnessProductCutoff": 10712,
+    "lastPlusPrimeChecked": 4363,
+    "lastMinusPrimeChecked": 10711
+  },
+  "boundedProfile": {
+    "N": 12000,
+    "profileRange": "7307..12000",
+    "plusSide": {
+      "witnessValue": 1591,
+      "oppositeResidueMod169": 99,
+      "primeCount": 490,
+      "firstPrime": 587,
+      "lastPrimeChecked": 4363
+    },
+    "minusSide": {
+      "witnessValue": 9563,
+      "oppositeResidueMod169": 70,
+      "primeCount": 1200,
+      "firstPrime": 587,
+      "lastPrimeChecked": 10711
+    },
+    "scannedWitnessSideRowCount": 1690,
+    "nonzeroRawFloorCount": 0,
+    "smallestCrtResidues": [
+      {
+        "q": 1607,
+        "side": "plus",
+        "residue": 1220617,
+        "modulus": 436433881
+      },
+      {
+        "q": 1163,
+        "side": "minus",
+        "residue": 1275344,
+        "modulus": 228584161
+      },
+      {
+        "q": 607,
+        "side": "plus",
+        "residue": 2207915,
+        "modulus": 62267881
+      },
+      {
+        "q": 643,
+        "side": "minus",
+        "residue": 3930165,
+        "modulus": 69872881
+      }
+    ]
+  },
+  "verificationMethod": {
+    "kind": "deterministic_crt_sweep_with_product_cutoff",
+    "description": "For every prime q>=587 through the side-specific product cutoff, solve the CRT row m = oppositeResidue mod 169 and witnessValue*m + 1 = 0 mod q^2, then evaluate the raw floor count at N=12000. For q beyond a side cutoff, q^2 > witnessValue*N + 1 makes a square event impossible for any 1 <= m <= N in the bounded profile.",
+    "plusProductCutoffReason": "floor(sqrt(1591*12000 + 1)) = 4369, so the plus-side scan ends at prime 4363.",
+    "minusProductCutoffReason": "floor(sqrt(9563*12000 + 1)) = 10712, so the minus-side scan ends at prime 10711."
+  },
+  "checkedIdentities": [
+    "The plus-side product cutoff is floor(sqrt(1591*12000 + 1)) = 4369; the last plus-side prime checked is 4363.",
+    "The minus-side product cutoff is floor(sqrt(9563*12000 + 1)) = 10712; the last minus-side prime checked is 10711.",
+    "The deterministic sweep checks 490 plus-side primes and 1200 minus-side primes, for 1690 witness-side CRT rows.",
+    "Every checked q>=587 row has raw floor count 0 at N=12000.",
+    "The smallest stored CRT residues are all greater than 12000, so the raw floor formula contributes zero over the bounded profile."
+  ],
+  "nextSubatom": {
+    "atomId": "D2_p13_dynamic_margin_outP2_70_out25_23_smaller_side7_side18",
+    "status": "needed_after_dmax_tail_range_lift",
+    "statement": "Re-derive the residual dynamic margin after the q>=587 dMax tail range profile is closed: prove side18Count + vMax + rGreater + 39 <= candidateSize, or emit a sharper side-count/rGreater successor atom.",
+    "completionRule": "The residual dynamic margin is proved symbolically for this split, or the first exact moving-count/rGreater obstruction becomes the next atom."
+  },
+  "proofBoundary": "This certificate closes the generated q>=587 bounded-profile zero-floor tail atom for N<=12000 and the stored profile range. It does not promote an all-N dMax tail or side-count-floor claim; it only prevents the singleton q-prime ladder from continuing without a theorem-facing aggregate handoff.",
+  "nextTheoremActions": [
+    "Attack D2_p13_dynamic_margin_outP2_70_out25_23_smaller_side7_side18 next.",
+    "Re-derive side18Count + vMax + rGreater + 39 <= candidateSize; if the inequality fails, emit a sharper side-count or rGreater atom instead of reopening the q-prime staircase."
+  ]
+}

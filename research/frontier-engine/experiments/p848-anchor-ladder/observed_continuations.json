@@ -1,0 +1,50 @@
+{
+  "observed_continuations": [
+    {
+      "continuation": 157,
+      "status": "fails",
+      "repaired_known_packets": 2,
+      "first_failure_n": 19094395,
+      "note": "Smallest-repair seven-anchor continuation; no longer the strongest structured tail.",
+      "source_paths": [
+        "/tmp/erdos-problems-848-frontier/packs/number-theory/problems/848/ANCHOR_TAIL_COMPARISON_157_232_282.md",
+        "/Volumes/Code_2TB/code/erdos-problems/research/frontier-engine/experiments/p848-anchor-ladder/FRONTIER_STATE.json"
+      ]
+    },
+    {
+      "continuation": 232,
+      "status": "fails",
+      "repaired_known_packets": 3,
+      "first_failure_n": 27949928,
+      "note": "First clean structured +50 tail after the shared six-anchor prefix, but it fails at 27949928.",
+      "source_paths": [
+        "/tmp/erdos-problems-848-frontier/packs/number-theory/problems/848/ANCHOR_TAIL_COMPARISON_157_232_282.md",
+        "/tmp/erdos-problems-848-frontier/packs/number-theory/problems/848/ANCHOR_SINGLETON_CRT_27949928_232tail.json",
+        "/Volumes/Code_2TB/code/erdos-problems/research/frontier-engine/experiments/p848-anchor-ladder/FRONTIER_STATE.json"
+      ]
+    },
+    {
+      "continuation": 282,
+      "status": "fails",
+      "repaired_known_packets": 4,
+      "first_failure_n": 137720141,
+      "note": "Previous best completed structured tail before the 332 overtake.",
+      "source_paths": [
+        "/tmp/erdos-problems-848-frontier/packs/number-theory/problems/848/ANCHOR_TAIL_COMPARISON_157_232_282.md",
+        "/Volumes/Code_2TB/code/erdos-problems/research/frontier-engine/experiments/p848-anchor-ladder/FRONTIER_STATE.json"
+      ]
+    },
+    {
+      "continuation": 332,
+      "status": "clean_through",
+      "repaired_known_packets": 5,
+      "clean_through": 250000000,
+      "note": "Current strongest completed structured tail in the repo.",
+      "source_paths": [
+        "/tmp/erdos-problems-848-frontier/packs/number-theory/problems/848/ANCHOR_TAIL_COMPARISON_157_232_282.md",
+        "/tmp/erdos-problems-848-frontier/packs/number-theory/problems/848/ANCHOR_332_TAIL_OVERTAKE_LEDGER.md",
+        "/Volumes/Code_2TB/code/erdos-problems/research/frontier-engine/experiments/p848-anchor-ladder/FRONTIER_STATE.json"
+      ]
+    }
+  ]
+}

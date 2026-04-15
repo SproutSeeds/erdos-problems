@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "frontier-engine"
+version = "0.1.0"
+description = "Prototype scaffold for GPU-assisted frontier search with exact verification hooks."
+readme = "README.md"
+requires-python = ">=3.10"
+authors = [
+  { name = "Cody Mitchell" }
+]
+dependencies = []
+
+[project.optional-dependencies]
+torch = ["torch>=2.8"]
+
+[project.scripts]
+frontier-engine = "frontier_engine.cli:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]

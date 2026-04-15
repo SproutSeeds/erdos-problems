@@ -1,0 +1,39 @@
+{
+  "shared_prefix": [7, 32, 57, 82, 132, 182],
+  "current_best_continuation": 332,
+  "current_best_clean_through": 250000000,
+  "known_failure_packets": [
+    {
+      "packet_id": "shared_prefix_2678425",
+      "n": 2678425,
+      "kind": "shared_prefix_failure",
+      "note": "First known failure of the shared six-anchor prefix."
+    },
+    {
+      "packet_id": "shared_prefix_16293829",
+      "n": 16293829,
+      "kind": "shared_prefix_failure",
+      "note": "Second known failure of the shared six-anchor prefix."
+    },
+    {
+      "packet_id": "shared_prefix_19094395",
+      "n": 19094395,
+      "kind": "shared_prefix_failure",
+      "note": "Third known failure of the shared six-anchor prefix."
+    },
+    {
+      "packet_id": "tail_232_27949928",
+      "n": 27949928,
+      "kind": "tail_failure",
+      "tail": 232,
+      "note": "First known failure of the 232 continuation."
+    },
+    {
+      "packet_id": "tail_282_137720141",
+      "n": 137720141,
+      "kind": "tail_failure",
+      "tail": 282,
+      "note": "First known failure of the 282 continuation."
+    }
+  ]
+}

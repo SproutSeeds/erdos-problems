@@ -1,0 +1,297 @@
+{
+  "schema": "erdos.problem_claim_loop/1",
+  "generatedAt": "2026-04-14T11:45:57.618Z",
+  "problemId": "848",
+  "displayName": "Erdos Problem #848",
+  "title": "Squarefree ab+1 Extremal Set Problem",
+  "cluster": "number-theory",
+  "sourceKind": "theorem_loop_plus_bridge",
+  "claimLoopMode": "bridge_backed",
+  "currentClaimSurface": "bridge_backed_frontier_support",
+  "currentState": {
+    "theoremLoopMode": "bridge_backed",
+    "activeRoute": "finite_check_gap_closure",
+    "nextHonestMove": "Decide whether to extend exact verified coverage beyond `40500` or switch method class.",
+    "routeSummary": "Convert the sufficiently-large-N theorem into a complete all-N resolution without overstating what is already closed or confusing imported thresholds with repo-owned claims.",
+    "sourceRefresh": "erdos number-theory bridge-refresh 848"
+  },
+  "featureExtractors": [
+    {
+      "extractor_id": "pack_route_state",
+      "kind": "pack_context",
+      "scope": "all_problems",
+      "status": "ready",
+      "note": "Reads pack route, ticket, and atom state as the baseline theorem-search context."
+    },
+    {
+      "extractor_id": "theorem_loop_snapshot",
+      "kind": "theorem_loop",
+      "scope": "all_problems",
+      "status": "ready",
+      "note": "Uses the canonical theorem-loop as the current claim-surface ledger."
+    },
+    {
+      "extractor_id": "search_theorem_bridge_state",
+      "kind": "search_bridge",
+      "scope": "bridge_backed_problems",
+      "status": "ready",
+      "note": "Imports structured bridge state, packet ledgers, and search-side claim hooks."
+    },
+    {
+      "extractor_id": "cluster_number_theory_features",
+      "kind": "cluster_adapter",
+      "scope": "number_theory",
+      "status": "ready",
+      "note": "Exposes number-theory specific finite-gap and verifier-facing metadata."
+    }
+  ],
+  "claimGenerators": [
+    {
+      "generator_id": "baseline_route_claims",
+      "kind": "route_state",
+      "scope": "all_problems",
+      "status": "ready",
+      "note": "Promotes active routes, ready atoms, and next-honest-move records into candidate claims."
+    },
+    {
+      "generator_id": "theorem_agenda_claims",
+      "kind": "agenda_projection",
+      "scope": "all_problems",
+      "status": "ready",
+      "note": "Turns theorem agenda items into explicit candidate claim tickets."
+    },
+    {
+      "generator_id": "search_bridge_claims",
+      "kind": "bridge_pattern_projection",
+      "scope": "bridge_backed_problems",
+      "status": "ready",
+      "note": "Projects bridge-backed structural hooks into concrete claim candidates."
+    },
+    {
+      "generator_id": "p848_repair_obstruction_claims",
+      "kind": "problem_adapter",
+      "scope": "problem_848",
+      "status": "ready",
+      "note": "Builds obstruction-alignment and repair-class candidate claims from the live packet ledger."
+    }
+  ],
+  "claimFalsifiers": [
+    {
+      "falsifier_id": "theorem_loop_consistency_check",
+      "kind": "ledger_consistency",
+      "scope": "all_problems",
+      "status": "ready",
+      "note": "Rejects claims that overstate the current theorem-loop claim surface."
+    },
+    {
+      "falsifier_id": "artifact_boundary_check",
+      "kind": "artifact_boundary",
+      "scope": "all_problems",
+      "status": "ready",
+      "note": "Rejects claims unsupported by canonical artifacts already present in the pack."
+    },
+    {
+      "falsifier_id": "exact_interval_counterexample_scan",
+      "kind": "exact_verifier",
+      "scope": "number_theory",
+      "status": "ready",
+      "note": "Uses bounded exact interval checks to kill false local claims quickly."
+    },
+    {
+      "falsifier_id": "bridge_packet_replay",
+      "kind": "search_bridge_replay",
+      "scope": "bridge_backed_problems",
+      "status": "ready",
+      "note": "Replays current bridge packets and tracked tails against candidate claims."
+    }
+  ],
+  "verifierAdapters": [
+    {
+      "adapter_id": "canonical_artifact_reader",
+      "kind": "artifact_reader",
+      "scope": "all_problems",
+      "status": "ready",
+      "note": "Reads theorem-loop, route, and pack artifacts as verifier-facing evidence."
+    },
+    {
+      "adapter_id": "exact_small_n",
+      "kind": "exact_verifier",
+      "scope": "number_theory",
+      "status": "ready",
+      "note": "Bounded exact verifier for finite interval certification."
+    },
+    {
+      "adapter_id": "search_theorem_bridge",
+      "kind": "bridge_verifier",
+      "scope": "bridge_backed_problems",
+      "status": "ready",
+      "note": "Supplies live search-side packet and leaderboard evidence to the claim loop."
+    },
+    {
+      "adapter_id": "p848_family_repair_surface",
+      "kind": "problem_adapter",
+      "scope": "problem_848",
+      "status": "ready",
+      "note": "Evaluates candidate claims against tracked-tail repair surfaces and shared-prefix packets."
+    }
+  ],
+  "candidateClaims": [
+    {
+      "claim_id": "choose_next_finite_gap_move",
+      "status": "ready",
+      "source": "theorem_agenda",
+      "summary": "Choose the next finite-gap closure move and keep the theorem-facing claim surface honest.",
+      "why": "Decide whether to extend exact verified coverage beyond `40500` or switch method class.",
+      "support": [
+        "next_unmatched_equals_282_failure",
+        "completed_tail_vs_search_leader_split",
+        "repair_pool_not_closed",
+        "top_repair_class_cluster"
+      ]
+    },
+    {
+      "claim_id": "explain_next_unmatched_alignment",
+      "status": "ready",
+      "source": "theorem_agenda",
+      "summary": "Explain structurally why shared-prefix representative `137720141` aligns with the first failure of tail `282`.",
+      "why": "If that alignment is structural rather than accidental, it turns a search coincidence into a theorem-facing obstruction class.",
+      "support": [
+        "next_unmatched_equals_282_failure",
+        "completed_tail_vs_search_leader_split",
+        "repair_pool_not_closed",
+        "top_repair_class_cluster"
+      ]
+    },
+    {
+      "claim_id": "explain_completed_vs_search_leader_split",
+      "status": "ready",
+      "source": "theorem_agenda",
+      "summary": "Explain why completed structured tail `332` differs from current family-aware leader `432`.",
+      "why": "That split tells us whether the live frontier is a finite-window artifact or a genuinely better structural continuation class.",
+      "support": [
+        "next_unmatched_equals_282_failure",
+        "completed_tail_vs_search_leader_split",
+        "repair_pool_not_closed",
+        "top_repair_class_cluster"
+      ]
+    },
+    {
+      "claim_id": "model_repair_pool_growth",
+      "status": "ready",
+      "source": "theorem_agenda",
+      "summary": "Model the repaired square-modulus pool as a growing family rather than treating it as already closed.",
+      "why": "Recent packets introduced new square moduli, so the theorem lane should aim for controlled growth, not premature closure.",
+      "support": [
+        "next_unmatched_equals_282_failure",
+        "completed_tail_vs_search_leader_split",
+        "repair_pool_not_closed",
+        "top_repair_class_cluster"
+      ]
+    },
+    {
+      "claim_id": "characterize_top_repair_cluster",
+      "status": "ready",
+      "source": "theorem_agenda",
+      "summary": "Characterize what the top repair cluster `432, 782, 832` shares structurally.",
+      "why": "If the tied tails share a common repair mechanism, that mechanism is a strong candidate for the next lemma-level abstraction.",
+      "support": [
+        "next_unmatched_equals_282_failure",
+        "completed_tail_vs_search_leader_split",
+        "repair_pool_not_closed",
+        "top_repair_class_cluster"
+      ]
+    },
+    {
+      "claim_id": "p848_next_unmatched_alignment_claim",
+      "status": "ready",
+      "source": "search_bridge",
+      "summary": "Shared-prefix representative 137720141 aligns structurally with the first failure of tail 282.",
+      "why": "If this survives falsification, it upgrades a numerical coincidence into an obstruction-class candidate.",
+      "support": [
+        "next_unmatched_equals_282_failure"
+      ]
+    },
+    {
+      "claim_id": "p848_top_repair_cluster_claim",
+      "status": "ready",
+      "source": "search_bridge",
+      "summary": "Top repair class 432, 782, 832 shares a common repair mechanism.",
+      "why": "A shared mechanism would compress the search frontier into a reusable lemma candidate.",
+      "support": [
+        "top_repair_class_cluster"
+      ]
+    }
+  ],
+  "theoremHooks": [
+    {
+      "hook_id": "next_unmatched_equals_282_failure",
+      "status": "supported",
+      "note": ""
+    },
+    {
+      "hook_id": "completed_tail_vs_search_leader_split",
+      "status": "supported",
+      "note": ""
+    },
+    {
+      "hook_id": "repair_pool_not_closed",
+      "status": "supported",
+      "note": ""
+    },
+    {
+      "hook_id": "top_repair_class_cluster",
+      "status": "supported",
+      "note": ""
+    }
+  ],
+  "theoremAgenda": [
+    {
+      "item_id": "choose_next_finite_gap_move",
+      "status": "ready",
+      "task": "Choose the next finite-gap closure move and keep the theorem-facing claim surface honest.",
+      "why": "Decide whether to extend exact verified coverage beyond `40500` or switch method class."
+    },
+    {
+      "item_id": "explain_next_unmatched_alignment",
+      "status": "ready",
+      "task": "Explain structurally why shared-prefix representative `137720141` aligns with the first failure of tail `282`.",
+      "why": "If that alignment is structural rather than accidental, it turns a search coincidence into a theorem-facing obstruction class."
+    },
+    {
+      "item_id": "explain_completed_vs_search_leader_split",
+      "status": "ready",
+      "task": "Explain why completed structured tail `332` differs from current family-aware leader `432`.",
+      "why": "That split tells us whether the live frontier is a finite-window artifact or a genuinely better structural continuation class."
+    },
+    {
+      "item_id": "model_repair_pool_growth",
+      "status": "ready",
+      "task": "Model the repaired square-modulus pool as a growing family rather than treating it as already closed.",
+      "why": "Recent packets introduced new square moduli, so the theorem lane should aim for controlled growth, not premature closure."
+    },
+    {
+      "item_id": "characterize_top_repair_cluster",
+      "status": "ready",
+      "task": "Characterize what the top repair cluster `432, 782, 832` shares structurally.",
+      "why": "If the tied tails share a common repair mechanism, that mechanism is a strong candidate for the next lemma-level abstraction."
+    }
+  ],
+  "commands": {
+    "problemShow": "erdos problem show 848",
+    "problemArtifacts": "erdos problem artifacts 848",
+    "theoremLoop": "erdos problem theorem-loop 848",
+    "theoremLoopRefresh": "erdos problem theorem-loop-refresh 848",
+    "claimLoop": "erdos problem claim-loop 848",
+    "claimLoopRefresh": "erdos problem claim-loop-refresh 848",
+    "sourceRefresh": "erdos number-theory bridge-refresh 848"
+  },
+  "sources": {
+    "claimLoopJsonPath": "/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/CLAIM_LOOP.json",
+    "claimLoopMarkdownPath": "/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/CLAIM_LOOP.md",
+    "theoremLoopJsonPath": "/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/THEOREM_LOOP.json",
+    "theoremLoopMarkdownPath": "/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/THEOREM_LOOP.md",
+    "legacyBridgeJsonPath": "/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SEARCH_THEOREM_BRIDGE.json",
+    "legacyBridgeMarkdownPath": "/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SEARCH_THEOREM_BRIDGE.md",
+    "packProblemDir": "/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848"
+  }
+}

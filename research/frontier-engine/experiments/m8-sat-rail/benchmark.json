@@ -1,0 +1,17 @@
+{
+  "benchmark_id": "m8_sat_rail",
+  "problem_id": "857",
+  "family": "sunflower",
+  "exact_target": "M(8,3) exactness / target-46 UNSAT route",
+  "backend": "sat",
+  "primary_hardware_profile": "windows_rtx4090",
+  "primary_goal": "Reduce the finite exact frontier before exact solving.",
+  "measures": [
+    "candidates_per_second",
+    "unique_signatures_per_batch",
+    "elite_inventory_size",
+    "verifier_promotion_rate",
+    "useful_exact_followups",
+    "frontier_reduction_against_baseline"
+  ]
+}

@@ -1,0 +1,64 @@
+{
+  "schema": "erdos.problem_formalization_work/1",
+  "generatedAt": "2026-04-10T08:11:06.278Z",
+  "problemId": "857",
+  "displayName": "Erdos Problem #857",
+  "title": "Sunflower Conjecture",
+  "cluster": "sunflower",
+  "sourceKind": "claim_pass_only",
+  "formalizationWorkMode": "baseline",
+  "currentClaimSurface": "frontier_supported_route",
+  "currentState": {
+    "activeRoute": "anchored_selector_linearization",
+    "routeSummary": "Export the live anchored-selector helper stack into a route-facing leaf that remains honest about the open-problem boundary.",
+    "nextHonestMove": "Prove or package the helper stack cleanly and checkpoint the route if the leaf closes.",
+    "latestVerifiedInterval": null
+  },
+  "currentWork": {
+    "workId": "sunflower_857_state_claim_honestly_v1",
+    "focusFormalizationId": "sunflower_857_promote_ready_atom_v1",
+    "focusId": "state_claim_honestly",
+    "title": "State Claim Honestly",
+    "status": "ready",
+    "summary": "State the candidate theorem-facing claim in pack language without overstating current support.",
+    "why": "This keeps the formalization target narrower than the current evidence boundary.",
+    "workingDefinition": [
+      "Candidate formalization target: Prove or package the helper stack cleanly and checkpoint the route if the leaf closes."
+    ],
+    "currentEvidence": [
+      "Current claim surface: frontier_supported_route.",
+      "Active route: anchored_selector_linearization.",
+      "No canonical verified interval is currently frozen."
+    ],
+    "dischargedWork": [],
+    "remainingGaps": [
+      "state_claim_honestly: Write a claim statement that is no stronger than the active claim-pass support surface.",
+      "freeze_support_artifacts: Attach theorem-loop, claim-pass, and any bridge-backed packet paths directly to the packet.",
+      "define_promotion_boundary: Record explicit promotion criteria tied to current falsifiers."
+    ],
+    "nextCommands": [
+      "erdos problem formalization-refresh 857",
+      "erdos problem formalization 857"
+    ]
+  },
+  "commands": {
+    "problemShow": "erdos problem show 857",
+    "problemArtifacts": "erdos problem artifacts 857",
+    "formalization": "erdos problem formalization 857",
+    "formalizationRefresh": "erdos problem formalization-refresh 857",
+    "formalizationWork": "erdos problem formalization-work 857",
+    "formalizationWorkRefresh": "erdos problem formalization-work-refresh 857",
+    "claimPass": "erdos problem claim-pass 857",
+    "sourceRefresh": null
+  },
+  "sources": {
+    "packProblemDir": "/Volumes/Code_2TB/code/erdos-problems/packs/sunflower/problems/857",
+    "formalizationWorkJsonPath": "/Volumes/Code_2TB/code/erdos-problems/packs/sunflower/problems/857/FORMALIZATION_WORK.json",
+    "formalizationWorkMarkdownPath": "/Volumes/Code_2TB/code/erdos-problems/packs/sunflower/problems/857/FORMALIZATION_WORK.md",
+    "formalizationWorkSvgPath": "/Volumes/Code_2TB/code/erdos-problems/packs/sunflower/problems/857/FORMALIZATION_WORK.svg",
+    "formalizationJsonPath": "/Volumes/Code_2TB/code/erdos-problems/packs/sunflower/problems/857/FORMALIZATION.json",
+    "formalizationMarkdownPath": "/Volumes/Code_2TB/code/erdos-problems/packs/sunflower/problems/857/FORMALIZATION.md",
+    "theoremLoopJsonPath": "/Volumes/Code_2TB/code/erdos-problems/packs/sunflower/problems/857/THEOREM_LOOP.json",
+    "legacyBridgeJsonPath": null
+  }
+}

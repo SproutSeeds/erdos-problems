@@ -1,0 +1,69 @@
+{
+  "schema": "erdos.p848_dmax_growth_profile/1",
+  "problemId": "848",
+  "atomId": "D2_p13_dmax_growth_outP2_70_out25_23_smaller_side7",
+  "parentAtomId": "D2_p13_dmax_bound_outP2_70_out25_23_smaller_side7",
+  "firstOpenSubatomId": "D2_p13_dmax_q2_progression_outP2_70_out25_23_smaller_side7",
+  "splitKey": "outP2=70|out25=23|smaller=side7",
+  "status": "bounded_degree_growth_profile_emitted",
+  "promotesAllNClaim": false,
+  "probeRange": "7307..12000",
+  "growthWitnesses": [
+    {
+      "side": "plus",
+      "value": 1591,
+      "oppositeSide": "minus",
+      "oppositeResidueMod169": 99,
+      "observedDegreeAt12000": 29,
+      "squareEventCounts": [
+        { "q": 2, "count": 17 },
+        { "q": 3, "count": 8 },
+        { "q": 5, "count": 3 },
+        { "q": 7, "count": 1 },
+        { "q": 11, "count": 1 },
+        { "q": 31, "count": 1 },
+        { "q": 251, "count": 1 }
+      ],
+      "dominantEventFamily": {
+        "q": 2,
+        "condition": "1591*m + 1 is divisible by 4",
+        "progressionBeforeExclusions": "m = 437 + 676*t",
+        "observedValues": [437, 1113, 1789, 2465, 3141, 3817, 5169, 5845, 6521, 7197, 7873, 8549, 9225, 9901, 10577, 11253, 11929],
+        "exclusionKinds": ["base residues 7/18 mod 25", "lower least-square-witness classes"]
+      }
+    },
+    {
+      "side": "minus",
+      "value": 9563,
+      "oppositeSide": "plus",
+      "oppositeResidueMod169": 70,
+      "observedDegreeAt12000": 27,
+      "squareEventCounts": [
+        { "q": 2, "count": 15 },
+        { "q": 3, "count": 8 },
+        { "q": 5, "count": 3 },
+        { "q": 7, "count": 2 },
+        { "q": 19, "count": 1 },
+        { "q": 23, "count": 1 }
+      ],
+      "dominantEventFamily": {
+        "q": 2,
+        "condition": "9563*m + 1 is divisible by 4",
+        "progressionBeforeExclusions": "m = 577 + 676*t",
+        "observedValues": [577, 1253, 1929, 2605, 3281, 4633, 5309, 5985, 6661, 7337, 8013, 8689, 9365, 10041, 10717],
+        "exclusionKinds": ["base residues 7/18 mod 25", "lower least-square-witness classes"]
+      }
+    }
+  ],
+  "firstOpenSubatom": {
+    "atomId": "D2_p13_dmax_q2_progression_outP2_70_out25_23_smaller_side7",
+    "status": "needed",
+    "statement": "Prove a symbolic floor-function upper bound for the q=2 same-prime degree progression m = 437 + 676*t, including base-residue and lower-witness exclusions.",
+    "completionRule": "Either prove the q=2 progression contribution can be absorbed in the dMax growth envelope, or emit the first exclusion/residue sub-split that controls it."
+  },
+  "proofBoundary": "This is a bounded degree-growth profile. It identifies dominant event families but does not prove the all-N degree envelope.",
+  "nextTheoremActions": [
+    "Attack D2_p13_dmax_q2_progression_outP2_70_out25_23_smaller_side7 first.",
+    "After q=2 is bounded, repeat the same floor-function profile for q=3 and q=5 before recombining the dMax growth envelope."
+  ]
+}

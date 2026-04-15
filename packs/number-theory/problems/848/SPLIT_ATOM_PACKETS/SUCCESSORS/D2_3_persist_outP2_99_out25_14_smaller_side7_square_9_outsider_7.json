@@ -1,0 +1,1930 @@
+{
+  "schema": "erdos.p848_split_atom_successor_packet/1",
+  "generatedAt": "2026-04-14T11:46:09.844Z",
+  "problemId": "848",
+  "packetId": "p848_split_atom_successor_packet_D2_3_persist_outP2_99_out25_14_smaller_side7_square_9_outsider_7",
+  "parentPacketId": "p848_split_atom_packet_D2_3_persist_outP2_99_out25_14_smaller_side7",
+  "parentAtomId": "D2.3_persist_outP2=99_out25=14_smaller=side7",
+  "successorAtomId": "D2.3_persist_outP2=99_out25=14_smaller=side7.square_9_out_7",
+  "successorRank": 2,
+  "conditionId": "square_9_outsider_7",
+  "priority": "dominant_refinement_successor",
+  "status": "candidate_successor_obligation_verified",
+  "splitRefinement": {
+    "parentSplitKey": "outP2=99|out25=14|smaller=side7",
+    "successorSplitKey": "outP2=99|out25=14|smaller=side7|out9=7",
+    "parentSplitModulus": 4225,
+    "successorSplitModulus": 38025,
+    "square": 9,
+    "divisor": 3,
+    "requiredOutsiderResidueModSquare": 7,
+    "compatibleWithCurrentSplit": true
+  },
+  "symbolicVertexFamilyLemma": {
+    "lemmaId": "square_9_outsider_7_vertex_family",
+    "status": "symbolic_vertex_family_lemma_verified",
+    "statement": "If outsider ≡ 7 (mod 9) and vertex ≡ 5 (mod 9), then outsider * vertex + 1 ≡ 0 (mod 9).",
+    "outsiderResidueModSquare": 7,
+    "vertexResidueModSquare": 5,
+    "square": 9,
+    "affectedAtomCount": 49,
+    "verifiedAtomCount": 49,
+    "failedAtomCount": 0,
+    "checks": [
+      {
+        "atomId": "D2.3_persist_outP2=99_out25=14_smaller=side7.V2.left_32",
+        "value": 32,
+        "residueModSquare": 5,
+        "expectedVertexResidueModSquare": 5,
+        "vertexMatchesResidueFamily": true,
+        "productPlusOneResidueModSquare": 0
+      },
+      {
+        "atomId": "D2.3_persist_outP2=99_out25=14_smaller=side7.V5.left_257",
+        "value": 257,
+        "residueModSquare": 5,
+        "expectedVertexResidueModSquare": 5,
+        "vertexMatchesResidueFamily": true,
+        "productPlusOneResidueModSquare": 0
+      },
+      {
+        "atomId": "D2.3_persist_outP2=99_out25=14_smaller=side7.V8.left_482",
+        "value": 482,
+        "residueModSquare": 5,
+        "expectedVertexResidueModSquare": 5,
+        "vertexMatchesResidueFamily": true,
+        "productPlusOneResidueModSquare": 0
+      },
+      {
+        "atomId": "D2.3_persist_outP2=99_out25=14_smaller=side7.V15.left_932",
+        "value": 932,
+        "residueModSquare": 5,
+        "expectedVertexResidueModSquare": 5,
+        "vertexMatchesResidueFamily": true,
+        "productPlusOneResidueModSquare": 0
+      },
+      {
+        "atomId": "D2.3_persist_outP2=99_out25=14_smaller=side7.V19.left_1157",
+        "value": 1157,
+        "residueModSquare": 5,
+        "expectedVertexResidueModSquare": 5,
+        "vertexMatchesResidueFamily": true,
+        "productPlusOneResidueModSquare": 0
+      },
+      {
+        "atomId": "D2.3_persist_outP2=99_out25=14_smaller=side7.V23.left_1382",
+        "value": 1382,
+        "residueModSquare": 5,
+        "expectedVertexResidueModSquare": 5,
+        "vertexMatchesResidueFamily": true,
+        "productPlusOneResidueModSquare": 0
+      },
+      {
+        "atomId": "D2.3_persist_outP2=99_out25=14_smaller=side7.V30.left_1832",
+        "value": 1832,
+        "residueModSquare": 5,
+        "expectedVertexResidueModSquare": 5,
+        "vertexMatchesResidueFamily": true,
+        "productPlusOneResidueModSquare": 0
+      },
+      {
+        "atomId": "D2.3_persist_outP2=99_out25=14_smaller=side7.V33.left_2057",
+        "value": 2057,
+        "residueModSquare": 5,
+        "expectedVertexResidueModSquare": 5,
+        "vertexMatchesResidueFamily": true,
+        "productPlusOneResidueModSquare": 0
+      },
+      {
+        "atomId": "D2.3_persist_outP2=99_out25=14_smaller=side7.V36.left_2282",
+        "value": 2282,
+        "residueModSquare": 5,
+        "expectedVertexResidueModSquare": 5,
+        "vertexMatchesResidueFamily": true,
+        "productPlusOneResidueModSquare": 0
+      },
+      {
+        "atomId": "D2.3_persist_outP2=99_out25=14_smaller=side7.V42.left_2732",
+        "value": 2732,
+        "residueModSquare": 5,
+        "expectedVertexResidueModSquare": 5,
+        "vertexMatchesResidueFamily": true,
+        "productPlusOneResidueModSquare": 0
+      },
+      {
+        "atomId": "D2.3_persist_outP2=99_out25=14_smaller=side7.V45.left_2957",
+        "value": 2957,
+        "residueModSquare": 5,
+        "expectedVertexResidueModSquare": 5,
+        "vertexMatchesResidueFamily": true,
+        "productPlusOneResidueModSquare": 0
+      },
+      {
+        "atomId": "D2.3_persist_outP2=99_out25=14_smaller=side7.V48.left_3182",
+        "value": 3182,
+        "residueModSquare": 5,
+        "expectedVertexResidueModSquare": 5,
+        "vertexMatchesResidueFamily": true,
+        "productPlusOneResidueModSquare": 0
+      },
+      {
+        "atomId": "D2.3_persist_outP2=99_out25=14_smaller=side7.V55.left_3632",
+        "value": 3632,
+        "residueModSquare": 5,
+        "expectedVertexResidueModSquare": 5,
+        "vertexMatchesResidueFamily": true,
+        "productPlusOneResidueModSquare": 0
+      },
+      {
+        "atomId": "D2.3_persist_outP2=99_out25=14_smaller=side7.V58.left_3857",
+        "value": 3857,
+        "residueModSquare": 5,
+        "expectedVertexResidueModSquare": 5,
+        "vertexMatchesResidueFamily": true,
+        "productPlusOneResidueModSquare": 0
+      },
+      {
+        "atomId": "D2.3_persist_outP2=99_out25=14_smaller=side7.V61.left_4082",
+        "value": 4082,
+        "residueModSquare": 5,
+        "expectedVertexResidueModSquare": 5,
+        "vertexMatchesResidueFamily": true,
+        "productPlusOneResidueModSquare": 0
+      },
+      {
+        "atomId": "D2.3_persist_outP2=99_out25=14_smaller=side7.V68.left_4532",
+        "value": 4532,
+        "residueModSquare": 5,
+        "expectedVertexResidueModSquare": 5,
+        "vertexMatchesResidueFamily": true,
+        "productPlusOneResidueModSquare": 0
+      },
+      {
+        "atomId": "D2.3_persist_outP2=99_out25=14_smaller=side7.V71.left_4757",
+        "value": 4757,
+        "residueModSquare": 5,
+        "expectedVertexResidueModSquare": 5,
+        "vertexMatchesResidueFamily": true,
+        "productPlusOneResidueModSquare": 0
+      },
+      {
+        "atomId": "D2.3_persist_outP2=99_out25=14_smaller=side7.V74.left_4982",
+        "value": 4982,
+        "residueModSquare": 5,
+        "expectedVertexResidueModSquare": 5,
+        "vertexMatchesResidueFamily": true,
+        "productPlusOneResidueModSquare": 0
+      },
+      {
+        "atomId": "D2.3_persist_outP2=99_out25=14_smaller=side7.V80.left_5432",
+        "value": 5432,
+        "residueModSquare": 5,
+        "expectedVertexResidueModSquare": 5,
+        "vertexMatchesResidueFamily": true,
+        "productPlusOneResidueModSquare": 0
+      },
+      {
+        "atomId": "D2.3_persist_outP2=99_out25=14_smaller=side7.V83.left_5657",
+        "value": 5657,
+        "residueModSquare": 5,
+        "expectedVertexResidueModSquare": 5,
+        "vertexMatchesResidueFamily": true,
+        "productPlusOneResidueModSquare": 0
+      },
+      {
+        "atomId": "D2.3_persist_outP2=99_out25=14_smaller=side7.V87.left_5882",
+        "value": 5882,
+        "residueModSquare": 5,
+        "expectedVertexResidueModSquare": 5,
+        "vertexMatchesResidueFamily": true,
+        "productPlusOneResidueModSquare": 0
+      },
+      {
+        "atomId": "D2.3_persist_outP2=99_out25=14_smaller=side7.V93.left_6332",
+        "value": 6332,
+        "residueModSquare": 5,
+        "expectedVertexResidueModSquare": 5,
+        "vertexMatchesResidueFamily": true,
+        "productPlusOneResidueModSquare": 0
+      },
+      {
+        "atomId": "D2.3_persist_outP2=99_out25=14_smaller=side7.V96.left_6557",
+        "value": 6557,
+        "residueModSquare": 5,
+        "expectedVertexResidueModSquare": 5,
+        "vertexMatchesResidueFamily": true,
+        "productPlusOneResidueModSquare": 0
+      },
+      {
+        "atomId": "D2.3_persist_outP2=99_out25=14_smaller=side7.V99.left_6782",
+        "value": 6782,
+        "residueModSquare": 5,
+        "expectedVertexResidueModSquare": 5,
+        "vertexMatchesResidueFamily": true,
+        "productPlusOneResidueModSquare": 0
+      },
+      {
+        "atomId": "D2.3_persist_outP2=99_out25=14_smaller=side7.V107.left_7232",
+        "value": 7232,
+        "residueModSquare": 5,
+        "expectedVertexResidueModSquare": 5,
+        "vertexMatchesResidueFamily": true,
+        "productPlusOneResidueModSquare": 0
+      },
+      {
+        "atomId": "D2.3_persist_outP2=99_out25=14_smaller=side7.V110.right_68",
+        "value": 68,
+        "residueModSquare": 5,
+        "expectedVertexResidueModSquare": 5,
+        "vertexMatchesResidueFamily": true,
+        "productPlusOneResidueModSquare": 0
+      },
+      {
+        "atomId": "D2.3_persist_outP2=99_out25=14_smaller=side7.V114.right_293",
+        "value": 293,
+        "residueModSquare": 5,
+        "expectedVertexResidueModSquare": 5,
+        "vertexMatchesResidueFamily": true,
+        "productPlusOneResidueModSquare": 0
+      },
+      {
+        "atomId": "D2.3_persist_outP2=99_out25=14_smaller=side7.V117.right_518",
+        "value": 518,
+        "residueModSquare": 5,
+        "expectedVertexResidueModSquare": 5,
+        "vertexMatchesResidueFamily": true,
+        "productPlusOneResidueModSquare": 0
+      },
+      {
+        "atomId": "D2.3_persist_outP2=99_out25=14_smaller=side7.V123.right_968",
+        "value": 968,
+        "residueModSquare": 5,
+        "expectedVertexResidueModSquare": 5,
+        "vertexMatchesResidueFamily": true,
+        "productPlusOneResidueModSquare": 0
+      },
+      {
+        "atomId": "D2.3_persist_outP2=99_out25=14_smaller=side7.V126.right_1193",
+        "value": 1193,
+        "residueModSquare": 5,
+        "expectedVertexResidueModSquare": 5,
+        "vertexMatchesResidueFamily": true,
+        "productPlusOneResidueModSquare": 0
+      },
+      {
+        "atomId": "D2.3_persist_outP2=99_out25=14_smaller=side7.V129.right_1418",
+        "value": 1418,
+        "residueModSquare": 5,
+        "expectedVertexResidueModSquare": 5,
+        "vertexMatchesResidueFamily": true,
+        "productPlusOneResidueModSquare": 0
+      },
+      {
+        "atomId": "D2.3_persist_outP2=99_out25=14_smaller=side7.V136.right_1868",
+        "value": 1868,
+        "residueModSquare": 5,
+        "expectedVertexResidueModSquare": 5,
+        "vertexMatchesResidueFamily": true,
+        "productPlusOneResidueModSquare": 0
+      },
+      {
+        "atomId": "D2.3_persist_outP2=99_out25=14_smaller=side7.V139.right_2093",
+        "value": 2093,
+        "residueModSquare": 5,
+        "expectedVertexResidueModSquare": 5,
+        "vertexMatchesResidueFamily": true,
+        "productPlusOneResidueModSquare": 0
+      },
+      {
+        "atomId": "D2.3_persist_outP2=99_out25=14_smaller=side7.V142.right_2318",
+        "value": 2318,
+        "residueModSquare": 5,
+        "expectedVertexResidueModSquare": 5,
+        "vertexMatchesResidueFamily": true,
+        "productPlusOneResidueModSquare": 0
+      },
+      {
+        "atomId": "D2.3_persist_outP2=99_out25=14_smaller=side7.V149.right_2768",
+        "value": 2768,
+        "residueModSquare": 5,
+        "expectedVertexResidueModSquare": 5,
+        "vertexMatchesResidueFamily": true,
+        "productPlusOneResidueModSquare": 0
+      },
+      {
+        "atomId": "D2.3_persist_outP2=99_out25=14_smaller=side7.V153.right_2993",
+        "value": 2993,
+        "residueModSquare": 5,
+        "expectedVertexResidueModSquare": 5,
+        "vertexMatchesResidueFamily": true,
+        "productPlusOneResidueModSquare": 0
+      },
+      {
+        "atomId": "D2.3_persist_outP2=99_out25=14_smaller=side7.V156.right_3218",
+        "value": 3218,
+        "residueModSquare": 5,
+        "expectedVertexResidueModSquare": 5,
+        "vertexMatchesResidueFamily": true,
+        "productPlusOneResidueModSquare": 0
+      },
+      {
+        "atomId": "D2.3_persist_outP2=99_out25=14_smaller=side7.V162.right_3668",
+        "value": 3668,
+        "residueModSquare": 5,
+        "expectedVertexResidueModSquare": 5,
+        "vertexMatchesResidueFamily": true,
+        "productPlusOneResidueModSquare": 0
+      },
+      {
+        "atomId": "D2.3_persist_outP2=99_out25=14_smaller=side7.V166.right_3893",
+        "value": 3893,
+        "residueModSquare": 5,
+        "expectedVertexResidueModSquare": 5,
+        "vertexMatchesResidueFamily": true,
+        "productPlusOneResidueModSquare": 0
+      },
+      {
+        "atomId": "D2.3_persist_outP2=99_out25=14_smaller=side7.V171.right_4118",
+        "value": 4118,
+        "residueModSquare": 5,
+        "expectedVertexResidueModSquare": 5,
+        "vertexMatchesResidueFamily": true,
+        "productPlusOneResidueModSquare": 0
+      },
+      {
+        "atomId": "D2.3_persist_outP2=99_out25=14_smaller=side7.V178.right_4568",
+        "value": 4568,
+        "residueModSquare": 5,
+        "expectedVertexResidueModSquare": 5,
+        "vertexMatchesResidueFamily": true,
+        "productPlusOneResidueModSquare": 0
+      },
+      {
+        "atomId": "D2.3_persist_outP2=99_out25=14_smaller=side7.V182.right_4793",
+        "value": 4793,
+        "residueModSquare": 5,
+        "expectedVertexResidueModSquare": 5,
+        "vertexMatchesResidueFamily": true,
+        "productPlusOneResidueModSquare": 0
+      },
+      {
+        "atomId": "D2.3_persist_outP2=99_out25=14_smaller=side7.V185.right_5018",
+        "value": 5018,
+        "residueModSquare": 5,
+        "expectedVertexResidueModSquare": 5,
+        "vertexMatchesResidueFamily": true,
+        "productPlusOneResidueModSquare": 0
+      },
+      {
+        "atomId": "D2.3_persist_outP2=99_out25=14_smaller=side7.V191.right_5468",
+        "value": 5468,
+        "residueModSquare": 5,
+        "expectedVertexResidueModSquare": 5,
+        "vertexMatchesResidueFamily": true,
+        "productPlusOneResidueModSquare": 0
+      },
+      {
+        "atomId": "D2.3_persist_outP2=99_out25=14_smaller=side7.V194.right_5693",
+        "value": 5693,
+        "residueModSquare": 5,
+        "expectedVertexResidueModSquare": 5,
+        "vertexMatchesResidueFamily": true,
+        "productPlusOneResidueModSquare": 0
+      },
+      {
+        "atomId": "D2.3_persist_outP2=99_out25=14_smaller=side7.V197.right_5918",
+        "value": 5918,
+        "residueModSquare": 5,
+        "expectedVertexResidueModSquare": 5,
+        "vertexMatchesResidueFamily": true,
+        "productPlusOneResidueModSquare": 0
+      },
+      {
+        "atomId": "D2.3_persist_outP2=99_out25=14_smaller=side7.V204.right_6368",
+        "value": 6368,
+        "residueModSquare": 5,
+        "expectedVertexResidueModSquare": 5,
+        "vertexMatchesResidueFamily": true,
+        "productPlusOneResidueModSquare": 0
+      },
+      {
+        "atomId": "D2.3_persist_outP2=99_out25=14_smaller=side7.V208.right_6593",
+        "value": 6593,
+        "residueModSquare": 5,
+        "expectedVertexResidueModSquare": 5,
+        "vertexMatchesResidueFamily": true,
+        "productPlusOneResidueModSquare": 0
+      },
+      {
+        "atomId": "D2.3_persist_outP2=99_out25=14_smaller=side7.V212.right_6818",
+        "value": 6818,
+        "residueModSquare": 5,
+        "expectedVertexResidueModSquare": 5,
+        "vertexMatchesResidueFamily": true,
+        "productPlusOneResidueModSquare": 0
+      }
+    ],
+    "proofBoundary": "This proves the square-residue vertex-presence family for this successor condition only; sibling conditions still need their own family lemmas."
+  },
+  "theoremObligation": {
+    "kind": "square_residue_vertex_presence_subobligation",
+    "parentObligationId": "D2_p13_matching_lower_bound",
+    "targetObligationId": "D4_matching_bound_implies_sMaxMixed_bound",
+    "statement": "Under outP2=99|out25=14|smaller=side7|out9=7, stabilize the 49 literal vertex-presence atoms whose first square witness is 9.",
+    "proofBoundary": "This successor packet stabilizes one vertex-presence subfamily only; it is not a full split lemma until the sibling refinement conditions and matching/edge obligations are promoted too."
+  },
+  "affectedVertexPresenceAtoms": [
+    {
+      "atomId": "D2.3_persist_outP2=99_out25=14_smaller=side7.V2.left_32",
+      "side": "side7",
+      "value": 32,
+      "residues": {
+        "value": 32,
+        "mod25": 7,
+        "modP": 6,
+        "modP2": 32
+      },
+      "residueModSquare": 5,
+      "successorChecks": [
+        {
+          "N": 7343,
+          "outsider": 1789,
+          "productPlusOne": 57249,
+          "firstSquareDivisorWitness": {
+            "divisor": 3,
+            "square": 9,
+            "quotient": 6361,
+            "stableUnderCurrentSplitModulus": false
+          },
+          "requiredOutsiderResidueModSquare": 7,
+          "witnessOutsiderResidueModSquare": 7,
+          "witnessSatisfiesSuccessorResidue": true,
+          "stableUnderSuccessorSplitModulus": true
+        }
+      ],
+      "status": "bounded_presence_stabilized_by_successor_square_residue"
+    },
+    {
+      "atomId": "D2.3_persist_outP2=99_out25=14_smaller=side7.V5.left_257",
+      "side": "side7",
+      "value": 257,
+      "residues": {
+        "value": 257,
+        "mod25": 7,
+        "modP": 10,
+        "modP2": 88
+      },
+      "residueModSquare": 5,
+      "successorChecks": [
+        {
+          "N": 7343,
+          "outsider": 1789,
+          "productPlusOne": 459774,
+          "firstSquareDivisorWitness": {
+            "divisor": 3,
+            "square": 9,
+            "quotient": 51086,
+            "stableUnderCurrentSplitModulus": false
+          },
+          "requiredOutsiderResidueModSquare": 7,
+          "witnessOutsiderResidueModSquare": 7,
+          "witnessSatisfiesSuccessorResidue": true,
+          "stableUnderSuccessorSplitModulus": true
+        }
+      ],
+      "status": "bounded_presence_stabilized_by_successor_square_residue"
+    },
+    {
+      "atomId": "D2.3_persist_outP2=99_out25=14_smaller=side7.V8.left_482",
+      "side": "side7",
+      "value": 482,
+      "residues": {
+        "value": 482,
+        "mod25": 7,
+        "modP": 1,
+        "modP2": 144
+      },
+      "residueModSquare": 5,
+      "successorChecks": [
+        {
+          "N": 7343,
+          "outsider": 1789,
+          "productPlusOne": 862299,
+          "firstSquareDivisorWitness": {
+            "divisor": 3,
+            "square": 9,
+            "quotient": 95811,
+            "stableUnderCurrentSplitModulus": false
+          },
+          "requiredOutsiderResidueModSquare": 7,
+          "witnessOutsiderResidueModSquare": 7,
+          "witnessSatisfiesSuccessorResidue": true,
+          "stableUnderSuccessorSplitModulus": true
+        }
+      ],
+      "status": "bounded_presence_stabilized_by_successor_square_residue"
+    },
+    {
+      "atomId": "D2.3_persist_outP2=99_out25=14_smaller=side7.V15.left_932",
+      "side": "side7",
+      "value": 932,
+      "residues": {
+        "value": 932,
+        "mod25": 7,
+        "modP": 9,
+        "modP2": 87
+      },
+      "residueModSquare": 5,
+      "successorChecks": [
+        {
+          "N": 7343,
+          "outsider": 1789,
+          "productPlusOne": 1667349,
+          "firstSquareDivisorWitness": {
+            "divisor": 3,
+            "square": 9,
+            "quotient": 185261,
+            "stableUnderCurrentSplitModulus": false
+          },
+          "requiredOutsiderResidueModSquare": 7,
+          "witnessOutsiderResidueModSquare": 7,
+          "witnessSatisfiesSuccessorResidue": true,
+          "stableUnderSuccessorSplitModulus": true
+        }
+      ],
+      "status": "bounded_presence_stabilized_by_successor_square_residue"
+    },
+    {
+      "atomId": "D2.3_persist_outP2=99_out25=14_smaller=side7.V19.left_1157",
+      "side": "side7",
+      "value": 1157,
+      "residues": {
+        "value": 1157,
+        "mod25": 7,
+        "modP": 0,
+        "modP2": 143
+      },
+      "residueModSquare": 5,
+      "successorChecks": [
+        {
+          "N": 7343,
+          "outsider": 1789,
+          "productPlusOne": 2069874,
+          "firstSquareDivisorWitness": {
+            "divisor": 3,
+            "square": 9,
+            "quotient": 229986,
+            "stableUnderCurrentSplitModulus": false
+          },
+          "requiredOutsiderResidueModSquare": 7,
+          "witnessOutsiderResidueModSquare": 7,
+          "witnessSatisfiesSuccessorResidue": true,
+          "stableUnderSuccessorSplitModulus": true
+        }
+      ],
+      "status": "bounded_presence_stabilized_by_successor_square_residue"
+    },
+    {
+      "atomId": "D2.3_persist_outP2=99_out25=14_smaller=side7.V23.left_1382",
+      "side": "side7",
+      "value": 1382,
+      "residues": {
+        "value": 1382,
+        "mod25": 7,
+        "modP": 4,
+        "modP2": 30
+      },
+      "residueModSquare": 5,
+      "successorChecks": [
+        {
+          "N": 7343,
+          "outsider": 1789,
+          "productPlusOne": 2472399,
+          "firstSquareDivisorWitness": {
+            "divisor": 3,
+            "square": 9,
+            "quotient": 274711,
+            "stableUnderCurrentSplitModulus": false
+          },
+          "requiredOutsiderResidueModSquare": 7,
+          "witnessOutsiderResidueModSquare": 7,
+          "witnessSatisfiesSuccessorResidue": true,
+          "stableUnderSuccessorSplitModulus": true
+        }
+      ],
+      "status": "bounded_presence_stabilized_by_successor_square_residue"
+    },
+    {
+      "atomId": "D2.3_persist_outP2=99_out25=14_smaller=side7.V30.left_1832",
+      "side": "side7",
+      "value": 1832,
+      "residues": {
+        "value": 1832,
+        "mod25": 7,
+        "modP": 12,
+        "modP2": 142
+      },
+      "residueModSquare": 5,
+      "successorChecks": [
+        {
+          "N": 7343,
+          "outsider": 1789,
+          "productPlusOne": 3277449,
+          "firstSquareDivisorWitness": {
+            "divisor": 3,
+            "square": 9,
+            "quotient": 364161,
+            "stableUnderCurrentSplitModulus": false
+          },
+          "requiredOutsiderResidueModSquare": 7,
+          "witnessOutsiderResidueModSquare": 7,
+          "witnessSatisfiesSuccessorResidue": true,
+          "stableUnderSuccessorSplitModulus": true
+        }
+      ],
+      "status": "bounded_presence_stabilized_by_successor_square_residue"
+    },
+    {
+      "atomId": "D2.3_persist_outP2=99_out25=14_smaller=side7.V33.left_2057",
+      "side": "side7",
+      "value": 2057,
+      "residues": {
+        "value": 2057,
+        "mod25": 7,
+        "modP": 3,
+        "modP2": 29
+      },
+      "residueModSquare": 5,
+      "successorChecks": [
+        {
+          "N": 7343,
+          "outsider": 1789,
+          "productPlusOne": 3679974,
+          "firstSquareDivisorWitness": {
+            "divisor": 3,
+            "square": 9,
+            "quotient": 408886,
+            "stableUnderCurrentSplitModulus": false
+          },
+          "requiredOutsiderResidueModSquare": 7,
+          "witnessOutsiderResidueModSquare": 7,
+          "witnessSatisfiesSuccessorResidue": true,
+          "stableUnderSuccessorSplitModulus": true
+        }
+      ],
+      "status": "bounded_presence_stabilized_by_successor_square_residue"
+    },
+    {
+      "atomId": "D2.3_persist_outP2=99_out25=14_smaller=side7.V36.left_2282",
+      "side": "side7",
+      "value": 2282,
+      "residues": {
+        "value": 2282,
+        "mod25": 7,
+        "modP": 7,
+        "modP2": 85
+      },
+      "residueModSquare": 5,
+      "successorChecks": [
+        {
+          "N": 7343,
+          "outsider": 1789,
+          "productPlusOne": 4082499,
+          "firstSquareDivisorWitness": {
+            "divisor": 3,
+            "square": 9,
+            "quotient": 453611,
+            "stableUnderCurrentSplitModulus": false
+          },
+          "requiredOutsiderResidueModSquare": 7,
+          "witnessOutsiderResidueModSquare": 7,
+          "witnessSatisfiesSuccessorResidue": true,
+          "stableUnderSuccessorSplitModulus": true
+        }
+      ],
+      "status": "bounded_presence_stabilized_by_successor_square_residue"
+    },
+    {
+      "atomId": "D2.3_persist_outP2=99_out25=14_smaller=side7.V42.left_2732",
+      "side": "side7",
+      "value": 2732,
+      "residues": {
+        "value": 2732,
+        "mod25": 7,
+        "modP": 2,
+        "modP2": 28
+      },
+      "residueModSquare": 5,
+      "successorChecks": [
+        {
+          "N": 7343,
+          "outsider": 1789,
+          "productPlusOne": 4887549,
+          "firstSquareDivisorWitness": {
+            "divisor": 3,
+            "square": 9,
+            "quotient": 543061,
+            "stableUnderCurrentSplitModulus": false
+          },
+          "requiredOutsiderResidueModSquare": 7,
+          "witnessOutsiderResidueModSquare": 7,
+          "witnessSatisfiesSuccessorResidue": true,
+          "stableUnderSuccessorSplitModulus": true
+        }
+      ],
+      "status": "bounded_presence_stabilized_by_successor_square_residue"
+    },
+    {
+      "atomId": "D2.3_persist_outP2=99_out25=14_smaller=side7.V45.left_2957",
+      "side": "side7",
+      "value": 2957,
+      "residues": {
+        "value": 2957,
+        "mod25": 7,
+        "modP": 6,
+        "modP2": 84
+      },
+      "residueModSquare": 5,
+      "successorChecks": [
+        {
+          "N": 7343,
+          "outsider": 1789,
+          "productPlusOne": 5290074,
+          "firstSquareDivisorWitness": {
+            "divisor": 3,
+            "square": 9,
+            "quotient": 587786,
+            "stableUnderCurrentSplitModulus": false
+          },
+          "requiredOutsiderResidueModSquare": 7,
+          "witnessOutsiderResidueModSquare": 7,
+          "witnessSatisfiesSuccessorResidue": true,
+          "stableUnderSuccessorSplitModulus": true
+        }
+      ],
+      "status": "bounded_presence_stabilized_by_successor_square_residue"
+    },
+    {
+      "atomId": "D2.3_persist_outP2=99_out25=14_smaller=side7.V48.left_3182",
+      "side": "side7",
+      "value": 3182,
+      "residues": {
+        "value": 3182,
+        "mod25": 7,
+        "modP": 10,
+        "modP2": 140
+      },
+      "residueModSquare": 5,
+      "successorChecks": [
+        {
+          "N": 7343,
+          "outsider": 1789,
+          "productPlusOne": 5692599,
+          "firstSquareDivisorWitness": {
+            "divisor": 3,
+            "square": 9,
+            "quotient": 632511,
+            "stableUnderCurrentSplitModulus": false
+          },
+          "requiredOutsiderResidueModSquare": 7,
+          "witnessOutsiderResidueModSquare": 7,
+          "witnessSatisfiesSuccessorResidue": true,
+          "stableUnderSuccessorSplitModulus": true
+        }
+      ],
+      "status": "bounded_presence_stabilized_by_successor_square_residue"
+    },
+    {
+      "atomId": "D2.3_persist_outP2=99_out25=14_smaller=side7.V55.left_3632",
+      "side": "side7",
+      "value": 3632,
+      "residues": {
+        "value": 3632,
+        "mod25": 7,
+        "modP": 5,
+        "modP2": 83
+      },
+      "residueModSquare": 5,
+      "successorChecks": [
+        {
+          "N": 7343,
+          "outsider": 1789,
+          "productPlusOne": 6497649,
+          "firstSquareDivisorWitness": {
+            "divisor": 3,
+            "square": 9,
+            "quotient": 721961,
+            "stableUnderCurrentSplitModulus": false
+          },
+          "requiredOutsiderResidueModSquare": 7,
+          "witnessOutsiderResidueModSquare": 7,
+          "witnessSatisfiesSuccessorResidue": true,
+          "stableUnderSuccessorSplitModulus": true
+        }
+      ],
+      "status": "bounded_presence_stabilized_by_successor_square_residue"
+    },
+    {
+      "atomId": "D2.3_persist_outP2=99_out25=14_smaller=side7.V58.left_3857",
+      "side": "side7",
+      "value": 3857,
+      "residues": {
+        "value": 3857,
+        "mod25": 7,
+        "modP": 9,
+        "modP2": 139
+      },
+      "residueModSquare": 5,
+      "successorChecks": [
+        {
+          "N": 7343,
+          "outsider": 1789,
+          "productPlusOne": 6900174,
+          "firstSquareDivisorWitness": {
+            "divisor": 3,
+            "square": 9,
+            "quotient": 766686,
+            "stableUnderCurrentSplitModulus": false
+          },
+          "requiredOutsiderResidueModSquare": 7,
+          "witnessOutsiderResidueModSquare": 7,
+          "witnessSatisfiesSuccessorResidue": true,
+          "stableUnderSuccessorSplitModulus": true
+        }
+      ],
+      "status": "bounded_presence_stabilized_by_successor_square_residue"
+    },
+    {
+      "atomId": "D2.3_persist_outP2=99_out25=14_smaller=side7.V61.left_4082",
+      "side": "side7",
+      "value": 4082,
+      "residues": {
+        "value": 4082,
+        "mod25": 7,
+        "modP": 0,
+        "modP2": 26
+      },
+      "residueModSquare": 5,
+      "successorChecks": [
+        {
+          "N": 7343,
+          "outsider": 1789,
+          "productPlusOne": 7302699,
+          "firstSquareDivisorWitness": {
+            "divisor": 3,
+            "square": 9,
+            "quotient": 811411,
+            "stableUnderCurrentSplitModulus": false
+          },
+          "requiredOutsiderResidueModSquare": 7,
+          "witnessOutsiderResidueModSquare": 7,
+          "witnessSatisfiesSuccessorResidue": true,
+          "stableUnderSuccessorSplitModulus": true
+        }
+      ],
+      "status": "bounded_presence_stabilized_by_successor_square_residue"
+    },
+    {
+      "atomId": "D2.3_persist_outP2=99_out25=14_smaller=side7.V68.left_4532",
+      "side": "side7",
+      "value": 4532,
+      "residues": {
+        "value": 4532,
+        "mod25": 7,
+        "modP": 8,
+        "modP2": 138
+      },
+      "residueModSquare": 5,
+      "successorChecks": [
+        {
+          "N": 7343,
+          "outsider": 1789,
+          "productPlusOne": 8107749,
+          "firstSquareDivisorWitness": {
+            "divisor": 3,
+            "square": 9,
+            "quotient": 900861,
+            "stableUnderCurrentSplitModulus": false
+          },
+          "requiredOutsiderResidueModSquare": 7,
+          "witnessOutsiderResidueModSquare": 7,
+          "witnessSatisfiesSuccessorResidue": true,
+          "stableUnderSuccessorSplitModulus": true
+        }
+      ],
+      "status": "bounded_presence_stabilized_by_successor_square_residue"
+    },
+    {
+      "atomId": "D2.3_persist_outP2=99_out25=14_smaller=side7.V71.left_4757",
+      "side": "side7",
+      "value": 4757,
+      "residues": {
+        "value": 4757,
+        "mod25": 7,
+        "modP": 12,
+        "modP2": 25
+      },
+      "residueModSquare": 5,
+      "successorChecks": [
+        {
+          "N": 7343,
+          "outsider": 1789,
+          "productPlusOne": 8510274,
+          "firstSquareDivisorWitness": {
+            "divisor": 3,
+            "square": 9,
+            "quotient": 945586,
+            "stableUnderCurrentSplitModulus": false
+          },
+          "requiredOutsiderResidueModSquare": 7,
+          "witnessOutsiderResidueModSquare": 7,
+          "witnessSatisfiesSuccessorResidue": true,
+          "stableUnderSuccessorSplitModulus": true
+        }
+      ],
+      "status": "bounded_presence_stabilized_by_successor_square_residue"
+    },
+    {
+      "atomId": "D2.3_persist_outP2=99_out25=14_smaller=side7.V74.left_4982",
+      "side": "side7",
+      "value": 4982,
+      "residues": {
+        "value": 4982,
+        "mod25": 7,
+        "modP": 3,
+        "modP2": 81
+      },
+      "residueModSquare": 5,
+      "successorChecks": [
+        {
+          "N": 7343,
+          "outsider": 1789,
+          "productPlusOne": 8912799,
+          "firstSquareDivisorWitness": {
+            "divisor": 3,
+            "square": 9,
+            "quotient": 990311,
+            "stableUnderCurrentSplitModulus": false
+          },
+          "requiredOutsiderResidueModSquare": 7,
+          "witnessOutsiderResidueModSquare": 7,
+          "witnessSatisfiesSuccessorResidue": true,
+          "stableUnderSuccessorSplitModulus": true
+        }
+      ],
+      "status": "bounded_presence_stabilized_by_successor_square_residue"
+    },
+    {
+      "atomId": "D2.3_persist_outP2=99_out25=14_smaller=side7.V80.left_5432",
+      "side": "side7",
+      "value": 5432,
+      "residues": {
+        "value": 5432,
+        "mod25": 7,
+        "modP": 11,
+        "modP2": 24
+      },
+      "residueModSquare": 5,
+      "successorChecks": [
+        {
+          "N": 7343,
+          "outsider": 1789,
+          "productPlusOne": 9717849,
+          "firstSquareDivisorWitness": {
+            "divisor": 3,
+            "square": 9,
+            "quotient": 1079761,
+            "stableUnderCurrentSplitModulus": false
+          },
+          "requiredOutsiderResidueModSquare": 7,
+          "witnessOutsiderResidueModSquare": 7,
+          "witnessSatisfiesSuccessorResidue": true,
+          "stableUnderSuccessorSplitModulus": true
+        }
+      ],
+      "status": "bounded_presence_stabilized_by_successor_square_residue"
+    },
+    {
+      "atomId": "D2.3_persist_outP2=99_out25=14_smaller=side7.V83.left_5657",
+      "side": "side7",
+      "value": 5657,
+      "residues": {
+        "value": 5657,
+        "mod25": 7,
+        "modP": 2,
+        "modP2": 80
+      },
+      "residueModSquare": 5,
+      "successorChecks": [
+        {
+          "N": 7343,
+          "outsider": 1789,
+          "productPlusOne": 10120374,
+          "firstSquareDivisorWitness": {
+            "divisor": 3,
+            "square": 9,
+            "quotient": 1124486,
+            "stableUnderCurrentSplitModulus": false
+          },
+          "requiredOutsiderResidueModSquare": 7,
+          "witnessOutsiderResidueModSquare": 7,
+          "witnessSatisfiesSuccessorResidue": true,
+          "stableUnderSuccessorSplitModulus": true
+        }
+      ],
+      "status": "bounded_presence_stabilized_by_successor_square_residue"
+    },
+    {
+      "atomId": "D2.3_persist_outP2=99_out25=14_smaller=side7.V87.left_5882",
+      "side": "side7",
+      "value": 5882,
+      "residues": {
+        "value": 5882,
+        "mod25": 7,
+        "modP": 6,
+        "modP2": 136
+      },
+      "residueModSquare": 5,
+      "successorChecks": [
+        {
+          "N": 7343,
+          "outsider": 1789,
+          "productPlusOne": 10522899,
+          "firstSquareDivisorWitness": {
+            "divisor": 3,
+            "square": 9,
+            "quotient": 1169211,
+            "stableUnderCurrentSplitModulus": false
+          },
+          "requiredOutsiderResidueModSquare": 7,
+          "witnessOutsiderResidueModSquare": 7,
+          "witnessSatisfiesSuccessorResidue": true,
+          "stableUnderSuccessorSplitModulus": true
+        }
+      ],
+      "status": "bounded_presence_stabilized_by_successor_square_residue"
+    },
+    {
+      "atomId": "D2.3_persist_outP2=99_out25=14_smaller=side7.V93.left_6332",
+      "side": "side7",
+      "value": 6332,
+      "residues": {
+        "value": 6332,
+        "mod25": 7,
+        "modP": 1,
+        "modP2": 79
+      },
+      "residueModSquare": 5,
+      "successorChecks": [
+        {
+          "N": 7343,
+          "outsider": 1789,
+          "productPlusOne": 11327949,
+          "firstSquareDivisorWitness": {
+            "divisor": 3,
+            "square": 9,
+            "quotient": 1258661,
+            "stableUnderCurrentSplitModulus": false
+          },
+          "requiredOutsiderResidueModSquare": 7,
+          "witnessOutsiderResidueModSquare": 7,
+          "witnessSatisfiesSuccessorResidue": true,
+          "stableUnderSuccessorSplitModulus": true
+        }
+      ],
+      "status": "bounded_presence_stabilized_by_successor_square_residue"
+    },
+    {
+      "atomId": "D2.3_persist_outP2=99_out25=14_smaller=side7.V96.left_6557",
+      "side": "side7",
+      "value": 6557,
+      "residues": {
+        "value": 6557,
+        "mod25": 7,
+        "modP": 5,
+        "modP2": 135
+      },
+      "residueModSquare": 5,
+      "successorChecks": [
+        {
+          "N": 7343,
+          "outsider": 1789,
+          "productPlusOne": 11730474,
+          "firstSquareDivisorWitness": {
+            "divisor": 3,
+            "square": 9,
+            "quotient": 1303386,
+            "stableUnderCurrentSplitModulus": false
+          },
+          "requiredOutsiderResidueModSquare": 7,
+          "witnessOutsiderResidueModSquare": 7,
+          "witnessSatisfiesSuccessorResidue": true,
+          "stableUnderSuccessorSplitModulus": true
+        }
+      ],
+      "status": "bounded_presence_stabilized_by_successor_square_residue"
+    },
+    {
+      "atomId": "D2.3_persist_outP2=99_out25=14_smaller=side7.V99.left_6782",
+      "side": "side7",
+      "value": 6782,
+      "residues": {
+        "value": 6782,
+        "mod25": 7,
+        "modP": 9,
+        "modP2": 22
+      },
+      "residueModSquare": 5,
+      "successorChecks": [
+        {
+          "N": 7343,
+          "outsider": 1789,
+          "productPlusOne": 12132999,
+          "firstSquareDivisorWitness": {
+            "divisor": 3,
+            "square": 9,
+            "quotient": 1348111,
+            "stableUnderCurrentSplitModulus": false
+          },
+          "requiredOutsiderResidueModSquare": 7,
+          "witnessOutsiderResidueModSquare": 7,
+          "witnessSatisfiesSuccessorResidue": true,
+          "stableUnderSuccessorSplitModulus": true
+        }
+      ],
+      "status": "bounded_presence_stabilized_by_successor_square_residue"
+    },
+    {
+      "atomId": "D2.3_persist_outP2=99_out25=14_smaller=side7.V107.left_7232",
+      "side": "side7",
+      "value": 7232,
+      "residues": {
+        "value": 7232,
+        "mod25": 7,
+        "modP": 4,
+        "modP2": 134
+      },
+      "residueModSquare": 5,
+      "successorChecks": [
+        {
+          "N": 7343,
+          "outsider": 1789,
+          "productPlusOne": 12938049,
+          "firstSquareDivisorWitness": {
+            "divisor": 3,
+            "square": 9,
+            "quotient": 1437561,
+            "stableUnderCurrentSplitModulus": false
+          },
+          "requiredOutsiderResidueModSquare": 7,
+          "witnessOutsiderResidueModSquare": 7,
+          "witnessSatisfiesSuccessorResidue": true,
+          "stableUnderSuccessorSplitModulus": true
+        }
+      ],
+      "status": "bounded_presence_stabilized_by_successor_square_residue"
+    },
+    {
+      "atomId": "D2.3_persist_outP2=99_out25=14_smaller=side7.V110.right_68",
+      "side": "side18",
+      "value": 68,
+      "residues": {
+        "value": 68,
+        "mod25": 18,
+        "modP": 3,
+        "modP2": 68
+      },
+      "residueModSquare": 5,
+      "successorChecks": [
+        {
+          "N": 7343,
+          "outsider": 1789,
+          "productPlusOne": 121653,
+          "firstSquareDivisorWitness": {
+            "divisor": 3,
+            "square": 9,
+            "quotient": 13517,
+            "stableUnderCurrentSplitModulus": false
+          },
+          "requiredOutsiderResidueModSquare": 7,
+          "witnessOutsiderResidueModSquare": 7,
+          "witnessSatisfiesSuccessorResidue": true,
+          "stableUnderSuccessorSplitModulus": true
+        }
+      ],
+      "status": "bounded_presence_stabilized_by_successor_square_residue"
+    },
+    {
+      "atomId": "D2.3_persist_outP2=99_out25=14_smaller=side7.V114.right_293",
+      "side": "side18",
+      "value": 293,
+      "residues": {
+        "value": 293,
+        "mod25": 18,
+        "modP": 7,
+        "modP2": 124
+      },
+      "residueModSquare": 5,
+      "successorChecks": [
+        {
+          "N": 7343,
+          "outsider": 1789,
+          "productPlusOne": 524178,
+          "firstSquareDivisorWitness": {
+            "divisor": 3,
+            "square": 9,
+            "quotient": 58242,
+            "stableUnderCurrentSplitModulus": false
+          },
+          "requiredOutsiderResidueModSquare": 7,
+          "witnessOutsiderResidueModSquare": 7,
+          "witnessSatisfiesSuccessorResidue": true,
+          "stableUnderSuccessorSplitModulus": true
+        }
+      ],
+      "status": "bounded_presence_stabilized_by_successor_square_residue"
+    },
+    {
+      "atomId": "D2.3_persist_outP2=99_out25=14_smaller=side7.V117.right_518",
+      "side": "side18",
+      "value": 518,
+      "residues": {
+        "value": 518,
+        "mod25": 18,
+        "modP": 11,
+        "modP2": 11
+      },
+      "residueModSquare": 5,
+      "successorChecks": [
+        {
+          "N": 7343,
+          "outsider": 1789,
+          "productPlusOne": 926703,
+          "firstSquareDivisorWitness": {
+            "divisor": 3,
+            "square": 9,
+            "quotient": 102967,
+            "stableUnderCurrentSplitModulus": false
+          },
+          "requiredOutsiderResidueModSquare": 7,
+          "witnessOutsiderResidueModSquare": 7,
+          "witnessSatisfiesSuccessorResidue": true,
+          "stableUnderSuccessorSplitModulus": true
+        }
+      ],
+      "status": "bounded_presence_stabilized_by_successor_square_residue"
+    },
+    {
+      "atomId": "D2.3_persist_outP2=99_out25=14_smaller=side7.V123.right_968",
+      "side": "side18",
+      "value": 968,
+      "residues": {
+        "value": 968,
+        "mod25": 18,
+        "modP": 6,
+        "modP2": 123
+      },
+      "residueModSquare": 5,
+      "successorChecks": [
+        {
+          "N": 7343,
+          "outsider": 1789,
+          "productPlusOne": 1731753,
+          "firstSquareDivisorWitness": {
+            "divisor": 3,
+            "square": 9,
+            "quotient": 192417,
+            "stableUnderCurrentSplitModulus": false
+          },
+          "requiredOutsiderResidueModSquare": 7,
+          "witnessOutsiderResidueModSquare": 7,
+          "witnessSatisfiesSuccessorResidue": true,
+          "stableUnderSuccessorSplitModulus": true
+        }
+      ],
+      "status": "bounded_presence_stabilized_by_successor_square_residue"
+    },
+    {
+      "atomId": "D2.3_persist_outP2=99_out25=14_smaller=side7.V126.right_1193",
+      "side": "side18",
+      "value": 1193,
+      "residues": {
+        "value": 1193,
+        "mod25": 18,
+        "modP": 10,
+        "modP2": 10
+      },
+      "residueModSquare": 5,
+      "successorChecks": [
+        {
+          "N": 7343,
+          "outsider": 1789,
+          "productPlusOne": 2134278,
+          "firstSquareDivisorWitness": {
+            "divisor": 3,
+            "square": 9,
+            "quotient": 237142,
+            "stableUnderCurrentSplitModulus": false
+          },
+          "requiredOutsiderResidueModSquare": 7,
+          "witnessOutsiderResidueModSquare": 7,
+          "witnessSatisfiesSuccessorResidue": true,
+          "stableUnderSuccessorSplitModulus": true
+        }
+      ],
+      "status": "bounded_presence_stabilized_by_successor_square_residue"
+    },
+    {
+      "atomId": "D2.3_persist_outP2=99_out25=14_smaller=side7.V129.right_1418",
+      "side": "side18",
+      "value": 1418,
+      "residues": {
+        "value": 1418,
+        "mod25": 18,
+        "modP": 1,
+        "modP2": 66
+      },
+      "residueModSquare": 5,
+      "successorChecks": [
+        {
+          "N": 7343,
+          "outsider": 1789,
+          "productPlusOne": 2536803,
+          "firstSquareDivisorWitness": {
+            "divisor": 3,
+            "square": 9,
+            "quotient": 281867,
+            "stableUnderCurrentSplitModulus": false
+          },
+          "requiredOutsiderResidueModSquare": 7,
+          "witnessOutsiderResidueModSquare": 7,
+          "witnessSatisfiesSuccessorResidue": true,
+          "stableUnderSuccessorSplitModulus": true
+        }
+      ],
+      "status": "bounded_presence_stabilized_by_successor_square_residue"
+    },
+    {
+      "atomId": "D2.3_persist_outP2=99_out25=14_smaller=side7.V136.right_1868",
+      "side": "side18",
+      "value": 1868,
+      "residues": {
+        "value": 1868,
+        "mod25": 18,
+        "modP": 9,
+        "modP2": 9
+      },
+      "residueModSquare": 5,
+      "successorChecks": [
+        {
+          "N": 7343,
+          "outsider": 1789,
+          "productPlusOne": 3341853,
+          "firstSquareDivisorWitness": {
+            "divisor": 3,
+            "square": 9,
+            "quotient": 371317,
+            "stableUnderCurrentSplitModulus": false
+          },
+          "requiredOutsiderResidueModSquare": 7,
+          "witnessOutsiderResidueModSquare": 7,
+          "witnessSatisfiesSuccessorResidue": true,
+          "stableUnderSuccessorSplitModulus": true
+        }
+      ],
+      "status": "bounded_presence_stabilized_by_successor_square_residue"
+    },
+    {
+      "atomId": "D2.3_persist_outP2=99_out25=14_smaller=side7.V139.right_2093",
+      "side": "side18",
+      "value": 2093,
+      "residues": {
+        "value": 2093,
+        "mod25": 18,
+        "modP": 0,
+        "modP2": 65
+      },
+      "residueModSquare": 5,
+      "successorChecks": [
+        {
+          "N": 7343,
+          "outsider": 1789,
+          "productPlusOne": 3744378,
+          "firstSquareDivisorWitness": {
+            "divisor": 3,
+            "square": 9,
+            "quotient": 416042,
+            "stableUnderCurrentSplitModulus": false
+          },
+          "requiredOutsiderResidueModSquare": 7,
+          "witnessOutsiderResidueModSquare": 7,
+          "witnessSatisfiesSuccessorResidue": true,
+          "stableUnderSuccessorSplitModulus": true
+        }
+      ],
+      "status": "bounded_presence_stabilized_by_successor_square_residue"
+    },
+    {
+      "atomId": "D2.3_persist_outP2=99_out25=14_smaller=side7.V142.right_2318",
+      "side": "side18",
+      "value": 2318,
+      "residues": {
+        "value": 2318,
+        "mod25": 18,
+        "modP": 4,
+        "modP2": 121
+      },
+      "residueModSquare": 5,
+      "successorChecks": [
+        {
+          "N": 7343,
+          "outsider": 1789,
+          "productPlusOne": 4146903,
+          "firstSquareDivisorWitness": {
+            "divisor": 3,
+            "square": 9,
+            "quotient": 460767,
+            "stableUnderCurrentSplitModulus": false
+          },
+          "requiredOutsiderResidueModSquare": 7,
+          "witnessOutsiderResidueModSquare": 7,
+          "witnessSatisfiesSuccessorResidue": true,
+          "stableUnderSuccessorSplitModulus": true
+        }
+      ],
+      "status": "bounded_presence_stabilized_by_successor_square_residue"
+    },
+    {
+      "atomId": "D2.3_persist_outP2=99_out25=14_smaller=side7.V149.right_2768",
+      "side": "side18",
+      "value": 2768,
+      "residues": {
+        "value": 2768,
+        "mod25": 18,
+        "modP": 12,
+        "modP2": 64
+      },
+      "residueModSquare": 5,
+      "successorChecks": [
+        {
+          "N": 7343,
+          "outsider": 1789,
+          "productPlusOne": 4951953,
+          "firstSquareDivisorWitness": {
+            "divisor": 3,
+            "square": 9,
+            "quotient": 550217,
+            "stableUnderCurrentSplitModulus": false
+          },
+          "requiredOutsiderResidueModSquare": 7,
+          "witnessOutsiderResidueModSquare": 7,
+          "witnessSatisfiesSuccessorResidue": true,
+          "stableUnderSuccessorSplitModulus": true
+        }
+      ],
+      "status": "bounded_presence_stabilized_by_successor_square_residue"
+    },
+    {
+      "atomId": "D2.3_persist_outP2=99_out25=14_smaller=side7.V153.right_2993",
+      "side": "side18",
+      "value": 2993,
+      "residues": {
+        "value": 2993,
+        "mod25": 18,
+        "modP": 3,
+        "modP2": 120
+      },
+      "residueModSquare": 5,
+      "successorChecks": [
+        {
+          "N": 7343,
+          "outsider": 1789,
+          "productPlusOne": 5354478,
+          "firstSquareDivisorWitness": {
+            "divisor": 3,
+            "square": 9,
+            "quotient": 594942,
+            "stableUnderCurrentSplitModulus": false
+          },
+          "requiredOutsiderResidueModSquare": 7,
+          "witnessOutsiderResidueModSquare": 7,
+          "witnessSatisfiesSuccessorResidue": true,
+          "stableUnderSuccessorSplitModulus": true
+        }
+      ],
+      "status": "bounded_presence_stabilized_by_successor_square_residue"
+    },
+    {
+      "atomId": "D2.3_persist_outP2=99_out25=14_smaller=side7.V156.right_3218",
+      "side": "side18",
+      "value": 3218,
+      "residues": {
+        "value": 3218,
+        "mod25": 18,
+        "modP": 7,
+        "modP2": 7
+      },
+      "residueModSquare": 5,
+      "successorChecks": [
+        {
+          "N": 7343,
+          "outsider": 1789,
+          "productPlusOne": 5757003,
+          "firstSquareDivisorWitness": {
+            "divisor": 3,
+            "square": 9,
+            "quotient": 639667,
+            "stableUnderCurrentSplitModulus": false
+          },
+          "requiredOutsiderResidueModSquare": 7,
+          "witnessOutsiderResidueModSquare": 7,
+          "witnessSatisfiesSuccessorResidue": true,
+          "stableUnderSuccessorSplitModulus": true
+        }
+      ],
+      "status": "bounded_presence_stabilized_by_successor_square_residue"
+    },
+    {
+      "atomId": "D2.3_persist_outP2=99_out25=14_smaller=side7.V162.right_3668",
+      "side": "side18",
+      "value": 3668,
+      "residues": {
+        "value": 3668,
+        "mod25": 18,
+        "modP": 2,
+        "modP2": 119
+      },
+      "residueModSquare": 5,
+      "successorChecks": [
+        {
+          "N": 7343,
+          "outsider": 1789,
+          "productPlusOne": 6562053,
+          "firstSquareDivisorWitness": {
+            "divisor": 3,
+            "square": 9,
+            "quotient": 729117,
+            "stableUnderCurrentSplitModulus": false
+          },
+          "requiredOutsiderResidueModSquare": 7,
+          "witnessOutsiderResidueModSquare": 7,
+          "witnessSatisfiesSuccessorResidue": true,
+          "stableUnderSuccessorSplitModulus": true
+        }
+      ],
+      "status": "bounded_presence_stabilized_by_successor_square_residue"
+    },
+    {
+      "atomId": "D2.3_persist_outP2=99_out25=14_smaller=side7.V166.right_3893",
+      "side": "side18",
+      "value": 3893,
+      "residues": {
+        "value": 3893,
+        "mod25": 18,
+        "modP": 6,
+        "modP2": 6
+      },
+      "residueModSquare": 5,
+      "successorChecks": [
+        {
+          "N": 7343,
+          "outsider": 1789,
+          "productPlusOne": 6964578,
+          "firstSquareDivisorWitness": {
+            "divisor": 3,
+            "square": 9,
+            "quotient": 773842,
+            "stableUnderCurrentSplitModulus": false
+          },
+          "requiredOutsiderResidueModSquare": 7,
+          "witnessOutsiderResidueModSquare": 7,
+          "witnessSatisfiesSuccessorResidue": true,
+          "stableUnderSuccessorSplitModulus": true
+        }
+      ],
+      "status": "bounded_presence_stabilized_by_successor_square_residue"
+    },
+    {
+      "atomId": "D2.3_persist_outP2=99_out25=14_smaller=side7.V171.right_4118",
+      "side": "side18",
+      "value": 4118,
+      "residues": {
+        "value": 4118,
+        "mod25": 18,
+        "modP": 10,
+        "modP2": 62
+      },
+      "residueModSquare": 5,
+      "successorChecks": [
+        {
+          "N": 7343,
+          "outsider": 1789,
+          "productPlusOne": 7367103,
+          "firstSquareDivisorWitness": {
+            "divisor": 3,
+            "square": 9,
+            "quotient": 818567,
+            "stableUnderCurrentSplitModulus": false
+          },
+          "requiredOutsiderResidueModSquare": 7,
+          "witnessOutsiderResidueModSquare": 7,
+          "witnessSatisfiesSuccessorResidue": true,
+          "stableUnderSuccessorSplitModulus": true
+        }
+      ],
+      "status": "bounded_presence_stabilized_by_successor_square_residue"
+    },
+    {
+      "atomId": "D2.3_persist_outP2=99_out25=14_smaller=side7.V178.right_4568",
+      "side": "side18",
+      "value": 4568,
+      "residues": {
+        "value": 4568,
+        "mod25": 18,
+        "modP": 5,
+        "modP2": 5
+      },
+      "residueModSquare": 5,
+      "successorChecks": [
+        {
+          "N": 7343,
+          "outsider": 1789,
+          "productPlusOne": 8172153,
+          "firstSquareDivisorWitness": {
+            "divisor": 3,
+            "square": 9,
+            "quotient": 908017,
+            "stableUnderCurrentSplitModulus": false
+          },
+          "requiredOutsiderResidueModSquare": 7,
+          "witnessOutsiderResidueModSquare": 7,
+          "witnessSatisfiesSuccessorResidue": true,
+          "stableUnderSuccessorSplitModulus": true
+        }
+      ],
+      "status": "bounded_presence_stabilized_by_successor_square_residue"
+    },
+    {
+      "atomId": "D2.3_persist_outP2=99_out25=14_smaller=side7.V182.right_4793",
+      "side": "side18",
+      "value": 4793,
+      "residues": {
+        "value": 4793,
+        "mod25": 18,
+        "modP": 9,
+        "modP2": 61
+      },
+      "residueModSquare": 5,
+      "successorChecks": [
+        {
+          "N": 7343,
+          "outsider": 1789,
+          "productPlusOne": 8574678,
+          "firstSquareDivisorWitness": {
+            "divisor": 3,
+            "square": 9,
+            "quotient": 952742,
+            "stableUnderCurrentSplitModulus": false
+          },
+          "requiredOutsiderResidueModSquare": 7,
+          "witnessOutsiderResidueModSquare": 7,
+          "witnessSatisfiesSuccessorResidue": true,
+          "stableUnderSuccessorSplitModulus": true
+        }
+      ],
+      "status": "bounded_presence_stabilized_by_successor_square_residue"
+    },
+    {
+      "atomId": "D2.3_persist_outP2=99_out25=14_smaller=side7.V185.right_5018",
+      "side": "side18",
+      "value": 5018,
+      "residues": {
+        "value": 5018,
+        "mod25": 18,
+        "modP": 0,
+        "modP2": 117
+      },
+      "residueModSquare": 5,
+      "successorChecks": [
+        {
+          "N": 7343,
+          "outsider": 1789,
+          "productPlusOne": 8977203,
+          "firstSquareDivisorWitness": {
+            "divisor": 3,
+            "square": 9,
+            "quotient": 997467,
+            "stableUnderCurrentSplitModulus": false
+          },
+          "requiredOutsiderResidueModSquare": 7,
+          "witnessOutsiderResidueModSquare": 7,
+          "witnessSatisfiesSuccessorResidue": true,
+          "stableUnderSuccessorSplitModulus": true
+        }
+      ],
+      "status": "bounded_presence_stabilized_by_successor_square_residue"
+    },
+    {
+      "atomId": "D2.3_persist_outP2=99_out25=14_smaller=side7.V191.right_5468",
+      "side": "side18",
+      "value": 5468,
+      "residues": {
+        "value": 5468,
+        "mod25": 18,
+        "modP": 8,
+        "modP2": 60
+      },
+      "residueModSquare": 5,
+      "successorChecks": [
+        {
+          "N": 7343,
+          "outsider": 1789,
+          "productPlusOne": 9782253,
+          "firstSquareDivisorWitness": {
+            "divisor": 3,
+            "square": 9,
+            "quotient": 1086917,
+            "stableUnderCurrentSplitModulus": false
+          },
+          "requiredOutsiderResidueModSquare": 7,
+          "witnessOutsiderResidueModSquare": 7,
+          "witnessSatisfiesSuccessorResidue": true,
+          "stableUnderSuccessorSplitModulus": true
+        }
+      ],
+      "status": "bounded_presence_stabilized_by_successor_square_residue"
+    },
+    {
+      "atomId": "D2.3_persist_outP2=99_out25=14_smaller=side7.V194.right_5693",
+      "side": "side18",
+      "value": 5693,
+      "residues": {
+        "value": 5693,
+        "mod25": 18,
+        "modP": 12,
+        "modP2": 116
+      },
+      "residueModSquare": 5,
+      "successorChecks": [
+        {
+          "N": 7343,
+          "outsider": 1789,
+          "productPlusOne": 10184778,
+          "firstSquareDivisorWitness": {
+            "divisor": 3,
+            "square": 9,
+            "quotient": 1131642,
+            "stableUnderCurrentSplitModulus": false
+          },
+          "requiredOutsiderResidueModSquare": 7,
+          "witnessOutsiderResidueModSquare": 7,
+          "witnessSatisfiesSuccessorResidue": true,
+          "stableUnderSuccessorSplitModulus": true
+        }
+      ],
+      "status": "bounded_presence_stabilized_by_successor_square_residue"
+    },
+    {
+      "atomId": "D2.3_persist_outP2=99_out25=14_smaller=side7.V197.right_5918",
+      "side": "side18",
+      "value": 5918,
+      "residues": {
+        "value": 5918,
+        "mod25": 18,
+        "modP": 3,
+        "modP2": 3
+      },
+      "residueModSquare": 5,
+      "successorChecks": [
+        {
+          "N": 7343,
+          "outsider": 1789,
+          "productPlusOne": 10587303,
+          "firstSquareDivisorWitness": {
+            "divisor": 3,
+            "square": 9,
+            "quotient": 1176367,
+            "stableUnderCurrentSplitModulus": false
+          },
+          "requiredOutsiderResidueModSquare": 7,
+          "witnessOutsiderResidueModSquare": 7,
+          "witnessSatisfiesSuccessorResidue": true,
+          "stableUnderSuccessorSplitModulus": true
+        }
+      ],
+      "status": "bounded_presence_stabilized_by_successor_square_residue"
+    },
+    {
+      "atomId": "D2.3_persist_outP2=99_out25=14_smaller=side7.V204.right_6368",
+      "side": "side18",
+      "value": 6368,
+      "residues": {
+        "value": 6368,
+        "mod25": 18,
+        "modP": 11,
+        "modP2": 115
+      },
+      "residueModSquare": 5,
+      "successorChecks": [
+        {
+          "N": 7343,
+          "outsider": 1789,
+          "productPlusOne": 11392353,
+          "firstSquareDivisorWitness": {
+            "divisor": 3,
+            "square": 9,
+            "quotient": 1265817,
+            "stableUnderCurrentSplitModulus": false
+          },
+          "requiredOutsiderResidueModSquare": 7,
+          "witnessOutsiderResidueModSquare": 7,
+          "witnessSatisfiesSuccessorResidue": true,
+          "stableUnderSuccessorSplitModulus": true
+        }
+      ],
+      "status": "bounded_presence_stabilized_by_successor_square_residue"
+    },
+    {
+      "atomId": "D2.3_persist_outP2=99_out25=14_smaller=side7.V208.right_6593",
+      "side": "side18",
+      "value": 6593,
+      "residues": {
+        "value": 6593,
+        "mod25": 18,
+        "modP": 2,
+        "modP2": 2
+      },
+      "residueModSquare": 5,
+      "successorChecks": [
+        {
+          "N": 7343,
+          "outsider": 1789,
+          "productPlusOne": 11794878,
+          "firstSquareDivisorWitness": {
+            "divisor": 3,
+            "square": 9,
+            "quotient": 1310542,
+            "stableUnderCurrentSplitModulus": false
+          },
+          "requiredOutsiderResidueModSquare": 7,
+          "witnessOutsiderResidueModSquare": 7,
+          "witnessSatisfiesSuccessorResidue": true,
+          "stableUnderSuccessorSplitModulus": true
+        }
+      ],
+      "status": "bounded_presence_stabilized_by_successor_square_residue"
+    },
+    {
+      "atomId": "D2.3_persist_outP2=99_out25=14_smaller=side7.V212.right_6818",
+      "side": "side18",
+      "value": 6818,
+      "residues": {
+        "value": 6818,
+        "mod25": 18,
+        "modP": 6,
+        "modP2": 58
+      },
+      "residueModSquare": 5,
+      "successorChecks": [
+        {
+          "N": 7343,
+          "outsider": 1789,
+          "productPlusOne": 12197403,
+          "firstSquareDivisorWitness": {
+            "divisor": 3,
+            "square": 9,
+            "quotient": 1355267,
+            "stableUnderCurrentSplitModulus": false
+          },
+          "requiredOutsiderResidueModSquare": 7,
+          "witnessOutsiderResidueModSquare": 7,
+          "witnessSatisfiesSuccessorResidue": true,
+          "stableUnderSuccessorSplitModulus": true
+        }
+      ],
+      "status": "bounded_presence_stabilized_by_successor_square_residue"
+    }
+  ],
+  "checks": {
+    "affectedAtomCount": 49,
+    "stabilizedAtomCount": 49,
+    "failedAtomCount": 0,
+    "allAffectedAtomsPresent": true,
+    "allAffectedAtomsStabilized": true,
+    "witnessRowCount": 1,
+    "witnessRows": [
+      {
+        "witnessIndex": 0,
+        "N": 7343,
+        "outsider": 1789,
+        "productPlusOne": 57249,
+        "quotient": 6361
+      }
+    ]
+  },
+  "nextTheoremActions": [
+    "Promote this square-residue successor into a symbolic vertex-family lemma.",
+    "After this condition is proved, attack the next sibling square-residue successor condition.",
+    "Do not treat this sub-obligation as a full split proof until all sibling vertex conditions and edge obstructions are handled."
+  ]
+}

@@ -1,0 +1,92 @@
+{
+  "schema": "erdos.p848_dmax_tail_prime_progression_proof/1",
+  "problemId": "848",
+  "atomId": "D2_p13_dmax_tail_q29_progression_outP2_70_out25_23_smaller_side7",
+  "parentTailAtomId": "D2_p13_dmax_tail_recombination_outP2_70_out25_23_smaller_side7",
+  "parentGrowthAtomId": "D2_p13_dmax_growth_outP2_70_out25_23_smaller_side7",
+  "predecessorAtomId": "D2_p13_dmax_tail_q251_minus_progression_outP2_70_out25_23_smaller_side7",
+  "splitKey": "outP2=70|out25=23|smaller=side7",
+  "status": "symbolic_upper_bound_verified",
+  "promotesAllNClaim": false,
+  "proofKind": "crt_floor_function_tail_prime_upper_bound",
+  "q": 29,
+  "squareDivisor": 841,
+  "scope": {
+    "term": "same-prime dMax tail-prime degree contribution",
+    "boundedProfileRange": "7307..12000",
+    "claimBoundary": "This proves only the q=29 tail-prime CRT floor-function upper bound for the two active same-prime witnesses. It does not prove the full dMax tail envelope or any side-count floor."
+  },
+  "witnessBounds": [
+    {
+      "side": "plus",
+      "witnessValue": 1591,
+      "oppositeSide": "minus",
+      "oppositeResidueMod169": 99,
+      "productCondition": "841 divides 1591*m + 1",
+      "coefficientMod841": 750,
+      "requiredOppositeValueMod841": 573,
+      "crtProgression": {
+        "variable": "m",
+        "residue": 29167,
+        "modulus": 142129,
+        "formula": "m = 29167 + 142129*t",
+        "tLowerBound": 0
+      },
+      "rawCountUpperBound": "max(0, floor((N - 29167) / 142129) + 1)",
+      "observedCheck": {
+        "N": 12000,
+        "rawFormulaCount": 0,
+        "observedSquareEventCount": 0,
+        "upperBoundPassed": true
+      }
+    },
+    {
+      "side": "minus",
+      "witnessValue": 9563,
+      "oppositeSide": "plus",
+      "oppositeResidueMod169": 70,
+      "productCondition": "841 divides 9563*m + 1",
+      "coefficientMod841": 312,
+      "requiredOppositeValueMod841": 779,
+      "crtProgression": {
+        "variable": "m",
+        "residue": 114314,
+        "modulus": 142129,
+        "formula": "m = 114314 + 142129*t",
+        "tLowerBound": 0
+      },
+      "rawCountUpperBound": "max(0, floor((N - 114314) / 142129) + 1)",
+      "observedCheck": {
+        "N": 12000,
+        "rawFormulaCount": 0,
+        "observedSquareEventCount": 0,
+        "upperBoundPassed": true
+      }
+    }
+  ],
+  "overlapBoundary": {
+    "status": "raw_floor_bound_suffices_for_upper_bound",
+    "reason": "Prior-q overlaps, base-residue exclusions, and lower least-square-witness exclusions can only reduce the q=29 raw CRT count, so they are not needed to certify this upper-bound component."
+  },
+  "checkedIdentities": [
+    "1591 mod 841 = 750.",
+    "750*573 + 1 is divisible by 841.",
+    "CRT(m = 99 mod 169, m = 573 mod 841) gives m = 29167 mod 142129.",
+    "9563 mod 841 = 312.",
+    "312*779 + 1 is divisible by 841.",
+    "CRT(m = 70 mod 169, m = 779 mod 841) gives m = 114314 mod 142129.",
+    "Both q=29 raw floor functions evaluate to zero at N = 12000, matching the bounded growth profile."
+  ],
+  "nextSubatom": {
+    "atomId": "D2_p13_dmax_tail_q37_progression_outP2_70_out25_23_smaller_side7",
+    "status": "needed",
+    "q": 37,
+    "statement": "Prove the q=37 tail-prime same-prime degree atom: exclude the plus side because 37 divides 1591, and certify the minus-side CRT floor bound starting from m = 136284 mod 231361.",
+    "completionRule": "The q=37 tail contribution is bounded by the plus-side witness-divisibility exclusion and the minus-side CRT floor function, or the next unresolved tail-prime/range becomes the next atom."
+  },
+  "proofBoundary": "This certificate discharges q=29 as a residual tail-prime upper-bound component. It intentionally leaves q=37 open because the plus witness has a divisibility exclusion and the minus side still needs its own CRT floor-bound certificate.",
+  "nextTheoremActions": [
+    "Attack D2_p13_dmax_tail_q37_progression_outP2_70_out25_23_smaller_side7 next.",
+    "Use 37 | 1591 to exclude the plus-side contribution, then certify the minus-side q=37 CRT progression."
+  ]
+}

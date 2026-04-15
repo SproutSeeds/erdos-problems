@@ -1,0 +1,157 @@
+{
+  "schema": "erdos.p848_dmax_q_progression_proof/1",
+  "problemId": "848",
+  "atomId": "D2_p13_dmax_q251_progression_outP2_70_out25_23_smaller_side7",
+  "parentGrowthAtomId": "D2_p13_dmax_growth_outP2_70_out25_23_smaller_side7",
+  "predecessorAtomId": "D2_p13_dmax_q31_progression_outP2_70_out25_23_smaller_side7",
+  "splitKey": "outP2=70|out25=23|smaller=side7",
+  "status": "symbolic_upper_bound_verified",
+  "promotesAllNClaim": false,
+  "q": 251,
+  "squareDivisor": 63001,
+  "proofKind": "crt_floor_function_singleton_upper_bound_with_prior_q_overlap_bookkeeping",
+  "scope": {
+    "term": "same-prime dMax degree contribution",
+    "boundedProfileRange": "7307..12000",
+    "claimBoundary": "This proves only the observed plus-side q=251 square-divisor progression upper bound. It does not prove the full dMax growth envelope, the minus-side q=251 tail, or the all-N side-count floor."
+  },
+  "witnessBounds": [
+    {
+      "side": "plus",
+      "witnessValue": 1591,
+      "oppositeSide": "minus",
+      "oppositeResidueMod169": 99,
+      "productCondition": "63001 divides 1591*m + 1",
+      "coefficientMod63001": 1591,
+      "requiredOppositeValueMod63001": 4831,
+      "crtProgression": {
+        "variable": "m",
+        "residue": 4831,
+        "modulus": 10647169,
+        "formula": "m = 4831 + 10647169*t",
+        "tLowerBound": 0
+      },
+      "rawCountUpperBound": "max(0, floor((N - 4831) / 10647169) + 1)",
+      "priorQOverlaps": [
+        {
+          "q": 2,
+          "crtResidue": 21299169,
+          "crtModulus": 42588676,
+          "formula": "m = 21299169 + 42588676*t",
+          "countFormula": "max(0, floor((N - 21299169) / 42588676) + 1)"
+        },
+        {
+          "q": 3,
+          "crtResidue": 10652000,
+          "crtModulus": 95824521,
+          "formula": "m = 10652000 + 95824521*t",
+          "countFormula": "max(0, floor((N - 10652000) / 95824521) + 1)"
+        },
+        {
+          "q": 5,
+          "crtResidue": 74535014,
+          "crtModulus": 266179225,
+          "formula": "m = 74535014 + 266179225*t",
+          "countFormula": "max(0, floor((N - 74535014) / 266179225) + 1)"
+        },
+        {
+          "q": 7,
+          "crtResidue": 244889718,
+          "crtModulus": 521711281,
+          "formula": "m = 244889718 + 521711281*t",
+          "countFormula": "max(0, floor((N - 244889718) / 521711281) + 1)"
+        },
+        {
+          "q": 11,
+          "crtResidue": 681423647,
+          "crtModulus": 1288307449,
+          "formula": "m = 681423647 + 1288307449*t",
+          "countFormula": "max(0, floor((N - 681423647) / 1288307449) + 1)"
+        },
+        {
+          "q": 19,
+          "crtResidue": 1650316026,
+          "crtModulus": 3843628009,
+          "formula": "m = 1650316026 + 3843628009*t",
+          "countFormula": "max(0, floor((N - 1650316026) / 3843628009) + 1)"
+        },
+        {
+          "q": 23,
+          "crtResidue": 4780583712,
+          "crtModulus": 5632352401,
+          "formula": "m = 4780583712 + 5632352401*t",
+          "countFormula": "max(0, floor((N - 4780583712) / 5632352401) + 1)"
+        },
+        {
+          "q": 31,
+          "crtResidue": 4333402614,
+          "crtModulus": 10231929409,
+          "formula": "m = 4333402614 + 10231929409*t",
+          "countFormula": "max(0, floor((N - 4333402614) / 10231929409) + 1)"
+        }
+      ],
+      "baseResidueExclusions": [
+        {
+          "excludedResidueMod25": 7,
+          "crtResidue": 42593507,
+          "crtModulus": 266179225,
+          "countFormula": "max(0, floor((N - 42593507) / 266179225) + 1)"
+        },
+        {
+          "excludedResidueMod25": 18,
+          "crtResidue": 244889718,
+          "crtModulus": 266179225,
+          "countFormula": "max(0, floor((N - 244889718) / 266179225) + 1)"
+        }
+      ],
+      "observedCheck": {
+        "N": 12000,
+        "rawFormulaCount": 1,
+        "observedSquareEventCount": 1,
+        "priorQOverlapFormulaCounts": {
+          "q2": 0,
+          "q3": 0,
+          "q5": 0,
+          "q7": 0,
+          "q11": 0,
+          "q19": 0,
+          "q23": 0,
+          "q31": 0
+        },
+        "q251OnlyAfterPriorQUpperBound": 1,
+        "observedRawValues": [
+          4831
+        ],
+        "observedValuesAlsoInPriorQ": [],
+        "upperBoundPassed": true
+      }
+    }
+  ],
+  "nonObservedProfileNote": {
+    "side": "minus",
+    "witnessValue": 9563,
+    "q": 251,
+    "boundedProfileEventCount": 0,
+    "firstCrtResidue": 8138434,
+    "crtModulus": 10647169,
+    "note": "The bounded growth profile has no minus-side q=251 event below 12000, so this packet intentionally certifies only the observed plus-side singleton component."
+  },
+  "checkedIdentities": [
+    "1591 mod 63001 = 1591.",
+    "63001 divides 1591*m + 1 only when m mod 63001 = 4831.",
+    "CRT(m = 99 mod 169, m = 4831 mod 63001) gives m = 4831 mod 10647169.",
+    "The observed plus-side q=251 progression has no lower-q overlap below N = 12000.",
+    "Base residues m = 7 or 18 mod 25 and lower least-square-witness exclusions can only reduce the raw q=251 upper bound."
+  ],
+  "nextSubatom": {
+    "atomId": "D2_p13_dmax_tail_recombination_outP2_70_out25_23_smaller_side7",
+    "status": "needed",
+    "statement": "Recombine the verified observed q-progression components with a symbolic tail bound for all remaining same-prime square-divisor events in the dMax growth envelope.",
+    "completionRule": "The verified q-components plus a tail estimate imply the required symbolic dMax growth envelope, or the first unresolved tail range becomes the next atom."
+  },
+  "proofBoundary": "This certificate discharges the last observed singleton q-progression in the bounded dMax profile. It intentionally leaves the general same-prime tail/recombination atom open before any full dMax envelope can be promoted.",
+  "nextTheoremActions": [
+    "Attack D2_p13_dmax_tail_recombination_outP2_70_out25_23_smaller_side7 next.",
+    "Use the verified q=2,3,5,7,11,19,23,31,251 components as inputs, then add a symbolic tail estimate for remaining square divisors."
+  ]
+}

@@ -1,0 +1,3462 @@
+{
+  "schema": "erdos.number_theory.p848_endpoint_availability_profile/1",
+  "generatedAt": "2026-04-14T04:00:33.301Z",
+  "problemId": "848",
+  "target": {
+    "description": "q17 residual window-relaxed fallback endpoint-menu availability profile",
+    "predecessorProof": "/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DYNAMIC_MARGIN_PROOFS/D2_p13_dynamic_margin_exact_mixed_matching_injection_selected_cross_squarefree_exception_period_shifted_endpoint_menu_q17_residual_p13_expanded_fallback_menu_lift.json",
+    "outsider": 6323,
+    "residualClass": {
+      "residue": 5882,
+      "modulus": 11025
+    },
+    "start": 34414907,
+    "end": 34414907,
+    "witnessRowCount": 1,
+    "windows": [
+      25000,
+      28500
+    ]
+  },
+  "interpretation": {
+    "endpointWindowCriterion": "Because delta=-14-25*k, an endpoint is inside window W exactly when k <= floor((W-14)/25).",
+    "provesSquarefreeHitting": false,
+    "provesCollisionFreeMatching": false,
+    "warning": "This profile proves modular endpoint availability only. Squarefree hitting and matching remain separate layers."
+  },
+  "primaryMenu": {
+    "primeSet": [
+      23,
+      31,
+      37,
+      41,
+      61,
+      67
+    ]
+  },
+  "fallbackMenu": {
+    "primeSet": [
+      71,
+      73,
+      79,
+      83,
+      89,
+      97,
+      101,
+      103,
+      107,
+      109,
+      113
+    ]
+  },
+  "formulasByPrime": {
+    "23": {
+      "prime": 23,
+      "primeSquare": 529,
+      "kFormula": {
+        "leftCoefficient": 127,
+        "constant": 79,
+        "modulus": 529,
+        "text": "k_23(left) = (127*left + 79) mod 529"
+      },
+      "deltaRange": {
+        "min": -13214,
+        "max": -14
+      },
+      "universallyWithinWindows": {
+        "10000": false,
+        "25000": true
+      },
+      "availabilityByWindow": [
+        {
+          "window": 25000,
+          "maxK": 999,
+          "minimalWindowForMaxK": 24989,
+          "criterion": "within window 25000 iff k_23(left) <= 999",
+          "leftParameterization": "left = 5882 + 11025*t",
+          "kFormulaInT": "k_23(t) = (441*t + 145) mod 529",
+          "tPeriod": 529,
+          "stepGcdWithPrimeSquare": 1,
+          "availableResidueCount": 529,
+          "unavailableResidueCount": 0,
+          "density": 1,
+          "universallyWithinWindow": true,
+          "firstAvailableTResidues": [
+            {
+              "tResidue": 0,
+              "k": 145
+            },
+            {
+              "tResidue": 1,
+              "k": 57
+            },
+            {
+              "tResidue": 2,
+              "k": 498
+            },
+            {
+              "tResidue": 3,
+              "k": 410
+            },
+            {
+              "tResidue": 4,
+              "k": 322
+            },
+            {
+              "tResidue": 5,
+              "k": 234
+            },
+            {
+              "tResidue": 6,
+              "k": 146
+            },
+            {
+              "tResidue": 7,
+              "k": 58
+            },
+            {
+              "tResidue": 8,
+              "k": 499
+            },
+            {
+              "tResidue": 9,
+              "k": 411
+            },
+            {
+              "tResidue": 10,
+              "k": 323
+            },
+            {
+              "tResidue": 11,
+              "k": 235
+            },
+            {
+              "tResidue": 12,
+              "k": 147
+            },
+            {
+              "tResidue": 13,
+              "k": 59
+            },
+            {
+              "tResidue": 14,
+              "k": 500
+            },
+            {
+              "tResidue": 15,
+              "k": 412
+            }
+          ],
+          "firstUnavailableTResidue": null
+        },
+        {
+          "window": 28500,
+          "maxK": 1139,
+          "minimalWindowForMaxK": 28489,
+          "criterion": "within window 28500 iff k_23(left) <= 1139",
+          "leftParameterization": "left = 5882 + 11025*t",
+          "kFormulaInT": "k_23(t) = (441*t + 145) mod 529",
+          "tPeriod": 529,
+          "stepGcdWithPrimeSquare": 1,
+          "availableResidueCount": 529,
+          "unavailableResidueCount": 0,
+          "density": 1,
+          "universallyWithinWindow": true,
+          "firstAvailableTResidues": [
+            {
+              "tResidue": 0,
+              "k": 145
+            },
+            {
+              "tResidue": 1,
+              "k": 57
+            },
+            {
+              "tResidue": 2,
+              "k": 498
+            },
+            {
+              "tResidue": 3,
+              "k": 410
+            },
+            {
+              "tResidue": 4,
+              "k": 322
+            },
+            {
+              "tResidue": 5,
+              "k": 234
+            },
+            {
+              "tResidue": 6,
+              "k": 146
+            },
+            {
+              "tResidue": 7,
+              "k": 58
+            },
+            {
+              "tResidue": 8,
+              "k": 499
+            },
+            {
+              "tResidue": 9,
+              "k": 411
+            },
+            {
+              "tResidue": 10,
+              "k": 323
+            },
+            {
+              "tResidue": 11,
+              "k": 235
+            },
+            {
+              "tResidue": 12,
+              "k": 147
+            },
+            {
+              "tResidue": 13,
+              "k": 59
+            },
+            {
+              "tResidue": 14,
+              "k": 500
+            },
+            {
+              "tResidue": 15,
+              "k": 412
+            }
+          ],
+          "firstUnavailableTResidue": null
+        }
+      ]
+    },
+    "31": {
+      "prime": 31,
+      "primeSquare": 961,
+      "kFormula": {
+        "leftCoefficient": 346,
+        "constant": 669,
+        "modulus": 961,
+        "text": "k_31(left) = (346*left + 669) mod 961"
+      },
+      "deltaRange": {
+        "min": -24014,
+        "max": -14
+      },
+      "universallyWithinWindows": {
+        "10000": false,
+        "25000": true
+      },
+      "availabilityByWindow": [
+        {
+          "window": 25000,
+          "maxK": 999,
+          "minimalWindowForMaxK": 24989,
+          "criterion": "within window 25000 iff k_31(left) <= 999",
+          "leftParameterization": "left = 5882 + 11025*t",
+          "kFormulaInT": "k_31(t) = (441*t + 443) mod 961",
+          "tPeriod": 961,
+          "stepGcdWithPrimeSquare": 1,
+          "availableResidueCount": 961,
+          "unavailableResidueCount": 0,
+          "density": 1,
+          "universallyWithinWindow": true,
+          "firstAvailableTResidues": [
+            {
+              "tResidue": 0,
+              "k": 443
+            },
+            {
+              "tResidue": 1,
+              "k": 884
+            },
+            {
+              "tResidue": 2,
+              "k": 364
+            },
+            {
+              "tResidue": 3,
+              "k": 805
+            },
+            {
+              "tResidue": 4,
+              "k": 285
+            },
+            {
+              "tResidue": 5,
+              "k": 726
+            },
+            {
+              "tResidue": 6,
+              "k": 206
+            },
+            {
+              "tResidue": 7,
+              "k": 647
+            },
+            {
+              "tResidue": 8,
+              "k": 127
+            },
+            {
+              "tResidue": 9,
+              "k": 568
+            },
+            {
+              "tResidue": 10,
+              "k": 48
+            },
+            {
+              "tResidue": 11,
+              "k": 489
+            },
+            {
+              "tResidue": 12,
+              "k": 930
+            },
+            {
+              "tResidue": 13,
+              "k": 410
+            },
+            {
+              "tResidue": 14,
+              "k": 851
+            },
+            {
+              "tResidue": 15,
+              "k": 331
+            }
+          ],
+          "firstUnavailableTResidue": null
+        },
+        {
+          "window": 28500,
+          "maxK": 1139,
+          "minimalWindowForMaxK": 28489,
+          "criterion": "within window 28500 iff k_31(left) <= 1139",
+          "leftParameterization": "left = 5882 + 11025*t",
+          "kFormulaInT": "k_31(t) = (441*t + 443) mod 961",
+          "tPeriod": 961,
+          "stepGcdWithPrimeSquare": 1,
+          "availableResidueCount": 961,
+          "unavailableResidueCount": 0,
+          "density": 1,
+          "universallyWithinWindow": true,
+          "firstAvailableTResidues": [
+            {
+              "tResidue": 0,
+              "k": 443
+            },
+            {
+              "tResidue": 1,
+              "k": 884
+            },
+            {
+              "tResidue": 2,
+              "k": 364
+            },
+            {
+              "tResidue": 3,
+              "k": 805
+            },
+            {
+              "tResidue": 4,
+              "k": 285
+            },
+            {
+              "tResidue": 5,
+              "k": 726
+            },
+            {
+              "tResidue": 6,
+              "k": 206
+            },
+            {
+              "tResidue": 7,
+              "k": 647
+            },
+            {
+              "tResidue": 8,
+              "k": 127
+            },
+            {
+              "tResidue": 9,
+              "k": 568
+            },
+            {
+              "tResidue": 10,
+              "k": 48
+            },
+            {
+              "tResidue": 11,
+              "k": 489
+            },
+            {
+              "tResidue": 12,
+              "k": 930
+            },
+            {
+              "tResidue": 13,
+              "k": 410
+            },
+            {
+              "tResidue": 14,
+              "k": 851
+            },
+            {
+              "tResidue": 15,
+              "k": 331
+            }
+          ],
+          "firstUnavailableTResidue": null
+        }
+      ]
+    },
+    "37": {
+      "prime": 37,
+      "primeSquare": 1369,
+      "kFormula": {
+        "leftCoefficient": 1150,
+        "constant": 651,
+        "modulus": 1369,
+        "text": "k_37(left) = (1150*left + 651) mod 1369"
+      },
+      "deltaRange": {
+        "min": -34214,
+        "max": -14
+      },
+      "universallyWithinWindows": {
+        "10000": false,
+        "25000": false
+      },
+      "availabilityByWindow": [
+        {
+          "window": 25000,
+          "maxK": 999,
+          "minimalWindowForMaxK": 24989,
+          "criterion": "within window 25000 iff k_37(left) <= 999",
+          "leftParameterization": "left = 5882 + 11025*t",
+          "kFormulaInT": "k_37(t) = (441*t + 722) mod 1369",
+          "tPeriod": 1369,
+          "stepGcdWithPrimeSquare": 1,
+          "availableResidueCount": 1000,
+          "unavailableResidueCount": 369,
+          "density": 0.7304601899196493,
+          "universallyWithinWindow": false,
+          "firstAvailableTResidues": [
+            {
+              "tResidue": 0,
+              "k": 722
+            },
+            {
+              "tResidue": 2,
+              "k": 235
+            },
+            {
+              "tResidue": 3,
+              "k": 676
+            },
+            {
+              "tResidue": 5,
+              "k": 189
+            },
+            {
+              "tResidue": 6,
+              "k": 630
+            },
+            {
+              "tResidue": 8,
+              "k": 143
+            },
+            {
+              "tResidue": 9,
+              "k": 584
+            },
+            {
+              "tResidue": 11,
+              "k": 97
+            },
+            {
+              "tResidue": 12,
+              "k": 538
+            },
+            {
+              "tResidue": 13,
+              "k": 979
+            },
+            {
+              "tResidue": 14,
+              "k": 51
+            },
+            {
+              "tResidue": 15,
+              "k": 492
+            },
+            {
+              "tResidue": 16,
+              "k": 933
+            },
+            {
+              "tResidue": 17,
+              "k": 5
+            },
+            {
+              "tResidue": 18,
+              "k": 446
+            },
+            {
+              "tResidue": 19,
+              "k": 887
+            }
+          ],
+          "firstUnavailableTResidue": {
+            "tResidue": 1,
+            "k": 1163
+          }
+        },
+        {
+          "window": 28500,
+          "maxK": 1139,
+          "minimalWindowForMaxK": 28489,
+          "criterion": "within window 28500 iff k_37(left) <= 1139",
+          "leftParameterization": "left = 5882 + 11025*t",
+          "kFormulaInT": "k_37(t) = (441*t + 722) mod 1369",
+          "tPeriod": 1369,
+          "stepGcdWithPrimeSquare": 1,
+          "availableResidueCount": 1140,
+          "unavailableResidueCount": 229,
+          "density": 0.8327246165084002,
+          "universallyWithinWindow": false,
+          "firstAvailableTResidues": [
+            {
+              "tResidue": 0,
+              "k": 722
+            },
+            {
+              "tResidue": 2,
+              "k": 235
+            },
+            {
+              "tResidue": 3,
+              "k": 676
+            },
+            {
+              "tResidue": 4,
+              "k": 1117
+            },
+            {
+              "tResidue": 5,
+              "k": 189
+            },
+            {
+              "tResidue": 6,
+              "k": 630
+            },
+            {
+              "tResidue": 7,
+              "k": 1071
+            },
+            {
+              "tResidue": 8,
+              "k": 143
+            },
+            {
+              "tResidue": 9,
+              "k": 584
+            },
+            {
+              "tResidue": 10,
+              "k": 1025
+            },
+            {
+              "tResidue": 11,
+              "k": 97
+            },
+            {
+              "tResidue": 12,
+              "k": 538
+            },
+            {
+              "tResidue": 13,
+              "k": 979
+            },
+            {
+              "tResidue": 14,
+              "k": 51
+            },
+            {
+              "tResidue": 15,
+              "k": 492
+            },
+            {
+              "tResidue": 16,
+              "k": 933
+            }
+          ],
+          "firstUnavailableTResidue": {
+            "tResidue": 1,
+            "k": 1163
+          }
+        }
+      ]
+    },
+    "41": {
+      "prime": 41,
+      "primeSquare": 1681,
+      "kFormula": {
+        "leftCoefficient": 269,
+        "constant": 1029,
+        "modulus": 1681,
+        "text": "k_41(left) = (269*left + 1029) mod 1681"
+      },
+      "deltaRange": {
+        "min": -42014,
+        "max": -14
+      },
+      "universallyWithinWindows": {
+        "10000": false,
+        "25000": false
+      },
+      "availabilityByWindow": [
+        {
+          "window": 25000,
+          "maxK": 999,
+          "minimalWindowForMaxK": 24989,
+          "criterion": "within window 25000 iff k_41(left) <= 999",
+          "leftParameterization": "left = 5882 + 11025*t",
+          "kFormulaInT": "k_41(t) = (441*t + 1466) mod 1681",
+          "tPeriod": 1681,
+          "stepGcdWithPrimeSquare": 1,
+          "availableResidueCount": 1000,
+          "unavailableResidueCount": 681,
+          "density": 0.594883997620464,
+          "universallyWithinWindow": false,
+          "firstAvailableTResidues": [
+            {
+              "tResidue": 1,
+              "k": 226
+            },
+            {
+              "tResidue": 2,
+              "k": 667
+            },
+            {
+              "tResidue": 5,
+              "k": 309
+            },
+            {
+              "tResidue": 6,
+              "k": 750
+            },
+            {
+              "tResidue": 9,
+              "k": 392
+            },
+            {
+              "tResidue": 10,
+              "k": 833
+            },
+            {
+              "tResidue": 12,
+              "k": 34
+            },
+            {
+              "tResidue": 13,
+              "k": 475
+            },
+            {
+              "tResidue": 14,
+              "k": 916
+            },
+            {
+              "tResidue": 16,
+              "k": 117
+            },
+            {
+              "tResidue": 17,
+              "k": 558
+            },
+            {
+              "tResidue": 18,
+              "k": 999
+            },
+            {
+              "tResidue": 20,
+              "k": 200
+            },
+            {
+              "tResidue": 21,
+              "k": 641
+            },
+            {
+              "tResidue": 24,
+              "k": 283
+            },
+            {
+              "tResidue": 25,
+              "k": 724
+            }
+          ],
+          "firstUnavailableTResidue": {
+            "tResidue": 0,
+            "k": 1466
+          }
+        },
+        {
+          "window": 28500,
+          "maxK": 1139,
+          "minimalWindowForMaxK": 28489,
+          "criterion": "within window 28500 iff k_41(left) <= 1139",
+          "leftParameterization": "left = 5882 + 11025*t",
+          "kFormulaInT": "k_41(t) = (441*t + 1466) mod 1681",
+          "tPeriod": 1681,
+          "stepGcdWithPrimeSquare": 1,
+          "availableResidueCount": 1140,
+          "unavailableResidueCount": 541,
+          "density": 0.6781677572873289,
+          "universallyWithinWindow": false,
+          "firstAvailableTResidues": [
+            {
+              "tResidue": 1,
+              "k": 226
+            },
+            {
+              "tResidue": 2,
+              "k": 667
+            },
+            {
+              "tResidue": 3,
+              "k": 1108
+            },
+            {
+              "tResidue": 5,
+              "k": 309
+            },
+            {
+              "tResidue": 6,
+              "k": 750
+            },
+            {
+              "tResidue": 9,
+              "k": 392
+            },
+            {
+              "tResidue": 10,
+              "k": 833
+            },
+            {
+              "tResidue": 12,
+              "k": 34
+            },
+            {
+              "tResidue": 13,
+              "k": 475
+            },
+            {
+              "tResidue": 14,
+              "k": 916
+            },
+            {
+              "tResidue": 16,
+              "k": 117
+            },
+            {
+              "tResidue": 17,
+              "k": 558
+            },
+            {
+              "tResidue": 18,
+              "k": 999
+            },
+            {
+              "tResidue": 20,
+              "k": 200
+            },
+            {
+              "tResidue": 21,
+              "k": 641
+            },
+            {
+              "tResidue": 22,
+              "k": 1082
+            }
+          ],
+          "firstUnavailableTResidue": {
+            "tResidue": 0,
+            "k": 1466
+          }
+        }
+      ]
+    },
+    "61": {
+      "prime": 61,
+      "primeSquare": 3721,
+      "kFormula": {
+        "leftCoefficient": 2828,
+        "constant": 2221,
+        "modulus": 3721,
+        "text": "k_61(left) = (2828*left + 2221) mod 3721"
+      },
+      "deltaRange": {
+        "min": -93014,
+        "max": -14
+      },
+      "universallyWithinWindows": {
+        "10000": false,
+        "25000": false
+      },
+      "availabilityByWindow": [
+        {
+          "window": 25000,
+          "maxK": 999,
+          "minimalWindowForMaxK": 24989,
+          "criterion": "within window 25000 iff k_61(left) <= 999",
+          "leftParameterization": "left = 5882 + 11025*t",
+          "kFormulaInT": "k_61(t) = (441*t + 3647) mod 3721",
+          "tPeriod": 3721,
+          "stepGcdWithPrimeSquare": 1,
+          "availableResidueCount": 1000,
+          "unavailableResidueCount": 2721,
+          "density": 0.26874496103198064,
+          "universallyWithinWindow": false,
+          "firstAvailableTResidues": [
+            {
+              "tResidue": 1,
+              "k": 367
+            },
+            {
+              "tResidue": 2,
+              "k": 808
+            },
+            {
+              "tResidue": 9,
+              "k": 174
+            },
+            {
+              "tResidue": 10,
+              "k": 615
+            },
+            {
+              "tResidue": 18,
+              "k": 422
+            },
+            {
+              "tResidue": 19,
+              "k": 863
+            },
+            {
+              "tResidue": 26,
+              "k": 229
+            },
+            {
+              "tResidue": 27,
+              "k": 670
+            },
+            {
+              "tResidue": 34,
+              "k": 36
+            },
+            {
+              "tResidue": 35,
+              "k": 477
+            },
+            {
+              "tResidue": 36,
+              "k": 918
+            },
+            {
+              "tResidue": 43,
+              "k": 284
+            },
+            {
+              "tResidue": 44,
+              "k": 725
+            },
+            {
+              "tResidue": 51,
+              "k": 91
+            },
+            {
+              "tResidue": 52,
+              "k": 532
+            },
+            {
+              "tResidue": 53,
+              "k": 973
+            }
+          ],
+          "firstUnavailableTResidue": {
+            "tResidue": 0,
+            "k": 3647
+          }
+        },
+        {
+          "window": 28500,
+          "maxK": 1139,
+          "minimalWindowForMaxK": 28489,
+          "criterion": "within window 28500 iff k_61(left) <= 1139",
+          "leftParameterization": "left = 5882 + 11025*t",
+          "kFormulaInT": "k_61(t) = (441*t + 3647) mod 3721",
+          "tPeriod": 3721,
+          "stepGcdWithPrimeSquare": 1,
+          "availableResidueCount": 1140,
+          "unavailableResidueCount": 2581,
+          "density": 0.30636925557645794,
+          "universallyWithinWindow": false,
+          "firstAvailableTResidues": [
+            {
+              "tResidue": 1,
+              "k": 367
+            },
+            {
+              "tResidue": 2,
+              "k": 808
+            },
+            {
+              "tResidue": 9,
+              "k": 174
+            },
+            {
+              "tResidue": 10,
+              "k": 615
+            },
+            {
+              "tResidue": 11,
+              "k": 1056
+            },
+            {
+              "tResidue": 18,
+              "k": 422
+            },
+            {
+              "tResidue": 19,
+              "k": 863
+            },
+            {
+              "tResidue": 26,
+              "k": 229
+            },
+            {
+              "tResidue": 27,
+              "k": 670
+            },
+            {
+              "tResidue": 28,
+              "k": 1111
+            },
+            {
+              "tResidue": 34,
+              "k": 36
+            },
+            {
+              "tResidue": 35,
+              "k": 477
+            },
+            {
+              "tResidue": 36,
+              "k": 918
+            },
+            {
+              "tResidue": 43,
+              "k": 284
+            },
+            {
+              "tResidue": 44,
+              "k": 725
+            },
+            {
+              "tResidue": 51,
+              "k": 91
+            }
+          ],
+          "firstUnavailableTResidue": {
+            "tResidue": 0,
+            "k": 3647
+          }
+        }
+      ]
+    },
+    "67": {
+      "prime": 67,
+      "primeSquare": 4489,
+      "kFormula": {
+        "leftCoefficient": 2873,
+        "constant": 511,
+        "modulus": 4489,
+        "text": "k_67(left) = (2873*left + 511) mod 4489"
+      },
+      "deltaRange": {
+        "min": -112214,
+        "max": -14
+      },
+      "universallyWithinWindows": {
+        "10000": false,
+        "25000": false
+      },
+      "availabilityByWindow": [
+        {
+          "window": 25000,
+          "maxK": 999,
+          "minimalWindowForMaxK": 24989,
+          "criterion": "within window 25000 iff k_67(left) <= 999",
+          "leftParameterization": "left = 5882 + 11025*t",
+          "kFormulaInT": "k_67(t) = (441*t + 2901) mod 4489",
+          "tPeriod": 4489,
+          "stepGcdWithPrimeSquare": 1,
+          "availableResidueCount": 1000,
+          "unavailableResidueCount": 3489,
+          "density": 0.2227667631989307,
+          "universallyWithinWindow": false,
+          "firstAvailableTResidues": [
+            {
+              "tResidue": 4,
+              "k": 176
+            },
+            {
+              "tResidue": 5,
+              "k": 617
+            },
+            {
+              "tResidue": 14,
+              "k": 97
+            },
+            {
+              "tResidue": 15,
+              "k": 538
+            },
+            {
+              "tResidue": 16,
+              "k": 979
+            },
+            {
+              "tResidue": 24,
+              "k": 18
+            },
+            {
+              "tResidue": 25,
+              "k": 459
+            },
+            {
+              "tResidue": 26,
+              "k": 900
+            },
+            {
+              "tResidue": 35,
+              "k": 380
+            },
+            {
+              "tResidue": 36,
+              "k": 821
+            },
+            {
+              "tResidue": 45,
+              "k": 301
+            },
+            {
+              "tResidue": 46,
+              "k": 742
+            },
+            {
+              "tResidue": 55,
+              "k": 222
+            },
+            {
+              "tResidue": 56,
+              "k": 663
+            },
+            {
+              "tResidue": 65,
+              "k": 143
+            },
+            {
+              "tResidue": 66,
+              "k": 584
+            }
+          ],
+          "firstUnavailableTResidue": {
+            "tResidue": 0,
+            "k": 2901
+          }
+        },
+        {
+          "window": 28500,
+          "maxK": 1139,
+          "minimalWindowForMaxK": 28489,
+          "criterion": "within window 28500 iff k_67(left) <= 1139",
+          "leftParameterization": "left = 5882 + 11025*t",
+          "kFormulaInT": "k_67(t) = (441*t + 2901) mod 4489",
+          "tPeriod": 4489,
+          "stepGcdWithPrimeSquare": 1,
+          "availableResidueCount": 1140,
+          "unavailableResidueCount": 3349,
+          "density": 0.25395411004678103,
+          "universallyWithinWindow": false,
+          "firstAvailableTResidues": [
+            {
+              "tResidue": 4,
+              "k": 176
+            },
+            {
+              "tResidue": 5,
+              "k": 617
+            },
+            {
+              "tResidue": 6,
+              "k": 1058
+            },
+            {
+              "tResidue": 14,
+              "k": 97
+            },
+            {
+              "tResidue": 15,
+              "k": 538
+            },
+            {
+              "tResidue": 16,
+              "k": 979
+            },
+            {
+              "tResidue": 24,
+              "k": 18
+            },
+            {
+              "tResidue": 25,
+              "k": 459
+            },
+            {
+              "tResidue": 26,
+              "k": 900
+            },
+            {
+              "tResidue": 35,
+              "k": 380
+            },
+            {
+              "tResidue": 36,
+              "k": 821
+            },
+            {
+              "tResidue": 45,
+              "k": 301
+            },
+            {
+              "tResidue": 46,
+              "k": 742
+            },
+            {
+              "tResidue": 55,
+              "k": 222
+            },
+            {
+              "tResidue": 56,
+              "k": 663
+            },
+            {
+              "tResidue": 57,
+              "k": 1104
+            }
+          ],
+          "firstUnavailableTResidue": {
+            "tResidue": 0,
+            "k": 2901
+          }
+        }
+      ]
+    },
+    "71": {
+      "prime": 71,
+      "primeSquare": 5041,
+      "kFormula": {
+        "leftCoefficient": 2823,
+        "constant": 4760,
+        "modulus": 5041,
+        "text": "k_71(left) = (2823*left + 4760) mod 5041"
+      },
+      "deltaRange": {
+        "min": -126014,
+        "max": -14
+      },
+      "universallyWithinWindows": {
+        "10000": false,
+        "25000": false
+      },
+      "availabilityByWindow": [
+        {
+          "window": 25000,
+          "maxK": 999,
+          "minimalWindowForMaxK": 24989,
+          "criterion": "within window 25000 iff k_71(left) <= 999",
+          "leftParameterization": "left = 5882 + 11025*t",
+          "kFormulaInT": "k_71(t) = (441*t + 4592) mod 5041",
+          "tPeriod": 5041,
+          "stepGcdWithPrimeSquare": 1,
+          "availableResidueCount": 1000,
+          "unavailableResidueCount": 4041,
+          "density": 0.19837333862328904,
+          "universallyWithinWindow": false,
+          "firstAvailableTResidues": [
+            {
+              "tResidue": 2,
+              "k": 433
+            },
+            {
+              "tResidue": 3,
+              "k": 874
+            },
+            {
+              "tResidue": 13,
+              "k": 243
+            },
+            {
+              "tResidue": 14,
+              "k": 684
+            },
+            {
+              "tResidue": 24,
+              "k": 53
+            },
+            {
+              "tResidue": 25,
+              "k": 494
+            },
+            {
+              "tResidue": 26,
+              "k": 935
+            },
+            {
+              "tResidue": 36,
+              "k": 304
+            },
+            {
+              "tResidue": 37,
+              "k": 745
+            },
+            {
+              "tResidue": 47,
+              "k": 114
+            },
+            {
+              "tResidue": 48,
+              "k": 555
+            },
+            {
+              "tResidue": 49,
+              "k": 996
+            },
+            {
+              "tResidue": 59,
+              "k": 365
+            },
+            {
+              "tResidue": 60,
+              "k": 806
+            },
+            {
+              "tResidue": 70,
+              "k": 175
+            },
+            {
+              "tResidue": 71,
+              "k": 616
+            }
+          ],
+          "firstUnavailableTResidue": {
+            "tResidue": 0,
+            "k": 4592
+          }
+        },
+        {
+          "window": 28500,
+          "maxK": 1139,
+          "minimalWindowForMaxK": 28489,
+          "criterion": "within window 28500 iff k_71(left) <= 1139",
+          "leftParameterization": "left = 5882 + 11025*t",
+          "kFormulaInT": "k_71(t) = (441*t + 4592) mod 5041",
+          "tPeriod": 5041,
+          "stepGcdWithPrimeSquare": 1,
+          "availableResidueCount": 1140,
+          "unavailableResidueCount": 3901,
+          "density": 0.2261456060305495,
+          "universallyWithinWindow": false,
+          "firstAvailableTResidues": [
+            {
+              "tResidue": 2,
+              "k": 433
+            },
+            {
+              "tResidue": 3,
+              "k": 874
+            },
+            {
+              "tResidue": 13,
+              "k": 243
+            },
+            {
+              "tResidue": 14,
+              "k": 684
+            },
+            {
+              "tResidue": 15,
+              "k": 1125
+            },
+            {
+              "tResidue": 24,
+              "k": 53
+            },
+            {
+              "tResidue": 25,
+              "k": 494
+            },
+            {
+              "tResidue": 26,
+              "k": 935
+            },
+            {
+              "tResidue": 36,
+              "k": 304
+            },
+            {
+              "tResidue": 37,
+              "k": 745
+            },
+            {
+              "tResidue": 47,
+              "k": 114
+            },
+            {
+              "tResidue": 48,
+              "k": 555
+            },
+            {
+              "tResidue": 49,
+              "k": 996
+            },
+            {
+              "tResidue": 59,
+              "k": 365
+            },
+            {
+              "tResidue": 60,
+              "k": 806
+            },
+            {
+              "tResidue": 70,
+              "k": 175
+            }
+          ],
+          "firstUnavailableTResidue": {
+            "tResidue": 0,
+            "k": 4592
+          }
+        }
+      ]
+    },
+    "73": {
+      "prime": 73,
+      "primeSquare": 5329,
+      "kFormula": {
+        "leftCoefficient": 1279,
+        "constant": 5218,
+        "modulus": 5329,
+        "text": "k_73(left) = (1279*left + 5218) mod 5329"
+      },
+      "deltaRange": {
+        "min": -133214,
+        "max": -14
+      },
+      "universallyWithinWindows": {
+        "10000": false,
+        "25000": false
+      },
+      "availabilityByWindow": [
+        {
+          "window": 25000,
+          "maxK": 999,
+          "minimalWindowForMaxK": 24989,
+          "criterion": "within window 25000 iff k_73(left) <= 999",
+          "leftParameterization": "left = 5882 + 11025*t",
+          "kFormulaInT": "k_73(t) = (441*t + 3748) mod 5329",
+          "tPeriod": 5329,
+          "stepGcdWithPrimeSquare": 1,
+          "availableResidueCount": 1000,
+          "unavailableResidueCount": 4329,
+          "density": 0.18765246762994933,
+          "universallyWithinWindow": false,
+          "firstAvailableTResidues": [
+            {
+              "tResidue": 4,
+              "k": 183
+            },
+            {
+              "tResidue": 5,
+              "k": 624
+            },
+            {
+              "tResidue": 16,
+              "k": 146
+            },
+            {
+              "tResidue": 17,
+              "k": 587
+            },
+            {
+              "tResidue": 28,
+              "k": 109
+            },
+            {
+              "tResidue": 29,
+              "k": 550
+            },
+            {
+              "tResidue": 30,
+              "k": 991
+            },
+            {
+              "tResidue": 40,
+              "k": 72
+            },
+            {
+              "tResidue": 41,
+              "k": 513
+            },
+            {
+              "tResidue": 42,
+              "k": 954
+            },
+            {
+              "tResidue": 52,
+              "k": 35
+            },
+            {
+              "tResidue": 53,
+              "k": 476
+            },
+            {
+              "tResidue": 54,
+              "k": 917
+            },
+            {
+              "tResidue": 65,
+              "k": 439
+            },
+            {
+              "tResidue": 66,
+              "k": 880
+            },
+            {
+              "tResidue": 77,
+              "k": 402
+            }
+          ],
+          "firstUnavailableTResidue": {
+            "tResidue": 0,
+            "k": 3748
+          }
+        },
+        {
+          "window": 28500,
+          "maxK": 1139,
+          "minimalWindowForMaxK": 28489,
+          "criterion": "within window 28500 iff k_73(left) <= 1139",
+          "leftParameterization": "left = 5882 + 11025*t",
+          "kFormulaInT": "k_73(t) = (441*t + 3748) mod 5329",
+          "tPeriod": 5329,
+          "stepGcdWithPrimeSquare": 1,
+          "availableResidueCount": 1140,
+          "unavailableResidueCount": 4189,
+          "density": 0.21392381309814223,
+          "universallyWithinWindow": false,
+          "firstAvailableTResidues": [
+            {
+              "tResidue": 4,
+              "k": 183
+            },
+            {
+              "tResidue": 5,
+              "k": 624
+            },
+            {
+              "tResidue": 6,
+              "k": 1065
+            },
+            {
+              "tResidue": 16,
+              "k": 146
+            },
+            {
+              "tResidue": 17,
+              "k": 587
+            },
+            {
+              "tResidue": 18,
+              "k": 1028
+            },
+            {
+              "tResidue": 28,
+              "k": 109
+            },
+            {
+              "tResidue": 29,
+              "k": 550
+            },
+            {
+              "tResidue": 30,
+              "k": 991
+            },
+            {
+              "tResidue": 40,
+              "k": 72
+            },
+            {
+              "tResidue": 41,
+              "k": 513
+            },
+            {
+              "tResidue": 42,
+              "k": 954
+            },
+            {
+              "tResidue": 52,
+              "k": 35
+            },
+            {
+              "tResidue": 53,
+              "k": 476
+            },
+            {
+              "tResidue": 54,
+              "k": 917
+            },
+            {
+              "tResidue": 65,
+              "k": 439
+            }
+          ],
+          "firstUnavailableTResidue": {
+            "tResidue": 0,
+            "k": 3748
+          }
+        }
+      ]
+    },
+    "79": {
+      "prime": 79,
+      "primeSquare": 6241,
+      "kFormula": {
+        "leftCoefficient": 3495,
+        "constant": 4770,
+        "modulus": 6241,
+        "text": "k_79(left) = (3495*left + 4770) mod 6241"
+      },
+      "deltaRange": {
+        "min": -156014,
+        "max": -14
+      },
+      "universallyWithinWindows": {
+        "10000": false,
+        "25000": false
+      },
+      "availabilityByWindow": [
+        {
+          "window": 25000,
+          "maxK": 999,
+          "minimalWindowForMaxK": 24989,
+          "criterion": "within window 25000 iff k_79(left) <= 999",
+          "leftParameterization": "left = 5882 + 11025*t",
+          "kFormulaInT": "k_79(t) = (441*t + 4506) mod 6241",
+          "tPeriod": 6241,
+          "stepGcdWithPrimeSquare": 1,
+          "availableResidueCount": 1000,
+          "unavailableResidueCount": 5241,
+          "density": 0.1602307322544464,
+          "universallyWithinWindow": false,
+          "firstAvailableTResidues": [
+            {
+              "tResidue": 4,
+              "k": 29
+            },
+            {
+              "tResidue": 5,
+              "k": 470
+            },
+            {
+              "tResidue": 6,
+              "k": 911
+            },
+            {
+              "tResidue": 19,
+              "k": 403
+            },
+            {
+              "tResidue": 20,
+              "k": 844
+            },
+            {
+              "tResidue": 33,
+              "k": 336
+            },
+            {
+              "tResidue": 34,
+              "k": 777
+            },
+            {
+              "tResidue": 47,
+              "k": 269
+            },
+            {
+              "tResidue": 48,
+              "k": 710
+            },
+            {
+              "tResidue": 61,
+              "k": 202
+            },
+            {
+              "tResidue": 62,
+              "k": 643
+            },
+            {
+              "tResidue": 75,
+              "k": 135
+            },
+            {
+              "tResidue": 76,
+              "k": 576
+            },
+            {
+              "tResidue": 89,
+              "k": 68
+            },
+            {
+              "tResidue": 90,
+              "k": 509
+            },
+            {
+              "tResidue": 91,
+              "k": 950
+            }
+          ],
+          "firstUnavailableTResidue": {
+            "tResidue": 0,
+            "k": 4506
+          }
+        },
+        {
+          "window": 28500,
+          "maxK": 1139,
+          "minimalWindowForMaxK": 28489,
+          "criterion": "within window 28500 iff k_79(left) <= 1139",
+          "leftParameterization": "left = 5882 + 11025*t",
+          "kFormulaInT": "k_79(t) = (441*t + 4506) mod 6241",
+          "tPeriod": 6241,
+          "stepGcdWithPrimeSquare": 1,
+          "availableResidueCount": 1140,
+          "unavailableResidueCount": 5101,
+          "density": 0.1826630347700689,
+          "universallyWithinWindow": false,
+          "firstAvailableTResidues": [
+            {
+              "tResidue": 4,
+              "k": 29
+            },
+            {
+              "tResidue": 5,
+              "k": 470
+            },
+            {
+              "tResidue": 6,
+              "k": 911
+            },
+            {
+              "tResidue": 19,
+              "k": 403
+            },
+            {
+              "tResidue": 20,
+              "k": 844
+            },
+            {
+              "tResidue": 33,
+              "k": 336
+            },
+            {
+              "tResidue": 34,
+              "k": 777
+            },
+            {
+              "tResidue": 47,
+              "k": 269
+            },
+            {
+              "tResidue": 48,
+              "k": 710
+            },
+            {
+              "tResidue": 61,
+              "k": 202
+            },
+            {
+              "tResidue": 62,
+              "k": 643
+            },
+            {
+              "tResidue": 63,
+              "k": 1084
+            },
+            {
+              "tResidue": 75,
+              "k": 135
+            },
+            {
+              "tResidue": 76,
+              "k": 576
+            },
+            {
+              "tResidue": 77,
+              "k": 1017
+            },
+            {
+              "tResidue": 89,
+              "k": 68
+            }
+          ],
+          "firstUnavailableTResidue": {
+            "tResidue": 0,
+            "k": 4506
+          }
+        }
+      ]
+    },
+    "83": {
+      "prime": 83,
+      "primeSquare": 6889,
+      "kFormula": {
+        "leftCoefficient": 4409,
+        "constant": 2738,
+        "modulus": 6889,
+        "text": "k_83(left) = (4409*left + 2738) mod 6889"
+      },
+      "deltaRange": {
+        "min": -172214,
+        "max": -14
+      },
+      "universallyWithinWindows": {
+        "10000": false,
+        "25000": false
+      },
+      "availabilityByWindow": [
+        {
+          "window": 25000,
+          "maxK": 999,
+          "minimalWindowForMaxK": 24989,
+          "criterion": "within window 25000 iff k_83(left) <= 999",
+          "leftParameterization": "left = 5882 + 11025*t",
+          "kFormulaInT": "k_83(t) = (441*t + 6280) mod 6889",
+          "tPeriod": 6889,
+          "stepGcdWithPrimeSquare": 1,
+          "availableResidueCount": 1000,
+          "unavailableResidueCount": 5889,
+          "density": 0.1451589490492089,
+          "universallyWithinWindow": false,
+          "firstAvailableTResidues": [
+            {
+              "tResidue": 2,
+              "k": 273
+            },
+            {
+              "tResidue": 3,
+              "k": 714
+            },
+            {
+              "tResidue": 18,
+              "k": 440
+            },
+            {
+              "tResidue": 19,
+              "k": 881
+            },
+            {
+              "tResidue": 33,
+              "k": 166
+            },
+            {
+              "tResidue": 34,
+              "k": 607
+            },
+            {
+              "tResidue": 49,
+              "k": 333
+            },
+            {
+              "tResidue": 50,
+              "k": 774
+            },
+            {
+              "tResidue": 64,
+              "k": 59
+            },
+            {
+              "tResidue": 65,
+              "k": 500
+            },
+            {
+              "tResidue": 66,
+              "k": 941
+            },
+            {
+              "tResidue": 80,
+              "k": 226
+            },
+            {
+              "tResidue": 81,
+              "k": 667
+            },
+            {
+              "tResidue": 96,
+              "k": 393
+            },
+            {
+              "tResidue": 97,
+              "k": 834
+            },
+            {
+              "tResidue": 111,
+              "k": 119
+            }
+          ],
+          "firstUnavailableTResidue": {
+            "tResidue": 0,
+            "k": 6280
+          }
+        },
+        {
+          "window": 28500,
+          "maxK": 1139,
+          "minimalWindowForMaxK": 28489,
+          "criterion": "within window 28500 iff k_83(left) <= 1139",
+          "leftParameterization": "left = 5882 + 11025*t",
+          "kFormulaInT": "k_83(t) = (441*t + 6280) mod 6889",
+          "tPeriod": 6889,
+          "stepGcdWithPrimeSquare": 1,
+          "availableResidueCount": 1140,
+          "unavailableResidueCount": 5749,
+          "density": 0.16548120191609814,
+          "universallyWithinWindow": false,
+          "firstAvailableTResidues": [
+            {
+              "tResidue": 2,
+              "k": 273
+            },
+            {
+              "tResidue": 3,
+              "k": 714
+            },
+            {
+              "tResidue": 18,
+              "k": 440
+            },
+            {
+              "tResidue": 19,
+              "k": 881
+            },
+            {
+              "tResidue": 33,
+              "k": 166
+            },
+            {
+              "tResidue": 34,
+              "k": 607
+            },
+            {
+              "tResidue": 35,
+              "k": 1048
+            },
+            {
+              "tResidue": 49,
+              "k": 333
+            },
+            {
+              "tResidue": 50,
+              "k": 774
+            },
+            {
+              "tResidue": 64,
+              "k": 59
+            },
+            {
+              "tResidue": 65,
+              "k": 500
+            },
+            {
+              "tResidue": 66,
+              "k": 941
+            },
+            {
+              "tResidue": 80,
+              "k": 226
+            },
+            {
+              "tResidue": 81,
+              "k": 667
+            },
+            {
+              "tResidue": 82,
+              "k": 1108
+            },
+            {
+              "tResidue": 96,
+              "k": 393
+            }
+          ],
+          "firstUnavailableTResidue": {
+            "tResidue": 0,
+            "k": 6280
+          }
+        }
+      ]
+    },
+    "89": {
+      "prime": 89,
+      "primeSquare": 7921,
+      "kFormula": {
+        "leftCoefficient": 6020,
+        "constant": 1152,
+        "modulus": 7921,
+        "text": "k_89(left) = (6020*left + 1152) mod 7921"
+      },
+      "deltaRange": {
+        "min": -198014,
+        "max": -14
+      },
+      "universallyWithinWindows": {
+        "10000": false,
+        "25000": false
+      },
+      "availabilityByWindow": [
+        {
+          "window": 25000,
+          "maxK": 999,
+          "minimalWindowForMaxK": 24989,
+          "criterion": "within window 25000 iff k_89(left) <= 999",
+          "leftParameterization": "left = 5882 + 11025*t",
+          "kFormulaInT": "k_89(t) = (441*t + 3922) mod 7921",
+          "tPeriod": 7921,
+          "stepGcdWithPrimeSquare": 1,
+          "availableResidueCount": 1000,
+          "unavailableResidueCount": 6921,
+          "density": 0.12624668602449185,
+          "universallyWithinWindow": false,
+          "firstAvailableTResidues": [
+            {
+              "tResidue": 10,
+              "k": 411
+            },
+            {
+              "tResidue": 11,
+              "k": 852
+            },
+            {
+              "tResidue": 28,
+              "k": 428
+            },
+            {
+              "tResidue": 29,
+              "k": 869
+            },
+            {
+              "tResidue": 45,
+              "k": 4
+            },
+            {
+              "tResidue": 46,
+              "k": 445
+            },
+            {
+              "tResidue": 47,
+              "k": 886
+            },
+            {
+              "tResidue": 63,
+              "k": 21
+            },
+            {
+              "tResidue": 64,
+              "k": 462
+            },
+            {
+              "tResidue": 65,
+              "k": 903
+            },
+            {
+              "tResidue": 81,
+              "k": 38
+            },
+            {
+              "tResidue": 82,
+              "k": 479
+            },
+            {
+              "tResidue": 83,
+              "k": 920
+            },
+            {
+              "tResidue": 99,
+              "k": 55
+            },
+            {
+              "tResidue": 100,
+              "k": 496
+            },
+            {
+              "tResidue": 101,
+              "k": 937
+            }
+          ],
+          "firstUnavailableTResidue": {
+            "tResidue": 0,
+            "k": 3922
+          }
+        },
+        {
+          "window": 28500,
+          "maxK": 1139,
+          "minimalWindowForMaxK": 28489,
+          "criterion": "within window 28500 iff k_89(left) <= 1139",
+          "leftParameterization": "left = 5882 + 11025*t",
+          "kFormulaInT": "k_89(t) = (441*t + 3922) mod 7921",
+          "tPeriod": 7921,
+          "stepGcdWithPrimeSquare": 1,
+          "availableResidueCount": 1140,
+          "unavailableResidueCount": 6781,
+          "density": 0.1439212220679207,
+          "universallyWithinWindow": false,
+          "firstAvailableTResidues": [
+            {
+              "tResidue": 10,
+              "k": 411
+            },
+            {
+              "tResidue": 11,
+              "k": 852
+            },
+            {
+              "tResidue": 28,
+              "k": 428
+            },
+            {
+              "tResidue": 29,
+              "k": 869
+            },
+            {
+              "tResidue": 45,
+              "k": 4
+            },
+            {
+              "tResidue": 46,
+              "k": 445
+            },
+            {
+              "tResidue": 47,
+              "k": 886
+            },
+            {
+              "tResidue": 63,
+              "k": 21
+            },
+            {
+              "tResidue": 64,
+              "k": 462
+            },
+            {
+              "tResidue": 65,
+              "k": 903
+            },
+            {
+              "tResidue": 81,
+              "k": 38
+            },
+            {
+              "tResidue": 82,
+              "k": 479
+            },
+            {
+              "tResidue": 83,
+              "k": 920
+            },
+            {
+              "tResidue": 99,
+              "k": 55
+            },
+            {
+              "tResidue": 100,
+              "k": 496
+            },
+            {
+              "tResidue": 101,
+              "k": 937
+            }
+          ],
+          "firstUnavailableTResidue": {
+            "tResidue": 0,
+            "k": 3922
+          }
+        }
+      ]
+    },
+    "97": {
+      "prime": 97,
+      "primeSquare": 9409,
+      "kFormula": {
+        "leftCoefficient": 4140,
+        "constant": 4932,
+        "modulus": 9409,
+        "text": "k_97(left) = (4140*left + 4932) mod 9409"
+      },
+      "deltaRange": {
+        "min": -235214,
+        "max": -14
+      },
+      "universallyWithinWindows": {
+        "10000": false,
+        "25000": false
+      },
+      "availabilityByWindow": [
+        {
+          "window": 25000,
+          "maxK": 999,
+          "minimalWindowForMaxK": 24989,
+          "criterion": "within window 25000 iff k_97(left) <= 999",
+          "leftParameterization": "left = 5882 + 11025*t",
+          "kFormulaInT": "k_97(t) = (441*t + 5920) mod 9409",
+          "tPeriod": 9409,
+          "stepGcdWithPrimeSquare": 1,
+          "availableResidueCount": 1000,
+          "unavailableResidueCount": 8409,
+          "density": 0.10628122010840685,
+          "universallyWithinWindow": false,
+          "firstAvailableTResidues": [
+            {
+              "tResidue": 8,
+              "k": 39
+            },
+            {
+              "tResidue": 9,
+              "k": 480
+            },
+            {
+              "tResidue": 10,
+              "k": 921
+            },
+            {
+              "tResidue": 30,
+              "k": 332
+            },
+            {
+              "tResidue": 31,
+              "k": 773
+            },
+            {
+              "tResidue": 51,
+              "k": 184
+            },
+            {
+              "tResidue": 52,
+              "k": 625
+            },
+            {
+              "tResidue": 72,
+              "k": 36
+            },
+            {
+              "tResidue": 73,
+              "k": 477
+            },
+            {
+              "tResidue": 74,
+              "k": 918
+            },
+            {
+              "tResidue": 94,
+              "k": 329
+            },
+            {
+              "tResidue": 95,
+              "k": 770
+            },
+            {
+              "tResidue": 115,
+              "k": 181
+            },
+            {
+              "tResidue": 116,
+              "k": 622
+            },
+            {
+              "tResidue": 136,
+              "k": 33
+            },
+            {
+              "tResidue": 137,
+              "k": 474
+            }
+          ],
+          "firstUnavailableTResidue": {
+            "tResidue": 0,
+            "k": 5920
+          }
+        },
+        {
+          "window": 28500,
+          "maxK": 1139,
+          "minimalWindowForMaxK": 28489,
+          "criterion": "within window 28500 iff k_97(left) <= 1139",
+          "leftParameterization": "left = 5882 + 11025*t",
+          "kFormulaInT": "k_97(t) = (441*t + 5920) mod 9409",
+          "tPeriod": 9409,
+          "stepGcdWithPrimeSquare": 1,
+          "availableResidueCount": 1140,
+          "unavailableResidueCount": 8269,
+          "density": 0.1211605909235838,
+          "universallyWithinWindow": false,
+          "firstAvailableTResidues": [
+            {
+              "tResidue": 8,
+              "k": 39
+            },
+            {
+              "tResidue": 9,
+              "k": 480
+            },
+            {
+              "tResidue": 10,
+              "k": 921
+            },
+            {
+              "tResidue": 30,
+              "k": 332
+            },
+            {
+              "tResidue": 31,
+              "k": 773
+            },
+            {
+              "tResidue": 51,
+              "k": 184
+            },
+            {
+              "tResidue": 52,
+              "k": 625
+            },
+            {
+              "tResidue": 53,
+              "k": 1066
+            },
+            {
+              "tResidue": 72,
+              "k": 36
+            },
+            {
+              "tResidue": 73,
+              "k": 477
+            },
+            {
+              "tResidue": 74,
+              "k": 918
+            },
+            {
+              "tResidue": 94,
+              "k": 329
+            },
+            {
+              "tResidue": 95,
+              "k": 770
+            },
+            {
+              "tResidue": 115,
+              "k": 181
+            },
+            {
+              "tResidue": 116,
+              "k": 622
+            },
+            {
+              "tResidue": 117,
+              "k": 1063
+            }
+          ],
+          "firstUnavailableTResidue": {
+            "tResidue": 0,
+            "k": 5920
+          }
+        }
+      ]
+    },
+    "101": {
+      "prime": 101,
+      "primeSquare": 10201,
+      "kFormula": {
+        "leftCoefficient": 9793,
+        "constant": 9742,
+        "modulus": 10201,
+        "text": "k_101(left) = (9793*left + 9742) mod 10201"
+      },
+      "deltaRange": {
+        "min": -255014,
+        "max": -14
+      },
+      "universallyWithinWindows": {
+        "10000": false,
+        "25000": false
+      },
+      "availabilityByWindow": [
+        {
+          "window": 25000,
+          "maxK": 999,
+          "minimalWindowForMaxK": 24989,
+          "criterion": "within window 25000 iff k_101(left) <= 999",
+          "leftParameterization": "left = 5882 + 11025*t",
+          "kFormulaInT": "k_101(t) = (441*t + 7121) mod 10201",
+          "tPeriod": 10201,
+          "stepGcdWithPrimeSquare": 1,
+          "availableResidueCount": 1000,
+          "unavailableResidueCount": 9201,
+          "density": 0.09802960494069209,
+          "universallyWithinWindow": false,
+          "firstAvailableTResidues": [
+            {
+              "tResidue": 7,
+              "k": 7
+            },
+            {
+              "tResidue": 8,
+              "k": 448
+            },
+            {
+              "tResidue": 9,
+              "k": 889
+            },
+            {
+              "tResidue": 31,
+              "k": 390
+            },
+            {
+              "tResidue": 32,
+              "k": 831
+            },
+            {
+              "tResidue": 54,
+              "k": 332
+            },
+            {
+              "tResidue": 55,
+              "k": 773
+            },
+            {
+              "tResidue": 77,
+              "k": 274
+            },
+            {
+              "tResidue": 78,
+              "k": 715
+            },
+            {
+              "tResidue": 100,
+              "k": 216
+            },
+            {
+              "tResidue": 101,
+              "k": 657
+            },
+            {
+              "tResidue": 123,
+              "k": 158
+            },
+            {
+              "tResidue": 124,
+              "k": 599
+            },
+            {
+              "tResidue": 146,
+              "k": 100
+            },
+            {
+              "tResidue": 147,
+              "k": 541
+            },
+            {
+              "tResidue": 148,
+              "k": 982
+            }
+          ],
+          "firstUnavailableTResidue": {
+            "tResidue": 0,
+            "k": 7121
+          }
+        },
+        {
+          "window": 28500,
+          "maxK": 1139,
+          "minimalWindowForMaxK": 28489,
+          "criterion": "within window 28500 iff k_101(left) <= 1139",
+          "leftParameterization": "left = 5882 + 11025*t",
+          "kFormulaInT": "k_101(t) = (441*t + 7121) mod 10201",
+          "tPeriod": 10201,
+          "stepGcdWithPrimeSquare": 1,
+          "availableResidueCount": 1140,
+          "unavailableResidueCount": 9061,
+          "density": 0.11175374963238899,
+          "universallyWithinWindow": false,
+          "firstAvailableTResidues": [
+            {
+              "tResidue": 7,
+              "k": 7
+            },
+            {
+              "tResidue": 8,
+              "k": 448
+            },
+            {
+              "tResidue": 9,
+              "k": 889
+            },
+            {
+              "tResidue": 31,
+              "k": 390
+            },
+            {
+              "tResidue": 32,
+              "k": 831
+            },
+            {
+              "tResidue": 54,
+              "k": 332
+            },
+            {
+              "tResidue": 55,
+              "k": 773
+            },
+            {
+              "tResidue": 77,
+              "k": 274
+            },
+            {
+              "tResidue": 78,
+              "k": 715
+            },
+            {
+              "tResidue": 100,
+              "k": 216
+            },
+            {
+              "tResidue": 101,
+              "k": 657
+            },
+            {
+              "tResidue": 102,
+              "k": 1098
+            },
+            {
+              "tResidue": 123,
+              "k": 158
+            },
+            {
+              "tResidue": 124,
+              "k": 599
+            },
+            {
+              "tResidue": 125,
+              "k": 1040
+            },
+            {
+              "tResidue": 146,
+              "k": 100
+            }
+          ],
+          "firstUnavailableTResidue": {
+            "tResidue": 0,
+            "k": 7121
+          }
+        }
+      ]
+    },
+    "103": {
+      "prime": 103,
+      "primeSquare": 10609,
+      "kFormula": {
+        "leftCoefficient": 4668,
+        "constant": 4197,
+        "modulus": 10609,
+        "text": "k_103(left) = (4668*left + 4197) mod 10609"
+      },
+      "deltaRange": {
+        "min": -265214,
+        "max": -14
+      },
+      "universallyWithinWindows": {
+        "10000": false,
+        "25000": false
+      },
+      "availabilityByWindow": [
+        {
+          "window": 25000,
+          "maxK": 999,
+          "minimalWindowForMaxK": 24989,
+          "criterion": "within window 25000 iff k_103(left) <= 999",
+          "leftParameterization": "left = 5882 + 11025*t",
+          "kFormulaInT": "k_103(t) = (441*t + 5281) mod 10609",
+          "tPeriod": 10609,
+          "stepGcdWithPrimeSquare": 1,
+          "availableResidueCount": 1000,
+          "unavailableResidueCount": 9609,
+          "density": 0.09425959091337544,
+          "universallyWithinWindow": false,
+          "firstAvailableTResidues": [
+            {
+              "tResidue": 13,
+              "k": 405
+            },
+            {
+              "tResidue": 14,
+              "k": 846
+            },
+            {
+              "tResidue": 37,
+              "k": 380
+            },
+            {
+              "tResidue": 38,
+              "k": 821
+            },
+            {
+              "tResidue": 61,
+              "k": 355
+            },
+            {
+              "tResidue": 62,
+              "k": 796
+            },
+            {
+              "tResidue": 85,
+              "k": 330
+            },
+            {
+              "tResidue": 86,
+              "k": 771
+            },
+            {
+              "tResidue": 109,
+              "k": 305
+            },
+            {
+              "tResidue": 110,
+              "k": 746
+            },
+            {
+              "tResidue": 133,
+              "k": 280
+            },
+            {
+              "tResidue": 134,
+              "k": 721
+            },
+            {
+              "tResidue": 157,
+              "k": 255
+            },
+            {
+              "tResidue": 158,
+              "k": 696
+            },
+            {
+              "tResidue": 181,
+              "k": 230
+            },
+            {
+              "tResidue": 182,
+              "k": 671
+            }
+          ],
+          "firstUnavailableTResidue": {
+            "tResidue": 0,
+            "k": 5281
+          }
+        },
+        {
+          "window": 28500,
+          "maxK": 1139,
+          "minimalWindowForMaxK": 28489,
+          "criterion": "within window 28500 iff k_103(left) <= 1139",
+          "leftParameterization": "left = 5882 + 11025*t",
+          "kFormulaInT": "k_103(t) = (441*t + 5281) mod 10609",
+          "tPeriod": 10609,
+          "stepGcdWithPrimeSquare": 1,
+          "availableResidueCount": 1140,
+          "unavailableResidueCount": 9469,
+          "density": 0.107455933641248,
+          "universallyWithinWindow": false,
+          "firstAvailableTResidues": [
+            {
+              "tResidue": 13,
+              "k": 405
+            },
+            {
+              "tResidue": 14,
+              "k": 846
+            },
+            {
+              "tResidue": 37,
+              "k": 380
+            },
+            {
+              "tResidue": 38,
+              "k": 821
+            },
+            {
+              "tResidue": 61,
+              "k": 355
+            },
+            {
+              "tResidue": 62,
+              "k": 796
+            },
+            {
+              "tResidue": 85,
+              "k": 330
+            },
+            {
+              "tResidue": 86,
+              "k": 771
+            },
+            {
+              "tResidue": 109,
+              "k": 305
+            },
+            {
+              "tResidue": 110,
+              "k": 746
+            },
+            {
+              "tResidue": 133,
+              "k": 280
+            },
+            {
+              "tResidue": 134,
+              "k": 721
+            },
+            {
+              "tResidue": 157,
+              "k": 255
+            },
+            {
+              "tResidue": 158,
+              "k": 696
+            },
+            {
+              "tResidue": 159,
+              "k": 1137
+            },
+            {
+              "tResidue": 181,
+              "k": 230
+            }
+          ],
+          "firstUnavailableTResidue": {
+            "tResidue": 0,
+            "k": 5281
+          }
+        }
+      ]
+    },
+    "107": {
+      "prime": 107,
+      "primeSquare": 11449,
+      "kFormula": {
+        "leftCoefficient": 458,
+        "constant": 2044,
+        "modulus": 11449,
+        "text": "k_107(left) = (458*left + 2044) mod 11449"
+      },
+      "deltaRange": {
+        "min": -286214,
+        "max": -14
+      },
+      "universallyWithinWindows": {
+        "10000": false,
+        "25000": false
+      },
+      "availabilityByWindow": [
+        {
+          "window": 25000,
+          "maxK": 999,
+          "minimalWindowForMaxK": 24989,
+          "criterion": "within window 25000 iff k_107(left) <= 999",
+          "leftParameterization": "left = 5882 + 11025*t",
+          "kFormulaInT": "k_107(t) = (441*t + 5485) mod 11449",
+          "tPeriod": 11449,
+          "stepGcdWithPrimeSquare": 1,
+          "availableResidueCount": 1000,
+          "unavailableResidueCount": 10449,
+          "density": 0.08734387282732116,
+          "universallyWithinWindow": false,
+          "firstAvailableTResidues": [
+            {
+              "tResidue": 14,
+              "k": 210
+            },
+            {
+              "tResidue": 15,
+              "k": 651
+            },
+            {
+              "tResidue": 40,
+              "k": 227
+            },
+            {
+              "tResidue": 41,
+              "k": 668
+            },
+            {
+              "tResidue": 66,
+              "k": 244
+            },
+            {
+              "tResidue": 67,
+              "k": 685
+            },
+            {
+              "tResidue": 92,
+              "k": 261
+            },
+            {
+              "tResidue": 93,
+              "k": 702
+            },
+            {
+              "tResidue": 118,
+              "k": 278
+            },
+            {
+              "tResidue": 119,
+              "k": 719
+            },
+            {
+              "tResidue": 144,
+              "k": 295
+            },
+            {
+              "tResidue": 145,
+              "k": 736
+            },
+            {
+              "tResidue": 170,
+              "k": 312
+            },
+            {
+              "tResidue": 171,
+              "k": 753
+            },
+            {
+              "tResidue": 196,
+              "k": 329
+            },
+            {
+              "tResidue": 197,
+              "k": 770
+            }
+          ],
+          "firstUnavailableTResidue": {
+            "tResidue": 0,
+            "k": 5485
+          }
+        },
+        {
+          "window": 28500,
+          "maxK": 1139,
+          "minimalWindowForMaxK": 28489,
+          "criterion": "within window 28500 iff k_107(left) <= 1139",
+          "leftParameterization": "left = 5882 + 11025*t",
+          "kFormulaInT": "k_107(t) = (441*t + 5485) mod 11449",
+          "tPeriod": 11449,
+          "stepGcdWithPrimeSquare": 1,
+          "availableResidueCount": 1140,
+          "unavailableResidueCount": 10309,
+          "density": 0.09957201502314612,
+          "universallyWithinWindow": false,
+          "firstAvailableTResidues": [
+            {
+              "tResidue": 14,
+              "k": 210
+            },
+            {
+              "tResidue": 15,
+              "k": 651
+            },
+            {
+              "tResidue": 16,
+              "k": 1092
+            },
+            {
+              "tResidue": 40,
+              "k": 227
+            },
+            {
+              "tResidue": 41,
+              "k": 668
+            },
+            {
+              "tResidue": 42,
+              "k": 1109
+            },
+            {
+              "tResidue": 66,
+              "k": 244
+            },
+            {
+              "tResidue": 67,
+              "k": 685
+            },
+            {
+              "tResidue": 68,
+              "k": 1126
+            },
+            {
+              "tResidue": 92,
+              "k": 261
+            },
+            {
+              "tResidue": 93,
+              "k": 702
+            },
+            {
+              "tResidue": 118,
+              "k": 278
+            },
+            {
+              "tResidue": 119,
+              "k": 719
+            },
+            {
+              "tResidue": 144,
+              "k": 295
+            },
+            {
+              "tResidue": 145,
+              "k": 736
+            },
+            {
+              "tResidue": 170,
+              "k": 312
+            }
+          ],
+          "firstUnavailableTResidue": {
+            "tResidue": 0,
+            "k": 5485
+          }
+        }
+      ]
+    },
+    "109": {
+      "prime": 109,
+      "primeSquare": 11881,
+      "kFormula": {
+        "leftCoefficient": 1901,
+        "constant": 4499,
+        "modulus": 11881,
+        "text": "k_109(left) = (1901*left + 4499) mod 11881"
+      },
+      "deltaRange": {
+        "min": -297014,
+        "max": -14
+      },
+      "universallyWithinWindows": {
+        "10000": false,
+        "25000": false
+      },
+      "availabilityByWindow": [
+        {
+          "window": 25000,
+          "maxK": 999,
+          "minimalWindowForMaxK": 24989,
+          "criterion": "within window 25000 iff k_109(left) <= 999",
+          "leftParameterization": "left = 5882 + 11025*t",
+          "kFormulaInT": "k_109(t) = (441*t + 6160) mod 11881",
+          "tPeriod": 11881,
+          "stepGcdWithPrimeSquare": 1,
+          "availableResidueCount": 1000,
+          "unavailableResidueCount": 10881,
+          "density": 0.084167999326656,
+          "universallyWithinWindow": false,
+          "firstAvailableTResidues": [
+            {
+              "tResidue": 13,
+              "k": 12
+            },
+            {
+              "tResidue": 14,
+              "k": 453
+            },
+            {
+              "tResidue": 15,
+              "k": 894
+            },
+            {
+              "tResidue": 40,
+              "k": 38
+            },
+            {
+              "tResidue": 41,
+              "k": 479
+            },
+            {
+              "tResidue": 42,
+              "k": 920
+            },
+            {
+              "tResidue": 67,
+              "k": 64
+            },
+            {
+              "tResidue": 68,
+              "k": 505
+            },
+            {
+              "tResidue": 69,
+              "k": 946
+            },
+            {
+              "tResidue": 94,
+              "k": 90
+            },
+            {
+              "tResidue": 95,
+              "k": 531
+            },
+            {
+              "tResidue": 96,
+              "k": 972
+            },
+            {
+              "tResidue": 121,
+              "k": 116
+            },
+            {
+              "tResidue": 122,
+              "k": 557
+            },
+            {
+              "tResidue": 123,
+              "k": 998
+            },
+            {
+              "tResidue": 148,
+              "k": 142
+            }
+          ],
+          "firstUnavailableTResidue": {
+            "tResidue": 0,
+            "k": 6160
+          }
+        },
+        {
+          "window": 28500,
+          "maxK": 1139,
+          "minimalWindowForMaxK": 28489,
+          "criterion": "within window 28500 iff k_109(left) <= 1139",
+          "leftParameterization": "left = 5882 + 11025*t",
+          "kFormulaInT": "k_109(t) = (441*t + 6160) mod 11881",
+          "tPeriod": 11881,
+          "stepGcdWithPrimeSquare": 1,
+          "availableResidueCount": 1140,
+          "unavailableResidueCount": 10741,
+          "density": 0.09595151923238784,
+          "universallyWithinWindow": false,
+          "firstAvailableTResidues": [
+            {
+              "tResidue": 13,
+              "k": 12
+            },
+            {
+              "tResidue": 14,
+              "k": 453
+            },
+            {
+              "tResidue": 15,
+              "k": 894
+            },
+            {
+              "tResidue": 40,
+              "k": 38
+            },
+            {
+              "tResidue": 41,
+              "k": 479
+            },
+            {
+              "tResidue": 42,
+              "k": 920
+            },
+            {
+              "tResidue": 67,
+              "k": 64
+            },
+            {
+              "tResidue": 68,
+              "k": 505
+            },
+            {
+              "tResidue": 69,
+              "k": 946
+            },
+            {
+              "tResidue": 94,
+              "k": 90
+            },
+            {
+              "tResidue": 95,
+              "k": 531
+            },
+            {
+              "tResidue": 96,
+              "k": 972
+            },
+            {
+              "tResidue": 121,
+              "k": 116
+            },
+            {
+              "tResidue": 122,
+              "k": 557
+            },
+            {
+              "tResidue": 123,
+              "k": 998
+            },
+            {
+              "tResidue": 148,
+              "k": 142
+            }
+          ],
+          "firstUnavailableTResidue": {
+            "tResidue": 0,
+            "k": 6160
+          }
+        }
+      ]
+    },
+    "113": {
+      "prime": 113,
+      "primeSquare": 12769,
+      "kFormula": {
+        "leftCoefficient": 10726,
+        "constant": 9326,
+        "modulus": 12769,
+        "text": "k_113(left) = (10726*left + 9326) mod 12769"
+      },
+      "deltaRange": {
+        "min": -319214,
+        "max": -14
+      },
+      "universallyWithinWindows": {
+        "10000": false,
+        "25000": false
+      },
+      "availabilityByWindow": [
+        {
+          "window": 25000,
+          "maxK": 999,
+          "minimalWindowForMaxK": 24989,
+          "criterion": "within window 25000 iff k_113(left) <= 999",
+          "leftParameterization": "left = 5882 + 11025*t",
+          "kFormulaInT": "k_113(t) = (441*t + 8029) mod 12769",
+          "tPeriod": 12769,
+          "stepGcdWithPrimeSquare": 1,
+          "availableResidueCount": 1000,
+          "unavailableResidueCount": 11769,
+          "density": 0.07831466833737959,
+          "universallyWithinWindow": false,
+          "firstAvailableTResidues": [
+            {
+              "tResidue": 11,
+              "k": 111
+            },
+            {
+              "tResidue": 12,
+              "k": 552
+            },
+            {
+              "tResidue": 13,
+              "k": 993
+            },
+            {
+              "tResidue": 40,
+              "k": 131
+            },
+            {
+              "tResidue": 41,
+              "k": 572
+            },
+            {
+              "tResidue": 69,
+              "k": 151
+            },
+            {
+              "tResidue": 70,
+              "k": 592
+            },
+            {
+              "tResidue": 98,
+              "k": 171
+            },
+            {
+              "tResidue": 99,
+              "k": 612
+            },
+            {
+              "tResidue": 127,
+              "k": 191
+            },
+            {
+              "tResidue": 128,
+              "k": 632
+            },
+            {
+              "tResidue": 156,
+              "k": 211
+            },
+            {
+              "tResidue": 157,
+              "k": 652
+            },
+            {
+              "tResidue": 185,
+              "k": 231
+            },
+            {
+              "tResidue": 186,
+              "k": 672
+            },
+            {
+              "tResidue": 214,
+              "k": 251
+            }
+          ],
+          "firstUnavailableTResidue": {
+            "tResidue": 0,
+            "k": 8029
+          }
+        },
+        {
+          "window": 28500,
+          "maxK": 1139,
+          "minimalWindowForMaxK": 28489,
+          "criterion": "within window 28500 iff k_113(left) <= 1139",
+          "leftParameterization": "left = 5882 + 11025*t",
+          "kFormulaInT": "k_113(t) = (441*t + 8029) mod 12769",
+          "tPeriod": 12769,
+          "stepGcdWithPrimeSquare": 1,
+          "availableResidueCount": 1140,
+          "unavailableResidueCount": 11629,
+          "density": 0.08927872190461274,
+          "universallyWithinWindow": false,
+          "firstAvailableTResidues": [
+            {
+              "tResidue": 11,
+              "k": 111
+            },
+            {
+              "tResidue": 12,
+              "k": 552
+            },
+            {
+              "tResidue": 13,
+              "k": 993
+            },
+            {
+              "tResidue": 40,
+              "k": 131
+            },
+            {
+              "tResidue": 41,
+              "k": 572
+            },
+            {
+              "tResidue": 42,
+              "k": 1013
+            },
+            {
+              "tResidue": 69,
+              "k": 151
+            },
+            {
+              "tResidue": 70,
+              "k": 592
+            },
+            {
+              "tResidue": 71,
+              "k": 1033
+            },
+            {
+              "tResidue": 98,
+              "k": 171
+            },
+            {
+              "tResidue": 99,
+              "k": 612
+            },
+            {
+              "tResidue": 100,
+              "k": 1053
+            },
+            {
+              "tResidue": 127,
+              "k": 191
+            },
+            {
+              "tResidue": 128,
+              "k": 632
+            },
+            {
+              "tResidue": 129,
+              "k": 1073
+            },
+            {
+              "tResidue": 156,
+              "k": 211
+            }
+          ],
+          "firstUnavailableTResidue": {
+            "tResidue": 0,
+            "k": 8029
+          }
+        }
+      ]
+    }
+  },
+  "witnessRows": [
+    {
+      "left": 34414907,
+      "leftModResidualClass": 5882,
+      "endpoints": [
+        {
+          "prime": 23,
+          "k": 48,
+          "delta": -1214,
+          "right": 34413693,
+          "rightMod25": 18,
+          "compatibilityModPrimeSquare": 0,
+          "withinWindows": {
+            "25000": true,
+            "28500": true
+          }
+        },
+        {
+          "prime": 31,
+          "k": 652,
+          "delta": -16314,
+          "right": 34398593,
+          "rightMod25": 18,
+          "compatibilityModPrimeSquare": 0,
+          "withinWindows": {
+            "25000": true,
+            "28500": true
+          }
+        },
+        {
+          "prime": 37,
+          "k": 1238,
+          "delta": -30964,
+          "right": 34383943,
+          "rightMod25": 18,
+          "compatibilityModPrimeSquare": 0,
+          "withinWindows": {
+            "25000": false,
+            "28500": false
+          }
+        },
+        {
+          "prime": 41,
+          "k": 1088,
+          "delta": -27214,
+          "right": 34387693,
+          "rightMod25": 18,
+          "compatibilityModPrimeSquare": 0,
+          "withinWindows": {
+            "25000": false,
+            "28500": true
+          }
+        },
+        {
+          "prime": 61,
+          "k": 3238,
+          "delta": -80964,
+          "right": 34333943,
+          "rightMod25": 18,
+          "compatibilityModPrimeSquare": 0,
+          "withinWindows": {
+            "25000": false,
+            "28500": false
+          }
+        },
+        {
+          "prime": 67,
+          "k": 1139,
+          "delta": -28489,
+          "right": 34386418,
+          "rightMod25": 18,
+          "compatibilityModPrimeSquare": 0,
+          "withinWindows": {
+            "25000": false,
+            "28500": true
+          }
+        },
+        {
+          "prime": 71,
+          "k": 4760,
+          "delta": -119014,
+          "right": 34295893,
+          "rightMod25": 18,
+          "compatibilityModPrimeSquare": 0,
+          "withinWindows": {
+            "25000": false,
+            "28500": false
+          }
+        },
+        {
+          "prime": 73,
+          "k": 5227,
+          "delta": -130689,
+          "right": 34284218,
+          "rightMod25": 18,
+          "compatibilityModPrimeSquare": 0,
+          "withinWindows": {
+            "25000": false,
+            "28500": false
+          }
+        },
+        {
+          "prime": 79,
+          "k": 1606,
+          "delta": -40164,
+          "right": 34374743,
+          "rightMod25": 18,
+          "compatibilityModPrimeSquare": 0,
+          "withinWindows": {
+            "25000": false,
+            "28500": false
+          }
+        },
+        {
+          "prime": 83,
+          "k": 4841,
+          "delta": -121039,
+          "right": 34293868,
+          "rightMod25": 18,
+          "compatibilityModPrimeSquare": 0,
+          "withinWindows": {
+            "25000": false,
+            "28500": false
+          }
+        },
+        {
+          "prime": 89,
+          "k": 2029,
+          "delta": -50739,
+          "right": 34364168,
+          "rightMod25": 18,
+          "compatibilityModPrimeSquare": 0,
+          "withinWindows": {
+            "25000": false,
+            "28500": false
+          }
+        },
+        {
+          "prime": 97,
+          "k": 8567,
+          "delta": -214189,
+          "right": 34200718,
+          "rightMod25": 18,
+          "compatibilityModPrimeSquare": 0,
+          "withinWindows": {
+            "25000": false,
+            "28500": false
+          }
+        },
+        {
+          "prime": 101,
+          "k": 6347,
+          "delta": -158689,
+          "right": 34256218,
+          "rightMod25": 18,
+          "compatibilityModPrimeSquare": 0,
+          "withinWindows": {
+            "25000": false,
+            "28500": false
+          }
+        },
+        {
+          "prime": 103,
+          "k": 2472,
+          "delta": -61814,
+          "right": 34353093,
+          "rightMod25": 18,
+          "compatibilityModPrimeSquare": 0,
+          "withinWindows": {
+            "25000": false,
+            "28500": false
+          }
+        },
+        {
+          "prime": 107,
+          "k": 7966,
+          "delta": -199164,
+          "right": 34215743,
+          "rightMod25": 18,
+          "compatibilityModPrimeSquare": 0,
+          "withinWindows": {
+            "25000": false,
+            "28500": false
+          }
+        },
+        {
+          "prime": 109,
+          "k": 4325,
+          "delta": -108139,
+          "right": 34306768,
+          "rightMod25": 18,
+          "compatibilityModPrimeSquare": 0,
+          "withinWindows": {
+            "25000": false,
+            "28500": false
+          }
+        },
+        {
+          "prime": 113,
+          "k": 5338,
+          "delta": -133464,
+          "right": 34281443,
+          "rightMod25": 18,
+          "compatibilityModPrimeSquare": 0,
+          "withinWindows": {
+            "25000": false,
+            "28500": false
+          }
+        }
+      ]
+    }
+  ],
+  "nextTheoremOptions": [
+    {
+      "id": "availability_residue_cover",
+      "status": "ready",
+      "statement": "Use the k-threshold rules to split endpoint availability into finite t-residue strata before proving squarefree hitting."
+    },
+    {
+      "id": "window_legality_threshold",
+      "status": "ready",
+      "statement": "The candidate windows have thresholds 25000->k<=999, 28500->k<=1139; prove which threshold is theorem-legal."
+    }
+  ]
+}

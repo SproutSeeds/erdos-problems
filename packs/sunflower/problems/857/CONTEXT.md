@@ -12,3 +12,6 @@ Frontier framing:
 - preserve the active export/compression route as the live frontier
 - keep the recurrence-facing remainder terms explicit in every checkpoint
 - do not blur route breakthroughs into claims that the open problem is solved
+
+Adjacent strategy note:
+- `MULTIPLICATIVE_REORIENTATION.md` records a conservative bridge-oriented pivot linking `857` more tightly to the `536` / `856` LCM analogue program without replacing the live frontier

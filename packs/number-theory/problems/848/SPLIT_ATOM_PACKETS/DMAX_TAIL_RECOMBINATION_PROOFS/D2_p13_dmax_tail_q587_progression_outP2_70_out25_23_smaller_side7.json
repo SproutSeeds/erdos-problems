@@ -1,0 +1,136 @@
+{
+  "schema": "erdos.p848_dmax_tail_prime_progression_proof/1",
+  "problemId": "848",
+  "atomId": "D2_p13_dmax_tail_q587_progression_outP2_70_out25_23_smaller_side7",
+  "parentTailAtomId": "D2_p13_dmax_tail_recombination_outP2_70_out25_23_smaller_side7",
+  "parentGrowthAtomId": "D2_p13_dmax_growth_outP2_70_out25_23_smaller_side7",
+  "predecessorAtomId": "D2_p13_dmax_tail_q577_progression_outP2_70_out25_23_smaller_side7",
+  "splitKey": "outP2=70|out25=23|smaller=side7",
+  "status": "symbolic_upper_bound_verified",
+  "promotesAllNClaim": false,
+  "proofKind": "two_sided_crt_floor_function_tail_prime_upper_bound_with_bounded_range_profile",
+  "q": 587,
+  "squareDivisor": 344569,
+  "scope": {
+    "term": "same-prime dMax tail-prime degree contribution",
+    "boundedProfileRange": "7307..12000",
+    "claimBoundary": "This proves only the q=587 tail-prime upper-bound component via two witness-side CRT floor bounds. It also records a bounded q>=587 zero-floor profile, but does not prove the full dMax tail envelope or any all-N side-count floor."
+  },
+  "witnessBounds": [
+    {
+      "side": "plus",
+      "witnessValue": 1591,
+      "oppositeSide": "minus",
+      "oppositeResidueMod169": 99,
+      "productCondition": "344569 divides 1591*m + 1",
+      "coefficientMod344569": 1591,
+      "requiredOppositeValueMod344569": 217007,
+      "crtProgression": {
+        "variable": "m",
+        "residue": 57070892,
+        "modulus": 58232161,
+        "formula": "m = 57070892 + 58232161*t",
+        "tLowerBound": 0
+      },
+      "rawCountUpperBound": "max(0, floor((N - 57070892) / 58232161) + 1)",
+      "observedCheck": {
+        "N": 12000,
+        "rawFormulaCount": 0,
+        "observedSquareEventCount": 0,
+        "upperBoundPassed": true
+      }
+    },
+    {
+      "side": "minus",
+      "witnessValue": 9563,
+      "oppositeSide": "plus",
+      "oppositeResidueMod169": 70,
+      "productCondition": "344569 divides 9563*m + 1",
+      "coefficientMod344569": 9563,
+      "requiredOppositeValueMod344569": 54948,
+      "crtProgression": {
+        "variable": "m",
+        "residue": 23141071,
+        "modulus": 58232161,
+        "formula": "m = 23141071 + 58232161*t",
+        "tLowerBound": 0
+      },
+      "rawCountUpperBound": "max(0, floor((N - 23141071) / 58232161) + 1)",
+      "observedCheck": {
+        "N": 12000,
+        "rawFormulaCount": 0,
+        "observedSquareEventCount": 0,
+        "upperBoundPassed": true
+      }
+    }
+  ],
+  "remainingTailRangeProfile": {
+    "status": "bounded_zero_floor_profile_verified_parametric_lift_needed",
+    "profileRange": "7307..12000",
+    "startPrime": 587,
+    "nextPrimeAfterStart": 593,
+    "plusWitnessProductCutoff": 4369,
+    "minusWitnessProductCutoff": 10712,
+    "lastPlusPrimeChecked": 4363,
+    "lastMinusPrimeChecked": 10711,
+    "plusWitnessSidePrimeCount": 490,
+    "minusWitnessSidePrimeCount": 1200,
+    "scannedWitnessSideRowCount": 1690,
+    "nonzeroRawFloorCount": 0,
+    "smallestCrtResidues": [
+      {
+        "q": 1607,
+        "side": "plus",
+        "residue": 1220617,
+        "modulus": 436433881
+      },
+      {
+        "q": 1163,
+        "side": "minus",
+        "residue": 1275344,
+        "modulus": 228584161
+      },
+      {
+        "q": 607,
+        "side": "plus",
+        "residue": 2207915,
+        "modulus": 62267881
+      },
+      {
+        "q": 643,
+        "side": "minus",
+        "residue": 3930165,
+        "modulus": 69872881
+      }
+    ],
+    "productCutoffReason": "For each witness side, primes q with q^2 > witnessValue*N + 1 cannot divide witnessValue*m + 1 for any 1 <= m <= N. The listed rows exhaust q>=587 up to the relevant product cutoffs at N=12000.",
+    "claimBoundary": "This is a bounded finite profile over N<=12000. It is useful evidence for the next theorem move, but it is not an all-N tail estimate."
+  },
+  "overlapBoundary": {
+    "status": "raw_floor_bounds_suffice_for_q587_upper_bound",
+    "reason": "Prior-q overlaps, base-residue exclusions, and lower least-square-witness exclusions can only reduce the q=587 raw CRT counts. The q>=587 range profile is bounded evidence only and still needs a parametric lift."
+  },
+  "checkedIdentities": [
+    "587^2 = 344569 and 169*344569 = 58232161.",
+    "1591 mod 344569 = 1591 and gcd(1591, 344569) = 1.",
+    "1591*217007 + 1 is divisible by 344569.",
+    "CRT(m = 99 mod 169, m = 217007 mod 344569) gives m = 57070892 mod 58232161.",
+    "9563 mod 344569 = 9563 and gcd(9563, 344569) = 1.",
+    "9563*54948 + 1 is divisible by 344569.",
+    "CRT(m = 70 mod 169, m = 54948 mod 344569) gives m = 23141071 mod 58232161.",
+    "Both q=587 raw floor functions evaluate to zero at N = 12000, matching the bounded growth profile.",
+    "A deterministic bounded sweep checked 1690 witness-side CRT rows for q>=587 through the side-specific product cutoffs at N = 12000; every raw floor count was zero."
+  ],
+  "nextSubatom": {
+    "atomId": "D2_p13_dmax_tail_q_ge_587_parametric_zero_floor_outP2_70_out25_23_smaller_side7",
+    "status": "needed",
+    "qRange": "q>=587",
+    "statement": "Lift the bounded q>=587 zero-floor profile into a parametric tail lemma or aggregate recombination step; do not emit q=593 as another singleton unless the lift fails and returns a named exceptional class.",
+    "completionRule": "Either prove a theorem-facing q>=587 tail bound for both witness sides, or emit the first concrete exceptional prime/range that prevents the aggregate lift."
+  },
+  "proofBoundary": "This certificate discharges q=587 as a residual tail-prime upper-bound component and records that the bounded q>=587 profile has no nonzero raw CRT floor rows through the product cutoffs. It intentionally leaves the parametric q>=587 tail lift open instead of spawning another singleton prime.",
+  "nextTheoremActions": [
+    "Attack D2_p13_dmax_tail_q_ge_587_parametric_zero_floor_outP2_70_out25_23_smaller_side7 next.",
+    "Convert the bounded q>=587 zero-floor profile into a theorem-facing aggregate tail lemma before returning to the side-count floor or dynamic margin."
+  ]
+}

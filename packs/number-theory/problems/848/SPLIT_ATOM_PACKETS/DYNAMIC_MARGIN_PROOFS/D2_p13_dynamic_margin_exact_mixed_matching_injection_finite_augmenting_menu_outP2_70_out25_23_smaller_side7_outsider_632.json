@@ -1,0 +1,156 @@
+{
+  "schema": "p848.dynamicMarginProof.v1",
+  "generatedAt": "2026-04-12T20:12:38Z",
+  "problemId": 848,
+  "proofId": "p848_dynamic_margin_proof_D2_p13_dynamic_margin_exact_mixed_matching_injection_finite_augmenting_menu_outP2_70_out25_23_smaller_side7_outsider_6323",
+  "atomId": "D2_p13_dynamic_margin_exact_mixed_matching_injection_finite_augmenting_menu_outP2_70_out25_23_smaller_side7_outsider_6323",
+  "status": "bounded_finite_menu_falsified_direct_delta_successor_needed",
+  "proofKind": "bounded_future_event_menu_obstruction",
+  "predecessorAtomId": "D2_p13_dynamic_margin_exact_mixed_matching_injection_parametric_lift_outP2_70_out25_23_smaller_side7_outsider_6323",
+  "predecessorProofId": "p848_dynamic_margin_proof_D2_p13_dynamic_margin_exact_mixed_matching_injection_parametric_lift_outP2_70_out25_23_smaller_side7_outsider_6323",
+  "targetPrime": 13,
+  "splitKey": "outP2=70|out25=23|smaller=side7",
+  "outsider": 6323,
+  "promotesAllNClaim": false,
+  "testedFiniteMenu": {
+    "sourceProfileMaxN": 40000,
+    "directDeltaCount": 25,
+    "directDeltas": [
+      -864,
+      -789,
+      -764,
+      -739,
+      -689,
+      -664,
+      -639,
+      -589,
+      -564,
+      -539,
+      -489,
+      -464,
+      -439,
+      -414,
+      -389,
+      -364,
+      -339,
+      -289,
+      -264,
+      -239,
+      -189,
+      -164,
+      -139,
+      -89,
+      -64
+    ],
+    "replacementPathLeftValues": [
+      10807,
+      12407,
+      14407
+    ],
+    "menuBoundary": "This is the finite direct-delta plus three short replacement-path menu mined from the bounded online profile through 40000."
+  },
+  "boundedReplayAgainstMenu": {
+    "replayMaxN": 73607,
+    "postProfileLeftInsertionRowsCheckedUntilFailure": 494,
+    "postProfileRowsCoveredBeforeFailure": 493,
+    "firstFailure": {
+      "N": 73607,
+      "left": 73607,
+      "leftMod25": 7,
+      "leftMod100": 7,
+      "leftMod625": 482,
+      "leftCompatibility": {
+        "outsiderProductPlusOne": 465417062,
+        "squareWitnesses": [
+          {
+            "prime": 11,
+            "square": 121
+          }
+        ]
+      },
+      "activeSide18Count": 1081,
+      "missingCrossEdgeCount": 97,
+      "oldDirectDeltaCandidateCount": 25,
+      "oldDirectDeltaActiveSide18ResidueCandidateCount": 25,
+      "oldDirectDeltaRightCompatibleCandidateCount": 3,
+      "oldDirectDeltaCrossSquarefreeCandidateCount": 22,
+      "oldDirectDeltaMissingCrossEdgeCount": 0,
+      "interpretation": "Every old direct-delta candidate is active on side18 residue, but none is simultaneously outsider-compatible on side18 and squarefree across the left/right pair."
+    },
+    "coverDeltaStatsBeforeFailure": [
+      {
+        "key": "-864",
+        "count": 445
+      },
+      {
+        "key": "-789",
+        "count": 21
+      },
+      {
+        "key": "-764",
+        "count": 5
+      },
+      {
+        "key": "-739",
+        "count": 13
+      },
+      {
+        "key": "-689",
+        "count": 3
+      },
+      {
+        "key": "-639",
+        "count": 3
+      },
+      {
+        "key": "-489",
+        "count": 1
+      },
+      {
+        "key": "-464",
+        "count": 1
+      },
+      {
+        "key": "-389",
+        "count": 1
+      }
+    ]
+  },
+  "successorDirectEdgeWitness": {
+    "left": 73607,
+    "right": 72518,
+    "delta": -1089,
+    "leftResidueMod25": 7,
+    "rightResidueMod25": 18,
+    "leftResidueMod100": 7,
+    "rightResidueMod100": 18,
+    "rightActiveAtN": true,
+    "rightCompatibility": {
+      "outsiderProductPlusOne": 458531315,
+      "squareWitnesses": [
+        {
+          "prime": 11,
+          "square": 121
+        }
+      ]
+    },
+    "crossProductPlusOne": 5337832427,
+    "crossSquarefree": true,
+    "crossSquarefreeCheckedThrough": 73060,
+    "interpretation": "The first row outside the mined menu is still matched by a direct missing-cross edge, but it requires the new delta -1089."
+  },
+  "nextSubatom": {
+    "atomId": "D2_p13_dynamic_margin_exact_mixed_matching_injection_direct_delta_minus1089_successor_outP2_70_out25_23_smaller_side7_outsider_6323",
+    "status": "needed",
+    "term": "outsider-6323 direct delta -1089 successor",
+    "statement": "Prove the new direct-delta -1089 branch exposed at side7 vertex 73607, integrate it with the existing augmenting menu, or emit the first future row where this enlarged menu fails.",
+    "completionRule": "The delta -1089 residue/block branch is proved symbolically and merged into the matching-injection menu, or the first future row requiring a different direct delta or longer augmenting path becomes the next deterministic atom.",
+    "targetEdge": {
+      "left": 73607,
+      "right": 72518,
+      "delta": -1089
+    },
+    "proofBoundary": "This successor is driven by the first bounded row outside the previously mined finite menu; it is not an all-N proof of the enlarged menu."
+  },
+  "proofBoundary": "This packet falsifies the mined finite augmenting-path menu by an exact bounded future event row. It does not falsify side7 saturation or the matching-injection target; it only shows that the menu needs at least the new direct delta -1089 branch."
+}

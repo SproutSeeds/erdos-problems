@@ -1,0 +1,21 @@
+.clawdad/
+.erdos/
+output/
+tmp/
+dist/
+*.tgz
+.DS_Store
+
+# Local/generated frontier-engine run products. Keep source, docs, schemas, and
+# compact benchmark profiles in npm; leave raw run bundles in the repo workspace.
+research/frontier-engine/artifacts/
+research/frontier-engine/build/
+research/frontier-engine/src/*.egg-info/
+research/frontier-engine/experiments/**/live-frontier-sync/
+
+# Exact small-N scan result packets can be very large. The npm package carries
+# the scanner and curated proof-facing summaries, not every raw rollout product.
+packs/number-theory/problems/848/EXACT_SMALL_N_1_*_RESULTS.json
+packs/number-theory/problems/848/EXACT_SMALL_N_1_*_CERTIFICATE.md
+!packs/number-theory/problems/848/EXACT_SMALL_N_1_10000_CERTIFICATE.md
+packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/

@@ -1,0 +1,116 @@
+{
+  "schema": "erdos.number_theory.p848_dynamic_margin_proof/1",
+  "generatedAt": "2026-04-12T22:07:13Z",
+  "problemId": "848",
+  "proofId": "p848_dynamic_margin_proof_D2_p13_dynamic_margin_exact_mixed_matching_injection_selected_cross_squarefree_exception_small_prime_crt_escape_selector_lift",
+  "atomId": "D2_p13_dynamic_margin_exact_mixed_matching_injection_selected_cross_squarefree_exception_small_prime_crt_escape_selector_lift_outP2_70_out25_23_smaller_side7_outsider_6323",
+  "parentAtomId": "D2_p13_dynamic_margin_exact_mixed_matching_injection_selected_cross_squarefree_exception_right_compatibility_escape_lift_outP2_70_out25_23_smaller_side7_outsider_6323_left_1138307",
+  "status": "symbolic_p7_endpoint_reduction_ready_cross_squarefree_fallback_needed",
+  "proofKind": "symbolic_p7_crt_endpoint_reduction_plus_bounded_fallback_profile",
+  "promotesAllNClaim": false,
+  "provesP7EndpointExistenceAllN": true,
+  "provesCrossSquarefreeAllN": false,
+  "splitKey": "outP2=70|out25=23|smaller=side7",
+  "outsider": 6323,
+  "targetPrime": 13,
+  "phaseGuardDecision": {
+    "status": "prove_endpoint_then_decompose_cross_squarefree_fallback",
+    "reason": "The small-prime selector contains a symbolic p=7 endpoint lemma, but bounded replay shows the p=7 endpoint can have a non-squarefree cross edge. The next theorem object is the cross-squarefree fallback selector, not another delta rung."
+  },
+  "symbolicEndpointLemma": {
+    "lemmaId": "p848_outsider_6323_p7_local_side18_endpoint",
+    "statement": "For any side7 left vertex, let k_7(left) be the least residue of 2*left - 27 modulo 49 and set d_7(left) = -14 - 25*k_7(left), right_7(left) = left + d_7(left). Then -1214 <= d_7(left) <= -14, right_7(left) is on side18, and 7^2 divides 6323*right_7(left)+1.",
+    "proofSketch": [
+      "Since 6323 = 2 mod 49 and 6323*25 = 1 mod 49, the congruence 6323*(left - 14 - 25*k)+1 = 0 mod 49 reduces to k = 2*left - 27 mod 49.",
+      "Choosing k_7 in {0,...,48} gives d_7 = -14 - 25*k_7 in the local interval [-1214,-14].",
+      "Because left = 7 mod 25 and d_7 = 11 mod 25, right_7 = 18 mod 25, so the selected endpoint is on the side18 compatible side."
+    ],
+    "deltaFormula": "d_7(left) = -14 - 25 * ((2*left - 27) mod 49)",
+    "deltaRange": {
+      "min": -1214,
+      "max": -14
+    },
+    "rightCompatibilityPrime": 7,
+    "rightCompatibilitySquare": 49
+  },
+  "boundedFallbackProfile": {
+    "checker": "/tmp/p848_right_escape_mine.cpp",
+    "checkerKind": "exact_modular_sieve_replay_plus_p7_endpoint_profile",
+    "maxN": 10000000,
+    "escapeWindow": 10000,
+    "finiteWindowMisses": 52,
+    "finiteWindowMissesWithLeftMod100Seven": 52,
+    "p7EndpointCrossSquarefree": 21,
+    "p7EndpointCrossBad": 31,
+    "p7CrossBadPrimeCounts": [
+      {
+        "prime": 2,
+        "count": 20
+      },
+      {
+        "prime": 3,
+        "count": 4
+      },
+      {
+        "prime": 19,
+        "count": 3
+      },
+      {
+        "prime": 17,
+        "count": 2
+      },
+      {
+        "prime": 31,
+        "count": 1
+      },
+      {
+        "prime": 43,
+        "count": 1
+      }
+    ],
+    "smallPrimeFallbackPrimeSet": [
+      7,
+      11,
+      13,
+      17,
+      19,
+      23,
+      31,
+      37,
+      41
+    ],
+    "smallPrimeFallbackCovered": 52,
+    "firstNoSmallPrimeFallback": null,
+    "interpretation": "The p=7 CRT endpoint proves a local side18-compatible endpoint, but bounded replay still needs cross-squarefree fallback for 31 of 52 finite-window misses. The fallback selector may reuse p=7 at a different local slot or one of the other small primes."
+  },
+  "nextSubatom": {
+    "atomId": "D2_p13_dynamic_margin_exact_mixed_matching_injection_selected_cross_squarefree_exception_p7_endpoint_cross_squarefree_fallback_lift_outP2_70_out25_23_smaller_side7_outsider_6323",
+    "status": "needed",
+    "term": "outsider-6323 p=7 endpoint cross-squarefree fallback lift",
+    "statement": "Starting from the symbolic p=7 local side18 endpoint, prove that rows whose p=7 endpoint has a non-squarefree cross edge admit a nearby fallback endpoint from the small-prime set {7,11,13,17,19,23,31,37,41} with squarefree cross product, or emit the first fallback miss.",
+    "completionRule": "A symbolic cross-squarefree fallback selector handles the p=7 endpoint cross-bad rows, or the first finite-window miss outside the fallback rule becomes the next deterministic packet.",
+    "dependsOnSublemma": "selected_cross_squarefree_exception_small_prime_crt_escape_selector_lift",
+    "seedPrimeSet": [
+      7,
+      11,
+      13,
+      17,
+      19,
+      23,
+      31,
+      37,
+      41
+    ],
+    "seedEscapeWindow": 10000,
+    "seedP7CrossBadCount": 31,
+    "remainingAfterDischarge": [
+      "selector_collision_or_augmentation_lift"
+    ],
+    "proofBoundary": "This next subatom is the cross-squarefree part of the selector. It must not claim collision-free online matching, and bounded fallback coverage is not an all-N proof."
+  },
+  "proofBoundary": "This packet proves only the p=7 endpoint-existence component symbolically. The cross-squarefree fallback remains open and bounded evidence must not be promoted to an all-N claim.",
+  "nextTheoremActions": [
+    "Prove D2_p13_dynamic_margin_exact_mixed_matching_injection_selected_cross_squarefree_exception_p7_endpoint_cross_squarefree_fallback_lift_outP2_70_out25_23_smaller_side7_outsider_6323 next.",
+    "Do not add singleton fallback-delta rungs unless the cross-squarefree fallback selector emits a first miss outside its rule."
+  ]
+}

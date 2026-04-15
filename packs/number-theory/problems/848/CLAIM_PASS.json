@@ -1,0 +1,204 @@
+{
+  "schema": "erdos.problem_claim_pass/1",
+  "generatedAt": "2026-04-14T11:45:57.664Z",
+  "problemId": "848",
+  "displayName": "Erdos Problem #848",
+  "title": "Squarefree ab+1 Extremal Set Problem",
+  "cluster": "number-theory",
+  "sourceKind": "claim_loop_plus_bridge",
+  "claimPassMode": "bridge_backed",
+  "currentClaimSurface": "bridge_backed_frontier_support",
+  "currentState": {
+    "activeRoute": "finite_check_gap_closure",
+    "nextHonestMove": "Decide whether to extend exact verified coverage beyond `40500` or switch method class.",
+    "routeSummary": "Convert the sufficiently-large-N theorem into a complete all-N resolution without overstating what is already closed or confusing imported thresholds with repo-owned claims.",
+    "latestVerifiedInterval": "1..40500",
+    "sourceRefresh": "erdos number-theory bridge-refresh 848"
+  },
+  "summary": {
+    "hooks": {
+      "total": 4,
+      "supported": 4,
+      "actionable": 0,
+      "unresolved": 0,
+      "broken": 0
+    },
+    "claims": {
+      "total": 7,
+      "supported": 2,
+      "actionable": 5,
+      "unresolved": 0,
+      "broken": 0
+    }
+  },
+  "hookAssessments": [
+    {
+      "hook_id": "next_unmatched_equals_282_failure",
+      "verdict": "supported",
+      "status": "supported",
+      "evidenceClass": "search_bridge_alignment",
+      "theoremReady": false,
+      "rationale": "Shared-prefix representative 137720141 matches tracked tail 282 first failure 137720141.",
+      "nextAction": "formalize_alignment_mechanism"
+    },
+    {
+      "hook_id": "completed_tail_vs_search_leader_split",
+      "verdict": "supported",
+      "status": "supported",
+      "evidenceClass": "search_bridge_split",
+      "theoremReady": false,
+      "rationale": "Completed structured tail 332 differs from family-aware leader 432 on the live bridge.",
+      "nextAction": "explain_search_leader_split"
+    },
+    {
+      "hook_id": "repair_pool_not_closed",
+      "verdict": "supported",
+      "status": "supported",
+      "evidenceClass": "bridge_packet_growth",
+      "theoremReady": false,
+      "rationale": "Recent bridge packets introduced new square moduli: 1369, 841, 17161, 1849.",
+      "nextAction": "model_repair_pool_growth"
+    },
+    {
+      "hook_id": "top_repair_class_cluster",
+      "verdict": "supported",
+      "status": "supported",
+      "evidenceClass": "gpu_leaderboard_cluster",
+      "theoremReady": false,
+      "rationale": "Tie class 432, 782, 832 shares repaired-known=26, repaired-predicted=242, clean-through=250075000.",
+      "nextAction": "formalize_repair_cluster_mechanism"
+    }
+  ],
+  "claimAssessments": [
+    {
+      "claim_id": "choose_next_finite_gap_move",
+      "source": "theorem_agenda",
+      "verdict": "actionable",
+      "evidenceClass": "theorem_agenda",
+      "theoremReady": false,
+      "supportSatisfied": true,
+      "summary": "Choose the next finite-gap closure move and keep the theorem-facing claim surface honest.",
+      "rationale": "The current canonical exact base is 1..40500; the next interval is still open.",
+      "nextAction": "decide_post_40500_verification_lane"
+    },
+    {
+      "claim_id": "explain_next_unmatched_alignment",
+      "source": "theorem_agenda",
+      "verdict": "actionable",
+      "evidenceClass": "theorem_agenda",
+      "theoremReady": false,
+      "supportSatisfied": true,
+      "summary": "Explain structurally why shared-prefix representative `137720141` aligns with the first failure of tail `282`.",
+      "rationale": "If that alignment is structural rather than accidental, it turns a search coincidence into a theorem-facing obstruction class.",
+      "nextAction": "formalize_alignment_mechanism"
+    },
+    {
+      "claim_id": "explain_completed_vs_search_leader_split",
+      "source": "theorem_agenda",
+      "verdict": "actionable",
+      "evidenceClass": "theorem_agenda",
+      "theoremReady": false,
+      "supportSatisfied": true,
+      "summary": "Explain why completed structured tail `332` differs from current family-aware leader `432`.",
+      "rationale": "That split tells us whether the live frontier is a finite-window artifact or a genuinely better structural continuation class.",
+      "nextAction": "explain_search_leader_split"
+    },
+    {
+      "claim_id": "model_repair_pool_growth",
+      "source": "theorem_agenda",
+      "verdict": "actionable",
+      "evidenceClass": "theorem_agenda",
+      "theoremReady": false,
+      "supportSatisfied": true,
+      "summary": "Model the repaired square-modulus pool as a growing family rather than treating it as already closed.",
+      "rationale": "Recent packets introduced new square moduli, so the theorem lane should aim for controlled growth, not premature closure.",
+      "nextAction": "model_repair_pool_growth"
+    },
+    {
+      "claim_id": "characterize_top_repair_cluster",
+      "source": "theorem_agenda",
+      "verdict": "actionable",
+      "evidenceClass": "theorem_agenda",
+      "theoremReady": false,
+      "supportSatisfied": true,
+      "summary": "Characterize what the top repair cluster `432, 782, 832` shares structurally.",
+      "rationale": "If the tied tails share a common repair mechanism, that mechanism is a strong candidate for the next lemma-level abstraction.",
+      "nextAction": "formalize_repair_cluster_mechanism"
+    },
+    {
+      "claim_id": "p848_next_unmatched_alignment_claim",
+      "source": "search_bridge",
+      "verdict": "supported",
+      "evidenceClass": "search_bridge_alignment",
+      "theoremReady": false,
+      "supportSatisfied": true,
+      "summary": "Shared-prefix representative 137720141 aligns structurally with the first failure of tail 282.",
+      "rationale": "The bridge matches shared-prefix representative 137720141 with tracked tail 282 first failure 137720141.",
+      "nextAction": "formalize_alignment_mechanism"
+    },
+    {
+      "claim_id": "p848_top_repair_cluster_claim",
+      "source": "search_bridge",
+      "verdict": "supported",
+      "evidenceClass": "gpu_leaderboard_cluster",
+      "theoremReady": false,
+      "supportSatisfied": true,
+      "summary": "Top repair class 432, 782, 832 shares a common repair mechanism.",
+      "rationale": "Top cluster 432, 782, 832 shares repaired-known=26, repaired-predicted=242, clean-through=250075000.",
+      "nextAction": "formalize_repair_cluster_mechanism"
+    }
+  ],
+  "recommendations": [
+    {
+      "recommendation_id": "formalize_282_alignment",
+      "priority": "high",
+      "lane": "theorem_formalization",
+      "reason": "The bridge matches shared-prefix representative 137720141 with tracked tail 282 first failure 137720141.",
+      "command": "erdos problem formalization 848"
+    },
+    {
+      "recommendation_id": "formalize_top_repair_cluster",
+      "priority": "high",
+      "lane": "theorem_formalization",
+      "reason": "Top cluster 432, 782, 832 shares repaired-known=26, repaired-predicted=242, clean-through=250075000.",
+      "command": "erdos problem formalization 848"
+    },
+    {
+      "recommendation_id": "decide_post_40500_verification_lane",
+      "priority": "high",
+      "lane": "exact_verifier",
+      "reason": "The canonical exact base currently ends at 1..40500. The next verification move is still open.",
+      "command": "erdos number-theory dispatch 848"
+    },
+    {
+      "recommendation_id": "model_repair_pool_growth",
+      "priority": "medium",
+      "lane": "theorem_formalization",
+      "reason": "Recent bridge packets introduced new square moduli: 1369, 841, 17161, 1849.",
+      "command": "erdos problem formalization 848"
+    }
+  ],
+  "commands": {
+    "problemShow": "erdos problem show 848",
+    "problemArtifacts": "erdos problem artifacts 848",
+    "theoremLoop": "erdos problem theorem-loop 848",
+    "theoremLoopRefresh": "erdos problem theorem-loop-refresh 848",
+    "claimLoop": "erdos problem claim-loop 848",
+    "claimLoopRefresh": "erdos problem claim-loop-refresh 848",
+    "claimPass": "erdos problem claim-pass 848",
+    "claimPassRefresh": "erdos problem claim-pass-refresh 848",
+    "sourceRefresh": "erdos number-theory bridge-refresh 848"
+  },
+  "sources": {
+    "packProblemDir": "/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848",
+    "theoremLoopJsonPath": "/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/THEOREM_LOOP.json",
+    "theoremLoopMarkdownPath": "/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/THEOREM_LOOP.md",
+    "claimLoopJsonPath": "/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/CLAIM_LOOP.json",
+    "claimLoopMarkdownPath": "/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/CLAIM_LOOP.md",
+    "claimPassJsonPath": "/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/CLAIM_PASS.json",
+    "claimPassMarkdownPath": "/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/CLAIM_PASS.md",
+    "legacyBridgeJsonPath": "/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SEARCH_THEOREM_BRIDGE.json",
+    "legacyBridgeMarkdownPath": "/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SEARCH_THEOREM_BRIDGE.md",
+    "intervalQueuePath": "/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/INTERVAL_WORK_QUEUE.yaml"
+  }
+}

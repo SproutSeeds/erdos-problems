@@ -54,6 +54,23 @@ function printStatus(snapshot) {
   }
   console.log(`Frontier note: ${snapshot.frontierNotePresent ? snapshot.frontierNotePath : '(missing)'}`);
   console.log(`Route history: ${snapshot.routeHistoryPresent ? snapshot.routeHistoryPath : '(missing)'}`);
+  console.log(`Theorem loop: ${snapshot.theoremLoop?.theoremLoopMode ?? '(missing)'}`);
+  console.log(`Theorem claim surface: ${snapshot.theoremLoop?.currentState?.currentClaimSurface ?? '(none)'}`);
+  console.log(`Theorem note: ${snapshot.theoremLoop?.theoremLoopMarkdownPresent ? snapshot.theoremLoop.theoremLoopMarkdownPath : '(not written yet)'}`);
+  console.log(`Theorem command: ${snapshot.theoremLoop?.commands?.theoremLoop ?? '(none)'}`);
+  console.log(`Theorem refresh: ${snapshot.theoremLoop?.commands?.theoremLoopRefresh ?? '(none)'}`);
+  console.log(`Claim loop: ${snapshot.claimLoop?.claimLoopMode ?? '(missing)'}`);
+  console.log(`Claim note: ${snapshot.claimLoop?.claimLoopMarkdownPresent ? snapshot.claimLoop.claimLoopMarkdownPath : '(not written yet)'}`);
+  console.log(`Claim command: ${snapshot.claimLoop?.commands?.claimLoop ?? '(none)'}`);
+  console.log(`Claim refresh: ${snapshot.claimLoop?.commands?.claimLoopRefresh ?? '(none)'}`);
+  console.log(`Claim pass: ${snapshot.claimPass?.claimPassMode ?? '(missing)'}`);
+  console.log(`Claim pass note: ${snapshot.claimPass?.claimPassMarkdownPresent ? snapshot.claimPass.claimPassMarkdownPath : '(not written yet)'}`);
+  console.log(`Claim pass command: ${snapshot.claimPass?.commands?.claimPass ?? '(none)'}`);
+  console.log(`Claim pass refresh: ${snapshot.claimPass?.commands?.claimPassRefresh ?? '(none)'}`);
+  console.log(`Task list: ${snapshot.taskList?.taskListMode ?? '(missing)'}`);
+  console.log(`Task list note: ${snapshot.taskList?.taskListMarkdownPresent ? snapshot.taskList.taskListMarkdownPath : '(not written yet)'}`);
+  console.log(`Task list command: ${snapshot.taskList?.commands?.taskList ?? '(none)'}`);
+  console.log(`Task list refresh: ${snapshot.taskList?.commands?.taskListRefresh ?? '(none)'}`);
   console.log(`Checkpoint template: ${snapshot.checkpointTemplatePresent ? snapshot.checkpointTemplatePath : '(missing)'}`);
   console.log(`Report template: ${snapshot.reportTemplatePresent ? snapshot.reportTemplatePath : '(missing)'}`);
   console.log(`Active ticket: ${snapshot.activeTicketDetail?.ticket_id ?? '(none)'}`);

@@ -1,0 +1,139 @@
+{
+  "schema": "erdos.problem_claim_pass/1",
+  "generatedAt": "2026-04-10T08:11:06.267Z",
+  "problemId": "857",
+  "displayName": "Erdos Problem #857",
+  "title": "Sunflower Conjecture",
+  "cluster": "sunflower",
+  "sourceKind": "claim_loop_only",
+  "claimPassMode": "baseline",
+  "currentClaimSurface": "frontier_supported_route",
+  "currentState": {
+    "activeRoute": "anchored_selector_linearization",
+    "nextHonestMove": "Prove or package the helper stack cleanly and checkpoint the route if the leaf closes.",
+    "routeSummary": "Export the live anchored-selector helper stack into a route-facing leaf that remains honest about the open-problem boundary.",
+    "latestVerifiedInterval": null,
+    "sourceRefresh": null
+  },
+  "summary": {
+    "hooks": {
+      "total": 4,
+      "supported": 4,
+      "actionable": 0,
+      "unresolved": 0,
+      "broken": 0
+    },
+    "claims": {
+      "total": 3,
+      "supported": 0,
+      "actionable": 3,
+      "unresolved": 0,
+      "broken": 0
+    }
+  },
+  "hookAssessments": [
+    {
+      "hook_id": "active_route_recorded",
+      "verdict": "supported",
+      "status": "supported",
+      "evidenceClass": "route_state",
+      "theoremReady": false,
+      "rationale": "The pack records an active route, currently `anchored_selector_linearization`.",
+      "nextAction": "promote_route_claim"
+    },
+    {
+      "hook_id": "theorem_module_registered",
+      "verdict": "supported",
+      "status": "supported",
+      "evidenceClass": "theorem_module",
+      "theoremReady": false,
+      "rationale": "A theorem module is already registered for the active route: `sunflower-coda/repo/sunflower_lean/SunflowerLean/ObstructionExport.lean`.",
+      "nextAction": "stabilize_theorem_module_boundary"
+    },
+    {
+      "hook_id": "ready_atom_present",
+      "verdict": "supported",
+      "status": "supported",
+      "evidenceClass": "ready_atom",
+      "theoremReady": false,
+      "rationale": "The live route already has a ready atom, `T10.G3.A2`, which can feed the theorem lane.",
+      "nextAction": "promote_ready_atom"
+    },
+    {
+      "hook_id": "frontier_note_present",
+      "verdict": "supported",
+      "status": "supported",
+      "evidenceClass": "frontier_note",
+      "theoremReady": false,
+      "rationale": "The pack already carries a frontier note that can anchor theorem-facing updates.",
+      "nextAction": "anchor_frontier_note"
+    }
+  ],
+  "claimAssessments": [
+    {
+      "claim_id": "promote_ready_atom",
+      "source": "theorem_agenda",
+      "verdict": "actionable",
+      "evidenceClass": "theorem_agenda",
+      "theoremReady": false,
+      "supportSatisfied": true,
+      "summary": "Turn ready atom `T10.G3.A2` into the next theorem-facing checkpoint.",
+      "rationale": "Prove or package the helper stack cleanly and checkpoint the route if the leaf closes.",
+      "nextAction": "promote_ready_atom"
+    },
+    {
+      "claim_id": "stabilize_theorem_module_boundary",
+      "source": "theorem_agenda",
+      "verdict": "actionable",
+      "evidenceClass": "theorem_agenda",
+      "theoremReady": false,
+      "supportSatisfied": true,
+      "summary": "Align the active route with theorem module `sunflower-coda/repo/sunflower_lean/SunflowerLean/ObstructionExport.lean` and freeze its public claim boundary.",
+      "rationale": "The current claim surface is `frontier_supported_route`, so the next theorem move should sharpen what that module actually certifies.",
+      "nextAction": "stabilize_theorem_module_boundary"
+    },
+    {
+      "claim_id": "tighten_active_route_claim",
+      "source": "theorem_agenda",
+      "verdict": "actionable",
+      "evidenceClass": "theorem_agenda",
+      "theoremReady": false,
+      "supportSatisfied": true,
+      "summary": "Compress the active route `anchored_selector_linearization` into the next honest theorem-facing claim unit.",
+      "rationale": "Prove or package the helper stack cleanly and checkpoint the route if the leaf closes.",
+      "nextAction": "tighten_active_route_claim"
+    }
+  ],
+  "recommendations": [
+    {
+      "recommendation_id": "promote_ready_atom",
+      "priority": "medium",
+      "lane": "theorem_formalization",
+      "reason": "Prove or package the helper stack cleanly and checkpoint the route if the leaf closes.",
+      "command": "erdos problem formalization 857"
+    }
+  ],
+  "commands": {
+    "problemShow": "erdos problem show 857",
+    "problemArtifacts": "erdos problem artifacts 857",
+    "theoremLoop": "erdos problem theorem-loop 857",
+    "theoremLoopRefresh": "erdos problem theorem-loop-refresh 857",
+    "claimLoop": "erdos problem claim-loop 857",
+    "claimLoopRefresh": "erdos problem claim-loop-refresh 857",
+    "claimPass": "erdos problem claim-pass 857",
+    "claimPassRefresh": "erdos problem claim-pass-refresh 857",
+    "sourceRefresh": null
+  },
+  "sources": {
+    "packProblemDir": "/Volumes/Code_2TB/code/erdos-problems/packs/sunflower/problems/857",
+    "theoremLoopJsonPath": "/Volumes/Code_2TB/code/erdos-problems/packs/sunflower/problems/857/THEOREM_LOOP.json",
+    "theoremLoopMarkdownPath": "/Volumes/Code_2TB/code/erdos-problems/packs/sunflower/problems/857/THEOREM_LOOP.md",
+    "claimLoopJsonPath": "/Volumes/Code_2TB/code/erdos-problems/packs/sunflower/problems/857/CLAIM_LOOP.json",
+    "claimLoopMarkdownPath": "/Volumes/Code_2TB/code/erdos-problems/packs/sunflower/problems/857/CLAIM_LOOP.md",
+    "claimPassJsonPath": "/Volumes/Code_2TB/code/erdos-problems/packs/sunflower/problems/857/CLAIM_PASS.json",
+    "claimPassMarkdownPath": "/Volumes/Code_2TB/code/erdos-problems/packs/sunflower/problems/857/CLAIM_PASS.md",
+    "legacyBridgeJsonPath": "/Volumes/Code_2TB/code/erdos-problems/packs/sunflower/problems/857/SEARCH_THEOREM_BRIDGE.json",
+    "legacyBridgeMarkdownPath": "/Volumes/Code_2TB/code/erdos-problems/packs/sunflower/problems/857/SEARCH_THEOREM_BRIDGE.md",
+    "intervalQueuePath": "/Volumes/Code_2TB/code/erdos-problems/packs/sunflower/problems/857/INTERVAL_WORK_QUEUE.yaml"
+  }
+}

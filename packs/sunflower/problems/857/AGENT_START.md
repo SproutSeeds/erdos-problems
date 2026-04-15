@@ -5,6 +5,7 @@ Start here:
 - `erdos sunflower status 857`
 - `erdos preflight`
 - `erdos checkpoints sync`
+- if you are opening a bridge, compute, or experimental lane, read `MULTIPLICATIVE_REORIENTATION.md`
 
 Current framing:
 - open problem: yes

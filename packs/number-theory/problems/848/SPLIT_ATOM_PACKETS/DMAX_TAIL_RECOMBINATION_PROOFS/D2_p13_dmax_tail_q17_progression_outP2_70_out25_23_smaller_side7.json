@@ -1,0 +1,92 @@
+{
+  "schema": "erdos.p848_dmax_tail_prime_progression_proof/1",
+  "problemId": "848",
+  "atomId": "D2_p13_dmax_tail_q17_progression_outP2_70_out25_23_smaller_side7",
+  "parentTailAtomId": "D2_p13_dmax_tail_recombination_outP2_70_out25_23_smaller_side7",
+  "parentGrowthAtomId": "D2_p13_dmax_growth_outP2_70_out25_23_smaller_side7",
+  "splitKey": "outP2=70|out25=23|smaller=side7",
+  "status": "symbolic_upper_bound_verified",
+  "promotesAllNClaim": false,
+  "proofKind": "crt_floor_function_tail_prime_upper_bound",
+  "q": 17,
+  "squareDivisor": 289,
+  "scope": {
+    "term": "same-prime dMax tail-prime degree contribution",
+    "boundedProfileRange": "7307..12000",
+    "claimBoundary": "This proves only the q=17 tail-prime CRT floor-function upper bound for the two active same-prime witnesses. It does not prove the full dMax tail envelope or any side-count floor."
+  },
+  "witnessBounds": [
+    {
+      "side": "plus",
+      "witnessValue": 1591,
+      "oppositeSide": "minus",
+      "oppositeResidueMod169": 99,
+      "productCondition": "289 divides 1591*m + 1",
+      "coefficientMod289": 146,
+      "requiredOppositeValueMod289": 192,
+      "crtProgression": {
+        "variable": "m",
+        "residue": 47588,
+        "modulus": 48841,
+        "formula": "m = 47588 + 48841*t",
+        "tLowerBound": 0
+      },
+      "rawCountUpperBound": "max(0, floor((N - 47588) / 48841) + 1)",
+      "observedCheck": {
+        "N": 12000,
+        "rawFormulaCount": 0,
+        "observedSquareEventCount": 0,
+        "upperBoundPassed": true
+      }
+    },
+    {
+      "side": "minus",
+      "witnessValue": 9563,
+      "oppositeSide": "plus",
+      "oppositeResidueMod169": 70,
+      "productCondition": "289 divides 9563*m + 1",
+      "coefficientMod289": 26,
+      "requiredOppositeValueMod289": 100,
+      "crtProgression": {
+        "variable": "m",
+        "residue": 12238,
+        "modulus": 48841,
+        "formula": "m = 12238 + 48841*t",
+        "tLowerBound": 0
+      },
+      "rawCountUpperBound": "max(0, floor((N - 12238) / 48841) + 1)",
+      "observedCheck": {
+        "N": 12000,
+        "rawFormulaCount": 0,
+        "observedSquareEventCount": 0,
+        "upperBoundPassed": true
+      }
+    }
+  ],
+  "overlapBoundary": {
+    "status": "raw_floor_bound_suffices_for_upper_bound",
+    "reason": "Prior-q overlaps, base-residue exclusions, and lower least-square-witness exclusions can only reduce the q=17 raw CRT count, so they are not needed to certify this upper-bound component."
+  },
+  "checkedIdentities": [
+    "1591 mod 289 = 146.",
+    "146*192 + 1 is divisible by 289.",
+    "CRT(m = 99 mod 169, m = 192 mod 289) gives m = 47588 mod 48841.",
+    "9563 mod 289 = 26.",
+    "26*100 + 1 is divisible by 289.",
+    "CRT(m = 70 mod 169, m = 100 mod 289) gives m = 12238 mod 48841.",
+    "Both q=17 raw floor functions evaluate to zero at N = 12000, matching the bounded growth profile."
+  ],
+  "nextSubatom": {
+    "atomId": "D2_p13_dmax_tail_q19_plus_progression_outP2_70_out25_23_smaller_side7",
+    "status": "needed",
+    "q": 19,
+    "side": "plus",
+    "statement": "Prove the plus-side q=19 tail complement left open by the observed minus-side q=19 component, starting from m = 22576 mod 61009.",
+    "completionRule": "The plus-side q=19 tail contribution is bounded by its CRT floor function, or the next side-specific q=19 overlap/exclusion class becomes the next atom."
+  },
+  "proofBoundary": "This certificate discharges q=17 as a tail-prime upper-bound component. It intentionally leaves the side-specific q=19 plus complement open because the existing q=19 observed-component packet only certified the minus witness.",
+  "nextTheoremActions": [
+    "Attack D2_p13_dmax_tail_q19_plus_progression_outP2_70_out25_23_smaller_side7 next.",
+    "Use the existing q=19 observed-component packet for the minus witness and certify the plus-side complement separately."
+  ]
+}

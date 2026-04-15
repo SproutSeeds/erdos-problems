@@ -1,0 +1,157 @@
+{
+  "schema": "erdos.problem_claim_loop/1",
+  "generatedAt": "2026-04-10T08:11:06.262Z",
+  "problemId": "1008",
+  "displayName": "Erdos Problem #1008",
+  "title": "C4-Free Subgraph Density Problem",
+  "cluster": "graph-theory",
+  "sourceKind": "theorem_loop_only",
+  "claimLoopMode": "baseline",
+  "currentClaimSurface": "route_scaffolding",
+  "currentState": {
+    "theoremLoopMode": "baseline",
+    "activeRoute": "c4_free_lean_archive",
+    "nextHonestMove": "Record the best public/formalization hook and checkpoint the archive packet.",
+    "routeSummary": "Keep the solved `C_4`-free density record explicit and preserve the Lean-facing archive posture.",
+    "sourceRefresh": null
+  },
+  "featureExtractors": [
+    {
+      "extractor_id": "pack_route_state",
+      "kind": "pack_context",
+      "scope": "all_problems",
+      "status": "ready",
+      "note": "Reads pack route, ticket, and atom state as the baseline theorem-search context."
+    },
+    {
+      "extractor_id": "theorem_loop_snapshot",
+      "kind": "theorem_loop",
+      "scope": "all_problems",
+      "status": "ready",
+      "note": "Uses the canonical theorem-loop as the current claim-surface ledger."
+    },
+    {
+      "extractor_id": "cluster_graph_theory_features",
+      "kind": "cluster_adapter",
+      "scope": "graph_theory",
+      "status": "ready",
+      "note": "Exposes graph-theory archive or theorem-state context to the claim loop."
+    }
+  ],
+  "claimGenerators": [
+    {
+      "generator_id": "baseline_route_claims",
+      "kind": "route_state",
+      "scope": "all_problems",
+      "status": "ready",
+      "note": "Promotes active routes, ready atoms, and next-honest-move records into candidate claims."
+    },
+    {
+      "generator_id": "theorem_agenda_claims",
+      "kind": "agenda_projection",
+      "scope": "all_problems",
+      "status": "ready",
+      "note": "Turns theorem agenda items into explicit candidate claim tickets."
+    }
+  ],
+  "claimFalsifiers": [
+    {
+      "falsifier_id": "theorem_loop_consistency_check",
+      "kind": "ledger_consistency",
+      "scope": "all_problems",
+      "status": "ready",
+      "note": "Rejects claims that overstate the current theorem-loop claim surface."
+    },
+    {
+      "falsifier_id": "artifact_boundary_check",
+      "kind": "artifact_boundary",
+      "scope": "all_problems",
+      "status": "ready",
+      "note": "Rejects claims unsupported by canonical artifacts already present in the pack."
+    }
+  ],
+  "verifierAdapters": [
+    {
+      "adapter_id": "canonical_artifact_reader",
+      "kind": "artifact_reader",
+      "scope": "all_problems",
+      "status": "ready",
+      "note": "Reads theorem-loop, route, and pack artifacts as verifier-facing evidence."
+    }
+  ],
+  "candidateClaims": [
+    {
+      "claim_id": "promote_ready_atom",
+      "status": "ready",
+      "source": "theorem_agenda",
+      "summary": "Turn ready atom `G1008.G1.A1` into the next theorem-facing checkpoint.",
+      "why": "Record the best public/formalization hook and checkpoint the archive packet.",
+      "support": [
+        "active_route_recorded",
+        "ready_atom_present",
+        "frontier_note_present"
+      ]
+    },
+    {
+      "claim_id": "tighten_active_route_claim",
+      "status": "ready",
+      "source": "theorem_agenda",
+      "summary": "Compress the active route `c4_free_lean_archive` into the next honest theorem-facing claim unit.",
+      "why": "Record the best public/formalization hook and checkpoint the archive packet.",
+      "support": [
+        "active_route_recorded",
+        "ready_atom_present",
+        "frontier_note_present"
+      ]
+    }
+  ],
+  "theoremHooks": [
+    {
+      "hook_id": "active_route_recorded",
+      "status": "supported",
+      "note": "The pack records an active route, currently `c4_free_lean_archive`."
+    },
+    {
+      "hook_id": "ready_atom_present",
+      "status": "supported",
+      "note": "The live route already has a ready atom, `G1008.G1.A1`, which can feed the theorem lane."
+    },
+    {
+      "hook_id": "frontier_note_present",
+      "status": "supported",
+      "note": "The pack already carries a frontier note that can anchor theorem-facing updates."
+    }
+  ],
+  "theoremAgenda": [
+    {
+      "item_id": "promote_ready_atom",
+      "status": "ready",
+      "task": "Turn ready atom `G1008.G1.A1` into the next theorem-facing checkpoint.",
+      "why": "Record the best public/formalization hook and checkpoint the archive packet."
+    },
+    {
+      "item_id": "tighten_active_route_claim",
+      "status": "ready",
+      "task": "Compress the active route `c4_free_lean_archive` into the next honest theorem-facing claim unit.",
+      "why": "Record the best public/formalization hook and checkpoint the archive packet."
+    }
+  ],
+  "commands": {
+    "problemShow": "erdos problem show 1008",
+    "problemArtifacts": "erdos problem artifacts 1008",
+    "theoremLoop": "erdos problem theorem-loop 1008",
+    "theoremLoopRefresh": "erdos problem theorem-loop-refresh 1008",
+    "claimLoop": "erdos problem claim-loop 1008",
+    "claimLoopRefresh": "erdos problem claim-loop-refresh 1008",
+    "sourceRefresh": null
+  },
+  "sources": {
+    "claimLoopJsonPath": "/Volumes/Code_2TB/code/erdos-problems/packs/graph-theory/problems/1008/CLAIM_LOOP.json",
+    "claimLoopMarkdownPath": "/Volumes/Code_2TB/code/erdos-problems/packs/graph-theory/problems/1008/CLAIM_LOOP.md",
+    "theoremLoopJsonPath": "/Volumes/Code_2TB/code/erdos-problems/packs/graph-theory/problems/1008/THEOREM_LOOP.json",
+    "theoremLoopMarkdownPath": "/Volumes/Code_2TB/code/erdos-problems/packs/graph-theory/problems/1008/THEOREM_LOOP.md",
+    "legacyBridgeJsonPath": null,
+    "legacyBridgeMarkdownPath": null,
+    "packProblemDir": "/Volumes/Code_2TB/code/erdos-problems/packs/graph-theory/problems/1008"
+  }
+}

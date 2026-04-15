@@ -1,0 +1,296 @@
+{
+  "schema": "erdos.number_theory.p848_dynamic_margin_proof/1",
+  "generatedAt": "2026-04-12T21:18:40Z",
+  "problemId": "848",
+  "proofId": "p848_dynamic_margin_proof_D2_p13_dynamic_margin_exact_mixed_matching_injection_selected_cross_squarefree_exception_menu_outP2_70_out25_23_smaller_",
+  "atomId": "D2_p13_dynamic_margin_exact_mixed_matching_injection_selected_cross_squarefree_exception_menu_outP2_70_out25_23_smaller_side7_outsider_6323_left_8107",
+  "parentAtomId": "D2_p13_dynamic_margin_exact_mixed_matching_injection_selected_cross_squarefree_lift_outP2_70_out25_23_smaller_side7_outsider_6323",
+  "status": "bounded_exception_menu_reduced_to_finite_window_lift",
+  "proofKind": "bounded_selected_cross_exception_window_profile",
+  "promotesAllNClaim": false,
+  "provesExceptionMenuAllN": false,
+  "splitKey": "outP2=70|out25=23|smaller=side7",
+  "outsider": 6323,
+  "targetPrime": 13,
+  "phaseGuardDecision": {
+    "status": "generalize_exception_menu",
+    "reason": "The first selected-cross obstruction at left=8107 is not a singleton delta branch. It is the first row in a family where the previous-93 endpoint is side18-compatible but left * right + 1 has a square divisor, so the durable theorem object is the finite local-window replacement selector."
+  },
+  "seedException": {
+    "left": 8107,
+    "selectedRight": 8093,
+    "selectedDelta": -14,
+    "selectedCrossProductPlusOne": 65609952,
+    "selectedCrossSquareDivisor": {
+      "prime": 2,
+      "square": 4,
+      "quotient": 16402488
+    },
+    "firstRepair": {
+      "right": 7918,
+      "delta": -189,
+      "rightResidueMod25": 18,
+      "rightOutsiderCompatibility": {
+        "prime": 3,
+        "square": 9,
+        "quotient": 5562835
+      },
+      "crossSquarefree": true
+    }
+  },
+  "finiteWindowMenu": {
+    "source": "residue_parametric_delta_selection_lift.boundedLocalWindowProbe.suggestedNearestWindowDeltas",
+    "selectionRule": "On a selected-cross exception row, scan this delta list in order and take the first right = left + delta with right > 0, right < left, right == 18 (mod 25), 6323 * right + 1 non-squarefree, and left * right + 1 squarefree.",
+    "windowMaxAbsDelta": 5000,
+    "deltaSet": [
+      -64,
+      -39,
+      -89,
+      -189,
+      -164,
+      -14,
+      -139,
+      -264,
+      -239,
+      -339,
+      -539,
+      -289,
+      -639,
+      -114,
+      -464,
+      -364,
+      -489,
+      -1089,
+      -389,
+      -1039,
+      -1064,
+      -1239,
+      -1664,
+      -2164,
+      -564,
+      -764,
+      -864
+    ]
+  },
+  "boundedExceptionProfile": {
+    "minLeft": 7307,
+    "maxN": 1000000,
+    "checkedSide7CompatibleEventRows": 14557,
+    "selectedCrossExceptions": 2241,
+    "coveredByFiniteWindowMenu": 2241,
+    "firstUncoveredReplacementRow": null,
+    "distinctRepairDeltaCount": 23,
+    "unusedMenuDeltasInProfile": [
+      -564,
+      -764,
+      -864,
+      -114
+    ],
+    "topSelectedExceptionSquareDivisors": [
+      {
+        "square": "2^2",
+        "count": 1540
+      },
+      {
+        "square": "7^2",
+        "count": 405
+      },
+      {
+        "square": "13^2",
+        "count": 131
+      },
+      {
+        "square": "19^2",
+        "count": 59
+      },
+      {
+        "square": "41^2",
+        "count": 15
+      },
+      {
+        "square": "47^2",
+        "count": 11
+      },
+      {
+        "square": "17^2",
+        "count": 11
+      },
+      {
+        "square": "53^2",
+        "count": 8
+      },
+      {
+        "square": "29^2",
+        "count": 6
+      },
+      {
+        "square": "59^2",
+        "count": 6
+      }
+    ],
+    "repairDeltaCounts": [
+      {
+        "delta": -189,
+        "count": 1079
+      },
+      {
+        "delta": -164,
+        "count": 371
+      },
+      {
+        "delta": -89,
+        "count": 202
+      },
+      {
+        "delta": -39,
+        "count": 199
+      },
+      {
+        "delta": -64,
+        "count": 121
+      },
+      {
+        "delta": -264,
+        "count": 74
+      },
+      {
+        "delta": -139,
+        "count": 53
+      },
+      {
+        "delta": -339,
+        "count": 46
+      },
+      {
+        "delta": -239,
+        "count": 42
+      },
+      {
+        "delta": -539,
+        "count": 16
+      },
+      {
+        "delta": -639,
+        "count": 10
+      },
+      {
+        "delta": -289,
+        "count": 6
+      },
+      {
+        "delta": -1089,
+        "count": 5
+      },
+      {
+        "delta": -14,
+        "count": 4
+      },
+      {
+        "delta": -464,
+        "count": 3
+      },
+      {
+        "delta": -489,
+        "count": 2
+      },
+      {
+        "delta": -1239,
+        "count": 2
+      },
+      {
+        "delta": -389,
+        "count": 1
+      },
+      {
+        "delta": -364,
+        "count": 1
+      },
+      {
+        "delta": -1664,
+        "count": 1
+      },
+      {
+        "delta": -2164,
+        "count": 1
+      },
+      {
+        "delta": -1039,
+        "count": 1
+      },
+      {
+        "delta": -1064,
+        "count": 1
+      }
+    ],
+    "firstCheckedRepairs": [
+      {
+        "left": 8107,
+        "selectedRight": 8093,
+        "selectedDelta": -14,
+        "selectedFailureSquare": 4,
+        "repairRight": 7918,
+        "repairDelta": -189,
+        "repairRightWitnessSquare": 9
+      },
+      {
+        "left": 8207,
+        "selectedRight": 8193,
+        "selectedDelta": -14,
+        "selectedFailureSquare": 4,
+        "repairRight": 8143,
+        "repairDelta": -64,
+        "repairRightWitnessSquare": 9
+      },
+      {
+        "left": 9007,
+        "selectedRight": 8993,
+        "selectedDelta": -14,
+        "selectedFailureSquare": 4,
+        "repairRight": 8818,
+        "repairDelta": -189,
+        "repairRightWitnessSquare": 9
+      },
+      {
+        "left": 9957,
+        "selectedRight": 9893,
+        "selectedDelta": -64,
+        "selectedFailureSquare": 49,
+        "repairRight": 9793,
+        "repairDelta": -164,
+        "repairRightWitnessSquare": 4
+      },
+      {
+        "left": 12832,
+        "selectedRight": 12793,
+        "selectedDelta": -39,
+        "selectedFailureSquare": 11881,
+        "repairRight": 12643,
+        "repairDelta": -189,
+        "repairRightWitnessSquare": 9
+      }
+    ],
+    "verificationMethod": "A deterministic local script marked side7 source rows by square divisors of 6323 * left + 1, detected selected previous-93 cross exceptions by exact square-divisor trial division, then replayed the 27-delta finite window menu with exact right-side and cross-squarefree checks."
+  },
+  "reduction": {
+    "sourceStatement": "Replace every selected previous-93 endpoint whose cross product is non-squarefree by a side18-compatible squarefree direct endpoint from the finite local-window menu.",
+    "result": "The bounded profile through N=1000000 has no uncovered selected-cross exception row, so the next theorem move is the symbolic finite-window lift rather than another singleton repair delta.",
+    "whyThisIsNotAProof": "The finite window menu is verified only over the bounded profile. An all-N proof still has to show that every future selected-cross exception row is covered by one menu delta with right-side compatibility and squarefree cross product."
+  },
+  "nextSubatom": {
+    "atomId": "D2_p13_dynamic_margin_exact_mixed_matching_injection_selected_cross_squarefree_exception_window_lift_outP2_70_out25_23_smaller_side7_outsider_6323",
+    "status": "needed",
+    "term": "outsider-6323 selected cross-squarefree exception finite-window lift",
+    "statement": "Prove the finite 27-delta exception-window selector: every future selected-cross square-divisor exception row has a replacement right = left + delta from the menu with right side18-compatible, 6323 * right + 1 non-squarefree, and left * right + 1 squarefree, or emit the first uncovered row.",
+    "completionRule": "A symbolic finite-window lift covers all selected-cross exceptions without singleton delta siblings, or the first row outside the menu becomes the next deterministic packet.",
+    "dependsOnSublemma": "selected_cross_squarefree_exception_menu",
+    "remainingAfterDischarge": [
+      "selector_collision_or_augmentation_lift"
+    ],
+    "proofBoundary": "This next subatom is still only the exception-menu lift. Even after it is proved, collision-free online matching remains a separate downstream obligation."
+  },
+  "proofBoundary": "This packet replaces the left=8107 local repair by a finite-window theorem target. It is bounded evidence and a handoff, not an all-N proof of the exception menu or the full matching injection.",
+  "nextTheoremActions": [
+    "Prove D2_p13_dynamic_margin_exact_mixed_matching_injection_selected_cross_squarefree_exception_window_lift_outP2_70_out25_23_smaller_side7_outsider_6323 next.",
+    "Do not spawn singleton repair deltas from this exception menu unless the finite-window lift itself emits an uncovered-row packet."
+  ]
+}

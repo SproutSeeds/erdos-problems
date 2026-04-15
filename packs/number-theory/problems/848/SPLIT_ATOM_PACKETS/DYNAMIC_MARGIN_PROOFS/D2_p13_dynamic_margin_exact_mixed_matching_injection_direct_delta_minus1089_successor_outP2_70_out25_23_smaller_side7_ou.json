@@ -1,0 +1,360 @@
+{
+  "schema": "p848.dynamicMarginProof.v1",
+  "generatedAt": "2026-04-12T20:20:20Z",
+  "problemId": "848",
+  "proofId": "p848_dynamic_margin_proof_D2_p13_dynamic_margin_exact_mixed_matching_injection_direct_delta_minus1089_successor_outP2_70_out25_23_smaller_side7_ou",
+  "atomId": "D2_p13_dynamic_margin_exact_mixed_matching_injection_direct_delta_minus1089_successor_outP2_70_out25_23_smaller_side7_outsider_6323",
+  "splitKey": "outP2=70|out25=23|smaller=side7",
+  "outsider": 6323,
+  "status": "bounded_direct_delta_minus1089_branch_falsified_delta_minus39_successor_needed",
+  "promotesAllNClaim": false,
+  "proofKind": "bounded_enlarged_menu_future_event_obstruction",
+  "dependsOn": [
+    "D2_p13_dynamic_margin_exact_mixed_matching_injection_finite_augmenting_menu_outP2_70_out25_23_smaller_side7_outsider_6323"
+  ],
+  "testedEnlargedMenu": {
+    "sourceProfileMaxN": 40000,
+    "sourceFiniteMenuFailureN": 73607,
+    "addedDirectDelta": -1089,
+    "directDeltaCount": 26,
+    "directDeltas": [
+      -1089,
+      -864,
+      -789,
+      -764,
+      -739,
+      -689,
+      -664,
+      -639,
+      -589,
+      -564,
+      -539,
+      -489,
+      -464,
+      -439,
+      -414,
+      -389,
+      -364,
+      -339,
+      -289,
+      -264,
+      -239,
+      -189,
+      -164,
+      -139,
+      -89,
+      -64
+    ],
+    "replacementPathLeftValues": [
+      10807,
+      12407,
+      14407
+    ],
+    "menuBoundary": "This replay adds the direct delta -1089 branch to the previously mined finite direct-delta plus three short replacement-path menu."
+  },
+  "boundedReplayAgainstEnlargedMenu": {
+    "replayStartN": 73607,
+    "replayMaxN": 164507,
+    "leftInsertionRowsCheckedUntilFailure": 1336,
+    "leftInsertionRowsCoveredBeforeFailure": 1335,
+    "coverDeltaStatsBeforeFailure": [
+      {
+        "delta": -864,
+        "count": 759
+      },
+      {
+        "delta": -1089,
+        "count": 498
+      },
+      {
+        "delta": -739,
+        "count": 27
+      },
+      {
+        "delta": -789,
+        "count": 19
+      },
+      {
+        "delta": -764,
+        "count": 13
+      },
+      {
+        "delta": -589,
+        "count": 7
+      },
+      {
+        "delta": -539,
+        "count": 5
+      },
+      {
+        "delta": -664,
+        "count": 2
+      },
+      {
+        "delta": -689,
+        "count": 1
+      },
+      {
+        "delta": -639,
+        "count": 1
+      },
+      {
+        "delta": -564,
+        "count": 1
+      },
+      {
+        "delta": -489,
+        "count": 1
+      },
+      {
+        "delta": -389,
+        "count": 1
+      }
+    ],
+    "firstFailure": {
+      "N": 164507,
+      "left": 164507,
+      "leftMod25": 7,
+      "leftMod100": 7,
+      "leftMod625": 132,
+      "leftCompatibility": {
+        "outsiderProductPlusOne": 1040177762,
+        "squareWitnesses": [
+          {
+            "prime": 13,
+            "square": 169
+          }
+        ]
+      },
+      "activeSide18Count": 2420,
+      "missingCrossEdgeCount": 196,
+      "menuDeltaCount": 26,
+      "menuCandidateStats": [
+        {
+          "delta": -1089,
+          "right": 163418,
+          "active": true,
+          "outsiderCompatible": false,
+          "crossSquarefree": true
+        },
+        {
+          "delta": -864,
+          "right": 163643,
+          "active": true,
+          "outsiderCompatible": false,
+          "crossSquarefree": true
+        },
+        {
+          "delta": -789,
+          "right": 163718,
+          "active": true,
+          "outsiderCompatible": false,
+          "crossSquarefree": true
+        },
+        {
+          "delta": -764,
+          "right": 163743,
+          "active": true,
+          "outsiderCompatible": false,
+          "crossSquarefree": true
+        },
+        {
+          "delta": -739,
+          "right": 163768,
+          "active": true,
+          "outsiderCompatible": false,
+          "crossSquarefree": true
+        },
+        {
+          "delta": -689,
+          "right": 163818,
+          "active": true,
+          "outsiderCompatible": false,
+          "crossSquarefree": true
+        },
+        {
+          "delta": -664,
+          "right": 163843,
+          "active": true,
+          "outsiderCompatible": true,
+          "crossSquarefree": false
+        },
+        {
+          "delta": -639,
+          "right": 163868,
+          "active": true,
+          "outsiderCompatible": false,
+          "crossSquarefree": true
+        },
+        {
+          "delta": -589,
+          "right": 163918,
+          "active": true,
+          "outsiderCompatible": false,
+          "crossSquarefree": true
+        },
+        {
+          "delta": -564,
+          "right": 163943,
+          "active": true,
+          "outsiderCompatible": false,
+          "crossSquarefree": true
+        },
+        {
+          "delta": -539,
+          "right": 163968,
+          "active": true,
+          "outsiderCompatible": false,
+          "crossSquarefree": true
+        },
+        {
+          "delta": -489,
+          "right": 164018,
+          "active": true,
+          "outsiderCompatible": false,
+          "crossSquarefree": true
+        },
+        {
+          "delta": -464,
+          "right": 164043,
+          "active": true,
+          "outsiderCompatible": false,
+          "crossSquarefree": true
+        },
+        {
+          "delta": -439,
+          "right": 164068,
+          "active": true,
+          "outsiderCompatible": true,
+          "crossSquarefree": false
+        },
+        {
+          "delta": -414,
+          "right": 164093,
+          "active": true,
+          "outsiderCompatible": true,
+          "crossSquarefree": false
+        },
+        {
+          "delta": -389,
+          "right": 164118,
+          "active": true,
+          "outsiderCompatible": false,
+          "crossSquarefree": true
+        },
+        {
+          "delta": -364,
+          "right": 164143,
+          "active": true,
+          "outsiderCompatible": false,
+          "crossSquarefree": true
+        },
+        {
+          "delta": -339,
+          "right": 164168,
+          "active": true,
+          "outsiderCompatible": false,
+          "crossSquarefree": true
+        },
+        {
+          "delta": -289,
+          "right": 164218,
+          "active": true,
+          "outsiderCompatible": false,
+          "crossSquarefree": true
+        },
+        {
+          "delta": -264,
+          "right": 164243,
+          "active": true,
+          "outsiderCompatible": false,
+          "crossSquarefree": true
+        },
+        {
+          "delta": -239,
+          "right": 164268,
+          "active": true,
+          "outsiderCompatible": false,
+          "crossSquarefree": true
+        },
+        {
+          "delta": -189,
+          "right": 164318,
+          "active": true,
+          "outsiderCompatible": false,
+          "crossSquarefree": true
+        },
+        {
+          "delta": -164,
+          "right": 164343,
+          "active": true,
+          "outsiderCompatible": false,
+          "crossSquarefree": true
+        },
+        {
+          "delta": -139,
+          "right": 164368,
+          "active": true,
+          "outsiderCompatible": false,
+          "crossSquarefree": true
+        },
+        {
+          "delta": -89,
+          "right": 164418,
+          "active": true,
+          "outsiderCompatible": false,
+          "crossSquarefree": true
+        },
+        {
+          "delta": -64,
+          "right": 164443,
+          "active": true,
+          "outsiderCompatible": false,
+          "crossSquarefree": true
+        }
+      ],
+      "interpretation": "The enlarged menu reaches a row where the only menu candidates that are outsider-compatible are blocked by cross square divisors, while the squarefree menu candidates are not active side18-compatible vertices."
+    }
+  },
+  "successorDirectEdgeWitness": {
+    "left": 164507,
+    "right": 164468,
+    "delta": -39,
+    "leftResidueMod25": 7,
+    "rightResidueMod25": 18,
+    "leftResidueMod100": 7,
+    "rightResidueMod100": 68,
+    "rightActiveAtN": true,
+    "rightCompatibility": {
+      "outsiderProductPlusOne": 1039931165,
+      "squareWitnesses": [
+        {
+          "prime": 7,
+          "square": 49
+        }
+      ]
+    },
+    "crossProductPlusOne": 27056137277,
+    "crossSquarefree": true,
+    "crossSquarefreeCheckedThrough": 164487,
+    "interpretation": "The first row outside the enlarged delta -1089 menu is still matched by a direct missing-cross edge, but it requires the new delta -39."
+  },
+  "nextSubatom": {
+    "atomId": "D2_p13_dynamic_margin_exact_mixed_matching_injection_direct_delta_minus39_successor_outP2_70_out25_23_smaller_side7_outsider_6323",
+    "status": "needed",
+    "term": "outsider-6323 direct delta -39 successor",
+    "statement": "Prove the new direct-delta -39 branch exposed at side7 vertex 164507, integrate it with the enlarged augmenting menu, or emit the first future row where this menu fails.",
+    "completionRule": "The delta -39 branch is proved symbolically and merged into the matching-injection menu, or the first future row requiring a different direct delta or longer augmenting path becomes the next deterministic atom.",
+    "targetEdge": {
+      "left": 164507,
+      "right": 164468,
+      "delta": -39
+    },
+    "proofBoundary": "This successor is driven by the first bounded row outside the previously enlarged delta -1089 menu; it is not an all-N proof of any direct-delta family."
+  },
+  "proofBoundary": "This packet falsifies the enlarged direct-delta -1089 menu by an exact bounded future event row. It does not falsify side7 saturation or the matching-injection target; it only shows that the menu needs at least the new direct delta -39 branch.",
+  "nextTheoremActions": [
+    "Do not promote the direct-delta -1089 branch as all-N; it is bounded-successful only until the first failure at N=164507.",
+    "Attack the direct-delta -39 successor branch next, or replace the growing delta staircase with a residue-parametric delta-selection theorem."
+  ]
+}

@@ -38,6 +38,7 @@ function defaultState(config, workspaceRoot) {
     checkpointFocus: null,
     nextHonestMove: 'Select or bootstrap an Erdős problem to begin.',
     packArtifacts: null,
+    frontierLoop: null,
     activeTicketId: null,
     activeAtomId: null,
     lastCheckpointSyncAt: null,
@@ -112,6 +113,16 @@ function renderStateMarkdown(state) {
 - Route History: ${state.packArtifacts?.routeHistoryPath || '(none)'}
 - Checkpoint Template: ${state.packArtifacts?.checkpointTemplatePath || '(none)'}
 - Report Template: ${state.packArtifacts?.reportTemplatePath || '(none)'}
+
+## Frontier Loop
+
+- Suggested: ${state.frontierLoop?.suggested ? 'yes' : 'no'}
+- Mode: ${state.frontierLoop?.mode || '(inactive)'}
+- Summary: ${state.frontierLoop?.summary || '(none)'}
+- Entry Command: ${state.frontierLoop?.primaryCommand || '(none)'}
+- Refresh Command: ${state.frontierLoop?.refreshCommand || '(none)'}
+- Activation Command: ${state.frontierLoop?.activationCommand || '(none)'}
+- GPU Upgrade Command: ${state.frontierLoop?.upgradeCommand || '(none)'}
 
 ## Next Honest Move
 
@@ -244,6 +255,7 @@ function deriveProblemSummary(problem) {
         checkpointTemplatePath: snapshot.checkpointTemplatePath,
         reportTemplatePath: snapshot.reportTemplatePath,
       },
+      frontierLoop: snapshot.frontierLoop,
       activeTicketId: snapshot.activeTicketDetail?.ticket_id ?? null,
       activeAtomId: snapshot.firstReadyAtom?.atom_id ?? null,
       questionLedger: snapshot.questionLedger,
@@ -362,6 +374,7 @@ export function syncState(workspaceRoot = getWorkspaceRoot()) {
     checkpointFocus: summary.checkpointFocus,
     nextHonestMove: summary.nextHonestMove,
     packArtifacts: summary.packArtifacts,
+    frontierLoop: summary.frontierLoop,
     activeTicketId: summary.activeTicketId,
     activeAtomId: summary.activeAtomId,
     lastCheckpointSyncAt: existing.lastCheckpointSyncAt ?? null,

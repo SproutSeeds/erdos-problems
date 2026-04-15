@@ -1,0 +1,104 @@
+{
+  "schema": "erdos.number_theory.p848_dynamic_margin_proof/1",
+  "generatedAt": "2026-04-12T20:55:20Z",
+  "problemId": "848",
+  "proofId": "p848_dynamic_margin_proof_D2_p13_dynamic_margin_exact_mixed_matching_injection_residue_direct_selector_lift_outP2_70_out25_23_smaller_side7_outsid",
+  "atomId": "D2_p13_dynamic_margin_exact_mixed_matching_injection_residue_direct_selector_lift_outP2_70_out25_23_smaller_side7_outsider_6323",
+  "parentAtomId": "D2_p13_dynamic_margin_exact_mixed_matching_injection_residue_parametric_delta_selection_lift_outP2_70_out25_23_smaller_side7_outsider_6323",
+  "status": "symbolic_residue_direct_selector_lift_proved_selected_cross_squarefree_needed",
+  "proofKind": "symbolic_mod4_four_slot_direct_selector",
+  "promotesAllNClaim": false,
+  "provesDirectSelectorAllN": true,
+  "splitKey": "outP2=70|out25=23|smaller=side7",
+  "outsider": 6323,
+  "scope": {
+    "sourceSide": "side7",
+    "targetSide": "side18",
+    "sourceResidueMod25": 7,
+    "targetResidueMod25": 18,
+    "activeForLeftAtLeast": 107,
+    "structuralLaneMinLeft": 7307,
+    "universalOverFutureSide7Rows": true,
+    "requiresSourceOutsiderCompatibility": false,
+    "excludesCrossSquarefree": true,
+    "excludesCollisionFreeMatchingUpdate": true
+  },
+  "selectorRule": {
+    "name": "previous_93_mod100_side18_slot",
+    "statement": "For any future side7 row left, choose right as the largest integer below left with right == 93 (mod 100).",
+    "formula": {
+      "right": "left - (14 + 25 * j)",
+      "j": "(left - 3) mod 4",
+      "deltaSet": [
+        -14,
+        -39,
+        -64,
+        -89
+      ]
+    },
+    "residueChecks": [
+      {
+        "claim": "right is a side18 vertex",
+        "calculation": "right == 93 (mod 100), hence right == 18 (mod 25)."
+      },
+      {
+        "claim": "right is active before the side7 event row",
+        "calculation": "For left >= 107, delta is one of -14,-39,-64,-89, so 1 <= right < left."
+      },
+      {
+        "claim": "right is outsider-compatible with outsider 6323",
+        "calculation": "right == 93 (mod 100) gives right == 1 (mod 4). Since 6323 == 3 (mod 4), 6323 * right + 1 == 0 (mod 4)."
+      },
+      {
+        "claim": "outsider compatibility is non-squarefree",
+        "calculation": "The square 2^2 divides 6323 * right + 1."
+      }
+    ],
+    "leftResidueCases": [
+      {
+        "leftMod100": 7,
+        "delta": -14,
+        "rightMod100": 93
+      },
+      {
+        "leftMod100": 32,
+        "delta": -39,
+        "rightMod100": 93
+      },
+      {
+        "leftMod100": 57,
+        "delta": -64,
+        "rightMod100": 93
+      },
+      {
+        "leftMod100": 82,
+        "delta": -89,
+        "rightMod100": 93
+      }
+    ]
+  },
+  "boundedSanityCheck": {
+    "maxN": 2000000,
+    "checkedSide7CompatibleEventRows": 29222,
+    "coveredByFourSlotEndpointRule": 29222,
+    "missCount": 0,
+    "note": "This sanity check is regression evidence only. The selector proof above is the symbolic reason for endpoint existence."
+  },
+  "proofBoundary": "This packet proves only that every future side7-compatible event row has an active side18-compatible endpoint selected by the four-slot mod-4 rule. It does not prove that left * right + 1 is squarefree, and it does not prove that selected endpoints are collision-free for the online matching.",
+  "nextSubatom": {
+    "atomId": "D2_p13_dynamic_margin_exact_mixed_matching_injection_selected_cross_squarefree_lift_outP2_70_out25_23_smaller_side7_outsider_6323",
+    "status": "needed",
+    "term": "outsider-6323 selected cross-squarefree lift",
+    "statement": "Prove that the four-slot selected endpoint gives a squarefree cross product left * right + 1 for every future side7-compatible event row, or route the first residue class/future row where the selected cross product is non-squarefree into a bounded replacement-path exception menu.",
+    "completionRule": "The selected endpoint is a missing-cross edge for every future side7-compatible row, or the first square-divisor obstruction becomes the next deterministic exception packet.",
+    "dependsOnSublemma": "residue_direct_selector_lift",
+    "remainingAfterDischarge": [
+      "selector_collision_or_augmentation_lift"
+    ],
+    "proofBoundary": "This next subatom is about cross-squarefreeness of the selected direct endpoints only; even after it is proved, collision-free online matching still remains."
+  },
+  "nextAction": [
+    "Prove D2_p13_dynamic_margin_exact_mixed_matching_injection_selected_cross_squarefree_lift_outP2_70_out25_23_smaller_side7_outsider_6323 next.",
+    "Do not return to singleton direct-delta successors unless the selected cross-squarefree lift emits a concrete exception packet."
+  ]
+}

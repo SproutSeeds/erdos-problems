@@ -1,0 +1,613 @@
+# D2_p13_side_count_floor_outP2_70_out25_23_smaller_side7
+
+This is a focused side-count floor atom for the Problem 848 p13 non-tight slack-dominance lift.
+
+## Summary
+
+- Packet id: `p848_side_count_floor_packet_D2_p13_side_count_floor_outP2_70_out25_23_smaller_side7`
+- Parent lemma: `D2_p13_non_tight_side_count_slack_floor_lift`
+- Split key: `outP2=70|out25=23|smaller=side7`
+- Priority: `highest_side_count_floor_atom`
+- Status: `symbolic_side_count_floor_atom_needed`
+- Target slack floor: `20`
+- Observed bounded slack-formula floor: `21`
+- Observed margin above target: `1`
+- Bounded witness rows: `32` over `7307..7600`
+
+## Theorem Obligation
+
+For every future p=13 threat row with outP2=70|out25=23|smaller=side7, prove strictBaseThreshold - 1 - max(compatibleSide7Count, compatibleSide18Count) >= 20.
+
+Equivalent inequality: `max(compatibleSide7Count, compatibleSide18Count) <= strictBaseThreshold - 21`
+
+Boundary: This packet isolates one weakest non-tight side-count stratum. Its bounded witness is not an all-N proof; the symbolic side-count inequality still has to be proved or refined.
+
+## Structural Margin Decomposition
+
+- Status: `bounded_structural_margin_replay_verified_symbolic_margin_lift_needed`
+- Inequality: `side18Count + vMax + dMax + rGreater + 21 <= candidateSize`
+- Bounded margin range: `1..5`
+- First open sublemma: `D2_p13_structural_margin_outP2_70_out25_23_smaller_side7_side18`
+- First moving-term subatom: `D2_p13_dynamic_margin_exact_mixed_matching_injection_selected_cross_squarefree_exception_period_shifted_endpoint_menu_q17_residual_window_relaxed_fallback_menu_lift_outP2_70_out25_23_smaller_side7_outsider_6323`
+- Boundary: This replays the bounded side-count floor as a structural margin inequality. It is not an all-N proof of the moving compatibility counts, dMax, rGreater, or candidateSize terms.
+
+## Moving-Term Subatoms
+
+- `D2_p13_dmax_bound_outP2_70_out25_23_smaller_side7` [bounded_constant_bound_falsified_successor_atom_needed]: For every future p=13 threat row with outP2=70|out25=23|smaller=side7, prove dMax <= 18.
+- Probe: `bounded_counterexample_to_constant_dmax_bound`, range `7307..12000`, max observed dMax `29`
+- Boundary: This bounded probe falsifies the constant dMax <= 18 outside the original 7307..7600 witness packet. It does not prove an all-N growth envelope; the successor atom must bound the same-prime degree term symbolically.
+- `D2_p13_dmax_growth_outP2_70_out25_23_smaller_side7` [bounded_growth_profile_emitted_subatom_needed]: Replace the false constant dMax <= 18 with a symbolic same-prime degree-growth envelope for outP2=70|out25=23|smaller=side7.
+- Growth profile: `bounded_degree_growth_profile_emitted`, first subatom `D2_p13_dmax_q2_progression_outP2_70_out25_23_smaller_side7`
+- First counterexample: `N=7873, dMax=19, witness=plus:1591`
+- Boundary: This successor atom is required because the extended local probe found the same split with dMax above the original bounded constant.
+- `D2_p13_dmax_q2_progression_outP2_70_out25_23_smaller_side7` [symbolic_upper_bound_verified]: Prove a symbolic floor-function upper bound for the q=2 same-prime degree progression m = 437 + 676*t, including base-residue and lower-witness exclusions.
+- Proof artifact: `symbolic_upper_bound_verified`, q=`2`, next=`D2_p13_dmax_q3_progression_outP2_70_out25_23_smaller_side7`
+- Proof JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DMAX_Q_PROGRESSION_PROOFS/D2_p13_dmax_q2_progression_outP2_70_out25_23_smaller_side7.json`
+- Profile JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DMAX_GROWTH_PROFILES/D2_p13_dmax_growth_outP2_70_out25_23_smaller_side7.json`
+- Boundary: This is the first floor-function subatom emitted from the bounded dMax growth profile.
+- `D2_p13_dmax_q3_progression_outP2_70_out25_23_smaller_side7` [symbolic_upper_bound_verified]: Prove the q=3 same-prime degree progression upper bound for the same split, including overlap/base-residue/lower-witness exclusions.
+- Proof artifact: `symbolic_upper_bound_verified`, q=`3`, next=`D2_p13_dmax_q5_progression_outP2_70_out25_23_smaller_side7`
+- Proof JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DMAX_Q_PROGRESSION_PROOFS/D2_p13_dmax_q3_progression_outP2_70_out25_23_smaller_side7.json`
+- Boundary: This is the next square-divisor floor-function subatom after the verified q=2 CRT upper-bound component.
+- `D2_p13_dmax_q5_progression_outP2_70_out25_23_smaller_side7` [symbolic_upper_bound_verified]: Prove the q=5 same-prime degree progression upper bound for the same split, including q=2/q=3 overlap and base-residue/lower-witness exclusions.
+- Proof artifact: `symbolic_upper_bound_verified`, q=`5`, next=`D2_p13_dmax_q7_progression_outP2_70_out25_23_smaller_side7`
+- Proof JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DMAX_Q_PROGRESSION_PROOFS/D2_p13_dmax_q5_progression_outP2_70_out25_23_smaller_side7.json`
+- Boundary: This is the next square-divisor floor-function subatom after the verified q=3 CRT upper-bound component.
+- `D2_p13_dmax_q7_progression_outP2_70_out25_23_smaller_side7` [symbolic_upper_bound_verified]: Prove the q=7 same-prime degree progression upper bound for the same split, including prior-q overlap and lower-witness exclusions.
+- Proof artifact: `symbolic_upper_bound_verified`, q=`7`, next=`D2_p13_dmax_q11_progression_outP2_70_out25_23_smaller_side7`
+- Proof JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DMAX_Q_PROGRESSION_PROOFS/D2_p13_dmax_q7_progression_outP2_70_out25_23_smaller_side7.json`
+- Boundary: This is the next square-divisor floor-function subatom after the verified q=5 CRT upper-bound component.
+- `D2_p13_dmax_q11_progression_outP2_70_out25_23_smaller_side7` [symbolic_upper_bound_verified]: Prove the q=11 same-prime degree singleton progression upper bound for the plus witness, including prior-q overlap and lower-witness exclusions.
+- Proof artifact: `symbolic_upper_bound_verified`, q=`11`, next=`D2_p13_dmax_q19_progression_outP2_70_out25_23_smaller_side7`
+- Proof JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DMAX_Q_PROGRESSION_PROOFS/D2_p13_dmax_q11_progression_outP2_70_out25_23_smaller_side7.json`
+- Boundary: This is the next square-divisor floor-function subatom after the verified q=7 CRT upper-bound component.
+- `D2_p13_dmax_q19_progression_outP2_70_out25_23_smaller_side7` [symbolic_upper_bound_verified]: Prove the q=19 same-prime degree singleton progression upper bound for the minus witness, including prior-q overlap and lower-witness exclusions.
+- Proof artifact: `symbolic_upper_bound_verified`, q=`19`, next=`D2_p13_dmax_q23_progression_outP2_70_out25_23_smaller_side7`
+- Proof JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DMAX_Q_PROGRESSION_PROOFS/D2_p13_dmax_q19_progression_outP2_70_out25_23_smaller_side7.json`
+- Boundary: This is the next square-divisor floor-function subatom after the verified q=11 CRT upper-bound component.
+- `D2_p13_dmax_q23_progression_outP2_70_out25_23_smaller_side7` [symbolic_upper_bound_verified]: Prove the q=23 same-prime degree singleton progression upper bound for the minus witness, including prior-q overlap and lower-witness exclusions.
+- Proof artifact: `symbolic_upper_bound_verified`, q=`23`, next=`D2_p13_dmax_q31_progression_outP2_70_out25_23_smaller_side7`
+- Proof JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DMAX_Q_PROGRESSION_PROOFS/D2_p13_dmax_q23_progression_outP2_70_out25_23_smaller_side7.json`
+- Boundary: This is the next square-divisor floor-function subatom after the verified q=19 CRT upper-bound component.
+- `D2_p13_dmax_q31_progression_outP2_70_out25_23_smaller_side7` [symbolic_upper_bound_verified]: Prove the q=31 same-prime degree singleton progression upper bound for the plus witness, including prior-q overlap and lower-witness exclusions.
+- Proof artifact: `symbolic_upper_bound_verified`, q=`31`, next=`D2_p13_dmax_q251_progression_outP2_70_out25_23_smaller_side7`
+- Proof JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DMAX_Q_PROGRESSION_PROOFS/D2_p13_dmax_q31_progression_outP2_70_out25_23_smaller_side7.json`
+- Boundary: This is the next square-divisor floor-function subatom after the verified q=23 CRT upper-bound component.
+- `D2_p13_dmax_q251_progression_outP2_70_out25_23_smaller_side7` [symbolic_upper_bound_verified]: Prove the q=251 same-prime degree singleton progression upper bound for the plus witness, including prior-q overlap and lower-witness exclusions.
+- Proof artifact: `symbolic_upper_bound_verified`, q=`251`, next=`D2_p13_dmax_tail_recombination_outP2_70_out25_23_smaller_side7`
+- Proof JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DMAX_Q_PROGRESSION_PROOFS/D2_p13_dmax_q251_progression_outP2_70_out25_23_smaller_side7.json`
+- Boundary: This is the next square-divisor floor-function subatom after the verified q=31 CRT upper-bound component.
+- `D2_p13_dmax_tail_recombination_outP2_70_out25_23_smaller_side7` [tail_scaffold_q13_residue_exclusion_verified_q17_needed]: Recombine the verified observed q-progression components with a symbolic tail bound for all remaining same-prime square-divisor events in the dMax growth envelope.
+- Proof artifact: `tail_scaffold_q13_residue_exclusion_verified_q17_needed`, q=`(unknown)`, next=`D2_p13_dmax_tail_q17_progression_outP2_70_out25_23_smaller_side7`
+- Proof JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DMAX_TAIL_RECOMBINATION_PROOFS/D2_p13_dmax_tail_recombination_outP2_70_out25_23_smaller_side7.json`
+- Boundary: This is the first non-singleton dMax growth atom after all observed q-progression components in the bounded profile have proof artifacts.
+- `D2_p13_dmax_tail_q17_progression_outP2_70_out25_23_smaller_side7` [symbolic_upper_bound_verified]: Prove the q=17 tail-prime same-prime degree progression upper bound for both witness sides, starting from m = 47588 mod 48841 and m = 12238 mod 48841.
+- Proof artifact: `symbolic_upper_bound_verified`, q=`17`, next=`D2_p13_dmax_tail_q19_plus_progression_outP2_70_out25_23_smaller_side7`
+- Proof JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DMAX_TAIL_RECOMBINATION_PROOFS/D2_p13_dmax_tail_q17_progression_outP2_70_out25_23_smaller_side7.json`
+- Boundary: This is the first unresolved tail-prime subatom after the target-prime q=13 square divisor is excluded by the split residue.
+- `D2_p13_dmax_tail_q19_plus_progression_outP2_70_out25_23_smaller_side7` [symbolic_upper_bound_verified]: Prove the plus-side q=19 tail complement left open by the observed minus-side q=19 component, starting from m = 22576 mod 61009.
+- Proof artifact: `symbolic_upper_bound_verified`, q=`19`, next=`D2_p13_dmax_tail_q11_minus_progression_outP2_70_out25_23_smaller_side7`
+- Proof JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DMAX_TAIL_RECOMBINATION_PROOFS/D2_p13_dmax_tail_q19_plus_progression_outP2_70_out25_23_smaller_side7.json`
+- Boundary: This side-specific tail atom is required because the observed q=19 component proof covered only the minus witness.
+- `D2_p13_dmax_tail_q11_minus_progression_outP2_70_out25_23_smaller_side7` [symbolic_upper_bound_verified]: Backfill the minus-side q=11 tail complement left open by the observed plus-side q=11 component, starting from m = 16970 mod 20449.
+- Proof artifact: `symbolic_upper_bound_verified`, q=`11`, next=`D2_p13_dmax_tail_q23_plus_progression_outP2_70_out25_23_smaller_side7`
+- Proof JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DMAX_TAIL_RECOMBINATION_PROOFS/D2_p13_dmax_tail_q11_minus_progression_outP2_70_out25_23_smaller_side7.json`
+- Boundary: This backfill atom is required because the observed q=11 component proof covered only the plus witness.
+- `D2_p13_dmax_tail_q23_plus_progression_outP2_70_out25_23_smaller_side7` [symbolic_upper_bound_verified]: Prove the plus-side q=23 tail complement left open by the observed minus-side q=23 component, starting from m = 44039 mod 89401.
+- Proof artifact: `symbolic_upper_bound_verified`, q=`23`, next=`D2_p13_dmax_tail_q31_minus_progression_outP2_70_out25_23_smaller_side7`
+- Proof JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DMAX_TAIL_RECOMBINATION_PROOFS/D2_p13_dmax_tail_q23_plus_progression_outP2_70_out25_23_smaller_side7.json`
+- Boundary: This side-specific tail atom is required because the observed q=23 component proof covered only the minus witness.
+- `D2_p13_dmax_tail_q31_minus_progression_outP2_70_out25_23_smaller_side7` [symbolic_upper_bound_verified]: Prove the minus-side q=31 tail complement left open by the observed plus-side q=31 component, starting from m = 105526 mod 162409.
+- Proof artifact: `symbolic_upper_bound_verified`, q=`31`, next=`D2_p13_dmax_tail_q251_minus_progression_outP2_70_out25_23_smaller_side7`
+- Proof JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DMAX_TAIL_RECOMBINATION_PROOFS/D2_p13_dmax_tail_q31_minus_progression_outP2_70_out25_23_smaller_side7.json`
+- Boundary: This side-specific tail atom is required because the observed q=31 component proof covered only the plus witness.
+- `D2_p13_dmax_tail_q251_minus_progression_outP2_70_out25_23_smaller_side7` [symbolic_upper_bound_verified]: Prove the minus-side q=251 tail complement left open by the observed plus-side q=251 component, starting from m = 8138434 mod 10647169.
+- Proof artifact: `symbolic_upper_bound_verified`, q=`251`, next=`D2_p13_dmax_tail_q29_progression_outP2_70_out25_23_smaller_side7`
+- Proof JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DMAX_TAIL_RECOMBINATION_PROOFS/D2_p13_dmax_tail_q251_minus_progression_outP2_70_out25_23_smaller_side7.json`
+- Boundary: This side-specific tail atom is required because the observed q=251 component proof covered only the plus witness.
+- `D2_p13_dmax_tail_q29_progression_outP2_70_out25_23_smaller_side7` [symbolic_upper_bound_verified]: Prove the q=29 tail-prime same-prime degree progression upper bound for both witness sides, starting from m = 29167 mod 142129 and m = 114314 mod 142129.
+- Proof artifact: `symbolic_upper_bound_verified`, q=`29`, next=`D2_p13_dmax_tail_q37_progression_outP2_70_out25_23_smaller_side7`
+- Proof JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DMAX_TAIL_RECOMBINATION_PROOFS/D2_p13_dmax_tail_q29_progression_outP2_70_out25_23_smaller_side7.json`
+- Boundary: This is the first remaining non-observed tail-prime subatom after observed q-components and their side complements are certified.
+- `D2_p13_dmax_tail_q37_progression_outP2_70_out25_23_smaller_side7` [symbolic_upper_bound_verified]: Prove the q=37 tail-prime same-prime degree atom: exclude the plus side because 37 divides 1591, and certify the minus-side CRT floor bound starting from m = 136284 mod 231361.
+- Proof artifact: `symbolic_upper_bound_verified`, q=`37`, next=`D2_p13_dmax_tail_q41_progression_outP2_70_out25_23_smaller_side7`
+- Proof JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DMAX_TAIL_RECOMBINATION_PROOFS/D2_p13_dmax_tail_q37_progression_outP2_70_out25_23_smaller_side7.json`
+- Boundary: This residual tail-prime atom is special because q=37 divides the plus witness 1591, excluding that side before the minus-side CRT floor bound.
+- `D2_p13_dmax_tail_q41_progression_outP2_70_out25_23_smaller_side7` [symbolic_upper_bound_verified]: Prove the q=41 tail-prime same-prime degree progression upper bound for both witness sides, starting from m = 251571 mod 284089 and m = 26941 mod 284089.
+- Proof artifact: `symbolic_upper_bound_verified`, q=`41`, next=`D2_p13_dmax_tail_q43_progression_outP2_70_out25_23_smaller_side7`
+- Proof JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DMAX_TAIL_RECOMBINATION_PROOFS/D2_p13_dmax_tail_q41_progression_outP2_70_out25_23_smaller_side7.json`
+- Boundary: This is the next residual tail-prime subatom after the q=37 witness-divisibility exclusion plus minus-side floor bound.
+- `D2_p13_dmax_tail_q43_progression_outP2_70_out25_23_smaller_side7` [symbolic_upper_bound_verified]: Prove the q=43 tail-prime same-prime degree atom: plus side is excluded because 43 divides 1591, and minus side starts at m = 216897 mod 312481.
+- Proof artifact: `symbolic_upper_bound_verified`, q=`43`, next=`D2_p13_dmax_tail_q47_progression_outP2_70_out25_23_smaller_side7`
+- Proof JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DMAX_TAIL_RECOMBINATION_PROOFS/D2_p13_dmax_tail_q43_progression_outP2_70_out25_23_smaller_side7.json`
+- Boundary: This residual tail-prime atom is special because q=43 divides the plus witness 1591, excluding that side before the minus-side CRT floor bound.
+- `D2_p13_dmax_tail_q47_progression_outP2_70_out25_23_smaller_side7` [symbolic_upper_bound_verified]: Prove the q=47 tail-prime same-prime degree progression upper bound for both witness sides, starting from m = 267457 mod 373321 and m = 278413 mod 373321.
+- Proof artifact: `symbolic_upper_bound_verified`, q=`47`, next=`D2_p13_dmax_tail_q53_progression_outP2_70_out25_23_smaller_side7`
+- Proof JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DMAX_TAIL_RECOMBINATION_PROOFS/D2_p13_dmax_tail_q47_progression_outP2_70_out25_23_smaller_side7.json`
+- Boundary: This is the next residual tail-prime subatom after the q=43 witness-divisibility exclusion plus minus-side floor bound.
+- `D2_p13_dmax_tail_q53_progression_outP2_70_out25_23_smaller_side7` [symbolic_upper_bound_verified]: Prove the q=53 tail-prime same-prime degree progression upper bound for both witness sides, starting from m = 52151 mod 474721 and m = 213348 mod 474721.
+- Proof artifact: `symbolic_upper_bound_verified`, q=`53`, next=`D2_p13_dmax_tail_q59_progression_outP2_70_out25_23_smaller_side7`
+- Proof JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DMAX_TAIL_RECOMBINATION_PROOFS/D2_p13_dmax_tail_q53_progression_outP2_70_out25_23_smaller_side7.json`
+- Boundary: This is the next residual tail-prime subatom after the q=47 two-sided floor-bound component.
+- `D2_p13_dmax_tail_q59_progression_outP2_70_out25_23_smaller_side7` [symbolic_upper_bound_verified]: Prove the q=59 tail-prime same-prime degree progression upper bound for both witness sides, starting from m = 182281 mod 588289 and m = 492874 mod 588289.
+- Proof artifact: `symbolic_upper_bound_verified`, q=`59`, next=`D2_p13_dmax_tail_q61_progression_outP2_70_out25_23_smaller_side7`
+- Proof JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DMAX_TAIL_RECOMBINATION_PROOFS/D2_p13_dmax_tail_q59_progression_outP2_70_out25_23_smaller_side7.json`
+- Boundary: This is the next residual tail-prime subatom after the q=53 two-sided floor-bound component.
+- `D2_p13_dmax_tail_q61_progression_outP2_70_out25_23_smaller_side7` [symbolic_upper_bound_verified]: Prove the q=61 tail-prime same-prime degree progression upper bound for both witness sides, starting from m = 396573 mod 628849 and m = 477495 mod 628849.
+- Proof artifact: `symbolic_upper_bound_verified`, q=`61`, next=`D2_p13_dmax_tail_q67_progression_outP2_70_out25_23_smaller_side7`
+- Proof JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DMAX_TAIL_RECOMBINATION_PROOFS/D2_p13_dmax_tail_q61_progression_outP2_70_out25_23_smaller_side7.json`
+- Boundary: This is the next residual tail-prime subatom after the q=59 two-sided floor-bound component.
+- `D2_p13_dmax_tail_q67_progression_outP2_70_out25_23_smaller_side7` [symbolic_upper_bound_verified]: Prove the q=67 tail-prime same-prime degree progression upper bound for both witness sides, starting from m = 344183 mod 758641 and m = 736572 mod 758641.
+- Proof artifact: `symbolic_upper_bound_verified`, q=`67`, next=`D2_p13_dmax_tail_q71_progression_outP2_70_out25_23_smaller_side7`
+- Proof JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DMAX_TAIL_RECOMBINATION_PROOFS/D2_p13_dmax_tail_q67_progression_outP2_70_out25_23_smaller_side7.json`
+- Boundary: This is the next residual tail-prime subatom after the q=61 two-sided floor-bound component.
+- `D2_p13_dmax_tail_q71_progression_outP2_70_out25_23_smaller_side7` [symbolic_upper_bound_verified]: Prove the q=71 tail-prime same-prime degree progression upper bound for both witness sides, starting from m = 69389 mod 851929 and m = 783385 mod 851929.
+- Proof artifact: `symbolic_upper_bound_verified`, q=`71`, next=`D2_p13_dmax_tail_q73_progression_outP2_70_out25_23_smaller_side7`
+- Proof JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DMAX_TAIL_RECOMBINATION_PROOFS/D2_p13_dmax_tail_q71_progression_outP2_70_out25_23_smaller_side7.json`
+- Boundary: This is the next residual tail-prime subatom after the q=67 two-sided floor-bound component.
+- `D2_p13_dmax_tail_q73_progression_outP2_70_out25_23_smaller_side7` [symbolic_upper_bound_verified]: Prove the q=73 tail-prime same-prime degree contribution: the plus witness has m = 229770 mod 900601, while the minus side is excluded because 73 divides 9563.
+- Proof artifact: `symbolic_upper_bound_verified`, q=`73`, next=`D2_p13_dmax_tail_q79_progression_outP2_70_out25_23_smaller_side7`
+- Proof JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DMAX_TAIL_RECOMBINATION_PROOFS/D2_p13_dmax_tail_q73_progression_outP2_70_out25_23_smaller_side7.json`
+- Boundary: This residual tail-prime atom is special because q=73 divides the minus witness 9563, excluding that side before the plus-side CRT floor bound.
+- `D2_p13_dmax_tail_q79_progression_outP2_70_out25_23_smaller_side7` [symbolic_upper_bound_verified]: Prove the q=79 tail-prime same-prime degree progression upper bound for both witness sides, starting from m = 901038 mod 1054729 and m = 280272 mod 1054729.
+- Proof artifact: `symbolic_upper_bound_verified`, q=`79`, next=`D2_p13_dmax_tail_q83_progression_outP2_70_out25_23_smaller_side7`
+- Proof JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DMAX_TAIL_RECOMBINATION_PROOFS/D2_p13_dmax_tail_q79_progression_outP2_70_out25_23_smaller_side7.json`
+- Boundary: This is the next residual tail-prime subatom after the q=73 plus-side floor-bound and minus-side exclusion component.
+- `D2_p13_dmax_tail_q83_progression_outP2_70_out25_23_smaller_side7` [symbolic_upper_bound_verified]: Prove the q=83 tail-prime same-prime degree progression upper bound for both witness sides, starting from m = 443048 mod 1164241 and m = 16125 mod 1164241.
+- Proof artifact: `symbolic_upper_bound_verified`, q=`83`, next=`D2_p13_dmax_tail_q89_progression_outP2_70_out25_23_smaller_side7`
+- Proof JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DMAX_TAIL_RECOMBINATION_PROOFS/D2_p13_dmax_tail_q83_progression_outP2_70_out25_23_smaller_side7.json`
+- Boundary: This is the next residual tail-prime subatom after the q=79 two-sided floor-bound component.
+- `D2_p13_dmax_tail_q89_progression_outP2_70_out25_23_smaller_side7` [symbolic_upper_bound_verified]: Prove the q=89 tail-prime same-prime degree progression upper bound for both witness sides, starting from m = 30519 mod 1338649 and m = 791497 mod 1338649.
+- Proof artifact: `symbolic_upper_bound_verified`, q=`89`, next=`D2_p13_dmax_tail_q97_progression_outP2_70_out25_23_smaller_side7`
+- Proof JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DMAX_TAIL_RECOMBINATION_PROOFS/D2_p13_dmax_tail_q89_progression_outP2_70_out25_23_smaller_side7.json`
+- Boundary: This is the next residual tail-prime subatom after the q=83 two-sided floor-bound component.
+- `D2_p13_dmax_tail_q97_progression_outP2_70_out25_23_smaller_side7` [symbolic_upper_bound_verified]: Prove the q=97 tail-prime same-prime degree progression upper bound for both witness sides, starting from m = 783076 mod 1590121 and m = 279765 mod 1590121.
+- Proof artifact: `symbolic_upper_bound_verified`, q=`97`, next=`D2_p13_dmax_tail_q101_progression_outP2_70_out25_23_smaller_side7`
+- Proof JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DMAX_TAIL_RECOMBINATION_PROOFS/D2_p13_dmax_tail_q97_progression_outP2_70_out25_23_smaller_side7.json`
+- Boundary: This is the next residual tail-prime subatom after the q=89 two-sided floor-bound component.
+- `D2_p13_dmax_tail_q101_progression_outP2_70_out25_23_smaller_side7` [symbolic_upper_bound_verified]: Prove the q=101 tail-prime same-prime degree progression upper bound for both witness sides, starting from m = 1382181 mod 1723969 and m = 253570 mod 1723969.
+- Proof artifact: `symbolic_upper_bound_verified`, q=`101`, next=`D2_p13_dmax_tail_q103_progression_outP2_70_out25_23_smaller_side7`
+- Proof JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DMAX_TAIL_RECOMBINATION_PROOFS/D2_p13_dmax_tail_q101_progression_outP2_70_out25_23_smaller_side7.json`
+- Boundary: This is the next residual tail-prime subatom after the q=97 two-sided floor-bound component.
+- `D2_p13_dmax_tail_q103_progression_outP2_70_out25_23_smaller_side7` [symbolic_upper_bound_verified]: Prove the q=103 tail-prime same-prime degree progression upper bound for both witness sides, starting from m = 586529 mod 1792921 and m = 1732827 mod 1792921.
+- Proof artifact: `symbolic_upper_bound_verified`, q=`103`, next=`D2_p13_dmax_tail_q107_progression_outP2_70_out25_23_smaller_side7`
+- Proof JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DMAX_TAIL_RECOMBINATION_PROOFS/D2_p13_dmax_tail_q103_progression_outP2_70_out25_23_smaller_side7.json`
+- Boundary: This is the next residual tail-prime subatom after the q=101 two-sided floor-bound component.
+- `D2_p13_dmax_tail_q107_progression_outP2_70_out25_23_smaller_side7` [symbolic_upper_bound_verified]: Prove the q=107 tail-prime same-prime degree progression upper bound for both witness sides, starting from m = 967624 mod 1934881 and m = 1699703 mod 1934881.
+- Proof artifact: `symbolic_upper_bound_verified`, q=`107`, next=`D2_p13_dmax_tail_q109_progression_outP2_70_out25_23_smaller_side7`
+- Proof JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DMAX_TAIL_RECOMBINATION_PROOFS/D2_p13_dmax_tail_q107_progression_outP2_70_out25_23_smaller_side7.json`
+- Boundary: This is the next residual tail-prime subatom after the q=103 two-sided floor-bound component.
+- `D2_p13_dmax_tail_q109_progression_outP2_70_out25_23_smaller_side7` [symbolic_upper_bound_verified]: Prove the q=109 tail-prime same-prime degree progression upper bound for both witness sides, starting from m = 963399 mod 2007889 and m = 725925 mod 2007889.
+- Proof artifact: `symbolic_upper_bound_verified`, q=`109`, next=`D2_p13_dmax_tail_q113_progression_outP2_70_out25_23_smaller_side7`
+- Proof JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DMAX_TAIL_RECOMBINATION_PROOFS/D2_p13_dmax_tail_q109_progression_outP2_70_out25_23_smaller_side7.json`
+- Boundary: This is the next residual tail-prime subatom after the q=107 two-sided floor-bound component.
+- `D2_p13_dmax_tail_q113_progression_outP2_70_out25_23_smaller_side7` [symbolic_upper_bound_verified]: Prove the q=113 tail-prime same-prime degree progression upper bound for both witness sides, starting from m = 407051 mod 2157961 and m = 2150764 mod 2157961.
+- Proof artifact: `symbolic_upper_bound_verified`, q=`113`, next=`D2_p13_dmax_tail_q127_progression_outP2_70_out25_23_smaller_side7`
+- Proof JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DMAX_TAIL_RECOMBINATION_PROOFS/D2_p13_dmax_tail_q113_progression_outP2_70_out25_23_smaller_side7.json`
+- Boundary: This is the next residual tail-prime subatom after the q=109 two-sided floor-bound component.
+- `D2_p13_dmax_tail_q127_progression_outP2_70_out25_23_smaller_side7` [symbolic_upper_bound_verified]: Prove the q=127 tail-prime same-prime degree progression upper bound for both witness sides, starting from m = 1191042 mod 2725801 and m = 2198253 mod 2725801.
+- Proof artifact: `symbolic_upper_bound_verified`, q=`127`, next=`D2_p13_dmax_tail_q131_progression_outP2_70_out25_23_smaller_side7`
+- Proof JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DMAX_TAIL_RECOMBINATION_PROOFS/D2_p13_dmax_tail_q127_progression_outP2_70_out25_23_smaller_side7.json`
+- Boundary: This is the next residual tail-prime subatom after the q=113 two-sided floor-bound component.
+- `D2_p13_dmax_tail_q131_progression_outP2_70_out25_23_smaller_side7` [symbolic_upper_bound_verified]: Prove the q=131 tail-prime same-prime degree progression upper bound: plus-side CRT floor bound from m = 1345170 mod 2900209, and minus-side exclusion because 131 divides 9563.
+- Proof artifact: `symbolic_upper_bound_verified`, q=`131`, next=`D2_p13_dmax_tail_q137_progression_outP2_70_out25_23_smaller_side7`
+- Proof JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DMAX_TAIL_RECOMBINATION_PROOFS/D2_p13_dmax_tail_q131_progression_outP2_70_out25_23_smaller_side7.json`
+- Boundary: This is the next residual tail-prime subatom after the q=127 two-sided floor-bound component.
+- `D2_p13_dmax_tail_q137_progression_outP2_70_out25_23_smaller_side7` [symbolic_upper_bound_verified]: Prove the q=137 tail-prime same-prime degree progression upper bound for both witness sides, starting from m = 2767643 mod 3171961 and m = 1021675 mod 3171961.
+- Proof artifact: `symbolic_upper_bound_verified`, q=`137`, next=`D2_p13_dmax_tail_q139_progression_outP2_70_out25_23_smaller_side7`
+- Proof JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DMAX_TAIL_RECOMBINATION_PROOFS/D2_p13_dmax_tail_q137_progression_outP2_70_out25_23_smaller_side7.json`
+- Boundary: This is the next residual tail-prime subatom after the q=131 CRT/exclusion component.
+- `D2_p13_dmax_tail_q139_progression_outP2_70_out25_23_smaller_side7` [symbolic_upper_bound_verified]: Prove the q=139 tail-prime same-prime degree progression upper bound for both witness sides, starting from m = 3089757 mod 3265249 and m = 1765444 mod 3265249.
+- Proof artifact: `symbolic_upper_bound_verified`, q=`139`, next=`D2_p13_dmax_tail_q149_progression_outP2_70_out25_23_smaller_side7`
+- Proof JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DMAX_TAIL_RECOMBINATION_PROOFS/D2_p13_dmax_tail_q139_progression_outP2_70_out25_23_smaller_side7.json`
+- Boundary: This is the next residual tail-prime subatom after the q=137 two-sided floor-bound component.
+- `D2_p13_dmax_tail_q149_progression_outP2_70_out25_23_smaller_side7` [symbolic_upper_bound_verified]: Prove the q=149 tail-prime same-prime degree progression upper bound for both witness sides, starting from m = 276752 mod 3751969 and m = 1423557 mod 3751969.
+- Proof artifact: `symbolic_upper_bound_verified`, q=`149`, next=`D2_p13_dmax_tail_q151_progression_outP2_70_out25_23_smaller_side7`
+- Proof JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DMAX_TAIL_RECOMBINATION_PROOFS/D2_p13_dmax_tail_q149_progression_outP2_70_out25_23_smaller_side7.json`
+- Boundary: This is the next residual tail-prime subatom after the q=139 two-sided floor-bound component.
+- `D2_p13_dmax_tail_q151_progression_outP2_70_out25_23_smaller_side7` [symbolic_upper_bound_verified]: Prove the q=151 tail-prime same-prime degree progression upper bound for both witness sides, starting from m = 2446543 mod 3853369 and m = 1157720 mod 3853369.
+- Proof artifact: `symbolic_upper_bound_verified`, q=`151`, next=`D2_p13_dmax_tail_q157_progression_outP2_70_out25_23_smaller_side7`
+- Proof JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DMAX_TAIL_RECOMBINATION_PROOFS/D2_p13_dmax_tail_q151_progression_outP2_70_out25_23_smaller_side7.json`
+- Boundary: This is the next residual tail-prime subatom after the q=149 two-sided floor-bound component.
+- `D2_p13_dmax_tail_q157_progression_outP2_70_out25_23_smaller_side7` [symbolic_upper_bound_verified]: Prove the q=157 tail-prime same-prime degree progression upper bound for both witness sides, starting from m = 1762938 mod 4165681 and m = 2160735 mod 4165681.
+- Proof artifact: `symbolic_upper_bound_verified`, q=`157`, next=`D2_p13_dmax_tail_q163_progression_outP2_70_out25_23_smaller_side7`
+- Proof JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DMAX_TAIL_RECOMBINATION_PROOFS/D2_p13_dmax_tail_q157_progression_outP2_70_out25_23_smaller_side7.json`
+- Boundary: This is the next residual tail-prime subatom after the q=151 two-sided floor-bound component.
+- `D2_p13_dmax_tail_q163_progression_outP2_70_out25_23_smaller_side7` [symbolic_upper_bound_verified]: Prove the q=163 tail-prime same-prime degree progression upper bound for both witness sides, starting from m = 2941544 mod 4490161 and m = 856562 mod 4490161.
+- Proof artifact: `symbolic_upper_bound_verified`, q=`163`, next=`D2_p13_dmax_tail_q167_progression_outP2_70_out25_23_smaller_side7`
+- Proof JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DMAX_TAIL_RECOMBINATION_PROOFS/D2_p13_dmax_tail_q163_progression_outP2_70_out25_23_smaller_side7.json`
+- Boundary: This is the next residual tail-prime subatom after the q=157 two-sided floor-bound component.
+- `D2_p13_dmax_tail_q167_progression_outP2_70_out25_23_smaller_side7` [symbolic_upper_bound_verified]: Prove the q=167 tail-prime same-prime degree progression upper bound for both witness sides, starting from m = 4640670 mod 4713241 and m = 3647428 mod 4713241.
+- Proof artifact: `symbolic_upper_bound_verified`, q=`167`, next=`D2_p13_dmax_tail_q173_progression_outP2_70_out25_23_smaller_side7`
+- Proof JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DMAX_TAIL_RECOMBINATION_PROOFS/D2_p13_dmax_tail_q167_progression_outP2_70_out25_23_smaller_side7.json`
+- Boundary: This is the next residual tail-prime subatom after the q=163 two-sided floor-bound component.
+- `D2_p13_dmax_tail_q173_progression_outP2_70_out25_23_smaller_side7` [symbolic_upper_bound_verified]: Prove the q=173 tail-prime same-prime degree progression upper bound for both witness sides, starting from m = 978778 mod 5058001 and m = 1961146 mod 5058001.
+- Proof artifact: `symbolic_upper_bound_verified`, q=`173`, next=`D2_p13_dmax_tail_q179_progression_outP2_70_out25_23_smaller_side7`
+- Proof JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DMAX_TAIL_RECOMBINATION_PROOFS/D2_p13_dmax_tail_q173_progression_outP2_70_out25_23_smaller_side7.json`
+- Boundary: This is the next residual tail-prime subatom after the q=167 two-sided floor-bound component.
+- `D2_p13_dmax_tail_q179_progression_outP2_70_out25_23_smaller_side7` [symbolic_upper_bound_verified]: Prove the q=179 tail-prime same-prime degree progression upper bound for both witness sides, starting from m = 2724210 mod 5414929 and m = 4437841 mod 5414929.
+- Proof artifact: `symbolic_upper_bound_verified`, q=`179`, next=`D2_p13_dmax_tail_q181_progression_outP2_70_out25_23_smaller_side7`
+- Proof JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DMAX_TAIL_RECOMBINATION_PROOFS/D2_p13_dmax_tail_q179_progression_outP2_70_out25_23_smaller_side7.json`
+- Boundary: This is the next residual tail-prime subatom after the q=173 two-sided floor-bound component.
+- `D2_p13_dmax_tail_q181_progression_outP2_70_out25_23_smaller_side7` [symbolic_upper_bound_verified]: Prove the q=181 tail-prime same-prime degree progression upper bound for both witness sides, starting from m = 1789809 mod 5536609 and m = 4242815 mod 5536609.
+- Proof artifact: `symbolic_upper_bound_verified`, q=`181`, next=`D2_p13_dmax_tail_q191_progression_outP2_70_out25_23_smaller_side7`
+- Proof JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DMAX_TAIL_RECOMBINATION_PROOFS/D2_p13_dmax_tail_q181_progression_outP2_70_out25_23_smaller_side7.json`
+- Boundary: This is the next residual tail-prime subatom after the q=179 two-sided floor-bound component.
+- `D2_p13_dmax_tail_q191_progression_outP2_70_out25_23_smaller_side7` [symbolic_upper_bound_verified]: Prove the q=191 tail-prime same-prime degree progression upper bound for both witness sides, starting from m = 1508424 mod 6165289 and m = 1951682 mod 6165289.
+- Proof artifact: `symbolic_upper_bound_verified`, q=`191`, next=`D2_p13_dmax_tail_q193_progression_outP2_70_out25_23_smaller_side7`
+- Proof JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DMAX_TAIL_RECOMBINATION_PROOFS/D2_p13_dmax_tail_q191_progression_outP2_70_out25_23_smaller_side7.json`
+- Boundary: This is the next residual tail-prime subatom after the q=181 two-sided floor-bound component.
+- `D2_p13_dmax_tail_q193_progression_outP2_70_out25_23_smaller_side7` [symbolic_upper_bound_verified]: Prove the q=193 tail-prime same-prime degree progression upper bound for both witness sides, starting from m = 69558 mod 6295081 and m = 1273485 mod 6295081.
+- Proof artifact: `symbolic_upper_bound_verified`, q=`193`, next=`D2_p13_dmax_tail_q197_progression_outP2_70_out25_23_smaller_side7`
+- Proof JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DMAX_TAIL_RECOMBINATION_PROOFS/D2_p13_dmax_tail_q193_progression_outP2_70_out25_23_smaller_side7.json`
+- Boundary: This is the next residual tail-prime subatom after the q=191 two-sided floor-bound component.
+- `D2_p13_dmax_tail_q197_progression_outP2_70_out25_23_smaller_side7` [symbolic_upper_bound_verified]: Prove the q=197 tail-prime same-prime degree progression upper bound for both witness sides, starting from m = 3802599 mod 6558721 and m = 4141415 mod 6558721.
+- Proof artifact: `symbolic_upper_bound_verified`, q=`197`, next=`D2_p13_dmax_tail_q199_progression_outP2_70_out25_23_smaller_side7`
+- Proof JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DMAX_TAIL_RECOMBINATION_PROOFS/D2_p13_dmax_tail_q197_progression_outP2_70_out25_23_smaller_side7.json`
+- Boundary: This is the next residual tail-prime subatom after the q=193 two-sided floor-bound component.
+- `D2_p13_dmax_tail_q199_progression_outP2_70_out25_23_smaller_side7` [symbolic_upper_bound_verified]: Prove the q=199 tail-prime same-prime degree progression upper bound for both witness sides, starting from m = 872815 mod 6692569 and m = 1078797 mod 6692569.
+- Proof artifact: `symbolic_upper_bound_verified`, q=`199`, next=`D2_p13_dmax_tail_q211_progression_outP2_70_out25_23_smaller_side7`
+- Proof JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DMAX_TAIL_RECOMBINATION_PROOFS/D2_p13_dmax_tail_q199_progression_outP2_70_out25_23_smaller_side7.json`
+- Boundary: This is the next residual tail-prime subatom after the q=197 two-sided floor-bound component.
+- `D2_p13_dmax_tail_q211_progression_outP2_70_out25_23_smaller_side7` [symbolic_upper_bound_verified]: Prove the q=211 tail-prime same-prime degree progression upper bound for both witness sides, starting from m = 199519 mod 7524049 and m = 3288134 mod 7524049.
+- Proof artifact: `symbolic_upper_bound_verified`, q=`211`, next=`D2_p13_dmax_tail_q223_progression_outP2_70_out25_23_smaller_side7`
+- Proof JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DMAX_TAIL_RECOMBINATION_PROOFS/D2_p13_dmax_tail_q211_progression_outP2_70_out25_23_smaller_side7.json`
+- Boundary: This is the next residual tail-prime subatom after the q=199 two-sided floor-bound component.
+- `D2_p13_dmax_tail_q223_progression_outP2_70_out25_23_smaller_side7` [symbolic_upper_bound_verified]: Prove the q=223 tail-prime same-prime degree progression upper bound for both witness sides, starting from m = 1169241 mod 8404201 and m = 3594700 mod 8404201.
+- Proof artifact: `symbolic_upper_bound_verified`, q=`223`, next=`D2_p13_dmax_tail_q227_progression_outP2_70_out25_23_smaller_side7`
+- Proof JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DMAX_TAIL_RECOMBINATION_PROOFS/D2_p13_dmax_tail_q223_progression_outP2_70_out25_23_smaller_side7.json`
+- Boundary: This is the next residual tail-prime subatom after the q=211 two-sided floor-bound component.
+- `D2_p13_dmax_tail_q227_progression_outP2_70_out25_23_smaller_side7` [symbolic_upper_bound_verified]: Prove the q=227 tail-prime same-prime degree progression upper bound for both witness sides, starting from m = 1095388 mod 8708401 and m = 7005627 mod 8708401.
+- Proof artifact: `symbolic_upper_bound_verified`, q=`227`, next=`D2_p13_dmax_tail_q229_progression_outP2_70_out25_23_smaller_side7`
+- Proof JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DMAX_TAIL_RECOMBINATION_PROOFS/D2_p13_dmax_tail_q227_progression_outP2_70_out25_23_smaller_side7.json`
+- Boundary: This is the next residual tail-prime subatom after the q=223 two-sided floor-bound component.
+- `D2_p13_dmax_tail_q229_progression_outP2_70_out25_23_smaller_side7` [symbolic_upper_bound_verified]: Prove the q=229 tail-prime same-prime degree progression upper bound for both witness sides, starting from m = 102344 mod 8862529 and m = 8756298 mod 8862529.
+- Proof artifact: `symbolic_upper_bound_verified`, q=`229`, next=`D2_p13_dmax_tail_q233_progression_outP2_70_out25_23_smaller_side7`
+- Proof JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DMAX_TAIL_RECOMBINATION_PROOFS/D2_p13_dmax_tail_q229_progression_outP2_70_out25_23_smaller_side7.json`
+- Boundary: This is the next residual tail-prime subatom after the q=227 two-sided floor-bound component.
+- `D2_p13_dmax_tail_q233_progression_outP2_70_out25_23_smaller_side7` [symbolic_upper_bound_verified]: Prove the q=233 tail-prime same-prime degree progression upper bound for both witness sides, starting from m = 1640920 mod 9174841 and m = 5761787 mod 9174841.
+- Proof artifact: `symbolic_upper_bound_verified`, q=`233`, next=`D2_p13_dmax_tail_q239_progression_outP2_70_out25_23_smaller_side7`
+- Proof JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DMAX_TAIL_RECOMBINATION_PROOFS/D2_p13_dmax_tail_q233_progression_outP2_70_out25_23_smaller_side7.json`
+- Boundary: This is the next residual tail-prime subatom after the q=229 two-sided floor-bound component.
+- `D2_p13_dmax_tail_q239_progression_outP2_70_out25_23_smaller_side7` [symbolic_upper_bound_verified]: Prove the q=239 tail-prime same-prime degree progression upper bound for both witness sides, starting from m = 2615036 mod 9653449 and m = 883264 mod 9653449.
+- Proof artifact: `symbolic_upper_bound_verified`, q=`239`, next=`D2_p13_dmax_tail_q241_progression_outP2_70_out25_23_smaller_side7`
+- Proof JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DMAX_TAIL_RECOMBINATION_PROOFS/D2_p13_dmax_tail_q239_progression_outP2_70_out25_23_smaller_side7.json`
+- Boundary: This is the next residual tail-prime subatom after the q=233 two-sided floor-bound component.
+- `D2_p13_dmax_tail_q241_progression_outP2_70_out25_23_smaller_side7` [symbolic_upper_bound_verified]: Prove the q=241 tail-prime same-prime degree progression upper bound for both witness sides, starting from m = 8794690 mod 9815689 and m = 6246310 mod 9815689.
+- Proof artifact: `symbolic_upper_bound_verified`, q=`241`, next=`D2_p13_dmax_tail_q257_progression_outP2_70_out25_23_smaller_side7`
+- Proof JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DMAX_TAIL_RECOMBINATION_PROOFS/D2_p13_dmax_tail_q241_progression_outP2_70_out25_23_smaller_side7.json`
+- Boundary: This is the next residual tail-prime subatom after the q=239 two-sided floor-bound component.
+- `D2_p13_dmax_tail_q257_progression_outP2_70_out25_23_smaller_side7` [symbolic_upper_bound_verified]: Prove the q=257 tail-prime same-prime degree progression upper bound for both witness sides, starting from m = 4730578 mod 11162281 and m = 10654844 mod 11162281.
+- Proof artifact: `symbolic_upper_bound_verified`, q=`257`, next=`D2_p13_dmax_tail_q263_progression_outP2_70_out25_23_smaller_side7`
+- Proof JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DMAX_TAIL_RECOMBINATION_PROOFS/D2_p13_dmax_tail_q257_progression_outP2_70_out25_23_smaller_side7.json`
+- Boundary: This is the next residual tail-prime subatom after the q=241 two-sided floor-bound component; q=251 was already covered by the observed q251 packet and its minus-side complement.
+- `D2_p13_dmax_tail_q263_progression_outP2_70_out25_23_smaller_side7` [symbolic_upper_bound_verified]: Prove the q=263 tail-prime same-prime degree progression upper bound for both witness sides, starting from m = 5804066 mod 11689561 and m = 3539944 mod 11689561.
+- Proof artifact: `symbolic_upper_bound_verified`, q=`263`, next=`D2_p13_dmax_tail_q269_progression_outP2_70_out25_23_smaller_side7`
+- Proof JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DMAX_TAIL_RECOMBINATION_PROOFS/D2_p13_dmax_tail_q263_progression_outP2_70_out25_23_smaller_side7.json`
+- Boundary: This is the next residual tail-prime subatom after the q=257 two-sided floor-bound component.
+- `D2_p13_dmax_tail_q269_progression_outP2_70_out25_23_smaller_side7` [symbolic_upper_bound_verified]: Prove the q=269 tail-prime same-prime degree progression upper bound for both witness sides, starting from m = 10056951 mod 12229009 and m = 11133621 mod 12229009.
+- Proof artifact: `symbolic_upper_bound_verified`, q=`269`, next=`D2_p13_dmax_tail_q271_progression_outP2_70_out25_23_smaller_side7`
+- Proof JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DMAX_TAIL_RECOMBINATION_PROOFS/D2_p13_dmax_tail_q269_progression_outP2_70_out25_23_smaller_side7.json`
+- Boundary: This is the next residual tail-prime subatom after the q=263 two-sided floor-bound component.
+- `D2_p13_dmax_tail_q271_progression_outP2_70_out25_23_smaller_side7` [symbolic_upper_bound_verified]: Prove the q=271 tail-prime same-prime degree progression upper bound for both witness sides, starting from m = 4686976 mod 12411529 and m = 749923 mod 12411529.
+- Proof artifact: `symbolic_upper_bound_verified`, q=`271`, next=`D2_p13_dmax_tail_q277_progression_outP2_70_out25_23_smaller_side7`
+- Proof JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DMAX_TAIL_RECOMBINATION_PROOFS/D2_p13_dmax_tail_q271_progression_outP2_70_out25_23_smaller_side7.json`
+- Boundary: This is the next residual tail-prime subatom after the q=269 two-sided floor-bound component.
+- `D2_p13_dmax_tail_q277_progression_outP2_70_out25_23_smaller_side7` [symbolic_upper_bound_verified]: Prove the q=277 tail-prime same-prime degree progression upper bound for both witness sides, starting from m = 6946844 mod 12967201 and m = 10587920 mod 12967201.
+- Proof artifact: `symbolic_upper_bound_verified`, q=`277`, next=`D2_p13_dmax_tail_q281_progression_outP2_70_out25_23_smaller_side7`
+- Proof JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DMAX_TAIL_RECOMBINATION_PROOFS/D2_p13_dmax_tail_q277_progression_outP2_70_out25_23_smaller_side7.json`
+- Boundary: This is the next residual tail-prime subatom after the q=271 two-sided floor-bound component.
+- `D2_p13_dmax_tail_q281_progression_outP2_70_out25_23_smaller_side7` [symbolic_upper_bound_verified]: Prove the q=281 tail-prime same-prime degree progression upper bound for both witness sides, starting from m = 4072323 mod 13344409 and m = 9581694 mod 13344409.
+- Proof artifact: `symbolic_upper_bound_verified`, q=`281`, next=`D2_p13_dmax_tail_q283_progression_outP2_70_out25_23_smaller_side7`
+- Proof JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DMAX_TAIL_RECOMBINATION_PROOFS/D2_p13_dmax_tail_q281_progression_outP2_70_out25_23_smaller_side7.json`
+- Boundary: This is the next residual tail-prime subatom after the q=277 two-sided floor-bound component.
+- `D2_p13_dmax_tail_q283_progression_outP2_70_out25_23_smaller_side7` [symbolic_upper_bound_verified]: Prove the q=283 tail-prime same-prime degree progression upper bound for both witness sides, starting from m = 7094043 mod 13535041 and m = 4146823 mod 13535041.
+- Proof artifact: `symbolic_upper_bound_verified`, q=`283`, next=`D2_p13_dmax_tail_q293_progression_outP2_70_out25_23_smaller_side7`
+- Proof JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DMAX_TAIL_RECOMBINATION_PROOFS/D2_p13_dmax_tail_q283_progression_outP2_70_out25_23_smaller_side7.json`
+- Boundary: This is the next residual tail-prime subatom after the q=281 two-sided floor-bound component.
+- `D2_p13_dmax_tail_q293_progression_outP2_70_out25_23_smaller_side7` [symbolic_upper_bound_verified]: Prove the q=293 tail-prime same-prime degree progression upper bound for both witness sides, starting from m = 7410749 mod 14508481 and m = 12282314 mod 14508481.
+- Proof artifact: `symbolic_upper_bound_verified`, q=`293`, next=`D2_p13_dmax_tail_q307_progression_outP2_70_out25_23_smaller_side7`
+- Proof JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DMAX_TAIL_RECOMBINATION_PROOFS/D2_p13_dmax_tail_q293_progression_outP2_70_out25_23_smaller_side7.json`
+- Boundary: This is the next residual tail-prime subatom after the q=283 two-sided floor-bound component.
+- `D2_p13_dmax_tail_q307_progression_outP2_70_out25_23_smaller_side7` [symbolic_upper_bound_verified]: Prove the q=307 tail-prime same-prime degree progression upper bound for both witness sides, starting from m = 14963021 mod 15928081 and m = 15889112 mod 15928081.
+- Proof artifact: `symbolic_upper_bound_verified`, q=`307`, next=`D2_p13_dmax_tail_q311_progression_outP2_70_out25_23_smaller_side7`
+- Proof JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DMAX_TAIL_RECOMBINATION_PROOFS/D2_p13_dmax_tail_q307_progression_outP2_70_out25_23_smaller_side7.json`
+- Boundary: This is the next residual tail-prime subatom after the q=293 two-sided floor-bound component.
+- `D2_p13_dmax_tail_q311_progression_outP2_70_out25_23_smaller_side7` [symbolic_upper_bound_verified]: Prove the q=311 tail-prime same-prime degree progression upper bound for both witness sides, starting from m = 12908150 mod 16345849 and m = 5085787 mod 16345849.
+- Proof artifact: `symbolic_upper_bound_verified`, q=`311`, next=`D2_p13_dmax_tail_q313_progression_outP2_70_out25_23_smaller_side7`
+- Proof JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DMAX_TAIL_RECOMBINATION_PROOFS/D2_p13_dmax_tail_q311_progression_outP2_70_out25_23_smaller_side7.json`
+- Boundary: This is the next residual tail-prime subatom after the q=307 two-sided floor-bound component.
+- `D2_p13_dmax_tail_q313_progression_outP2_70_out25_23_smaller_side7` [symbolic_upper_bound_verified]: Prove the q=313 tail-prime same-prime degree progression upper bound for both witness sides, starting from m = 5813361 mod 16556761 and m = 4403872 mod 16556761.
+- Proof artifact: `symbolic_upper_bound_verified`, q=`313`, next=`D2_p13_dmax_tail_q317_progression_outP2_70_out25_23_smaller_side7`
+- Proof JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DMAX_TAIL_RECOMBINATION_PROOFS/D2_p13_dmax_tail_q313_progression_outP2_70_out25_23_smaller_side7.json`
+- Boundary: This is the next residual tail-prime subatom after the q=311 two-sided floor-bound component.
+- `D2_p13_dmax_tail_q317_progression_outP2_70_out25_23_smaller_side7` [symbolic_upper_bound_verified]: Prove the q=317 tail-prime same-prime degree progression upper bound for both witness sides, starting from m = 7885639 mod 16982641 and m = 6675063 mod 16982641.
+- Proof artifact: `symbolic_upper_bound_verified`, q=`317`, next=`D2_p13_dmax_tail_q331_progression_outP2_70_out25_23_smaller_side7`
+- Proof JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DMAX_TAIL_RECOMBINATION_PROOFS/D2_p13_dmax_tail_q317_progression_outP2_70_out25_23_smaller_side7.json`
+- Boundary: This is the next residual tail-prime subatom after the q=313 two-sided floor-bound component.
+- `D2_p13_dmax_tail_q331_progression_outP2_70_out25_23_smaller_side7` [symbolic_upper_bound_verified]: Prove the q=331 tail-prime same-prime degree progression upper bound for both witness sides, starting from m = 9831843 mod 18515809 and m = 2596079 mod 18515809.
+- Proof artifact: `symbolic_upper_bound_verified`, q=`331`, next=`D2_p13_dmax_tail_q337_progression_outP2_70_out25_23_smaller_side7`
+- Proof JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DMAX_TAIL_RECOMBINATION_PROOFS/D2_p13_dmax_tail_q331_progression_outP2_70_out25_23_smaller_side7.json`
+- Boundary: This is the next residual tail-prime subatom after the q=317 two-sided floor-bound component.
+- `D2_p13_dmax_tail_q337_progression_outP2_70_out25_23_smaller_side7` [symbolic_upper_bound_verified]: Prove the q=337 tail-prime same-prime degree progression upper bound for both witness sides, starting from m = 3148738 mod 19193161 and m = 11799312 mod 19193161.
+- Proof artifact: `symbolic_upper_bound_verified`, q=`337`, next=`D2_p13_dmax_tail_q347_progression_outP2_70_out25_23_smaller_side7`
+- Proof JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DMAX_TAIL_RECOMBINATION_PROOFS/D2_p13_dmax_tail_q337_progression_outP2_70_out25_23_smaller_side7.json`
+- Boundary: This is the next residual tail-prime subatom after the q=331 two-sided floor-bound component.
+- `D2_p13_dmax_tail_q347_progression_outP2_70_out25_23_smaller_side7` [symbolic_upper_bound_verified]: Prove the q=347 tail-prime same-prime degree progression upper bound for both witness sides, starting from m = 11863730 mod 20349121 and m = 17215931 mod 20349121.
+- Proof artifact: `symbolic_upper_bound_verified`, q=`347`, next=`D2_p13_dmax_tail_q349_progression_outP2_70_out25_23_smaller_side7`
+- Proof JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DMAX_TAIL_RECOMBINATION_PROOFS/D2_p13_dmax_tail_q347_progression_outP2_70_out25_23_smaller_side7.json`
+- Boundary: This is the next residual tail-prime subatom after the q=337 two-sided floor-bound component.
+- `D2_p13_dmax_tail_q349_progression_outP2_70_out25_23_smaller_side7` [symbolic_upper_bound_verified]: Prove the q=349 tail-prime same-prime degree progression upper bound for both witness sides, starting from m = 7685712 mod 20584369 and m = 2404433 mod 20584369.
+- Proof artifact: `symbolic_upper_bound_verified`, q=`349`, next=`D2_p13_dmax_tail_q353_progression_outP2_70_out25_23_smaller_side7`
+- Proof JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DMAX_TAIL_RECOMBINATION_PROOFS/D2_p13_dmax_tail_q349_progression_outP2_70_out25_23_smaller_side7.json`
+- Boundary: This is the next residual tail-prime subatom after the q=347 two-sided floor-bound component.
+- `D2_p13_dmax_tail_q353_progression_outP2_70_out25_23_smaller_side7` [symbolic_upper_bound_verified]: Prove the q=353 tail-prime same-prime degree progression upper bound for both witness sides, starting from m = 1415812 mod 21058921 and m = 17854751 mod 21058921.
+- Proof artifact: `symbolic_upper_bound_verified`, q=`353`, next=`D2_p13_dmax_tail_q359_progression_outP2_70_out25_23_smaller_side7`
+- Proof JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DMAX_TAIL_RECOMBINATION_PROOFS/D2_p13_dmax_tail_q353_progression_outP2_70_out25_23_smaller_side7.json`
+- Boundary: This is the next residual tail-prime subatom after the q=349 two-sided floor-bound component.
+- `D2_p13_dmax_tail_q359_progression_outP2_70_out25_23_smaller_side7` [symbolic_upper_bound_verified]: Prove the q=359 tail-prime same-prime degree progression upper bound for both witness sides, starting from m = 2693621 mod 21780889 and m = 19926353 mod 21780889.
+- Proof artifact: `symbolic_upper_bound_verified`, q=`359`, next=`D2_p13_dmax_tail_q367_progression_outP2_70_out25_23_smaller_side7`
+- Proof JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DMAX_TAIL_RECOMBINATION_PROOFS/D2_p13_dmax_tail_q359_progression_outP2_70_out25_23_smaller_side7.json`
+- Boundary: This is the next residual tail-prime subatom after the q=353 two-sided floor-bound component.
+- `D2_p13_dmax_tail_q367_progression_outP2_70_out25_23_smaller_side7` [symbolic_upper_bound_verified]: Prove the q=367 tail-prime same-prime degree progression upper bound for both witness sides, starting from m = 10408302 mod 22762441 and m = 21816280 mod 22762441.
+- Proof artifact: `symbolic_upper_bound_verified`, q=`367`, next=`D2_p13_dmax_tail_q373_progression_outP2_70_out25_23_smaller_side7`
+- Proof JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DMAX_TAIL_RECOMBINATION_PROOFS/D2_p13_dmax_tail_q367_progression_outP2_70_out25_23_smaller_side7.json`
+- Boundary: This is the next residual tail-prime subatom after the q=359 two-sided floor-bound component.
+- `D2_p13_dmax_tail_q373_progression_outP2_70_out25_23_smaller_side7` [symbolic_upper_bound_verified]: Prove the q=373 tail-prime same-prime degree progression upper bound for both witness sides, starting from m = 6694020 mod 23512801 and m = 12354984 mod 23512801.
+- Proof artifact: `symbolic_upper_bound_verified`, q=`373`, next=`D2_p13_dmax_tail_q379_progression_outP2_70_out25_23_smaller_side7`
+- Proof JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DMAX_TAIL_RECOMBINATION_PROOFS/D2_p13_dmax_tail_q373_progression_outP2_70_out25_23_smaller_side7.json`
+- Boundary: This is the next residual tail-prime subatom after the q=367 two-sided floor-bound component.
+- `D2_p13_dmax_tail_q379_progression_outP2_70_out25_23_smaller_side7` [symbolic_upper_bound_verified]: Prove the q=379 tail-prime same-prime degree progression upper bound for both witness sides, starting from m = 11502746 mod 24275329 and m = 2984948 mod 24275329.
+- Proof artifact: `symbolic_upper_bound_verified`, q=`379`, next=`D2_p13_dmax_tail_q383_progression_outP2_70_out25_23_smaller_side7`
+- Proof JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DMAX_TAIL_RECOMBINATION_PROOFS/D2_p13_dmax_tail_q379_progression_outP2_70_out25_23_smaller_side7.json`
+- Boundary: This is the next residual tail-prime subatom after the q=373 two-sided floor-bound component.
+- `D2_p13_dmax_tail_q383_progression_outP2_70_out25_23_smaller_side7` [symbolic_upper_bound_verified]: Prove the q=383 tail-prime same-prime degree progression upper bound for both witness sides, starting from m = 10683772 mod 24790441 and m = 8325686 mod 24790441.
+- Proof artifact: `symbolic_upper_bound_verified`, q=`383`, next=`D2_p13_dmax_tail_q389_progression_outP2_70_out25_23_smaller_side7`
+- Proof JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DMAX_TAIL_RECOMBINATION_PROOFS/D2_p13_dmax_tail_q383_progression_outP2_70_out25_23_smaller_side7.json`
+- Boundary: This is the next residual tail-prime subatom after the q=379 two-sided floor-bound component.
+- `D2_p13_dmax_tail_q389_progression_outP2_70_out25_23_smaller_side7` [symbolic_upper_bound_verified]: Prove the q=389 tail-prime same-prime degree progression upper bound for both witness sides, starting from m = 16061521 mod 25573249 and m = 4554789 mod 25573249.
+- Proof artifact: `symbolic_upper_bound_verified`, q=`389`, next=`D2_p13_dmax_tail_q397_progression_outP2_70_out25_23_smaller_side7`
+- Proof JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DMAX_TAIL_RECOMBINATION_PROOFS/D2_p13_dmax_tail_q389_progression_outP2_70_out25_23_smaller_side7.json`
+- Boundary: This is the next residual tail-prime subatom after the q=383 two-sided floor-bound component.
+- `D2_p13_dmax_tail_q397_progression_outP2_70_out25_23_smaller_side7` [symbolic_upper_bound_verified]: Prove the q=397 tail-prime same-prime degree progression upper bound for both witness sides, starting from m = 15585955 mod 26635921 and m = 9163588 mod 26635921.
+- Proof artifact: `symbolic_upper_bound_verified`, q=`397`, next=`D2_p13_dmax_tail_q401_progression_outP2_70_out25_23_smaller_side7`
+- Proof JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DMAX_TAIL_RECOMBINATION_PROOFS/D2_p13_dmax_tail_q397_progression_outP2_70_out25_23_smaller_side7.json`
+- Boundary: This is the next residual tail-prime subatom after the q=389 two-sided floor-bound component.
+- `D2_p13_dmax_tail_q401_progression_outP2_70_out25_23_smaller_side7` [symbolic_upper_bound_verified]: Prove the q=401 tail-prime same-prime degree progression upper bound for both witness sides, starting from m = 19236186 mod 27175369 and m = 26667256 mod 27175369.
+- Proof artifact: `symbolic_upper_bound_verified`, q=`401`, next=`D2_p13_dmax_tail_q409_progression_outP2_70_out25_23_smaller_side7`
+- Proof JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DMAX_TAIL_RECOMBINATION_PROOFS/D2_p13_dmax_tail_q401_progression_outP2_70_out25_23_smaller_side7.json`
+- Boundary: This is the next residual tail-prime subatom after the q=397 two-sided floor-bound component.
+- `D2_p13_dmax_tail_q409_progression_outP2_70_out25_23_smaller_side7` [symbolic_upper_bound_verified]: Prove the q=409 tail-prime same-prime degree progression upper bound for both witness sides, starting from m = 25277936 mod 28270489 and m = 5668837 mod 28270489.
+- Proof artifact: `symbolic_upper_bound_verified`, q=`409`, next=`D2_p13_dmax_tail_q419_progression_outP2_70_out25_23_smaller_side7`
+- Proof JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DMAX_TAIL_RECOMBINATION_PROOFS/D2_p13_dmax_tail_q409_progression_outP2_70_out25_23_smaller_side7.json`
+- Boundary: This is the next residual tail-prime subatom after the q=401 two-sided floor-bound component.
+- `D2_p13_dmax_tail_q419_progression_outP2_70_out25_23_smaller_side7` [symbolic_upper_bound_verified]: Prove the q=419 tail-prime same-prime degree progression upper bound for both witness sides, starting from m = 1254417 mod 29669809 and m = 6801644 mod 29669809.
+- Proof artifact: `symbolic_upper_bound_verified`, q=`419`, next=`D2_p13_dmax_tail_q421_progression_outP2_70_out25_23_smaller_side7`
+- Proof JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DMAX_TAIL_RECOMBINATION_PROOFS/D2_p13_dmax_tail_q419_progression_outP2_70_out25_23_smaller_side7.json`
+- Boundary: This is the next residual tail-prime subatom after the q=409 two-sided floor-bound component.
+- `D2_p13_dmax_tail_q421_progression_outP2_70_out25_23_smaller_side7` [symbolic_upper_bound_verified]: Prove the q=421 tail-prime same-prime degree progression upper bound for both witness sides, starting from m = 27364072 mod 29953729 and m = 11327633 mod 29953729.
+- Proof artifact: `symbolic_upper_bound_verified`, q=`421`, next=`D2_p13_dmax_tail_q431_progression_outP2_70_out25_23_smaller_side7`
+- Proof JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DMAX_TAIL_RECOMBINATION_PROOFS/D2_p13_dmax_tail_q421_progression_outP2_70_out25_23_smaller_side7.json`
+- Boundary: This is the next residual tail-prime subatom after the q=419 two-sided floor-bound component.
+- `D2_p13_dmax_tail_q431_progression_outP2_70_out25_23_smaller_side7` [symbolic_upper_bound_verified]: Prove the q=431 tail-prime same-prime degree progression upper bound for both witness sides, starting from m = 30520147 mod 31393609 and m = 30076324 mod 31393609.
+- Proof artifact: `symbolic_upper_bound_verified`, q=`431`, next=`D2_p13_dmax_tail_q433_progression_outP2_70_out25_23_smaller_side7`
+- Proof JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DMAX_TAIL_RECOMBINATION_PROOFS/D2_p13_dmax_tail_q431_progression_outP2_70_out25_23_smaller_side7.json`
+- Boundary: This is the next residual tail-prime subatom after the q=421 two-sided floor-bound component.
+- `D2_p13_dmax_tail_q433_progression_outP2_70_out25_23_smaller_side7` [symbolic_upper_bound_verified]: Prove the q=433 tail-prime same-prime degree progression upper bound for both witness sides, starting from m = 4441757 mod 31685641 and m = 22352010 mod 31685641.
+- Proof artifact: `symbolic_upper_bound_verified`, q=`433`, next=`D2_p13_dmax_tail_q439_progression_outP2_70_out25_23_smaller_side7`
+- Proof JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DMAX_TAIL_RECOMBINATION_PROOFS/D2_p13_dmax_tail_q433_progression_outP2_70_out25_23_smaller_side7.json`
+- Boundary: This is the next residual tail-prime subatom after the q=431 two-sided floor-bound component.
+- `D2_p13_dmax_tail_q439_progression_outP2_70_out25_23_smaller_side7` [symbolic_upper_bound_verified]: Prove the q=439 tail-prime same-prime degree progression upper bound for both witness sides, starting from m = 31660390 mod 32569849 and m = 32568398 mod 32569849.
+- Proof artifact: `symbolic_upper_bound_verified`, q=`439`, next=`D2_p13_dmax_tail_q443_progression_outP2_70_out25_23_smaller_side7`
+- Proof JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DMAX_TAIL_RECOMBINATION_PROOFS/D2_p13_dmax_tail_q439_progression_outP2_70_out25_23_smaller_side7.json`
+- Boundary: This is the next residual tail-prime subatom after the q=433 two-sided floor-bound component.
+- `D2_p13_dmax_tail_q443_progression_outP2_70_out25_23_smaller_side7` [symbolic_upper_bound_verified]: Prove the q=443 tail-prime same-prime degree progression upper bound for both witness sides, starting from m = 17292855 mod 33166081 and m = 15525424 mod 33166081.
+- Proof artifact: `symbolic_upper_bound_verified`, q=`443`, next=`D2_p13_dmax_tail_q449_progression_outP2_70_out25_23_smaller_side7`
+- Proof JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DMAX_TAIL_RECOMBINATION_PROOFS/D2_p13_dmax_tail_q443_progression_outP2_70_out25_23_smaller_side7.json`
+- Boundary: This is the next residual tail-prime subatom after the q=439 two-sided floor-bound component.
+- `D2_p13_dmax_tail_q449_progression_outP2_70_out25_23_smaller_side7` [symbolic_upper_bound_verified]: Prove the q=449 tail-prime same-prime degree progression upper bound for both witness sides, starting from m = 10624284 mod 34070569 and m = 9976140 mod 34070569.
+- Proof artifact: `symbolic_upper_bound_verified`, q=`449`, next=`D2_p13_dmax_tail_q457_progression_outP2_70_out25_23_smaller_side7`
+- Proof JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DMAX_TAIL_RECOMBINATION_PROOFS/D2_p13_dmax_tail_q449_progression_outP2_70_out25_23_smaller_side7.json`
+- Boundary: This is the next residual tail-prime subatom after the q=443 two-sided floor-bound component.
+- `D2_p13_dmax_tail_q457_progression_outP2_70_out25_23_smaller_side7` [symbolic_upper_bound_verified]: Prove the q=457 tail-prime same-prime degree progression upper bound for both witness sides, starting from m = 33113790 mod 35295481 and m = 7601859 mod 35295481.
+- Proof artifact: `symbolic_upper_bound_verified`, q=`457`, next=`D2_p13_dmax_tail_q461_progression_outP2_70_out25_23_smaller_side7`
+- Proof JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DMAX_TAIL_RECOMBINATION_PROOFS/D2_p13_dmax_tail_q457_progression_outP2_70_out25_23_smaller_side7.json`
+- Boundary: This is the next residual tail-prime subatom after the q=449 two-sided floor-bound component.
+- `D2_p13_dmax_tail_q461_progression_outP2_70_out25_23_smaller_side7` [symbolic_upper_bound_verified]: Prove the q=461 tail-prime same-prime degree progression upper bound for both witness sides, starting from m = 709561 mod 35916049 and m = 6592929 mod 35916049.
+- Proof artifact: `symbolic_upper_bound_verified`, q=`461`, next=`D2_p13_dmax_tail_q463_progression_outP2_70_out25_23_smaller_side7`
+- Proof JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DMAX_TAIL_RECOMBINATION_PROOFS/D2_p13_dmax_tail_q461_progression_outP2_70_out25_23_smaller_side7.json`
+- Boundary: This is the next residual tail-prime subatom after the q=457 two-sided floor-bound component.
+- `D2_p13_dmax_tail_q463_progression_outP2_70_out25_23_smaller_side7` [symbolic_upper_bound_verified]: Prove the q=463 tail-prime same-prime degree progression upper bound for both witness sides, starting from m = 5329852 mod 36228361 and m = 31534794 mod 36228361.
+- Proof artifact: `symbolic_upper_bound_verified`, q=`463`, next=`D2_p13_dmax_tail_q467_progression_outP2_70_out25_23_smaller_side7`
+- Proof JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DMAX_TAIL_RECOMBINATION_PROOFS/D2_p13_dmax_tail_q463_progression_outP2_70_out25_23_smaller_side7.json`
+- Boundary: This is the next residual tail-prime subatom after the q=461 two-sided floor-bound component.
+- `D2_p13_dmax_tail_q467_progression_outP2_70_out25_23_smaller_side7` [symbolic_upper_bound_verified]: Prove the q=467 tail-prime same-prime degree progression upper bound for both witness sides, starting from m = 4056099 mod 36857041 and m = 5739141 mod 36857041.
+- Proof artifact: `symbolic_upper_bound_verified`, q=`467`, next=`D2_p13_dmax_tail_q479_progression_outP2_70_out25_23_smaller_side7`
+- Proof JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DMAX_TAIL_RECOMBINATION_PROOFS/D2_p13_dmax_tail_q467_progression_outP2_70_out25_23_smaller_side7.json`
+- Boundary: This is the next residual tail-prime subatom after the q=463 two-sided floor-bound component.
+- `D2_p13_dmax_tail_q479_progression_outP2_70_out25_23_smaller_side7` [symbolic_upper_bound_verified]: Prove the q=479 tail-prime same-prime degree progression upper bound for both witness sides, starting from m = 24650270 mod 38775529 and m = 37033716 mod 38775529.
+- Proof artifact: `symbolic_upper_bound_verified`, q=`479`, next=`D2_p13_dmax_tail_q487_progression_outP2_70_out25_23_smaller_side7`
+- Proof JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DMAX_TAIL_RECOMBINATION_PROOFS/D2_p13_dmax_tail_q479_progression_outP2_70_out25_23_smaller_side7.json`
+- Boundary: This is the next residual tail-prime subatom after the q=467 two-sided floor-bound component.
+- `D2_p13_dmax_tail_q487_progression_outP2_70_out25_23_smaller_side7` [symbolic_upper_bound_verified]: Prove the q=487 tail-prime same-prime degree progression upper bound for both witness sides, starting from m = 21019643 mod 40081561 and m = 36495282 mod 40081561.
+- Proof artifact: `symbolic_upper_bound_verified`, q=`487`, next=`D2_p13_dmax_tail_q491_progression_outP2_70_out25_23_smaller_side7`
+- Proof JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DMAX_TAIL_RECOMBINATION_PROOFS/D2_p13_dmax_tail_q487_progression_outP2_70_out25_23_smaller_side7.json`
+- Boundary: This is the next residual tail-prime subatom after the q=479 two-sided floor-bound component.
+- `D2_p13_dmax_tail_q491_progression_outP2_70_out25_23_smaller_side7` [symbolic_upper_bound_verified]: Prove the q=491 tail-prime same-prime degree progression upper bound for both witness sides, starting from m = 8394498 mod 40742689 and m = 21433495 mod 40742689.
+- Proof artifact: `symbolic_upper_bound_verified`, q=`491`, next=`D2_p13_dmax_tail_q499_progression_outP2_70_out25_23_smaller_side7`
+- Proof JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DMAX_TAIL_RECOMBINATION_PROOFS/D2_p13_dmax_tail_q491_progression_outP2_70_out25_23_smaller_side7.json`
+- Boundary: This is the next residual tail-prime subatom after the q=487 two-sided floor-bound component.
+- `D2_p13_dmax_tail_q499_progression_outP2_70_out25_23_smaller_side7` [symbolic_upper_bound_verified]: Prove the q=499 tail-prime same-prime degree progression upper bound for both witness sides, starting from m = 8072891 mod 42081169 and m = 26746686 mod 42081169.
+- Proof artifact: `symbolic_upper_bound_verified`, q=`499`, next=`D2_p13_dmax_tail_q503_progression_outP2_70_out25_23_smaller_side7`
+- Proof JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DMAX_TAIL_RECOMBINATION_PROOFS/D2_p13_dmax_tail_q499_progression_outP2_70_out25_23_smaller_side7.json`
+- Boundary: This is the next residual tail-prime subatom after the q=491 two-sided floor-bound component.
+- `D2_p13_dmax_tail_q503_progression_outP2_70_out25_23_smaller_side7` [symbolic_upper_bound_verified]: Prove the q=503 tail-prime same-prime degree progression upper bound for both witness sides, starting from m = 42056425 mod 42758521 and m = 19404650 mod 42758521.
+- Proof artifact: `symbolic_upper_bound_verified`, q=`503`, next=`D2_p13_dmax_tail_q509_progression_outP2_70_out25_23_smaller_side7`
+- Proof JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DMAX_TAIL_RECOMBINATION_PROOFS/D2_p13_dmax_tail_q503_progression_outP2_70_out25_23_smaller_side7.json`
+- Boundary: This is the next residual tail-prime subatom after the q=499 two-sided floor-bound component.
+- `D2_p13_dmax_tail_q509_progression_outP2_70_out25_23_smaller_side7` [symbolic_upper_bound_verified]: Prove the q=509 tail-prime same-prime degree progression upper bound for both witness sides, starting from m = 68882 mod 43784689 and m = 22331899 mod 43784689.
+- Proof artifact: `symbolic_upper_bound_verified`, q=`509`, next=`D2_p13_dmax_tail_q521_progression_outP2_70_out25_23_smaller_side7`
+- Proof JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DMAX_TAIL_RECOMBINATION_PROOFS/D2_p13_dmax_tail_q509_progression_outP2_70_out25_23_smaller_side7.json`
+- Boundary: This is the next residual tail-prime subatom after the q=503 two-sided floor-bound component.
+- `D2_p13_dmax_tail_q521_progression_outP2_70_out25_23_smaller_side7` [symbolic_upper_bound_verified]: Prove the q=521 tail-prime same-prime degree progression upper bound for both witness sides, starting from m = 37647553 mod 45873529 and m = 27667567 mod 45873529.
+- Proof artifact: `symbolic_upper_bound_verified`, q=`521`, next=`D2_p13_dmax_tail_q523_progression_outP2_70_out25_23_smaller_side7`
+- Proof JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DMAX_TAIL_RECOMBINATION_PROOFS/D2_p13_dmax_tail_q521_progression_outP2_70_out25_23_smaller_side7.json`
+- Boundary: This is the next residual tail-prime subatom after the q=509 two-sided floor-bound component.
+- `D2_p13_dmax_tail_q523_progression_outP2_70_out25_23_smaller_side7` [symbolic_upper_bound_verified]: Prove the q=523 tail-prime same-prime degree progression upper bound for both witness sides, starting from m = 5572874 mod 46226401 and m = 8835390 mod 46226401.
+- Proof artifact: `symbolic_upper_bound_verified`, q=`523`, next=`D2_p13_dmax_tail_q541_progression_outP2_70_out25_23_smaller_side7`
+- Proof JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DMAX_TAIL_RECOMBINATION_PROOFS/D2_p13_dmax_tail_q523_progression_outP2_70_out25_23_smaller_side7.json`
+- Boundary: This is the next residual tail-prime subatom after the q=521 two-sided floor-bound component.
+- `D2_p13_dmax_tail_q541_progression_outP2_70_out25_23_smaller_side7` [symbolic_upper_bound_verified]: Prove the q=541 tail-prime same-prime degree progression upper bound for both witness sides, starting from m = 6164881 mod 49463089 and m = 2567011 mod 49463089.
+- Proof artifact: `symbolic_upper_bound_verified`, q=`541`, next=`D2_p13_dmax_tail_q547_progression_outP2_70_out25_23_smaller_side7`
+- Proof JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DMAX_TAIL_RECOMBINATION_PROOFS/D2_p13_dmax_tail_q541_progression_outP2_70_out25_23_smaller_side7.json`
+- Boundary: This is the next residual tail-prime subatom after the q=523 two-sided floor-bound component.
+- `D2_p13_dmax_tail_q547_progression_outP2_70_out25_23_smaller_side7` [symbolic_upper_bound_verified]: Prove the q=547 tail-prime same-prime degree progression upper bound for both witness sides, starting from m = 34995605 mod 50566321 and m = 25423754 mod 50566321.
+- Proof artifact: `symbolic_upper_bound_verified`, q=`547`, next=`D2_p13_dmax_tail_q557_progression_outP2_70_out25_23_smaller_side7`
+- Proof JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DMAX_TAIL_RECOMBINATION_PROOFS/D2_p13_dmax_tail_q547_progression_outP2_70_out25_23_smaller_side7.json`
+- Boundary: This is the next residual tail-prime subatom after the q=541 two-sided floor-bound component.
+- `D2_p13_dmax_tail_q557_progression_outP2_70_out25_23_smaller_side7` [symbolic_upper_bound_verified]: Prove the q=557 tail-prime same-prime degree progression upper bound for both witness sides, starting from m = 45994463 mod 52432081 and m = 41289136 mod 52432081.
+- Proof artifact: `symbolic_upper_bound_verified`, q=`557`, next=`D2_p13_dmax_tail_q563_progression_outP2_70_out25_23_smaller_side7`
+- Proof JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DMAX_TAIL_RECOMBINATION_PROOFS/D2_p13_dmax_tail_q557_progression_outP2_70_out25_23_smaller_side7.json`
+- Boundary: This is the next residual tail-prime subatom after the q=547 two-sided floor-bound component.
+- `D2_p13_dmax_tail_q563_progression_outP2_70_out25_23_smaller_side7` [symbolic_upper_bound_verified]: Prove the q=563 tail-prime same-prime degree progression upper bound for both witness sides, starting from m = 42763521 mod 53567761 and m = 381503 mod 53567761.
+- Proof artifact: `symbolic_upper_bound_verified`, q=`563`, next=`D2_p13_dmax_tail_q569_progression_outP2_70_out25_23_smaller_side7`
+- Proof JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DMAX_TAIL_RECOMBINATION_PROOFS/D2_p13_dmax_tail_q563_progression_outP2_70_out25_23_smaller_side7.json`
+- Boundary: This is the next residual tail-prime subatom after the q=557 two-sided floor-bound component.
+- `D2_p13_dmax_tail_q569_progression_outP2_70_out25_23_smaller_side7` [symbolic_upper_bound_verified]: Prove the q=569 tail-prime same-prime degree progression upper bound for both witness sides, starting from m = 13641103 mod 54715609 and m = 17025468 mod 54715609.
+- Proof artifact: `symbolic_upper_bound_verified`, q=`569`, next=`D2_p13_dmax_tail_q571_progression_outP2_70_out25_23_smaller_side7`
+- Proof JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DMAX_TAIL_RECOMBINATION_PROOFS/D2_p13_dmax_tail_q569_progression_outP2_70_out25_23_smaller_side7.json`
+- Boundary: This is the next residual tail-prime subatom after the q=563 two-sided floor-bound component.
+- `D2_p13_dmax_tail_q571_progression_outP2_70_out25_23_smaller_side7` [symbolic_upper_bound_verified]: Prove the q=571 tail-prime same-prime degree progression upper bound for both witness sides, starting from m = 28625826 mod 55100929 and m = 25724236 mod 55100929.
+- Proof artifact: `symbolic_upper_bound_verified`, q=`571`, next=`D2_p13_dmax_tail_q577_progression_outP2_70_out25_23_smaller_side7`
+- Proof JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DMAX_TAIL_RECOMBINATION_PROOFS/D2_p13_dmax_tail_q571_progression_outP2_70_out25_23_smaller_side7.json`
+- Boundary: This is the next residual tail-prime subatom after the q=569 two-sided floor-bound component.
+- `D2_p13_dmax_tail_q577_progression_outP2_70_out25_23_smaller_side7` [symbolic_upper_bound_verified]: Prove the q=577 tail-prime same-prime degree progression upper bound for both witness sides, starting from m = 22102426 mod 56265001 and m = 9319575 mod 56265001.
+- Proof artifact: `symbolic_upper_bound_verified`, q=`577`, next=`D2_p13_dmax_tail_q587_progression_outP2_70_out25_23_smaller_side7`
+- Proof JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DMAX_TAIL_RECOMBINATION_PROOFS/D2_p13_dmax_tail_q577_progression_outP2_70_out25_23_smaller_side7.json`
+- Boundary: This is the next residual tail-prime subatom after the q=571 two-sided floor-bound component.
+- `D2_p13_dmax_tail_q587_progression_outP2_70_out25_23_smaller_side7` [symbolic_upper_bound_verified]: Prove the q=587 tail-prime same-prime degree progression upper bound for both witness sides, starting from m = 57070892 mod 58232161 and m = 23141071 mod 58232161.
+- Proof artifact: `symbolic_upper_bound_verified`, q=`587`, next=`D2_p13_dmax_tail_q_ge_587_parametric_zero_floor_outP2_70_out25_23_smaller_side7`
+- Proof JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DMAX_TAIL_RECOMBINATION_PROOFS/D2_p13_dmax_tail_q587_progression_outP2_70_out25_23_smaller_side7.json`
+- Boundary: This is the next residual tail-prime subatom after the q=577 two-sided floor-bound component.
+- `D2_p13_dmax_tail_q_ge_587_parametric_zero_floor_outP2_70_out25_23_smaller_side7` [bounded_parametric_zero_floor_verified]: Lift the bounded q>=587 zero-floor profile into a parametric tail lemma or aggregate recombination step; do not emit q=593 as another singleton unless the lift fails and returns a named exceptional class.
+- Proof artifact: `bounded_parametric_zero_floor_verified`, q=`(unknown)`, next=`D2_p13_dynamic_margin_outP2_70_out25_23_smaller_side7_side18`
+- Proof JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DMAX_TAIL_RECOMBINATION_PROOFS/D2_p13_dmax_tail_q_ge_587_parametric_zero_floor_outP2_70_out25_23_smaller_side7.json`
+- Boundary: This aggregate handoff is bounded-profile evidence only; it must be lifted before any all-N dMax tail or side-count-floor claim.
+- `D2_p13_dynamic_margin_outP2_70_out25_23_smaller_side7_side18` [bounded_dynamic_margin_replay_verified_symbolic_lift_needed]: After the dMax growth envelope is proved for outP2=70|out25=23|smaller=side7, recompute the residual dynamic margin; the bounded-budget constant 39 is not valid as an all-N handoff.
+- Inequality: `side18Count + vMax + rGreater + 39 <= candidateSize`
+- Proof artifact: `bounded_dynamic_margin_replay_verified_symbolic_lift_needed`, q=`(unknown)`, next=`D2_p13_residual_dynamic_margin_symbolic_lift_outP2_70_out25_23_smaller_side7_side18`
+- Proof JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DYNAMIC_MARGIN_PROOFS/D2_p13_dynamic_margin_outP2_70_out25_23_smaller_side7_side18.json`
+- Boundary: The residual dynamic margin must be re-derived after a symbolic dMax growth envelope replaces the false constant bound.
+- `D2_p13_residual_dynamic_margin_symbolic_lift_outP2_70_out25_23_smaller_side7_side18` [bounded_symbolic_lift_falsified_successor_atom_needed]: Lift the bounded residual dynamic-margin replay to a symbolic side18 threshold lemma: prove strictBaseThreshold - 1 - side18Count >= 20 for every future row in split outP2=70|out25=23|smaller=side7, or emit the first future-row residue/threshold obstruction.
+- Proof artifact: `bounded_symbolic_lift_falsified_successor_atom_needed`, q=`(unknown)`, next=`D2_p13_dynamic_margin_exact_mixed_successor_outP2_70_out25_23_smaller_side7_outsider_6323`
+- Proof JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DYNAMIC_MARGIN_PROOFS/D2_p13_residual_dynamic_margin_symbolic_lift_outP2_70_out25_23_smaller_side7_side18.json`
+- Boundary: This packet falsifies only the proposed symbolic threshold lift by bounded extension evidence and emits a sharper theorem-facing successor. It does not promote the bounded exact mixed-base verifier to an all-N proof.
+- `D2_p13_dynamic_margin_exact_mixed_successor_outP2_70_out25_23_smaller_side7_outsider_6323` [bounded_exact_mixed_margin_profile_verified_symbolic_lift_needed]: Replace the false side18 threshold lift for split outP2=70|out25=23|smaller=side7 with an exact mixed-margin successor: prove the missing-cross matching saturates the smaller side for the outsider-6323 family and leaves positive exact mixed margin, or emit the first sharper root-universe/rGreater obstruction.
+- Proof artifact: `bounded_exact_mixed_margin_profile_verified_symbolic_lift_needed`, q=`(unknown)`, next=`D2_p13_dynamic_margin_exact_mixed_symbolic_lift_outP2_70_out25_23_smaller_side7_outsider_6323`
+- Proof JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DYNAMIC_MARGIN_PROOFS/D2_p13_dynamic_margin_exact_mixed_successor_outP2_70_out25_23_smaller_side7_outsider_6323.json`
+- Boundary: This certificate verifies the exact mixed-margin successor only on the bounded 7307..10000 outsider-6323 profile. It does not prove the all-N matching saturation or exact mixed-margin lift.
+- `D2_p13_dynamic_margin_exact_mixed_symbolic_lift_outP2_70_out25_23_smaller_side7_outsider_6323` [symbolic_lift_reduced_to_matching_injection_and_margin_floor]: Lift the bounded exact mixed-margin successor profile for outsider 6323 into a symbolic theorem: prove smaller-side matching saturation and strictBaseThreshold - mixedBaseCliqueSize >= 1 for every future row in split outP2=70|out25=23|smaller=side7, or emit the first exact residue/root-universe obstruction.
+- Proof artifact: `symbolic_lift_reduced_to_matching_injection_and_margin_floor`, q=`(unknown)`, next=`D2_p13_dynamic_margin_exact_mixed_matching_injection_outP2_70_out25_23_smaller_side7_outsider_6323`
+- Proof JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DYNAMIC_MARGIN_PROOFS/D2_p13_dynamic_margin_exact_mixed_symbolic_lift_outP2_70_out25_23_smaller_side7_outsider_6323.json`
+- Boundary: This symbolic lift is required because the exact mixed-margin successor is only bounded-profile evidence so far.
+- `D2_p13_dynamic_margin_exact_mixed_matching_injection_outP2_70_out25_23_smaller_side7_outsider_6323` [bounded_prefix_matching_injection_verified_parametric_lift_needed]: Prove the side7-to-side18 missing-cross injection for outsider 6323, or emit the first exact residue/root-universe row where side7 cannot be saturated.
+- Proof artifact: `bounded_prefix_matching_injection_verified_parametric_lift_needed`, q=`(unknown)`, next=`D2_p13_dynamic_margin_exact_mixed_matching_injection_parametric_lift_outP2_70_out25_23_smaller_side7_outsider_6323`
+- Proof JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DYNAMIC_MARGIN_PROOFS/D2_p13_dynamic_margin_exact_mixed_matching_injection_outP2_70_out25_23_smaller_side7_outsider_6323.json`
+- Boundary: This certificate is bounded evidence. It verifies a reusable prefix matching through the source 7307..10000 profile and a no-obstruction event probe through 12000, but it does not prove the all-N side7-to-side18 matching injection.
+- `D2_p13_dynamic_margin_exact_mixed_matching_injection_parametric_lift_outP2_70_out25_23_smaller_side7_outsider_6323` [bounded_online_augmentation_profile_verified_finite_menu_needed]: Turn the bounded prefix injection into an online residue/block insertion proof for all future outsider-6323 rows, or emit the first exact future event row where side7 cannot be saturated.
+- Proof artifact: `bounded_online_augmentation_profile_verified_finite_menu_needed`, q=`(unknown)`, next=`D2_p13_dynamic_margin_exact_mixed_matching_injection_finite_augmenting_menu_outP2_70_out25_23_smaller_side7_outsider_6323`
+- Proof JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DYNAMIC_MARGIN_PROOFS/D2_p13_dynamic_margin_exact_mixed_matching_injection_parametric_lift_outP2_70_out25_23_smaller_side7_outsider_6323.json`
+- Boundary: This certificate is bounded evidence through N=40000. It verifies online side7 saturation and isolates the finite augmenting-path menu to prove next, but it does not prove the all-N outsider-6323 matching injection.
+- `D2_p13_dynamic_margin_exact_mixed_matching_injection_finite_augmenting_menu_outP2_70_out25_23_smaller_side7_outsider_6323` [bounded_finite_menu_falsified_direct_delta_successor_needed]: Prove the finite direct-insertion plus short replacement-path menu for every future side7-compatible event row in the outsider-6323 split family, or emit the first event row whose side7 vertex needs a new obstruction atom.
+- Proof artifact: `bounded_finite_menu_falsified_direct_delta_successor_needed`, q=`(unknown)`, next=`D2_p13_dynamic_margin_exact_mixed_matching_injection_direct_delta_minus1089_successor_outP2_70_out25_23_smaller_side7_outsider_6323`
+- Proof JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DYNAMIC_MARGIN_PROOFS/D2_p13_dynamic_margin_exact_mixed_matching_injection_finite_augmenting_menu_outP2_70_out25_23_smaller_side7_outsider_632.json`
+- Boundary: This packet falsifies the mined finite augmenting-path menu by an exact bounded future event row. It does not falsify side7 saturation or the matching-injection target; it only shows that the menu needs at least the new direct delta -1089 branch.
+- `D2_p13_dynamic_margin_exact_mixed_matching_injection_direct_delta_minus1089_successor_outP2_70_out25_23_smaller_side7_outsider_6323` [bounded_direct_delta_minus1089_branch_falsified_delta_minus39_successor_needed]: Prove the new direct-delta -1089 branch exposed at side7 vertex 73607, integrate it with the existing augmenting menu, or emit the first future row where this enlarged menu fails.
+- Proof artifact: `bounded_direct_delta_minus1089_branch_falsified_delta_minus39_successor_needed`, q=`(unknown)`, next=`D2_p13_dynamic_margin_exact_mixed_matching_injection_direct_delta_minus39_successor_outP2_70_out25_23_smaller_side7_outsider_6323`
+- Proof JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DYNAMIC_MARGIN_PROOFS/D2_p13_dynamic_margin_exact_mixed_matching_injection_direct_delta_minus1089_successor_outP2_70_out25_23_smaller_side7_ou.json`
+- Boundary: This packet falsifies the enlarged direct-delta -1089 menu by an exact bounded future event row. It does not falsify side7 saturation or the matching-injection target; it only shows that the menu needs at least the new direct delta -39 branch.
+- `D2_p13_dynamic_margin_exact_mixed_matching_injection_direct_delta_minus39_successor_outP2_70_out25_23_smaller_side7_outsider_6323` [bounded_direct_delta_minus39_branch_falsified_residue_parametric_delta_selection_lift_needed]: Prove the new direct-delta -39 branch exposed at side7 vertex 164507, integrate it with the enlarged augmenting menu, or emit the first future row where this menu fails.
+- Proof artifact: `bounded_direct_delta_minus39_branch_falsified_residue_parametric_delta_selection_lift_needed`, q=`(unknown)`, next=`D2_p13_dynamic_margin_exact_mixed_matching_injection_residue_parametric_delta_selection_lift_outP2_70_out25_23_smaller_side7_outsider_6323`
+- Proof JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DYNAMIC_MARGIN_PROOFS/D2_p13_dynamic_margin_exact_mixed_matching_injection_direct_delta_minus39_successor_outP2_70_out25_23_smaller_side7_outs.json`
+- Boundary: This packet falsifies the enlarged direct-delta -39 menu by an exact bounded future event row and intentionally stops the singleton-delta staircase. It does not falsify side7 saturation or prove any all-N matching injection.
+- `D2_p13_dynamic_margin_exact_mixed_matching_injection_residue_parametric_delta_selection_lift_outP2_70_out25_23_smaller_side7_outsider_6323` [residue_parametric_delta_selection_reduced_to_direct_selector_and_collision_sublemmas]: Replace the direct-delta staircase with a residue-parametric rule that selects a valid direct missing-cross edge or bounded augmenting path for every future side7-compatible event row in the outsider-6323 family.
+- Proof artifact: `residue_parametric_delta_selection_reduced_to_direct_selector_and_collision_sublemmas`, q=`(unknown)`, next=`D2_p13_dynamic_margin_exact_mixed_matching_injection_residue_direct_selector_lift_outP2_70_out25_23_smaller_side7_outsider_6323`
+- Proof JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DYNAMIC_MARGIN_PROOFS/D2_p13_dynamic_margin_exact_mixed_matching_injection_residue_parametric_delta_selection_lift_outP2_70_out25_23_smaller_s.json`
+- Boundary: This packet decomposes the residue-parametric delta-selection target into theorem sublemmas. It does not prove the all-N matching injection and does not promote bounded seed repairs as a proof.
+- `D2_p13_dynamic_margin_exact_mixed_matching_injection_residue_direct_selector_lift_outP2_70_out25_23_smaller_side7_outsider_6323` [symbolic_residue_direct_selector_lift_proved_selected_cross_squarefree_needed]: Prove the residue-parametric direct-selector sublemma: every future side7-compatible event row has a residue-selected side18-compatible direct endpoint, or emit the first event row with no selected direct endpoint.
+- Proof artifact: `symbolic_residue_direct_selector_lift_proved_selected_cross_squarefree_needed`, q=`(unknown)`, next=`D2_p13_dynamic_margin_exact_mixed_matching_injection_selected_cross_squarefree_lift_outP2_70_out25_23_smaller_side7_outsider_6323`
+- Proof JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DYNAMIC_MARGIN_PROOFS/D2_p13_dynamic_margin_exact_mixed_matching_injection_residue_direct_selector_lift_outP2_70_out25_23_smaller_side7_outsid.json`
+- Boundary: This packet proves only that every future side7-compatible event row has an active side18-compatible endpoint selected by the four-slot mod-4 rule. It does not prove that left * right + 1 is squarefree, and it does not prove that selected endpoints are collision-free for the online matching.
+- `D2_p13_dynamic_margin_exact_mixed_matching_injection_selected_cross_squarefree_lift_outP2_70_out25_23_smaller_side7_outsider_6323` [bounded_selected_cross_squarefree_falsified_exception_menu_needed]: Prove that the four-slot selected endpoint gives a squarefree cross product left * right + 1 for every future side7-compatible event row, or route the first residue class/future row where the selected cross product is non-squarefree into a bounded replacement-path exception menu.
+- Proof artifact: `bounded_selected_cross_squarefree_falsified_exception_menu_needed`, q=`(unknown)`, next=`D2_p13_dynamic_margin_exact_mixed_matching_injection_selected_cross_squarefree_exception_menu_outP2_70_out25_23_smaller_side7_outsider_6323_left_8107`
+- Proof JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DYNAMIC_MARGIN_PROOFS/D2_p13_dynamic_margin_exact_mixed_matching_injection_selected_cross_squarefree_lift_outP2_70_out25_23_smaller_side7_outs.json`
+- Boundary: This is a bounded falsifier packet, not an all-N proof of the replacement rule. It records the first selected endpoint whose cross product is non-squarefree and seeds a replacement-menu theorem target.
+- `D2_p13_dynamic_margin_exact_mixed_matching_injection_selected_cross_squarefree_exception_menu_outP2_70_out25_23_smaller_side7_outsider_6323_left_8107` [bounded_exception_menu_reduced_to_finite_window_lift]: Build a replacement menu for the selected cross-squarefree obstruction class starting at left=8107: replace the failing previous-93 endpoint by a side18-compatible squarefree-cross endpoint such as the observed delta -189 repair, or emit the first side7-compatible row with no bounded replacement.
+- Proof artifact: `bounded_exception_menu_reduced_to_finite_window_lift`, q=`(unknown)`, next=`D2_p13_dynamic_margin_exact_mixed_matching_injection_selected_cross_squarefree_exception_window_lift_outP2_70_out25_23_smaller_side7_outsider_6323`
+- Proof JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DYNAMIC_MARGIN_PROOFS/D2_p13_dynamic_margin_exact_mixed_matching_injection_selected_cross_squarefree_exception_menu_outP2_70_out25_23_smaller_.json`
+- Boundary: This packet replaces the left=8107 local repair by a finite-window theorem target. It is bounded evidence and a handoff, not an all-N proof of the exception menu or the full matching injection.
+- `D2_p13_dynamic_margin_exact_mixed_matching_injection_selected_cross_squarefree_exception_window_lift_outP2_70_out25_23_smaller_side7_outsider_6323` [bounded_exception_window_lift_falsified_right_compatibility_escape_needed]: Prove the finite 27-delta exception-window selector: every future selected-cross square-divisor exception row has a replacement right = left + delta from the menu with right side18-compatible, 6323 * right + 1 non-squarefree, and left * right + 1 squarefree, or emit the first uncovered row.
+- Proof artifact: `bounded_exception_window_lift_falsified_right_compatibility_escape_needed`, q=`(unknown)`, next=`D2_p13_dynamic_margin_exact_mixed_matching_injection_selected_cross_squarefree_exception_right_compatibility_escape_lift_outP2_70_out25_23_smaller_side7_outsider_6323_left_1138307`
+- Proof JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DYNAMIC_MARGIN_PROOFS/D2_p13_dynamic_margin_exact_mixed_matching_injection_selected_cross_squarefree_exception_window_lift_outP2_70_out25_23_s.json`
+- Boundary: This packet falsifies the 27-delta finite-window lift at bounded scope and emits the first uncovered row. It does not prove that the escape deltas work for all future rows and does not prove the full matching injection.
+- `D2_p13_dynamic_margin_exact_mixed_matching_injection_selected_cross_squarefree_exception_right_compatibility_escape_lift_outP2_70_out25_23_smaller_side7_outsider_6323_left_1138307` [bounded_right_compatibility_escape_profile_small_prime_crt_selector_needed]: Replace the failed 27-delta exception window with a right-compatibility escape selector seeded by the first uncovered row left=1138307: prove that every future finite-window miss has a side18 replacement such as the observed deltas -989 or -1189 with outsider compatibility and squarefree cross product, or emit the first row with no bounded escape repair.
+- Proof artifact: `bounded_right_compatibility_escape_profile_small_prime_crt_selector_needed`, q=`(unknown)`, next=`D2_p13_dynamic_margin_exact_mixed_matching_injection_selected_cross_squarefree_exception_small_prime_crt_escape_selector_lift_outP2_70_out25_23_smaller_side7_outsider_6323`
+- Proof JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DYNAMIC_MARGIN_PROOFS/D2_p13_dynamic_margin_exact_mixed_matching_injection_selected_cross_squarefree_exception_right_compatibility_escape_lift.json`
+- Boundary: This packet only records bounded evidence through N=10000000. It proves neither an all-N escape selector nor collision-free matching; it narrows the next theorem move to a small-prime CRT selector instead of a singleton delta branch.
+- `D2_p13_dynamic_margin_exact_mixed_matching_injection_selected_cross_squarefree_exception_small_prime_crt_escape_selector_lift_outP2_70_out25_23_smaller_side7_outsider_6323` [symbolic_p7_endpoint_reduction_ready_cross_squarefree_fallback_needed]: Derive a symbolic small-prime CRT selector for finite-window misses: for each selected-cross exception row missed by the 27-delta menu, choose a nearby side18 endpoint inside the 10000 local window whose right-side outsider compatibility is witnessed by one of {7,11,13,17,19,23,31,37,41} and whose cross product is squarefree, or emit the first row outside that rule.
+- Proof artifact: `symbolic_p7_endpoint_reduction_ready_cross_squarefree_fallback_needed`, q=`(unknown)`, next=`D2_p13_dynamic_margin_exact_mixed_matching_injection_selected_cross_squarefree_exception_p7_endpoint_cross_squarefree_fallback_lift_outP2_70_out25_23_smaller_side7_outsider_6323`
+- Proof JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DYNAMIC_MARGIN_PROOFS/D2_p13_dynamic_margin_exact_mixed_matching_injection_selected_cross_squarefree_exception_small_prime_crt_escape_selector_lift.json`
+- Boundary: This packet proves only the p=7 endpoint-existence component symbolically. The cross-squarefree fallback remains open and bounded evidence must not be promoted to an all-N claim.
+- `D2_p13_dynamic_margin_exact_mixed_matching_injection_selected_cross_squarefree_exception_p7_endpoint_cross_squarefree_fallback_lift_outP2_70_out25_23_smaller_side7_outsider_6323` [bounded_period_shifted_endpoint_menu_profile_ready_symbolic_menu_lift_needed]: Starting from the symbolic p=7 local side18 endpoint, prove that rows whose p=7 endpoint has a non-squarefree cross edge admit a nearby fallback endpoint from the small-prime set {7,11,13,17,19,23,31,37,41} with squarefree cross product, or emit the first fallback miss.
+- Proof artifact: `bounded_period_shifted_endpoint_menu_profile_ready_symbolic_menu_lift_needed`, q=`(unknown)`, next=`D2_p13_dynamic_margin_exact_mixed_matching_injection_selected_cross_squarefree_exception_period_shifted_endpoint_menu_lift_outP2_70_out25_23_smaller_side7_outsider_6323`
+- Proof JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DYNAMIC_MARGIN_PROOFS/D2_p13_dynamic_margin_exact_mixed_matching_injection_selected_cross_squarefree_exception_p7_endpoint_cross_squarefree_fallback_lift.json`
+- Boundary: This packet records a bounded period-shifted endpoint-menu profile and a symbolic right-compatibility skeleton. It does not prove all-N cross-squarefreeness or collision-free matching.
+- `D2_p13_dynamic_margin_exact_mixed_matching_injection_selected_cross_squarefree_exception_period_shifted_endpoint_menu_lift_outP2_70_out25_23_smaller_side7_outsider_6323` [bounded_prime_set_exact_replay_ready_squarefree_sieve_lift_needed]: Prove that every p=7 endpoint cross-bad row in this split family has a squarefree cross product inside the small-prime period-shifted endpoint menu, or emit the first future row outside the menu.
+- Proof artifact: `bounded_prime_set_exact_replay_ready_squarefree_sieve_lift_needed`, q=`(unknown)`, next=`D2_p13_dynamic_margin_exact_mixed_matching_injection_selected_cross_squarefree_exception_period_shifted_endpoint_menu_squarefree_sieve_lift_outP2_70_out25_23_smaller_side7_outsider_6323`
+- Proof JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DYNAMIC_MARGIN_PROOFS/D2_p13_dynamic_margin_exact_mixed_matching_injection_selected_cross_squarefree_exception_period_shifted_endpoint_menu_lift.json`
+- Boundary: This packet extends the exact named period-shifted endpoint-menu replay and reduces the all-N work to a squarefree sieve/hitting lemma. It does not prove all-N menu coverage or matching collision-freedom.
+- `D2_p13_dynamic_margin_exact_mixed_matching_injection_selected_cross_squarefree_exception_period_shifted_endpoint_menu_squarefree_sieve_lift_outP2_70_out25_23_smaller_side7_outsider_6323` [bounded_p7_period_shift_profile_ready_q17_residual_lift_needed]: Prove the squarefree hitting lemma for the period-shifted endpoint menu: every p=7 endpoint cross-bad row has at least one menu endpoint with squarefree cross product, or emit the first row where every menu endpoint is cross-blocked.
+- Proof artifact: `bounded_p7_period_shift_profile_ready_q17_residual_lift_needed`, q=`(unknown)`, next=`D2_p13_dynamic_margin_exact_mixed_matching_injection_selected_cross_squarefree_exception_period_shifted_endpoint_menu_p7_shift_q17_residual_lift_outP2_70_out25_23_smaller_side7_outsider_6323`
+- Proof JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DYNAMIC_MARGIN_PROOFS/D2_p13_dynamic_margin_exact_mixed_matching_injection_selected_cross_squarefree_exception_period_shifted_endpoint_menu_squarefree_sieve_lift.json`
+- Boundary: This packet decomposes the squarefree sieve target using bounded evidence through N=20000000. It proves neither the p7 period-shift selector nor the q17 residual fallback for all N, and it does not claim collision-free matching.
+- `D2_p13_dynamic_margin_exact_mixed_matching_injection_selected_cross_squarefree_exception_period_shifted_endpoint_menu_p7_shift_q17_residual_lift_outP2_70_out25_23_smaller_side7_outsider_6323` [bounded_q17_residual_falsified_cross_bad_fallback_needed]: Prove the p=7 period-shift squarefree selector and the q=17 residual-class fallback for the period-shifted endpoint menu, or emit the first residual row where the q=17 endpoint is cross-blocked.
+- Proof artifact: `bounded_q17_residual_falsified_cross_bad_fallback_needed`, q=`(unknown)`, next=`D2_p13_dynamic_margin_exact_mixed_matching_injection_selected_cross_squarefree_exception_period_shifted_endpoint_menu_q17_residual_cross_bad_fallback_lift_outP2_70_out25_23_smaller_side7_outsider_6323`
+- Proof JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DYNAMIC_MARGIN_PROOFS/D2_p13_dynamic_margin_exact_mixed_matching_injection_selected_cross_squarefree_exception_period_shifted_endpoint_menu_p7_shift_q17_residual_lift.json`
+- Boundary: This packet only falsifies the standalone q17 residual fallback at the first certified residual-class row after the 20M bounded handoff. The local fallback seed is not an all-N proof and does not claim collision-free online matching.
+- `D2_p13_dynamic_margin_exact_mixed_matching_injection_selected_cross_squarefree_exception_period_shifted_endpoint_menu_q17_residual_cross_bad_fallback_lift_outP2_70_out25_23_smaller_side7_outsider_6323` [bounded_seed_fallback_menu_falsified_p13_expanded_menu_needed]: Prove that every q17 residual cross-bad row has a squarefree side18-compatible fallback endpoint in the small-prime local menu, or emit the first row with no bounded fallback endpoint.
+- Proof artifact: `bounded_seed_fallback_menu_falsified_p13_expanded_menu_needed`, q=`(unknown)`, next=`D2_p13_dynamic_margin_exact_mixed_matching_injection_selected_cross_squarefree_exception_period_shifted_endpoint_menu_q17_residual_p13_expanded_fallback_menu_lift_outP2_70_out25_23_smaller_side7_outsider_6323`
+- Proof JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DYNAMIC_MARGIN_PROOFS/D2_p13_dynamic_margin_exact_mixed_matching_injection_selected_cross_squarefree_exception_period_shifted_endpoint_menu_q17_residual_cross_bad_fallback_lift.json`
+- Boundary: This packet exactly falsifies only the {11,19,23,31} seed fallback menu through the first fully fallback-blocked q17 residual row under the 10000 window. The p=13 repair seed is a next theorem target, not an all-N proof or collision-free matching claim.
+- `D2_p13_dynamic_margin_exact_mixed_matching_injection_selected_cross_squarefree_exception_period_shifted_endpoint_menu_q17_residual_p13_expanded_fallback_menu_lift_outP2_70_out25_23_smaller_side7_outsider_6323` [bounded_p13_expanded_fallback_menu_falsified_window_relaxation_needed]: Prove that every q17 residual cross-bad row has a squarefree side18-compatible endpoint in the expanded local menu {11,13,19,23,31}, or emit the first row outside that expanded menu.
+- Proof artifact: `bounded_p13_expanded_fallback_menu_falsified_window_relaxation_needed`, q=`(unknown)`, next=`D2_p13_dynamic_margin_exact_mixed_matching_injection_selected_cross_squarefree_exception_period_shifted_endpoint_menu_q17_residual_window_relaxed_fallback_menu_lift_outP2_70_out25_23_smaller_side7_outsider_6323`
+- Proof JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DYNAMIC_MARGIN_PROOFS/D2_p13_dynamic_margin_exact_mixed_matching_injection_selected_cross_squarefree_exception_period_shifted_endpoint_menu_q17_residual_p13_expanded_fallback_menu_lift.json`
+- Boundary: This packet exactly falsifies only the {11,13,19,23,31} p13-expanded fallback menu through the first fully expanded-menu-blocked q17 residual row under the 10000 window. The window-relaxed repair seeds are next theorem targets, not all-N coverage or collision-free matching claims.
+- `D2_p13_dynamic_margin_exact_mixed_matching_injection_selected_cross_squarefree_exception_period_shifted_endpoint_menu_q17_residual_window_relaxed_fallback_menu_lift_outP2_70_out25_23_smaller_side7_outsider_6323` [needed]: Prove that every q17 residual cross-bad row blocked by the 10000-window expanded menu has a squarefree side18-compatible endpoint in a controlled 25000-window menu, or emit the first fully window-relaxed blocked row.
+- Proof artifact: `bounded_p13_expanded_fallback_menu_falsified_window_relaxation_needed`, q=`(unknown)`, next=`(none)`
+- Proof JSON: `/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DYNAMIC_MARGIN_PROOFS/D2_p13_dynamic_margin_exact_mixed_matching_injection_selected_cross_squarefree_exception_period_shifted_endpoint_menu_q17_residual_p13_expanded_fallback_menu_lift.json`
+- Boundary: This window-relaxed fallback subatom is still cross-squarefree endpoint selection only. It must not claim all-N coverage from the seed or collision-free matching.
+
+## Proof Reduction
+
+- Matching saturation: matchingSizeInMissingCrossGraph = min(compatibleSide7Count, compatibleSide18Count)
+- K formula: K = compatibleSide7Count + compatibleSide18Count - strictBaseThreshold + 1
+- Slack formula: matchingSlack = strictBaseThreshold - 1 - max(compatibleSide7Count, compatibleSide18Count)
+
+## Bounded Witness
+
+- Formula replay passed: `yes`
+- Meets target floor: `yes`
+- Side-count slack formula range: `21..25`
+- Larger side range: `110..114`
+- Strict base threshold range: `132..138`
+- Candidate size range: `293..304`
+- Reconstructed vMax range: `43..45`
+- dMax range: `18..18`
+- rGreater range: `100..103`
+
+## Next Theorem Actions
+
+- Treat D2_p13_dmax_bound_outP2_70_out25_23_smaller_side7 as falsified by the extended bounded probe; do not promote dMax <= 18 as an all-N lemma.
+- Attack the successor D2_p13_dmax_growth_outP2_70_out25_23_smaller_side7: replace the false constant dMax bound before re-deriving the residual dynamic margin.
+- If the symbolic side-count inequality fails, emit a sharper split atom keyed by the first failing side-count term.
+- After all co-weakest side-count floor atoms are handled, lift the remaining larger-margin strata by the same inequality template.

@@ -1,0 +1,162 @@
+{
+  "schema": "erdos.number_theory.p848_dynamic_margin_proof/1",
+  "generatedAt": "2026-04-12T22:24:17Z",
+  "problemId": "848",
+  "proofId": "p848_dynamic_margin_proof_D2_p13_dynamic_margin_exact_mixed_matching_injection_selected_cross_squarefree_exception_p7_endpoint_cross_squarefree_fallback_lift",
+  "atomId": "D2_p13_dynamic_margin_exact_mixed_matching_injection_selected_cross_squarefree_exception_p7_endpoint_cross_squarefree_fallback_lift_outP2_70_out25_23_smaller_side7_outsider_6323",
+  "parentAtomId": "D2_p13_dynamic_margin_exact_mixed_matching_injection_selected_cross_squarefree_exception_small_prime_crt_escape_selector_lift_outP2_70_out25_23_smaller_side7_outsider_6323",
+  "status": "bounded_period_shifted_endpoint_menu_profile_ready_symbolic_menu_lift_needed",
+  "proofKind": "bounded_p7_cross_bad_period_shifted_endpoint_menu_profile",
+  "promotesAllNClaim": false,
+  "provesCrossSquarefreeAllN": false,
+  "provesCollisionFreeMatchingAllN": false,
+  "splitKey": "outP2=70|out25=23|smaller=side7",
+  "outsider": 6323,
+  "targetPrime": 13,
+  "phaseGuardDecision": {
+    "status": "replace_fallback_staircase_with_period_shifted_endpoint_menu",
+    "reason": "The 31 bounded p=7 endpoint cross-bad rows do not collapse to a single next-prime rule. They are all covered by a period-shifted local endpoint menu using small right-compatibility primes, so the next theorem object should be the finite menu lift rather than singleton repair deltas."
+  },
+  "boundedFallbackProfile": {
+    "checker": "/tmp/p848_right_escape_mine.cpp",
+    "checkerKind": "exact_modular_sieve_replay_plus_p7_cross_bad_period_shifted_endpoint_profile",
+    "maxN": 10000000,
+    "escapeWindow": 10000,
+    "finiteWindowMisses": 52,
+    "p7EndpointCrossSquarefree": 21,
+    "p7EndpointCrossBad": 31,
+    "periodShiftedEndpointCovered": 31,
+    "firstNoPeriodShiftedEndpoint": null,
+    "chosenDeltaCounts": [
+      { "delta": -1764, "count": 3 },
+      { "delta": -2039, "count": 3 },
+      { "delta": -1139, "count": 2 },
+      { "delta": -1639, "count": 2 },
+      { "delta": -1589, "count": 2 },
+      { "delta": -3339, "count": 2 },
+      { "delta": -1539, "count": 2 },
+      { "delta": -1739, "count": 2 },
+      { "delta": -1289, "count": 2 },
+      { "delta": -1839, "count": 1 },
+      { "delta": -1439, "count": 1 },
+      { "delta": -2089, "count": 1 },
+      { "delta": -1939, "count": 1 },
+      { "delta": -2739, "count": 1 },
+      { "delta": -4139, "count": 1 },
+      { "delta": -1464, "count": 1 },
+      { "delta": -689, "count": 1 },
+      { "delta": -3839, "count": 1 },
+      { "delta": -2439, "count": 1 },
+      { "delta": -939, "count": 1 }
+    ],
+    "chosenRightPrimeCounts": [
+      { "prime": 7, "count": 14 },
+      { "prime": 11, "count": 6 },
+      { "prime": 13, "count": 3 },
+      { "prime": 17, "count": 2 },
+      { "prime": 19, "count": 2 },
+      { "prime": 37, "count": 2 },
+      { "prime": 23, "count": 1 },
+      { "prime": 41, "count": 1 }
+    ],
+    "firstSlotEndpointPrimeCounts": [
+      { "prime": 11, "count": 12 },
+      { "prime": 17, "count": 6 },
+      { "prime": 19, "count": 5 },
+      { "prime": 13, "count": 4 },
+      { "prime": 37, "count": 2 },
+      { "prime": 23, "count": 1 }
+    ],
+    "firstSlotEndpointMissRows": [
+      6400607
+    ],
+    "interpretation": "The first-slot p=11 endpoint is only a partial fallback. The bounded repair rule that covers all observed p=7 cross-bad rows is the nearest period-shifted endpoint with a small right-compatibility square prime and squarefree cross product."
+  },
+  "periodShiftedEndpointMenu": {
+    "menuId": "outsider_6323_small_prime_period_shifted_endpoint_menu_v1",
+    "primeSet": [
+      7,
+      11,
+      13,
+      17,
+      19,
+      23,
+      31,
+      37,
+      41
+    ],
+    "deltaFamily": "For prime q in the menu and integer shift s >= 0, let k_q(left) be the least residue solving 6323*(left - 14 - 25*k)+1 = 0 mod q^2, and set d_{q,s}(left) = -14 - 25*(k_q(left) + s*q^2).",
+    "windowRule": "Keep only candidates with -10000 <= d_{q,s}(left) <= -14.",
+    "selectorRule": "Among window candidates, choose the nearest right endpoint whose cross product left*(left+d)+1 is squarefree.",
+    "provedSymbolicallyHere": [
+      "Every retained candidate is side18-compatible because d_{q,s}(left) is congruent to 11 mod 25.",
+      "Every retained candidate has q^2 dividing 6323*right+1 by the defining linear congruence."
+    ],
+    "notProvedHere": [
+      "That the menu always contains a squarefree cross product for every future p=7 cross-bad row.",
+      "That the selected endpoints are collision-free as an online matching."
+    ]
+  },
+  "boundedRows": [
+    { "left": 1229207, "p7Delta": -214, "p7CrossPrime": 2, "chosenDelta": -1139, "chosenRightPrime": 11 },
+    { "left": 1360607, "p7Delta": -539, "p7CrossPrime": 19, "chosenDelta": -1764, "chosenRightPrime": 7 },
+    { "left": 1381307, "p7Delta": -414, "p7CrossPrime": 2, "chosenDelta": -1639, "chosenRightPrime": 7 },
+    { "left": 1533407, "p7Delta": -614, "p7CrossPrime": 2, "chosenDelta": -1839, "chosenRightPrime": 7 },
+    { "left": 1685507, "p7Delta": -814, "p7CrossPrime": 2, "chosenDelta": -2039, "chosenRightPrime": 7 },
+    { "left": 1837607, "p7Delta": -1014, "p7CrossPrime": 2, "chosenDelta": -1639, "chosenRightPrime": 37 },
+    { "left": 2699807, "p7Delta": -814, "p7CrossPrime": 2, "chosenDelta": -1589, "chosenRightPrime": 11 },
+    { "left": 2852807, "p7Delta": -689, "p7CrossPrime": 17, "chosenDelta": -3339, "chosenRightPrime": 11 },
+    { "left": 3390107, "p7Delta": -214, "p7CrossPrime": 2, "chosenDelta": -1439, "chosenRightPrime": 7 },
+    { "left": 3841007, "p7Delta": -314, "p7CrossPrime": 2, "chosenDelta": -1539, "chosenRightPrime": 7 },
+    { "left": 4490807, "p7Delta": -864, "p7CrossPrime": 19, "chosenDelta": -2089, "chosenRightPrime": 7 },
+    { "left": 5183807, "p7Delta": -514, "p7CrossPrime": 2, "chosenDelta": -1739, "chosenRightPrime": 7 },
+    { "left": 5335907, "p7Delta": -714, "p7CrossPrime": 2, "chosenDelta": -1289, "chosenRightPrime": 17 },
+    { "left": 5512307, "p7Delta": -714, "p7CrossPrime": 2, "chosenDelta": -1939, "chosenRightPrime": 7 },
+    { "left": 5988407, "p7Delta": -289, "p7CrossPrime": 17, "chosenDelta": -2739, "chosenRightPrime": 7 },
+    { "left": 6312407, "p7Delta": -889, "p7CrossPrime": 3, "chosenDelta": -1539, "chosenRightPrime": 13 },
+    { "left": 6400607, "p7Delta": -889, "p7CrossPrime": 3, "chosenDelta": -3339, "chosenRightPrime": 7 },
+    { "left": 6712907, "p7Delta": -814, "p7CrossPrime": 2, "chosenDelta": -1589, "chosenRightPrime": 19 },
+    { "left": 6940607, "p7Delta": -664, "p7CrossPrime": 3, "chosenDelta": -2039, "chosenRightPrime": 17 },
+    { "left": 7090007, "p7Delta": -614, "p7CrossPrime": 2, "chosenDelta": -1739, "chosenRightPrime": 13 },
+    { "left": 7161107, "p7Delta": -664, "p7CrossPrime": 3, "chosenDelta": -4139, "chosenRightPrime": 23 },
+    { "left": 8682107, "p7Delta": -214, "p7CrossPrime": 2, "chosenDelta": -1139, "chosenRightPrime": 37 },
+    { "left": 8834207, "p7Delta": -414, "p7CrossPrime": 2, "chosenDelta": -1289, "chosenRightPrime": 11 },
+    { "left": 8849507, "p7Delta": -1014, "p7CrossPrime": 2, "chosenDelta": -1464, "chosenRightPrime": 11 },
+    { "left": 8986307, "p7Delta": -614, "p7CrossPrime": 2, "chosenDelta": -689, "chosenRightPrime": 19 },
+    { "left": 9138407, "p7Delta": -814, "p7CrossPrime": 2, "chosenDelta": -2039, "chosenRightPrime": 7 },
+    { "left": 9290507, "p7Delta": -1014, "p7CrossPrime": 2, "chosenDelta": -3839, "chosenRightPrime": 11 },
+    { "left": 9442607, "p7Delta": -1214, "p7CrossPrime": 2, "chosenDelta": -2439, "chosenRightPrime": 7 },
+    { "left": 9594707, "p7Delta": -189, "p7CrossPrime": 19, "chosenDelta": -1764, "chosenRightPrime": 41 },
+    { "left": 9607307, "p7Delta": -539, "p7CrossPrime": 31, "chosenDelta": -939, "chosenRightPrime": 13 },
+    { "left": 9871907, "p7Delta": -539, "p7CrossPrime": 43, "chosenDelta": -1764, "chosenRightPrime": 7 }
+  ],
+  "nextSubatom": {
+    "atomId": "D2_p13_dynamic_margin_exact_mixed_matching_injection_selected_cross_squarefree_exception_period_shifted_endpoint_menu_lift_outP2_70_out25_23_smaller_side7_outsider_6323",
+    "status": "needed",
+    "term": "outsider-6323 period-shifted endpoint menu lift",
+    "statement": "Prove that every p=7 endpoint cross-bad row in this split family has a squarefree cross product inside the small-prime period-shifted endpoint menu, or emit the first future row outside the menu.",
+    "completionRule": "A symbolic finite endpoint-menu lift covers all p=7 endpoint cross-bad rows without singleton delta siblings, or the first row outside the menu becomes the next deterministic packet.",
+    "dependsOnSublemma": "selected_cross_squarefree_exception_p7_endpoint_cross_squarefree_fallback_lift",
+    "seedPrimeSet": [
+      7,
+      11,
+      13,
+      17,
+      19,
+      23,
+      31,
+      37,
+      41
+    ],
+    "seedEscapeWindow": 10000,
+    "remainingAfterDischarge": [
+      "selector_collision_or_augmentation_lift"
+    ],
+    "proofBoundary": "This next subatom is still cross-squarefree selection only. It must not claim collision-free online matching, and bounded menu coverage is not an all-N proof."
+  },
+  "proofBoundary": "This packet records a bounded period-shifted endpoint-menu profile and a symbolic right-compatibility skeleton. It does not prove all-N cross-squarefreeness or collision-free matching.",
+  "nextTheoremActions": [
+    "Prove D2_p13_dynamic_margin_exact_mixed_matching_injection_selected_cross_squarefree_exception_period_shifted_endpoint_menu_lift_outP2_70_out25_23_smaller_side7_outsider_6323 next.",
+    "Do not add singleton fallback-delta rungs unless the period-shifted endpoint menu emits a first miss outside its rule."
+  ]
+}

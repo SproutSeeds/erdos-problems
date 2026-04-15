@@ -1,0 +1,73 @@
+{
+  "schema": "erdos.p848_dmax_tail_side_complement_proof/1",
+  "problemId": "848",
+  "atomId": "D2_p13_dmax_tail_q11_minus_progression_outP2_70_out25_23_smaller_side7",
+  "parentTailAtomId": "D2_p13_dmax_tail_recombination_outP2_70_out25_23_smaller_side7",
+  "predecessorAtomId": "D2_p13_dmax_tail_q19_plus_progression_outP2_70_out25_23_smaller_side7",
+  "observedComponentSiblingAtomId": "D2_p13_dmax_q11_progression_outP2_70_out25_23_smaller_side7",
+  "splitKey": "outP2=70|out25=23|smaller=side7",
+  "status": "symbolic_upper_bound_verified",
+  "promotesAllNClaim": false,
+  "proofKind": "crt_floor_function_side_complement_upper_bound",
+  "q": 11,
+  "side": "minus",
+  "squareDivisor": 121,
+  "scope": {
+    "term": "same-prime dMax side-complement degree contribution",
+    "boundedProfileRange": "7307..12000",
+    "claimBoundary": "This proves only the minus-side q=11 complement left open by the observed plus-side q=11 packet. It does not prove the full dMax tail envelope or any side-count floor."
+  },
+  "witnessBound": {
+    "side": "minus",
+    "witnessValue": 9563,
+    "oppositeSide": "plus",
+    "oppositeResidueMod169": 70,
+    "productCondition": "121 divides 9563*m + 1",
+    "coefficientMod121": 4,
+    "requiredOppositeValueMod121": 30,
+    "crtProgression": {
+      "variable": "m",
+      "residue": 16970,
+      "modulus": 20449,
+      "formula": "m = 16970 + 20449*t",
+      "tLowerBound": 0
+    },
+    "rawCountUpperBound": "max(0, floor((N - 16970) / 20449) + 1)",
+    "observedCheck": {
+      "N": 12000,
+      "rawFormulaCount": 0,
+      "observedSquareEventCount": 0,
+      "upperBoundPassed": true
+    }
+  },
+  "observedSiblingCoverage": {
+    "status": "plus_side_q11_already_verified",
+    "siblingProofPath": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DMAX_Q_PROGRESSION_PROOFS/D2_p13_dmax_q11_progression_outP2_70_out25_23_smaller_side7.json",
+    "coveredSide": "plus",
+    "coveredProgression": "m = 1620 + 20449*t"
+  },
+  "overlapBoundary": {
+    "status": "raw_floor_bound_suffices_for_upper_bound",
+    "reason": "Prior-q overlaps, base-residue exclusions, and lower least-square-witness exclusions can only reduce the minus-side q=11 raw CRT count."
+  },
+  "checkedIdentities": [
+    "9563 mod 121 = 4.",
+    "4*30 + 1 is divisible by 121.",
+    "CRT(m = 70 mod 169, m = 30 mod 121) gives m = 16970 mod 20449.",
+    "The minus-side q=11 raw floor function evaluates to zero at N = 12000, matching the bounded growth profile.",
+    "The existing q=11 observed-component packet already verifies the plus-side progression m = 1620 mod 20449."
+  ],
+  "nextSubatom": {
+    "atomId": "D2_p13_dmax_tail_q23_plus_progression_outP2_70_out25_23_smaller_side7",
+    "status": "needed",
+    "q": 23,
+    "side": "plus",
+    "statement": "Prove the plus-side q=23 tail complement left open by the observed minus-side q=23 component, starting from m = 44039 mod 89401.",
+    "completionRule": "The plus-side q=23 tail contribution is bounded by its CRT floor function, or the next side-specific tail complement becomes the next atom."
+  },
+  "proofBoundary": "This certificate discharges the minus-side q=11 side complement. It intentionally leaves the plus-side q=23 complement open because the existing q=23 observed-component packet only certified the minus witness.",
+  "nextTheoremActions": [
+    "Attack D2_p13_dmax_tail_q23_plus_progression_outP2_70_out25_23_smaller_side7 next.",
+    "Use the existing q=23 observed-component packet for the minus witness and certify the plus-side complement separately."
+  ]
+}

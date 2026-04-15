@@ -1,0 +1,228 @@
+{
+  "schema": "p848.dynamicMarginProof.v1",
+  "generatedAt": "2026-04-12T20:28:29Z",
+  "problemId": "848",
+  "proofId": "p848_dynamic_margin_proof_D2_p13_dynamic_margin_exact_mixed_matching_injection_direct_delta_minus39_successor_outP2_70_out25_23_smaller_side7_outs",
+  "atomId": "D2_p13_dynamic_margin_exact_mixed_matching_injection_direct_delta_minus39_successor_outP2_70_out25_23_smaller_side7_outsider_6323",
+  "splitKey": "outP2=70|out25=23|smaller=side7",
+  "outsider": 6323,
+  "status": "bounded_direct_delta_minus39_branch_falsified_residue_parametric_delta_selection_lift_needed",
+  "promotesAllNClaim": false,
+  "proofKind": "bounded_delta_staircase_generalization_trigger",
+  "dependsOn": [
+    "D2_p13_dynamic_margin_exact_mixed_matching_injection_direct_delta_minus1089_successor_outP2_70_out25_23_smaller_side7_outsider_6323"
+  ],
+  "phaseGuardDecision": {
+    "status": "stop_extending_single_delta_staircase",
+    "reason": "The finite augmenting menu has now required multiple bounded direct-delta repairs (-1089, then -39), and the -39 replay exposes another direct repair (-1664). The next durable theorem object should be a residue-parametric delta-selection lift rather than another one-off delta sibling.",
+    "forbiddenOverclaim": "Do not treat any bounded direct-delta menu as an all-N matching-injection proof."
+  },
+  "testedEnlargedMenu": {
+    "sourceProfileMaxN": 40000,
+    "sourceFiniteMenuFailureN": 73607,
+    "deltaMinus1089FailureN": 164507,
+    "addedDirectDeltas": [
+      -1089,
+      -39
+    ],
+    "directDeltaCount": 27,
+    "directDeltas": [
+      -1089,
+      -864,
+      -789,
+      -764,
+      -739,
+      -689,
+      -664,
+      -639,
+      -589,
+      -564,
+      -539,
+      -489,
+      -464,
+      -439,
+      -414,
+      -389,
+      -364,
+      -339,
+      -289,
+      -264,
+      -239,
+      -189,
+      -164,
+      -139,
+      -89,
+      -64,
+      -39
+    ],
+    "replacementPathLeftValues": [
+      10807,
+      12407,
+      14407
+    ],
+    "menuBoundary": "This replay adds the direct delta -39 branch to the previously enlarged direct-delta menu, then stops at the first future event row outside that menu."
+  },
+  "boundedReplayAgainstEnlargedMenu": {
+    "replayStartN": 164507,
+    "replayMaxN": 468707,
+    "leftInsertionRowsCheckedUntilFailure": 4464,
+    "leftInsertionRowsCoveredBeforeFailure": 4463,
+    "coverDeltaStatsBeforeFailure": [
+      {
+        "delta": -864,
+        "count": 2547
+      },
+      {
+        "delta": -1089,
+        "count": 1661
+      },
+      {
+        "delta": -739,
+        "count": 92
+      },
+      {
+        "delta": -764,
+        "count": 58
+      },
+      {
+        "delta": -789,
+        "count": 39
+      },
+      {
+        "delta": -539,
+        "count": 18
+      },
+      {
+        "delta": -689,
+        "count": 16
+      },
+      {
+        "delta": -589,
+        "count": 10
+      },
+      {
+        "delta": -389,
+        "count": 6
+      },
+      {
+        "delta": -639,
+        "count": 4
+      },
+      {
+        "delta": -489,
+        "count": 4
+      },
+      {
+        "delta": -564,
+        "count": 3
+      },
+      {
+        "delta": -664,
+        "count": 1
+      },
+      {
+        "delta": -364,
+        "count": 1
+      },
+      {
+        "delta": -339,
+        "count": 1
+      },
+      {
+        "delta": -239,
+        "count": 1
+      },
+      {
+        "delta": -39,
+        "count": 1
+      }
+    ],
+    "firstFailure": {
+      "N": 468707,
+      "left": 468707,
+      "leftMod25": 7,
+      "leftMod100": 7,
+      "leftMod625": 582,
+      "leftCompatibility": {
+        "outsiderProductPlusOne": 2963634362,
+        "squareWitnesses": [
+          {
+            "prime": 13,
+            "square": 169
+          }
+        ]
+      },
+      "activeSide18Count": 6882,
+      "missingCrossEdgeCount": 538,
+      "menuDeltaCount": 27,
+      "interpretation": "The enlarged -39 menu reaches a row where all currently named deltas fail to give an active side18-compatible squarefree missing-cross edge."
+    }
+  },
+  "staircaseEvidence": {
+    "boundedDirectDeltaRepairs": [
+      {
+        "failureN": 73607,
+        "repairDelta": -1089,
+        "right": 72518
+      },
+      {
+        "failureN": 164507,
+        "repairDelta": -39,
+        "right": 164468
+      },
+      {
+        "failureN": 468707,
+        "repairDelta": -1664,
+        "right": 467043,
+        "recordedAsGeneralizationSeedOnly": true
+      }
+    ],
+    "interpretation": "The evidence now favors a rule selecting from residue/floor blocks of available deltas, not an unbounded sequence of one-off successor atoms."
+  },
+  "successorDirectEdgeWitness": {
+    "left": 468707,
+    "right": 467043,
+    "delta": -1664,
+    "leftResidueMod25": 7,
+    "rightResidueMod25": 18,
+    "leftResidueMod100": 7,
+    "rightResidueMod100": 43,
+    "rightActiveAtN": true,
+    "rightCompatibility": {
+      "outsiderProductPlusOne": 2953112890,
+      "squareWitnesses": [
+        {
+          "prime": 7,
+          "square": 49
+        }
+      ]
+    },
+    "crossProductPlusOne": 218906323402,
+    "crossSquarefree": true,
+    "crossSquarefreeCheckedThrough": 467874,
+    "interpretation": "The first row outside the enlarged delta -39 menu is still matched by a direct missing-cross edge. The delta -1664 witness is retained as a seed for the parametric delta-selection lift, not promoted as another singleton rung."
+  },
+  "nextSubatom": {
+    "atomId": "D2_p13_dynamic_margin_exact_mixed_matching_injection_residue_parametric_delta_selection_lift_outP2_70_out25_23_smaller_side7_outsider_6323",
+    "status": "needed",
+    "term": "outsider-6323 residue-parametric delta-selection lift",
+    "statement": "Replace the direct-delta staircase with a residue-parametric rule that selects a valid direct missing-cross edge or bounded augmenting path for every future side7-compatible event row in the outsider-6323 family.",
+    "completionRule": "A residue/block delta-selection theorem proves saturation without adding one-off direct-delta siblings, or the first event row not covered by any finite residue-parametric rule becomes the next obstruction packet.",
+    "seedFailures": [
+      73607,
+      164507,
+      468707
+    ],
+    "seedDeltas": [
+      -1089,
+      -39,
+      -1664
+    ],
+    "proofBoundary": "This successor is a theorem-facing generalization target. Its seeds are bounded evidence only and do not prove the all-N matching injection."
+  },
+  "proofBoundary": "This packet falsifies the enlarged direct-delta -39 menu by an exact bounded future event row and intentionally stops the singleton-delta staircase. It does not falsify side7 saturation or prove any all-N matching injection.",
+  "nextTheoremActions": [
+    "Do not spawn a direct delta -1664 singleton sibling as the canonical next step.",
+    "Prove or falsify the residue-parametric delta-selection lift using the seed failures 73607, 164507, and 468707."
+  ]
+}

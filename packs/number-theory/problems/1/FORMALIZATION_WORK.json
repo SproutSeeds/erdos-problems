@@ -1,0 +1,65 @@
+{
+  "schema": "erdos.problem_formalization_work/1",
+  "generatedAt": "2026-04-14T11:46:21.751Z",
+  "problemId": "1",
+  "displayName": "Erdos Problem #1",
+  "title": "Erdos Problem #1",
+  "cluster": "number-theory",
+  "sourceKind": "claim_pass_only",
+  "formalizationWorkMode": "baseline",
+  "currentClaimSurface": "route_scaffolding",
+  "currentState": {
+    "activeRoute": "distinct_subset_sum_lower_bound",
+    "routeSummary": "Keep the problem centered on the exponential-growth lower-bound route implied by distinct subset sums.",
+    "nextHonestMove": "Record the first reduction and checkpoint it without overclaiming theorem progress.",
+    "latestVerifiedInterval": null
+  },
+  "currentWork": {
+    "workId": "number-theory_1_state_claim_honestly_v1",
+    "focusFormalizationId": "number-theory_1_promote_ready_atom_v1",
+    "focusId": "state_claim_honestly",
+    "title": "State Claim Honestly",
+    "status": "ready",
+    "summary": "State the candidate theorem-facing claim in pack language without overstating current support.",
+    "why": "This keeps the formalization target narrower than the current evidence boundary.",
+    "workingDefinition": [
+      "Candidate formalization target: Record the first reduction and checkpoint it without overclaiming theorem progress."
+    ],
+    "currentEvidence": [
+      "Current claim surface: route_scaffolding.",
+      "Active route: distinct_subset_sum_lower_bound.",
+      "No canonical verified interval is currently frozen."
+    ],
+    "dischargedWork": [],
+    "remainingGaps": [
+      "state_claim_honestly: Write a claim statement that is no stronger than the active claim-pass support surface.",
+      "freeze_support_artifacts: Attach theorem-loop, claim-pass, and any bridge-backed packet paths directly to the packet.",
+      "define_promotion_boundary: Record explicit promotion criteria tied to current falsifiers."
+    ],
+    "nextCommands": [
+      "erdos problem formalization-refresh 1",
+      "erdos problem formalization 1"
+    ]
+  },
+  "commands": {
+    "problemShow": "erdos problem show 1",
+    "problemArtifacts": "erdos problem artifacts 1",
+    "formalization": "erdos problem formalization 1",
+    "formalizationRefresh": "erdos problem formalization-refresh 1",
+    "formalizationWork": "erdos problem formalization-work 1",
+    "formalizationWorkRefresh": "erdos problem formalization-work-refresh 1",
+    "formalizationWorkCheck": "erdos problem formalization-work-check 1",
+    "claimPass": "erdos problem claim-pass 1",
+    "sourceRefresh": null
+  },
+  "sources": {
+    "packProblemDir": "/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/1",
+    "formalizationWorkJsonPath": "/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/1/FORMALIZATION_WORK.json",
+    "formalizationWorkMarkdownPath": "/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/1/FORMALIZATION_WORK.md",
+    "formalizationWorkSvgPath": "/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/1/FORMALIZATION_WORK.svg",
+    "formalizationJsonPath": "/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/1/FORMALIZATION.json",
+    "formalizationMarkdownPath": "/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/1/FORMALIZATION.md",
+    "theoremLoopJsonPath": "/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/1/THEOREM_LOOP.json",
+    "legacyBridgeJsonPath": null
+  }
+}

@@ -2,6 +2,14 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { parse } from 'yaml';
 import { getPackProblemDir } from './paths.js';
+import {
+  getProblemClaimLoopSnapshot,
+  getProblemClaimPassSnapshot,
+  getProblemFormalizationSnapshot,
+  getProblemFormalizationWorkSnapshot,
+  getProblemTaskListSnapshot,
+  getProblemTheoremLoopSnapshot,
+} from './theorem-loop.js';
 
 function readYamlIfPresent(filePath) {
   if (!fs.existsSync(filePath)) {
@@ -84,6 +92,12 @@ export function buildGraphTheoryStatusSnapshot(problem) {
   const context = readYamlIfPresent(contextPath) ?? {};
   const routePacket = readYamlIfPresent(routePacketPath);
   const opsDetails = parseOpsDetails(problem.problemId);
+  const theoremLoop = getProblemTheoremLoopSnapshot(problem);
+  const claimLoop = getProblemClaimLoopSnapshot(problem);
+  const claimPass = getProblemClaimPassSnapshot(problem);
+  const formalization = getProblemFormalizationSnapshot(problem);
+  const formalizationWork = getProblemFormalizationWorkSnapshot(problem);
+  const taskList = getProblemTaskListSnapshot(problem);
 
   const activeRoute =
     problem.researchState?.active_route
@@ -152,6 +166,12 @@ export function buildGraphTheoryStatusSnapshot(problem) {
     frontierNotePath,
     routeHistoryPresent: fs.existsSync(routeHistoryPath),
     routeHistoryPath,
+    theoremLoop,
+    claimLoop,
+    claimPass,
+    formalization,
+    formalizationWork,
+    taskList,
     checkpointTemplatePresent: fs.existsSync(checkpointTemplatePath),
     checkpointTemplatePath,
     reportTemplatePresent: fs.existsSync(reportTemplatePath),

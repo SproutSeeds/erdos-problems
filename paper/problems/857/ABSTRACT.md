@@ -1,18 +1,24 @@
 # Abstract
 
-Problem: Erdos Problem #857 — Sunflower Conjecture
-Section role: State the exact scope of the paper and separate proved statements from targets or heuristics.
+We study the weak sunflower problem recorded as Erdos problem `857`: determine
+the growth of the minimum `m(n,k)` such that every family of `m(n,k)` subsets of
+`[n]` contains a `k`-sunflower, equivalently a `k`-tuple of sets with identical
+pairwise intersections. The problem remains open, and this paper does not claim
+its resolution.
 
-Primary public inputs:
-- problems/857/STATEMENT.md
-- problems/857/EVIDENCE.md
-- packs/sunflower/problems/857/FRONTIER_NOTE.md
+Instead, we assemble a public-safe progress note around the current research
+frontier represented in this repo. We isolate the active route
+`anchored_selector_linearization`, identify the strongest closed public support
+layer immediately beneath it, and record the exact remaining open seam exposed by
+the current board packet. In particular, the public record supports the claim
+that the weak-sunflower pack has advanced past generic counting closure and now
+concentrates its live pressure on promoting a verified helper/theorem stack into
+the named route leaf `anchored_selector_linearization_realized`.
 
-Writing guardrails:
-- Open with the exact problem framing and current status.
-- Do not imply a full proof unless the public record supports it.
-- If the route is incomplete, describe this as progress, structure, or a route note.
-
-Draft:
-
-> Start writing here. Keep every claim matched to public evidence or clearly labeled as conjectural, heuristic, or computational.
+We also separate asymptotic proof posture from finite computation. The current
+compute surface contains a narrow exact packet for the question whether
+`M(8,3) = 45`, marked ready for a local scout, but this does not upgrade the
+status of the asymptotic problem. The resulting document is therefore a formal
+progress paper: it places problem `857` in the classical and modern sunflower
+literature, records the current route architecture, and leaves the remaining
+mathematical obligations explicit.

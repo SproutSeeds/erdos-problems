@@ -1,0 +1,74 @@
+{
+  "schema": "erdos.problem_theorem_loop/1",
+  "generatedAt": "2026-04-10T08:11:06.260Z",
+  "problemId": "1008",
+  "displayName": "Erdos Problem #1008",
+  "title": "C4-Free Subgraph Density Problem",
+  "cluster": "graph-theory",
+  "sourceKind": "pack_route_state",
+  "theoremLoopMode": "baseline",
+  "activeRoute": "c4_free_lean_archive",
+  "theoremModule": null,
+  "currentState": {
+    "siteStatus": "solved",
+    "repoStatus": "historical",
+    "openProblem": false,
+    "routeBreakthrough": false,
+    "problemSolved": false,
+    "currentClaimSurface": "route_scaffolding",
+    "routeSummary": "Keep the solved `C_4`-free density record explicit and preserve the Lean-facing archive posture.",
+    "nextHonestMove": "Record the best public/formalization hook and checkpoint the archive packet."
+  },
+  "theoremHooks": [
+    {
+      "hook_id": "active_route_recorded",
+      "status": "supported",
+      "note": "The pack records an active route, currently `c4_free_lean_archive`."
+    },
+    {
+      "hook_id": "ready_atom_present",
+      "status": "supported",
+      "note": "The live route already has a ready atom, `G1008.G1.A1`, which can feed the theorem lane."
+    },
+    {
+      "hook_id": "frontier_note_present",
+      "status": "supported",
+      "note": "The pack already carries a frontier note that can anchor theorem-facing updates."
+    }
+  ],
+  "theoremAgenda": [
+    {
+      "item_id": "promote_ready_atom",
+      "status": "ready",
+      "task": "Turn ready atom `G1008.G1.A1` into the next theorem-facing checkpoint.",
+      "why": "Record the best public/formalization hook and checkpoint the archive packet."
+    },
+    {
+      "item_id": "tighten_active_route_claim",
+      "status": "ready",
+      "task": "Compress the active route `c4_free_lean_archive` into the next honest theorem-facing claim unit.",
+      "why": "Record the best public/formalization hook and checkpoint the archive packet."
+    }
+  ],
+  "currentBridgeState": null,
+  "commands": {
+    "problemShow": "erdos problem show 1008",
+    "problemArtifacts": "erdos problem artifacts 1008",
+    "theoremLoop": "erdos problem theorem-loop 1008",
+    "theoremLoopRefresh": "erdos problem theorem-loop-refresh 1008",
+    "clusterStatus": "erdos graph-theory status 1008",
+    "clusterFrontier": "erdos graph-theory frontier 1008",
+    "sourceRefresh": null
+  },
+  "sources": {
+    "packProblemDir": "/Volumes/Code_2TB/code/erdos-problems/packs/graph-theory/problems/1008",
+    "theoremLoopJsonPath": "/Volumes/Code_2TB/code/erdos-problems/packs/graph-theory/problems/1008/THEOREM_LOOP.json",
+    "theoremLoopMarkdownPath": "/Volumes/Code_2TB/code/erdos-problems/packs/graph-theory/problems/1008/THEOREM_LOOP.md",
+    "contextPath": "/Volumes/Code_2TB/code/erdos-problems/packs/graph-theory/problems/1008/context.yaml",
+    "routePacketPath": "/Volumes/Code_2TB/code/erdos-problems/packs/graph-theory/problems/1008/ROUTE_PACKET.yaml",
+    "frontierNotePath": "/Volumes/Code_2TB/code/erdos-problems/packs/graph-theory/problems/1008/FRONTIER_NOTE.md",
+    "opsDetailsPath": "/Volumes/Code_2TB/code/erdos-problems/packs/graph-theory/problems/1008/OPS_DETAILS.yaml",
+    "legacyBridgeJsonPath": null,
+    "legacyBridgeMarkdownPath": null
+  }
+}

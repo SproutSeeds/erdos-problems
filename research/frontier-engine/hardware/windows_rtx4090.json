@@ -1,0 +1,11 @@
+{
+  "profile_id": "windows_rtx4090",
+  "os": "windows",
+  "gpu": "RTX 4090",
+  "role": "primary_cuda_prototype",
+  "notes": [
+    "Treat this as the first-class CUDA development box.",
+    "Prove the search rail here before adding heavier orchestration.",
+    "Use this profile to tune batch size, chunking, and search throughput."
+  ]
+}

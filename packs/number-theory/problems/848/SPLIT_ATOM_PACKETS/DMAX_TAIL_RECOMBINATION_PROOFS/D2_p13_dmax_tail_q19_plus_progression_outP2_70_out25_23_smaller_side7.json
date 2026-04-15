@@ -1,0 +1,79 @@
+{
+  "schema": "erdos.p848_dmax_tail_side_complement_proof/1",
+  "problemId": "848",
+  "atomId": "D2_p13_dmax_tail_q19_plus_progression_outP2_70_out25_23_smaller_side7",
+  "parentTailAtomId": "D2_p13_dmax_tail_recombination_outP2_70_out25_23_smaller_side7",
+  "predecessorAtomId": "D2_p13_dmax_tail_q17_progression_outP2_70_out25_23_smaller_side7",
+  "observedComponentSiblingAtomId": "D2_p13_dmax_q19_progression_outP2_70_out25_23_smaller_side7",
+  "splitKey": "outP2=70|out25=23|smaller=side7",
+  "status": "symbolic_upper_bound_verified",
+  "promotesAllNClaim": false,
+  "proofKind": "crt_floor_function_side_complement_upper_bound",
+  "q": 19,
+  "side": "plus",
+  "squareDivisor": 361,
+  "scope": {
+    "term": "same-prime dMax side-complement degree contribution",
+    "boundedProfileRange": "7307..12000",
+    "claimBoundary": "This proves only the plus-side q=19 complement left open by the observed minus-side q=19 packet. It does not prove the full dMax tail envelope or any side-count floor."
+  },
+  "witnessBound": {
+    "side": "plus",
+    "witnessValue": 1591,
+    "oppositeSide": "minus",
+    "oppositeResidueMod169": 99,
+    "productCondition": "361 divides 1591*m + 1",
+    "coefficientMod361": 147,
+    "requiredOppositeValueMod361": 194,
+    "crtProgression": {
+      "variable": "m",
+      "residue": 22576,
+      "modulus": 61009,
+      "formula": "m = 22576 + 61009*t",
+      "tLowerBound": 0
+    },
+    "rawCountUpperBound": "max(0, floor((N - 22576) / 61009) + 1)",
+    "observedCheck": {
+      "N": 12000,
+      "rawFormulaCount": 0,
+      "observedSquareEventCount": 0,
+      "upperBoundPassed": true
+    }
+  },
+  "observedSiblingCoverage": {
+    "status": "minus_side_q19_already_verified",
+    "siblingProofPath": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DMAX_Q_PROGRESSION_PROOFS/D2_p13_dmax_q19_progression_outP2_70_out25_23_smaller_side7.json",
+    "coveredSide": "minus",
+    "coveredProgression": "m = 4126 + 61009*t"
+  },
+  "overlapBoundary": {
+    "status": "raw_floor_bound_suffices_for_upper_bound",
+    "reason": "Prior-q overlaps, base-residue exclusions, and lower least-square-witness exclusions can only reduce the plus-side q=19 raw CRT count."
+  },
+  "checkedIdentities": [
+    "1591 mod 361 = 147.",
+    "147*194 + 1 is divisible by 361.",
+    "CRT(m = 99 mod 169, m = 194 mod 361) gives m = 22576 mod 61009.",
+    "The plus-side q=19 raw floor function evaluates to zero at N = 12000, matching the bounded growth profile.",
+    "The existing q=19 observed-component packet already verifies the minus-side progression m = 4126 mod 61009."
+  ],
+  "sideComplementAudit": {
+    "status": "earlier_side_complement_backfill_needed",
+    "reason": "The observed q=11 component proof certified the plus witness and explicitly left the minus-side q=11 complement as a non-observed bounded-profile note. The tail lane must backfill that complement before any full dMax envelope can be promoted.",
+    "firstBackfillAtomId": "D2_p13_dmax_tail_q11_minus_progression_outP2_70_out25_23_smaller_side7",
+    "firstBackfillCrtProgression": "m = 16970 + 20449*t"
+  },
+  "nextSubatom": {
+    "atomId": "D2_p13_dmax_tail_q11_minus_progression_outP2_70_out25_23_smaller_side7",
+    "status": "needed",
+    "q": 11,
+    "side": "minus",
+    "statement": "Backfill the minus-side q=11 tail complement left open by the observed plus-side q=11 component, starting from m = 16970 mod 20449.",
+    "completionRule": "The minus-side q=11 tail contribution is bounded by its CRT floor function, or the next side-specific tail complement becomes the next atom."
+  },
+  "proofBoundary": "This certificate discharges the plus-side q=19 side complement. It intentionally pivots to an earlier q=11 minus-side backfill because the existing observed q=11 proof did not cover that witness side.",
+  "nextTheoremActions": [
+    "Attack D2_p13_dmax_tail_q11_minus_progression_outP2_70_out25_23_smaller_side7 next.",
+    "Certify the q=11 minus-side complement before continuing higher unobserved tail components such as q=23 plus."
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "profile_id": "p848_anchor_ladder_batched_smoke_v1",
+  "lane_id": "p848_anchor_ladder",
+  "hardware_profile": "local_or_windows",
+  "prefix_anchors": [7, 32, 57, 82, 132, 182],
+  "candidate_mode": "ladder-sweep",
+  "candidates": [],
+  "base_tail": 332,
+  "ladder_step": 50,
+  "ladder_rounds": 3,
+  "perturb_offsets": [0, -5, 5],
+  "direct_threshold": 250000001,
+  "direct_max": 250000500,
+  "top_k": 6,
+  "runtime_mode": "torch",
+  "device": "auto",
+  "search_backend": "batched_anchor_tail_scan",
+  "n_chunk_size": 2048,
+  "value_chunk_size": 32768,
+  "prime_square_chunk_size": 128,
+  "output_dir": "research/frontier-engine/artifacts/p848-anchor-ladder",
+  "candidate_scan_kind": "many_tails_many_n",
+  "notes": [
+    "This is the quick smoke-test profile for the p848 batched backend.",
+    "It keeps the same candidate contract as the 4090 profile but on a much smaller direct window."
+  ]
+}

@@ -9,3 +9,5 @@ The honest posture is:
 - preserve the sufficiently-large-N theorem
 - isolate the finite unresolved gap
 - keep threshold extraction, finite computation, and formalization coverage distinct
+- use the `SEARCH_THEOREM_BRIDGE` artifacts as the canonical support surface between
+  live search and theorem-facing interpretation

@@ -1,0 +1,121 @@
+{
+  "schema": "erdos.p848_side_count_floor_atom_packet/1",
+  "generatedAt": "2026-04-14T11:46:10.126Z",
+  "problemId": "848",
+  "packetId": "p848_side_count_floor_packet_D2_p13_side_count_floor_outP2_70_out25_6_smaller_side7",
+  "atomId": "D2_p13_side_count_floor_outP2_70_out25_6_smaller_side7",
+  "parentLemmaId": "D2_p13_non_tight_side_count_slack_floor_lift",
+  "parentCandidateId": "D2_p13_slack_dominance_symbolic_lift",
+  "targetPrime": 13,
+  "splitKey": "outP2=70|out25=6|smaller=side7",
+  "rank": 2,
+  "priority": "co_weakest_side_count_floor_atom",
+  "status": "symbolic_side_count_floor_atom_needed",
+  "targetSlackLowerBound": 20,
+  "observedBoundedSlackFormulaFloor": 21,
+  "observedMarginAboveTarget": 1,
+  "boundedWitness": {
+    "rowCount": 32,
+    "nRange": "7307..7600",
+    "minSideCountSlackFormula": 21,
+    "maxSideCountSlackFormula": 25,
+    "minLargerSideSize": 109,
+    "maxLargerSideSize": 113,
+    "minStrictBaseThreshold": 132,
+    "maxStrictBaseThreshold": 138,
+    "minCandidateSize": 293,
+    "maxCandidateSize": 304,
+    "minReconstructedVMax": 43,
+    "maxReconstructedVMax": 45,
+    "minDMax": 18,
+    "maxDMax": 18,
+    "minRGreater": 100,
+    "maxRGreater": 103,
+    "minStructuralMargin": 1,
+    "maxStructuralMargin": 5,
+    "formulaReplayPassed": true,
+    "meetsTargetSlackFloor": true
+  },
+  "structuralMarginDecomposition": {
+    "status": "bounded_structural_margin_replay_verified_symbolic_margin_lift_needed",
+    "largerSideLabel": "side18",
+    "targetAugmentedMarginConstant": 21,
+    "inequality": "side18Count + vMax + dMax + rGreater + 21 <= candidateSize",
+    "boundedMarginRange": {
+      "min": 1,
+      "max": 5
+    },
+    "firstOpenSublemma": {
+      "lemmaId": "D2_p13_structural_margin_outP2_70_out25_6_smaller_side7_side18",
+      "status": "needed",
+      "statement": "For every future p=13 threat row with outP2=70|out25=6|smaller=side7, prove side18Count + vMax + dMax + rGreater + 21 <= candidateSize."
+    },
+    "movingTermSubatoms": [
+      {
+        "atomId": "D2_p13_dmax_bound_outP2_70_out25_6_smaller_side7",
+        "status": "needed",
+        "term": "dMax",
+        "targetBound": 18,
+        "boundedRange": {
+          "min": 18,
+          "max": 18
+        },
+        "statement": "For every future p=13 threat row with outP2=70|out25=6|smaller=side7, prove dMax <= 18.",
+        "probeArtifact": null,
+        "successorAtomId": null,
+        "proofBoundary": "This isolates the maximum same-prime cross-degree term from the structural margin. The bounded constant value is not an all-N proof."
+      },
+      {
+        "atomId": "D2_p13_dynamic_margin_outP2_70_out25_6_smaller_side7_side18",
+        "status": "needed_after_dmax_bound",
+        "term": "side18Count + vMax + rGreater",
+        "dependsOn": [
+          "D2_p13_dmax_bound_outP2_70_out25_6_smaller_side7"
+        ],
+        "residualDynamicMarginConstant": 39,
+        "inequality": "side18Count + vMax + rGreater + 39 <= candidateSize",
+        "boundedMarginRange": {
+          "min": 1,
+          "max": 5
+        },
+        "statement": "Assuming dMax <= 18, prove side18Count + vMax + rGreater + 39 <= candidateSize for outP2=70|out25=6|smaller=side7.",
+        "proofArtifact": null,
+        "proofBoundary": "This is the coupled moving-count margin left after budgeting dMax. It still needs a symbolic inequality for compatibility counts, p13 root counts, higher-root events, and the base candidate side."
+      }
+    ],
+    "firstOpenMovingTermSubatom": {
+      "atomId": "D2_p13_dmax_bound_outP2_70_out25_6_smaller_side7",
+      "status": "needed",
+      "term": "dMax",
+      "targetBound": 18,
+      "boundedRange": {
+        "min": 18,
+        "max": 18
+      },
+      "statement": "For every future p=13 threat row with outP2=70|out25=6|smaller=side7, prove dMax <= 18.",
+      "probeArtifact": null,
+      "successorAtomId": null,
+      "proofBoundary": "This isolates the maximum same-prime cross-degree term from the structural margin. The bounded constant value is not an all-N proof."
+    },
+    "proofBoundary": "This replays the bounded side-count floor as a structural margin inequality. It is not an all-N proof of the moving compatibility counts, dMax, rGreater, or candidateSize terms."
+  },
+  "theoremObligation": {
+    "kind": "non_tight_p13_side_count_floor_subobligation",
+    "statement": "For every future p=13 threat row with outP2=70|out25=6|smaller=side7, prove strictBaseThreshold - 1 - max(compatibleSide7Count, compatibleSide18Count) >= 20.",
+    "equivalentInequality": "max(compatibleSide7Count, compatibleSide18Count) <= strictBaseThreshold - 21",
+    "proofBoundary": "This packet isolates one weakest non-tight side-count stratum. Its bounded witness is not an all-N proof; the symbolic side-count inequality still has to be proved or refined."
+  },
+  "proofReduction": {
+    "statement": "For non-tight p13 rows, reduce slack dominance to a side-count inequality after matching saturation.",
+    "matchingSaturationHypothesis": "matchingSizeInMissingCrossGraph = min(compatibleSide7Count, compatibleSide18Count)",
+    "requiredMatchingFormula": "K = compatibleSide7Count + compatibleSide18Count - strictBaseThreshold + 1",
+    "derivedSlackFormula": "matchingSlack = strictBaseThreshold - 1 - max(compatibleSide7Count, compatibleSide18Count)",
+    "sufficientSideCountInequality": "max(compatibleSide7Count, compatibleSide18Count) <= strictBaseThreshold - 1 - 20"
+  },
+  "nextTheoremActions": [
+    "Prove the first moving-term subatom D2_p13_dmax_bound_outP2_70_out25_6_smaller_side7: dMax <= 18.",
+    "After dMax is bounded, prove the residual dynamic margin D2_p13_dynamic_margin_outP2_70_out25_6_smaller_side7_side18: side18Count + vMax + rGreater + 39 <= candidateSize.",
+    "If the symbolic side-count inequality fails, emit a sharper split atom keyed by the first failing side-count term.",
+    "After all co-weakest side-count floor atoms are handled, lift the remaining larger-margin strata by the same inequality template."
+  ]
+}

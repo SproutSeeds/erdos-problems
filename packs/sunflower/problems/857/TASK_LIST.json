@@ -1,0 +1,215 @@
+{
+  "schema": "erdos.problem_task_list/1",
+  "generatedAt": "2026-04-10T08:11:06.289Z",
+  "problemId": "857",
+  "displayName": "Erdos Problem #857",
+  "title": "Sunflower Conjecture",
+  "cluster": "sunflower",
+  "sourceKind": "claim_pass_only",
+  "taskListMode": "baseline",
+  "currentState": {
+    "activeRoute": "anchored_selector_linearization",
+    "currentClaimSurface": "frontier_supported_route",
+    "routeSummary": "Export the live anchored-selector helper stack into a route-facing leaf that remains honest about the open-problem boundary.",
+    "nextHonestMove": "Prove or package the helper stack cleanly and checkpoint the route if the leaf closes.",
+    "latestVerifiedInterval": null
+  },
+  "executionRule": {
+    "stance": "concrete_execution",
+    "summary": "Treat the task list as a concrete research loop for problem 857: execute the highest-value task itself, not wrapper prose about the task.",
+    "afterEachCompletion": [
+      "Cross off the completed task.",
+      "Re-read the theorem loop, claim pass, formalization packet, formalization work packet, and verifier boundary.",
+      "Invent the next highest-value step from the updated evidence rather than following a stale fixed script.",
+      "Append that next step to the task list and refresh the canonical task-list artifacts."
+    ],
+    "repetitionProtocol": "To execute this loop 10 times or 100 times, complete the first ready task, refresh the task list, then use the regenerated ordering for the next pass.",
+    "lowStressLongHorizonNote": "This loop is meant to be safe for long-horizon execution because it re-ranks after every pass instead of committing to a blind fixed plan."
+  },
+  "loopTemplate": [
+    {
+      "stepId": "freeze_current_state",
+      "title": "Freeze the current north star and active theorem packet",
+      "task": "Freeze the current route `anchored_selector_linearization`, claim surface `frontier_supported_route`, and active theorem packet before widening the search.",
+      "completionRule": "The theorem loop, claim pass, and formalization packet all agree on the current route, next honest move, and active target.",
+      "command": "erdos problem theorem-loop 857"
+    },
+    {
+      "stepId": "audit_theorem_surfaces",
+      "title": "Audit theorem, claim, and formalization surfaces for consistency",
+      "task": "Audit the theorem loop, claim loop, claim pass, formalization packet, and formalization work packet for drift or contradictory wording.",
+      "completionRule": "The canonical theorem/search surfaces tell one consistent story about what is supported, what is open, and what the active work unit is.",
+      "command": "erdos problem task-list 857"
+    },
+    {
+      "stepId": "verify_canonical_inputs",
+      "title": "Verify canonical pack inputs against the latest route and verifier artifacts",
+      "task": "Verify that the pack-backed theorem surfaces still match the latest route packet, OPS details, and verifier-facing artifacts.",
+      "completionRule": "The canonical input packet for this loop remains current and trustworthy.",
+      "command": "erdos problem theorem-loop-refresh 857"
+    },
+    {
+      "stepId": "verify_primary_structural_hook",
+      "title": "Verify the current highest-value structural hook remains canonical",
+      "task": "Verify that the strongest supported structural hook still survives across the theorem and claim surfaces.",
+      "completionRule": "The primary theorem-facing hook still survives refresh and remains narrow enough to formalize honestly.",
+      "command": "erdos problem claim-pass-refresh 857"
+    },
+    {
+      "stepId": "verify_verifier_boundary",
+      "title": "Verify the current verifier boundary and next target",
+      "task": "Verify that the current verifier boundary and next target are stated honestly across the pack surfaces.",
+      "completionRule": "The verifier-facing boundary remains explicit even without a dedicated interval queue.",
+      "command": "erdos problem formalization 857"
+    },
+    {
+      "stepId": "execute_current_work_packet",
+      "title": "State Claim Honestly",
+      "task": "State the candidate theorem-facing claim in pack language without overstating current support.",
+      "completionRule": "The first remaining gap is either discharged, narrowed, or replaced by a sharper one: state_claim_honestly: Write a claim statement that is no stronger than the active claim-pass support surface.",
+      "command": "erdos problem formalization-work 857"
+    },
+    {
+      "stepId": "refresh_and_rerank",
+      "title": "Refresh the task list and rerank the next step",
+      "task": "Refresh the canonical task list after the completed work so the next iteration is driven by the newest theorem/search/verifier evidence.",
+      "completionRule": "The refreshed task list records the next highest-value action instead of relying on a stale fixed script.",
+      "command": "erdos problem task-list-refresh 857"
+    }
+  ],
+  "currentObjective": {
+    "formalizationId": "sunflower_857_promote_ready_atom_v1",
+    "focusId": "promote_ready_atom",
+    "title": "Promote Ready Atom",
+    "activeWorkId": "sunflower_857_state_claim_honestly_v1",
+    "activeWorkTitle": "State Claim Honestly",
+    "activeWorkStatus": "ready"
+  },
+  "currentTasks": [
+    {
+      "taskId": "freeze_current_state",
+      "status": "ready",
+      "title": "Freeze the current north star and active theorem packet",
+      "task": "Freeze the current route `anchored_selector_linearization`, claim surface `frontier_supported_route`, and active theorem packet before widening the search.",
+      "why": null,
+      "completionRule": "The theorem loop, claim pass, and formalization packet all agree on the current route, next honest move, and active target.",
+      "command": "erdos problem theorem-loop 857"
+    },
+    {
+      "taskId": "audit_theorem_surfaces",
+      "status": "ready",
+      "title": "Audit theorem, claim, and formalization surfaces for consistency",
+      "task": "Audit the theorem loop, claim loop, claim pass, formalization packet, and formalization work packet for drift or contradictory wording.",
+      "why": null,
+      "completionRule": "The canonical theorem/search surfaces tell one consistent story about what is supported, what is open, and what the active work unit is.",
+      "command": "erdos problem task-list 857"
+    },
+    {
+      "taskId": "verify_canonical_inputs",
+      "status": "ready",
+      "title": "Verify canonical pack inputs against the latest route and verifier artifacts",
+      "task": "Verify that the pack-backed theorem surfaces still match the latest route packet, OPS details, and verifier-facing artifacts.",
+      "why": null,
+      "completionRule": "The canonical input packet for this loop remains current and trustworthy.",
+      "command": "erdos problem theorem-loop-refresh 857"
+    },
+    {
+      "taskId": "verify_primary_structural_hook",
+      "status": "ready",
+      "title": "Verify the current highest-value structural hook remains canonical",
+      "task": "Verify that the strongest supported structural hook still survives across the theorem and claim surfaces.",
+      "why": null,
+      "completionRule": "The primary theorem-facing hook still survives refresh and remains narrow enough to formalize honestly.",
+      "command": "erdos problem claim-pass-refresh 857"
+    },
+    {
+      "taskId": "verify_verifier_boundary",
+      "status": "ready",
+      "title": "Verify the current verifier boundary and next target",
+      "task": "Verify that the current verifier boundary and next target are stated honestly across the pack surfaces.",
+      "why": null,
+      "completionRule": "The verifier-facing boundary remains explicit even without a dedicated interval queue.",
+      "command": "erdos problem formalization 857"
+    },
+    {
+      "taskId": "execute_current_work_packet",
+      "status": "ready",
+      "title": "State Claim Honestly",
+      "task": "State the candidate theorem-facing claim in pack language without overstating current support.",
+      "why": "Prove or package the helper stack cleanly and checkpoint the route if the leaf closes.",
+      "completionRule": "The first remaining gap is either discharged, narrowed, or replaced by a sharper one: state_claim_honestly: Write a claim statement that is no stronger than the active claim-pass support surface.",
+      "command": "erdos problem formalization-work 857"
+    },
+    {
+      "taskId": "discharge_first_remaining_gap",
+      "status": "ready",
+      "title": "Discharge the first remaining gap in the active theorem packet",
+      "task": "state_claim_honestly: Write a claim statement that is no stronger than the active claim-pass support surface.",
+      "why": "This is the sharpest unresolved statement already named by the active theorem-work packet.",
+      "completionRule": "The first remaining gap is either resolved or replaced by a more precise successor gap.",
+      "command": "erdos problem formalization-work-refresh 857"
+    },
+    {
+      "taskId": "refresh_and_rerank",
+      "status": "ready",
+      "title": "Refresh the task list and rerank the next step",
+      "task": "Refresh the canonical task list after the completed work so the next iteration is driven by the newest theorem/search/verifier evidence.",
+      "why": null,
+      "completionRule": "The refreshed task list records the next highest-value action instead of relying on a stale fixed script.",
+      "command": "erdos problem task-list-refresh 857"
+    }
+  ],
+  "completedAnchors": [],
+  "nextNeededSteps": [
+    {
+      "stepId": "gap_1",
+      "status": "next",
+      "task": "state_claim_honestly: Write a claim statement that is no stronger than the active claim-pass support surface.",
+      "source": "formalization_work",
+      "command": "erdos problem formalization-work-refresh 857"
+    },
+    {
+      "stepId": "gap_2",
+      "status": "next",
+      "task": "freeze_support_artifacts: Attach theorem-loop, claim-pass, and any bridge-backed packet paths directly to the packet.",
+      "source": "formalization_work",
+      "command": "erdos problem formalization-work-refresh 857"
+    },
+    {
+      "stepId": "gap_3",
+      "status": "next",
+      "task": "define_promotion_boundary: Record explicit promotion criteria tied to current falsifiers.",
+      "source": "formalization_work",
+      "command": "erdos problem formalization-work-refresh 857"
+    },
+    {
+      "stepId": "promote_ready_atom",
+      "status": "medium",
+      "task": "Prove or package the helper stack cleanly and checkpoint the route if the leaf closes.",
+      "source": "theorem_formalization",
+      "command": "erdos problem formalization 857"
+    }
+  ],
+  "commands": {
+    "problemShow": "erdos problem show 857",
+    "problemArtifacts": "erdos problem artifacts 857",
+    "taskList": "erdos problem task-list 857",
+    "taskListRefresh": "erdos problem task-list-refresh 857",
+    "theoremLoop": "erdos problem theorem-loop 857",
+    "claimPass": "erdos problem claim-pass 857",
+    "formalization": "erdos problem formalization 857",
+    "formalizationWork": "erdos problem formalization-work 857",
+    "sourceRefresh": null
+  },
+  "sources": {
+    "packProblemDir": "/Volumes/Code_2TB/code/erdos-problems/packs/sunflower/problems/857",
+    "taskListJsonPath": "/Volumes/Code_2TB/code/erdos-problems/packs/sunflower/problems/857/TASK_LIST.json",
+    "taskListMarkdownPath": "/Volumes/Code_2TB/code/erdos-problems/packs/sunflower/problems/857/TASK_LIST.md",
+    "theoremLoopJsonPath": "/Volumes/Code_2TB/code/erdos-problems/packs/sunflower/problems/857/THEOREM_LOOP.json",
+    "claimPassJsonPath": "/Volumes/Code_2TB/code/erdos-problems/packs/sunflower/problems/857/CLAIM_PASS.json",
+    "formalizationJsonPath": "/Volumes/Code_2TB/code/erdos-problems/packs/sunflower/problems/857/FORMALIZATION.json",
+    "formalizationWorkJsonPath": "/Volumes/Code_2TB/code/erdos-problems/packs/sunflower/problems/857/FORMALIZATION_WORK.json",
+    "intervalQueuePath": "/Volumes/Code_2TB/code/erdos-problems/packs/sunflower/problems/857/INTERVAL_WORK_QUEUE.yaml",
+    "legacyBridgeJsonPath": null
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "shared_prefix": [7, 32, 57, 82, 132, 182],
+  "current_ladder": [
+    {
+      "continuation": 157,
+      "status": "fails",
+      "repairs_known_packets": 2,
+      "first_failure_n": 19094395
+    },
+    {
+      "continuation": 232,
+      "status": "fails",
+      "repairs_known_packets": 3,
+      "first_failure_n": 27949928
+    },
+    {
+      "continuation": 282,
+      "status": "fails",
+      "repairs_known_packets": 4,
+      "first_failure_n": 137720141
+    },
+    {
+      "continuation": 332,
+      "status": "clean_through",
+      "repairs_known_packets": 5,
+      "direct_clean_through": 250000000
+    }
+  ],
+  "current_best_continuation": 332,
+  "current_best_clean_through": 250000000,
+  "latest_live_shared_prefix_failure": 136702637,
+  "latest_live_family_menu": {
+    "known_failure_matches": 25,
+    "next_unmatched": 137720141,
+    "source_path": "/Volumes/Code_2TB/code/erdos-problems/research/frontier-engine/experiments/p848-anchor-ladder/live-frontier-sync/latest/SIX_PREFIX_TWENTY_FOUR_FAMILY_MENU.json"
+  },
+  "family_aware_search_leader": {
+    "continuation": 432,
+    "repaired_known_packets": 26,
+    "repaired_predicted_families": 242,
+    "tested_clean_through": 250050000,
+    "source_path": "/Volumes/Code_2TB/code/erdos-problems/research/frontier-engine/artifacts/p848-anchor-ladder/p848_anchor_ladder-seeds-20260406T020706Z/manifest.json"
+  },
+  "notes": [
+    "This is a recurrence candidate, not yet a theorem.",
+    "The theorem-facing question is whether +50 repairs arise from a stable obstruction menu rather than a long transient.",
+    "332 remains the strongest completed structured tail, while 432 is the current family-aware search leader on the tested 250000001..250050000 window.",
+    "The next unmatched six-prefix family representative is 137720141, which is also the known first failure of the 282 continuation.",
+    "The new shared-prefix failures at 127682743 and 136702637 introduced witness moduli 17161 = 131^2 and 1849 = 43^2, so the previous repaired square pool was not yet closed."
+  ],
+  "source_paths": [
+    "/tmp/erdos-problems-848-frontier/packs/number-theory/problems/848/ANCHOR_TAIL_COMPARISON_157_232_282.md",
+    "/tmp/erdos-problems-848-frontier/packs/number-theory/problems/848/ANCHOR_332_TAIL_OVERTAKE_LEDGER.md",
+    "/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/FRONTIER_NOTE.md",
+    "/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/VERIFICATION_REGIMES.md",
+    "/Volumes/Code_2TB/code/erdos-problems/research/frontier-engine/experiments/p848-anchor-ladder/observed_continuations.json"
+  ]
+}

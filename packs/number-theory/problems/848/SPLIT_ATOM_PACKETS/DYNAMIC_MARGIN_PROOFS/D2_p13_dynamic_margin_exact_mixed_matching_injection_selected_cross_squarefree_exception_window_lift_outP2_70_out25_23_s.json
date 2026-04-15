@@ -1,0 +1,272 @@
+{
+  "schema": "erdos.number_theory.p848_dynamic_margin_proof/1",
+  "generatedAt": "2026-04-12T21:43:12Z",
+  "problemId": "848",
+  "proofId": "p848_dynamic_margin_proof_D2_p13_dynamic_margin_exact_mixed_matching_injection_selected_cross_squarefree_exception_window_lift_outP2_70_out25_23_s",
+  "atomId": "D2_p13_dynamic_margin_exact_mixed_matching_injection_selected_cross_squarefree_exception_window_lift_outP2_70_out25_23_smaller_side7_outsider_6323",
+  "parentAtomId": "D2_p13_dynamic_margin_exact_mixed_matching_injection_selected_cross_squarefree_exception_menu_outP2_70_out25_23_smaller_side7_outsider_6323_left_8107",
+  "status": "bounded_exception_window_lift_falsified_right_compatibility_escape_needed",
+  "proofKind": "bounded_first_uncovered_exception_window_row",
+  "promotesAllNClaim": false,
+  "provesExceptionWindowAllN": false,
+  "splitKey": "outP2=70|out25=23|smaller=side7",
+  "outsider": 6323,
+  "targetPrime": 13,
+  "phaseGuardDecision": {
+    "status": "falsify_window_then_generalize",
+    "reason": "The 27-delta exception window is a named finite endpoint with an explicit first-uncovered-row boundary. The first uncovered row is recorded here, but the next theorem move is a right-compatibility escape selector rather than a singleton repair-delta branch."
+  },
+  "boundedReplay": {
+    "checker": "/tmp/p848_exception_window_scan.cpp",
+    "checkerKind": "exact_modular_sieve_replay",
+    "validatedAgainstPreviousMaxN": 1000000,
+    "validatedPreviousSourceRows": 14557,
+    "validatedPreviousSelectedExceptions": 2241,
+    "validatedPreviousCoveredByMenu": 2241,
+    "maxN": 3000000,
+    "side7Rows": 119708,
+    "checkedSide7CompatibleEventRows": 43895,
+    "selectedCrossExceptions": 6740,
+    "coveredByFiniteWindowMenu": 6730,
+    "uncoveredSelectedCrossExceptions": 10,
+    "firstUncoveredReplacementRow": 1138307,
+    "selectedExceptionBySelectedDelta": [
+      {
+        "selectedDelta": -14,
+        "count": 4654
+      },
+      {
+        "selectedDelta": -64,
+        "count": 1919
+      },
+      {
+        "selectedDelta": -39,
+        "count": 133
+      },
+      {
+        "selectedDelta": -89,
+        "count": 34
+      }
+    ],
+    "topRepairDeltasBeforeFailure": [
+      {
+        "delta": -189,
+        "count": 3195
+      },
+      {
+        "delta": -164,
+        "count": 1097
+      },
+      {
+        "delta": -39,
+        "count": 623
+      },
+      {
+        "delta": -89,
+        "count": 615
+      },
+      {
+        "delta": -64,
+        "count": 368
+      },
+      {
+        "delta": -264,
+        "count": 218
+      },
+      {
+        "delta": -139,
+        "count": 171
+      },
+      {
+        "delta": -339,
+        "count": 139
+      },
+      {
+        "delta": -239,
+        "count": 137
+      },
+      {
+        "delta": -539,
+        "count": 58
+      }
+    ]
+  },
+  "firstUncoveredRow": {
+    "left": 1138307,
+    "leftMod100": 7,
+    "sourceCompatibility": {
+      "productPlusOne": 7197515162,
+      "squareDivisor": {
+        "prime": 29,
+        "square": 841,
+        "quotient": 8558282
+      }
+    },
+    "selectedEndpoint": {
+      "right": 1138293,
+      "delta": -14,
+      "rightOutsiderCompatibility": {
+        "productPlusOne": 7197426640,
+        "squareDivisor": {
+          "prime": 2,
+          "square": 4,
+          "quotient": 1799356660
+        }
+      },
+      "crossProductPlusOne": 1295726889952,
+      "crossSquareDivisor": {
+        "prime": 2,
+        "square": 4,
+        "quotient": 323931722488
+      }
+    },
+    "finiteWindowAttemptSummary": {
+      "deltaCount": 27,
+      "validRepairCount": 0,
+      "rightNotOutsiderCompatible": 25,
+      "crossNotSquarefree": 2,
+      "interpretation": "Most menu candidates have squarefree cross products at this row but fail right-side outsider compatibility; the next theorem object should therefore target a right-compatibility escape selector."
+    },
+    "finiteWindowAttempts": [
+      {
+        "delta": -64,
+        "right": 1138243,
+        "failureReason": "right_not_outsider_compatible",
+        "crossSquarefree": true
+      },
+      {
+        "delta": -39,
+        "right": 1138268,
+        "failureReason": "right_not_outsider_compatible",
+        "crossSquarefree": true
+      },
+      {
+        "delta": -89,
+        "right": 1138218,
+        "failureReason": "right_not_outsider_compatible",
+        "crossSquarefree": true
+      },
+      {
+        "delta": -189,
+        "right": 1138118,
+        "failureReason": "right_not_outsider_compatible",
+        "crossSquarefree": true
+      },
+      {
+        "delta": -164,
+        "right": 1138143,
+        "failureReason": "right_not_outsider_compatible",
+        "crossSquarefree": true
+      },
+      {
+        "delta": -14,
+        "right": 1138293,
+        "failureReason": "cross_not_squarefree",
+        "rightOutsiderSquare": 4,
+        "crossSquare": 4
+      },
+      {
+        "delta": -139,
+        "right": 1138168,
+        "failureReason": "right_not_outsider_compatible",
+        "crossSquare": 49
+      },
+      {
+        "delta": -114,
+        "right": 1138193,
+        "failureReason": "cross_not_squarefree",
+        "rightOutsiderSquare": 4,
+        "crossSquare": 4
+      }
+    ],
+    "firstLocalEscapeRepairs": [
+      {
+        "delta": -989,
+        "right": 1137318,
+        "rightOutsiderSquare": 121,
+        "rightOutsiderSquarePrime": 11,
+        "crossSquarefree": true
+      },
+      {
+        "delta": -1189,
+        "right": 1137118,
+        "rightOutsiderSquare": 49,
+        "rightOutsiderSquarePrime": 7,
+        "crossSquarefree": true
+      },
+      {
+        "delta": -3064,
+        "right": 1135243,
+        "rightOutsiderSquare": 169,
+        "rightOutsiderSquarePrime": 13,
+        "crossSquarefree": true
+      },
+      {
+        "delta": -3639,
+        "right": 1134668,
+        "rightOutsiderSquare": 49,
+        "rightOutsiderSquarePrime": 7,
+        "crossSquarefree": true
+      }
+    ]
+  },
+  "finiteWindowMenu": {
+    "failedDeltaSet": [
+      -64,
+      -39,
+      -89,
+      -189,
+      -164,
+      -14,
+      -139,
+      -264,
+      -239,
+      -339,
+      -539,
+      -289,
+      -639,
+      -114,
+      -464,
+      -364,
+      -489,
+      -1089,
+      -389,
+      -1039,
+      -1064,
+      -1239,
+      -1664,
+      -2164,
+      -564,
+      -764,
+      -864
+    ],
+    "firstEscapeDeltas": [
+      -989,
+      -1189,
+      -3064,
+      -3639
+    ]
+  },
+  "nextSubatom": {
+    "atomId": "D2_p13_dynamic_margin_exact_mixed_matching_injection_selected_cross_squarefree_exception_right_compatibility_escape_lift_outP2_70_out25_23_smaller_side7_outsider_6323_left_1138307",
+    "status": "needed",
+    "term": "outsider-6323 selected cross-squarefree exception right-compatibility escape lift",
+    "statement": "Replace the failed 27-delta exception window with a right-compatibility escape selector seeded by the first uncovered row left=1138307: prove that every future finite-window miss has a side18 replacement such as the observed deltas -989 or -1189 with outsider compatibility and squarefree cross product, or emit the first row with no bounded escape repair.",
+    "completionRule": "A symbolic right-compatibility escape selector replaces the finite-window miss family without adding singleton delta siblings, or the first row with no bounded side18 squarefree repair becomes the next deterministic packet.",
+    "dependsOnSublemma": "selected_cross_squarefree_exception_window_lift",
+    "seedUncoveredRow": 1138307,
+    "seedEscapeDeltas": [
+      -989,
+      -1189
+    ],
+    "remainingAfterDischarge": [
+      "selector_collision_or_augmentation_lift"
+    ],
+    "proofBoundary": "This next subatom is a general escape-selector target, not a singleton delta branch. Even after it is proved, collision-free online matching remains separate."
+  },
+  "proofBoundary": "This packet falsifies the 27-delta finite-window lift at bounded scope and emits the first uncovered row. It does not prove that the escape deltas work for all future rows and does not prove the full matching injection.",
+  "nextTheoremActions": [
+    "Prove D2_p13_dynamic_margin_exact_mixed_matching_injection_selected_cross_squarefree_exception_right_compatibility_escape_lift_outP2_70_out25_23_smaller_side7_outsider_6323_left_1138307 next.",
+    "Do not spawn a singleton delta -989 rung; use the uncovered row to build the right-compatibility escape selector or emit a harder no-repair obstruction."
+  ]
+}

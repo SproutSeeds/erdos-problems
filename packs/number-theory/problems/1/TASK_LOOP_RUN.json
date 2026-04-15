@@ -1,0 +1,120 @@
+{
+  "ok": true,
+  "schema": "erdos.problem_task_loop_run/1",
+  "generatedAt": "2026-04-14T11:46:21.821Z",
+  "problemId": "1",
+  "displayName": "Erdos Problem #1",
+  "title": "Erdos Problem #1",
+  "requestedPasses": 4,
+  "executedPasses": 4,
+  "stopOnConvergence": false,
+  "stopReason": "requested_pass_limit_reached",
+  "converged": true,
+  "convergedAtPass": 2,
+  "currentState": {
+    "activeRoute": "distinct_subset_sum_lower_bound",
+    "currentClaimSurface": "route_scaffolding",
+    "routeSummary": "Keep the problem centered on the exponential-growth lower-bound route implied by distinct subset sums.",
+    "nextHonestMove": "Record the first reduction and checkpoint it without overclaiming theorem progress.",
+    "latestVerifiedInterval": null
+  },
+  "currentObjective": {
+    "formalizationId": "number-theory_1_promote_ready_atom_v1",
+    "focusId": "promote_ready_atom",
+    "title": "Promote Ready Atom",
+    "activeWorkId": "number-theory_1_state_claim_honestly_v1",
+    "activeWorkTitle": "State Claim Honestly",
+    "activeWorkStatus": "ready"
+  },
+  "highestValueStep": {
+    "source": "formalization_work",
+    "stepId": "gap_1",
+    "task": "state_claim_honestly: Write a claim statement that is no stronger than the active claim-pass support surface.",
+    "command": "erdos problem formalization-work-refresh 1"
+  },
+  "passes": [
+    {
+      "passNumber": 1,
+      "changed": true,
+      "activeRoute": "distinct_subset_sum_lower_bound",
+      "latestVerifiedInterval": null,
+      "currentClaimSurface": "route_scaffolding",
+      "formalizationId": "number-theory_1_promote_ready_atom_v1",
+      "focusId": "promote_ready_atom",
+      "activeWorkId": "number-theory_1_state_claim_honestly_v1",
+      "activeWorkStatus": "ready",
+      "highestValueStep": {
+        "source": "formalization_work",
+        "stepId": "gap_1",
+        "task": "state_claim_honestly: Write a claim statement that is no stronger than the active claim-pass support surface.",
+        "command": "erdos problem formalization-work-refresh 1"
+      },
+      "fingerprint": "{\"activeRoute\":\"distinct_subset_sum_lower_bound\",\"currentClaimSurface\":\"route_scaffolding\",\"nextHonestMove\":\"Record the first reduction and checkpoint it without overclaiming theorem progress.\",\"latestVerifiedInterval\":null,\"currentObjective\":{\"formalizationId\":\"number-theory_1_promote_ready_atom_v1\",\"focusId\":\"promote_ready_atom\",\"activeWorkId\":\"number-theory_1_state_claim_honestly_v1\",\"activeWorkStatus\":\"ready\"},\"currentTasks\":[{\"taskId\":\"freeze_current_state\",\"status\":\"ready\",\"title\":\"Freeze the current north star and active theorem packet\",\"task\":\"Freeze the current route `distinct_subset_sum_lower_bound`, claim surface `route_scaffolding`, and active theorem packet before widening the search.\"},{\"taskId\":\"audit_theorem_surfaces\",\"status\":\"ready\",\"title\":\"Audit theorem, claim, and formalization surfaces for consistency\",\"task\":\"Audit the theorem loop, claim loop, claim pass, formalization packet, and formalization work packet for drift or contradictory wording.\"},{\"taskId\":\"verify_canonical_inputs\",\"status\":\"ready\",\"title\":\"Verify canonical pack inputs against the latest route and verifier artifacts\",\"task\":\"Verify that the pack-backed theorem surfaces still match the latest route packet, OPS details, and verifier-facing artifacts.\"},{\"taskId\":\"verify_primary_structural_hook\",\"status\":\"ready\",\"title\":\"Verify the current highest-value structural hook remains canonical\",\"task\":\"Verify that the strongest supported structural hook still survives across the theorem and claim surfaces.\"},{\"taskId\":\"verify_verifier_boundary\",\"status\":\"ready\",\"title\":\"Verify the current verifier boundary and next target\",\"task\":\"Verify that the current verifier boundary and next target are stated honestly across the pack surfaces.\"},{\"taskId\":\"apply_granular_breakdown\",\"status\":\"ready\",\"title\":\"Apply ORP granular breakdown before execution\",\"task\":\"Run ORP granular breakdown on the active topic `problem 1 | State Claim Honestly` and compress it into one active target plus one verification command.\"},{\"taskId\":\"execute_current_work_packet\",\"status\":\"ready\",\"title\":\"State Claim Honestly\",\"task\":\"State the candidate theorem-facing claim in pack language without overstating current support.\"},{\"taskId\":\"discharge_first_remaining_gap\",\"status\":\"ready\",\"title\":\"Discharge the first remaining gap in the active theorem packet\",\"task\":\"state_claim_honestly: Write a claim statement that is no stronger than the active claim-pass support surface.\"}],\"nextNeededSteps\":[{\"stepId\":\"gap_1\",\"status\":\"next\",\"task\":\"state_claim_honestly: Write a claim statement that is no stronger than the active claim-pass support surface.\",\"source\":\"formalization_work\"},{\"stepId\":\"gap_2\",\"status\":\"next\",\"task\":\"freeze_support_artifacts: Attach theorem-loop, claim-pass, and any bridge-backed packet paths directly to the packet.\",\"source\":\"formalization_work\"},{\"stepId\":\"gap_3\",\"status\":\"next\",\"task\":\"define_promotion_boundary: Record explicit promotion criteria tied to current falsifiers.\",\"source\":\"formalization_work\"},{\"stepId\":\"promote_ready_atom\",\"status\":\"medium\",\"task\":\"Record the first reduction and checkpoint it without overclaiming theorem progress.\",\"source\":\"theorem_formalization\"}]}"
+    },
+    {
+      "passNumber": 2,
+      "changed": false,
+      "activeRoute": "distinct_subset_sum_lower_bound",
+      "latestVerifiedInterval": null,
+      "currentClaimSurface": "route_scaffolding",
+      "formalizationId": "number-theory_1_promote_ready_atom_v1",
+      "focusId": "promote_ready_atom",
+      "activeWorkId": "number-theory_1_state_claim_honestly_v1",
+      "activeWorkStatus": "ready",
+      "highestValueStep": {
+        "source": "formalization_work",
+        "stepId": "gap_1",
+        "task": "state_claim_honestly: Write a claim statement that is no stronger than the active claim-pass support surface.",
+        "command": "erdos problem formalization-work-refresh 1"
+      },
+      "fingerprint": "{\"activeRoute\":\"distinct_subset_sum_lower_bound\",\"currentClaimSurface\":\"route_scaffolding\",\"nextHonestMove\":\"Record the first reduction and checkpoint it without overclaiming theorem progress.\",\"latestVerifiedInterval\":null,\"currentObjective\":{\"formalizationId\":\"number-theory_1_promote_ready_atom_v1\",\"focusId\":\"promote_ready_atom\",\"activeWorkId\":\"number-theory_1_state_claim_honestly_v1\",\"activeWorkStatus\":\"ready\"},\"currentTasks\":[{\"taskId\":\"freeze_current_state\",\"status\":\"ready\",\"title\":\"Freeze the current north star and active theorem packet\",\"task\":\"Freeze the current route `distinct_subset_sum_lower_bound`, claim surface `route_scaffolding`, and active theorem packet before widening the search.\"},{\"taskId\":\"audit_theorem_surfaces\",\"status\":\"ready\",\"title\":\"Audit theorem, claim, and formalization surfaces for consistency\",\"task\":\"Audit the theorem loop, claim loop, claim pass, formalization packet, and formalization work packet for drift or contradictory wording.\"},{\"taskId\":\"verify_canonical_inputs\",\"status\":\"ready\",\"title\":\"Verify canonical pack inputs against the latest route and verifier artifacts\",\"task\":\"Verify that the pack-backed theorem surfaces still match the latest route packet, OPS details, and verifier-facing artifacts.\"},{\"taskId\":\"verify_primary_structural_hook\",\"status\":\"ready\",\"title\":\"Verify the current highest-value structural hook remains canonical\",\"task\":\"Verify that the strongest supported structural hook still survives across the theorem and claim surfaces.\"},{\"taskId\":\"verify_verifier_boundary\",\"status\":\"ready\",\"title\":\"Verify the current verifier boundary and next target\",\"task\":\"Verify that the current verifier boundary and next target are stated honestly across the pack surfaces.\"},{\"taskId\":\"apply_granular_breakdown\",\"status\":\"ready\",\"title\":\"Apply ORP granular breakdown before execution\",\"task\":\"Run ORP granular breakdown on the active topic `problem 1 | State Claim Honestly` and compress it into one active target plus one verification command.\"},{\"taskId\":\"execute_current_work_packet\",\"status\":\"ready\",\"title\":\"State Claim Honestly\",\"task\":\"State the candidate theorem-facing claim in pack language without overstating current support.\"},{\"taskId\":\"discharge_first_remaining_gap\",\"status\":\"ready\",\"title\":\"Discharge the first remaining gap in the active theorem packet\",\"task\":\"state_claim_honestly: Write a claim statement that is no stronger than the active claim-pass support surface.\"}],\"nextNeededSteps\":[{\"stepId\":\"gap_1\",\"status\":\"next\",\"task\":\"state_claim_honestly: Write a claim statement that is no stronger than the active claim-pass support surface.\",\"source\":\"formalization_work\"},{\"stepId\":\"gap_2\",\"status\":\"next\",\"task\":\"freeze_support_artifacts: Attach theorem-loop, claim-pass, and any bridge-backed packet paths directly to the packet.\",\"source\":\"formalization_work\"},{\"stepId\":\"gap_3\",\"status\":\"next\",\"task\":\"define_promotion_boundary: Record explicit promotion criteria tied to current falsifiers.\",\"source\":\"formalization_work\"},{\"stepId\":\"promote_ready_atom\",\"status\":\"medium\",\"task\":\"Record the first reduction and checkpoint it without overclaiming theorem progress.\",\"source\":\"theorem_formalization\"}]}"
+    },
+    {
+      "passNumber": 3,
+      "changed": false,
+      "activeRoute": "distinct_subset_sum_lower_bound",
+      "latestVerifiedInterval": null,
+      "currentClaimSurface": "route_scaffolding",
+      "formalizationId": "number-theory_1_promote_ready_atom_v1",
+      "focusId": "promote_ready_atom",
+      "activeWorkId": "number-theory_1_state_claim_honestly_v1",
+      "activeWorkStatus": "ready",
+      "highestValueStep": {
+        "source": "formalization_work",
+        "stepId": "gap_1",
+        "task": "state_claim_honestly: Write a claim statement that is no stronger than the active claim-pass support surface.",
+        "command": "erdos problem formalization-work-refresh 1"
+      },
+      "fingerprint": "{\"activeRoute\":\"distinct_subset_sum_lower_bound\",\"currentClaimSurface\":\"route_scaffolding\",\"nextHonestMove\":\"Record the first reduction and checkpoint it without overclaiming theorem progress.\",\"latestVerifiedInterval\":null,\"currentObjective\":{\"formalizationId\":\"number-theory_1_promote_ready_atom_v1\",\"focusId\":\"promote_ready_atom\",\"activeWorkId\":\"number-theory_1_state_claim_honestly_v1\",\"activeWorkStatus\":\"ready\"},\"currentTasks\":[{\"taskId\":\"freeze_current_state\",\"status\":\"ready\",\"title\":\"Freeze the current north star and active theorem packet\",\"task\":\"Freeze the current route `distinct_subset_sum_lower_bound`, claim surface `route_scaffolding`, and active theorem packet before widening the search.\"},{\"taskId\":\"audit_theorem_surfaces\",\"status\":\"ready\",\"title\":\"Audit theorem, claim, and formalization surfaces for consistency\",\"task\":\"Audit the theorem loop, claim loop, claim pass, formalization packet, and formalization work packet for drift or contradictory wording.\"},{\"taskId\":\"verify_canonical_inputs\",\"status\":\"ready\",\"title\":\"Verify canonical pack inputs against the latest route and verifier artifacts\",\"task\":\"Verify that the pack-backed theorem surfaces still match the latest route packet, OPS details, and verifier-facing artifacts.\"},{\"taskId\":\"verify_primary_structural_hook\",\"status\":\"ready\",\"title\":\"Verify the current highest-value structural hook remains canonical\",\"task\":\"Verify that the strongest supported structural hook still survives across the theorem and claim surfaces.\"},{\"taskId\":\"verify_verifier_boundary\",\"status\":\"ready\",\"title\":\"Verify the current verifier boundary and next target\",\"task\":\"Verify that the current verifier boundary and next target are stated honestly across the pack surfaces.\"},{\"taskId\":\"apply_granular_breakdown\",\"status\":\"ready\",\"title\":\"Apply ORP granular breakdown before execution\",\"task\":\"Run ORP granular breakdown on the active topic `problem 1 | State Claim Honestly` and compress it into one active target plus one verification command.\"},{\"taskId\":\"execute_current_work_packet\",\"status\":\"ready\",\"title\":\"State Claim Honestly\",\"task\":\"State the candidate theorem-facing claim in pack language without overstating current support.\"},{\"taskId\":\"discharge_first_remaining_gap\",\"status\":\"ready\",\"title\":\"Discharge the first remaining gap in the active theorem packet\",\"task\":\"state_claim_honestly: Write a claim statement that is no stronger than the active claim-pass support surface.\"}],\"nextNeededSteps\":[{\"stepId\":\"gap_1\",\"status\":\"next\",\"task\":\"state_claim_honestly: Write a claim statement that is no stronger than the active claim-pass support surface.\",\"source\":\"formalization_work\"},{\"stepId\":\"gap_2\",\"status\":\"next\",\"task\":\"freeze_support_artifacts: Attach theorem-loop, claim-pass, and any bridge-backed packet paths directly to the packet.\",\"source\":\"formalization_work\"},{\"stepId\":\"gap_3\",\"status\":\"next\",\"task\":\"define_promotion_boundary: Record explicit promotion criteria tied to current falsifiers.\",\"source\":\"formalization_work\"},{\"stepId\":\"promote_ready_atom\",\"status\":\"medium\",\"task\":\"Record the first reduction and checkpoint it without overclaiming theorem progress.\",\"source\":\"theorem_formalization\"}]}"
+    },
+    {
+      "passNumber": 4,
+      "changed": false,
+      "activeRoute": "distinct_subset_sum_lower_bound",
+      "latestVerifiedInterval": null,
+      "currentClaimSurface": "route_scaffolding",
+      "formalizationId": "number-theory_1_promote_ready_atom_v1",
+      "focusId": "promote_ready_atom",
+      "activeWorkId": "number-theory_1_state_claim_honestly_v1",
+      "activeWorkStatus": "ready",
+      "highestValueStep": {
+        "source": "formalization_work",
+        "stepId": "gap_1",
+        "task": "state_claim_honestly: Write a claim statement that is no stronger than the active claim-pass support surface.",
+        "command": "erdos problem formalization-work-refresh 1"
+      },
+      "fingerprint": "{\"activeRoute\":\"distinct_subset_sum_lower_bound\",\"currentClaimSurface\":\"route_scaffolding\",\"nextHonestMove\":\"Record the first reduction and checkpoint it without overclaiming theorem progress.\",\"latestVerifiedInterval\":null,\"currentObjective\":{\"formalizationId\":\"number-theory_1_promote_ready_atom_v1\",\"focusId\":\"promote_ready_atom\",\"activeWorkId\":\"number-theory_1_state_claim_honestly_v1\",\"activeWorkStatus\":\"ready\"},\"currentTasks\":[{\"taskId\":\"freeze_current_state\",\"status\":\"ready\",\"title\":\"Freeze the current north star and active theorem packet\",\"task\":\"Freeze the current route `distinct_subset_sum_lower_bound`, claim surface `route_scaffolding`, and active theorem packet before widening the search.\"},{\"taskId\":\"audit_theorem_surfaces\",\"status\":\"ready\",\"title\":\"Audit theorem, claim, and formalization surfaces for consistency\",\"task\":\"Audit the theorem loop, claim loop, claim pass, formalization packet, and formalization work packet for drift or contradictory wording.\"},{\"taskId\":\"verify_canonical_inputs\",\"status\":\"ready\",\"title\":\"Verify canonical pack inputs against the latest route and verifier artifacts\",\"task\":\"Verify that the pack-backed theorem surfaces still match the latest route packet, OPS details, and verifier-facing artifacts.\"},{\"taskId\":\"verify_primary_structural_hook\",\"status\":\"ready\",\"title\":\"Verify the current highest-value structural hook remains canonical\",\"task\":\"Verify that the strongest supported structural hook still survives across the theorem and claim surfaces.\"},{\"taskId\":\"verify_verifier_boundary\",\"status\":\"ready\",\"title\":\"Verify the current verifier boundary and next target\",\"task\":\"Verify that the current verifier boundary and next target are stated honestly across the pack surfaces.\"},{\"taskId\":\"apply_granular_breakdown\",\"status\":\"ready\",\"title\":\"Apply ORP granular breakdown before execution\",\"task\":\"Run ORP granular breakdown on the active topic `problem 1 | State Claim Honestly` and compress it into one active target plus one verification command.\"},{\"taskId\":\"execute_current_work_packet\",\"status\":\"ready\",\"title\":\"State Claim Honestly\",\"task\":\"State the candidate theorem-facing claim in pack language without overstating current support.\"},{\"taskId\":\"discharge_first_remaining_gap\",\"status\":\"ready\",\"title\":\"Discharge the first remaining gap in the active theorem packet\",\"task\":\"state_claim_honestly: Write a claim statement that is no stronger than the active claim-pass support surface.\"}],\"nextNeededSteps\":[{\"stepId\":\"gap_1\",\"status\":\"next\",\"task\":\"state_claim_honestly: Write a claim statement that is no stronger than the active claim-pass support surface.\",\"source\":\"formalization_work\"},{\"stepId\":\"gap_2\",\"status\":\"next\",\"task\":\"freeze_support_artifacts: Attach theorem-loop, claim-pass, and any bridge-backed packet paths directly to the packet.\",\"source\":\"formalization_work\"},{\"stepId\":\"gap_3\",\"status\":\"next\",\"task\":\"define_promotion_boundary: Record explicit promotion criteria tied to current falsifiers.\",\"source\":\"formalization_work\"},{\"stepId\":\"promote_ready_atom\",\"status\":\"medium\",\"task\":\"Record the first reduction and checkpoint it without overclaiming theorem progress.\",\"source\":\"theorem_formalization\"}]}"
+    }
+  ],
+  "commands": {
+    "taskList": "erdos problem task-list 1",
+    "taskListRefresh": "erdos problem task-list-refresh 1",
+    "rerun": "erdos problem task-list-run 1 --passes 4"
+  },
+  "sources": {
+    "taskListJsonPath": "/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/1/TASK_LIST.json",
+    "taskListMarkdownPath": "/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/1/TASK_LIST.md",
+    "taskLoopRunJsonPath": "/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/1/TASK_LOOP_RUN.json",
+    "taskLoopRunMarkdownPath": "/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/1/TASK_LOOP_RUN.md"
+  }
+}

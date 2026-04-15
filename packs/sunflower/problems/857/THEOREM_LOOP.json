@@ -1,0 +1,85 @@
+{
+  "schema": "erdos.problem_theorem_loop/1",
+  "generatedAt": "2026-04-10T08:11:06.261Z",
+  "problemId": "857",
+  "displayName": "Erdos Problem #857",
+  "title": "Sunflower Conjecture",
+  "cluster": "sunflower",
+  "sourceKind": "pack_route_state",
+  "theoremLoopMode": "baseline",
+  "activeRoute": "anchored_selector_linearization",
+  "theoremModule": "sunflower-coda/repo/sunflower_lean/SunflowerLean/ObstructionExport.lean",
+  "currentState": {
+    "siteStatus": "open",
+    "repoStatus": "active",
+    "openProblem": true,
+    "routeBreakthrough": true,
+    "problemSolved": false,
+    "currentClaimSurface": "frontier_supported_route",
+    "routeSummary": "Export the live anchored-selector helper stack into a route-facing leaf that remains honest about the open-problem boundary.",
+    "nextHonestMove": "Prove or package the helper stack cleanly and checkpoint the route if the leaf closes."
+  },
+  "theoremHooks": [
+    {
+      "hook_id": "active_route_recorded",
+      "status": "supported",
+      "note": "The pack records an active route, currently `anchored_selector_linearization`."
+    },
+    {
+      "hook_id": "theorem_module_registered",
+      "status": "supported",
+      "note": "A theorem module is already registered for the active route: `sunflower-coda/repo/sunflower_lean/SunflowerLean/ObstructionExport.lean`."
+    },
+    {
+      "hook_id": "ready_atom_present",
+      "status": "supported",
+      "note": "The live route already has a ready atom, `T10.G3.A2`, which can feed the theorem lane."
+    },
+    {
+      "hook_id": "frontier_note_present",
+      "status": "supported",
+      "note": "The pack already carries a frontier note that can anchor theorem-facing updates."
+    }
+  ],
+  "theoremAgenda": [
+    {
+      "item_id": "promote_ready_atom",
+      "status": "ready",
+      "task": "Turn ready atom `T10.G3.A2` into the next theorem-facing checkpoint.",
+      "why": "Prove or package the helper stack cleanly and checkpoint the route if the leaf closes."
+    },
+    {
+      "item_id": "stabilize_theorem_module_boundary",
+      "status": "ready",
+      "task": "Align the active route with theorem module `sunflower-coda/repo/sunflower_lean/SunflowerLean/ObstructionExport.lean` and freeze its public claim boundary.",
+      "why": "The current claim surface is `frontier_supported_route`, so the next theorem move should sharpen what that module actually certifies."
+    },
+    {
+      "item_id": "tighten_active_route_claim",
+      "status": "ready",
+      "task": "Compress the active route `anchored_selector_linearization` into the next honest theorem-facing claim unit.",
+      "why": "Prove or package the helper stack cleanly and checkpoint the route if the leaf closes."
+    }
+  ],
+  "currentBridgeState": null,
+  "commands": {
+    "problemShow": "erdos problem show 857",
+    "problemArtifacts": "erdos problem artifacts 857",
+    "theoremLoop": "erdos problem theorem-loop 857",
+    "theoremLoopRefresh": "erdos problem theorem-loop-refresh 857",
+    "clusterStatus": "erdos sunflower status 857",
+    "clusterFrontier": "erdos sunflower frontier 857",
+    "sourceRefresh": null
+  },
+  "sources": {
+    "packProblemDir": "/Volumes/Code_2TB/code/erdos-problems/packs/sunflower/problems/857",
+    "theoremLoopJsonPath": "/Volumes/Code_2TB/code/erdos-problems/packs/sunflower/problems/857/THEOREM_LOOP.json",
+    "theoremLoopMarkdownPath": "/Volumes/Code_2TB/code/erdos-problems/packs/sunflower/problems/857/THEOREM_LOOP.md",
+    "contextPath": "/Volumes/Code_2TB/code/erdos-problems/packs/sunflower/problems/857/context.yaml",
+    "routePacketPath": "/Volumes/Code_2TB/code/erdos-problems/packs/sunflower/problems/857/ROUTE_PACKET.yaml",
+    "frontierNotePath": "/Volumes/Code_2TB/code/erdos-problems/packs/sunflower/problems/857/FRONTIER_NOTE.md",
+    "opsDetailsPath": "/Volumes/Code_2TB/code/erdos-problems/packs/sunflower/problems/857/OPS_DETAILS.yaml",
+    "legacyBridgeJsonPath": null,
+    "legacyBridgeMarkdownPath": null
+  }
+}

@@ -1,6 +1,11 @@
 # Outline
 
-Working paper shape: claim-safe progress paper or route paper
+Working title:
+- `A Progress Note on the Weak Sunflower Problem and the Anchored-Selector Frontier`
+
+Paper shape:
+- claim-safe progress paper
+- public route paper for Erdos problem `857`
 
 Recommended order:
 1. Abstract
@@ -14,7 +19,13 @@ Recommended order:
 9. Limitations and Open Problems
 
 Angle:
-- problem: Erdos Problem #857
-- active route: anchored_selector_linearization
-- open problem: yes
-- rewrite this outline once the paper scope is fixed
+- state the weak sunflower problem in standard mathematical language
+- position problem `857` inside the broader sunflower literature
+- record the strongest closed public support layer below the frontier
+- explain why `anchored_selector_linearization` is the live route
+- isolate the exact open seam: `T10.G3.A2`
+
+Non-goals:
+- do not claim a complete proof of problem `857`
+- do not flatten route architecture into generic sunflower rhetoric
+- do not upgrade the `M(8,3)` packet into more than a narrow exact-computation lane

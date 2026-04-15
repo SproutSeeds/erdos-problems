@@ -1,0 +1,74 @@
+{
+  "schema": "erdos.problem_theorem_loop/1",
+  "generatedAt": "2026-04-14T11:46:21.656Z",
+  "problemId": "1",
+  "displayName": "Erdos Problem #1",
+  "title": "Erdos Problem #1",
+  "cluster": "number-theory",
+  "sourceKind": "pack_route_state",
+  "theoremLoopMode": "baseline",
+  "activeRoute": "distinct_subset_sum_lower_bound",
+  "theoremModule": null,
+  "currentState": {
+    "siteStatus": "open",
+    "repoStatus": "cataloged",
+    "openProblem": true,
+    "routeBreakthrough": false,
+    "problemSolved": false,
+    "currentClaimSurface": "route_scaffolding",
+    "routeSummary": "Keep the problem centered on the exponential-growth lower-bound route implied by distinct subset sums.",
+    "nextHonestMove": "Record the first reduction and checkpoint it without overclaiming theorem progress."
+  },
+  "theoremHooks": [
+    {
+      "hook_id": "active_route_recorded",
+      "status": "supported",
+      "note": "The pack records an active route, currently `distinct_subset_sum_lower_bound`."
+    },
+    {
+      "hook_id": "ready_atom_present",
+      "status": "supported",
+      "note": "The live route already has a ready atom, `N1.G1.A1`, which can feed the theorem lane."
+    },
+    {
+      "hook_id": "frontier_note_present",
+      "status": "supported",
+      "note": "The pack already carries a frontier note that can anchor theorem-facing updates."
+    }
+  ],
+  "theoremAgenda": [
+    {
+      "item_id": "promote_ready_atom",
+      "status": "ready",
+      "task": "Turn ready atom `N1.G1.A1` into the next theorem-facing checkpoint.",
+      "why": "Record the first reduction and checkpoint it without overclaiming theorem progress."
+    },
+    {
+      "item_id": "tighten_active_route_claim",
+      "status": "ready",
+      "task": "Compress the active route `distinct_subset_sum_lower_bound` into the next honest theorem-facing claim unit.",
+      "why": "Record the first reduction and checkpoint it without overclaiming theorem progress."
+    }
+  ],
+  "currentBridgeState": null,
+  "commands": {
+    "problemShow": "erdos problem show 1",
+    "problemArtifacts": "erdos problem artifacts 1",
+    "theoremLoop": "erdos problem theorem-loop 1",
+    "theoremLoopRefresh": "erdos problem theorem-loop-refresh 1",
+    "clusterStatus": "erdos number-theory status 1",
+    "clusterFrontier": "erdos number-theory frontier 1",
+    "sourceRefresh": null
+  },
+  "sources": {
+    "packProblemDir": "/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/1",
+    "theoremLoopJsonPath": "/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/1/THEOREM_LOOP.json",
+    "theoremLoopMarkdownPath": "/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/1/THEOREM_LOOP.md",
+    "contextPath": "/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/1/context.yaml",
+    "routePacketPath": "/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/1/ROUTE_PACKET.yaml",
+    "frontierNotePath": "/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/1/FRONTIER_NOTE.md",
+    "opsDetailsPath": "/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/1/OPS_DETAILS.yaml",
+    "legacyBridgeJsonPath": null,
+    "legacyBridgeMarkdownPath": null
+  }
+}

@@ -9,3 +9,4 @@ Use it for:
 - route decompositions
 - wave histories
 - deep public artifacts that are too heavy or too fluid for the packaged CLI surface
+- standalone research-engine prototypes that may later integrate with the CLI

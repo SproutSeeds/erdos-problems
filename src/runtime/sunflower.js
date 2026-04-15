@@ -9,6 +9,14 @@ import {
   getWorkspaceComputeRegistryDir,
   getWorkspaceRunDir,
 } from './paths.js';
+import {
+  getProblemClaimLoopSnapshot,
+  getProblemClaimPassSnapshot,
+  getProblemFormalizationSnapshot,
+  getProblemFormalizationWorkSnapshot,
+  getProblemTaskListSnapshot,
+  getProblemTheoremLoopSnapshot,
+} from './theorem-loop.js';
 
 const CLAIM_LEVEL_PRIORITY = {
   Exact: 4,
@@ -632,6 +640,12 @@ export function buildSunflowerStatusSnapshot(problem) {
   const routeHistoryPath = getSunflowerRouteHistoryPath(problem.problemId);
   const checkpointTemplatePath = getSunflowerCheckpointTemplatePath(problem.problemId);
   const reportTemplatePath = getSunflowerReportTemplatePath(problem.problemId);
+  const theoremLoop = getProblemTheoremLoopSnapshot(problem);
+  const claimLoop = getProblemClaimLoopSnapshot(problem);
+  const claimPass = getProblemClaimPassSnapshot(problem);
+  const formalization = getProblemFormalizationSnapshot(problem);
+  const formalizationWork = getProblemFormalizationWorkSnapshot(problem);
+  const taskList = getProblemTaskListSnapshot(problem);
 
   const firstReadyAtom = atomicBoard?.readyQueue?.[0] ?? null;
   const activeRouteDetail = findRouteDetail(opsDetails, routeState.activeRoute ?? atomicBoard?.activeRoute);
@@ -685,6 +699,12 @@ export function buildSunflowerStatusSnapshot(problem) {
     frontierNotePath: fs.existsSync(frontierNotePath) ? frontierNotePath : null,
     routeHistoryPresent: fs.existsSync(routeHistoryPath),
     routeHistoryPath: fs.existsSync(routeHistoryPath) ? routeHistoryPath : null,
+    theoremLoop,
+    claimLoop,
+    claimPass,
+    formalization,
+    formalizationWork,
+    taskList,
     checkpointTemplatePresent: fs.existsSync(checkpointTemplatePath),
     checkpointTemplatePath: fs.existsSync(checkpointTemplatePath) ? checkpointTemplatePath : null,
     reportTemplatePresent: fs.existsSync(reportTemplatePath),

@@ -1,0 +1,144 @@
+{
+  "schema": "erdos.p848_dmax_tail_recombination_proof/1",
+  "problemId": "848",
+  "atomId": "D2_p13_dmax_tail_recombination_outP2_70_out25_23_smaller_side7",
+  "parentGrowthAtomId": "D2_p13_dmax_growth_outP2_70_out25_23_smaller_side7",
+  "predecessorAtomId": "D2_p13_dmax_q251_progression_outP2_70_out25_23_smaller_side7",
+  "splitKey": "outP2=70|out25=23|smaller=side7",
+  "status": "tail_scaffold_q13_residue_exclusion_verified_q17_needed",
+  "promotesAllNClaim": false,
+  "proofKind": "component_recombination_scaffold_with_target_prime_square_exclusion",
+  "scope": {
+    "term": "same-prime dMax degree tail/recombination envelope",
+    "boundedProfileRange": "7307..12000",
+    "claimBoundary": "This scaffold recombines the verified observed q-components and proves only the q=13 target-prime square-divisor exclusion for this split residue. It does not prove the full same-prime dMax envelope or the side-count floor."
+  },
+  "verifiedComponentQs": [
+    2,
+    3,
+    5,
+    7,
+    11,
+    19,
+    23,
+    31,
+    251
+  ],
+  "verifiedObservedComponents": {
+    "plusWitnessQs": [
+      2,
+      3,
+      5,
+      7,
+      11,
+      31,
+      251
+    ],
+    "minusWitnessQs": [
+      2,
+      3,
+      5,
+      7,
+      19,
+      23
+    ],
+    "componentProofDirectory": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DMAX_Q_PROGRESSION_PROOFS"
+  },
+  "samePrimeWitnesses": [
+    {
+      "side": "plus",
+      "witnessValue": 1591,
+      "witnessResidueMod169": 70,
+      "oppositeSide": "minus",
+      "oppositeResidueMod169": 99
+    },
+    {
+      "side": "minus",
+      "witnessValue": 9563,
+      "witnessResidueMod169": 99,
+      "oppositeSide": "plus",
+      "oppositeResidueMod169": 70
+    }
+  ],
+  "q13ResidueExclusion": {
+    "status": "verified_by_split_residue",
+    "q": 13,
+    "squareDivisor": 169,
+    "reason": "The split modulus is 13^2. For both same-prime witnesses, the required opposite residue makes witness*m + 1 congruent to 2 mod 169, so q=13 cannot divide witness*m + 1.",
+    "checks": [
+      {
+        "side": "plus",
+        "witnessValue": 1591,
+        "witnessResidueMod169": 70,
+        "oppositeResidueMod169": 99,
+        "productPlusOneResidueMod169": 2,
+        "requiredResidueForDivisibilityMod169": 70,
+        "splitResidueMatchesRequiredResidue": false,
+        "conclusion": "169 does not divide 1591*m + 1 for any m = 99 mod 169."
+      },
+      {
+        "side": "minus",
+        "witnessValue": 9563,
+        "witnessResidueMod169": 99,
+        "oppositeResidueMod169": 70,
+        "productPlusOneResidueMod169": 2,
+        "requiredResidueForDivisibilityMod169": 99,
+        "splitResidueMatchesRequiredResidue": false,
+        "conclusion": "169 does not divide 9563*m + 1 for any m = 70 mod 169."
+      }
+    ]
+  },
+  "firstUnresolvedTailPrime": {
+    "q": 17,
+    "squareDivisor": 289,
+    "whyNext": "q=13 is excluded by the target-prime split residue, while q=17 is the first remaining prime square divisor not covered by an observed component proof.",
+    "crtPreview": [
+      {
+        "side": "plus",
+        "witnessValue": 1591,
+        "oppositeResidueMod169": 99,
+        "requiredOppositeValueMod289": 192,
+        "crtResidue": 47588,
+        "crtModulus": 48841,
+        "rawCountUpperBound": "max(0, floor((N - 47588) / 48841) + 1)",
+        "observedCountAt12000": 0
+      },
+      {
+        "side": "minus",
+        "witnessValue": 9563,
+        "oppositeResidueMod169": 70,
+        "requiredOppositeValueMod289": 100,
+        "crtResidue": 12238,
+        "crtModulus": 48841,
+        "rawCountUpperBound": "max(0, floor((N - 12238) / 48841) + 1)",
+        "observedCountAt12000": 0
+      }
+    ]
+  },
+  "checkedIdentities": [
+    "1591 mod 169 = 70.",
+    "9563 mod 169 = 99.",
+    "70*99 + 1 = 6931 = 41*169 + 2.",
+    "99*70 + 1 = 6931 = 41*169 + 2.",
+    "Therefore q=13 contributes zero same-prime square-divisor events throughout this split residue class.",
+    "For q=17, CRT(m = 99 mod 169, 1591*m + 1 = 0 mod 289) gives m = 47588 mod 48841.",
+    "For q=17, CRT(m = 70 mod 169, 9563*m + 1 = 0 mod 289) gives m = 12238 mod 48841."
+  ],
+  "tailObligationAfterQ13": {
+    "status": "open",
+    "statement": "For every remaining prime q not already covered by the observed q-component proofs and not q=13, derive CRT floor-function upper bounds for both witness sides and recombine them without bounded-only overclaim.",
+    "firstOpenAtomId": "D2_p13_dmax_tail_q17_progression_outP2_70_out25_23_smaller_side7"
+  },
+  "nextSubatom": {
+    "atomId": "D2_p13_dmax_tail_q17_progression_outP2_70_out25_23_smaller_side7",
+    "status": "needed",
+    "q": 17,
+    "statement": "Prove the q=17 tail-prime same-prime degree progression upper bound for both witness sides, starting from m = 47588 mod 48841 and m = 12238 mod 48841.",
+    "completionRule": "The q=17 tail contribution is bounded by CRT floor functions for both witnesses, or the first unresolved q=17 overlap/exclusion class becomes the next atom."
+  },
+  "proofBoundary": "This packet turns the broad tail/recombination atom into a checked scaffold and discharges only the q=13 target-prime residue exclusion. The q=17 tail-prime atom remains open before any full dMax envelope can be promoted.",
+  "nextTheoremActions": [
+    "Attack D2_p13_dmax_tail_q17_progression_outP2_70_out25_23_smaller_side7 next.",
+    "Derive q=17 CRT floor bounds for both witnesses and then continue through the remaining tail primes or replace the tail with a sharper aggregate estimate."
+  ]
+}
