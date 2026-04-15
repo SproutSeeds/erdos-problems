@@ -5,7 +5,7 @@ default_active_route: finite_check_gap_closure
 bootstrap_focus: Treat Problem 848 as a finite-gap closure problem and freeze the certificate surface before claiming bounded verification progress.
 route_story: Problem 848 is already asymptotically resolved in public, but not yet closed here for all N. The honest job is to shrink the finite remainder with audited threshold tracking and reproducible bounded verification, and then turn the exact packet into a short structural theorem.
 frontier_label: finite_check_gap_closure
-frontier_detail: The repo now has a verified exact interval `1..10000`, a four-anchor obstruction candidate with no failures in `30..10000`, and evidence that this is the first serious theorem route. The next question is how to prove that obstruction and convert it into a breakpoint law.
+frontier_detail: The repo now has a committed raw exact interval `1..10000`, local ignored rollout evidence through `1..40500`, a four-anchor obstruction candidate with no failures in `30..10000`, and evidence that this is the first serious theorem route. The next question is how to prove that obstruction and convert it into a breakpoint law.
 checkpoint_focus: Preserve the distinction between existential N0, explicit N0, sample finite checks, and full closure.
 next_honest_move: Promote the four-anchor obstruction from recon to a proof-shaped lemma candidate with explicit proof obligations.
 related_core_problems:
@@ -50,6 +50,7 @@ question_ledger:
     - The repo now has an audited explicit candidate package distinct from the imported public threshold timeline.
     - The repo has now chosen bounded finite verification as the next closure lane.
     - The repo now has an exact verified base interval `1..10000`.
+    - Local ignored rollout artifacts extend exact evidence to `1..40500`, but the public raw packet remains `1..10000` until a compact promotion is committed.
     - The exact verifier now uses an incremental update rule rather than rebuilding every instance from scratch.
     - The repo now has a four-anchor obstruction candidate with no failures in `30..10000`.
   problem_solved: []

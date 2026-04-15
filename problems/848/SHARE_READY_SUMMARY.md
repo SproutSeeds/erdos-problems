@@ -24,6 +24,8 @@ What is ready now:
 - a bounded finite-verification lane with regimes, certificate requirements, and external
   audit notes
 - an exact verified base interval `1..10000`
+- local ignored exact rollout evidence through `1..40500`, not yet promoted as a public raw
+  artifact
 - a four-anchor obstruction candidate and minimality ledger for the first theorem-style route
 
 What is not being claimed:

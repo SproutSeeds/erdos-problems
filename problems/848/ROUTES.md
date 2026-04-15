@@ -75,6 +75,8 @@
   - a certificate format for bounded interval claims
   - an audit ledger for imported verification work
   - an exact verified base interval `1..10000`
+  - local ignored exact rollout evidence through `1..40500`, tracked separately from the
+    committed raw packet
   - an incremental verifier that makes larger exact tranches practical
 - The next concrete task is to turn the four-anchor obstruction clue into a proof-shaped
   lemma candidate and then use it to attack the breakpoint law.

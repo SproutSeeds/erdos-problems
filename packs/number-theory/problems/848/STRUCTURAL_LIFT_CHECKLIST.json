@@ -7,7 +7,10 @@
   "sourceArtifacts": {
     "fullMixedBaseStructuralVerifier": "FULL_MIXED_BASE_STRUCTURAL_VERIFIER.json",
     "structuralLiftMiner": "STRUCTURAL_LIFT_MINER.json",
-    "exactBaseCertificate": "EXACT_SMALL_N_1_40500_RESULTS.json"
+    "exactBaseCertificate": "EXACT_INTERVAL_BOOKKEEPING.md",
+    "publicRawExactPacket": "EXACT_SMALL_N_1_10000_RESULTS.json",
+    "localIgnoredRolloutPacket": "output/p848-exact-small-n-rollouts/EXACT_SMALL_N_1_40500_RESULTS.json",
+    "exactBaseCertificateMeaning": "bookkeeping surface; raw 1..40500 packet is local and ignored"
   },
   "northStar": "Turn the bounded mixed-base structural verifier into an all-N proof lane by proving the cross-side matching reduction, then the p=13 and p=17 margin lifts, while keeping exact finite coverage separate.",
   "currentFocus": {
@@ -138,59 +141,59 @@
         },
         {
           "stepId": "C2_two_cliques_plus_cross_edges",
-        "status": "done",
-        "statement": "For fixed outsider x, the compatible mixed-base graph is one clique on B7-compatible vertices, one clique on B18-compatible vertices, plus arbitrary cross edges.",
-        "dependsOn": [
-          "C1_same_side_base_clique"
-        ],
-        "proofType": "graph_decomposition",
-        "proofArtifact": "p848_C2_two_cliques_plus_cross_edges_checker_v1",
-        "falsifierBoundary": "The graph has a same-side missing edge or an extra vertex outside the two compatible sides."
-      },
-      {
-        "stepId": "C3_missing_cross_graph_definition",
-        "status": "done",
-        "statement": "Define H_{x,N} as the bipartite graph whose edges are precisely missing cross edges between compatible B7 and B18 vertices.",
-        "dependsOn": [
-          "C2_two_cliques_plus_cross_edges"
-        ],
-        "proofType": "definition",
-        "proofArtifact": "p848_C3_missing_cross_graph_definition_checker_v1",
-        "falsifierBoundary": "A cross edge is assigned the wrong sign between compatibility and missing-cross membership."
-      },
-      {
-        "stepId": "C4_clique_to_vertex_cover_duality",
-        "status": "done",
-        "statement": "A mixed-base clique equals all compatible vertices minus a vertex cover of H_{x,N}; hence max clique size is |L| + |R| minus minimum vertex cover size.",
-        "dependsOn": [
-          "C3_missing_cross_graph_definition"
-        ],
-        "proofType": "graph_duality",
-        "proofArtifact": "p848_C4_clique_to_vertex_cover_duality_checker_v1",
-        "falsifierBoundary": "A selected clique contains a missing cross edge or a vertex cover removes more vertices than necessary."
-      },
-      {
-        "stepId": "C5_konig_matching_reduction",
-        "status": "done",
-        "statement": "Because H_{x,N} is bipartite, minimum vertex cover size equals maximum matching size.",
-        "dependsOn": [
-          "C3_missing_cross_graph_definition"
-        ],
-        "proofType": "konig_theorem",
-        "proofArtifact": "p848_C5_konig_matching_reduction_checker_v1",
-        "falsifierBoundary": "H_{x,N} is not bipartite or Konig's theorem is used outside its hypotheses."
-      },
-      {
-        "stepId": "C6_mixed_clique_matching_formula",
-        "status": "done",
-        "statement": "sMixed(x,N) = |L| + |R| - maxMatching(H_{x,N}).",
-        "dependsOn": [
-          "C4_clique_to_vertex_cover_duality",
-          "C5_konig_matching_reduction"
-        ],
-        "proofType": "graph_formula",
-        "proofArtifact": "p848_C6_mixed_clique_matching_formula_checker_v1",
-        "falsifierBoundary": "The formula disagrees with the verifier's Hopcroft-Karp mixed-clique computation on a certified row."
+          "status": "done",
+          "statement": "For fixed outsider x, the compatible mixed-base graph is one clique on B7-compatible vertices, one clique on B18-compatible vertices, plus arbitrary cross edges.",
+          "dependsOn": [
+            "C1_same_side_base_clique"
+          ],
+          "proofType": "graph_decomposition",
+          "proofArtifact": "p848_C2_two_cliques_plus_cross_edges_checker_v1",
+          "falsifierBoundary": "The graph has a same-side missing edge or an extra vertex outside the two compatible sides."
+        },
+        {
+          "stepId": "C3_missing_cross_graph_definition",
+          "status": "done",
+          "statement": "Define H_{x,N} as the bipartite graph whose edges are precisely missing cross edges between compatible B7 and B18 vertices.",
+          "dependsOn": [
+            "C2_two_cliques_plus_cross_edges"
+          ],
+          "proofType": "definition",
+          "proofArtifact": "p848_C3_missing_cross_graph_definition_checker_v1",
+          "falsifierBoundary": "A cross edge is assigned the wrong sign between compatibility and missing-cross membership."
+        },
+        {
+          "stepId": "C4_clique_to_vertex_cover_duality",
+          "status": "done",
+          "statement": "A mixed-base clique equals all compatible vertices minus a vertex cover of H_{x,N}; hence max clique size is |L| + |R| minus minimum vertex cover size.",
+          "dependsOn": [
+            "C3_missing_cross_graph_definition"
+          ],
+          "proofType": "graph_duality",
+          "proofArtifact": "p848_C4_clique_to_vertex_cover_duality_checker_v1",
+          "falsifierBoundary": "A selected clique contains a missing cross edge or a vertex cover removes more vertices than necessary."
+        },
+        {
+          "stepId": "C5_konig_matching_reduction",
+          "status": "done",
+          "statement": "Because H_{x,N} is bipartite, minimum vertex cover size equals maximum matching size.",
+          "dependsOn": [
+            "C3_missing_cross_graph_definition"
+          ],
+          "proofType": "konig_theorem",
+          "proofArtifact": "p848_C5_konig_matching_reduction_checker_v1",
+          "falsifierBoundary": "H_{x,N} is not bipartite or Konig's theorem is used outside its hypotheses."
+        },
+        {
+          "stepId": "C6_mixed_clique_matching_formula",
+          "status": "done",
+          "statement": "sMixed(x,N) = |L| + |R| - maxMatching(H_{x,N}).",
+          "dependsOn": [
+            "C4_clique_to_vertex_cover_duality",
+            "C5_konig_matching_reduction"
+          ],
+          "proofType": "graph_formula",
+          "proofArtifact": "p848_C6_mixed_clique_matching_formula_checker_v1",
+          "falsifierBoundary": "The formula disagrees with the verifier's Hopcroft-Karp mixed-clique computation on a certified row."
         }
       ]
     },
@@ -311,7 +314,7 @@
         {
           "stepId": "F1_exact_base_certificate",
           "status": "available",
-          "statement": "The exact verifier certifies N <= 40500.",
+          "statement": "The local compact exact rollout reaches N <= 40500; the committed raw packet reaches N <= 10000.",
           "dependsOn": [],
           "proofType": "repo_artifact_certificate",
           "falsifierBoundary": "The exact certificate is stale, missing, or fails rerun."

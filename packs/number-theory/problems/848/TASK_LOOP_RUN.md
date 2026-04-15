@@ -1,5 +1,7 @@
 # Erdos Problem #848 Task Loop Run
 
+Historical bookkeeping note: this is a run log, not the current interval authority. Use `EXACT_INTERVAL_BOOKKEEPING.md` for the current distinction between public raw `1..10000` and local rollout `1..40500`.
+
 - Problem id: `848`
 - Requested passes: `250`
 - Executed passes: `250`
@@ -8,7 +10,7 @@
 - Converged at pass: `2`
 - Active route: `finite_check_gap_closure`
 - Current claim surface: `bridge_backed_frontier_support`
-- Latest verified interval: `1..11300`
+- Historical run latest interval: `1..11300`
 - Highest-value next step: `gap_1` | Show whether the 132-activation sequence should be described as a controlled interaction between the shared-prefix class and the 282 repair congruence rather than as a packet-specific coincidence.
 - Highest-value command: `erdos problem formalization-work-refresh 848`
 

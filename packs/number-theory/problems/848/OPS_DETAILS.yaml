@@ -210,5 +210,10 @@ atoms:
     route_id: finite_check_gap_closure
     ticket_id: N848
     status: ready
-    summary: The repo now has a four-anchor obstruction candidate with no failures in `30..10000`, plus a minimality ledger showing that `{7, 32, 57, 82}` is unusually strong among small anchor sets. The next move is to package that into a proof-shaped lemma with explicit obligations.
+    summary: >-
+      The repo now has public raw exact evidence through `1..10000`, local
+      ignored rollout evidence through `1..40500`, and a four-anchor obstruction
+      candidate with no failures in `30..10000`; `EXACT_INTERVAL_BOOKKEEPING.md`
+      is the authority for that boundary. The next move is to package the
+      four-anchor candidate into a proof-shaped lemma with explicit obligations.
     next_move: Write the theorem candidate and proof-obligation surface for the four-anchor obstruction.

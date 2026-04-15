@@ -8,8 +8,8 @@ This formalization packet promotes the current claim-pass recommendation into a 
 - Current claim surface: `bridge_backed_frontier_support`.
 - Active route: `finite_check_gap_closure`.
 - Route summary: Convert the sufficiently-large-N theorem into a complete all-N resolution without overstating what is already closed or confusing imported thresholds with repo-owned claims.
-- Next honest move: Decide whether to extend exact verified coverage beyond `40500` or switch method class.
-- Latest verified interval: `1..40500`
+- Next honest move: Promote or reject the local `1..40500` rollout; public raw exact claims remain `1..10000` until that handoff is committed.
+- Latest exact interval: public raw `1..10000`; local rollout `1..40500`
 
 ## Current Target
 
@@ -39,7 +39,7 @@ The canonical bridge freezes next unmatched representative 137720141, and the cl
 - The current family menu already contains representative 137720141 with tuple key 4, 23^2, 7^2, 9, 17^2, 11^2 and tuple rows 7->4/1, 32->529/281, 57->49/6, 82->9/8, 132->289/81, 182->121/119.
 - On that family-menu row, only continuation 282 fails among the tracked tails, and it does so via witness modulus 841.
 - The strongest completed structured tail remains 332, so this packet isolates the 282 obstruction mechanism rather than conflating it with the current family-aware leader 432.
-- The finite exact base is already certified through 1..40500, so the open work is structural rather than basic interval bookkeeping.
+- The public raw exact packet is committed through 1..10000, while local compact rollout evidence reaches 1..40500; the open work is still structural rather than raw interval bookkeeping.
 - Formalization-work checker p848_132_activation_row_certificate_checker_v1 replayed 17 activation rows with 0 failures.
 - Formalization-work checker p848_132_lift_crt_checker_v1 proved the 132-row lift with k=147 and residue 504 mod 841.
 - The top repair-class side packet is also checked: +2 finite-menu replay plus 74 mod-50 lane exchange rows pass.

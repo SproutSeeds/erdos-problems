@@ -8,8 +8,8 @@ This packet turns the current formalization target into one concrete work unit t
 - Current claim surface: `bridge_backed_frontier_support`.
 - Active route: `finite_check_gap_closure`.
 - Route summary: Convert the sufficiently-large-N theorem into a complete all-N resolution without overstating what is already closed or confusing imported thresholds with repo-owned claims.
-- Next honest move: Decide whether to extend exact verified coverage beyond `40500` or switch method class.
-- Latest verified interval: `1..40500`
+- Next honest move: Promote or reject the local `1..40500` rollout; public raw exact claims remain `1..10000` until that handoff is committed.
+- Latest exact interval: public raw `1..10000`; local rollout `1..40500`
 
 ## Current Work
 
@@ -116,7 +116,7 @@ This packet turns the current formalization target into one concrete work unit t
 
 - Prove structural-lift atom D2_p13_matching_lower_bound: For p=13 threatening rows, maxMatching(H_{x,N}) is at least the required matching bound extracted from the margin inequality.
 - Advance the same atomic packet toward target D4_matching_bound_implies_sMaxMixed_bound: If maxMatching(H_{x,N}) >= K(N), then sMixed(x,N) <= |L| + |R| - K(N).
-- Decide and run the next post-40500 verification lane using local CPU and opt-in local 4090 compute only.
+- Resolve the local 1..40500 promotion boundary, then use further exact runs only as local/free regression evidence.
 
 ## Atomic Proof Obligations
 

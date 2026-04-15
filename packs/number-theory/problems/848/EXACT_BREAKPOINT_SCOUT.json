@@ -2,7 +2,7 @@
   "generatedAt": "2026-04-11T02:57:09.787Z",
   "method": "exact_rows_breakpoint_scout",
   "problemId": "848",
-  "sourceResultsPath": "/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/EXACT_SMALL_N_1_40500_RESULTS.json",
+  "sourceResultsPath": "output/p848-exact-small-n-rollouts/EXACT_SMALL_N_1_40500_RESULTS.json",
   "sourceSummary": {
     "interval": "1..40500",
     "rows": 40500,
@@ -35706,5 +35706,10 @@
     "claimLevel": "scout_not_proof",
     "note": "This artifact summarizes already-certified exact rows. It does not prove coverage between unchecked rows or replace a Regime B monotonicity/breakpoint lemma.",
     "nextUse": "Use the plateau and breakpoint pattern to propose a structured-breakpoint certificate with an explicit monotonicity justification."
-  }
+  },
+  "sourceResultsStatus": "local_ignored_large_raw_packet",
+  "sourceResultsSha256": "da3546ab3f30faef879c2d4da680f826711361e2c685de8f384eb116df1f8fbc",
+  "publicRepoRawExactPacket": "EXACT_SMALL_N_1_10000_RESULTS.json",
+  "publicRepoRawExactInterval": "1..10000",
+  "bookkeepingArtifact": "EXACT_INTERVAL_BOOKKEEPING.md"
 }

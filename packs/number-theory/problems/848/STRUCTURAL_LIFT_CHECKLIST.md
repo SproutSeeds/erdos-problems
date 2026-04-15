@@ -65,7 +65,7 @@ Each step is complete only when it has:
 
 ## F. Finite Closure
 
-- `F1_exact_base_certificate` [available]: Use the exact verifier certificate for `N <= 40500`.
+- `F1_exact_base_certificate` [available]: Use the local compact exact rollout for `N <= 40500`, while remembering the committed raw packet only covers `N <= 10000`.
 - `F2_bounded_structural_certificate` [available]: Use the full mixed-base structural verifier for `7307..7600`.
 - `F3_threshold_overlap` [blocked_by_E2_E4_E5]: Verify symbolic thresholds overlap the finite exact or structural certificates.
 - `F4_all_ranges_cover_positive_integers` [blocked_by_F3]: Combine exact base plus symbolic structural lift into an all-range cover.
