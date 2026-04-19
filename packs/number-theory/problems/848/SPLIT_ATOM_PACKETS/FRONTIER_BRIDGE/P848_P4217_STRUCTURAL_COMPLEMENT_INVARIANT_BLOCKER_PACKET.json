@@ -1,0 +1,172 @@
+{
+  "schema": "erdos.number_theory.p848_p4217_structural_complement_invariant_blocker_packet/1",
+  "packetId": "P848_P4217_STRUCTURAL_COMPLEMENT_INVARIANT_BLOCKER_PACKET",
+  "problemId": 848,
+  "generatedAt": "2026-04-18T03:49:16.531Z",
+  "status": "p4217_structural_complement_invariant_blocker_emitted_mod50_recurrence_boundary_selected",
+  "target": "derive_p848_p4217_structural_complement_decomposition_or_emit_invariant_blocker",
+  "recommendedNextAction": "derive_p848_mod50_all_future_recurrence_or_emit_source_theorem_blocker",
+  "coversPrimaryNextAction": {
+    "stepId": "derive_p848_p4217_structural_complement_decomposition_or_emit_invariant_blocker",
+    "status": "completed_by_exact_invariant_blocker",
+    "sourceRoutePacket": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_Q_COVER_PARAMETRIC_TRANSITION_ROUTE_PACKET.json"
+  },
+  "sourcePackets": [
+    "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_Q_COVER_PARAMETRIC_TRANSITION_ROUTE_PACKET.json",
+    "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_UNAVAILABLE_COMPLEMENT_REFINEMENT_PACKET.json",
+    "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_COMPLEMENT_P43_FALLBACK_SELECTOR_PACKET.json",
+    "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_COMPLEMENT_P43_SQUARE_OBSTRUCTION_PACKET.json",
+    "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_COMPLEMENT_P61_AVAILABILITY_REFINEMENT_PACKET.json",
+    "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_P443_Q97_P479_AVAILABLE_RESIDUE_BULK_COVER_PACKET.json",
+    "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_P443_Q97_P479_Q109_NONUNIFORM_BUCKET_STRUCTURE_PACKET.json",
+    "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_MOD50_EXACT_BOUNDED_CRT_MENU_REPLAY_THEOREM_PACKET.json"
+  ],
+  "sourcePacketDigests": {
+    "routeSha256": "e54e580790d7a353a606e983692d468f7c207b59d9ca8002e8a461a58601cd15",
+    "complementRefinementSha256": "fa96784d05dd34814bf5dfd762dfb9f80436d903914a7570a9dc7ca99e433b7e",
+    "p43SelectorSha256": "50e72ea72bd7f3ae0433ee8d411613a23d5dffa2918c397aea1f446bde1ecb16",
+    "p43ObstructionSha256": "36d266e5c8407c23a2be0ad68687d1de4b3211277968ecc12c8372698f675f33",
+    "p61RefinementSha256": "9385500bf5364d8b0b2da0fc1213a062c5cb7f259d4260471980bcbc45dc984b",
+    "p479BulkCoverSha256": "f022316b0bb364c5376d2d4755522ead92c45201420db4779430f1c40e8e60eb",
+    "q109StructureSha256": "fe28dab2d252581a597ec6b8cf3d3de33f1152005917a02201248f7250d711f9",
+    "mod50ReplaySha256": "5957dc077afdd49b0778e689c47497924fea2b50f3e1700e38d56496e89bfae5"
+  },
+  "structuralComplementAudit": {
+    "result": "no_repo_owned_structural_complement_decomposition_or_decreasing_invariant_available",
+    "auditedCandidateCount": 6,
+    "auditedCandidates": [
+      {
+        "id": "p4217_unavailable_complement_refinement",
+        "relativePath": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_UNAVAILABLE_COMPLEMENT_REFINEMENT_PACKET.json",
+        "status": "p4217_unavailable_complement_parameterized_open",
+        "usefulFact": "The p4217 complement is parameterized exactly.",
+        "closureGap": "The p4217 unavailable complement is now exactly parameterized, but not covered. The next proof must find a fallback selector, impossibility mechanism, finite subcover, or further deterministic refinement for this interval family.",
+        "provesP4217ComplementCoverage": false
+      },
+      {
+        "id": "p43_fallback_selector_and_uniform_square_block",
+        "relativePath": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_COMPLEMENT_P43_SQUARE_OBSTRUCTION_PACKET.json",
+        "status": "p4217_complement_p43_fallback_globally_square_blocked_by_2",
+        "usefulFact": "The first fallback endpoint selector p43 is globally square-blocked by 2^2 on the complement.",
+        "closureGap": "The p43 fallback selector is eliminated for the entire p4217 complement by a uniform 2^2 obstruction. The p4217 complement itself remains open and now needs a different fallback selector, finite cover, impossibility theorem, or deterministic refinement.",
+        "provesP4217ComplementCoverage": false
+      },
+      {
+        "id": "p61_availability_partition",
+        "relativePath": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_COMPLEMENT_P61_AVAILABILITY_REFINEMENT_PACKET.json",
+        "status": "p4217_complement_p61_availability_refined_squarefree_open",
+        "usefulFact": "The p61 selector gives an exact availability partition after p43 is excluded.",
+        "closureGap": "The p4217 complement is exactly refined by the p61 endpoint selector after p43 is excluded. The p61-available CRT classes still require squarefree hitting or deterministic square-obstruction splits, and the p61-unavailable CRT classes still need a later selector, cover, or blocker.",
+        "provesP4217ComplementCoverage": false
+      },
+      {
+        "id": "p479_available_bulk_square_obstruction_cover",
+        "relativePath": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_P443_Q97_P479_AVAILABLE_RESIDUE_BULK_COVER_PACKET.json",
+        "status": "all_p479_available_residue_classes_have_square_obstruction_child",
+        "usefulFact": "The p479-available finite residue set is batch-classified by first square-obstruction children.",
+        "closureGap": "This packet classifies every p479-available residue class by a first square-obstruction child. It does not close those square-obstruction children, does not close q127-avoiding subfamilies inside a residue class, does not close the p479-unavailable complement, does not close the q97 child, does not close the p443-unavailable complement, does not close the wider p4217 complement, and does not decide Problem 848.",
+        "provesP4217ComplementCoverage": false
+      },
+      {
+        "id": "q109_regular_singular_boundary",
+        "relativePath": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_P443_Q97_P479_Q109_NONUNIFORM_BUCKET_STRUCTURE_PACKET.json",
+        "status": "q109_nonuniform_bucket_split_into_regular_and_singular_subbucket_boundaries",
+        "usefulFact": "The q109 nonuniform bucket is split into exact regular and singular subbucket boundaries.",
+        "closureGap": "This packet consumes the q109 nonuniform bucket token by splitting all 351 q109 rows into exact regular and singular subbucket boundaries. It does not close the q109 q-avoiding descendant classes, the 10 partial buckets, their q-avoiding complements, the p479-unavailable complement, the q97 child, the p443-unavailable complement, the wider p4217 complement, collision-free matching, or Problem 848.",
+        "provesP4217ComplementCoverage": false
+      },
+      {
+        "id": "q_cover_parametric_transition_route",
+        "relativePath": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_Q_COVER_PARAMETRIC_TRANSITION_ROUTE_PACKET.json",
+        "status": "q_cover_parametric_transition_audit_routes_to_structural_complement_decomposition",
+        "usefulFact": "The q-cover row law is exactly two-root on the current q193..q389 surface.",
+        "closureGap": "This packet proves the current q-cover transition is a non-decreasing local shape, not a global closure theorem. It routes through already recorded 282/841 finite-menu chronology evidence and leaves p4217 complement decomposition, mod-50 all-future recurrence/finite-Q coverage, and final all-N recombination open.",
+        "provesP4217ComplementCoverage": false
+      }
+    ],
+    "nonDecreasingQCoverSurface": {
+      "routePacket": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_Q_COVER_PARAMETRIC_TRANSITION_ROUTE_PACKET.json",
+      "qAvoidingToSourceRatio": "124343.572052",
+      "emittedBucketCount": 33,
+      "reason": "The class-count measure grows from the source surface to both the root-child surface and especially the q-avoiding complement; the frontier ledger count also stays flat rather than decreasing."
+    },
+    "failedInvariantClasses": [
+      {
+        "invariant": "finite q-cover class count",
+        "failure": "The q-avoiding surface grows on the current q193..q389 row-uniform two-root transition."
+      },
+      {
+        "invariant": "single fallback selector ladder",
+        "failure": "The p43 selector is uniformly square-blocked, and later selector/refinement packets leave unavailable or q-avoiding complements open."
+      },
+      {
+        "invariant": "restored finite mod-50 menu replay",
+        "failure": "The bounded CRT replay theorem is exact only on restored finite menus and explicitly does not prove symbolic recurrence or finite Q partition."
+      }
+    ]
+  },
+  "invariantBlockerDecision": {
+    "decision": "do_not_promote_structural_p4217_complement_decomposition_from_current_sources",
+    "reason": "The audited local packets give exact refinements, selector obstructions, and finite batch classifications, but none supplies a partition whose children are all terminal/covered or a well-founded invariant that decreases across the whole p4217 complement.",
+    "requiredToClear": [
+      "A deterministic p4217 complement partition with every child terminal, covered, or assigned a strictly smaller structural rank.",
+      "A proof that the p479-unavailable, q97, p443-unavailable, and q-avoiding descendant complements are covered by a common square-obstruction mechanism.",
+      "A mod-50 symbolic all-future recurrence or finite Q partition that can be recombined with the complement accounting.",
+      "An audited theorem-wedge result that supplies one of these missing invariants."
+    ],
+    "qCoverLaneStatus": "blocked_until_structural_or_mod50_invariant_exists",
+    "fallbackSelectorLaneStatus": "blocked_against_single_selector_ladder"
+  },
+  "nextAllowedMoves": [
+    {
+      "id": "mod50_all_future_recurrence_or_source_blocker",
+      "action": "Prove the all-future mod-50 relevant-pair recurrence or finite Q partition, or emit the exact source-theorem blocker named by the bounded CRT replay theorem.",
+      "completionRule": "A symbolic recurrence/finite Q partition replaces finite replay evidence, or the source-theorem blocker becomes canonical before any final recombination claim."
+    },
+    {
+      "id": "new_structural_complement_theorem",
+      "action": "Return to p4217 only with a new deterministic partition, square-obstruction family theorem, or decreasing rank invariant.",
+      "completionRule": "The new packet must name the finite denominator/partition/rank and prove why every child is terminal, covered, or smaller."
+    },
+    {
+      "id": "budgeted_theorem_wedge",
+      "action": "If both local routes stall, use one ORP/OpenAI theorem-wedge call only after the local budget guard confirms remaining USD and run count.",
+      "completionRule": "Any external answer remains discovery evidence until converted into an audited local packet."
+    }
+  ],
+  "forbiddenMovesBeforeNewInvariant": [
+    "run_q193_singleton_child_descent",
+    "run_q197_singleton_child_descent",
+    "launch_q193_q389_or_larger_q_cover",
+    "emit_naked_q193_q389_rank_boundary",
+    "try_fallback_selectors_one_by_one_without_batch_or_rank_decrease",
+    "treat_finite_mod50_replay_as_all_future_recurrence"
+  ],
+  "oneNextAction": {
+    "stepId": "derive_p848_mod50_all_future_recurrence_or_emit_source_theorem_blocker",
+    "action": "Prove the mod-50 all-future relevant-pair recurrence or finite Q partition, or emit the exact source-theorem blocker at that universal boundary.",
+    "coveredFamily": "The mod-50 square-witness domain after the exact bounded CRT menu replay theorem, while the p4217 q-cover and single-selector complement lanes remain blocked.",
+    "finiteDenominatorOrRankToken": "p848_mod50_all_future_recurrence_source_boundary_after_bounded_replay_theorem",
+    "failureBoundary": "A symbolic all-future relevant-pair recurrence, finite Q partition, original generator source theorem, or a proof that the restored finite bounded replay theorem suffices for the universal mod-50 square-witness domain cover.",
+    "whyCheaperThanAnotherSelector": "The p4217 local artifacts currently lack a decreasing structural invariant, while the mod-50 replay theorem already names the next universal source boundary.",
+    "completionRule": "No all-N or p4217-complement closure claim is allowed until the mod-50 recurrence/finite-Q boundary is theorem-facing.",
+    "command": null
+  },
+  "proofBoundary": "This packet is an invariant blocker, not a structural complement theorem. It proves only that the currently audited local p4217 artifacts do not contain a repo-owned structural complement decomposition, finite partition, or decreasing invariant. It keeps q-cover expansion and singleton selector descent blocked and routes the next theorem-facing move to the mod-50 all-future recurrence/source boundary.",
+  "claims": {
+    "emitsExactInvariantBlocker": true,
+    "auditsCurrentP4217StructuralCandidates": true,
+    "provesNoCurrentCandidateClaimsP4217ComplementCoverage": true,
+    "provesStructuralP4217ComplementDecomposition": false,
+    "provesP4217ComplementCoverage": false,
+    "provesDecreasingGlobalInvariant": false,
+    "blocksQCoverExpansion": true,
+    "blocksSingletonQChildDescent": true,
+    "blocksSingleFallbackSelectorLadder": true,
+    "routesToMod50AllFutureRecurrenceBoundary": true,
+    "provesMod50AllFutureRecurrence": false,
+    "provesFiniteQPartition": false,
+    "provesAllN": false
+  },
+  "packetPath": "/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_STRUCTURAL_COMPLEMENT_INVARIANT_BLOCKER_PACKET.json"
+}

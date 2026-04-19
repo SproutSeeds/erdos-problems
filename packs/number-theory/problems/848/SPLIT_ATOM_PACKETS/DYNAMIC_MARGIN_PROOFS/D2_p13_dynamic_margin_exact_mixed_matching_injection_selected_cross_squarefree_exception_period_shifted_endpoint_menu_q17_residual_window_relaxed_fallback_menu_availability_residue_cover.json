@@ -1,0 +1,1104 @@
+{
+  "schema": "erdos.number_theory.p848_endpoint_availability_residue_cover/1",
+  "generatedAt": "2026-04-17T00:25:53.108Z",
+  "problemId": "848",
+  "status": "bounded_availability_residue_cover_seeded_symbolic_squarefree_hitting_needed",
+  "activeAtom": "D2_p13_q17_window_relaxed_fallback_menu_availability_residue_cover",
+  "sourceLegalityAudit": "/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DYNAMIC_MARGIN_PROOFS/D2_p13_dynamic_margin_exact_mixed_matching_injection_selected_cross_squarefree_exception_period_shifted_endpoint_menu_q17_residual_window_relaxed_fallback_menu_window_legality_audit.json",
+  "target": {
+    "description": "q17 residual window-relaxed fallback endpoint-menu availability residue-cover handoff",
+    "predecessorProof": "/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DYNAMIC_MARGIN_PROOFS/D2_p13_dynamic_margin_exact_mixed_matching_injection_selected_cross_squarefree_exception_period_shifted_endpoint_menu_q17_residual_p13_expanded_fallback_menu_lift.json",
+    "outsider": 6323,
+    "residualClass": {
+      "residue": 5882,
+      "modulus": 11025
+    },
+    "start": 27932207,
+    "end": 40000000,
+    "rowCount": 1095,
+    "window": 28500,
+    "squareCheck": {
+      "mode": "factor",
+      "checkedPrimeLimit": null,
+      "exactSelectedEndpointCount": 1095
+    }
+  },
+  "menus": {
+    "primaryPrimes": [
+      23,
+      31,
+      37,
+      41,
+      61,
+      67
+    ],
+    "fallbackPrimes": [
+      71,
+      73,
+      79,
+      83,
+      89,
+      97,
+      101,
+      103,
+      107,
+      109,
+      113
+    ]
+  },
+  "coverage": {
+    "assignedRows": 1095,
+    "unassignedRows": 0,
+    "assignedRowFraction": 1,
+    "selectedEndpointsExact": true,
+    "firstUnassignedRow": null,
+    "selectedPrimeCounts": [
+      {
+        "prime": 23,
+        "rowCount": 819
+      },
+      {
+        "prime": 31,
+        "rowCount": 191
+      },
+      {
+        "prime": 37,
+        "rowCount": 45
+      },
+      {
+        "prime": 41,
+        "rowCount": 17
+      },
+      {
+        "prime": 61,
+        "rowCount": 5
+      },
+      {
+        "prime": 67,
+        "rowCount": 5
+      },
+      {
+        "prime": 73,
+        "rowCount": 3
+      },
+      {
+        "prime": 83,
+        "rowCount": 3
+      },
+      {
+        "prime": 71,
+        "rowCount": 2
+      },
+      {
+        "prime": 79,
+        "rowCount": 2
+      },
+      {
+        "prime": 97,
+        "rowCount": 1
+      },
+      {
+        "prime": 103,
+        "rowCount": 1
+      },
+      {
+        "prime": 109,
+        "rowCount": 1
+      }
+    ]
+  },
+  "strata": [
+    {
+      "prime": 23,
+      "primeSquare": 529,
+      "menuRole": "primary",
+      "rowCount": 819,
+      "firstLeft": 27932207,
+      "lastLeft": 39960482,
+      "kRange": {
+        "min": 0,
+        "max": 528
+      },
+      "deltaRange": {
+        "min": -13214,
+        "max": -14
+      },
+      "selectedTResidueCountModuloPrimeSquare": 458,
+      "selectedTResiduesModuloPrimeSquareSample": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        18,
+        19,
+        20,
+        22,
+        23,
+        24,
+        25,
+        26
+      ],
+      "availabilityRule": {
+        "kFormulaInT": "k_23(t) = (441*t + 145) mod 529",
+        "maxK": 1139,
+        "availableResidueCount": 529,
+        "period": 529,
+        "universallyWithinWindow": true
+      },
+      "rowSamples": [
+        {
+          "left": 27932207,
+          "t": 2533,
+          "tResidueModuloPrimeSquare": 417,
+          "k": 479,
+          "delta": -11989,
+          "right": 27920218,
+          "squarefreeStatus": "exact_squarefree"
+        },
+        {
+          "left": 27943232,
+          "t": 2534,
+          "tResidueModuloPrimeSquare": 418,
+          "k": 391,
+          "delta": -9789,
+          "right": 27933443,
+          "squarefreeStatus": "exact_squarefree"
+        },
+        {
+          "left": 27954257,
+          "t": 2535,
+          "tResidueModuloPrimeSquare": 419,
+          "k": 303,
+          "delta": -7589,
+          "right": 27946668,
+          "squarefreeStatus": "exact_squarefree"
+        },
+        {
+          "left": 27976307,
+          "t": 2537,
+          "tResidueModuloPrimeSquare": 421,
+          "k": 127,
+          "delta": -3189,
+          "right": 27973118,
+          "squarefreeStatus": "exact_squarefree"
+        },
+        {
+          "left": 27987332,
+          "t": 2538,
+          "tResidueModuloPrimeSquare": 422,
+          "k": 39,
+          "delta": -989,
+          "right": 27986343,
+          "squarefreeStatus": "exact_squarefree"
+        },
+        {
+          "left": 28009382,
+          "t": 2540,
+          "tResidueModuloPrimeSquare": 424,
+          "k": 392,
+          "delta": -9814,
+          "right": 27999568,
+          "squarefreeStatus": "exact_squarefree"
+        },
+        {
+          "left": 28031432,
+          "t": 2542,
+          "tResidueModuloPrimeSquare": 426,
+          "k": 216,
+          "delta": -5414,
+          "right": 28026018,
+          "squarefreeStatus": "exact_squarefree"
+        },
+        {
+          "left": 28053482,
+          "t": 2544,
+          "tResidueModuloPrimeSquare": 428,
+          "k": 40,
+          "delta": -1014,
+          "right": 28052468,
+          "squarefreeStatus": "exact_squarefree"
+        }
+      ]
+    },
+    {
+      "prime": 31,
+      "primeSquare": 961,
+      "menuRole": "primary",
+      "rowCount": 191,
+      "firstLeft": 27998357,
+      "lastLeft": 39993557,
+      "kRange": {
+        "min": 2,
+        "max": 942
+      },
+      "deltaRange": {
+        "min": -23564,
+        "max": -64
+      },
+      "selectedTResidueCountModuloPrimeSquare": 183,
+      "selectedTResiduesModuloPrimeSquareSample": [
+        9,
+        18,
+        22,
+        31,
+        39,
+        42,
+        44,
+        52,
+        53,
+        63,
+        70,
+        74,
+        92,
+        94,
+        96,
+        107,
+        114,
+        116,
+        117,
+        118,
+        138,
+        139,
+        146,
+        157
+      ],
+      "availabilityRule": {
+        "kFormulaInT": "k_31(t) = (441*t + 443) mod 961",
+        "maxK": 1139,
+        "availableResidueCount": 961,
+        "period": 961,
+        "universallyWithinWindow": true
+      },
+      "rowSamples": [
+        {
+          "left": 27998357,
+          "t": 2539,
+          "tResidueModuloPrimeSquare": 617,
+          "k": 577,
+          "delta": -14439,
+          "right": 27983918,
+          "squarefreeStatus": "exact_squarefree"
+        },
+        {
+          "left": 28020407,
+          "t": 2541,
+          "tResidueModuloPrimeSquare": 619,
+          "k": 498,
+          "delta": -12464,
+          "right": 28007943,
+          "squarefreeStatus": "exact_squarefree"
+        },
+        {
+          "left": 28042457,
+          "t": 2543,
+          "tResidueModuloPrimeSquare": 621,
+          "k": 419,
+          "delta": -10489,
+          "right": 28031968,
+          "squarefreeStatus": "exact_squarefree"
+        },
+        {
+          "left": 28086557,
+          "t": 2547,
+          "tResidueModuloPrimeSquare": 625,
+          "k": 261,
+          "delta": -6539,
+          "right": 28080018,
+          "squarefreeStatus": "exact_squarefree"
+        },
+        {
+          "left": 28207832,
+          "t": 2558,
+          "tResidueModuloPrimeSquare": 636,
+          "k": 307,
+          "delta": -7689,
+          "right": 28200143,
+          "squarefreeStatus": "exact_squarefree"
+        },
+        {
+          "left": 28262957,
+          "t": 2563,
+          "tResidueModuloPrimeSquare": 641,
+          "k": 590,
+          "delta": -14764,
+          "right": 28248193,
+          "squarefreeStatus": "exact_squarefree"
+        },
+        {
+          "left": 28285007,
+          "t": 2565,
+          "tResidueModuloPrimeSquare": 643,
+          "k": 511,
+          "delta": -12789,
+          "right": 28272218,
+          "squarefreeStatus": "exact_squarefree"
+        },
+        {
+          "left": 28318082,
+          "t": 2568,
+          "tResidueModuloPrimeSquare": 646,
+          "k": 873,
+          "delta": -21839,
+          "right": 28296243,
+          "squarefreeStatus": "exact_squarefree"
+        }
+      ]
+    },
+    {
+      "prime": 37,
+      "primeSquare": 1369,
+      "menuRole": "primary",
+      "rowCount": 45,
+      "firstLeft": 27965282,
+      "lastLeft": 39982532,
+      "kRange": {
+        "min": 51,
+        "max": 1135
+      },
+      "deltaRange": {
+        "min": -28389,
+        "max": -1289
+      },
+      "selectedTResidueCountModuloPrimeSquare": 45,
+      "selectedTResiduesModuloPrimeSquareSample": [
+        14,
+        34,
+        43,
+        81,
+        95,
+        117,
+        165,
+        211,
+        213,
+        230,
+        235,
+        273,
+        285,
+        295,
+        309,
+        331,
+        379,
+        407,
+        413,
+        435,
+        446,
+        453,
+        479,
+        525
+      ],
+      "availabilityRule": {
+        "kFormulaInT": "k_37(t) = (441*t + 722) mod 1369",
+        "maxK": 1139,
+        "availableResidueCount": 1140,
+        "period": 1369,
+        "universallyWithinWindow": false
+      },
+      "rowSamples": [
+        {
+          "left": 27965282,
+          "t": 2536,
+          "tResidueModuloPrimeSquare": 1167,
+          "k": 625,
+          "delta": -15639,
+          "right": 27949643,
+          "squarefreeStatus": "exact_squarefree"
+        },
+        {
+          "left": 28307057,
+          "t": 2567,
+          "tResidueModuloPrimeSquare": 1198,
+          "k": 606,
+          "delta": -15164,
+          "right": 28291893,
+          "squarefreeStatus": "exact_squarefree"
+        },
+        {
+          "left": 28549607,
+          "t": 2589,
+          "tResidueModuloPrimeSquare": 1220,
+          "k": 725,
+          "delta": -18139,
+          "right": 28531468,
+          "squarefreeStatus": "exact_squarefree"
+        },
+        {
+          "left": 29034707,
+          "t": 2633,
+          "tResidueModuloPrimeSquare": 1264,
+          "k": 963,
+          "delta": -24089,
+          "right": 29010618,
+          "squarefreeStatus": "exact_squarefree"
+        },
+        {
+          "left": 29277257,
+          "t": 2655,
+          "tResidueModuloPrimeSquare": 1286,
+          "k": 1082,
+          "delta": -27064,
+          "right": 29250193,
+          "squarefreeStatus": "exact_squarefree"
+        },
+        {
+          "left": 29608007,
+          "t": 2685,
+          "tResidueModuloPrimeSquare": 1316,
+          "k": 622,
+          "delta": -15564,
+          "right": 29592443,
+          "squarefreeStatus": "exact_squarefree"
+        },
+        {
+          "left": 29850557,
+          "t": 2707,
+          "tResidueModuloPrimeSquare": 1338,
+          "k": 741,
+          "delta": -18539,
+          "right": 29832018,
+          "squarefreeStatus": "exact_squarefree"
+        },
+        {
+          "left": 30346682,
+          "t": 2752,
+          "tResidueModuloPrimeSquare": 14,
+          "k": 51,
+          "delta": -1289,
+          "right": 30345393,
+          "squarefreeStatus": "exact_squarefree"
+        }
+      ]
+    },
+    {
+      "prime": 41,
+      "primeSquare": 1681,
+      "menuRole": "primary",
+      "rowCount": 17,
+      "firstLeft": 28560632,
+      "lastLeft": 39398207,
+      "kRange": {
+        "min": 29,
+        "max": 1015
+      },
+      "deltaRange": {
+        "min": -25389,
+        "max": -739
+      },
+      "selectedTResidueCountModuloPrimeSquare": 17,
+      "selectedTResiduesModuloPrimeSquareSample": [
+        211,
+        909,
+        954,
+        982,
+        1114,
+        1122,
+        1150,
+        1190,
+        1248,
+        1308,
+        1344,
+        1373,
+        1512,
+        1558,
+        1580,
+        1632,
+        1676
+      ],
+      "availabilityRule": {
+        "kFormulaInT": "k_41(t) = (441*t + 1466) mod 1681",
+        "maxK": 1139,
+        "availableResidueCount": 1140,
+        "period": 1681,
+        "universallyWithinWindow": false
+      },
+      "rowSamples": [
+        {
+          "left": 28560632,
+          "t": 2590,
+          "tResidueModuloPrimeSquare": 909,
+          "k": 576,
+          "delta": -14414,
+          "right": 28546218,
+          "squarefreeStatus": "exact_squarefree"
+        },
+        {
+          "left": 29056757,
+          "t": 2635,
+          "tResidueModuloPrimeSquare": 954,
+          "k": 249,
+          "delta": -6239,
+          "right": 29050518,
+          "squarefreeStatus": "exact_squarefree"
+        },
+        {
+          "left": 29365457,
+          "t": 2663,
+          "tResidueModuloPrimeSquare": 982,
+          "k": 830,
+          "delta": -20764,
+          "right": 29344693,
+          "squarefreeStatus": "exact_squarefree"
+        },
+        {
+          "left": 30820757,
+          "t": 2795,
+          "tResidueModuloPrimeSquare": 1114,
+          "k": 207,
+          "delta": -5189,
+          "right": 30815568,
+          "squarefreeStatus": "exact_squarefree"
+        },
+        {
+          "left": 30908957,
+          "t": 2803,
+          "tResidueModuloPrimeSquare": 1122,
+          "k": 373,
+          "delta": -9339,
+          "right": 30899618,
+          "squarefreeStatus": "exact_squarefree"
+        },
+        {
+          "left": 31217657,
+          "t": 2831,
+          "tResidueModuloPrimeSquare": 1150,
+          "k": 954,
+          "delta": -23864,
+          "right": 31193793,
+          "squarefreeStatus": "exact_squarefree"
+        },
+        {
+          "left": 31658657,
+          "t": 2871,
+          "tResidueModuloPrimeSquare": 1190,
+          "k": 103,
+          "delta": -2589,
+          "right": 31656068,
+          "squarefreeStatus": "exact_squarefree"
+        },
+        {
+          "left": 32298107,
+          "t": 2929,
+          "tResidueModuloPrimeSquare": 1248,
+          "k": 466,
+          "delta": -11664,
+          "right": 32286443,
+          "squarefreeStatus": "exact_squarefree"
+        }
+      ]
+    },
+    {
+      "prime": 61,
+      "primeSquare": 3721,
+      "menuRole": "primary",
+      "rowCount": 5,
+      "firstLeft": 34260557,
+      "lastLeft": 38361857,
+      "kRange": {
+        "min": 11,
+        "max": 1113
+      },
+      "deltaRange": {
+        "min": -27839,
+        "max": -289
+      },
+      "selectedTResidueCountModuloPrimeSquare": 5,
+      "selectedTResiduesModuloPrimeSquareSample": [
+        3107,
+        3225,
+        3335,
+        3409,
+        3479
+      ],
+      "availabilityRule": {
+        "kFormulaInT": "k_61(t) = (441*t + 3647) mod 3721",
+        "maxK": 1139,
+        "availableResidueCount": 1140,
+        "period": 3721,
+        "universallyWithinWindow": false
+      },
+      "rowSamples": [
+        {
+          "left": 34260557,
+          "t": 3107,
+          "tResidueModuloPrimeSquare": 3107,
+          "k": 785,
+          "delta": -19639,
+          "right": 34240918,
+          "squarefreeStatus": "exact_squarefree"
+        },
+        {
+          "left": 35561507,
+          "t": 3225,
+          "tResidueModuloPrimeSquare": 3225,
+          "k": 729,
+          "delta": -18239,
+          "right": 35543268,
+          "squarefreeStatus": "exact_squarefree"
+        },
+        {
+          "left": 36774257,
+          "t": 3335,
+          "tResidueModuloPrimeSquare": 3335,
+          "k": 866,
+          "delta": -21664,
+          "right": 36752593,
+          "squarefreeStatus": "exact_squarefree"
+        },
+        {
+          "left": 37590107,
+          "t": 3409,
+          "tResidueModuloPrimeSquare": 3409,
+          "k": 11,
+          "delta": -289,
+          "right": 37589818,
+          "squarefreeStatus": "exact_squarefree"
+        },
+        {
+          "left": 38361857,
+          "t": 3479,
+          "tResidueModuloPrimeSquare": 3479,
+          "k": 1113,
+          "delta": -27839,
+          "right": 38334018,
+          "squarefreeStatus": "exact_squarefree"
+        }
+      ]
+    },
+    {
+      "prime": 67,
+      "primeSquare": 4489,
+      "menuRole": "primary",
+      "rowCount": 5,
+      "firstLeft": 28792157,
+      "lastLeft": 38560307,
+      "kRange": {
+        "min": 257,
+        "max": 1139
+      },
+      "deltaRange": {
+        "min": -28489,
+        "max": -6439
+      },
+      "selectedTResidueCountModuloPrimeSquare": 5,
+      "selectedTResiduesModuloPrimeSquareSample": [
+        2611,
+        2733,
+        3119,
+        3121,
+        3497
+      ],
+      "availabilityRule": {
+        "kFormulaInT": "k_67(t) = (441*t + 2901) mod 4489",
+        "maxK": 1139,
+        "availableResidueCount": 1140,
+        "period": 4489,
+        "universallyWithinWindow": false
+      },
+      "rowSamples": [
+        {
+          "left": 28792157,
+          "t": 2611,
+          "tResidueModuloPrimeSquare": 2611,
+          "k": 679,
+          "delta": -16989,
+          "right": 28775168,
+          "squarefreeStatus": "exact_squarefree"
+        },
+        {
+          "left": 30137207,
+          "t": 2733,
+          "tResidueModuloPrimeSquare": 2733,
+          "k": 613,
+          "delta": -15339,
+          "right": 30121868,
+          "squarefreeStatus": "exact_squarefree"
+        },
+        {
+          "left": 34392857,
+          "t": 3119,
+          "tResidueModuloPrimeSquare": 3119,
+          "k": 257,
+          "delta": -6439,
+          "right": 34386418,
+          "squarefreeStatus": "exact_squarefree"
+        },
+        {
+          "left": 34414907,
+          "t": 3121,
+          "tResidueModuloPrimeSquare": 3121,
+          "k": 1139,
+          "delta": -28489,
+          "right": 34386418,
+          "squarefreeStatus": "exact_squarefree"
+        },
+        {
+          "left": 38560307,
+          "t": 3497,
+          "tResidueModuloPrimeSquare": 3497,
+          "k": 862,
+          "delta": -21564,
+          "right": 38538743,
+          "squarefreeStatus": "exact_squarefree"
+        }
+      ]
+    },
+    {
+      "prime": 73,
+      "primeSquare": 5329,
+      "menuRole": "fallback",
+      "rowCount": 3,
+      "firstLeft": 28836257,
+      "lastLeft": 35230757,
+      "kRange": {
+        "min": 126,
+        "max": 570
+      },
+      "deltaRange": {
+        "min": -14264,
+        "max": -3164
+      },
+      "selectedTResidueCountModuloPrimeSquare": 3,
+      "selectedTResiduesModuloPrimeSquareSample": [
+        2615,
+        2759,
+        3195
+      ],
+      "availabilityRule": {
+        "kFormulaInT": "k_73(t) = (441*t + 3748) mod 5329",
+        "maxK": 1139,
+        "availableResidueCount": 1140,
+        "period": 5329,
+        "universallyWithinWindow": false
+      },
+      "rowSamples": [
+        {
+          "left": 28836257,
+          "t": 2615,
+          "tResidueModuloPrimeSquare": 2615,
+          "k": 570,
+          "delta": -14264,
+          "right": 28821993,
+          "squarefreeStatus": "exact_squarefree"
+        },
+        {
+          "left": 30423857,
+          "t": 2759,
+          "tResidueModuloPrimeSquare": 2759,
+          "k": 126,
+          "delta": -3164,
+          "right": 30420693,
+          "squarefreeStatus": "exact_squarefree"
+        },
+        {
+          "left": 35230757,
+          "t": 3195,
+          "tResidueModuloPrimeSquare": 3195,
+          "k": 558,
+          "delta": -13964,
+          "right": 35216793,
+          "squarefreeStatus": "exact_squarefree"
+        }
+      ]
+    },
+    {
+      "prime": 83,
+      "primeSquare": 6889,
+      "menuRole": "fallback",
+      "rowCount": 3,
+      "firstLeft": 34657457,
+      "lastLeft": 38626457,
+      "kRange": {
+        "min": 457,
+        "max": 1078
+      },
+      "deltaRange": {
+        "min": -26964,
+        "max": -11439
+      },
+      "selectedTResidueCountModuloPrimeSquare": 3,
+      "selectedTResiduesModuloPrimeSquareSample": [
+        3143,
+        3361,
+        3503
+      ],
+      "availabilityRule": {
+        "kFormulaInT": "k_83(t) = (441*t + 6280) mod 6889",
+        "maxK": 1139,
+        "availableResidueCount": 1140,
+        "period": 6889,
+        "universallyWithinWindow": false
+      },
+      "rowSamples": [
+        {
+          "left": 34657457,
+          "t": 3143,
+          "tResidueModuloPrimeSquare": 3143,
+          "k": 765,
+          "delta": -19139,
+          "right": 34638318,
+          "squarefreeStatus": "exact_squarefree"
+        },
+        {
+          "left": 37060907,
+          "t": 3361,
+          "tResidueModuloPrimeSquare": 3361,
+          "k": 457,
+          "delta": -11439,
+          "right": 37049468,
+          "squarefreeStatus": "exact_squarefree"
+        },
+        {
+          "left": 38626457,
+          "t": 3503,
+          "tResidueModuloPrimeSquare": 3503,
+          "k": 1078,
+          "delta": -26964,
+          "right": 38599493,
+          "squarefreeStatus": "exact_squarefree"
+        }
+      ]
+    },
+    {
+      "prime": 71,
+      "primeSquare": 5041,
+      "menuRole": "fallback",
+      "rowCount": 2,
+      "firstLeft": 29519807,
+      "lastLeft": 37832657,
+      "kRange": {
+        "min": 322,
+        "max": 514
+      },
+      "deltaRange": {
+        "min": -12864,
+        "max": -8064
+      },
+      "selectedTResidueCountModuloPrimeSquare": 2,
+      "selectedTResiduesModuloPrimeSquareSample": [
+        2677,
+        3431
+      ],
+      "availabilityRule": {
+        "kFormulaInT": "k_71(t) = (441*t + 4592) mod 5041",
+        "maxK": 1139,
+        "availableResidueCount": 1140,
+        "period": 5041,
+        "universallyWithinWindow": false
+      },
+      "rowSamples": [
+        {
+          "left": 29519807,
+          "t": 2677,
+          "tResidueModuloPrimeSquare": 2677,
+          "k": 514,
+          "delta": -12864,
+          "right": 29506943,
+          "squarefreeStatus": "exact_squarefree"
+        },
+        {
+          "left": 37832657,
+          "t": 3431,
+          "tResidueModuloPrimeSquare": 3431,
+          "k": 322,
+          "delta": -8064,
+          "right": 37824593,
+          "squarefreeStatus": "exact_squarefree"
+        }
+      ]
+    },
+    {
+      "prime": 79,
+      "primeSquare": 6241,
+      "menuRole": "fallback",
+      "rowCount": 2,
+      "firstLeft": 31724807,
+      "lastLeft": 31746857,
+      "kRange": {
+        "min": 99,
+        "max": 981
+      },
+      "deltaRange": {
+        "min": -24539,
+        "max": -2489
+      },
+      "selectedTResidueCountModuloPrimeSquare": 2,
+      "selectedTResiduesModuloPrimeSquareSample": [
+        2877,
+        2879
+      ],
+      "availabilityRule": {
+        "kFormulaInT": "k_79(t) = (441*t + 4506) mod 6241",
+        "maxK": 1139,
+        "availableResidueCount": 1140,
+        "period": 6241,
+        "universallyWithinWindow": false
+      },
+      "rowSamples": [
+        {
+          "left": 31724807,
+          "t": 2877,
+          "tResidueModuloPrimeSquare": 2877,
+          "k": 99,
+          "delta": -2489,
+          "right": 31722318,
+          "squarefreeStatus": "exact_squarefree"
+        },
+        {
+          "left": 31746857,
+          "t": 2879,
+          "tResidueModuloPrimeSquare": 2879,
+          "k": 981,
+          "delta": -24539,
+          "right": 31722318,
+          "squarefreeStatus": "exact_squarefree"
+        }
+      ]
+    },
+    {
+      "prime": 97,
+      "primeSquare": 9409,
+      "menuRole": "fallback",
+      "rowCount": 1,
+      "firstLeft": 32320157,
+      "lastLeft": 32320157,
+      "kRange": {
+        "min": 49,
+        "max": 49
+      },
+      "deltaRange": {
+        "min": -1239,
+        "max": -1239
+      },
+      "selectedTResidueCountModuloPrimeSquare": 1,
+      "selectedTResiduesModuloPrimeSquareSample": [
+        2931
+      ],
+      "availabilityRule": {
+        "kFormulaInT": "k_97(t) = (441*t + 5920) mod 9409",
+        "maxK": 1139,
+        "availableResidueCount": 1140,
+        "period": 9409,
+        "universallyWithinWindow": false
+      },
+      "rowSamples": [
+        {
+          "left": 32320157,
+          "t": 2931,
+          "tResidueModuloPrimeSquare": 2931,
+          "k": 49,
+          "delta": -1239,
+          "right": 32318918,
+          "squarefreeStatus": "exact_squarefree"
+        }
+      ]
+    },
+    {
+      "prime": 103,
+      "primeSquare": 10609,
+      "menuRole": "fallback",
+      "rowCount": 1,
+      "firstLeft": 34900007,
+      "lastLeft": 34900007,
+      "kRange": {
+        "min": 658,
+        "max": 658
+      },
+      "deltaRange": {
+        "min": -16464,
+        "max": -16464
+      },
+      "selectedTResidueCountModuloPrimeSquare": 1,
+      "selectedTResiduesModuloPrimeSquareSample": [
+        3165
+      ],
+      "availabilityRule": {
+        "kFormulaInT": "k_103(t) = (441*t + 5281) mod 10609",
+        "maxK": 1139,
+        "availableResidueCount": 1140,
+        "period": 10609,
+        "universallyWithinWindow": false
+      },
+      "rowSamples": [
+        {
+          "left": 34900007,
+          "t": 3165,
+          "tResidueModuloPrimeSquare": 3165,
+          "k": 658,
+          "delta": -16464,
+          "right": 34883543,
+          "squarefreeStatus": "exact_squarefree"
+        }
+      ]
+    },
+    {
+      "prime": 109,
+      "primeSquare": 11881,
+      "menuRole": "fallback",
+      "rowCount": 1,
+      "firstLeft": 36399407,
+      "lastLeft": 36399407,
+      "kRange": {
+        "min": 538,
+        "max": 538
+      },
+      "deltaRange": {
+        "min": -13464,
+        "max": -13464
+      },
+      "selectedTResidueCountModuloPrimeSquare": 1,
+      "selectedTResiduesModuloPrimeSquareSample": [
+        3301
+      ],
+      "availabilityRule": {
+        "kFormulaInT": "k_109(t) = (441*t + 6160) mod 11881",
+        "maxK": 1139,
+        "availableResidueCount": 1140,
+        "period": 11881,
+        "universallyWithinWindow": false
+      },
+      "rowSamples": [
+        {
+          "left": 36399407,
+          "t": 3301,
+          "tResidueModuloPrimeSquare": 3301,
+          "k": 538,
+          "delta": -13464,
+          "right": 36385943,
+          "squarefreeStatus": "exact_squarefree"
+        }
+      ]
+    }
+  ],
+  "claims": {
+    "provesEndpointFormulas": true,
+    "provesBoundedEndpointAssignment": true,
+    "provesAllN": false,
+    "provesCollisionFreeMatching": false,
+    "provesSymbolicSquarefreeHitting": false
+  },
+  "proofBoundary": "This packet assigns bounded q17 residual rows to endpoint prime/window strata using exact selected endpoints. It is a theorem-facing handoff, not an all-N squarefree-hitting proof or a collision-free matching proof.",
+  "nextTheoremOptions": [
+    {
+      "id": "prove_symbolic_squarefree_hitting_residue_cover",
+      "status": "next",
+      "statement": "For each selected endpoint stratum, prove the cross product left*right_p(left)+1 is squarefree on the assigned residue family, or emit the first square-obstruction residue subclass."
+    },
+    {
+      "id": "collision_free_matching_handoff",
+      "status": "later",
+      "statement": "After squarefree hitting is symbolic, prove that the endpoint choices can be composed into the matching injection without collisions."
+    }
+  ],
+  "recommendedNextAction": "prove_symbolic_squarefree_hitting_residue_cover"
+}

@@ -1,0 +1,220 @@
+{
+  "schema": "erdos.number_theory.p848_mod50_232_same_lane_external_anchor_profile_split_packet/1",
+  "packetId": "p848_mod50_232_same_lane_external_anchor_profile_split",
+  "problemId": "848",
+  "generatedAt": "2026-04-17T10:59:53.990Z",
+  "status": "same_lane_external_anchor_232_terminal_profile_split_emitted",
+  "parentSplit": {
+    "stepId": "prove_p848_mod50_232_same_lane_external_anchor_handoff_or_emit_profile_split",
+    "packet": "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_MOD50_EXTERNAL_ANCHOR_IRRELEVANCE_SPLIT_PACKET.json",
+    "status": "external_anchor_counterfamily_split_into_terminal_profiles"
+  },
+  "sourceArtifacts": {
+    "externalAnchorIrrelevanceSplit": "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_MOD50_EXTERNAL_ANCHOR_IRRELEVANCE_SPLIT_PACKET.json",
+    "familyMenuPath": "output/frontier-engine-local/p848-anchor-ladder/live-frontier-sync/2026-04-05/SIX_PREFIX_TWENTY_FOUR_FAMILY_MENU.json",
+    "searchTheoremBridge": "packs/number-theory/problems/848/SEARCH_THEOREM_BRIDGE.json"
+  },
+  "profileSummary": {
+    "continuation": 232,
+    "groupId": "top_782_Q9_bad6",
+    "familyIndex": 275,
+    "representative": 1820631943,
+    "tupleKey": "23^2, 19^2, 4, 7^2, 79^2, 11^2",
+    "targetContinuation": 782,
+    "targetFirstAnchor": 132,
+    "activationAnchor": 32,
+    "activationResidueModWitness": 5,
+    "laneMod50": 32,
+    "laneIndexIn32Mod50Lane": 4,
+    "plus50Alignment": true,
+    "inCurrentHandoffSurface": false,
+    "topTie": [
+      432,
+      782,
+      832
+    ],
+    "primaryContrasts": [
+      332,
+      382,
+      1232
+    ],
+    "restoredRepairAnchorCount": 8,
+    "repairedPredictedFamilyCount": 201,
+    "repairedKnownFamilyCount": 20,
+    "topTieRepairedPredictedFamilyCount": 242,
+    "primaryContrastRepairedPredictedFamilyCount": 240,
+    "finiteSupportDeficitToTopTie": 41,
+    "finiteSupportDeficitToPrimaryContrast": 39,
+    "observedStatus": "fails",
+    "observedFirstFailure": 27949928,
+    "effectiveCleanThrough": 27949927,
+    "no40501PlusRolloutUsed": true
+  },
+  "family275Certificate": {
+    "familyIndex": 275,
+    "representative": 1820631943,
+    "modulus": 28265618837764,
+    "residue": 1820631943,
+    "tupleRows": [
+      {
+        "anchor": 7,
+        "squareModulus": 529,
+        "residue": 151
+      },
+      {
+        "anchor": 32,
+        "squareModulus": 361,
+        "residue": 282
+      },
+      {
+        "anchor": 57,
+        "squareModulus": 4,
+        "residue": 3
+      },
+      {
+        "anchor": 82,
+        "squareModulus": 49,
+        "residue": 46
+      },
+      {
+        "anchor": 132,
+        "squareModulus": 6241,
+        "residue": 1182
+      },
+      {
+        "anchor": 182,
+        "squareModulus": 121,
+        "residue": 119
+      }
+    ],
+    "repairRows": [
+      {
+        "anchor": 157,
+        "value": 285839215052,
+        "squarefree": false,
+        "squareWitnesses": [
+          {
+            "prime": 2,
+            "exponent": 2,
+            "squareModulus": 4
+          }
+        ]
+      },
+      {
+        "anchor": 232,
+        "value": 422386610777,
+        "squarefree": true,
+        "squareWitnesses": []
+      },
+      {
+        "anchor": 282,
+        "value": 513418207927,
+        "squarefree": true,
+        "squareWitnesses": []
+      },
+      {
+        "anchor": 332,
+        "value": 604449805077,
+        "squarefree": false,
+        "squareWitnesses": [
+          {
+            "prime": 3,
+            "exponent": 2,
+            "squareModulus": 9
+          }
+        ]
+      },
+      {
+        "anchor": 382,
+        "value": 695481402227,
+        "squarefree": true,
+        "squareWitnesses": []
+      },
+      {
+        "anchor": 432,
+        "value": 786512999377,
+        "squarefree": true,
+        "squareWitnesses": []
+      },
+      {
+        "anchor": 782,
+        "value": 1423734179427,
+        "squarefree": false,
+        "squareWitnesses": [
+          {
+            "prime": 3,
+            "exponent": 2,
+            "squareModulus": 9
+          }
+        ]
+      },
+      {
+        "anchor": 832,
+        "value": 1514765776577,
+        "squarefree": true,
+        "squareWitnesses": []
+      }
+    ],
+    "targetRepairRow": {
+      "anchor": 782,
+      "value": 1423734179427,
+      "squarefree": false,
+      "squareWitnesses": [
+        {
+          "prime": 3,
+          "exponent": 2,
+          "squareModulus": 9
+        }
+      ]
+    },
+    "sameLaneExternalRepairRow": {
+      "anchor": 232,
+      "value": 422386610777,
+      "squarefree": true,
+      "squareWitnesses": []
+    },
+    "rowConclusion": "On this finite row, 232 is a squarefree same-lane external repair while target 782 is square-blocked by 9; therefore 232 cannot be discharged by lane mismatch or observed square-blocking."
+  },
+  "routeDecision": {
+    "sameLaneIrrelevanceTheorem": "not_proved",
+    "expandedHandoffSurface": "not_taken",
+    "terminalProfileSplit": "emitted_for_family_275",
+    "reason": "The current repo evidence supports a deterministic finite profile split, not a universal theorem: 232 is same-lane and squarefree on the only observed external boundary row, but its restored-menu support is far below the top tie and primary contrasts."
+  },
+  "terminalProfile": {
+    "profileId": "same_lane_external_anchor_232_family_275_terminal_profile",
+    "status": "terminal_profile_recorded_not_handoff_theorem",
+    "deterministicBoundary": "Family 275 is a finite same-lane external-anchor profile: 232 repairs the row, target 782 is square-blocked, and 232 is not part of the current top-tie/primary-contrast handoff surface. The row is now atomized; it is not evidence that 232 is universally irrelevant.",
+    "theoremBoundary": "A future theorem may either expand the finite handoff surface to include lower-support same-lane anchors such as 232, or prove a domination/irrelevance lemma over the restored family classes. This packet does neither."
+  },
+  "remainingObligations": [
+    {
+      "obligationId": "same_family_companion_cover_for_382_832",
+      "continuations": [
+        382,
+        832
+      ],
+      "status": "open",
+      "sourcePacket": "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_MOD50_EXTERNAL_ANCHOR_IRRELEVANCE_SPLIT_PACKET.json",
+      "statement": "Cover the three same-family companion gaps for 382 and 832 by companion theorem/profile split before any 40501+ rollout."
+    },
+    {
+      "obligationId": "universal_mod50_square_witness_domain_cover",
+      "status": "open",
+      "statement": "Finite profile splits do not prove the all-relevant (n,Q,bad-lane) cover for c = 32 + 50*m."
+    }
+  ],
+  "nextTheoremMove": "Cover the 382 and 832 same-family companion gaps, or emit deterministic terminal profile packets for each companion-gap row before any 40501+ rollout.",
+  "recommendedNextAction": "cover_p848_mod50_382_832_same_family_companion_gaps_or_emit_terminal_profiles",
+  "suggestedVerificationCommand": "jq '{profileSummary, routeDecision, remainingObligations, claims}' packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_MOD50_232_SAME_LANE_EXTERNAL_ANCHOR_PROFILE_SPLIT_PACKET.json",
+  "proofBoundary": "Dedicated finite profile split for continuation 232 only. It discharges the current 232 external-anchor step as an atomized finite boundary, but does not prove 232 irrelevance, does not expand the handoff theorem, does not close 382/832 companion gaps, and does not justify a 40501+ rollout.",
+  "claims": {
+    "emitsDedicated232TerminalProfileSplit": true,
+    "proves232Irrelevance": false,
+    "expandsHandoffSurface": false,
+    "closesSameFamilyCompanionGaps": false,
+    "justifies40501PlusRollout": false,
+    "provesUniversalSquareWitnessDomainCover": false,
+    "provesAllN": false
+  }
+}

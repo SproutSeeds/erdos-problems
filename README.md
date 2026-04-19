@@ -487,11 +487,25 @@ erdos import drift 857 --json
 - `templates/VERIFICATION_RECORD.md`
 - `templates/FAILED_TOPIC.md`
 
+When the global `orp` CLI is available, `erdos-problems` can also broker ORP research runs for source audits, discovery questions, and breakthrough scouting:
+
+```bash
+erdos orp research status --json
+erdos orp research ask 848 --question "Check whether this source changes the current proof route" --json
+erdos orp research ask 848 --question "Check whether this source changes the current proof route" --execute --allow-paid --json
+erdos orp research openai-check --json
+erdos orp research openai-check --execute --allow-paid --json
+erdos orp research usage --json
+```
+
+The safe default is planning-only: live OpenAI API calls require both `--execute` and `--allow-paid` unless `ERDOS_ORP_RESEARCH_ALLOW_PAID=1` is set for an intentional paid-call session. A workspace-local daily live-run guard defaults to `10` and can be lowered with `ERDOS_ORP_RESEARCH_DAILY_LIMIT=0` to disable live calls. A local daily research API budget defaults to `$5` via `ERDOS_ORP_RESEARCH_DAILY_USD_LIMIT`; set it to `0` to disable paid research spend. The guard reserves `$1` for normal research asks and `$0.05` for smoke checks unless `ERDOS_ORP_RESEARCH_ESTIMATED_COST_USD` overrides the estimate. This is a local agent/workspace budget guard, not an upstream provider billing hard cap. Use live research for high-leverage source audits, theorem wedges, external reference checks, or repeated local stalls; avoid it for routine tests or deterministic local compute. ORP resolves `OPENAI_API_KEY` from the environment or the local `openai-primary` Keychain secret, and secret values are not written to research artifacts.
+
 The package keeps these layers separate:
 - canonical repo truth
 - external imported public truth
 - workspace bundle truth
 - pack-specific route / checkpoint / run truth
+- ORP research-run truth
 
 ## Command Gallery
 

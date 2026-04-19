@@ -1,0 +1,185 @@
+{
+  "schema": "erdos.number_theory.p848_guarded_mod50_source_audit_result_elementary_generator_candidate_packet/1",
+  "packetId": "P848_GUARDED_MOD50_SOURCE_AUDIT_RESULT_ELEMENTARY_GENERATOR_CANDIDATE_PACKET",
+  "problemId": 848,
+  "generatedAt": "2026-04-18T14:48:53.857Z",
+  "status": "guarded_mod50_source_audit_result_elementary_generator_candidate_packetized",
+  "target": "await_p848_new_local_source_theorem_or_spend_permission_override_after_guarded_mod50_audit_release_conflict",
+  "recommendedNextAction": "verify_p848_mod50_elementary_generator_relevant_pair_admissibility_or_emit_semantics_blocker",
+  "coversPrimaryNextAction": {
+    "stepId": "await_p848_new_local_source_theorem_or_spend_permission_override_after_guarded_mod50_audit_release_conflict",
+    "status": "completed_by_one_guarded_paid_mod50_source_audit_result_packet",
+    "releaseConflictPacket": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_GUARDED_MOD50_SOURCE_AUDIT_RELEASE_NO_SPEND_BLOCKER_AFTER_HARD_BLOCKER_PACKET.json",
+    "releaseConflictPacketSha256": "6d0d3d0bf966ba77b013f435a2d35a78a0b6a30fc1fe5acd8fc00a5e36bea185",
+    "researchRun": "orp/research/research-20260418-144342-080413",
+    "answerJson": "orp/research/research-20260418-144342-080413/ANSWER.json",
+    "answerJsonSha256": "4c42e9257f9fbfc2203a06ebd2ad15fdf33922c9aedd563a3b4260720f570987",
+    "runSummaryMarkdown": "orp/research/research-20260418-144342-080413/RUN_SUMMARY.md",
+    "runSummaryMarkdownSha256": "dc5f366130ba1f77b67b9fcb3357bd636ae0827868fb34acb5c17b20d8bb169e",
+    "requestJson": "orp/research/research-20260418-144342-080413/REQUEST.json",
+    "requestJsonSha256": "02c58d431958568c02614b78469aa150deff4d1d6710ef0406d76a9d219b89d1",
+    "laneJson": "orp/research/research-20260418-144342-080413/lanes/p848_mod50_generator_source_import.json",
+    "laneJsonSha256": "33d1c1d2791ab57b02e28e3a7c9282eeff9b0c9da2691f415bab3b4850fa4851",
+    "profile": "packs/number-theory/problems/848/ORP_RESEARCH_MOD50_GENERATOR_SOURCE_IMPORT_PROFILE.json",
+    "profileSha256": "0bdb4a4b20af0c18d9ec157de12b45249e81bb0125dd63cb8b4481217838af02",
+    "usageLedger": ".erdos/registry/research/openai-live-usage.json",
+    "usageLedgerSha256": "1c4683752e02344182597c57a6fd13bff21d582713fd596bb4e4eb56c9fac3db"
+  },
+  "guardedAuditResult": {
+    "runId": "research-20260418-144342-080413",
+    "status": "complete",
+    "profileId": "p848-mod50-generator-source-import-single",
+    "execute": true,
+    "apiCalledLaneCount": 1,
+    "laneStatuses": [
+      {
+        "laneId": "p848_mod50_generator_source_import",
+        "status": "complete",
+        "adapter": "openai_responses",
+        "model": "gpt-5.4",
+        "apiCalled": true,
+        "providerStatus": "completed"
+      }
+    ],
+    "usageEntry": {
+      "at": "2026-04-18T14:45:51.181Z",
+      "day": "2026-04-18",
+      "kind": "ask",
+      "profile": "profile-file:packs/number-theory/problems/848/ORP_RESEARCH_MOD50_GENERATOR_SOURCE_IMPORT_PROFILE.json",
+      "runId": "research-20260418-144342-080413",
+      "allowedBy": "--allow-paid",
+      "resultStatus": "complete",
+      "ok": true,
+      "apiCalledLaneCount": 1,
+      "laneCount": 1,
+      "models": [
+        "gpt-5.4"
+      ],
+      "estimatedCostUsd": 1,
+      "reportedCostUsd": null,
+      "costUsd": 1,
+      "costSource": "local_estimate",
+      "dailySpendLimitUsdAtRun": 5
+    },
+    "requestQuestion": "Erdos Problem #848: Squarefree ab+1 Extremal Set Problem\n\nResearch/discovery request:\nProblem 848 mod-50 generator/source theorem: given the finite bounded CRT replay theorem, mod-50 source-theorem blocker, source archaeology wedge, source-search gap, and incomplete broad live wedge blocker, identify whether a source/import theorem proves an all-future relevant-pair recurrence, finite-Q partition, or original family-menu generator theorem covering every future mod-50 square-witness row. Return exact hypotheses, constants, denominator/partition objects, and proof boundary; reject finite restored-menu replay, broad wedge reruns, q-cover/singleton descent, threshold shortcuts, and bounded evidence as all-N proof.\n\nUse this as an ORP process artifact, not as canonical proof by itself.\nReturn source-backed findings, disagreements, proof boundaries, and the next verification artifact or command.\nDo not claim the problem is decided unless the repo has a finite cover, decreasing measure, or completed formal proof object.",
+    "synthesisConfidence": "single_lane",
+    "answerArtifact": "orp/research/research-20260418-144342-080413/ANSWER.json",
+    "summaryArtifact": "orp/research/research-20260418-144342-080413/RUN_SUMMARY.md",
+    "laneArtifact": "orp/research/research-20260418-144342-080413/lanes/p848_mod50_generator_source_import.json",
+    "model": "gpt-5.4"
+  },
+  "verdict": {
+    "status": "no_external_source_theorem_recovered_elementary_generator_candidate_found",
+    "concise": "The guarded audit did not recover a source-backed all-future mod-50 theorem. It identified an elementary repo-recoverable generator candidate b = a*t^2 + 2*t with ab + 1 = (a*t + 1)^2, but promotion depends on relevant-pair and row semantics.",
+    "externalSourceTheoremRecovered": false,
+    "repoRecoverableCandidateFound": true,
+    "candidatePromotedToProof": false,
+    "noSpendDefaultResumedAfterThisOneCall": true
+  },
+  "candidateTheorem": {
+    "theoremId": "p848_mod50_elementary_square_generator_family",
+    "statement": "For integers a >= 1 and t >= 1, set b = a*t^2 + 2*t. Then a*b + 1 = (a*t + 1)^2.",
+    "specialCase": "For every n >= 3, (n - 2)*n + 1 = (n - 1)^2, corresponding to t = 1, a = n - 2, b = n.",
+    "hypotheses": [
+      "a and t are positive integers",
+      "the Problem 848 row/relevant-pair semantics admit the generated pair (a, a*t^2 + 2*t)",
+      "the row map being covered is compatible with b, max(a,b), or the endpoint n in the t = 1 family"
+    ],
+    "constants": [],
+    "denominatorOrPartitionObjects": [
+      "mod-50 residue relation b == a*t^2 + 2*t (mod 50)",
+      "for t = 1, b == a + 2 (mod 50), so each b residue is reached by a == b - 2 (mod 50)"
+    ],
+    "proofSketch": "Expand a*(a*t^2 + 2*t) + 1 = a^2*t^2 + 2*a*t + 1 = (a*t + 1)^2.",
+    "sourceKind": "elementary_internal_generator_candidate",
+    "sourceCitationRequired": false
+  },
+  "promotionBoundary": {
+    "status": "candidate_not_promoted_until_semantics_check",
+    "mustVerifyBeforePromotion": [
+      "Define the exact mod-50 square-witness row map used by the current blocker.",
+      "Define the exact relevant-pair admissibility predicate used by the current blocker.",
+      "Test whether the t = 1 family (n - 2, n) is admitted for every future row.",
+      "If admitted, formalize the generator theorem before all-N recombination.",
+      "If excluded, emit the exact semantic/admissibility constraint and keep the source theorem blocker live."
+    ],
+    "rejectedAsProof": [
+      "the paid audit answer by itself",
+      "finite restored-menu replay",
+      "the 280-row finite menu",
+      "current square-witness pool evidence",
+      "q-cover expansion",
+      "singleton descent",
+      "fallback selector ladders",
+      "bounded evidence as all-N proof"
+    ]
+  },
+  "rankedNextLocalOptions": [
+    {
+      "rank": 1,
+      "actionId": "verify_p848_mod50_elementary_generator_relevant_pair_admissibility_or_emit_semantics_blocker",
+      "action": "Normalize the current row and relevant-pair definitions, then test the t = 1 family (n - 2, n) for admissibility.",
+      "expectedInformationGain": "high",
+      "cost": "low",
+      "reversibility": "high",
+      "probabilityOfChangingDecision": "high"
+    },
+    {
+      "rank": 2,
+      "actionId": "formalize_p848_mod50_elementary_square_generator_if_admissible",
+      "action": "If the t = 1 family is admitted, write a formal generator theorem packet with the identity and mod-50 residue coverage.",
+      "expectedInformationGain": "high",
+      "cost": "medium",
+      "reversibility": "high",
+      "probabilityOfChangingDecision": "medium"
+    },
+    {
+      "rank": 3,
+      "actionId": "emit_p848_mod50_generator_semantics_exclusion_blocker",
+      "action": "If the family is excluded, emit the exact semantic constraint and restore the mod-50 source-import blocker with the narrowed target.",
+      "expectedInformationGain": "medium",
+      "cost": "low",
+      "reversibility": "high",
+      "probabilityOfChangingDecision": "medium"
+    }
+  ],
+  "forbiddenMovesAfterAudit": [
+    "run_another_provider_call_without_a_fresh_explicit_release",
+    "treat_the_paid_audit_answer_as_canonical_proof",
+    "promote_the_generator_without_relevant_pair_admissibility",
+    "resume_q193_q197_singleton_descent",
+    "resume_q_cover_staircase_expansion",
+    "launch_next_prime_fallback_ladder",
+    "emit_a_naked_deterministic_rank_boundary",
+    "claim_all_n_recombination_from_the_candidate_alone"
+  ],
+  "oneNextAction": {
+    "stepId": "verify_p848_mod50_elementary_generator_relevant_pair_admissibility_or_emit_semantics_blocker",
+    "action": "Locally verify whether the elementary generator family is admissible under the repo row/relevant-pair semantics, or emit the exact semantics blocker.",
+    "finiteDenominatorOrRankToken": "p848_guarded_mod50_source_audit_result_elementary_generator_candidate",
+    "verificationCommand": "./bin/erdos problem progress 848 --json"
+  },
+  "proofBoundary": "This packet records the one explicitly released guarded mod-50 source-audit result as discovery only. It does not promote the audit answer to proof. It preserves the elementary generator candidate b = a*t^2 + 2*t and the special case (n - 2, n), but leaves promotion blocked until the repo verifies row-map and relevant-pair admissibility. It makes no additional provider call, does not prove the mod-50 all-future recurrence, does not prove a finite-Q partition, does not restore the original generator theorem, does not recombine all-N, does not expand q-cover/frontier lanes, and does not decide Problem 848.",
+  "claims": {
+    "completesGuardedMod50SourceAuditReleaseOverride": true,
+    "madeExactlyOnePaidCallThisStep": true,
+    "profileWasSingleLaneMod50": true,
+    "noSpendDefaultResumedAfterCall": true,
+    "externalSourceTheoremRecovered": false,
+    "elementaryGeneratorCandidateFound": true,
+    "candidateHasExactHypothesesAndIdentity": true,
+    "candidateRequiresRelevantPairAdmissibilityCheck": true,
+    "candidatePromotedToProof": false,
+    "blocksAdditionalProviderCalls": true,
+    "blocksQCoverExpansion": true,
+    "blocksSingletonQDescent": true,
+    "blocksSingleFallbackSelectorLadder": true,
+    "blocksNakedRankBoundary": true,
+    "provesMod50AllFutureRecurrence": false,
+    "restoresOriginalGenerator": false,
+    "provesFiniteQPartition": false,
+    "provesAllN": false,
+    "decidesProblem848": false
+  },
+  "packetPath": "/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_GUARDED_MOD50_SOURCE_AUDIT_RESULT_ELEMENTARY_GENERATOR_CANDIDATE_PACKET.json"
+}

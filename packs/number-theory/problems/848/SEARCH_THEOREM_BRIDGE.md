@@ -5,7 +5,7 @@ This note is the canonical bridge between the live `frontier-engine` search lane
 ## Current state
 
 - Shared-prefix failures frozen: `24` through `136702637`.
-- Current family menu: `research/frontier-engine/experiments/p848-anchor-ladder/live-frontier-sync/2026-04-05/SIX_PREFIX_TWENTY_FOUR_FAMILY_MENU.json` with `280` rows and `25` matched known-family rows.
+- Current family menu: `output/frontier-engine-local/p848-anchor-ladder/live-frontier-sync/2026-04-05/SIX_PREFIX_TWENTY_FOUR_FAMILY_MENU.json` with `280` rows and `25` matched known-family rows.
 - Strongest completed structured tail: `332` clean through `250000000`.
 - Current family-aware leader on the tested window: `432` with `26` repaired known packets and `242` repaired predicted-family rows.
 - Next unmatched representative: `137720141`.

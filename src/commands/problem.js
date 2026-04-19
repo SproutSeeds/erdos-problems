@@ -2,6 +2,7 @@ import { getProblem, listProblems } from '../atlas/catalog.js';
 import { syncOrpWorkspaceKit } from '../runtime/orp.js';
 import { syncCheckpoints } from '../runtime/checkpoints.js';
 import { getProblemArtifactInventory } from '../runtime/problem-artifacts.js';
+import { getProblemProgressSnapshot, refreshProblemProgress } from '../runtime/problem-progress.js';
 import { syncState } from '../runtime/state.js';
 import {
   getProblemClaimPassSnapshot,
@@ -531,6 +532,18 @@ function printFormalizationWorkCheck(result, asJson) {
 }
 
 function pickTaskListHighestValueStep(taskList) {
+  const primary = taskList.agentFlow?.primaryNextAction ?? null;
+  if (primary) {
+    return {
+      stepId: primary.stepId,
+      status: primary.status,
+      task: primary.task,
+      command: primary.command ?? null,
+      packetJsonPath: primary.packetJsonPath ?? null,
+      packetMarkdownPath: primary.packetMarkdownPath ?? null,
+    };
+  }
+
   const priorityRank = {
     highest: 0,
     next: 1,
@@ -717,6 +730,104 @@ function printTaskListRun(result, asJson) {
   }
 }
 
+function printProgress(snapshot, asJson) {
+  if (asJson) {
+    console.log(JSON.stringify(snapshot, null, 2));
+    return;
+  }
+
+  const rolling = snapshot.taskBoardProgress.rollingKnownWork;
+  const current = snapshot.taskBoardProgress.currentLoop;
+  const exact = snapshot.exactLane;
+  const split = snapshot.p848Frontier?.latestAvailabilitySplit ?? null;
+  const boundary = snapshot.p848Frontier?.latestFactorizationBoundary ?? null;
+  const ledger = snapshot.p848Frontier?.frontierLedger ?? null;
+  const complementGuard = snapshot.p848Frontier?.complementStrategyGuard ?? null;
+  const lift = snapshot.p848Frontier?.globalTheoremLift ?? null;
+
+  console.log(`${snapshot.displayName} measured progress`);
+  console.log(`Global decision: ${snapshot.globalDecision.status}`);
+  console.log(`Global percent: ${snapshot.globalDecision.percentComplete === null ? 'not mathematically meaningful yet' : `${snapshot.globalDecision.percentComplete}%`}`);
+  console.log(`Reason: ${snapshot.globalDecision.honesty}`);
+  console.log(`Rolling task-board closure: ${rolling.doneCount}/${rolling.totalCount} (${rolling.percent.percentLabel ?? 'n/a'})`);
+  console.log(`Current loop closure: ${current.doneCount}/${current.totalCount} (${current.percent.percentLabel ?? 'n/a'}), ${current.inProgressCount} in progress`);
+  if (snapshot.taskBoardProgress.primaryAgentAction) {
+    console.log(`Primary agent action: ${snapshot.taskBoardProgress.primaryAgentAction.stepId} - ${snapshot.taskBoardProgress.primaryAgentAction.task}`);
+  }
+  if (snapshot.taskBoardProgress.activeTask) {
+    console.log(`Active task: ${snapshot.taskBoardProgress.activeTask.taskId} - ${snapshot.taskBoardProgress.activeTask.title}`);
+  }
+  if (exact.status !== 'not_available') {
+    console.log(`Public exact coverage: ${exact.publicRawExact.coveredRows.label ?? 'unknown'} / ${exact.operationalThreshold.rows.label ?? 'unknown'} rows (${exact.publicRawExact.coveredPercent.percentLabel ?? 'n/a'})`);
+    console.log(`Public exact remaining: ${exact.publicRawExact.remainingRows.label ?? 'unknown'} rows`);
+    console.log(`Projected endpoint checks to threshold: ${exact.projectedEndpointChecksToThreshold.label ?? 'unknown'}`);
+    console.log(`Recommended exact-lane mode: ${exact.recommendedMode ?? 'unknown'}`);
+  }
+  console.log(`Dynamic-margin packets: ${snapshot.artifactProgress.dynamicMarginJsonCount ?? 0}`);
+  console.log(`Availability splits: ${snapshot.artifactProgress.availabilitySplitCount ?? 0}`);
+  console.log(`Factor certificates: ${snapshot.artifactProgress.factorCertificateCount ?? 0}`);
+  console.log(`Factorization boundaries: ${snapshot.artifactProgress.factorizationBoundaryCount ?? 0}`);
+  if (split) {
+    console.log(`Latest availability split: ${split.relativePath}`);
+    console.log(`Partition coverage: ${split.partition.partitionedResidues.label ?? 'unknown'} / ${split.partition.period.label ?? 'unknown'} (${split.partition.partitionCoverage.percentLabel ?? 'n/a'})`);
+    console.log(`Available residues: ${split.partition.availableResidues.label ?? 'unknown'} (${split.partition.availableResiduePercent.percentLabel ?? 'n/a'})`);
+    console.log(`Unavailable residues: ${split.partition.unavailableResidues.label ?? 'unknown'} (${split.partition.unavailableResiduePercent.percentLabel ?? 'n/a'})`);
+    console.log(`Emitted child: ${split.emittedChild?.label ?? 'none yet'}`);
+    console.log(`Child closure: ${split.closure.status}`);
+  }
+  if (boundary) {
+    console.log(`Latest open leaf: ${boundary.relativePath}`);
+    console.log(`Open-leaf status: ${boundary.status}`);
+    console.log(`Trial repair candidates: ${(boundary.boundedScan.trialSquarefreeWithinWindowCandidates ?? []).join(', ') || 'none'}`);
+    console.log(`Open-leaf next action: ${boundary.recommendedNextAction ?? 'unknown'}`);
+  }
+  if (snapshot.p848Frontier?.convergence?.status && snapshot.p848Frontier.convergence.status !== 'missing') {
+    const convergence = snapshot.p848Frontier.convergence;
+    console.log(`Convergence pieces: ${convergence.assembledPieceCount}`);
+    console.log(`Global measure status: ${convergence.globalMeasureStatus}`);
+    console.log(`Compression candidate: ${convergence.compressionCandidate?.id ?? 'none recorded'}`);
+  }
+  if (ledger) {
+    console.log(`Frontier ledger: ${ledger.status}`);
+    console.log(`Ledger entries: ${ledger.entryCounts.total} (${ledger.entryCounts.open} open, ${ledger.entryCounts.inProgress} in progress, ${ledger.entryCounts.blocked} blocked)`);
+    console.log(`Proposed measure: ${ledger.proposedMeasure.name} = ${ledger.proposedMeasure.value} (${ledger.proposedMeasure.status})`);
+    if (ledger.frontierGrowthPressure) {
+      console.log(`Frontier growth pressure: ${ledger.frontierGrowthPressure.status} (${ledger.frontierGrowthPressure.openFrontierObligationCount} open obligations)`);
+    }
+  }
+  if (complementGuard) {
+    console.log(`p4217 complement guard: ${complementGuard.status} (${complementGuard.riskStatus})`);
+    console.log(`Complement guard rule: ${complementGuard.antiSiblingLadderRule.stopRule}`);
+  }
+  if (lift) {
+    console.log(`Global theorem lift: ${lift.status}`);
+    console.log(`Theorem-lift checklist: ${lift.namedLiftChecklist.doneCount}/${lift.namedLiftChecklist.totalCount} (${lift.namedLiftChecklist.donePercent.percentLabel ?? 'n/a'}), ${lift.namedLiftChecklist.inProgressCount} in progress, ${lift.namedLiftChecklist.blockedCount} blocked`);
+    console.log(`Next theorem-lift move: ${lift.nextBestTheoremMove}`);
+  }
+  console.log(`Progress command: ${snapshot.commands.progress}`);
+  console.log(`Progress refresh: ${snapshot.commands.progressRefresh}`);
+}
+
+function printProgressRefresh(result, asJson) {
+  if (asJson) {
+    console.log(JSON.stringify(result, null, 2));
+    return;
+  }
+
+  if (!result.ok) {
+    console.log('Problem progress refresh: failed');
+    console.log(`Problem id: ${result.problemId}`);
+    console.log(`Error: ${result.error}`);
+    return;
+  }
+
+  console.log('Problem progress refresh: complete');
+  console.log(`Problem id: ${result.problemId}`);
+  console.log(`Progress markdown: ${result.markdownPath}`);
+  console.log(`Progress data: ${result.jsonPath}`);
+  printProgress(result.progressReport, false);
+}
+
 export function runProblemCommand(args) {
   const [subcommand, value, ...rest] = args;
 
@@ -741,6 +852,8 @@ export function runProblemCommand(args) {
     console.log('  erdos problem task-list [<id>] [--json]');
     console.log('  erdos problem task-list-refresh [<id>] [--json]');
     console.log('  erdos problem task-list-run [<id>] [--passes <n>] [--no-stop-on-convergence] [--json]');
+    console.log('  erdos problem progress [<id>] [--json]');
+    console.log('  erdos problem progress-refresh [<id>] [--json]');
     return 0;
   }
 
@@ -1121,6 +1234,48 @@ export function runProblemCommand(args) {
       stopOnConvergence: parsed.stopOnConvergence,
     });
     printTaskListRun(result, parsed.asJson);
+    return result.ok ? 0 : 1;
+  }
+
+  if (subcommand === 'progress') {
+    const parsed = parseArtifactArgs([value, ...rest].filter(Boolean));
+    if (parsed.error) {
+      console.error(parsed.error);
+      return 1;
+    }
+    const problemId = parsed.problemId ?? readCurrentProblem();
+    if (!problemId) {
+      console.error('Missing problem id and no active problem is selected.');
+      return 1;
+    }
+    const problem = getProblem(problemId);
+    if (!problem) {
+      console.error(`Unknown problem: ${problemId}`);
+      return 1;
+    }
+    const snapshot = getProblemProgressSnapshot(problem);
+    printProgress(snapshot, parsed.asJson);
+    return 0;
+  }
+
+  if (subcommand === 'progress-refresh') {
+    const parsed = parseArtifactArgs([value, ...rest].filter(Boolean));
+    if (parsed.error) {
+      console.error(parsed.error);
+      return 1;
+    }
+    const problemId = parsed.problemId ?? readCurrentProblem();
+    if (!problemId) {
+      console.error('Missing problem id and no active problem is selected.');
+      return 1;
+    }
+    const problem = getProblem(problemId);
+    if (!problem) {
+      console.error(`Unknown problem: ${problemId}`);
+      return 1;
+    }
+    const result = refreshProblemProgress(problem);
+    printProgressRefresh(result, parsed.asJson);
     return result.ok ? 0 : 1;
   }
 

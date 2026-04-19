@@ -1,0 +1,446 @@
+{
+  "schema": "erdos.number_theory.p848_convergence_assembly_packet/1",
+  "generatedAt": "2026-04-17T12:28:04Z",
+  "problemId": 848,
+  "status": "assembly_recorded_for_all_future_recurrence_boundary_after_bounded_theorem",
+  "assemblyTopic": "problem 848 | convergence assembly | Explain the 282 First-Failure Mechanism",
+  "sourceOrpCommand": "orp mode breakdown granular-breakdown --topic \"problem 848 | convergence assembly | Explain the 282 First-Failure Mechanism\" --json",
+  "sourceTaskList": "packs/number-theory/problems/848/TASK_LIST.json",
+  "coversPrimaryNextAction": {
+    "stepId": "derive_p848_mod50_all_future_recurrence_or_emit_source_theorem_blocker",
+    "task": "After promoting the exact bounded CRT menu replay theorem, prove a symbolic all-future relevant-pair recurrence or finite Q partition for the mod-50 square-witness domain, or emit the source-theorem blocker."
+  },
+  "assembledPieces": [
+    {
+      "id": "p848_282_alignment_obstruction_packet",
+      "path": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_282_ALIGNMENT_OBSTRUCTION_PACKET.json",
+      "provedOrCertified": [
+        "At n=137720141 the shared-prefix anchors are square-blocked.",
+        "Continuation 282 is blocked by 29^2 = 841 at the representative.",
+        "Comparison continuations 332, 432, 782, and 832 are squarefree at the same representative.",
+        "The synthetic anchor-only class is n == 137720141 mod 32631532164.",
+        "The synthetic anchor+282 class is n == 137720141 mod 27443118549924.",
+        "Inside the recovered anchor row, the 841 witness for continuation 282 lifts to the subprogression t == 0 mod 841."
+      ],
+      "boundary": "This packet reconstructs and lifts the candidate row and now points at a restored row-menu source; first-unavoidability beyond the restored finite menu still needs separate symbolic/domain closure before any all-N claim."
+    },
+    {
+      "id": "q17_endpoint_selector_surface",
+      "paths": [
+        "packs/number-theory/problems/848/ENDPOINT_MENU_ABSTRACTION.md",
+        "packs/number-theory/problems/848/compute/problem848_endpoint_menu_compiler.mjs",
+        "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DYNAMIC_MARGIN_PROOFS/"
+      ],
+      "provedOrCertified": [
+        "The q17 endpoint-selector lane has a legal finite-menu layer and exact generated packet surface.",
+        "Endpoint formulas are affine k_p(left) rules modulo p^2 with explicit window thresholds.",
+        "Representative repairs are separated from all-N/subclass claims by proof-boundary fields."
+      ],
+      "boundary": "The endpoint-selector surface remains a local obstruction/repair engine, not a global first-failure proof."
+    },
+    {
+      "id": "p848_282_841_live_family_binding_packet",
+      "path": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_282_841_LIVE_FAMILY_BINDING_PACKET.json",
+      "provedOrCertified": [
+        "The recovered anchor row n == 137720141 mod 32631532164 is promoted to a theorem-facing family-row object.",
+        "The synthetic anchor-only and anchor+282 CRT rows are bound to the regenerated tuple rows.",
+        "The 29^2 witness for continuation 282 is lifted to n == 137720141 mod 27443118549924.",
+        "The packet explicitly preserves the first-structural-unavoidability boundary."
+      ],
+      "boundary": "The historical family-menu source is unavailable locally; the packet binds regenerated row data and does not prove first chronology."
+    },
+    {
+      "id": "p848_282_841_first_unavoidability_chronology_blocker_packet",
+      "path": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_282_841_FIRST_UNAVOIDABILITY_CHRONOLOGY_BLOCKER_PACKET.json",
+      "provedOrCertified": [
+        "The row-level family-menu sources expected at live-frontier-sync/2026-04-05 and live-frontier-sync/latest are absent locally.",
+        "The seed snapshot surface records family_count = 280, known_failure_matches = 25, and next_unmatched = 137720141, but not the raw family-menu rows.",
+        "The activation replay checker p848_132_activation_row_certificate_checker_v1 failed with checkedRowCount = 0 because the raw family menu is unavailable.",
+        "The controlled congruence candidate remains intact: anchor 132 uniquely activates residue 504 mod 841 for continuation 282, and anchor 182 preserves it."
+      ],
+      "boundary": "This blocks only the first structural chronology claim. It does not refute first unavoidability and does not weaken the recovered-row binding or target witness lift."
+    },
+    {
+      "id": "p848_282_841_seed_chronology_recovery_packet",
+      "path": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_282_841_SEED_CHRONOLOGY_RECOVERY_PACKET.json",
+      "provedOrCertified": [
+        "Nineteen local seed manifests were scanned and fourteen carry usable family-menu summary surfaces.",
+        "Nine stable 24-family seed manifests agree on family_count = 280, known_failure_matches = 25, latestDirectFailure = 136702637, and next_unmatched = 137720141.",
+        "The recovered known shared-prefix failure sequence has 24 entries ending at 136702637, with tail_282_137720141 as the next known tail-failure packet.",
+        "The missing input is narrowed to the raw 280-row family menu, the seed generator that produced it, or a recurrence/order theorem."
+      ],
+      "boundary": "This recovers summary chronology, not the raw family-menu rows. It does not replay the activation checker or prove first structural unavoidability."
+    },
+    {
+      "id": "p848_282_841_generator_source_blocker_packet",
+      "path": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_282_841_GENERATOR_SOURCE_BLOCKER_PACKET.json",
+      "provedOrCertified": [
+        "The local p848 search lane can consume an existing SIX_PREFIX_TWENTY_FOUR family menu and export seed summaries, but no audited local CLI command regenerates the raw 280-row menu.",
+        "The repo-synced live-frontier-sync tree and /tmp/erdos-problems-848-frontier tree are absent in this workspace.",
+        "The latest stable seed bundle contains family-menu summary counts and candidate repair summaries, but not the raw families array or row-level repair rows.",
+        "The first-unavoidability route is narrowed to either a replayable row-menu source/generator or a replacement ordering recurrence theorem."
+      ],
+      "boundary": "Superseded as a raw-source absence blocker by the row-menu replay certificate. It still records that no local generator command has been restored."
+    },
+    {
+      "id": "p848_282_841_row_menu_replay_certificate_packet",
+      "path": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_282_841_ROW_MENU_REPLAY_CERTIFICATE_PACKET.json",
+      "provedOrCertified": [
+        "The raw 280-row SIX_PREFIX_TWENTY_FOUR family menu exists at output/frontier-engine-local/p848-anchor-ladder/live-frontier-sync/2026-04-05/SIX_PREFIX_TWENTY_FOUR_FAMILY_MENU.json.",
+        "The restored menu is sorted by representative and has known_failure_matches = 25.",
+        "Family index 25 is the first continuation-282 square-obstruction row, with representative 137720141.",
+        "Earlier restored rows have prior282FailureCount = 0.",
+        "The activation replay checker p848_132_activation_row_certificate_checker_v1 passed on 17 rows, including the 282/841 target row."
+      ],
+      "boundary": "This closes the restored finite-menu chronology boundary. It does not regenerate the menu from first principles, prove a universal recurrence, close the p4217 complement, or decide Problem 848."
+    },
+    {
+      "id": "endpoint_repair_split_chain_current_frontier",
+      "paths": [
+        "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_COMPLEMENT_P43_FALLBACK_SELECTOR_PACKET.json",
+        "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_COMPLEMENT_P43_SQUARE_OBSTRUCTION_PACKET.json",
+        "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_COMPLEMENT_P61_AVAILABILITY_REFINEMENT_PACKET.json",
+        "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_COMPLEMENT_P61_Q101_SQUARE_OBSTRUCTION_PACKET.json",
+        "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_COMPLEMENT_P61_Q101_REPAIR_CANDIDATE_BOUNDARY_PACKET.json",
+        "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_COMPLEMENT_P61_Q101_P443_FACTOR_CERTIFICATE.json",
+        "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_COMPLEMENT_P61_Q101_P443_REPAIR_HANDOFF_PACKET.json",
+        "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_COMPLEMENT_P61_Q101_P443_AVAILABILITY_SPLIT_PACKET.json",
+        "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_COMPLEMENT_P61_Q101_P443_Q97_REPAIR_CANDIDATE_BOUNDARY_PACKET.json",
+        "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_COMPLEMENT_P61_Q101_P443_Q97_P151_BLOCKER_PACKET.json",
+        "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_COMPLEMENT_P61_Q101_P443_Q97_P479_REPAIR_HANDOFF_PACKET.json"
+      ],
+      "provedOrCertified": [
+        "The p4217 unavailable-complement refinement packet proves the exact interval parameterization t(s) = 4749600*(s + 937) mod 17783089 for 0 <= s < 17781949.",
+        "The p4217 complement p43 fallback selector is uniformly square-blocked: left == 1 mod 4 and right_43 == 3 mod 4, so 2^2 divides left*right_43+1 for every complement residue.",
+        "After p43 is excluded, the p61 availability packet proves the exact CRT split: each p4217-complement row has 1140 p61-available residues and 2581 unavailable residues modulo 61^2.",
+        "The first p61-available child emits a deterministic q101 obstruction at t == 121075312471178 mod 675009087397969.",
+        "The q101 repair screen has exactly three trial-squarefree endpoint candidates in the established p>=23, p<=50000 menu: p443, p1741, and p2609.",
+        "The p443 factor certificate exact-certifies squarefreeness of the p443 representative repair.",
+        "The p443 availability split proves k_443(v) is a permutation modulo 443^2, gives 1140 available residues and 195109 unavailable residues, and emits the first q97 square-obstruction child.",
+        "The q97 repair screen has exactly two trial-squarefree candidates through square-prime limit 199999: p151 and p479.",
+        "The p151 blocker records that local/free exact certification stalled after known factors 3, 7, 547, 14713, 281112363028343503, and 6530015338384483333, leaving a 167-digit composite residual.",
+        "The p479 repair handoff exact-certifies the selected q97 representative repair: left*right+1 factors as 2 * 7 * 53 times a 209-digit prime, all to exponent 1."
+      ],
+      "boundary": "The finite p151/p479 repair screen is now consumed at representative level: p151 is an explicit blocker/open leaf and p479 is exact-certified for the selected representative. This does not close the p479 availability split, the q97 subclass, the p443-unavailable complement, or the wider p4217 complement."
+    },
+    {
+      "id": "p848_top_repair_class_mechanism_packet",
+      "path": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_TOP_REPAIR_CLASS_MECHANISM_PACKET.json",
+      "provedOrCertified": [
+        "The top repair class 432, 782, 832 is formalized against the restored finite family menu with shared repaired-known=26, repaired-predicted=242, and clean-through=250075000.",
+        "The finite +2 separation versus 332, 382, and 1232 is replay-certified from the raw menu.",
+        "The mod-50 bad-lane divisibility schema has 74 passing finite witness instances.",
+        "The strict 782 > 1232 handoff is certified on two rows, with no 1232-only repaired predicted rows.",
+        "The repeated 832/529 profile sublane is resolved as a finite zero-lift duplicate rather than a new symbolic family."
+      ],
+      "boundary": "This is a finite-menu theorem handoff plus symbolic divisibility schema. It does not prove all relevant square-witness coverage, the p4217 complement, or all-N closure."
+    },
+    {
+      "id": "top_repair_class_exact_verifier_decision",
+      "status": "exact_verifier_rollout_decision_recorded_compact_40500_promotion_first",
+      "packet": "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_TOP_REPAIR_CLASS_EXACT_VERIFIER_ROLLOUT_DECISION_PACKET.json",
+      "proves": "The next verifier move after the top repair-class handoff is compact 1..40500 promotion/audit, not a fresh exact rollout or coverage theorem claim."
+    },
+    {
+      "id": "exact_40500_compact_promotion",
+      "status": "compact_exact_40500_promoted_public_compact_evidence",
+      "packet": "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_EXACT_40500_COMPACT_PROMOTION_PACKET.json",
+      "proves": "The local 1..40500 exact rollout is promoted as public compact verifier evidence without promoting the 440 MB raw packet or changing the public raw interval claim."
+    },
+    {
+      "id": "p848_mod50_remaining_top_only_groups_batch_classification",
+      "path": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_MOD50_REMAINING_TOP_ONLY_GROUPS_BATCH_CLASSIFICATION_PACKET.json",
+      "provedOrCertified": [
+        "All five remaining observed top-only mod-50 witness groups were replayed from the raw family menu.",
+        "Two groups are strict target-first finite replay certificates: top_432_Q1681_bad8 and top_782_Q169_bad15.",
+        "Three groups preserve the target square-witness residue but expose earlier or co-tied tracked activations: top_432_Q49_bad8, top_782_Q9_bad6, and top_832_Q9_bad7.",
+        "No 40501+ exact rollout was used."
+      ],
+      "boundary": "This batch classifies the remaining observed top-only groups at finite replay scope. It does not prove universal square-witness domain coverage or close contrast-only/handoff obligations."
+    },
+    {
+      "id": "p848_mod50_non_first_target_profile_boundary_audit",
+      "path": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_MOD50_NON_FIRST_TARGET_PROFILE_BOUNDARY_AUDIT_PACKET.json",
+      "provedOrCertified": [
+        "The three non-first-target top-only profile boundaries were audited against the finite top/primary-contrast handoff surface.",
+        "The audit found 10 first-activation events and 6 unresolved activation-cover events.",
+        "External continuations 157 and 232 are outside the current top/primary-contrast handoff surface.",
+        "The current handoff surface does not discharge the non-first-target boundaries without a tracked-activation cover theorem."
+      ],
+      "boundary": "This is an activation-cover blocker, not a universal square-witness cover and not a 40501+ rollout justification."
+    },
+    {
+      "id": "p848_mod50_external_anchor_activation_counterfamily_packet",
+      "path": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_MOD50_EXTERNAL_ANCHOR_ACTIVATION_COUNTERFAMILY_PACKET.json",
+      "provedOrCertified": [
+        "The current tracked-activation cover is blocked at its present top/primary-contrast handoff scope.",
+        "Continuations 157 and 232 are restored-menu tracked repair anchors and appear as first activations in three boundary rows.",
+        "Both 157 and 232 are outside the current top-tie/primary-contrast handoff surface; 157 is outside the 32 mod 50 lane and 232 is a lower-support same-lane external anchor.",
+        "The remaining non-external gaps are same-family companion gaps for continuations 382 and 832.",
+        "No 40501+ rollout is justified by this packet."
+      ],
+      "boundary": "This is a finite-menu counterfamily/profile packet. It blocks the current tracked-activation cover scope, but does not prove external-anchor irrelevance, expand the handoff theorem, or prove all-N coverage."
+    },
+    {
+      "id": "p848_mod50_external_anchor_irrelevance_split_packet",
+      "path": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_MOD50_EXTERNAL_ANCHOR_IRRELEVANCE_SPLIT_PACKET.json",
+      "provedOrCertified": [
+        "The external-anchor counterfamily was split into deterministic terminal profiles.",
+        "Continuation 157 is terminally split at observed finite-profile scope: it is outside the 32 mod 50 lane and square-blocked on its two observed boundary rows.",
+        "Continuation 232 remains the same-lane external-anchor bottleneck because it is 32 mod 50, squarefree on the family-275 boundary row, and outside the current top/primary handoff surface.",
+        "The remaining companion gaps are named as 382/832 same-family terminal-profile obligations.",
+        "No 40501+ rollout was used or justified."
+      ],
+      "boundary": "This narrows the blocker but does not prove universal external-anchor irrelevance, does not expand the handoff theorem, and does not prove all-N coverage."
+    },
+    {
+      "id": "p848_mod50_232_same_lane_external_anchor_profile_split_packet",
+      "path": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_MOD50_232_SAME_LANE_EXTERNAL_ANCHOR_PROFILE_SPLIT_PACKET.json",
+      "provedOrCertified": [
+        "The same-lane 232 external-anchor blocker is emitted as a dedicated finite terminal profile for family 275.",
+        "The cheap irrelevance route is rejected at finite scope: 232 is in the 32 mod 50 lane and squarefree on the observed boundary row.",
+        "The expanded-handoff theorem is not proved; this is an atomized finite profile boundary only.",
+        "The remaining mod-50 handoff work is the same-family companion cover/profile splits for 382 and 832.",
+        "No 40501+ rollout was used or justified."
+      ],
+      "boundary": "This packet handles only the observed 232 family-275 profile. It does not prove 232 irrelevance, expand the handoff theorem, or close 382/832 companion gaps."
+    },
+    {
+      "id": "p848_mod50_382_832_companion_gap_profile_split_packet",
+      "path": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_MOD50_382_832_COMPANION_GAP_PROFILE_SPLIT_PACKET.json",
+      "provedOrCertified": [
+        "All three observed 382/832 same-family companion gaps are emitted as deterministic finite terminal profiles.",
+        "The checked gap repair rows are squarefree, while their target rows are square-blocked.",
+        "A same-family companion theorem is not proved; the packet closes only the observed finite-profile surface.",
+        "The observed top-only/non-first-target mod-50 profile gaps are now atomized.",
+        "No 40501+ rollout was used or justified."
+      ],
+      "boundary": "This closes the observed companion-gap work surface, but not universal square-witness domain coverage, contrast-only closure, or all-N recombination."
+    },
+    {
+      "id": "p848_mod50_observed_profile_closure_packet",
+      "path": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_MOD50_OBSERVED_PROFILE_CLOSURE_PACKET.json",
+      "provedOrCertified": [
+        "The observed mod-50 top-only profile surface is assembled from the prior finite closure/profile packets.",
+        "All seven observed top-only groups are now accounted for by a finite closure class or terminal profile split.",
+        "The non-first-target activation gaps are atomized; no additional observed row split is the next move.",
+        "The universal square-witness domain cover is still not proved: the current surface is 74 finite witness instances, not all future (n,Q) pairs.",
+        "No 40501+ rollout was used or justified."
+      ],
+      "boundary": "This is a recombination packet for the observed finite profile closure. It leaves the universal mod-50 square-witness domain cover, contrast-only recombination, and post-40500 sufficiency open."
+    },
+    {
+      "id": "p848_mod50_universal_domain_cover_residual_packet",
+      "path": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_MOD50_UNIVERSAL_DOMAIN_COVER_RESIDUAL_PACKET.json",
+      "provedOrCertified": [
+        "The universal square-witness domain-cover theorem was attempted and remains blocked, not proved.",
+        "The exact residual family is named by c = 32 + 50*m and bad-lane congruence (50*n)*m ≡ -(32*n + 1) (mod Q).",
+        "The exact bad-lane denominator is Q / gcd(50*n,Q).",
+        "The restored family menu is finite evidence: 280 rows and 25 known-failure matches, not a parametric generator theorem.",
+        "No 40501+ rollout was used or justified."
+      ],
+      "boundary": "This sharpens the universal mod-50 domain-cover blocker to the missing parametric relevant-pair enumerator, finite Q partition, handoff map, contrast-only recombination theorem, and post-40500 sufficiency theorem."
+    },
+    {
+      "id": "p848_mod50_relevant_pair_enumerator_generator_blocker_packet",
+      "path": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_MOD50_RELEVANT_PAIR_ENUMERATOR_GENERATOR_BLOCKER_PACKET.json",
+      "provedOrCertified": [
+        "The local p848 mod-50 lane has restored finite-menu consumers, but no audited local source command or theorem object that generates all future relevant (n,Q) pairs.",
+        "The restored menu sequence available locally has 6 finite surfaces, ending at 280 rows and 139 lane-32 witness repair rows.",
+        "The finite lane-32 witness-square set is 9, 25, 49, 121, 169, 289, 361, 529, 841, 1681, 4489, 44521, 66049.",
+        "The finite sequence can be mined for recurrence or Q-partition stability, but cannot discharge the all-future quantifier by itself.",
+        "The missing source is now a deterministic boundary rather than an invitation to a 40501+ rollout."
+      ],
+      "boundary": "This packet blocks the parametric mod-50 relevant-pair enumerator because the local sources only consume finite menus. It does not prove a universal square-witness cover, finite Q partition, contrast-only recombination, p4217 complement coverage, or all-N."
+    },
+    {
+      "id": "p848_mod50_restored_menu_sequence_stability_blocker_packet",
+      "path": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_MOD50_RESTORED_MENU_SEQUENCE_STABILITY_BLOCKER_PACKET.json",
+      "provedOrCertified": [
+        "The restored SIX_PREFIX_NINETEEN through SIX_PREFIX_TWENTY_FOUR menu sequence was audited as a finite stability surface.",
+        "The first three menu transitions are prefix-stable, but the last two are not.",
+        "SIX_PREFIX_TWENTY_TWO -> SIX_PREFIX_TWENTY_THREE adds square modulus 17161 and inserts lower representatives, breaking prefix stability.",
+        "SIX_PREFIX_TWENTY_THREE -> SIX_PREFIX_TWENTY_FOUR adds square modulus 1849, jumps from 260 to 280 rows with no local 270-row source, and deletes four prior finite-limit families.",
+        "Late lane-32 witness squares 121 and 361 appear, so the finite TWENTY_FOUR Q set is not a universal finite Q partition.",
+        "No 40501+ rollout was used or justified."
+      ],
+      "boundary": "This blocks promoting the restored finite menu sequence to a universal relevant-pair recurrence or finite Q partition. It does not restore the generator, prove a symbolic recurrence, close contrast-only recombination, or prove all-N."
+    },
+    {
+      "id": "p848_mod50_menu_generator_restoration_audit_packet",
+      "path": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_MOD50_MENU_GENERATOR_RESTORATION_AUDIT_PACKET.json",
+      "provedOrCertified": [
+        "The local live-frontier sync contains finite family menus, chunked first-failure summaries, chunk packets, and singleton CRT packets.",
+        "The restored finite sources include 6 family menus, 6 chunked summary packets, 50 chunk packets, and 6 singleton CRT packets.",
+        "The finite chunk and singleton CRT artifacts prove provenance for direct first failures and row-level CRT witnesses.",
+        "No local source implementation or command was found for the family-menu generator, anchor_chunked_frontier, anchor_singleton_crt, symbolic known-failure recurrence, symbolic square-moduli recurrence, or intermediate 270-row menu.",
+        "A naive all-tuple CRT reconstruction is not an acceptable generator proof; the next move must prove a bounded priority enumerator or restore the original generator.",
+        "No 40501+ rollout was used or justified."
+      ],
+      "boundary": "This packet proves finite chunk/CRT provenance exists but the mod-50 family-menu generator or symbolic relevant-pair recurrence is not restored locally. It leaves bounded menu enumeration, all-future recurrence, finite Q partition, universal square-witness domain coverage, and all-N open."
+    },
+    {
+      "id": "p848_mod50_bounded_crt_menu_enumerator_audit_packet",
+      "path": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_MOD50_BOUNDED_CRT_MENU_ENUMERATOR_AUDIT_PACKET.json",
+      "provedOrCertified": [
+        "A repo-owned bounded CRT representative enumerator now checks SIX_PREFIX_NINETEEN through SIX_PREFIX_TWENTY_FOUR.",
+        "All six restored menus have missingMenuRowCount = 0 under the bounded right-half CRT plus direct left-half witness test.",
+        "All six restored menus have smallerExtraCount = 0, so no smaller representative is omitted under the restored finite parameter surfaces.",
+        "The enumerator avoids the naive 23^6 tuple CRT search by enumerating 5270/6228/7296 right-half progressions and bounded representative candidates.",
+        "The duplicate/equal-representative tie policy is recovered: sort by representative ascending, then tupleKey display string ascending, then take the first menu limit rows.",
+        "SIX_PREFIX_TWENTY_FOUR has one same-boundary extra tuple at n = 1837022639, and the recovered tie policy excludes it because it sorts after the included boundary row.",
+        "No 40501+ rollout was used or justified."
+      ],
+      "boundary": "This promotes exact bounded CRT reproduction for the restored finite menus, but not original generator restoration, symbolic all-future recurrence, finite Q partition, or all-N closure."
+    },
+    {
+      "id": "p848_mod50_exact_bounded_crt_menu_replay_theorem_packet",
+      "path": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_MOD50_EXACT_BOUNDED_CRT_MENU_REPLAY_THEOREM_PACKET.json",
+      "provedOrCertified": [
+        "The exact bounded CRT representative enumerator is promoted as a finite replay theorem for SIX_PREFIX_NINETEEN through SIX_PREFIX_TWENTY_FOUR.",
+        "The finite theorem proves every restored row is contained, no smaller representative is omitted, and exact ordered list reproduction holds for all six restored menus.",
+        "The duplicate/equal-representative tie policy is theorem-facing: representative ascending, stored tupleKey display string ascending, then first menu limit rows.",
+        "The single SIX_PREFIX_TWENTY_FOUR same-boundary extra at n = 1837022639 is excluded by the recovered finite tie policy and limit.",
+        "No original generator restoration, symbolic all-future recurrence, finite Q partition, 40501+ rollout, or all-N closure is claimed."
+      ],
+      "boundary": "This closes the finite bounded CRT replay promotion step. The live boundary is now the all-future recurrence/source theorem or finite Q partition for the mod-50 square-witness domain."
+    }
+  ],
+  "supportedClaim": {
+    "statement": "The current q17 endpoint-selector frontier is a local branch theorem handoff. The 282/841 row is replay-certified; the top repair-class mechanism and compact endpoint evidence are formalized; the observed mod-50 top-only profile surface is assembled; and the universal mod-50 domain-cover attempt now has a promoted exact bounded CRT replay theorem for the restored finite menus, with original-generator restoration and all-future recurrence still open.",
+    "claimStrength": "local_branch_theorem_handoff_with_promoted_finite_mod50_bounded_crt_replay_theorem",
+    "doesNotClaim": [
+      "Problem 848 is decided.",
+      "The top repair-class mechanism proves all-N squarefree repair coverage.",
+      "The mod-50 bad-lane schema covers all relevant future square witnesses.",
+      "The observed profile closure proves the universal square-witness domain cover.",
+      "The generator-source blocker proves a recurrence or finite Q partition.",
+      "The restored finite menu sequence proves a stable recurrence or universal finite Q partition.",
+      "The finite chunk/CRT provenance restores the family-menu generator or proves menu ordering.",
+      "The contrast-only groups are globally recombined.",
+      "A 40501+ exact rollout is justified before restoring a generator, proving a symbolic relevant-pair recurrence, or emitting the next all-future blocker.",
+      "Bounded representative evidence is an all-N proof."
+    ]
+  },
+  "finiteMeasureOrNoMeasureYet": {
+    "global282FirstFailureMeasure": "mod50_finite_bounded_crt_replay_theorem_promoted_all_future_recurrence_open",
+    "localEndpointMeasure": {
+      "currentOpenChild": {
+        "label": "mod-50 finite bounded CRT replay theorem promoted; all-future recurrence open",
+        "status": "mod50_finite_bounded_crt_replay_theorem_promoted_all_future_recurrence_open",
+        "openFrontierObligationCount": 33,
+        "remainingOpenBoundaries": [
+          "actual mod-50 family-menu generator or symbolic source theorem",
+          "symbolic relevant-pair recurrence",
+          "missing intermediate source/menu sequence explaining the 260 -> 280 finite-limit jump",
+          "parametric relevant-pair enumerator for all future (n, Q) pairs in c = 32 + 50*m",
+          "finite Q partition or square-witness modulus bound with denominator Q/gcd(50*n,Q)",
+          "bad-lane class handoff map for every covered pair",
+          "contrast-only coverage and recombination with the top repair-class handoff",
+          "post-40500 sufficiency theorem or a theorem-facing finite regression interval",
+          "p479 availability/subclass coverage",
+          "q97 square-obstruction subclass coverage",
+          "p443-unavailable complement",
+          "p4217 unavailable-complement siblings"
+        ]
+      },
+      "nextExpectedDecrease": "Prove a symbolic all-future relevant-pair recurrence or finite Q partition, or emit the exact source-theorem blocker at that universal boundary."
+    },
+    "warning": "The finite bounded CRT replay theorem is promoted, but universal square-witness domain coverage remains open; this is not global convergence.",
+    "nextExpectedDecrease": "Prove a symbolic all-future relevant-pair recurrence or finite Q partition, or emit the exact source-theorem blocker at that universal boundary."
+  },
+  "compressionCandidateLemma": {
+    "primary": {
+      "id": "post_q97_bulk_or_structural_handoff_packet",
+      "statement": "After a finite repair screen is consumed without decreasing the global frontier count, the next theorem object must cover a whole complement family, prove an impossibility/structural decomposition, bind an independent live family, or record a ranked ledger transition before opening another endpoint selector child.",
+      "wouldCollapse": "Repeated p151/p479-style survivor certification into a guard-enforced theorem handoff.",
+      "missingForUse": "A concrete next packet that acts on a whole complement/chronology obligation and records the exact boundary left outside it."
+    },
+    "secondary": {
+      "id": "top_repair_class_to_exact_verifier_or_coverage_theorem",
+      "statement": "The top repair-class mechanism is formalized from the restored finite menu; the next compression target is either a coverage theorem for all relevant square witnesses or a bounded exact verifier rollout that emits replayable boundary rows.",
+      "wouldCollapse": "The finite +2 separation, mod-50 bad-lane schema, strict 782-vs-1232 handoff, and 832/529 profile checks into the next finite-gap closure decision.",
+      "missingForUse": "A successor packet naming the exact verifier rollout boundary or the coverage theorem hypotheses."
+    }
+  },
+  "remainingPuzzleBoundary": {
+    "smallestFalsifiableBoundary": "The exact live boundary is now the all-future recurrence/source theorem beyond the promoted exact bounded CRT mod-50 finite replay theorem: prove symbolic relevant-pair recurrence/finite Q partition, restore/prove the original generator, or emit a concrete residual counterfamily/blocker with the denominator Q/gcd(50*n,Q).",
+    "structuralBoundary": "The endpoint staircase still does not prove a global decision. The observed top-only profile surface is assembled, finite chunk/CRT provenance exists, and the restored finite menus are promoted as a finite bounded CRT replay theorem, but the family-menu generator, symbolic recurrence, contrast-only recombination, post-40500 sufficiency, complement coverage, finite-measure theorem integration, and all-N recombination remain outside the proof."
+  },
+  "oneNextAction": {
+    "stepId": "derive_p848_mod50_all_future_recurrence_or_emit_source_theorem_blocker",
+    "action": "Prove a symbolic all-future relevant-pair recurrence or finite Q partition for the mod-50 square-witness domain; if unavailable locally, emit the precise source-theorem blocker at the universal recurrence boundary.",
+    "whyThisInsteadOfAnotherSibling": "The exact bounded CRT finite replay theorem is now promoted; another finite menu replay would not address the live universal boundary.",
+    "command": "jq '{theoremObject, finiteReplayTheorem, deterministicBoundary, recommendedNextAction, claims}' packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_MOD50_EXACT_BOUNDED_CRT_MENU_REPLAY_THEOREM_PACKET.json",
+    "completionRule": "A symbolic all-future recurrence/finite Q partition is proved, or a precise blocker names the missing universal source theorem and residual denominator surface."
+  },
+  "oneVerificationCommand": "node --test test/p848-282-alignment-obstruction-packet.test.js",
+  "writebackTargets": [
+    "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_CONVERGENCE_ASSEMBLY_282_FIRST_FAILURE_PACKET.json",
+    "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_CONVERGENCE_ASSEMBLY_282_FIRST_FAILURE_PACKET.md",
+    "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_282_841_LIVE_FAMILY_BINDING_PACKET.json",
+    "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_282_841_LIVE_FAMILY_BINDING_PACKET.md",
+    "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_282_841_FIRST_UNAVOIDABILITY_CHRONOLOGY_BLOCKER_PACKET.json",
+    "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_282_841_FIRST_UNAVOIDABILITY_CHRONOLOGY_BLOCKER_PACKET.md",
+    "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_282_841_SEED_CHRONOLOGY_RECOVERY_PACKET.json",
+    "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_282_841_SEED_CHRONOLOGY_RECOVERY_PACKET.md",
+    "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_282_841_GENERATOR_SOURCE_BLOCKER_PACKET.json",
+    "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_282_841_GENERATOR_SOURCE_BLOCKER_PACKET.md",
+    "packs/number-theory/problems/848/TASK_LIST.json",
+    "packs/number-theory/problems/848/PROGRESS.json",
+    "packs/number-theory/problems/848/GLOBAL_CONVERGENCE_LIFT.md",
+    "packs/number-theory/problems/848/FRONTIER_LEDGER.md",
+    "packs/number-theory/problems/848/P4217_COMPLEMENT_STRATEGY_GUARD.md",
+    "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_282_841_ROW_MENU_REPLAY_CERTIFICATE_PACKET.json",
+    "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_282_841_ROW_MENU_REPLAY_CERTIFICATE_PACKET.md",
+    "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_MOD50_REMAINING_TOP_ONLY_GROUPS_BATCH_CLASSIFICATION_PACKET.json",
+    "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_MOD50_REMAINING_TOP_ONLY_GROUPS_BATCH_CLASSIFICATION_PACKET.md",
+    "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_MOD50_NON_FIRST_TARGET_PROFILE_BOUNDARY_AUDIT_PACKET.json",
+    "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_MOD50_NON_FIRST_TARGET_PROFILE_BOUNDARY_AUDIT_PACKET.md",
+    "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_MOD50_OBSERVED_PROFILE_CLOSURE_PACKET.json",
+    "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_MOD50_OBSERVED_PROFILE_CLOSURE_PACKET.md",
+    "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_MOD50_UNIVERSAL_DOMAIN_COVER_RESIDUAL_PACKET.json",
+    "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_MOD50_UNIVERSAL_DOMAIN_COVER_RESIDUAL_PACKET.md",
+    "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_MOD50_RELEVANT_PAIR_ENUMERATOR_GENERATOR_BLOCKER_PACKET.json",
+    "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_MOD50_RELEVANT_PAIR_ENUMERATOR_GENERATOR_BLOCKER_PACKET.md",
+    "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_MOD50_RESTORED_MENU_SEQUENCE_STABILITY_BLOCKER_PACKET.json",
+    "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_MOD50_RESTORED_MENU_SEQUENCE_STABILITY_BLOCKER_PACKET.md",
+    "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_MOD50_MENU_GENERATOR_RESTORATION_AUDIT_PACKET.json",
+    "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_MOD50_MENU_GENERATOR_RESTORATION_AUDIT_PACKET.md",
+    "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_MOD50_BOUNDED_CRT_MENU_ENUMERATOR_AUDIT_PACKET.json",
+    "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_MOD50_BOUNDED_CRT_MENU_ENUMERATOR_AUDIT_PACKET.md",
+    "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_MOD50_EXACT_BOUNDED_CRT_MENU_REPLAY_THEOREM_PACKET.json",
+    "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_MOD50_EXACT_BOUNDED_CRT_MENU_REPLAY_THEOREM_PACKET.md"
+  ],
+  "globalMeasureStatus": "mod50_finite_bounded_crt_replay_theorem_promoted_all_future_recurrence_open",
+  "localEndpointMeasure": {
+    "currentOpenChild": {
+      "label": "mod-50 finite bounded CRT replay theorem promoted; all-future recurrence open",
+      "status": "mod50_finite_bounded_crt_replay_theorem_promoted_all_future_recurrence_open",
+      "openFrontierObligationCount": 33,
+      "remainingOpenBoundaries": [
+        "actual mod-50 family-menu generator or symbolic source theorem",
+        "symbolic relevant-pair recurrence",
+        "missing intermediate source/menu sequence explaining the 260 -> 280 finite-limit jump",
+        "parametric relevant-pair enumerator for all future (n, Q) pairs in c = 32 + 50*m",
+        "finite Q partition or square-witness modulus bound with denominator Q/gcd(50*n,Q)",
+        "bad-lane class handoff map for every covered pair",
+        "contrast-only coverage and recombination with the top repair-class handoff",
+        "post-40500 sufficiency theorem or a theorem-facing finite regression interval",
+        "p479 availability/subclass coverage",
+        "q97 square-obstruction subclass coverage",
+        "p443-unavailable complement",
+        "p4217 unavailable-complement siblings"
+      ]
+    },
+    "nextExpectedDecrease": "Prove a symbolic all-future relevant-pair recurrence or finite Q partition, or emit the exact source-theorem blocker at that universal boundary."
+  },
+  "warning": "The open_frontier_obligation_count remains a local frontier pressure signal, not global convergence. The compact 1..40500 exact evidence is promoted and boundary-audited, but all-N recombination still needs complement accounting, restored generator or symbolic relevant-pair recurrence/finite Q partition, contrast-only recombination, and a square-witness coverage theorem.",
+  "smallestFalsifiableBoundary": "The exact live boundary is now the all-future recurrence/source theorem beyond the promoted exact bounded CRT mod-50 finite replay theorem: prove symbolic relevant-pair recurrence/finite Q partition, restore/prove the original generator, or emit a concrete residual counterfamily/blocker with the denominator Q/gcd(50*n,Q).",
+  "updatedAt": "2026-04-17T12:28:04Z",
+  "finiteMeasure": {
+    "status": "finite_bounded_crt_menu_replay_theorem_promoted",
+    "label": "mod50_finite_bounded_crt_replay_theorem_promoted_all_future_recurrence_open",
+    "lastDecrease": "The bounded CRT audit was promoted into a finite restored-menu replay theorem under the recovered tupleKey tie policy; the next boundary is all-future recurrence/source restoration."
+  }
+}

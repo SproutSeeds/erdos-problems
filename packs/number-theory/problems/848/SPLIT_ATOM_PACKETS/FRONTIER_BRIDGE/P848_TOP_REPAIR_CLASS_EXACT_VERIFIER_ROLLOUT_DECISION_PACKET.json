@@ -1,0 +1,137 @@
+{
+  "schema": "erdos.number_theory.p848_top_repair_class_exact_verifier_rollout_decision_packet/1",
+  "packetId": "p848_top_repair_class_exact_verifier_rollout_decision_packet_v1",
+  "status": "exact_verifier_rollout_decision_recorded_compact_40500_promotion_first",
+  "generatedAt": "2026-04-17T09:31:52Z",
+  "sourcePrimaryAction": "choose_next_exact_verifier_rollout_after_top_repair_class_handoff",
+  "theoremContext": {
+    "sourceTopRepairPacket": "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_TOP_REPAIR_CLASS_MECHANISM_PACKET.json",
+    "topRepairPacketStatus": "top_repair_class_mechanism_formalized_finite_menu_handoff",
+    "tieClass": [
+      432,
+      782,
+      832
+    ],
+    "finiteMenuSeparationStatus": "finite_menu_plus2_replay_certified",
+    "symbolicBadLaneSchemaStatus": "symbolic_bad_lane_schema_ready",
+    "strictHandoffStatus": "finite_strict_handoff_certified_not_gap_closure",
+    "topPacketBoundary": "This packet formalizes the top repair-class mechanism as a restored finite-menu theorem handoff backed by a reusable divisibility schema and certified finite handoff/profile checks. It does not prove broad squarefree repair coverage, all-N finite-gap closure, or the p4217 complement. A future step must either turn the mod-50/strict-handoff guidance into a coverage theorem over all relevant square witnesses, or run the next exact verifier rollout and replay any new boundary row through the schema."
+  },
+  "exactLaneAudit": {
+    "publicRawExactInterval": "1..10000",
+    "localCompactRolloutInterval": "1..40500",
+    "localCompactCommittedAsRawClaim": false,
+    "localRawResultPath": "output/p848-exact-small-n-rollouts/EXACT_SMALL_N_1_40500_RESULTS.json",
+    "localRawResultSize": "about 440 MB",
+    "localRawResultSha256": "da3546ab3f30faef879c2d4da680f826711361e2c685de8f384eb116df1f8fbc",
+    "compactCertificatePath": "output/p848-exact-small-n-rollouts/EXACT_SMALL_N_1_40500_CERTIFICATE.md",
+    "compactDerivativePackets": [
+      "packs/number-theory/problems/848/EXACT_BREAKPOINT_SCOUT.json",
+      "packs/number-theory/problems/848/EXACT_BREAKPOINT_CERTIFICATE.json",
+      "packs/number-theory/problems/848/EXACT_INTERVAL_BOOKKEEPING.md"
+    ],
+    "breakpointCertificateSummary": {
+      "interval": "1..40500",
+      "rowCount": 40500,
+      "endpointCheckCount": 1621,
+      "compressionRatio": 24.98457742134485,
+      "allRowsAlreadyExact": true,
+      "allEndpointChecksCertified": true,
+      "plateauLengthFrequency": {
+        "6": 1,
+        "19": 1,
+        "25": 1619
+      }
+    },
+    "breakpointScoutSummary": {
+      "interval": "1..40500",
+      "rowCount": 40500,
+      "uniqueNCount": 40500,
+      "duplicateCount": 0,
+      "sortedContiguousFromOne": true,
+      "allCandidateAchievesMaximum": true,
+      "allExampleCliquesMatchCandidateClass": true,
+      "plateauCount": 3243,
+      "breakpointCount": 3242,
+      "breakpointGapFrequency": {
+        "6": 3,
+        "8": 2,
+        "11": 1620,
+        "14": 1617
+      }
+    },
+    "projectedEndpointChecksToOperationalThreshold": {
+      "value": "10566518518518119",
+      "label": "10,566,518,518,518,119"
+    },
+    "exactLaneRecommendedMode": "hybrid_threshold_audit_plus_structural_verifier",
+    "queueState": {
+      "donePublicRawInterval": "1..10000",
+      "localUnpromotedInterval": "10001..40500",
+      "nextDeferredInterval": "40501..?",
+      "reasonNoNewRolloutIsReady": "The exact interval scout does not have a valid ready range yet."
+    },
+    "dispatchAudit": {
+      "command": "./bin/erdos number-theory dispatch 848 --json",
+      "exactFollowupLaunch": {
+        "available": false,
+        "reason": "The exact interval scout does not have a valid ready range yet."
+      },
+      "exactFollowupRollout": {
+        "available": false,
+        "reason": "The exact interval scout does not have a valid ready range yet."
+      },
+      "exactIntervalScout": {
+        "available": false,
+        "reason": "The exact interval scout does not have a valid ready range yet."
+      }
+    }
+  },
+  "decision": {
+    "decisionId": "p848_post_top_repair_class_exact_verifier_route_decision_v1",
+    "chosenRoute": "promote_existing_compact_1_40500_exact_rollout_before_new_compute",
+    "chosenNextAction": "promote_p848_exact_40500_compact_rollout_certificate_after_top_repair_handoff",
+    "chosenWhy": "The formalized top repair-class packet leaves a coverage/verifier boundary, but the canonical exact rollout action has no ready queue range. The repo already has local compact evidence through 40500 with compact derivative certificates, so the smallest durable verifier move is to promote/audit that compact interval before launching any 40501+ rollout.",
+    "boundedWorkEnvelope": {
+      "computeMode": "local_existing_artifact_audit",
+      "noNewExactScanStarted": true,
+      "noRemoteOrPaidCompute": true,
+      "rawArtifactPolicy": "Do not commit or bundle the 440 MB local raw packet; promote only a compact certificate surface with hash, interval, reproduction family, endpoint certificate, and explicit raw-packet boundary.",
+      "promotionTarget": "public compact interval claim 1..40500, distinct from public raw packet 1..10000"
+    },
+    "rejectedImmediateRoutes": [
+      {
+        "route": "prove_coverage_theorem_immediately",
+        "rejectedForNowBecause": "The top packet proves a finite-menu +2 separation, a mod-50 bad-lane divisibility schema, and strict/profile finite handoffs, but it does not yet control every relevant future square witness."
+      },
+      {
+        "route": "run_exact_followup_rollout_now",
+        "rejectedForNowBecause": "The canonical dispatch reports exact_followup_rollout unavailable: the interval queue has no ready exact_small_n range. It marks 10001..40500 as local_unpromoted and 40501..? as deferred."
+      },
+      {
+        "route": "continue_exact_only_to_operational_threshold",
+        "rejectedForNowBecause": "The finite-gap strategy estimates 10,566,518,518,518,119 endpoint checks to reach the imported 2.64 x 10^17 threshold, so exact-only closure is not a viable theorem plan."
+      },
+      {
+        "route": "gpu_profile_sweep_as_the_verifier_successor",
+        "rejectedForNowBecause": "The current theorem surface asks for a verifier/coverage decision, not a fresh frontier-search expansion; remote or paid compute is outside this bounded local step."
+      }
+    ],
+    "successorCompletionRule": "A compact promotion packet either promotes the 1..40500 endpoint certificate as public compact evidence with raw-hash and reproduction boundary, or emits a blocker explaining which compact certificate/promotion input is missing. Only after that should 40501..? be considered as a bounded regression rollout."
+  },
+  "nextVerificationCommand": "node --test test/p848-282-alignment-obstruction-packet.test.js",
+  "proofBoundary": "This decision packet only chooses and bounds the next verifier-side move after the top repair-class handoff. It does not promote the 1..40500 interval by itself, does not prove the mod-50/strict-handoff coverage theorem, does not start new exact compute, does not close p4217/q97/p479 complements, and does not decide Problem 848.",
+  "recommendedNextAction": "promote_p848_exact_40500_compact_rollout_certificate_after_top_repair_handoff",
+  "nextTheoremMove": "Promote or block the existing compact 1..40500 exact-rollout certificate as public compact verifier evidence, explicitly preserving public raw coverage at 1..10000 and replaying any resulting boundary against the top repair-class schema before any 40501+ rollout.",
+  "claims": {
+    "choosesNextExactVerifierRoute": true,
+    "auditsExactRolloutAvailability": true,
+    "explainsWhyNewRolloutIsNotReady": true,
+    "choosesCompact40500PromotionFirst": true,
+    "promotesCompact40500Interval": false,
+    "provesCoverageTheorem": false,
+    "startsNewExactCompute": false,
+    "usesPaidOrRemoteCompute": false,
+    "provesAllN": false
+  }
+}

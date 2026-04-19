@@ -1,0 +1,243 @@
+{
+  "schema": "erdos.number_theory.p848_mod50_relevant_pair_row_generator_restoration_local_audit_blocker_packet/1",
+  "packetId": "P848_MOD50_RELEVANT_PAIR_ROW_GENERATOR_RESTORATION_LOCAL_AUDIT_BLOCKER_PACKET",
+  "problemId": 848,
+  "generatedAt": "2026-04-18T15:26:16.256Z",
+  "status": "mod50_relevant_pair_row_generator_restoration_local_audit_blocker_emitted",
+  "target": "restore_p848_mod50_relevant_pair_row_generator_or_finite_q_partition_after_elementary_semantics_blocker",
+  "recommendedNextAction": "await_p848_new_local_row_generator_theorem_or_explicit_guarded_source_audit_release_after_restoration_blocker",
+  "coversPrimaryNextAction": {
+    "stepId": "restore_p848_mod50_relevant_pair_row_generator_or_finite_q_partition_after_elementary_semantics_blocker",
+    "status": "blocked_by_no_repo_owned_mod50_row_generator_or_finite_q_partition_after_local_restoration_audit",
+    "semanticsBlockerPacket": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_MOD50_ELEMENTARY_GENERATOR_RELEVANT_PAIR_SEMANTICS_BLOCKER_PACKET.json",
+    "semanticsBlockerSha256": "bef80db2636319f5e044348aba85b9f561560736d4a0bcc5ec3decb2eba0a8d2",
+    "relevantPairBlockerPacket": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_MOD50_RELEVANT_PAIR_ENUMERATOR_GENERATOR_BLOCKER_PACKET.json",
+    "relevantPairBlockerSha256": "ccb6130a1370c8526ea8a8c5595b3a5540109bc1020711599686ccd07478b4c5"
+  },
+  "restorationAudit": {
+    "auditId": "p848_mod50_relevant_pair_row_generator_restoration_local_audit",
+    "command": "rg -n \"family_menu|family-menu|knownFailure|known_failure|repairRows|witnessRepair|SIX_PREFIX|continuation|relevant_pair|relevant-pair|finite Q|Q partition|square witness\" research/frontier-engine/src/frontier_engine packs/number-theory/problems/848/compute -g \"!node_modules\"",
+    "commandWasExecutedLocallyByDelegate": true,
+    "searchedSurfaces": [
+      "research/frontier-engine/src/frontier_engine/p848_anchor_search.py",
+      "research/frontier-engine/src/frontier_engine/p848_torch_backend.py",
+      "research/frontier-engine/src/frontier_engine/p848_theorem_bridge.py",
+      "research/frontier-engine/src/frontier_engine/p848_bundle.py",
+      "research/frontier-engine/src/frontier_engine/cli.py",
+      "packs/number-theory/problems/848/compute/problem848_mod50_bounded_crt_menu_enumerator.mjs",
+      "packs/number-theory/problems/848/compute/problem848_mod50_elementary_generator_relevant_pair_semantics_blocker.mjs",
+      "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_MOD50_RELEVANT_PAIR_ENUMERATOR_GENERATOR_BLOCKER_PACKET.json",
+      "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_MOD50_MENU_GENERATOR_RESTORATION_AUDIT_PACKET.json",
+      "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_MOD50_BOUNDED_CRT_MENU_ENUMERATOR_AUDIT_PACKET.json",
+      "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_MOD50_EXACT_BOUNDED_CRT_MENU_REPLAY_THEOREM_PACKET.json"
+    ],
+    "positiveFiniteEvidence": [
+      "p848_anchor_search.py loads the richest restored finite family-menu surface and extracts representative/tuple rows for scoring.",
+      "p848_torch_backend.py evaluates finite continuation candidates against known packets and finite family-menu representatives.",
+      "problem848_mod50_bounded_crt_menu_enumerator.mjs reconstructs the restored SIX_PREFIX_NINETEEN through TWENTY_FOUR finite menus with exact finite ordering.",
+      "P848_MOD50_EXACT_BOUNDED_CRT_MENU_REPLAY_THEOREM_PACKET promotes the bounded CRT enumerator only as a finite restored-menu replay theorem."
+    ],
+    "negativeFindings": [
+      "No inspected CLI or compute source emits all future family representatives n for the mod-50 relevant-pair row surface.",
+      "No inspected source emits all future square-witness moduli Q or denominator classes Q/gcd(50*n,Q).",
+      "No inspected source proves a finite-Q partition with handoff labels for bad-lane avoidance, top-tie repair, contrast-only repair, or terminal blocking.",
+      "The elementary square-producing identity was already excluded as an arbitrary pair family rather than the repo-owned row generator.",
+      "The bounded CRT enumerator is exact only because it is bounded by restored finite menu parameters and representative limits."
+    ],
+    "result": "no_repo_owned_mod50_relevant_pair_row_generator_symbolic_recurrence_or_finite_q_partition_found"
+  },
+  "requiredTheoremObject": {
+    "objectId": "p848_mod50_relevant_pair_row_generator_or_finite_q_partition",
+    "requiredStatement": "Enumerate all future or theorem-relevant pairs (n,Q) for the 32 mod 50 lane, where n is a family representative and Q is a square witness modulus that can obstruct c*n+1 for c = 32 + 50*m.",
+    "requiredOutputShape": [
+      "A parametric formula or recurrence for representatives n.",
+      "A finite or recursively generated set of possible square witness moduli Q.",
+      "For each pair (n,Q), the bad-lane denominator Q/gcd(50*n,Q).",
+      "A handoff label proving how the bad lane is avoided, top-tie repaired, contrast-only repaired, or terminally blocked."
+    ],
+    "normalizedAfterSemanticsBlocker": {
+      "rowVariable": "n: family representative from the repo-owned row/menu surface",
+      "witnessVariable": "Q: square witness modulus obstructing c*n+1 for c = 32 + 50*m",
+      "denominatorObject": "Q/gcd(50*n,Q)",
+      "handoffLabels": [
+        "bad-lane avoided",
+        "top-tie repaired",
+        "contrast-only repaired",
+        "terminally blocked"
+      ]
+    },
+    "unacceptableSubstitutes": [
+      "arbitrary square-producing pair families such as b = a*t^2 + 2*t",
+      "finite restored-menu replay without an all-future proof",
+      "bounded CRT enumeration tied to finite representative limits",
+      "runtime/task-list language that names the theorem object but does not prove it",
+      "q-cover, singleton descent, fallback selector, or naked rank-boundary evidence from another lane"
+    ]
+  },
+  "auditedEvidence": [
+    {
+      "id": "elementary_generator_relevant_pair_semantics_blocker",
+      "relativePath": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_MOD50_ELEMENTARY_GENERATOR_RELEVANT_PAIR_SEMANTICS_BLOCKER_PACKET.json",
+      "sha256": "bef80db2636319f5e044348aba85b9f561560736d4a0bcc5ec3decb2eba0a8d2",
+      "status": "mod50_elementary_generator_relevant_pair_semantics_blocker_emitted",
+      "recommendedNextAction": "restore_p848_mod50_relevant_pair_row_generator_or_finite_q_partition_after_elementary_semantics_blocker",
+      "usefulFact": "The paid audit candidate was locally checked and excluded as a universal row generator.",
+      "gap": "It leaves the actual row generator or finite-Q partition as the next theorem object.",
+      "provesAllFutureRowGenerator": false,
+      "provesSymbolicRelevantPairRecurrence": false,
+      "provesFiniteQPartition": false,
+      "provesAllN": false
+    },
+    {
+      "id": "relevant_pair_enumerator_generator_blocker",
+      "relativePath": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_MOD50_RELEVANT_PAIR_ENUMERATOR_GENERATOR_BLOCKER_PACKET.json",
+      "sha256": "ccb6130a1370c8526ea8a8c5595b3a5540109bc1020711599686ccd07478b4c5",
+      "status": "parametric_mod50_relevant_pair_enumerator_blocked_generator_absent",
+      "recommendedNextAction": "audit_p848_mod50_restored_menu_sequence_for_relevant_pair_recurrence_or_emit_stability_blocker",
+      "usefulFact": "The earlier relevant-pair audit found finite row-menu consumers but no parametric enumerator.",
+      "gap": "It remains a source blocker for the same all-future row surface.",
+      "provesAllFutureRowGenerator": false,
+      "provesSymbolicRelevantPairRecurrence": false,
+      "provesFiniteQPartition": false,
+      "provesAllN": false
+    },
+    {
+      "id": "menu_generator_restoration_audit",
+      "relativePath": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_MOD50_MENU_GENERATOR_RESTORATION_AUDIT_PACKET.json",
+      "sha256": "32e2c1256ca80a5f5101a650f6f6f1c282fec53d87bba1bef16b4c289fec26d4",
+      "status": "mod50_menu_generator_restoration_blocked_chunk_source_only",
+      "recommendedNextAction": "derive_p848_mod50_bounded_crt_menu_enumerator_or_restore_original_generator",
+      "usefulFact": "Finite chunk/CRT provenance and singleton CRT packets exist.",
+      "gap": "No original family-menu generator command or theorem source is restored locally.",
+      "provesAllFutureRowGenerator": false,
+      "provesSymbolicRelevantPairRecurrence": false,
+      "provesFiniteQPartition": false,
+      "provesAllN": false
+    },
+    {
+      "id": "bounded_crt_menu_enumerator_audit",
+      "relativePath": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_MOD50_BOUNDED_CRT_MENU_ENUMERATOR_AUDIT_PACKET.json",
+      "sha256": "b42c20436437088f9b6830de91d44278d07012ec7d6dd332d449e66eba7d1e2d",
+      "status": "mod50_bounded_crt_menu_enumerator_exact_restored_menu_reproduction_verified",
+      "recommendedNextAction": "promote_p848_mod50_exact_bounded_menu_enumerator_or_emit_all_future_recurrence_blocker",
+      "usefulFact": "A bounded CRT enumerator exactly reproduces the six restored finite menus.",
+      "gap": "Its representative bounds and menu limits keep it finite; it is not an all-future generator.",
+      "provesAllFutureRowGenerator": false,
+      "provesSymbolicRelevantPairRecurrence": false,
+      "provesFiniteQPartition": false,
+      "provesAllN": false
+    },
+    {
+      "id": "exact_bounded_crt_menu_replay_theorem",
+      "relativePath": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_MOD50_EXACT_BOUNDED_CRT_MENU_REPLAY_THEOREM_PACKET.json",
+      "sha256": "5957dc077afdd49b0778e689c47497924fea2b50f3e1700e38d56496e89bfae5",
+      "status": "mod50_exact_bounded_crt_menu_replay_theorem_promoted_recurrence_boundary_open",
+      "recommendedNextAction": "derive_p848_mod50_all_future_recurrence_or_emit_source_theorem_blocker",
+      "usefulFact": "The repo owns a finite restored-menu replay theorem.",
+      "gap": "The packet explicitly leaves original generator restoration, symbolic recurrence, and finite-Q partition open.",
+      "provesAllFutureRowGenerator": false,
+      "provesSymbolicRelevantPairRecurrence": false,
+      "provesFiniteQPartition": false,
+      "provesAllN": false
+    },
+    {
+      "id": "restored_menu_sequence_stability_blocker",
+      "relativePath": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_MOD50_RESTORED_MENU_SEQUENCE_STABILITY_BLOCKER_PACKET.json",
+      "sha256": "99fc248abfe057e0d486daac16ae46cf82463184c8fa819ade5b0d5ca4f85a28",
+      "status": "restored_menu_sequence_stability_blocked_not_a_recurrence",
+      "recommendedNextAction": "restore_p848_mod50_menu_generator_or_prove_symbolic_relevant_pair_recurrence",
+      "usefulFact": "The restored menu sequence is audited for recurrence and late Q behavior.",
+      "gap": "Late witness squares and missing intermediate menu/source data block recurrence promotion.",
+      "provesAllFutureRowGenerator": false,
+      "provesSymbolicRelevantPairRecurrence": false,
+      "provesFiniteQPartition": false,
+      "provesAllN": false
+    },
+    {
+      "id": "all_future_recurrence_source_theorem_blocker",
+      "relativePath": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_MOD50_ALL_FUTURE_RECURRENCE_SOURCE_THEOREM_BLOCKER_PACKET.json",
+      "sha256": "00f01185e010b8144b29789efef98e1f7d4f303e40c8f6d9d733b85b887e6cc0",
+      "status": "mod50_all_future_recurrence_source_theorem_blocker_emitted_local_source_absent",
+      "recommendedNextAction": "prepare_p848_mod50_all_future_recurrence_theorem_wedge_or_restore_source_generator",
+      "usefulFact": "A prior source-theorem blocker already records the absent all-future recurrence after finite replay.",
+      "gap": "The current audit sharpens that absence after the elementary candidate was excluded.",
+      "provesAllFutureRowGenerator": false,
+      "provesSymbolicRelevantPairRecurrence": false,
+      "provesFiniteQPartition": false,
+      "provesAllN": false
+    }
+  ],
+  "rankedLegalNextOptions": [
+    {
+      "rank": 1,
+      "actionId": "await_p848_new_local_row_generator_theorem_or_explicit_guarded_source_audit_release_after_restoration_blocker",
+      "action": "Wait for a new local row-generator/finite-Q theorem, or for a future explicit guarded source-audit release narrowed to the row-generator semantics.",
+      "expectedInformationGain": "high_if_new_source_available",
+      "cost": "free_until_future_release",
+      "reversibility": "high",
+      "probabilityOfChangingDecision": "medium"
+    },
+    {
+      "rank": 2,
+      "actionId": "prepare_p848_mod50_row_generator_source_audit_question_after_restoration_blocker",
+      "action": "Under a future explicit release only, ask for the actual row-menu generator or finite-Q theorem and reject arbitrary square-producing pair families in the prompt.",
+      "expectedInformationGain": "medium",
+      "cost": "paid_guarded_future_only",
+      "reversibility": "high",
+      "probabilityOfChangingDecision": "medium"
+    },
+    {
+      "rank": 3,
+      "actionId": "mine_local_residual_counterfamily_if_new_source_appears",
+      "action": "If new local source data appears, test it against explicit (n,Q,denominator,handoff) counterfamilies before promotion.",
+      "expectedInformationGain": "medium",
+      "cost": "low",
+      "reversibility": "high",
+      "probabilityOfChangingDecision": "low_without_new_source"
+    }
+  ],
+  "futureUnblockConditions": [
+    "A local source theorem/generator is added that emits every future mod-50 relevant-pair row and proves its ordering/domain.",
+    "A local theorem proves a finite-Q partition with denominator and handoff labels for every future mod-50 square-witness pair.",
+    "A future instruction explicitly releases exactly one guarded source audit after usage clearance, narrowed to row-generator/finite-Q semantics."
+  ],
+  "forbiddenMovesAfterRestorationAudit": [
+    "execute_provider_call_under_current_no_spend_instruction",
+    "rerun_the_same_broad_mod50_source_audit_without_new_release",
+    "promote_arbitrary_square_producing_pairs_as_row_generators",
+    "treat_bounded_crt_finite_replay_as_all_future_generator",
+    "resume_q_cover_staircase_expansion",
+    "resume_q193_q197_singleton_descent",
+    "launch_next_prime_fallback_ladder",
+    "emit_naked_rank_boundary",
+    "claim_all_n_recombination"
+  ],
+  "oneNextAction": {
+    "stepId": "await_p848_new_local_row_generator_theorem_or_explicit_guarded_source_audit_release_after_restoration_blocker",
+    "action": "Keep finite-frontier expansion paused until a new local row-generator/finite-Q theorem appears or a future explicit guarded source-audit release is provided.",
+    "finiteDenominatorOrRankToken": "p848_mod50_row_generator_restoration_local_audit_blocker",
+    "verificationCommand": "./bin/erdos problem progress 848 --json"
+  },
+  "proofBoundary": "This packet completes the local restoration audit after the elementary generator semantics blocker. It confirms that the repo has finite menu consumers, a bounded CRT finite replay enumerator, and exact finite restored-menu replay, but no repo-owned all-future mod-50 relevant-pair row generator, symbolic recurrence, finite-Q partition, or restored original family-menu generator theorem with denominator and handoff labels. It makes no provider call, does not spend, does not reopen q-cover/singleton/fallback/rank-boundary expansion, does not recombine all-N, and does not decide Problem 848.",
+  "claims": {
+    "completesMod50RowGeneratorRestorationLocalAudit": true,
+    "provesLocalRowGeneratorAbsent": true,
+    "confirmsBoundedCrtReplayFiniteOnly": true,
+    "confirmsElementaryGeneratorExcluded": true,
+    "preservesNoSpendProviderGating": true,
+    "providerExecutionReleased": false,
+    "madeNewPaidCall": false,
+    "blocksAdditionalProviderCalls": true,
+    "blocksQCoverExpansion": true,
+    "blocksSingletonQDescent": true,
+    "blocksSingleFallbackSelectorLadder": true,
+    "blocksNakedRankBoundary": true,
+    "provesMod50AllFutureRowGenerator": false,
+    "provesMod50AllFutureRecurrence": false,
+    "restoresOriginalGenerator": false,
+    "provesFiniteQPartition": false,
+    "provesAllN": false,
+    "decidesProblem848": false
+  },
+  "packetPath": "/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_MOD50_RELEVANT_PAIR_ROW_GENERATOR_RESTORATION_LOCAL_AUDIT_BLOCKER_PACKET.json"
+}

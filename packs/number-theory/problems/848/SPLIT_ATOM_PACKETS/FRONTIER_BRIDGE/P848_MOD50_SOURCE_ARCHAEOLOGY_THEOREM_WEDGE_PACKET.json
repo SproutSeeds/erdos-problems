@@ -1,0 +1,360 @@
+{
+  "schema": "erdos.number_theory.p848_mod50_source_archaeology_theorem_wedge_packet/1",
+  "packetId": "P848_MOD50_SOURCE_ARCHAEOLOGY_THEOREM_WEDGE_PACKET",
+  "problemId": 848,
+  "generatedAt": "2026-04-18T04:30:23.480Z",
+  "status": "mod50_source_archaeology_completed_theorem_wedge_prepared",
+  "target": "prepare_p848_mod50_all_future_recurrence_theorem_wedge_or_restore_source_generator",
+  "recommendedNextAction": "decide_p848_mod50_recurrence_wedge_with_budget_guard_or_local_symbolic_proof",
+  "coversPrimaryNextAction": {
+    "stepId": "prepare_p848_mod50_all_future_recurrence_theorem_wedge_or_restore_source_generator",
+    "status": "completed_by_local_source_archaeology_wedge_packet",
+    "sourceBlockerPacket": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_MOD50_ALL_FUTURE_RECURRENCE_SOURCE_THEOREM_BLOCKER_PACKET.json",
+    "sourceBlockerSha256": "00f01185e010b8144b29789efef98e1f7d4f303e40c8f6d9d733b85b887e6cc0"
+  },
+  "localSourceArchaeology": {
+    "result": "finite_search_surfaces_found_all_future_source_theorem_not_restored",
+    "auditedSurfaceCount": 10,
+    "auditedSurfaces": [
+      {
+        "id": "pack_source_theorem_blocker",
+        "relativePath": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_MOD50_ALL_FUTURE_RECURRENCE_SOURCE_THEOREM_BLOCKER_PACKET.json",
+        "exists": true,
+        "role": "Pack-side proof boundary after the exact bounded CRT menu replay theorem.",
+        "summary": {
+          "status": "mod50_all_future_recurrence_source_theorem_blocker_emitted_local_source_absent",
+          "target": "derive_p848_mod50_all_future_recurrence_or_emit_source_theorem_blocker",
+          "auditedSourceCount": 6,
+          "auditResult": "no_repo_owned_all_future_recurrence_or_finite_q_partition_available"
+        },
+        "flags": {},
+        "provesOriginalGeneratorRestored": false,
+        "provesSymbolicRelevantPairRecurrence": false,
+        "provesFiniteQPartition": false,
+        "provesAllFutureRecurrence": false
+      },
+      {
+        "id": "frontier_engine_anchor_search_code",
+        "relativePath": "research/frontier-engine/src/frontier_engine/p848_anchor_search.py",
+        "exists": true,
+        "role": "Runnable finite anchor-ladder search/scoring surface.",
+        "summary": {
+          "finiteSearchSurface": true,
+          "hasTorchBatchBackend": true,
+          "expectedSharedPrefixHardcodedForLane": true
+        },
+        "flags": {
+          "hasFiniteFirstFailureSearch": true,
+          "hasCandidatePoolGeneration": true,
+          "hasTorchBackend": true,
+          "hasBestFamilyMenuLoader": true,
+          "hasExpectedSharedPrefix": true
+        },
+        "provesOriginalGeneratorRestored": false,
+        "provesSymbolicRelevantPairRecurrence": false,
+        "provesFiniteQPartition": false,
+        "provesAllFutureRecurrence": false
+      },
+      {
+        "id": "frontier_engine_theorem_bridge_exporter",
+        "relativePath": "research/frontier-engine/src/frontier_engine/p848_theorem_bridge.py",
+        "exists": true,
+        "role": "Search-to-theorem bridge emitter for finite hooks and leaderboards.",
+        "summary": {
+          "emitsCandidateHooks": true,
+          "currentBridgeHookCount": 4
+        },
+        "flags": {
+          "emitsCandidateTheoremHooks": true,
+          "writesSearchTheoremBridge": true,
+          "namesFiniteLeaderboard": true
+        },
+        "provesOriginalGeneratorRestored": false,
+        "provesSymbolicRelevantPairRecurrence": false,
+        "provesFiniteQPartition": false,
+        "provesAllFutureRecurrence": false
+      },
+      {
+        "id": "frontier_engine_lane_readme",
+        "relativePath": "research/frontier-engine/experiments/p848-anchor-ladder/README.md",
+        "exists": true,
+        "role": "Human-readable lane contract for the p848 anchor-ladder search rail.",
+        "summary": {
+          "engineExplicitlyDisclaimsRecurrenceProof": true
+        },
+        "flags": {
+          "warnsNotYetTheorem": true,
+          "saysEngineShouldNotClaimRecurrence": true,
+          "namesStableFiniteObstructionQuestion": false
+        },
+        "provesOriginalGeneratorRestored": false,
+        "provesSymbolicRelevantPairRecurrence": false,
+        "provesFiniteQPartition": false,
+        "provesAllFutureRecurrence": false
+      },
+      {
+        "id": "frontier_state_snapshot",
+        "relativePath": "research/frontier-engine/experiments/p848-anchor-ladder/FRONTIER_STATE.json",
+        "exists": true,
+        "role": "Frozen finite frontier state used by the engine lane.",
+        "summary": {
+          "currentBestContinuation": 332,
+          "currentBestCleanThrough": 250000000,
+          "familyAwareLeader": 432,
+          "latestLiveSharedPrefixFailure": 136702637
+        },
+        "flags": {},
+        "provesOriginalGeneratorRestored": false,
+        "provesSymbolicRelevantPairRecurrence": false,
+        "provesFiniteQPartition": false,
+        "provesAllFutureRecurrence": false
+      },
+      {
+        "id": "output_live_frontier_sync_readme",
+        "relativePath": "output/frontier-engine-local/p848-anchor-ladder/live-frontier-sync/2026-04-05/README.md",
+        "exists": true,
+        "role": "Repo-local copied live frontier sync notes for finite packets and family classifiers.",
+        "summary": {
+          "finiteSyncAvailable": true
+        },
+        "flags": {
+          "namesFrozenPackets": true,
+          "namesFamilyClassifier": true,
+          "namesNextUnmatchedRepresentative": true
+        },
+        "provesOriginalGeneratorRestored": false,
+        "provesSymbolicRelevantPairRecurrence": false,
+        "provesFiniteQPartition": false,
+        "provesAllFutureRecurrence": false
+      },
+      {
+        "id": "output_twenty_four_family_menu",
+        "relativePath": "output/frontier-engine-local/p848-anchor-ladder/live-frontier-sync/2026-04-05/SIX_PREFIX_TWENTY_FOUR_FAMILY_MENU.json",
+        "exists": true,
+        "role": "Richest restored finite family-menu JSON currently available locally.",
+        "summary": {
+          "relativePath": "output/frontier-engine-local/p848-anchor-ladder/live-frontier-sync/2026-04-05/SIX_PREFIX_TWENTY_FOUR_FAMILY_MENU.json",
+          "familyCount": 280,
+          "knownFailureMatches": 25,
+          "knownFailureCount": 24,
+          "lastKnownMatched": 136702637,
+          "nextUnmatched": 137720141,
+          "repairAnchorCount": 8
+        },
+        "flags": {},
+        "provesOriginalGeneratorRestored": false,
+        "provesSymbolicRelevantPairRecurrence": false,
+        "provesFiniteQPartition": false,
+        "provesAllFutureRecurrence": false
+      },
+      {
+        "id": "research_latest_live_sync_fallback",
+        "relativePath": "research/frontier-engine/experiments/p848-anchor-ladder/live-frontier-sync/latest",
+        "exists": false,
+        "role": "Preferred repo-owned latest live-frontier-sync fallback named by the search code.",
+        "summary": {
+          "available": false,
+          "note": "The search code names this fallback, but the directory is absent in the current checkout."
+        },
+        "flags": {},
+        "provesOriginalGeneratorRestored": false,
+        "provesSymbolicRelevantPairRecurrence": false,
+        "provesFiniteQPartition": false,
+        "provesAllFutureRecurrence": false
+      },
+      {
+        "id": "frontier_engine_artifact_manifest_sweep",
+        "relativePath": "research/frontier-engine/artifacts/p848-anchor-ladder",
+        "exists": true,
+        "role": "GPU/search bundle manifest sweep for finite family-aware seed evidence.",
+        "summary": {
+          "artifactRoot": "research/frontier-engine/artifacts/p848-anchor-ladder",
+          "manifestCount": 19,
+          "bestManifest": {
+            "relativePath": "research/frontier-engine/artifacts/p848-anchor-ladder/p848_anchor_ladder-seeds-20260408T165349Z/manifest.json",
+            "knownFailurePacketCount": 26,
+            "familyMenuCount": 280,
+            "bestContinuation": 432,
+            "bestRepairedKnownPackets": 26,
+            "bestRepairedPredictedFamilies": 242,
+            "bestEffectiveCleanThrough": 250075000,
+            "candidatesEvaluated": 95
+          },
+          "topManifestSamples": [
+            {
+              "relativePath": "research/frontier-engine/artifacts/p848-anchor-ladder/p848_anchor_ladder-seeds-20260405T185808Z/manifest.json",
+              "knownFailurePacketCount": 0,
+              "familyMenuCount": 0,
+              "bestContinuation": 332,
+              "bestRepairedKnownPackets": 5,
+              "bestRepairedPredictedFamilies": 0,
+              "bestEffectiveCleanThrough": 0,
+              "candidatesEvaluated": 6
+            },
+            {
+              "relativePath": "research/frontier-engine/artifacts/p848-anchor-ladder/p848_anchor_ladder-seeds-20260405T190632Z/manifest.json",
+              "knownFailurePacketCount": 0,
+              "familyMenuCount": 0,
+              "bestContinuation": 332,
+              "bestRepairedKnownPackets": 5,
+              "bestRepairedPredictedFamilies": 0,
+              "bestEffectiveCleanThrough": 250001000,
+              "candidatesEvaluated": 15
+            },
+            {
+              "relativePath": "research/frontier-engine/artifacts/p848-anchor-ladder/p848_anchor_ladder-seeds-20260405T191616Z/manifest.json",
+              "knownFailurePacketCount": 0,
+              "familyMenuCount": 0,
+              "bestContinuation": 332,
+              "bestRepairedKnownPackets": 5,
+              "bestRepairedPredictedFamilies": 0,
+              "bestEffectiveCleanThrough": 250000500,
+              "candidatesEvaluated": 12
+            },
+            {
+              "relativePath": "research/frontier-engine/artifacts/p848-anchor-ladder/p848_anchor_ladder-seeds-20260405T192556Z/manifest.json",
+              "knownFailurePacketCount": 0,
+              "familyMenuCount": 0,
+              "bestContinuation": 332,
+              "bestRepairedKnownPackets": 5,
+              "bestRepairedPredictedFamilies": 0,
+              "bestEffectiveCleanThrough": 250000500,
+              "candidatesEvaluated": 12
+            },
+            {
+              "relativePath": "research/frontier-engine/artifacts/p848-anchor-ladder/p848_anchor_ladder-seeds-20260405T203810Z/manifest.json",
+              "knownFailurePacketCount": 0,
+              "familyMenuCount": 0,
+              "bestContinuation": 332,
+              "bestRepairedKnownPackets": 5,
+              "bestRepairedPredictedFamilies": 0,
+              "bestEffectiveCleanThrough": 250050000,
+              "candidatesEvaluated": 33
+            }
+          ]
+        },
+        "provesOriginalGeneratorRestored": false,
+        "provesSymbolicRelevantPairRecurrence": false,
+        "provesFiniteQPartition": false,
+        "provesAllFutureRecurrence": false
+      },
+      {
+        "id": "orp_theorem_wedge_profile",
+        "relativePath": "packs/number-theory/problems/848/ORP_RESEARCH_THEOREM_WEDGE_PROFILE.json",
+        "exists": true,
+        "role": "Bounded single-lane ORP/OpenAI profile used to avoid launching the full council/deep-research lanes by default.",
+        "summary": {
+          "profilePath": "packs/number-theory/problems/848/ORP_RESEARCH_THEOREM_WEDGE_PROFILE.json",
+          "expectedProfileId": "p848-mod50-theorem-wedge-single",
+          "limitsFullCouncilByDefault": true
+        },
+        "flags": {
+          "usesProfileFile": true,
+          "avoidsFullCouncilDefault": true,
+          "avoidsDeepResearchDefault": true
+        },
+        "provesOriginalGeneratorRestored": false,
+        "provesSymbolicRelevantPairRecurrence": false,
+        "provesFiniteQPartition": false,
+        "provesAllFutureRecurrence": false
+      }
+    ],
+    "summary": {
+      "finiteFrontierEngineSearchCodeAvailable": true,
+      "finiteOutputFamilyMenuAvailable": true,
+      "outputFamilyMenu": {
+        "relativePath": "output/frontier-engine-local/p848-anchor-ladder/live-frontier-sync/2026-04-05/SIX_PREFIX_TWENTY_FOUR_FAMILY_MENU.json",
+        "familyCount": 280,
+        "knownFailureMatches": 25,
+        "knownFailureCount": 24,
+        "lastKnownMatched": 136702637,
+        "nextUnmatched": 137720141,
+        "repairAnchorCount": 8
+      },
+      "repoOwnedResearchLatestSyncAvailable": false,
+      "artifactManifestCount": 19,
+      "bestArtifactManifest": {
+        "relativePath": "research/frontier-engine/artifacts/p848-anchor-ladder/p848_anchor_ladder-seeds-20260408T165349Z/manifest.json",
+        "knownFailurePacketCount": 26,
+        "familyMenuCount": 280,
+        "bestContinuation": 432,
+        "bestRepairedKnownPackets": 26,
+        "bestRepairedPredictedFamilies": 242,
+        "bestEffectiveCleanThrough": 250075000,
+        "candidatesEvaluated": 95
+      },
+      "searchTheoremBridgeHookCount": 4,
+      "allFutureSourceTheoremRestored": false,
+      "originalGeneratorRestored": false,
+      "symbolicRelevantPairRecurrenceProved": false,
+      "finiteQPartitionProved": false
+    },
+    "conclusion": "Local archaeology finds strong finite search, bridge, menu, and manifest surfaces, but no repo-owned all-future recurrence theorem, finite-Q partition, or original family-menu generator source."
+  },
+  "theoremWedge": {
+    "status": "prepared_budget_guarded_no_live_call_made",
+    "question": "Problem 848 theorem wedge: Given the restored finite mod-50 six-prefix family-menu evidence, the exact bounded CRT menu replay theorem, and the frontier-engine anchor-ladder artifacts, prove or refute a symbolic all-future recurrence or finite-Q partition for the mod-50 square-witness relevant-pair domain. Specifically characterize whether future family-menu rows can introduce new square witness moduli or lower representatives indefinitely, and state the minimal theorem needed before any 40501+ rollout or all-N recombination can use this lane.",
+    "requiredLocalInputs": [
+      "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_MOD50_ALL_FUTURE_RECURRENCE_SOURCE_THEOREM_BLOCKER_PACKET.json",
+      "research/frontier-engine/src/frontier_engine/p848_anchor_search.py",
+      "research/frontier-engine/experiments/p848-anchor-ladder/README.md",
+      "research/frontier-engine/experiments/p848-anchor-ladder/FRONTIER_STATE.json",
+      "output/frontier-engine-local/p848-anchor-ladder/live-frontier-sync/2026-04-05/README.md",
+      "output/frontier-engine-local/p848-anchor-ladder/live-frontier-sync/2026-04-05/SIX_PREFIX_TWENTY_FOUR_FAMILY_MENU.json",
+      "packs/number-theory/problems/848/SEARCH_THEOREM_BRIDGE.json",
+      "packs/number-theory/problems/848/SEARCH_THEOREM_BRIDGE.md"
+    ],
+    "requiredAnswerShape": [
+      "State whether a symbolic all-future recurrence, finite-Q partition, or impossibility theorem is plausible from these artifacts.",
+      "If yes, identify the exact lemma statement and proof atoms needed.",
+      "If no, identify the missing source/generator data that would be required before another finite search sweep is justified.",
+      "Do not treat finite menus, GPU leaderboards, or finite CRT replay as all-N evidence without an explicit theorem."
+    ],
+    "budgetGuard": {
+      "noLiveCallMadeByThisPacket": true,
+      "profilePath": "packs/number-theory/problems/848/ORP_RESEARCH_THEOREM_WEDGE_PROFILE.json",
+      "profilePurpose": "single_lane_theorem_wedge_no_full_council_or_deep_research_by_default",
+      "planningCommand": "erdos orp research ask 848 --profile-file packs/number-theory/problems/848/ORP_RESEARCH_THEOREM_WEDGE_PROFILE.json --question \"Problem 848 theorem wedge: Given the restored finite mod-50 six-prefix family-menu evidence, the exact bounded CRT menu replay theorem, and the frontier-engine anchor-ladder artifacts, prove or refute a symbolic all-future recurrence or finite-Q partition for the mod-50 square-witness relevant-pair domain. Specifically characterize whether future family-menu rows can introduce new square witness moduli or lower representatives indefinitely, and state the minimal theorem needed before any 40501+ rollout or all-N recombination can use this lane.\" --json",
+      "liveCommandRequiresExplicitOptIn": "erdos orp research ask 848 --profile-file packs/number-theory/problems/848/ORP_RESEARCH_THEOREM_WEDGE_PROFILE.json --question \"Problem 848 theorem wedge: Given the restored finite mod-50 six-prefix family-menu evidence, the exact bounded CRT menu replay theorem, and the frontier-engine anchor-ladder artifacts, prove or refute a symbolic all-future recurrence or finite-Q partition for the mod-50 square-witness relevant-pair domain. Specifically characterize whether future family-menu rows can introduce new square witness moduli or lower representatives indefinitely, and state the minimal theorem needed before any 40501+ rollout or all-N recombination can use this lane.\" --execute --allow-paid --json",
+      "requiredFlagsForPaidCall": [
+        "--execute",
+        "--allow-paid"
+      ],
+      "dailyUsdLimitEnvVar": "ERDOS_ORP_RESEARCH_DAILY_USD_LIMIT",
+      "dailyUsdLimit": 5,
+      "dailyRunLimitEnvVar": "ERDOS_ORP_RESEARCH_DAILY_LIMIT",
+      "dailyRunLimit": 10,
+      "note": "The planning command is safe and does not spend. The live command is allowed only after the local usage ledger is checked and the paid-call guard permits it."
+    }
+  },
+  "oneNextAction": {
+    "stepId": "decide_p848_mod50_recurrence_wedge_with_budget_guard_or_local_symbolic_proof",
+    "action": "Use the prepared theorem wedge locally first; only execute one ORP/OpenAI live call if the usage ledger and explicit paid guard allow it, otherwise continue by proving the named symbolic recurrence/finite-Q partition from local artifacts.",
+    "finiteDenominatorOrRankToken": "p848_mod50_source_archaeology_theorem_wedge_after_all_future_blocker",
+    "failureBoundary": "If the wedge is not run or returns no theorem, do not resume q-cover or finite 40501+ rollout; require a new symbolic recurrence, finite-Q partition, restored source generator, or explicit no-source approval packet.",
+    "command": "erdos orp research ask 848 --profile-file packs/number-theory/problems/848/ORP_RESEARCH_THEOREM_WEDGE_PROFILE.json --question \"Problem 848 theorem wedge: Given the restored finite mod-50 six-prefix family-menu evidence, the exact bounded CRT menu replay theorem, and the frontier-engine anchor-ladder artifacts, prove or refute a symbolic all-future recurrence or finite-Q partition for the mod-50 square-witness relevant-pair domain. Specifically characterize whether future family-menu rows can introduce new square witness moduli or lower representatives indefinitely, and state the minimal theorem needed before any 40501+ rollout or all-N recombination can use this lane.\" --json"
+  },
+  "forbiddenMovesBeforeWedgeDecision": [
+    "make_paid_theorem_wedge_call_without_usage_check_and_explicit_paid_opt_in",
+    "treat_frontier_engine_finite_search_code_as_original_generator_theorem",
+    "treat_output_family_menu_as_all_future_recurrence",
+    "resume_q_cover_or_selector_ladder_without_new_invariant",
+    "launch_40501_plus_rollout_from_finite_replay"
+  ],
+  "proofBoundary": "This packet completes local source archaeology and prepares a budget-guarded theorem wedge. It proves no all-future recurrence, no finite-Q partition, no original generator restoration, and no all-N decision for Problem 848.",
+  "claims": {
+    "completesLocalSourceArchaeology": true,
+    "findsFrontierEngineFiniteSearchSurfaces": true,
+    "findsOutputFiniteFamilyMenuSurface": true,
+    "restoresOriginalGenerator": false,
+    "provesSymbolicRelevantPairRecurrence": false,
+    "provesFiniteQPartition": false,
+    "provesUniversalSquareWitnessDomainCover": false,
+    "preparesBudgetGuardedTheoremWedge": true,
+    "livePaidCallMade": false,
+    "respectsNoPaidByDefault": true,
+    "blocksFiniteReplayAsAllFuture": true,
+    "provesAllN": false
+  },
+  "packetPath": "/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_MOD50_SOURCE_ARCHAEOLOGY_THEOREM_WEDGE_PACKET.json"
+}

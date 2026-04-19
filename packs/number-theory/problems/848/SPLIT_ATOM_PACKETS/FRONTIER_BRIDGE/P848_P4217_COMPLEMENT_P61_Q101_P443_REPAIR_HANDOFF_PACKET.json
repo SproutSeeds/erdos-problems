@@ -1,0 +1,78 @@
+{
+  "schema": "erdos.number_theory.p848_p4217_complement_p61_q101_p443_repair_handoff/1",
+  "generatedAt": "2026-04-17T06:35:59Z",
+  "problemId": "848",
+  "status": "representative_p443_repair_found_availability_split_needed",
+  "activeAtom": "D2_p13_q17_endpoint_menu_squarefree_obstruction_p23_q29_p41_q13_p103_q2_p37_q19_p31_q53_p73_q11_p83_q17_p509_q43_p29_q59_p47_q67_p79_q71_p107_q89_p4217_complement_p43_q2_p61_q101_p443_repair",
+  "sourcePackets": [
+    "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_COMPLEMENT_P61_Q101_REPAIR_CANDIDATE_BOUNDARY_PACKET.json",
+    "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_COMPLEMENT_P61_Q101_P443_FACTOR_CERTIFICATE.json"
+  ],
+  "sourceChild": {
+    "tCongruence": {
+      "residue": "121075312471178",
+      "modulus": "675009087397969",
+      "expression": "t == 121075312471178 mod 675009087397969"
+    },
+    "leftCongruence": {
+      "residue": "486498922978003120137482190528915923361118218280393901731215929409345512449172580645681381785657",
+      "modulus": "2712288635205048649747664011117929144880624281851945987471741427034114118918054256500369780916900",
+      "expression": "left == 486498922978003120137482190528915923361118218280393901731215929409345512449172580645681381785657 mod 2712288635205048649747664011117929144880624281851945987471741427034114118918054256500369780916900"
+    }
+  },
+  "representativeRepair": {
+    "representativeLeft": "486498922978003120137482190528915923361118218280393901731215929409345512449172580645681381785657",
+    "blockedEndpoint": {
+      "endpointPrime": 61,
+      "k": 1014,
+      "delta": -25364,
+      "squareDivisorPrime": 101,
+      "squareDivisor": 10201,
+      "status": "known_non_squarefree_from_source_obstruction"
+    },
+    "alternateEndpoint": {
+      "endpointPrime": 443,
+      "k": 1029,
+      "delta": -25739,
+      "right": "486498922978003120137482190528915923361118218280393901731215929409345512449172580645681381759918",
+      "rightMod25": 18,
+      "squarefreeStatus": "exact_squarefree",
+      "factorCertificateId": "p848_p4217_complement_p61_q101_p443_factor_certificate"
+    }
+  },
+  "availabilitySplitPlan": {
+    "endpointPrime": 443,
+    "endpointPrimeSquare": 196249,
+    "window": 28500,
+    "maxK": 1139,
+    "endpointFormula": "k_443(left) = (7850*left + 100286) mod 196249",
+    "sourceParameterFormula": "k_443(v) = (159890*v + 1029) mod 196249 for left = L0 + M*v on the p61/q101 child",
+    "coefficientGcdWithPrimeSquare": 1,
+    "availableResiduesPerSourceRow": 1140,
+    "unavailableResiduesPerSourceRow": 195109,
+    "representativeResidue": {
+      "v": 0,
+      "k": 1029,
+      "available": true
+    },
+    "firstUnavailableResidue": {
+      "v": 1,
+      "k": 160919
+    }
+  },
+  "theoremObject": {
+    "id": "p848_p4217_complement_p61_q101_p443_repair_handoff",
+    "status": "representative_repair_exact_squarefree_availability_split_needed",
+    "claim": "The selected p61/q101 representative is repaired by p443 with an exact squarefree factor certificate. The p443 endpoint is not yet proved over the full child subclass, so the next theorem move is the p443 availability split."
+  },
+  "claims": {
+    "representativeRepair": true,
+    "exactSquarefreeCertificate": true,
+    "subclassCoverage": false,
+    "symbolicSquarefreeHitting": false,
+    "allN": false
+  },
+  "proofBoundary": "This packet repairs the selected p61/q101 representative by exact-certified p443. It does not prove p443 availability or squarefree hitting over the full p61/q101 child; split the child by the p443 availability rule before claiming subclass coverage.",
+  "recommendedNextAction": "split_p848_p4217_complement_p61_q101_child_by_p443_availability",
+  "verificationCommand": "node --check src/runtime/theorem-loop.js && node --check src/runtime/problem-progress.js && node --test test/p848-endpoint-menu-compiler.test.js test/p848-282-alignment-obstruction-packet.test.js"
+}

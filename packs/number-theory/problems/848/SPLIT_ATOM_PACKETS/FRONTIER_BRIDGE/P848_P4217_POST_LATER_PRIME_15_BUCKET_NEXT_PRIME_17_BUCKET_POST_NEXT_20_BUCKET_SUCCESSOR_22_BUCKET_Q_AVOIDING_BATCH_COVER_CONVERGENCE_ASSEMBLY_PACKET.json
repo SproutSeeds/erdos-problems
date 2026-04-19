@@ -1,0 +1,173 @@
+{
+  "schema": "erdos.number_theory.p848_p4217_post_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_q_avoiding_batch_cover_convergence_assembly_packet/1",
+  "generatedAt": "2026-04-17T18:16:35Z",
+  "status": "post_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_q_avoiding_batch_cover_convergence_assembly_selects_24_bucket_post_successor_rank_compression",
+  "target": "run_p848_convergence_assembly_after_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_q_avoiding_batch_cover",
+  "coversPrimaryNextAction": {
+    "stepId": "run_p848_convergence_assembly_after_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_q_avoiding_batch_cover",
+    "status": "covered_by_post_next_20_bucket_successor_22_bucket_q_avoiding_batch_cover_convergence_assembly"
+  },
+  "sourcePackets": [
+    {
+      "kind": "previous_convergence_assembly",
+      "path": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_POST_LATER_PRIME_15_BUCKET_NEXT_PRIME_17_BUCKET_POST_NEXT_20_BUCKET_Q_AVOIDING_BATCH_COVER_CONVERGENCE_ASSEMBLY_PACKET.json",
+      "status": "post_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_q_avoiding_batch_cover_convergence_assembly_selects_22_bucket_successor_rank_compression"
+    },
+    {
+      "kind": "rank_boundary",
+      "path": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_P443_Q97_P479_LATER_PRIME_15_BUCKET_NEXT_PRIME_17_BUCKET_POST_NEXT_20_BUCKET_SUCCESSOR_22_BUCKET_RANK_BOUNDARY_PACKET.json",
+      "status": "p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_deterministic_rank_boundary_emitted"
+    },
+    {
+      "kind": "q_avoiding_batch_cover",
+      "path": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_P443_Q97_P479_LATER_PRIME_15_BUCKET_NEXT_PRIME_17_BUCKET_POST_NEXT_20_BUCKET_SUCCESSOR_22_BUCKET_Q_AVOIDING_BATCH_COVER_PACKET.json",
+      "status": "all_22_bucket_successor_q_avoiding_classes_have_later_square_obstruction_child"
+    }
+  ],
+  "frontierComparison": {
+    "previousRefreshValueBefore22BucketSuccessorQAvoidingCover": 60,
+    "currentRefreshValueAfter22BucketSuccessorQAvoidingCover": 61,
+    "delta": 1,
+    "interpretation": "The 22-bucket successor q-avoiding source token is consumed with no survivors, but the emitted 24 post-successor boundary expands the open frontier. This is acceptable only as a ranked handoff; singleton q-child descent remains blocked until this assembly selects the whole-boundary next token."
+  },
+  "assembledPieces": [
+    {
+      "pieceId": "successor_22_bucket_q_avoiding_batch_cover",
+      "status": "source_token_consumed_with_no_survivors",
+      "claim": "All 718 source rows and all 111,172,518,226,866,898,571,161,320,153 successor q-avoiding source classes from the 22-bucket successor token have a later square-obstruction child by prime 277.",
+      "boundary": "This closes the source token as a no-survivor batch classification, but it emits post-successor root-child and post-successor q-avoiding rank obligations."
+    },
+    {
+      "pieceId": "post_successor_two_root_obstruction_buckets",
+      "status": "exact_24_bucket_post_successor_rank_surface_recorded",
+      "claim": "The post-successor square-obstruction children are partitioned into 24 buckets q in {149,151,157,163,167,173,179,181,191,193,197,199,211,223,227,229,233,239,241,251,257,263,269,277}, each with exactly two roots per source class.",
+      "boundary": "The 24 buckets are exact post-successor boundaries, not terminal closures."
+    },
+    {
+      "pieceId": "post_successor_root_children",
+      "status": "open_rank_boundary",
+      "claim": "The batch cover emits 222,345,036,453,733,797,142,322,640,306 post-successor root children.",
+      "boundary": "Those root children remain outside the assembled proof until a later packet compresses, closes, blocks, or ranks them."
+    },
+    {
+      "pieceId": "post_successor_q_avoiding_rank_boundary",
+      "status": "open_rank_boundary",
+      "claim": "The same 24 post-successor buckets emit 5,058,399,114,142,580,922,880,572,195,875,967 post-successor q-avoiding classes.",
+      "boundary": "Those classes require a compression theorem, structural decomposition, impossibility theorem, or deterministic ranked boundary before any singleton q-child descent."
+    }
+  ],
+  "finiteMeasureOrNoMeasureYet": {
+    "globalFiniteMeasureDecreased": false,
+    "consumedDecisionToken": {
+      "tokenId": "post_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_q_avoiding_batch_cover_convergence_assembly",
+      "sourceAction": "run_p848_convergence_assembly_after_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_q_avoiding_batch_cover",
+      "status": "consumed_by_convergence_assembly"
+    },
+    "closedSourceToken": {
+      "tokenId": "p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_q_avoiding_batch_cover",
+      "sourceSuccessorBucketCount": 22,
+      "sourceRowCount": 718,
+      "sourceSuccessorQAvoidingClassCount": "111172518226866898571161320153",
+      "survivorSourceRowCount": 0,
+      "survivorSuccessorQAvoidingClassCount": "0",
+      "status": "consumed_by_no_survivor_post_successor_square_obstruction_batch_cover"
+    },
+    "nextFiniteToken": {
+      "tokenId": "p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_rank_boundary",
+      "bucketCount": 24,
+      "postSuccessorRootChildCount": "222345036453733797142322640306",
+      "postSuccessorQAvoidingClassCount": "5058399114142580922880572195875967",
+      "status": "selected_for_compression_structural_decomposition_impossibility_or_exact_rank_boundary"
+    }
+  },
+  "postSuccessorBucketSummary": {
+    "bucketCount": 24,
+    "postSuccessorPrimes": [
+      149,
+      151,
+      157,
+      163,
+      167,
+      173,
+      179,
+      181,
+      191,
+      193,
+      197,
+      199,
+      211,
+      223,
+      227,
+      229,
+      233,
+      239,
+      241,
+      251,
+      257,
+      263,
+      269,
+      277
+    ],
+    "sourceSuccessorBucketCount": 22,
+    "sourceRowCount": 718,
+    "sourceSuccessorQAvoidingClassCount": "111172518226866898571161320153",
+    "survivorSuccessorQAvoidingClassCount": "0",
+    "rootResidueCountsPerClass": [
+      2
+    ],
+    "postSuccessorRootChildCount": "222345036453733797142322640306",
+    "postSuccessorQAvoidingClassCount": "5058399114142580922880572195875967"
+  },
+  "compressionCandidate": {
+    "kind": "post_successor_bucket_rank_compression",
+    "name": "p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_rank_compression",
+    "coveredFamily": "All 24 post-successor obstruction-prime buckets emitted by the 22-bucket successor q-avoiding batch cover: 718 source rows, 111,172,518,226,866,898,571,161,320,153 source successor q-avoiding classes, 222,345,036,453,733,797,142,322,640,306 post-successor root children, and 5,058,399,114,142,580,922,880,572,195,875,967 post-successor q-avoiding classes.",
+    "whyThisCompresses": "The q-avoiding cover proves row-uniform first post-successor obstruction and a shared two-root law for every stored source row. The remaining theorem-facing object is therefore the 24-prime post-successor rank surface, not any one q-child.",
+    "whyNotSingletonDescent": "A q149, q151, or later singleton descent would consume only one emitted bucket while the frontier has expanded to 61 obligations. The finite token now available is the whole 24-bucket post-successor rank boundary.",
+    "failureBoundary": "If no common compression theorem or impossibility theorem is visible, emit an exact deterministic 24-bucket ranked boundary packet with all buckets accounted, explicit survivors if any, and the next finite token."
+  },
+  "remainingPuzzleBoundary": {
+    "outsideAssembledProof": [
+      "post_successor_root_children",
+      "post_successor_q_avoiding_rank_boundary",
+      "p479_available_branch",
+      "p479_unavailable_complement",
+      "q97_child",
+      "p443_unavailable_complement",
+      "wider_p4217_complement",
+      "collision_free_matching",
+      "problem_848_global_decision"
+    ],
+    "singletonDescentBlockedUntil": "A whole-boundary compression, structural decomposition, impossibility theorem, or exact deterministic 24-bucket ranked boundary consumes the post-successor finite token."
+  },
+  "oneNextAction": {
+    "stepId": "compress_p848_p4217_p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_buckets_or_emit_rank_boundary",
+    "action": "Compress the 24 post-successor obstruction-prime buckets into theorem-facing families, prove a structural rank decrease or impossibility theorem, or emit an exact deterministic 24-bucket ranked boundary before singleton q-child descent.",
+    "coveredFamily": "All 24 post-successor buckets q in {149,151,157,163,167,173,179,181,191,193,197,199,211,223,227,229,233,239,241,251,257,263,269,277}, covering 222,345,036,453,733,797,142,322,640,306 post-successor root children and 5,058,399,114,142,580,922,880,572,195,875,967 post-successor q-avoiding classes.",
+    "finiteDenominatorOrRankToken": "p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_rank_boundary",
+    "failureBoundary": "A deterministic ranked boundary packet with all 24 buckets accounted, explicit survivors if any, and the next finite token; no singleton q-child descent is opened by this assembly.",
+    "whyCheaperThanSingleSelector": "The 24 buckets share the same row-uniform two-root mechanism and are exact at the rank-token level, so a whole-boundary compression/rank packet is more informative than starting q149/q151/etc. one by one.",
+    "completionRule": "The next packet accounts for every one of the 24 post-successor buckets by compression theorem, structural decomposition, impossibility theorem, or exact deterministic ranked boundary.",
+    "command": null
+  },
+  "oneVerificationCommand": "node --check src/runtime/theorem-loop.js && node --check src/runtime/problem-progress.js && node --test test/p848-282-alignment-obstruction-packet.test.js",
+  "claims": {
+    "runsPost22BucketSuccessorQAvoidingBatchCoverConvergenceAssembly": true,
+    "consumesPost22BucketSuccessorQAvoidingCoverAssemblyDecisionToken": true,
+    "selects24BucketCompressionInsteadOfSingletonDescent": true,
+    "accountsForAll24PostSuccessorBuckets": true,
+    "namesWholeCoveredFamily": true,
+    "namesFiniteRankToken": true,
+    "opensFreshFallbackSelector": false,
+    "descendsIntoQ149Singleton": false,
+    "descendsIntoQ151Singleton": false,
+    "descendsIntoSingletonQChild": false,
+    "provesPostSuccessorRootChildrenClosed": false,
+    "provesPostSuccessorQAvoidingBoundaryClosed": false,
+    "provesP4217ComplementCoverage": false,
+    "provesAllN": false
+  },
+  "proofBoundary": "This packet is convergence assembly after the 22-bucket successor q-avoiding batch cover. It chooses a whole 24-bucket post-successor compression/ranked-boundary action and blocks singleton q-child descent. It does not close any emitted post-successor bucket, root child, q-avoiding class, unavailable complement, p4217 complement, collision-free matching obligation, or Problem 848.",
+  "recommendedNextAction": "compress_p848_p4217_p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_buckets_or_emit_rank_boundary",
+  "nextTheoremMove": "Compress the 24 post-successor rank buckets, prove a structural/impossibility theorem over the whole post-successor surface, or emit an exact deterministic 24-bucket ranked boundary; do not open q149/q151/singleton descent first."
+}

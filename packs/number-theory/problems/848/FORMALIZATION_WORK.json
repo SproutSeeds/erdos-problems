@@ -1,6 +1,6 @@
 {
   "schema": "erdos.problem_formalization_work/1",
-  "generatedAt": "2026-04-14T11:46:03.768Z",
+  "generatedAt": "2026-04-19T04:10:16.585Z",
   "problemId": "848",
   "displayName": "Erdos Problem #848",
   "title": "Squarefree ab+1 Extremal Set Problem",
@@ -11,14 +11,8 @@
   "currentState": {
     "activeRoute": "finite_check_gap_closure",
     "routeSummary": "Convert the sufficiently-large-N theorem into a complete all-N resolution without overstating what is already closed or confusing imported thresholds with repo-owned claims.",
-    "nextHonestMove": "Promote or reject the local `1..40500` rollout; public raw exact claims remain `1..10000` until that handoff is committed.",
-    "latestVerifiedInterval": "1..10000",
-    "exactIntervalBookkeeping": {
-      "publicRepoRawExactInterval": "1..10000",
-      "localIgnoredRolloutInterval": "1..40500",
-      "bookkeepingArtifact": "EXACT_INTERVAL_BOOKKEEPING.md",
-      "raw40500PacketCommitted": false
-    }
+    "nextHonestMove": "Write the theorem candidate and proof-obligation surface for the four-anchor obstruction.",
+    "latestVerifiedInterval": "1..10000"
   },
   "currentWork": {
     "workId": "p848_282_first_failure_mechanism_packet_v1",
@@ -119,7 +113,7 @@
     "remainingGaps": [
       "Prove structural-lift atom D2_p13_matching_lower_bound: For p=13 threatening rows, maxMatching(H_{x,N}) is at least the required matching bound extracted from the margin inequality.",
       "Advance the same atomic packet toward target D4_matching_bound_implies_sMaxMixed_bound: If maxMatching(H_{x,N}) >= K(N), then sMixed(x,N) <= |L| + |R| - K(N).",
-      "Resolve the local 1..40500 promotion boundary, then use further exact runs only as local/free regression evidence."
+      "Decide and run the next post-10000 verification lane using local CPU and opt-in local 4090 compute only."
     ],
     "proofObligations": [
       {
@@ -1660,7 +1654,7 @@
       "activationLemmaCheck": {
         "checkerId": "p848_132_activation_row_certificate_checker_v1",
         "source": "raw_family_menu_tuple_row_crt_replay",
-        "familyMenuPath": "/Volumes/Code_2TB/code/erdos-problems/research/frontier-engine/experiments/p848-anchor-ladder/live-frontier-sync/2026-04-05/SIX_PREFIX_TWENTY_FOUR_FAMILY_MENU.json",
+        "familyMenuPath": "output/frontier-engine-local/p848-anchor-ladder/live-frontier-sync/2026-04-05/SIX_PREFIX_TWENTY_FOUR_FAMILY_MENU.json",
         "status": "passed",
         "checkedRowCount": 17,
         "passCount": 17,
@@ -2008,7 +2002,7 @@
             4489,
             66049
           ],
-          "familyMenuPath": "/Volumes/Code_2TB/code/erdos-problems/research/frontier-engine/experiments/p848-anchor-ladder/live-frontier-sync/2026-04-05/SIX_PREFIX_TWENTY_FOUR_FAMILY_MENU.json"
+          "familyMenuPath": "output/frontier-engine-local/p848-anchor-ladder/live-frontier-sync/2026-04-05/SIX_PREFIX_TWENTY_FOUR_FAMILY_MENU.json"
         },
         "informalStatement": "For each certified finite-menu witness row in this packet, the tuple-row CRT projection has no tracked failure-residue match before anchor 132; anchor 132 is the first step whose projected residue matches the failing tracked tail; anchor 182 preserves that match on the current six-row menu.",
         "hypotheses": [
@@ -3949,7 +3943,7 @@
         "checkerId": "p848_832_529_anchor_witness_domain_closure_checker_v1",
         "packetId": "p848_832_529_anchor_witness_domain_closure_packet_v1",
         "source": "raw_family_menu_anchor_witness_replay",
-        "familyMenuPath": "/Volumes/Code_2TB/code/erdos-problems/research/frontier-engine/experiments/p848-anchor-ladder/live-frontier-sync/2026-04-05/SIX_PREFIX_TWENTY_FOUR_FAMILY_MENU.json",
+        "familyMenuPath": "output/frontier-engine-local/p848-anchor-ladder/live-frontier-sync/2026-04-05/SIX_PREFIX_TWENTY_FOUR_FAMILY_MENU.json",
         "status": "finite_group_closure_certified_symbolic_domain_split",
         "checkedRowCount": 3,
         "passCount": 3,
@@ -53064,7 +53058,7 @@
         "separationAnalysis": {
           "checkerId": "p848_top_repair_plus2_family_menu_replay_checker_v1",
           "source": "raw_family_menu_squarefree_replay",
-          "familyMenuPath": "/Volumes/Code_2TB/code/erdos-problems/research/frontier-engine/experiments/p848-anchor-ladder/live-frontier-sync/2026-04-05/SIX_PREFIX_TWENTY_FOUR_FAMILY_MENU.json",
+          "familyMenuPath": "output/frontier-engine-local/p848-anchor-ladder/live-frontier-sync/2026-04-05/SIX_PREFIX_TWENTY_FOUR_FAMILY_MENU.json",
           "status": "finite_menu_plus2_replay_certified",
           "failCount": 0,
           "checkedRowCount": 9,
@@ -58249,7 +58243,7 @@
           "erdos problem formalization-work-refresh 848"
         ]
       },
-      "familyMenuPath": "/Volumes/Code_2TB/code/erdos-problems/research/frontier-engine/experiments/p848-anchor-ladder/live-frontier-sync/2026-04-05/SIX_PREFIX_TWENTY_FOUR_FAMILY_MENU.json",
+      "familyMenuPath": "output/frontier-engine-local/p848-anchor-ladder/live-frontier-sync/2026-04-05/SIX_PREFIX_TWENTY_FOUR_FAMILY_MENU.json",
       "bridgePath": "/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SEARCH_THEOREM_BRIDGE.json"
     },
     "nextGapCommand": "erdos problem formalization-work-refresh 848",

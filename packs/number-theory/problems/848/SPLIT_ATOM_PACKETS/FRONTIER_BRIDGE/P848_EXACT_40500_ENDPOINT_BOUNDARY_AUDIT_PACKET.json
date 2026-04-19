@@ -1,0 +1,261 @@
+{
+  "schema": "erdos.number_theory.p848_exact_40500_endpoint_boundary_audit_packet/1",
+  "packetId": "p848_exact_40500_endpoint_boundary_audit_packet_v1",
+  "status": "compact_40500_endpoint_boundary_audit_lane_aligned_no_new_failure_boundary",
+  "generatedAt": "2026-04-17T09:47:28.454Z",
+  "auditTarget": {
+    "promotedCompactInterval": "1..40500",
+    "publicRawExactIntervalRemains": "1..10000",
+    "topRepairClassPacket": "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_TOP_REPAIR_CLASS_MECHANISM_PACKET.json",
+    "compactPromotionPacket": "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_EXACT_40500_COMPACT_PROMOTION_PACKET.json",
+    "breakpointScoutPacket": "EXACT_BREAKPOINT_SCOUT.json",
+    "endpointCertificatePacket": "EXACT_BREAKPOINT_CERTIFICATE.json"
+  },
+  "sourceAudit": {
+    "noNewExactScanStarted": true,
+    "noRemoteOrPaidCompute": true,
+    "rawResultPacketCommittedOrBundled": false,
+    "rawHashVerifiedByPromotionPacket": true,
+    "rawResultSha256": "da3546ab3f30faef879c2d4da680f826711361e2c685de8f384eb116df1f8fbc",
+    "compactCertificateClaimLevel": "public_compact_evidence_not_public_raw_packet"
+  },
+  "compactEndpointCertificate": {
+    "interval": "1..40500",
+    "rowCount": 40500,
+    "endpointCheckCount": 1621,
+    "failedEndpointChecks": 0,
+    "rowFailures": 0,
+    "allRowsAlreadyExact": true,
+    "allEndpointChecksCertified": true,
+    "plateauLengthFrequency": {
+      "6": 1,
+      "19": 1,
+      "25": 1619
+    },
+    "scoutBreakpointCount": 3242,
+    "scoutBreakpointGapFrequency": {
+      "6": 3,
+      "8": 2,
+      "11": 1620,
+      "14": 1617
+    },
+    "scoutSortedContiguousFromOne": true,
+    "scoutAllCandidateAchievesMaximum": true,
+    "scoutAllExampleCliquesMatchCandidateClass": true
+  },
+  "mod50LaneAudit": {
+    "laneFormula": "continuation = 32 + 50*m",
+    "topRepairTieClass": [
+      432,
+      782,
+      832
+    ],
+    "primaryContrasts": [
+      332,
+      382,
+      1232
+    ],
+    "nearestContrasts": [
+      332,
+      382,
+      1232,
+      882
+    ],
+    "strictHandoffContinuations": [
+      782,
+      1232
+    ],
+    "relevantContinuationsAudited": [
+      {
+        "continuation": 332,
+        "role": "primary_contrast",
+        "residue": {
+          "mod25": 7,
+          "mod50": 32
+        },
+        "breakpointAudit": {
+          "appearsInExactBreakpointScout": true,
+          "endpointInterval": "332..356",
+          "endpointN": 356,
+          "endpointCertified": true,
+          "endpointCandidateSize": 14,
+          "candidateClassAtEnd": "7_or_18_mod_25"
+        }
+      },
+      {
+        "continuation": 382,
+        "role": "primary_contrast",
+        "residue": {
+          "mod25": 7,
+          "mod50": 32
+        },
+        "breakpointAudit": {
+          "appearsInExactBreakpointScout": true,
+          "endpointInterval": "382..406",
+          "endpointN": 406,
+          "endpointCertified": true,
+          "endpointCandidateSize": 16,
+          "candidateClassAtEnd": "7_or_18_mod_25"
+        }
+      },
+      {
+        "continuation": 432,
+        "role": "top_tie",
+        "residue": {
+          "mod25": 7,
+          "mod50": 32
+        },
+        "breakpointAudit": {
+          "appearsInExactBreakpointScout": true,
+          "endpointInterval": "432..456",
+          "endpointN": 456,
+          "endpointCertified": true,
+          "endpointCandidateSize": 18,
+          "candidateClassAtEnd": "7_or_18_mod_25"
+        }
+      },
+      {
+        "continuation": 782,
+        "role": "top_tie",
+        "residue": {
+          "mod25": 7,
+          "mod50": 32
+        },
+        "breakpointAudit": {
+          "appearsInExactBreakpointScout": true,
+          "endpointInterval": "782..806",
+          "endpointN": 806,
+          "endpointCertified": true,
+          "endpointCandidateSize": 32,
+          "candidateClassAtEnd": "7_or_18_mod_25"
+        }
+      },
+      {
+        "continuation": 832,
+        "role": "top_tie",
+        "residue": {
+          "mod25": 7,
+          "mod50": 32
+        },
+        "breakpointAudit": {
+          "appearsInExactBreakpointScout": true,
+          "endpointInterval": "832..856",
+          "endpointN": 856,
+          "endpointCertified": true,
+          "endpointCandidateSize": 34,
+          "candidateClassAtEnd": "7_or_18_mod_25"
+        }
+      },
+      {
+        "continuation": 882,
+        "role": "nearest_contrast",
+        "residue": {
+          "mod25": 7,
+          "mod50": 32
+        },
+        "breakpointAudit": {
+          "appearsInExactBreakpointScout": true,
+          "endpointInterval": "882..906",
+          "endpointN": 906,
+          "endpointCertified": true,
+          "endpointCandidateSize": 36,
+          "candidateClassAtEnd": "7_or_18_mod_25"
+        }
+      },
+      {
+        "continuation": 1232,
+        "role": "primary_contrast",
+        "residue": {
+          "mod25": 7,
+          "mod50": 32
+        },
+        "breakpointAudit": {
+          "appearsInExactBreakpointScout": true,
+          "endpointInterval": "1232..1256",
+          "endpointN": 1256,
+          "endpointCertified": true,
+          "endpointCandidateSize": 50,
+          "candidateClassAtEnd": "7_or_18_mod_25"
+        }
+      }
+    ],
+    "allRelevantContinuationsInsideCompactInterval": true,
+    "allRelevantContinuationsInLane32Mod50": true,
+    "allRelevantContinuationsAreExactBreakpoints": true,
+    "allRelevantContinuationsEndpointCertified": true,
+    "lane32BreakpointRowsInCompactInterval": {
+      "count": 810,
+      "first": [
+        32,
+        82,
+        132,
+        182,
+        232,
+        282,
+        332,
+        382,
+        432,
+        482,
+        532,
+        582
+      ],
+      "last": [
+        39932,
+        39982,
+        40032,
+        40082,
+        40132,
+        40182,
+        40232,
+        40282,
+        40332,
+        40382,
+        40432,
+        40482
+      ],
+      "interpretation": "The 32 mod 50 lane is the top repair-class lane and is a sublane of the exact 7 mod 25 breakpoint class."
+    },
+    "exactVerifierClassRelation": {
+      "extremalCandidateClasses": [
+        "7 mod 25",
+        "18 mod 25"
+      ],
+      "topRepairLane": "32 mod 50",
+      "topRepairLaneIsSubsetOf7Mod25": true,
+      "contrastRowsShareSameLane": true,
+      "consequence": "The compact endpoint certificate supports the lane as a certified exact breakpoint lane, but it cannot distinguish the 432/782/832 top tie from same-lane contrasts such as 332, 382, 882, and 1232."
+    }
+  },
+  "boundaryFinding": {
+    "relevantEndpointBreakpointRowsFound": true,
+    "failedRelevantEndpointRows": [],
+    "failedEndpointChecks": [],
+    "rowFailures": [],
+    "noNewFailureBoundaryFound": true,
+    "noTopSpecificCoverageBoundaryFound": true,
+    "no40501PlusRolloutJustifiedByThisAudit": true,
+    "theoremUse": [
+      "Use this packet as compact finite-base evidence that the top repair-class lane sits on certified 32 mod 50 breakpoint rows through 40500.",
+      "Do not use it as a proof of the mod-50 bad-lane coverage theorem: all same-lane top and contrast continuations are certified by the same 7 mod 25 endpoint class.",
+      "The next theorem object must control square-witness/bad-lane coverage symbolically, or explicitly state the missing hypotheses before any 40501+ rollout."
+    ]
+  },
+  "proofBoundary": "This audit completes the promoted compact 1..40500 endpoint-certificate boundary check for the top repair-class/mod-50 lane. It identifies the relevant top and contrast continuations as certified 32 mod 50 exact breakpoint rows, but finds no failed endpoint check, row failure, or top-specific boundary in the compact certificate. It does not prove the mod-50 bad-lane coverage theorem, does not justify a 40501+ rollout, does not widen public raw exact coverage beyond 1..10000, and does not decide Problem 848.",
+  "recommendedNextAction": "prove_p848_mod50_lane_breakpoint_coverage_theorem_or_emit_hypotheses_blocker",
+  "nextTheoremMove": "State and prove a mod-50 lane breakpoint coverage theorem for the 32 mod 50 top repair-class lane using the symbolic bad-lane schema and compact 1..40500 finite base; if the square-witness hypotheses cannot cover the lane, emit a hypotheses blocker before any 40501+ rollout.",
+  "verification": {
+    "command": "node --test test/p848-282-alignment-obstruction-packet.test.js",
+    "localAuditCommand": "jq '.mod50LaneAudit.relevantContinuationsAudited' packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_EXACT_40500_ENDPOINT_BOUNDARY_AUDIT_PACKET.json"
+  },
+  "claims": {
+    "auditsPromotedCompact40500EndpointCertificate": true,
+    "preservesPublicRawExact10000Boundary": true,
+    "startsNewExactCompute": false,
+    "identifiesRelevantTopRepairBreakpointRows": true,
+    "allRelevantRowsEndpointCertified": true,
+    "emitsNoNewFailureBoundary": true,
+    "provesMod50BadLaneCoverageTheorem": false,
+    "justifies40501PlusRollout": false,
+    "provesAllN": false
+  }
+}

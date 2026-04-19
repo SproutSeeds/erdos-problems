@@ -1,0 +1,394 @@
+{
+  "schema": "erdos.number_theory.p848_mod50_external_anchor_irrelevance_split_packet/1",
+  "packetId": "p848_mod50_external_anchor_irrelevance_split",
+  "problemId": "848",
+  "generatedAt": "2026-04-17T10:52:18.240Z",
+  "status": "external_anchor_counterfamily_split_into_terminal_profiles",
+  "parentCounterfamily": {
+    "stepId": "prove_p848_mod50_external_anchor_irrelevance_or_expand_handoff_surface",
+    "packet": "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_MOD50_EXTERNAL_ANCHOR_ACTIVATION_COUNTERFAMILY_PACKET.json",
+    "status": "tracked_activation_cover_blocked_by_external_anchor_counterfamily"
+  },
+  "sourceArtifacts": {
+    "counterfamilyPacket": "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_MOD50_EXTERNAL_ANCHOR_ACTIVATION_COUNTERFAMILY_PACKET.json",
+    "nonFirstTargetAuditPacket": "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_MOD50_NON_FIRST_TARGET_PROFILE_BOUNDARY_AUDIT_PACKET.json",
+    "familyMenuPath": "output/frontier-engine-local/p848-anchor-ladder/live-frontier-sync/2026-04-05/SIX_PREFIX_TWENTY_FOUR_FAMILY_MENU.json",
+    "searchTheoremBridge": "packs/number-theory/problems/848/SEARCH_THEOREM_BRIDGE.json"
+  },
+  "handoffSurfaceUsed": {
+    "topTie": [
+      432,
+      782,
+      832
+    ],
+    "primaryContrasts": [
+      332,
+      382,
+      1232
+    ],
+    "handoffSurface": [
+      432,
+      782,
+      832,
+      332,
+      382,
+      1232
+    ],
+    "continuationMod50Lane": 32,
+    "finiteMenuFamilyCount": 280,
+    "restoredRepairAnchors": [
+      157,
+      232,
+      282,
+      332,
+      382,
+      432,
+      782,
+      832
+    ]
+  },
+  "splitSummary": {
+    "inputExternalContinuations": [
+      157,
+      232
+    ],
+    "inputExternalActivationEventCount": 3,
+    "inputCompanionGapEventCount": 3,
+    "finiteTerminalProfileCount": 5,
+    "observedExternalEventsTerminallySplitCount": 2,
+    "remainingSameLaneExternalEventCount": 1,
+    "remainingCompanionGapEventCount": 3,
+    "terminallySplitContinuations": [
+      157
+    ],
+    "remainingExternalContinuations": [
+      232
+    ],
+    "remainingCompanionContinuations": [
+      382,
+      832
+    ],
+    "nextBottleneckContinuation": 232,
+    "no40501PlusRolloutUsed": true
+  },
+  "terminalProfiles": [
+    {
+      "profileId": "external_anchor_157_lane_mismatch_squareblocked_profile",
+      "continuation": 157,
+      "status": "finite_observed_events_terminally_split_not_universal_irrelevance",
+      "classification": "outside_32_mod50_lane_and_squareblocked_on_observed_boundary_rows",
+      "plus50Alignment": false,
+      "laneMod50": 7,
+      "laneIndexIn32Mod50Lane": null,
+      "inCurrentHandoffSurface": false,
+      "restoredMenuScore": {
+        "familyCount": 280,
+        "predictedFamilyCount": 255,
+        "repairedPredictedFamilyCount": 110,
+        "missedPredictedFamilyCount": 145,
+        "repairedKnownFamilyCount": 14,
+        "missedKnownFamilyCount": 11
+      },
+      "trackedTailMatrix": {
+        "observedStatus": "fails",
+        "observedFirstFailure": 19094395,
+        "effectiveCleanThrough": 19094394,
+        "extensionMode": "historical_failure_locked",
+        "directScanPerformed": false,
+        "repairedKnownPackets": 16,
+        "missedKnownPackets": 10,
+        "repairedKnownFamilyCount": 14,
+        "repairedPredictedFamilyCount": 110,
+        "firstMissedPredictedRepresentatives": [
+          144139279,
+          152156551,
+          160007135,
+          170465989,
+          187536119,
+          210290957,
+          230927471,
+          241546751
+        ]
+      },
+      "observedEvents": [
+        {
+          "continuation": 157,
+          "groupId": "top_782_Q9_bad6",
+          "familyIndex": 161,
+          "representative": 1079001739,
+          "targetContinuation": 782,
+          "targetFirstAnchor": 132,
+          "activationAnchor": 57,
+          "activationResidueModWitness": 2,
+          "laneMod50": 7,
+          "plus50Alignment": false,
+          "repairRow": {
+            "anchor": 157,
+            "value": 169403273024,
+            "squarefree": false,
+            "squareWitnesses": [
+              {
+                "prime": 2,
+                "exponent": 6,
+                "squareModulus": 4
+              }
+            ]
+          },
+          "targetSquareWitnesses": [
+            {
+              "prime": 3,
+              "exponent": 2,
+              "squareModulus": 9
+            }
+          ]
+        },
+        {
+          "continuation": 157,
+          "groupId": "top_832_Q9_bad7",
+          "familyIndex": 256,
+          "representative": 1684455347,
+          "targetContinuation": 832,
+          "targetFirstAnchor": 57,
+          "activationAnchor": 57,
+          "activationResidueModWitness": 2,
+          "laneMod50": 7,
+          "plus50Alignment": false,
+          "repairRow": {
+            "anchor": 157,
+            "value": 264459489480,
+            "squarefree": false,
+            "squareWitnesses": [
+              {
+                "prime": 2,
+                "exponent": 3,
+                "squareModulus": 4
+              },
+              {
+                "prime": 3,
+                "exponent": 2,
+                "squareModulus": 9
+              }
+            ]
+          },
+          "targetSquareWitnesses": [
+            {
+              "prime": 3,
+              "exponent": 2,
+              "squareModulus": 9
+            }
+          ]
+        }
+      ],
+      "deterministicBoundary": "For the observed non-first-target boundary rows, continuation 157 is outside the 32 mod 50 theorem lane and its repair rows are square-blocked, so these events are terminal profile nuisances rather than expanded-handoff candidates. This does not prove a universal outside-lane irrelevance theorem.",
+      "remainingTheoremNeed": "If a future theorem quantifies over all tracked anchors rather than the 32 mod 50 handoff lane, it must separately prove outside-lane irrelevance."
+    },
+    {
+      "profileId": "external_anchor_232_same_lane_handoff_gap",
+      "continuation": 232,
+      "status": "open_same_lane_external_anchor_handoff_gap",
+      "classification": "inside_32_mod50_lane_squarefree_external_anchor_not_in_current_handoff_surface",
+      "plus50Alignment": true,
+      "laneMod50": 32,
+      "laneIndexIn32Mod50Lane": 4,
+      "inCurrentHandoffSurface": false,
+      "inGpuLeaderboardTopSix": false,
+      "restoredMenuScore": {
+        "familyCount": 280,
+        "predictedFamilyCount": 255,
+        "repairedPredictedFamilyCount": 201,
+        "missedPredictedFamilyCount": 54,
+        "repairedKnownFamilyCount": 20,
+        "missedKnownFamilyCount": 5
+      },
+      "trackedTailMatrix": {
+        "observedStatus": "fails",
+        "observedFirstFailure": 27949928,
+        "effectiveCleanThrough": 27949927,
+        "extensionMode": "historical_failure_locked",
+        "directScanPerformed": false,
+        "repairedKnownPackets": 20,
+        "missedKnownPackets": 6,
+        "repairedKnownFamilyCount": 20,
+        "repairedPredictedFamilyCount": 201,
+        "firstMissedPredictedRepresentatives": [
+          160007135,
+          187536119,
+          193809001,
+          210290957,
+          248711747,
+          248711747,
+          277343771,
+          287180657
+        ]
+      },
+      "observedEvents": [
+        {
+          "continuation": 232,
+          "groupId": "top_782_Q9_bad6",
+          "familyIndex": 275,
+          "representative": 1820631943,
+          "targetContinuation": 782,
+          "targetFirstAnchor": 132,
+          "activationAnchor": 32,
+          "activationResidueModWitness": 5,
+          "laneMod50": 32,
+          "plus50Alignment": true,
+          "repairRow": {
+            "anchor": 232,
+            "value": 422386610777,
+            "squarefree": true,
+            "squareWitnesses": []
+          },
+          "targetSquareWitnesses": [
+            {
+              "prime": 3,
+              "exponent": 2,
+              "squareModulus": 9
+            }
+          ]
+        }
+      ],
+      "deterministicBoundary": "Continuation 232 cannot be discharged by the lane-mismatch split: it is a 32 mod 50 continuation, is squarefree on the observed boundary row, and is outside the top-tie/primary-contrast handoff surface.",
+      "requiredSuccessor": "Prove lower-support same-lane external-anchor irrelevance for 232, expand the handoff denominator to include 232, or emit a dedicated terminal profile split for the family-275 row."
+    },
+    {
+      "profileId": "companion_gap_top_432_Q49_bad8_family_75_continuation_382",
+      "continuation": 382,
+      "status": "open_same_family_companion_gap_terminal_profile",
+      "classification": "primary_contrast_same_family_companion_missing",
+      "groupId": "top_432_Q49_bad8",
+      "familyIndex": 75,
+      "representative": 457148843,
+      "tupleKey": "19^2, 41^2, 4, 9, 31^2, 17^2",
+      "category": "primary_contrast",
+      "targetContinuation": 432,
+      "targetFirstAnchor": 132,
+      "activationAnchor": 7,
+      "activationResidueModWitness": 5,
+      "sameFamilyObservedCompanionCount": 0,
+      "repairRow": {
+        "anchor": 382,
+        "value": 174630858027,
+        "squarefree": true,
+        "squareWitnesses": []
+      },
+      "targetRepairRow": {
+        "anchor": 432,
+        "value": 197488300177,
+        "squarefree": false,
+        "squareWitnesses": [
+          {
+            "prime": 7,
+            "exponent": 3,
+            "squareModulus": 49
+          }
+        ]
+      },
+      "terminalProfileBoundary": "Needs a same-family primary-contrast companion theorem/profile split; finite row has no observed companion in the current handoff surface."
+    },
+    {
+      "profileId": "companion_gap_top_782_Q9_bad6_family_161_continuation_382",
+      "continuation": 382,
+      "status": "open_same_family_companion_gap_terminal_profile",
+      "classification": "primary_contrast_same_family_companion_missing",
+      "groupId": "top_782_Q9_bad6",
+      "familyIndex": 161,
+      "representative": 1079001739,
+      "tupleKey": "31^2, 17^2, 4, 11^2, 61^2, 43^2",
+      "category": "primary_contrast",
+      "targetContinuation": 782,
+      "targetFirstAnchor": 132,
+      "activationAnchor": 57,
+      "activationResidueModWitness": 2,
+      "sameFamilyObservedCompanionCount": 0,
+      "repairRow": {
+        "anchor": 382,
+        "value": 412178664299,
+        "squarefree": true,
+        "squareWitnesses": []
+      },
+      "targetRepairRow": {
+        "anchor": 782,
+        "value": 843779359899,
+        "squarefree": false,
+        "squareWitnesses": [
+          {
+            "prime": 3,
+            "exponent": 2,
+            "squareModulus": 9
+          }
+        ]
+      },
+      "terminalProfileBoundary": "Needs a same-family primary-contrast companion theorem/profile split; finite row has no observed companion in the current handoff surface."
+    },
+    {
+      "profileId": "companion_gap_top_782_Q9_bad6_family_161_continuation_832",
+      "continuation": 832,
+      "status": "open_same_family_companion_gap_terminal_profile",
+      "classification": "top_tie_non_target_same_family_companion_missing",
+      "groupId": "top_782_Q9_bad6",
+      "familyIndex": 161,
+      "representative": 1079001739,
+      "tupleKey": "31^2, 17^2, 4, 11^2, 61^2, 43^2",
+      "category": "top_tie_non_target",
+      "targetContinuation": 782,
+      "targetFirstAnchor": 132,
+      "activationAnchor": 57,
+      "activationResidueModWitness": 2,
+      "sameFamilyObservedCompanionCount": 0,
+      "repairRow": {
+        "anchor": 832,
+        "value": 897729446849,
+        "squarefree": true,
+        "squareWitnesses": []
+      },
+      "targetRepairRow": {
+        "anchor": 782,
+        "value": 843779359899,
+        "squarefree": false,
+        "squareWitnesses": [
+          {
+            "prime": 3,
+            "exponent": 2,
+            "squareModulus": 9
+          }
+        ]
+      },
+      "terminalProfileBoundary": "Needs a top-tie non-target neutralization theorem/profile split; finite row has no observed companion in the current handoff surface."
+    }
+  ],
+  "blocker": {
+    "status": "ranked_subobligations_remain",
+    "missingHypotheses": [
+      {
+        "hypothesisId": "same_lane_external_anchor_232_irrelevance_or_expanded_handoff",
+        "continuation": 232,
+        "statement": "Prove that same-lane continuation 232 is irrelevant to the top-only mod-50 handoff, include it in an expanded finite handoff theorem, or split its family-275 event into a terminal profile packet."
+      },
+      {
+        "hypothesisId": "same_family_companion_cover_for_382_832",
+        "continuations": [
+          382,
+          832
+        ],
+        "statement": "Cover the 382 and 832 companion gaps by a same-family companion theorem/profile split; observed current-surface companions are absent for the listed rows."
+      }
+    ],
+    "deterministicBoundary": "The current broad external-anchor blocker has been split: 157 is terminal at finite observed-profile scope, while 232 and the 382/832 companion gaps remain as named proof atoms."
+  },
+  "nextTheoremMove": "Prove the same-lane external-anchor handoff/irrelevance theorem for continuation 232, or emit its dedicated terminal profile split before any 40501+ rollout.",
+  "recommendedNextAction": "prove_p848_mod50_232_same_lane_external_anchor_handoff_or_emit_profile_split",
+  "suggestedVerificationCommand": "jq '{splitSummary, bottleneck: (.terminalProfiles[] | select(.continuation==232)), missingHypotheses: .blocker.missingHypotheses}' packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_MOD50_EXTERNAL_ANCHOR_IRRELEVANCE_SPLIT_PACKET.json",
+  "proofBoundary": "Finite terminal-profile split only. It narrows the external-anchor counterfamily and closes the observed 157 nuisance rows, but does not prove a universal external-anchor irrelevance theorem, does not expand the handoff theorem, and does not justify a 40501+ exact rollout.",
+  "claims": {
+    "splitsExternalAnchorCounterfamily": true,
+    "terminallySplitsObserved157Events": true,
+    "provesUniversal157Irrelevance": false,
+    "proves232Irrelevance": false,
+    "expandsHandoffSurface": false,
+    "closesSameFamilyCompanionGaps": false,
+    "justifies40501PlusRollout": false,
+    "provesUniversalSquareWitnessDomainCover": false,
+    "provesAllN": false
+  }
+}

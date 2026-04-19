@@ -1,0 +1,143 @@
+{
+  "schema": "erdos.number_theory.p848_frontier_ledger_format_packet/1",
+  "generatedAt": "2026-04-17T05:23:28Z",
+  "problemId": "848",
+  "status": "ledger_format_defined_transition_rule_needed",
+  "sourceProgress": "packs/number-theory/problems/848/PROGRESS.json",
+  "sourceBlockerOpenLeaf": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DYNAMIC_MARGIN_PROOFS/P848_q17_p4217_q61_factorization_blocker_open_leaf.json",
+  "sourceConvergenceAssembly": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_CONVERGENCE_ASSEMBLY_282_FIRST_FAILURE_PACKET.json",
+  "ledgerFormat": {
+    "entryKinds": [
+      {
+        "kind": "local_staircase_evidence",
+        "meaning": "Observed repair/split/certificate chain evidence; never a global closure claim by itself.",
+        "terminal": false
+      },
+      {
+        "kind": "availability_partition",
+        "meaning": "Exact residue partition induced by an affine endpoint rule k_p(t) modulo p^2 and a fixed window.",
+        "terminal": false
+      },
+      {
+        "kind": "available_child",
+        "meaning": "First available residue-family child emitted by an availability partition.",
+        "terminal": false
+      },
+      {
+        "kind": "unavailable_complement",
+        "meaning": "Residue complement where the endpoint is outside the current window and still needs cover, impossibility, or explicit open-leaf accounting.",
+        "terminal": false
+      },
+      {
+        "kind": "factorization_boundary",
+        "meaning": "Representative repair candidates exist but exact squarefree certification is incomplete.",
+        "terminal": false
+      },
+      {
+        "kind": "repair_candidate",
+        "meaning": "A within-window trial-squarefree endpoint candidate that may become a repair only after exact certification.",
+        "terminal": false
+      },
+      {
+        "kind": "blocker_open_leaf",
+        "meaning": "A boundary that is deliberately ledgered as open/blocking rather than overclaimed.",
+        "terminal": true
+      },
+      {
+        "kind": "repair_handoff",
+        "meaning": "An exact-squarefree representative repair packet plus its required availability/lift successor obligation.",
+        "terminal": false
+      },
+      {
+        "kind": "square_obstruction_child",
+        "meaning": "A deterministic lifted child where q^2 divides the relevant endpoint product.",
+        "terminal": false
+      }
+    ],
+    "allowedStates": [
+      "evidence_only_not_global",
+      "partitioned_not_closed",
+      "open_square_obstruction_child",
+      "open_uncovered_complement",
+      "exact_factorization_boundary_open",
+      "not_certified",
+      "partial_factorization_sharpened_not_certified",
+      "ledgered_as_blocker_open_leaf",
+      "open_leaf_ledgered",
+      "repair_handoff_exact_certified",
+      "deterministic_square_obstruction_emitted",
+      "closed_by_transition_rule",
+      "blocked"
+    ],
+    "proposedMeasure": {
+      "name": "open_frontier_obligation_count",
+      "status": "defined_not_proved_decreasing",
+      "countedStates": [
+        "partitioned_not_closed",
+        "open_square_obstruction_child",
+        "open_uncovered_complement",
+        "exact_factorization_boundary_open",
+        "not_certified",
+        "partial_factorization_sharpened_not_certified",
+        "ledgered_as_blocker_open_leaf",
+        "open_leaf_ledgered",
+        "blocked"
+      ],
+      "notCountedAsClosure": [
+        "evidence_only_not_global",
+        "repair_handoff_exact_certified",
+        "deterministic_square_obstruction_emitted"
+      ]
+    }
+  },
+  "transitionRuleSpec": {
+    "id": "p848_frontier_transition_rule_v0",
+    "status": "specified_not_proved",
+    "statement": "Each ledger transition must either close an obligation, replace it by a finite set of strictly smaller typed obligations under an explicit rank, or mark it as a blocker/open leaf without claiming all-N closure.",
+    "rankCandidate": [
+      "unavailable_complement_count",
+      "open_available_child_count",
+      "exact_factorization_boundary_count",
+      "uncertified_repair_candidate_count",
+      "blocker_open_leaf_count"
+    ],
+    "requiredCases": [
+      {
+        "case": "availability_partition",
+        "obligation": "Prove the available residues plus unavailable complement partition the source class exactly; then account for both children."
+      },
+      {
+        "case": "repair_handoff",
+        "obligation": "Require an exact squarefree factor certificate before any repair handoff can create an availability split or symbolic lift."
+      },
+      {
+        "case": "square_obstruction_child",
+        "obligation": "Record the exact CRT/lifted class and square divisor q^2 that defines the child."
+      },
+      {
+        "case": "factorization_boundary_to_blocker",
+        "obligation": "When exact local certification is infeasible, route the leaf to blocker_open_leaf and preserve all failed bounded routes without proving candidate failure."
+      },
+      {
+        "case": "unavailable_complement",
+        "obligation": "Either prove a separate cover/impossibility mechanism or keep the complement as an explicit open ledger leaf."
+      }
+    ]
+  },
+  "currentInstantiation": {
+    "blockerOpenLeaf": "p4217/q61",
+    "availablePartitionSource": "P848_q17_p107_q89_p4217_availability_split.json",
+    "unavailableComplementResidues": "17781949",
+    "availableChild": "t == 42163704019 mod 66170874169 with 61^2 obstruction",
+    "blockerCandidates": [97, 227]
+  },
+  "claims": {
+    "definesLedgerFormat": true,
+    "provesTransitionRule": false,
+    "provesFiniteCover": false,
+    "provesAllN": false,
+    "provesCandidateFailure": false
+  },
+  "recommendedNextAction": "prove_p848_frontier_transition_rule_v0_or_refine_rank",
+  "verificationCommand": "node --test test/cli.test.js test/p848-endpoint-menu-compiler.test.js test/p848-282-alignment-obstruction-packet.test.js"
+}

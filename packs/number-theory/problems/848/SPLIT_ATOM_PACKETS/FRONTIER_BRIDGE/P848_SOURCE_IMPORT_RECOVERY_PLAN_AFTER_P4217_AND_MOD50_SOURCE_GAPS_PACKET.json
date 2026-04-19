@@ -1,0 +1,264 @@
+{
+  "schema": "erdos.number_theory.p848_source_import_recovery_plan_after_p4217_and_mod50_source_gaps_packet/1",
+  "packetId": "P848_SOURCE_IMPORT_RECOVERY_PLAN_AFTER_P4217_AND_MOD50_SOURCE_GAPS_PACKET",
+  "problemId": 848,
+  "generatedAt": "2026-04-18T09:49:29.599Z",
+  "status": "source_import_recovery_plan_prepared_after_p4217_and_mod50_source_gaps",
+  "target": "prepare_p848_source_import_recovery_plan_after_p4217_and_mod50_source_gaps",
+  "recommendedNextAction": "execute_p848_no_spend_source_recovery_search_for_p4217_mod50_union_hitting",
+  "coversPrimaryNextAction": {
+    "stepId": "prepare_p848_source_import_recovery_plan_after_p4217_and_mod50_source_gaps",
+    "status": "completed_by_no_spend_source_import_recovery_plan",
+    "residualPacket": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_ALL_N_RECOMBINATION_RESIDUAL_AFTER_P4217_SOURCE_THEOREM_GAP_PACKET.json",
+    "residualSha256": "27b9f14505a17ccbe7df5549212b38d2c14c3c11d19683acece3af95e170259a"
+  },
+  "sourcePackets": [
+    {
+      "id": "post_p4217_gap_all_n_residual_assembly",
+      "relativePath": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_ALL_N_RECOMBINATION_RESIDUAL_AFTER_P4217_SOURCE_THEOREM_GAP_PACKET.json",
+      "exists": true,
+      "sha256": "27b9f14505a17ccbe7df5549212b38d2c14c3c11d19683acece3af95e170259a",
+      "status": "all_n_recombination_residual_assembled_after_p4217_source_theorem_gap",
+      "packetId": "P848_ALL_N_RECOMBINATION_RESIDUAL_AFTER_P4217_SOURCE_THEOREM_GAP_PACKET",
+      "target": "assemble_p848_all_n_residual_after_p4217_source_theorem_gap_or_import_source",
+      "recommendedNextAction": "prepare_p848_source_import_recovery_plan_after_p4217_and_mod50_source_gaps",
+      "role": "Assembles the all-N residual after the p4217 source-theorem gap and selects source/import recovery."
+    },
+    {
+      "id": "p4217_residual_squarefree_realization_source_theorem_gap",
+      "relativePath": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_RESIDUAL_SQUAREFREE_REALIZATION_SOURCE_THEOREM_GAP_PACKET.json",
+      "exists": true,
+      "sha256": "cf3b3f350264ff7f91b1e5e5d5d34b67493ff4c8b831764975c6b65830f8d8a7",
+      "status": "p4217_residual_source_theorem_gap_emitted_no_finite_partition_rank_or_squarefree_source",
+      "packetId": "P848_P4217_RESIDUAL_SQUAREFREE_REALIZATION_SOURCE_THEOREM_GAP_PACKET",
+      "target": "reduce_p848_p4217_residual_to_squarefree_realization_source_theorem_or_emit_gap",
+      "recommendedNextAction": "assemble_p848_all_n_residual_after_p4217_source_theorem_gap_or_import_source",
+      "role": "Names the p4217 residual finite-partition/rank/squarefree-realization source theorem gap."
+    },
+    {
+      "id": "p4217_theorem_wedge_decision_blocker",
+      "relativePath": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_COMPLEMENT_THEOREM_WEDGE_DECISION_BLOCKER_PACKET.json",
+      "exists": true,
+      "sha256": "afc90fffe93e568acbfa46d39cedc6df0b28a415df38513231c5d011a6386bf5",
+      "status": "p4217_theorem_wedge_decision_blocker_emitted_budget_guarded_live_no_whole_complement_theorem",
+      "packetId": "P848_P4217_COMPLEMENT_THEOREM_WEDGE_DECISION_BLOCKER_PACKET",
+      "target": "decide_p848_p4217_complement_wedge_with_budget_guard_or_local_symbolic_proof",
+      "recommendedNextAction": "reduce_p848_p4217_residual_to_squarefree_realization_source_theorem_or_emit_gap",
+      "role": "Records the single budget-guarded p4217 live wedge and its no-promotable-theorem result."
+    },
+    {
+      "id": "p4217_theorem_wedge_source_import_audit",
+      "relativePath": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_COMPLEMENT_THEOREM_WEDGE_SOURCE_IMPORT_AUDIT_PACKET.json",
+      "exists": true,
+      "sha256": "391ab66348646b462246bb9365361b3229f3f829b2ec0bcfc090438c4987fbcd",
+      "status": "p4217_theorem_wedge_source_import_audit_planning_only_no_source_theorem",
+      "packetId": "P848_P4217_COMPLEMENT_THEOREM_WEDGE_SOURCE_IMPORT_AUDIT_PACKET",
+      "target": "prepare_p848_p4217_complement_theorem_wedge_or_import_source_cover",
+      "recommendedNextAction": "decide_p848_p4217_complement_wedge_with_budget_guard_or_local_symbolic_proof",
+      "role": "Records the no-spend p4217 source/import audit before the live wedge."
+    },
+    {
+      "id": "mod50_all_future_recurrence_source_theorem_blocker",
+      "relativePath": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_MOD50_ALL_FUTURE_RECURRENCE_SOURCE_THEOREM_BLOCKER_PACKET.json",
+      "exists": true,
+      "sha256": "00f01185e010b8144b29789efef98e1f7d4f303e40c8f6d9d733b85b887e6cc0",
+      "status": "mod50_all_future_recurrence_source_theorem_blocker_emitted_local_source_absent",
+      "packetId": "P848_MOD50_ALL_FUTURE_RECURRENCE_SOURCE_THEOREM_BLOCKER_PACKET",
+      "target": "derive_p848_mod50_all_future_recurrence_or_emit_source_theorem_blocker",
+      "recommendedNextAction": "prepare_p848_mod50_all_future_recurrence_theorem_wedge_or_restore_source_generator",
+      "role": "Blocks promotion of bounded mod-50 CRT replay to an all-future recurrence without a source theorem."
+    },
+    {
+      "id": "mod50_source_archaeology_theorem_wedge",
+      "relativePath": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_MOD50_SOURCE_ARCHAEOLOGY_THEOREM_WEDGE_PACKET.json",
+      "exists": true,
+      "sha256": "74d029b6800360c6313030720c2f397d306b01e6c76cef52edac70ef3411eb35",
+      "status": "mod50_source_archaeology_completed_theorem_wedge_prepared",
+      "packetId": "P848_MOD50_SOURCE_ARCHAEOLOGY_THEOREM_WEDGE_PACKET",
+      "target": "prepare_p848_mod50_all_future_recurrence_theorem_wedge_or_restore_source_generator",
+      "recommendedNextAction": "decide_p848_mod50_recurrence_wedge_with_budget_guard_or_local_symbolic_proof",
+      "role": "Audits local mod-50 source surfaces and prepares the theorem wedge."
+    },
+    {
+      "id": "mod50_theorem_wedge_decision_blocker",
+      "relativePath": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_MOD50_THEOREM_WEDGE_DECISION_BLOCKER_PACKET.json",
+      "exists": true,
+      "sha256": "9ca8da429267924f93046d7099759d0a19d1189958a10bd32e5a1682c94b454a",
+      "status": "mod50_theorem_wedge_decision_blocker_emitted_budget_guarded_live_incomplete_no_universal_theorem",
+      "packetId": "P848_MOD50_THEOREM_WEDGE_DECISION_BLOCKER_PACKET",
+      "target": "decide_p848_mod50_recurrence_wedge_with_budget_guard_or_local_symbolic_proof",
+      "recommendedNextAction": "assemble_p848_all_n_recombination_residual_after_mod50_wedge_blocker",
+      "role": "Records the mod-50 theorem-wedge decision blocker and preserves finite replay as bounded evidence."
+    },
+    {
+      "id": "corrected_square_moduli_dual_sieve_or_union_hitting_threshold",
+      "relativePath": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_CORRECTED_SQUARE_MODULI_DUAL_SIEVE_OR_UNION_HITTING_THRESHOLD_PACKET.json",
+      "exists": true,
+      "sha256": "e667bcc284cb0d2b2d7afe841762b85c9defab5226bf3165383fabccff1c82ac",
+      "status": "corrected_square_moduli_sieve_no_go_current_sources_handoff_to_p4217",
+      "packetId": "P848_CORRECTED_SQUARE_MODULI_DUAL_SIEVE_OR_UNION_HITTING_THRESHOLD_PACKET",
+      "target": "derive_p848_corrected_square_moduli_dual_sieve_or_union_hitting_threshold_packet",
+      "recommendedNextAction": "prepare_p848_p4217_complement_theorem_wedge_or_import_source_cover",
+      "role": "Blocks the current Tao-van-Doorn shortcut for the required union/hitting upper-bound direction."
+    },
+    {
+      "id": "tao_van_doorn_threshold_pivot_reconciliation",
+      "relativePath": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_TAO_VAN_DOORN_THRESHOLD_PIVOT_RECONCILIATION_PACKET.json",
+      "exists": true,
+      "sha256": "78411015adee54e041a59b537f94af2754a4177a6777d2386ce6337483d7ca7a",
+      "status": "tvd_threshold_pivot_reconciled_direct_route_blocked_dual_sieve_required",
+      "packetId": "P848_TAO_VAN_DOORN_THRESHOLD_PIVOT_RECONCILIATION_PACKET",
+      "target": "evaluate_p848_tao_van_doorn_threshold_collapse_claim_before_resuming_frontier",
+      "recommendedNextAction": "derive_p848_corrected_square_moduli_dual_sieve_or_union_hitting_threshold_packet",
+      "role": "Records the direction and denominator reconciliation for the analytic threshold pivot."
+    }
+  ],
+  "recoveryPlanVerdict": {
+    "status": "prepared_no_spend_recovery_plan_for_source_theorem_gaps",
+    "madeNewPaidCall": false,
+    "localExecutionRequired": true,
+    "allNProofAvailable": false,
+    "finiteMeasureDecreased": false,
+    "summary": "The remaining all-N blockers are source-theorem/import gaps, so the next move is a bounded local source recovery search across p4217, mod-50, and square-moduli union/hitting lanes."
+  },
+  "recoveryLanes": [
+    {
+      "laneId": "p4217_residual_squarefree_realization_source",
+      "sourceObject": "p848_p4217_residual_squarefree_realization_or_finite_partition",
+      "preferredSourceShape": "squarefree values in every locally admissible residual CRT/arithmetic-progression/linear-family instance",
+      "acceptableClosures": [
+        "finite complete CRT partition of the p4217 unavailable complement whose leaves are terminal, covered, or already discharged",
+        "well-founded rank/invariant that strictly decreases on every unresolved p4217 residual transition",
+        "source theorem guaranteeing squarefree values in every locally admissible residual CRT/arithmetic-progression/linear-family instance"
+      ],
+      "localProbeCommand": "rg -n \"squarefree.*arithmetic progression|locally admissible|finite CRT partition|decreasing rank|p4217\" packs src test",
+      "successArtifacts": [
+        "p848_p4217_residual_squarefree_realization_source_theorem_packet",
+        "p848_p4217_residual_finite_crt_partition_packet",
+        "p848_p4217_residual_rank_decrease_packet"
+      ],
+      "currentBoundary": "The p4217 residual source-theorem gap packet proves no current finite partition, decreasing rank, or squarefree-realization source theorem is available among audited local packets."
+    },
+    {
+      "laneId": "mod50_all_future_recurrence_or_generator",
+      "sourceObject": "p848_mod50_all_future_relevant_pair_recurrence_or_finite_q_partition",
+      "preferredSourceShape": "original family-menu generator theorem or finite-Q partition for all future mod-50 relevant-pair rows",
+      "acceptableClosures": [
+        "restored original family-menu generator theorem with hypotheses binding all future relevant-pair rows",
+        "symbolic all-future mod-50 relevant-pair recurrence",
+        "finite Q partition covering every future mod-50 square-witness domain"
+      ],
+      "localProbeCommand": "rg -n \"mod-?50|relevant pair|family-menu|finite Q|all-future recurrence|generator theorem\" packs src test",
+      "successArtifacts": [
+        "p848_mod50_all_future_recurrence_source_theorem_packet",
+        "p848_mod50_finite_q_partition_packet",
+        "p848_restored_family_menu_generator_packet"
+      ],
+      "currentBoundary": "The mod-50 source blocker, archaeology handoff, and theorem-wedge decision blocker do not restore an all-future recurrence, finite-Q partition, or generator theorem."
+    },
+    {
+      "laneId": "square_moduli_union_hitting_threshold",
+      "sourceObject": "p848_square_moduli_union_hitting_or_threshold_source",
+      "preferredSourceShape": "union/hitting upper bound for square moduli with constants compatible with Sawhney Lemma 2.1 and Lemma 2.2",
+      "acceptableClosures": [
+        "direct upper-bound theorem for the relevant square-moduli union/hitting sets",
+        "corrected dual-sieve theorem that supplies the missing inequality direction with constants",
+        "imported explicit-threshold theorem whose hypotheses and constants are audited against the Problem 848 domains"
+      ],
+      "localProbeCommand": "rg -n \"union.*hitting|hitting.*union|square moduli|Tao|van Doorn|Sawhney|Lemma 2\\\\.1|Lemma 2\\\\.2\" packs src test",
+      "successArtifacts": [
+        "p848_square_moduli_union_hitting_threshold_source_packet",
+        "p848_corrected_dual_sieve_threshold_packet",
+        "p848_verified_exact_threshold_extension_packet"
+      ],
+      "currentBoundary": "The corrected square-moduli no-go packet shows Tao-van-Doorn plus complement duality does not supply the required union/hitting upper bound under current repo sources."
+    }
+  ],
+  "localProbePlan": {
+    "executionMode": "no_spend_local_repository_search_first",
+    "commands": [
+      {
+        "laneId": "p4217_residual_squarefree_realization_source",
+        "command": "rg -n \"squarefree.*arithmetic progression|locally admissible|finite CRT partition|decreasing rank|p4217\" packs src test",
+        "successArtifacts": [
+          "p848_p4217_residual_squarefree_realization_source_theorem_packet",
+          "p848_p4217_residual_finite_crt_partition_packet",
+          "p848_p4217_residual_rank_decrease_packet"
+        ]
+      },
+      {
+        "laneId": "mod50_all_future_recurrence_or_generator",
+        "command": "rg -n \"mod-?50|relevant pair|family-menu|finite Q|all-future recurrence|generator theorem\" packs src test",
+        "successArtifacts": [
+          "p848_mod50_all_future_recurrence_source_theorem_packet",
+          "p848_mod50_finite_q_partition_packet",
+          "p848_restored_family_menu_generator_packet"
+        ]
+      },
+      {
+        "laneId": "square_moduli_union_hitting_threshold",
+        "command": "rg -n \"union.*hitting|hitting.*union|square moduli|Tao|van Doorn|Sawhney|Lemma 2\\\\.1|Lemma 2\\\\.2\" packs src test",
+        "successArtifacts": [
+          "p848_square_moduli_union_hitting_threshold_source_packet",
+          "p848_corrected_dual_sieve_threshold_packet",
+          "p848_verified_exact_threshold_extension_packet"
+        ]
+      }
+    ],
+    "failureBoundary": "If these probes do not recover a promotable theorem/source/generator, emit a formal source-import gap/approval packet naming the exact external inputs still needed before any future live lane."
+  },
+  "paidCallPolicy": {
+    "default": "do_not_call_provider",
+    "preconditionsBeforeAnyFutureLiveCall": [
+      "Local probes have been executed and summarized in a packet.",
+      "A repaired single-lane profile names the exact source theorem or import target.",
+      "erdos orp research usage --json confirms remaining run count and local USD budget.",
+      "The live purpose is source-audit/theorem-import recovery, not routine verification or broad fishing."
+    ],
+    "forbiddenThisStep": [
+      "rerun_the_same_p4217_paid_wedge",
+      "rerun_the_same_mod50_paid_wedge",
+      "make_any_live_orp_openai_call"
+    ]
+  },
+  "forbiddenMovesUntilSourceRecoveryChangesBoundary": [
+    "resume_q193_q197_singleton_descent",
+    "launch_q193_q389_or_larger_q_cover_without_new_theorem",
+    "emit_a_naked_deterministic_rank_boundary",
+    "try_fallback_selectors_one_by_one",
+    "claim_tao_van_doorn_plus_exact_verifier_decides_848_without_union_hitting_source",
+    "claim_N0_around_1e6_or_N0_at_most_40500_without_imported_threshold_source",
+    "treat_bounded_40500_or_280_row_menu_evidence_as_all_N_proof"
+  ],
+  "oneNextAction": {
+    "stepId": "execute_p848_no_spend_source_recovery_search_for_p4217_mod50_union_hitting",
+    "action": "Execute the no-spend local source recovery search across the p4217 residual, mod-50 all-future recurrence/generator, and square-moduli union/hitting lanes; packetize any recovered theorem source or emit the exact residual-source import gap.",
+    "finiteDenominatorOrRankToken": "p848_source_import_recovery_plan_after_p4217_and_mod50_source_gaps",
+    "command": "./bin/erdos problem progress 848 --json",
+    "verificationCommand": "rg -n \"squarefree.*arithmetic progression|locally admissible|finite CRT partition|decreasing rank|p4217\" packs src test"
+  },
+  "proofBoundary": "This packet prepares the no-spend source/import recovery plan after the p4217 and mod-50 source gaps. It does not recover a p4217 squarefree-realization theorem, finite partition, decreasing rank, mod-50 all-future recurrence, finite-Q partition, square-moduli union/hitting threshold, post-40500 sufficiency theorem, all-N recombination theorem, or Problem 848.",
+  "claims": {
+    "completesSourceImportRecoveryPlan": true,
+    "madeNewPaidCall": false,
+    "respectsNoPaidByDefault": true,
+    "preparesP4217SourceRecovery": true,
+    "preparesMod50SourceRecovery": true,
+    "preparesUnionHittingSourceRecovery": true,
+    "blocksQCoverExpansion": true,
+    "blocksSingletonQDescent": true,
+    "blocksSingleFallbackSelectorLadder": true,
+    "blocksNakedRankBoundary": true,
+    "selectsNoSpendSourceSearch": true,
+    "provesFiniteP4217Partition": false,
+    "provesP4217ResidualRankDecrease": false,
+    "provesSquarefreeRealizationSourceTheorem": false,
+    "provesMod50AllFutureRecurrence": false,
+    "provesFiniteQPartition": false,
+    "importsSquareModuliUnionHittingThreshold": false,
+    "provesPost40500Sufficiency": false,
+    "provesAllN": false,
+    "decidesProblem848": false
+  },
+  "packetPath": "/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_SOURCE_IMPORT_RECOVERY_PLAN_AFTER_P4217_AND_MOD50_SOURCE_GAPS_PACKET.json"
+}

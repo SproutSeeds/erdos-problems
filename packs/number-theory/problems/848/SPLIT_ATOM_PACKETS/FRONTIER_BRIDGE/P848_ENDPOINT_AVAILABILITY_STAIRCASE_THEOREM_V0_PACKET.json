@@ -1,0 +1,78 @@
+{
+  "schema": "erdos.number_theory.p848_endpoint_availability_staircase_theorem_packet/1",
+  "generatedAt": "2026-04-17T05:36:21Z",
+  "problemId": 848,
+  "title": "P848 Endpoint Availability Staircase Theorem v0",
+  "sourceTransitionRulePacket": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_FRONTIER_TRANSITION_RULE_V0_PACKET.json",
+  "status": "endpoint_availability_staircase_theorem_v0_proved_complement_open",
+  "theoremObject": {
+    "id": "p848_endpoint_availability_staircase_theorem_v0",
+    "status": "proved_partition_and_handoff_rule_not_global_cover",
+    "statement": "For any exact Problem 848 endpoint repair handoff whose endpoint selector is affine k_p(t) = a*t + b mod p^2 over a finite residue parameter t mod p^2 and a fixed window W, the available residues A = {t : k_p(t) <= floor((W - 14) / 25)} and unavailable residues U = {t : k_p(t) > floor((W - 14) / 25)} form an exact finite partition of the source class. Available children may advance only through a deterministic square-obstruction child, an exact-certified repair handoff, or an explicit blocker/open leaf. The unavailable complement must remain an explicit open obligation until a separate cover or impossibility theorem accounts for it.",
+    "notGlobalClosure": "This theorem compresses the repeated endpoint availability split and handoff mechanism. It does not cover any unavailable complement, does not prove a globally decreasing endpoint tree, and does not decide Problem 848."
+  },
+  "proof": {
+    "partitionArgument": [
+      "For a fixed endpoint prime p, the parameter t is finite modulo p^2.",
+      "The selector k_p(t) is evaluated as its least residue in {0, ..., p^2 - 1}.",
+      "The inequalities k_p(t) <= floor((W - 14) / 25) and k_p(t) > floor((W - 14) / 25) are complementary and disjoint for every residue t.",
+      "Therefore A and U partition the source class exactly. When gcd(a, p^2) = 1, the selector is a permutation, so |A| = floor((W - 14) / 25) + 1 and |U| = p^2 - |A|."
+    ],
+    "handoffArgument": [
+      "An available residue family is not a closure by itself.",
+      "A deterministic square-obstruction child is allowed only when a packet records an exact CRT/lifted class and q^2 divisibility witness.",
+      "A repair handoff is allowed only when a packet records an exact squarefree factor certificate.",
+      "A bounded trial survivor without exact certification remains a repair candidate or blocker/open leaf.",
+      "An unavailable complement never disappears from the proof surface; it must be covered, proved impossible, or ledgered as open."
+    ],
+    "relationshipToTransitionRule": "This theorem instantiates p848_frontier_transition_rule_v0 for endpoint availability partitions: partition transitions are finite and typed, available-child transitions are gated by exact witnesses/certificates, and unavailable complements remain visible obligations."
+  },
+  "p4217Instantiation": {
+    "sourcePacket": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DYNAMIC_MARGIN_PROOFS/P848_q17_p107_q89_p4217_availability_split.json",
+    "endpointPrime": 4217,
+    "endpointPrimeSquare": 17783089,
+    "window": 28500,
+    "selector": "k_4217(t) = (445517*t + 203) mod 17783089",
+    "selectorCoefficientGcdWithModulus": 1,
+    "maxK": 1139,
+    "availableResidues": 1140,
+    "unavailableResidues": 17781949,
+    "partitionedResidues": 17783089,
+    "partitionCheck": "1140 + 17781949 = 17783089",
+    "firstAvailableResidue": {
+      "tResidue": 0,
+      "k": 203
+    },
+    "firstUnavailableResidue": {
+      "tResidue": 1,
+      "k": 445720
+    },
+    "firstAvailableChild": {
+      "obstructionPrime": 61,
+      "obstructionSquare": 3721,
+      "tCongruence": "t == 42163704019 mod 66170874169",
+      "leftCongruence": "left == 169420141690585054358732178817328088519972453794407467571322168411530879091645805420092749757 mod 265884583394279840187007549369466635122108056254479559599229627196756604148422140623504536900",
+      "witness": "61^2 | left*right+1"
+    },
+    "unavailableComplementStatus": "open_uncovered_complement"
+  },
+  "coveredCases": [
+    {
+      "case": "availability_partition",
+      "status": "proved_as_exact_finite_partition"
+    },
+    {
+      "case": "available_child_handoff",
+      "status": "proved_gated_by_exact_square_or_factor_certificate"
+    },
+    {
+      "case": "unavailable_complement",
+      "status": "explicit_open_obligation_not_covered"
+    }
+  ],
+  "proofBoundary": "The endpoint availability staircase theorem v0 proves the exact finite split/handoff discipline. It does not cover the p4217 unavailable complement, does not prove the staircase terminates globally, does not certify p97 or p227, and does not bind the synthetic 282/841 row to a live family-menu row.",
+  "recommendedNextAction": "prove_p848_p4217_unavailable_complement_cover_or_ledger_refinement",
+  "verification": {
+    "command": "node --test test/cli.test.js test/p848-endpoint-menu-compiler.test.js test/p848-282-alignment-obstruction-packet.test.js"
+  }
+}

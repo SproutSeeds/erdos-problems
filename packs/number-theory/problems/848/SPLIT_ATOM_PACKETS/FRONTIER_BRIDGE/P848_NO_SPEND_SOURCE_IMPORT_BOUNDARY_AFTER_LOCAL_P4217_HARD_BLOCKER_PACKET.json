@@ -1,0 +1,176 @@
+{
+  "schema": "erdos.number_theory.p848_no_spend_source_import_boundary_after_local_p4217_hard_blocker_packet/1",
+  "packetId": "P848_NO_SPEND_SOURCE_IMPORT_BOUNDARY_AFTER_LOCAL_P4217_HARD_BLOCKER_PACKET",
+  "problemId": 848,
+  "generatedAt": "2026-04-18T11:12:44.410Z",
+  "status": "no_spend_source_import_boundary_assembled_after_local_p4217_hard_blocker",
+  "target": "assemble_p848_no_spend_source_import_boundary_after_local_p4217_hard_blocker",
+  "recommendedNextAction": "prepare_p848_no_spend_local_theorem_backlog_after_source_import_boundary",
+  "coversPrimaryNextAction": {
+    "stepId": "assemble_p848_no_spend_source_import_boundary_after_local_p4217_hard_blocker",
+    "status": "completed_by_no_spend_source_import_boundary_after_local_p4217_hard_blocker",
+    "hardBlockerPacket": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_LOCAL_P4217_RESIDUAL_SOURCE_THEOREM_PROOF_ATTEMPT_HARD_BLOCKER_PACKET.json",
+    "hardBlockerSha256": "a7ae92b8753dfdd1b86a8e19d101790c100f8931ec4245a5065e6ae9e1b87a9d",
+    "allNSourceGapPacket": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_ALL_N_RECOMBINATION_RESIDUAL_AFTER_SOURCE_IMPORT_SEARCH_GAP_PACKET.json",
+    "allNSourceGapSha256": "ff09781c84b2d8f732690ad1d5e14cc100a04d95610e70097e1a99482fe64bc9",
+    "repairedProfilePacket": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_REPAIRED_SINGLE_LANE_SOURCE_IMPORT_PROFILE_AFTER_NO_SPEND_GAP_PACKET.json",
+    "repairedProfileSha256": "9c3bb6020ad18e2996dc6eaeb8519e9f352afe6467f9723938c3b71d92e60e40",
+    "approvalBlockerPacket": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_RESIDUAL_SOURCE_IMPORT_PROFILE_APPROVAL_BLOCKER_PACKET.json",
+    "approvalBlockerSha256": "801b1f289c536f774590644ef1f37586bc62e2d099ae51cea1fbf19620fe27d9"
+  },
+  "boundaryAssembly": {
+    "status": "assembled_no_spend_source_import_boundary",
+    "madeNewPaidCall": false,
+    "currentStepAllowsPaidCall": false,
+    "allNProofAvailable": false,
+    "finiteMeasureDecreased": false,
+    "openFrontierObligationCountAtInput": 90,
+    "sourceImportBoundaryShape": "three_remaining_theorem_objects_plus_guarded_release_conditions",
+    "assembledFromStatuses": {
+      "p4217LocalHardBlocker": "local_p4217_residual_source_theorem_proof_attempt_hard_blocker_emitted",
+      "postSourceSearchAllNResidual": "all_n_recombination_residual_assembled_after_source_import_search_gap",
+      "repairedSingleLaneProfile": "repaired_single_lane_source_import_profile_prepared_after_no_spend_gap",
+      "profileApprovalBlocker": "p4217_residual_source_import_profile_approval_blocker_emitted_no_live_spend"
+    }
+  },
+  "remainingTheoremObjects": [
+    {
+      "objectId": "p4217_residual_squarefree_realization_source",
+      "status": "locally_hard_blocked_pending_repo_theorem_or_future_guarded_source_import",
+      "neededTheorem": "A p4217 residual finite complete CRT partition, well-founded decreasing rank/invariant, or squarefree-realization theorem for every locally admissible residual CRT/arithmetic-progression/linear-family instance.",
+      "currentBoundary": "The p4217 residual fork reduction, repaired profile, approval blocker, and local proof attempt found no finite CRT partition, decreasing rank, or squarefree-realization theorem in current repo sources.",
+      "releaseConditions": [
+        "A repo-owned finite complete CRT partition closes every p4217 residual cell.",
+        "A repo-owned well-founded residual rank strictly decreases on every residual transition.",
+        "A local or imported squarefree-realization theorem supplies audited hypotheses and constants for every locally admissible p4217 residual family.",
+        "A future explicit instruction releases the prepared p4217 single-lane source-import profile under the local usage/budget guard, followed by an audited source packet."
+      ],
+      "blockingPackets": [
+        "P848_P4217_RESIDUAL_SQUAREFREE_REALIZATION_SOURCE_THEOREM_GAP_PACKET.json",
+        "P848_REPAIRED_SINGLE_LANE_SOURCE_IMPORT_PROFILE_AFTER_NO_SPEND_GAP_PACKET.json",
+        "P848_P4217_RESIDUAL_SOURCE_IMPORT_PROFILE_APPROVAL_BLOCKER_PACKET.json",
+        "P848_LOCAL_P4217_RESIDUAL_SOURCE_THEOREM_PROOF_ATTEMPT_HARD_BLOCKER_PACKET.json"
+      ]
+    },
+    {
+      "objectId": "mod50_all_future_recurrence_or_generator",
+      "status": "source_theorem_gap_open_after_no_spend_search",
+      "neededTheorem": "A mod-50 all-future relevant-pair recurrence, finite-Q partition, or restored original family-menu generator theorem covering every future relevant-pair row.",
+      "currentBoundary": "The mod-50 source blocker, archaeology packet, theorem-wedge blocker, and no-spend source search found finite replay evidence but no all-future recurrence/generator theorem.",
+      "releaseConditions": [
+        "Recover the original generator/source theorem and replay its hypotheses against current artifacts.",
+        "Prove a finite-Q partition or recurrence for all future mod-50 relevant-pair rows.",
+        "Use a future guarded source-import profile only if it names a concrete generator/source target sharper than the failed broad wedge."
+      ],
+      "blockingPackets": [
+        "P848_MOD50_ALL_FUTURE_RECURRENCE_SOURCE_THEOREM_BLOCKER_PACKET.json",
+        "P848_MOD50_THEOREM_WEDGE_DECISION_BLOCKER_PACKET.json",
+        "P848_NO_SPEND_SOURCE_RECOVERY_SEARCH_FOR_P4217_MOD50_UNION_HITTING_PACKET.json"
+      ]
+    },
+    {
+      "objectId": "square_moduli_union_hitting_threshold_source",
+      "status": "import_source_gap_open_after_direction_audit",
+      "neededTheorem": "A square-moduli union/hitting upper-bound theorem with Sawhney-compatible hypotheses, inequality direction, constants, and threshold.",
+      "currentBoundary": "The Tao-van-Doorn shortcut remains directionally insufficient under current repo sources: it upper-bounds avoiding sets, while Sawhney Lemma 2.1 and Lemma 2.2 need union/hitting upper bounds.",
+      "releaseConditions": [
+        "Import or prove a square-moduli union/hitting upper-bound theorem with the correct inequality direction.",
+        "Audit constants and hypotheses against the Sawhney exact-verifier usage before naming any N0.",
+        "Do not reuse Tao-van-Doorn avoiding-side bounds as a union/hitting upper bound without a new theorem."
+      ],
+      "blockingPackets": [
+        "P848_TAO_VAN_DOORN_THRESHOLD_PIVOT_RECONCILIATION_PACKET.json",
+        "P848_CORRECTED_SQUARE_MODULI_DUAL_SIEVE_OR_UNION_HITTING_THRESHOLD_PACKET.json",
+        "P848_NO_SPEND_SOURCE_RECOVERY_SEARCH_FOR_P4217_MOD50_UNION_HITTING_PACKET.json"
+      ]
+    }
+  ],
+  "releaseConditionSummary": {
+    "localRelease": [
+      "Prove the p4217 residual finite CRT partition, residual rank decrease, or squarefree-realization theorem locally.",
+      "Recover/prove the mod-50 all-future recurrence, finite-Q partition, or original generator theorem locally.",
+      "Prove or import, with audited hypotheses and constants, the square-moduli union/hitting upper-bound theorem."
+    ],
+    "futureGuardedSourceImportRelease": [
+      "A future explicit instruction permits a live source/import execution.",
+      "The local ORP/OpenAI usage ledger has remaining run count and USD budget.",
+      "The live question names exactly one theorem object or source target and is sharper than the failed broad wedges.",
+      "Any source/import answer is packetized with proof boundaries before promotion."
+    ],
+    "stillForbiddenThisTurn": [
+      "provider_execution",
+      "q_cover_expansion",
+      "q193_or_q197_singleton_descent",
+      "single_fallback_selector_ladder",
+      "naked_rank_boundary_without_new_measure",
+      "bounded_evidence_promoted_to_all_N"
+    ]
+  },
+  "localTheoremBacklogSeed": {
+    "nextStepId": "prepare_p848_no_spend_local_theorem_backlog_after_source_import_boundary",
+    "status": "ready_for_no_spend_local_backlog_preparation",
+    "backlogPurpose": "Select the next theorem object that can be attacked without provider execution, while preserving that the prepared p4217 profile remains approval-blocked.",
+    "candidateBacklogItems": [
+      {
+        "itemId": "p4217_residual_partition_rank_or_squarefree_source_local_backlog",
+        "allowedWork": "definitions, finite CRT shape audit, rank-candidate falsification, or exact local theorem statement only",
+        "forbiddenWork": "fallback selector ladder or q-cover expansion"
+      },
+      {
+        "itemId": "mod50_generator_or_recurrence_local_backlog",
+        "allowedWork": "local generator/source archaeology, finite-Q denominator audit, or recurrence theorem statement",
+        "forbiddenWork": "finite replay overclaim"
+      },
+      {
+        "itemId": "square_moduli_union_hitting_local_backlog",
+        "allowedWork": "source-index audit or theorem statement for the missing union/hitting direction and constants",
+        "forbiddenWork": "threshold claim before a valid theorem source"
+      }
+    ]
+  },
+  "forbiddenMovesAfterBoundaryAssembly": [
+    "execute_the_repaired_p4217_profile_without_future_guarded_approval",
+    "run_erdos_orp_research_execute_allow_paid_this_turn",
+    "resume_q193_q197_singleton_descent",
+    "launch_q193_q389_or_larger_q_cover_without_new_theorem",
+    "emit_a_naked_deterministic_rank_boundary",
+    "try_fallback_selectors_one_by_one",
+    "rerun_the_same_p4217_paid_wedge_by_default",
+    "rerun_the_same_mod50_paid_wedge_by_default",
+    "claim_tao_van_doorn_plus_exact_verifier_decides_848_without_union_hitting_source",
+    "claim_N0_around_1e6_or_N0_at_most_40500_without_imported_threshold_source",
+    "treat_bounded_finite_evidence_as_all_N_proof"
+  ],
+  "oneNextAction": {
+    "stepId": "prepare_p848_no_spend_local_theorem_backlog_after_source_import_boundary",
+    "action": "Prepare a no-spend local theorem backlog after the source/import boundary, selecting only proof/search work that can run without provider execution and without q-cover or singleton descent.",
+    "finiteDenominatorOrRankToken": "p848_no_spend_source_import_boundary_after_local_p4217_hard_blocker",
+    "verificationCommand": "./bin/erdos problem progress 848 --json"
+  },
+  "proofBoundary": "This packet closes the no-spend source/import boundary assembly after the local p4217 hard blocker. It preserves the three theorem objects still outside the all-N proof and the precise future release conditions. It does not execute a provider call, prove a p4217 finite partition or residual rank, prove a squarefree-realization theorem, restore the mod-50 generator theorem, import a square-moduli union/hitting theorem, lower any threshold, prove all-N recombination, or decide Problem 848.",
+  "claims": {
+    "completesNoSpendSourceImportBoundaryAssembly": true,
+    "preservesP4217HardBlocker": true,
+    "preservesPreparedProfile": true,
+    "namesRemainingSourceImportTheoremObjects": true,
+    "namesFutureReleaseConditions": true,
+    "selectsNoSpendLocalTheoremBacklog": true,
+    "madeNewPaidCall": false,
+    "currentStepAllowsPaidCall": false,
+    "blocksLiveSpendThisTurn": true,
+    "requiresFutureApprovalBeforeSpend": true,
+    "blocksQCoverExpansion": true,
+    "blocksSingletonQDescent": true,
+    "blocksSingleFallbackSelectorLadder": true,
+    "blocksNakedRankBoundary": true,
+    "provesFiniteP4217Partition": false,
+    "provesP4217ResidualRankDecrease": false,
+    "provesSquarefreeRealizationSourceTheorem": false,
+    "provesMod50AllFutureRecurrence": false,
+    "importsSquareModuliUnionHittingThreshold": false,
+    "lowersAnalyticThreshold": false,
+    "provesAllN": false,
+    "decidesProblem848": false
+  },
+  "packetPath": "/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_NO_SPEND_SOURCE_IMPORT_BOUNDARY_AFTER_LOCAL_P4217_HARD_BLOCKER_PACKET.json"
+}

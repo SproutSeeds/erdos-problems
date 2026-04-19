@@ -1,0 +1,51 @@
+{
+  "schema_version": "1.0.0",
+  "profile_id": "p848-p4217-theorem-wedge-single",
+  "label": "Problem 848 p4217 complement theorem wedge",
+  "description": "Single-lane bounded ORP/OpenAI profile for one high-leverage Problem 848 p4217 complement theorem-wedge pass without launching the full council or deep-research lanes.",
+  "execution_policy": {
+    "live_requires_execute": true,
+    "process_only": true,
+    "secrets_not_persisted": true,
+    "default_timeout_sec": 180,
+    "estimated_cost_usd": 1,
+    "budget_note": "Use only after erdos orp research usage --json confirms the local daily run and USD guards have room."
+  },
+  "call_moments": [
+    {
+      "moment_id": "plan",
+      "label": "Local decomposition plan",
+      "calls_api": false,
+      "description": "Create ORP artifacts, prompts, and lane plan without resolving any API key."
+    },
+    {
+      "moment_id": "p848_p4217_theorem_wedge",
+      "label": "P848 p4217 complement theorem wedge",
+      "calls_api": true,
+      "secret_alias": "openai-primary",
+      "env_var": "OPENAI_API_KEY",
+      "description": "Run one bounded theorem-wedge pass on the p4217 unavailable-complement cover/impossibility/source theorem boundary."
+    }
+  ],
+  "lanes": [
+    {
+      "lane_id": "p848_p4217_theorem_wedge",
+      "call_moment": "p848_p4217_theorem_wedge",
+      "label": "P848 p4217 complement theorem wedge",
+      "provider": "openai",
+      "model": "gpt-5.4",
+      "adapter": "openai_responses",
+      "role": "Analyze the supplied Problem 848 p4217 complement artifacts as a proof-search wedge. Return a concise verdict first, then proof atoms. State whether a whole-complement cover theorem, complement impossibility theorem, finite partition, decreasing invariant, or imported/source theorem is supported; name exact missing hypotheses if not; and avoid treating finite selector descent as an all-N proof.",
+      "env_var": "OPENAI_API_KEY",
+      "secret_alias": "openai-primary",
+      "reasoning_effort": "low",
+      "text_verbosity": "medium",
+      "max_output_tokens": 8192
+    }
+  ],
+  "synthesis": {
+    "style": "answer_with_lane_evidence",
+    "require_disagreements": true,
+    "require_open_questions": true
+  }
+}

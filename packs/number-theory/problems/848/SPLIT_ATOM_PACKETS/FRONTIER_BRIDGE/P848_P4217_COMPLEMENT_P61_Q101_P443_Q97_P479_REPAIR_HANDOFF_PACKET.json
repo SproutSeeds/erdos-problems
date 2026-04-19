@@ -1,0 +1,138 @@
+{
+  "schema": "erdos.number_theory.p848_p4217_complement_p61_q101_p443_q97_p479_repair_handoff/1",
+  "generatedAt": "2026-04-17T08:07:44Z",
+  "problemId": "848",
+  "status": "representative_p479_repair_exact_squarefree_convergence_handoff_needed",
+  "certificateId": "p848_p4217_complement_p61_q101_p443_q97_p479_factor_certificate",
+  "activeAtom": "D2_p13_q17_endpoint_menu_squarefree_obstruction_p23_q29_p41_q13_p103_q2_p37_q19_p31_q53_p73_q11_p83_q17_p509_q43_p29_q59_p47_q67_p79_q71_p107_q89_p4217_complement_p43_q2_p61_q101_p443_q97_p479_exact_repair",
+  "sourceTool": {
+    "name": "sympy.isprime",
+    "version": "1.14.0",
+    "mode": "local_free_cpu"
+  },
+  "sourcePackets": [
+    "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_COMPLEMENT_P61_Q101_P443_Q97_REPAIR_CANDIDATE_BOUNDARY_PACKET.json",
+    "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_COMPLEMENT_P61_Q101_P443_Q97_P151_BLOCKER_OPEN_LEAF_PACKET.json"
+  ],
+  "targetChild": {
+    "description": "First q97 square-obstruction child inside the first p443-available family of the p61/q101 branch.",
+    "tCongruence": {
+      "residue": "858404682506186150932058",
+      "modulus": "1246408897617516648005929",
+      "expression": "t == 858404682506186150932058 mod 1246408897617516648005929"
+    },
+    "leftCongruence": {
+      "residue": "3449199882246403162146857078213360639892746996146891529938208657606051673377944521449110708641522770273657",
+      "modulus": "5008259519672675769496874520298756223775352864790330415029070839201594060956874703037101519492727102512900",
+      "expression": "left == 3449199882246403162146857078213360639892746996146891529938208657606051673377944521449110708641522770273657 mod 5008259519672675769496874520298756223775352864790330415029070839201594060956874703037101519492727102512900"
+    },
+    "inheritedSquareObstruction": {
+      "endpointPrime": 443,
+      "k": 1029,
+      "delta": -25739,
+      "obstructionPrime": 97,
+      "obstructionSquare": 9409
+    }
+  },
+  "finiteRepairScreen": {
+    "screenScope": "established endpoint-menu primes with 23 <= p <= 50000, excluding primes not invertible for the 25*6323 selector denominator",
+    "trialSquarePrimeLimit": 199999,
+    "candidateEndpointPrimes": [
+      151,
+      479
+    ],
+    "blockedCandidateEndpointPrime": 151,
+    "exactRepairEndpointPrime": 479,
+    "p151Status": "ledgered_as_local_free_exact_certification_blocker_open_leaf",
+    "p479Status": "exact_squarefree_representative_repair"
+  },
+  "representativeRepair": {
+    "representativeLeft": "3449199882246403162146857078213360639892746996146891529938208657606051673377944521449110708641522770273657",
+    "blockedEndpoint": {
+      "endpointPrime": 443,
+      "k": 1029,
+      "delta": -25739,
+      "squareDivisorPrime": 97,
+      "squareDivisor": 9409,
+      "status": "known_non_squarefree_from_source_obstruction"
+    },
+    "alternateEndpoint": {
+      "endpointPrime": 479,
+      "k": 250,
+      "delta": -6264,
+      "right": "3449199882246403162146857078213360639892746996146891529938208657606051673377944521449110708641522770267393",
+      "rightMod25": 18,
+      "squarefreeStatus": "exact_squarefree",
+      "factorCertificateId": "p848_p4217_complement_p61_q101_p443_q97_p479_factor_certificate"
+    }
+  },
+  "crossProductPlusOne": "11896979827688601439663447120004746920772288609584622965207770194258190182964840051413631820138675086125182274292166204854526920208153153728184639203946987188525742758624874534113978607235133338968794781673966202",
+  "factorizationRungs": [
+    {
+      "method": "inherited_trial_division",
+      "status": "known_factorization_from_repair_boundary",
+      "factors": [
+        {
+          "factor": "2",
+          "exponent": 1,
+          "prime": true
+        },
+        {
+          "factor": "7",
+          "exponent": 1,
+          "prime": true
+        },
+        {
+          "factor": "53",
+          "exponent": 1,
+          "prime": true
+        }
+      ]
+    },
+    {
+      "method": "sympy.isprime",
+      "status": "remaining_cofactor_prime",
+      "factor": "16033665535968465552107071590302893424221413220464451435589986784714542025559083627242091401804144320923426245676773860989928463892389695051461777902893513731166769216475572148401588419454357599688402670719631",
+      "factorPrimeBySympyIsPrime": true,
+      "digits": 209,
+      "wallSeconds": 0.006
+    }
+  ],
+  "factors": [
+    {
+      "factor": "2",
+      "exponent": 1,
+      "prime": true
+    },
+    {
+      "factor": "7",
+      "exponent": 1,
+      "prime": true
+    },
+    {
+      "factor": "53",
+      "exponent": 1,
+      "prime": true
+    },
+    {
+      "factor": "16033665535968465552107071590302893424221413220464451435589986784714542025559083627242091401804144320923426245676773860989928463892389695051461777902893513731166769216475572148401588419454357599688402670719631",
+      "exponent": 1,
+      "prime": true
+    }
+  ],
+  "claims": {
+    "factorsMultiplyToCrossProductPlusOne": true,
+    "allExponentsAreOne": true,
+    "allFactorsPrimeByLocalSympyIsPrime": true,
+    "provesExactSquarefree": true,
+    "provesRepresentativeRepair": true,
+    "provesQ97ChildCoverage": false,
+    "provesP443AvailabilityComplement": false,
+    "provesP4217ComplementCoverage": false,
+    "provesAllN": false
+  },
+  "proofBoundary": "This packet exact-certifies p479 as a squarefree representative repair for the selected p443/q97 child after p151 was ledgered as a local/free exact-certification blocker. It does not prove p479 availability or squarefree hitting over the full q97 child, does not close the p443-unavailable complement, and does not close the wider p4217 complement. Under the active guard, no fresh deeper selector child should be opened until convergence assembly chooses a bulk cover, structural decomposition, ranked transition, or explicit p479 availability split with a finite ledger token.",
+  "recommendedNextAction": "run_p848_convergence_assembly_after_q97_p151_p479_leaf_resolution",
+  "nextTheoremMove": "Run convergence assembly after the p151 blocker and p479 exact representative repair, compare open_frontier_obligation_count, and choose bulk selector cover, impossibility theorem, structural complement decomposition, ranked ledger transition, or an explicitly ledgered p479 availability split before opening any fresh selector child.",
+  "verificationCommand": "node --check src/runtime/theorem-loop.js && node --check src/runtime/problem-progress.js && node --test test/p848-endpoint-menu-compiler.test.js test/p848-282-alignment-obstruction-packet.test.js"
+}

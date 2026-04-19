@@ -1,0 +1,172 @@
+{
+  "schema": "erdos.number_theory.p848_mod50_elementary_generator_relevant_pair_semantics_blocker_packet/1",
+  "packetId": "P848_MOD50_ELEMENTARY_GENERATOR_RELEVANT_PAIR_SEMANTICS_BLOCKER_PACKET",
+  "problemId": 848,
+  "generatedAt": "2026-04-18T15:04:08.856Z",
+  "status": "mod50_elementary_generator_relevant_pair_semantics_blocker_emitted",
+  "target": "verify_p848_mod50_elementary_generator_relevant_pair_admissibility_or_emit_semantics_blocker",
+  "recommendedNextAction": "restore_p848_mod50_relevant_pair_row_generator_or_finite_q_partition_after_elementary_semantics_blocker",
+  "coversPrimaryNextAction": {
+    "stepId": "verify_p848_mod50_elementary_generator_relevant_pair_admissibility_or_emit_semantics_blocker",
+    "status": "completed_by_mod50_elementary_generator_relevant_pair_semantics_blocker",
+    "candidatePacket": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_GUARDED_MOD50_SOURCE_AUDIT_RESULT_ELEMENTARY_GENERATOR_CANDIDATE_PACKET.json",
+    "candidatePacketSha256": "9e04dced57809607780e48f71062aa81b227169ab885c959a4e53129a4cf2d1d",
+    "relevantPairBlockerPacket": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_MOD50_RELEVANT_PAIR_ENUMERATOR_GENERATOR_BLOCKER_PACKET.json",
+    "relevantPairBlockerSha256": "ccb6130a1370c8526ea8a8c5595b3a5540109bc1020711599686ccd07478b4c5",
+    "coverageBlockerPacket": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_MOD50_LANE_COVERAGE_HYPOTHESES_BLOCKER_PACKET.json",
+    "coverageBlockerSha256": "5cf085e4102be1045681d67f66173121394dc1e1f06d3dc603425a69e203fc42",
+    "topRepairPacket": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_TOP_REPAIR_CLASS_MECHANISM_PACKET.json",
+    "topRepairPacketSha256": "cd2ee1a1bdd80f76ef31b3db2e1a383c409c42e9e10261495e86b1f2ac7dd24b",
+    "formalizationWork": "packs/number-theory/problems/848/FORMALIZATION_WORK.json",
+    "formalizationWorkSha256": "1b75610d1d7939066dfe9bafa0cad4664185e97955e77ddce596bcdcadb8c55d"
+  },
+  "candidateIdentityAudit": {
+    "theoremId": "p848_mod50_elementary_square_generator_family",
+    "identityValidAsArithmetic": true,
+    "identityStatement": "For integers a >= 1 and t >= 1, set b = a*t^2 + 2*t. Then a*b + 1 = (a*t + 1)^2.",
+    "specialCase": "For every n >= 3, (n - 2)*n + 1 = (n - 1)^2, corresponding to t = 1, a = n - 2, b = n.",
+    "rowInterpretationNeededForMod50Lane": "For continuation c and representative n, the candidate would only supply a square witness when n = c*t^2 + 2*t, with Q = (c*t + 1)^2.",
+    "promotionVerdict": "not_admissible_as_mod50_all_future_relevant_pair_generator"
+  },
+  "normalizedRepoRelevantPairSemantics": {
+    "objectId": "p848_mod50_parametric_relevant_pair_enumerator",
+    "requiredStatement": "Enumerate all future or theorem-relevant pairs (n,Q) for the 32 mod 50 lane, where n is a family representative and Q is a square witness modulus that can obstruct c*n+1 for c = 32 + 50*m.",
+    "requiredOutputShape": [
+      "A parametric formula or recurrence for representatives n.",
+      "A finite or recursively generated set of possible square witness moduli Q.",
+      "For each pair (n,Q), the bad-lane denominator Q/gcd(50*n,Q).",
+      "A handoff label proving how the bad lane is avoided, top-tie repaired, contrast-only repaired, or terminally blocked."
+    ],
+    "laneFormula": "continuation = 32 + 50*m",
+    "symbolicStatement": "For any representative n and square witness modulus Q, continuation c = 32 + 50*m has Q | c*n + 1 exactly when (50*n)*m ≡ -(32*n + 1) (mod Q). When this congruence is solvable, it defines the bad m-class modulo Q/gcd(50*n,Q).",
+    "symbolicVariables": [
+      "n: family representative",
+      "Q: square witness modulus",
+      "m: lane index in c = 32 + 50*m",
+      "c: continuation being tested"
+    ],
+    "missingDomainHypothesis": {
+      "hypothesisId": "square_witness_domain_cover",
+      "status": "missing",
+      "requiredStatement": "Classify or finitely cover every relevant pair (n, Q), where n is a future/family representative and Q is a square witness modulus that can obstruct a continuation in c = 32 + 50*m.",
+      "currentEvidence": "Only 74 finite witness instances are checked, with observed periods 9, 49, 169, 289, 361, 529, 1369, 1681, 4489, 66049.",
+      "whyNeeded": "Without this domain cover, the universal divisibility schema cannot become a universal squarefree repair theorem."
+    },
+    "topRepairScope": "restored_finite_family_menu_with_symbolic_bad_lane_divisibility_schema"
+  },
+  "observedFiniteRowAudit": {
+    "checkedObservedRowCount": 74,
+    "observedContinuationSet": [
+      332,
+      382,
+      432,
+      782,
+      832,
+      1232
+    ],
+    "observedWitnessSquareModulusSet": [
+      9,
+      49,
+      169,
+      289,
+      361,
+      529,
+      1369,
+      1681,
+      4489,
+      66049
+    ],
+    "candidateRelationTested": "representative = continuation*t^2 + 2*t with t >= 1",
+    "candidateRelationHitCount": 0,
+    "candidateRelationHits": [],
+    "interpretation": "The elementary generator does not match any checked finite mod-50 witness row under the direct continuation-as-a, representative-as-b row interpretation."
+  },
+  "semanticMismatch": {
+    "status": "candidate_excluded_from_universal_promotion_by_row_semantics",
+    "exactConstraint": "The mod-50 source theorem must quantify over all future row-menu representatives n and all relevant square witness moduli Q for c = 32 + 50*m. The elementary candidate quantifies over arbitrary factor pairs (a,b) satisfying b = a*t^2 + 2*t; it only maps into the row surface after adding the extra equation n = c*t^2 + 2*t.",
+    "missingForPromotion": [
+      "a generator or recurrence for every future family representative n",
+      "a finite or recursively generated set of every future square witness modulus Q",
+      "the denominator Q/gcd(50*n,Q) for every generated relevant pair",
+      "a handoff label proving bad-lane avoidance, top-tie repair, contrast-only repair, or terminal blocking",
+      "a proof that every future relevant (n,Q) row satisfies the candidate relation, or a finite partition replacing that relation"
+    ],
+    "whySpecialCaseDoesNotCloseMod50": "The t=1 family only gives square pairs (a,a+2). In the active row semantics this would require representative n = c + 2 for the continuation c, while observed and future family-menu representatives are independent row objects.",
+    "finiteEvidence": "Zero of the 74 checked finite mod-50 witness rows satisfy representative = continuation*t^2 + 2*t."
+  },
+  "rankedLegalNextOptions": [
+    {
+      "rank": 1,
+      "actionId": "restore_p848_mod50_relevant_pair_row_generator_or_finite_q_partition_after_elementary_semantics_blocker",
+      "action": "Restore or define the actual mod-50 relevant-pair row generator, or prove a finite-Q partition for the row domain after excluding the elementary arbitrary-pair candidate.",
+      "expectedInformationGain": "high",
+      "cost": "medium",
+      "reversibility": "high",
+      "probabilityOfChangingDecision": "medium"
+    },
+    {
+      "rank": 2,
+      "actionId": "localize_p848_elementary_generator_as_negative_subprogression_lemma_if_useful",
+      "action": "If the relation n = c*t^2 + 2*t appears in future row data, package the identity only as a negative subprogression obstruction lemma, not as a universal row enumerator.",
+      "expectedInformationGain": "medium",
+      "cost": "low",
+      "reversibility": "high",
+      "probabilityOfChangingDecision": "low"
+    },
+    {
+      "rank": 3,
+      "actionId": "prepare_future_p848_mod50_source_audit_narrowed_to_row_generator_semantics",
+      "action": "Only under a future explicit release and usage clearance, ask for a source theorem that emits the row-menu (n,Q) domain and handoff labels; do not ask again for arbitrary square-producing pairs.",
+      "expectedInformationGain": "medium",
+      "cost": "paid_guarded",
+      "reversibility": "high",
+      "probabilityOfChangingDecision": "medium"
+    }
+  ],
+  "futureUnblockConditions": [
+    "Recover a repo-owned mod-50 family-menu row generator or symbolic recurrence for every future representative n.",
+    "Prove a finite-Q partition for every future mod-50 square-witness row with audited denominators and handoff labels.",
+    "Prove that the elementary relation n = c*t^2 + 2*t covers the full future row domain, which current finite evidence does not support.",
+    "Under a future explicit release, run at most one usage-cleared source audit narrowed to the row-generator/finite-Q semantics, not arbitrary square-producing factor pairs."
+  ],
+  "forbiddenMovesAfterSemanticsBlocker": [
+    "run_another_provider_call_without_a_fresh_explicit_release",
+    "treat_the_paid_audit_answer_as_canonical_proof",
+    "promote_the_elementary_identity_to_mod50_all_future_recurrence",
+    "treat_zero_hit_finite_sanity_check_as_all_future_disproof",
+    "resume_q193_q197_singleton_descent",
+    "resume_q_cover_staircase_expansion",
+    "launch_next_prime_fallback_ladder",
+    "emit_a_naked_deterministic_rank_boundary",
+    "claim_all_n_recombination_from_the_candidate_or_blocker"
+  ],
+  "oneNextAction": {
+    "stepId": "restore_p848_mod50_relevant_pair_row_generator_or_finite_q_partition_after_elementary_semantics_blocker",
+    "action": "Restore or prove the actual mod-50 relevant-pair row generator/finite-Q partition after excluding the elementary arbitrary-pair generator as a universal candidate.",
+    "finiteDenominatorOrRankToken": "p848_mod50_elementary_generator_relevant_pair_semantics_blocker",
+    "verificationCommand": "./bin/erdos problem progress 848 --json"
+  },
+  "proofBoundary": "This packet resolves the elementary generator candidate as a semantics blocker. The identity a*(a*t^2 + 2*t) + 1 = (a*t + 1)^2 is valid, but it is an arbitrary square-producing pair family, not the repo-owned mod-50 relevant-pair row generator. The active mod-50 object requires an all-future enumerator or finite-Q partition for pairs (n,Q), where n is a family representative and Q is a square witness modulus obstructing c*n+1 for c = 32 + 50*m, plus bad-lane denominator and handoff labels. The candidate does not enumerate all future representatives, does not enumerate all future Q, does not provide handoff labels, has zero direct hits among the 74 checked finite mod-50 witness rows, and is not promoted to proof. No provider call, q-cover expansion, singleton descent, fallback ladder, naked rank-boundary expansion, all-N recombination, or Problem 848 decision is made.",
+  "claims": {
+    "completesElementaryGeneratorRelevantPairAdmissibilityCheck": true,
+    "arithmeticIdentityValid": true,
+    "candidateAdmissibleAsUniversalMod50RelevantPairGenerator": false,
+    "candidatePromotedToProof": false,
+    "finiteObservedRowAuditRun": true,
+    "finiteObservedRowAuditHitCount": 0,
+    "checkedObservedRowCount": 74,
+    "preservesNoSpendDefault": true,
+    "madeNewPaidCall": false,
+    "blocksAdditionalProviderCalls": true,
+    "blocksQCoverExpansion": true,
+    "blocksSingletonQDescent": true,
+    "blocksSingleFallbackSelectorLadder": true,
+    "blocksNakedRankBoundary": true,
+    "provesMod50AllFutureRecurrence": false,
+    "restoresOriginalGenerator": false,
+    "provesFiniteQPartition": false,
+    "provesAllN": false,
+    "decidesProblem848": false
+  },
+  "packetPath": "/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_MOD50_ELEMENTARY_GENERATOR_RELEVANT_PAIR_SEMANTICS_BLOCKER_PACKET.json"
+}

@@ -8,7 +8,9 @@ This claim loop generalizes theorem-search-verification work using the theorem l
 - Current claim surface: `bridge_backed_frontier_support`.
 - Active route: `finite_check_gap_closure`.
 - Route summary: Convert the sufficiently-large-N theorem into a complete all-N resolution without overstating what is already closed or confusing imported thresholds with repo-owned claims.
-- Next honest move: Promote or reject the local `1..40500` rollout; public raw exact claims remain `1..10000` until that handoff is committed.
+- Next honest move: Write the theorem candidate and proof-obligation surface for the four-anchor obstruction.
+- Public raw exact packet interval: `1..10000`.
+- Local compact rollout evidence interval: `1..40500`.
 
 ## Feature Extractors
 
@@ -40,7 +42,7 @@ This claim loop generalizes theorem-search-verification work using the theorem l
 
 ## Candidate Claims
 
-- `choose_next_finite_gap_move`: ready | Choose the next finite-gap closure move and keep the theorem-facing claim surface honest. | Promote or reject the local `1..40500` rollout; public raw exact claims remain `1..10000` until that handoff is committed.
+- `choose_next_finite_gap_move`: ready | Choose the next finite-gap closure move and keep the theorem-facing claim surface honest. | Write the theorem candidate and proof-obligation surface for the four-anchor obstruction.
 - `explain_next_unmatched_alignment`: ready | Explain structurally why shared-prefix representative `137720141` aligns with the first failure of tail `282`. | If that alignment is structural rather than accidental, it turns a search coincidence into a theorem-facing obstruction class.
 - `explain_completed_vs_search_leader_split`: ready | Explain why completed structured tail `332` differs from current family-aware leader `432`. | That split tells us whether the live frontier is a finite-window artifact or a genuinely better structural continuation class.
 - `model_repair_pool_growth`: ready | Model the repaired square-modulus pool as a growing family rather than treating it as already closed. | Recent packets introduced new square moduli, so the theorem lane should aim for controlled growth, not premature closure.

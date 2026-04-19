@@ -1,0 +1,53 @@
+{
+  "schema_version": "1.0.0",
+  "profile_id": "p848-mod50-generator-source-import-single",
+  "label": "Problem 848 mod-50 generator/source-import theorem audit",
+  "description": "Single-lane bounded ORP/OpenAI profile for a future source-audit pass on the missing mod-50 all-future recurrence, finite-Q partition, or original family-menu generator theorem. This profile is prepared locally and must not execute without the local usage/budget guard.",
+  "execution_policy": {
+    "live_requires_execute": true,
+    "process_only": true,
+    "secrets_not_persisted": true,
+    "default_timeout_sec": 180,
+    "estimated_cost_usd": 1,
+    "budget_note": "Use only after ./bin/erdos orp research usage --json confirms remaining local daily run count and USD guard, and only if a future approval packet releases this exact single-lane mod-50 profile."
+  },
+  "call_moments": [
+    {
+      "moment_id": "plan",
+      "label": "Local profile preparation",
+      "calls_api": false,
+      "description": "Create the exact source/import prompt without resolving credentials or making a live call."
+    },
+    {
+      "moment_id": "p848_mod50_generator_source_import",
+      "label": "P848 mod-50 all-future recurrence/generator theorem",
+      "calls_api": true,
+      "secret_alias": "openai-primary",
+      "env_var": "OPENAI_API_KEY",
+      "description": "Run one bounded source-audit pass asking only for the mod-50 all-future recurrence, finite-Q partition, or original family-menu generator theorem."
+    }
+  ],
+  "lanes": [
+    {
+      "lane_id": "p848_mod50_generator_source_import",
+      "call_moment": "p848_mod50_generator_source_import",
+      "label": "P848 mod-50 generator/source-import theorem",
+      "provider": "openai",
+      "model": "gpt-5.4",
+      "adapter": "openai_responses",
+      "role": "Analyze only the supplied Problem 848 mod-50 finite replay, source-theorem blocker, source-archaeology wedge, and live-wedge decision blocker artifacts as a source-import theorem audit. Return a concise verdict first. Decide whether an importable or repo-recoverable theorem proves an all-future relevant-pair recurrence, finite-Q partition, or original family-menu generator theorem covering every future mod-50 square-witness row. Name exact hypotheses, constants, denominator/partition objects, generator source, and proof boundary. Explicitly reject finite restored-menu replay, the 280-row finite menu, the current square-witness pool, the incomplete max-output-token wedge, q-cover expansion, singleton descent, fallback selector ladders, and bounded evidence as all-N proof.",
+      "env_var": "OPENAI_API_KEY",
+      "secret_alias": "openai-primary",
+      "reasoning_effort": "medium",
+      "text_verbosity": "medium",
+      "max_output_tokens": 8192
+    }
+  ],
+  "synthesis": {
+    "style": "source_or_gap_first",
+    "require_disagreements": true,
+    "require_open_questions": true,
+    "require_generator_or_partition_statement": true,
+    "require_exact_hypotheses_constants_and_denominators": true
+  }
+}

@@ -7,6 +7,7 @@ import { buildSunflowerStatusSnapshot } from '../runtime/sunflower.js';
 import { getProblemArtifactInventory } from '../runtime/problem-artifacts.js';
 import { getOrpStatus } from '../runtime/orp.js';
 import { getWorkspaceSummary } from '../runtime/workspace.js';
+import { buildWorktreeHygieneReport } from '../runtime/worktree-hygiene.js';
 
 function printWorkspaceTheoremLoop(prefix, theoremLoop, claimLoop, claimPass, formalization, formalizationWork, taskList) {
   if (!theoremLoop) {
@@ -73,12 +74,47 @@ function printWorkspaceTheoremLoop(prefix, theoremLoop, claimLoop, claimPass, fo
   }
 }
 
+function printResearchApi(researchStack) {
+  if (!researchStack?.researchApi) {
+    return;
+  }
+  console.log(`Research API status: ${researchStack.researchApi.statusCommand}`);
+  console.log(`Research API plan: ${researchStack.researchApi.planCommand}`);
+  console.log(`Research API smoke: ${researchStack.researchApi.openaiSmokeCommand}`);
+  console.log(`Research API live calls: ${researchStack.researchApi.liveCallsRequireExecute ? 'opt-in with --execute and --allow-paid' : 'not gated'}`);
+  if (researchStack.researchApi.usageCommand) {
+    console.log(`Research API usage: ${researchStack.researchApi.usageCommand}`);
+  }
+}
+
 export function runWorkspaceCommand(args) {
   const [subcommand, ...rest] = args;
 
   if (!subcommand || subcommand === 'help' || subcommand === '--help') {
     console.log('Usage:');
     console.log('  erdos workspace show');
+    console.log('  erdos workspace hygiene [--json]');
+    return 0;
+  }
+
+  if (subcommand === 'hygiene') {
+    const asJson = rest.includes('--json');
+    const report = buildWorktreeHygieneReport(process.cwd());
+    if (asJson) {
+      console.log(JSON.stringify(report, null, 2));
+      return 0;
+    }
+    console.log(`Worktree hygiene: ${report.status}`);
+    console.log(`Dirty paths: ${report.dirtyCount ?? '(unknown)'}`);
+    if (report.summary) {
+      console.log(`By category: ${Object.entries(report.summary.byCategory).map(([key, value]) => `${key}=${value}`).join(', ') || 'none'}`);
+      console.log(`Unclassified: ${report.unclassifiedCount}`);
+      console.log(`Scratch/output: ${report.scratchCount}`);
+    }
+    console.log(`Required action: ${report.requiredAction}`);
+    for (const check of report.recommendedNextChecks ?? []) {
+      console.log(`Next check: ${check}`);
+    }
     return 0;
   }
 
@@ -185,6 +221,7 @@ export function runWorkspaceCommand(args) {
       console.log(`Research formalization refresh: ${researchStack.writeback.formalizationRefreshCommand ?? '(none)'}`);
       console.log(`Research formalization work refresh: ${researchStack.writeback.formalizationWorkRefreshCommand ?? '(none)'}`);
       console.log(`Research task list refresh: ${researchStack.writeback.taskListRefreshCommand ?? '(none)'}`);
+      printResearchApi(researchStack);
     }
     if (problem?.cluster === 'number-theory') {
       const numberTheory = buildNumberTheoryStatusSnapshot(problem);
@@ -237,6 +274,7 @@ export function runWorkspaceCommand(args) {
       if (researchStack.writeback.sourceRefreshCommand) {
         console.log(`Research source refresh: ${researchStack.writeback.sourceRefreshCommand}`);
       }
+      printResearchApi(researchStack);
     }
     if (problem?.cluster === 'graph-theory') {
       const graphTheory = buildGraphTheoryStatusSnapshot(problem);
@@ -264,6 +302,7 @@ export function runWorkspaceCommand(args) {
       console.log(`Research formalization refresh: ${researchStack.writeback.formalizationRefreshCommand ?? '(none)'}`);
       console.log(`Research formalization work refresh: ${researchStack.writeback.formalizationWorkRefreshCommand ?? '(none)'}`);
       console.log(`Research task list refresh: ${researchStack.writeback.taskListRefreshCommand ?? '(none)'}`);
+      printResearchApi(researchStack);
     }
   }
   return 0;

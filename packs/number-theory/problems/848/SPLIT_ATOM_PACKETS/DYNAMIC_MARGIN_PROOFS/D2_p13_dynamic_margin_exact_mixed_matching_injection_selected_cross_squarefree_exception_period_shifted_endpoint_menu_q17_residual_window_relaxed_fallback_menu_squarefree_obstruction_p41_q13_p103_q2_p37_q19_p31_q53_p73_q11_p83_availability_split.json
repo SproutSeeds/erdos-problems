@@ -1,0 +1,144 @@
+{
+  "schema": "erdos.number_theory.p848_endpoint_obstruction_availability_split/1",
+  "generatedAt": "2026-04-17T01:47:50.858Z",
+  "problemId": "848",
+  "status": "first_p83_available_square_obstruction_subclass_emitted",
+  "activeAtom": "D2_p13_q17_endpoint_menu_squarefree_obstruction_p23_q29_p41_q13_p103_q2_p37_q19_p31_q53_p73_q11_p83_availability_split",
+  "sourceObstructionSubclassRepair": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DYNAMIC_MARGIN_PROOFS/D2_p13_dynamic_margin_exact_mixed_matching_injection_selected_cross_squarefree_exception_period_shifted_endpoint_menu_q17_residual_window_relaxed_fallback_menu_squarefree_obstruction_p41_q13_p103_q2_p37_q19_p31_q53_p73_q11_subclass_repair.json",
+  "target": {
+    "description": "q17 p73/q11 obstruction subclass p83 availability split",
+    "outsider": 6323,
+    "residualClass": {
+      "residue": "19337872254145532845356734605486379057",
+      "modulus": "50866984466246403010211938290336428100"
+    },
+    "endpointPrime": 83,
+    "endpointPrimeSquare": 6889,
+    "window": 28500,
+    "obstructionPrimeLimit": 257
+  },
+  "availabilitySplit": {
+    "kFormulaInParameter": "k_83(t) = (3454*t + 1053) mod 6889",
+    "maxK": 1139,
+    "period": 6889,
+    "availableResidueCount": 1140,
+    "unavailableResidueCount": 5749,
+    "universallyWithinWindow": false,
+    "firstAvailableResidue": {
+      "tResidue": 0,
+      "k": 1053
+    },
+    "firstUnavailableResidue": {
+      "tResidue": 1,
+      "k": 4507
+    }
+  },
+  "representativeAudit": {
+    "parameterResidue": 0,
+    "boundedFamilyParameter": 0,
+    "left": "19337872254145532845356734605486379057",
+    "k": 1053,
+    "delta": -26339,
+    "right": "19337872254145532845356734605486352718",
+    "squarefreeStatus": "exact_squarefree",
+    "squareDivisorPrime": null,
+    "squareDivisor": null,
+    "factorCertificateId": "p848_q17_p73_q11_p83_factor_certificate"
+  },
+  "firstAvailableSquareObstruction": {
+    "endpointPrime": 83,
+    "endpointPrimeSquare": 6889,
+    "tResidueModuloEndpointPrimeSquare": 0,
+    "boundedFamilyParameter": 0,
+    "obstructionPrime": 17,
+    "obstructionSquare": 289,
+    "rootResiduesModuloObstructionSquare": [
+      201,
+      275
+    ],
+    "selectedRootResidueModuloObstructionSquare": 201,
+    "boundedFamilyParameterModuloObstructionSquare": 0,
+    "boundedWitnessAvoidsObstruction": true,
+    "tCongruence": {
+      "residue": 1384689,
+      "modulus": 1990921,
+      "expression": "t == 1384689 mod 1990921"
+    },
+    "leftCongruence": {
+      "residue": "70434973191454519683340203976042263775739957",
+      "modulus": "101272147580523754927494162392934891769280100",
+      "expression": "left == 70434973191454519683340203976042263775739957 mod 101272147580523754927494162392934891769280100"
+    },
+    "endpoint": {
+      "k": 1053,
+      "delta": -26339,
+      "rightResidue": "70434973191454519683340203976042263775713618",
+      "rightExpression": "right == left -26339"
+    },
+    "squareDivisibilityWitness": {
+      "expression": "17^2 | left*right+1",
+      "crossProductPlusOneAtResidue": "4961085448480916885902904740912560589948341305603314235283304562021152884192273671634427",
+      "residueModuloObstructionSquare": 0
+    },
+    "checkedPrimeSummaries": [
+      {
+        "prime": 2,
+        "square": 4,
+        "rootCount": 0
+      },
+      {
+        "prime": 3,
+        "square": 9,
+        "rootCount": 0
+      },
+      {
+        "prime": 5,
+        "square": 25,
+        "rootCount": 0
+      },
+      {
+        "prime": 7,
+        "square": 49,
+        "rootCount": 0
+      },
+      {
+        "prime": 11,
+        "square": 121,
+        "rootCount": 0
+      },
+      {
+        "prime": 13,
+        "square": 169,
+        "rootCount": 0
+      },
+      {
+        "prime": 17,
+        "square": 289,
+        "rootCount": 2
+      }
+    ]
+  },
+  "claims": {
+    "provesEndpointFormulas": true,
+    "provesRepresentativeRepair": true,
+    "provesAvailabilitySplit": true,
+    "provesAvailableSubfamilySquarefreeHitting": false,
+    "disprovesUniversalAvailableResidueFamily": true,
+    "provesAllN": false,
+    "provesCollisionFreeMatching": false
+  },
+  "proofBoundary": "This packet splits p83 availability and proves the first available residue family is itself not globally squarefree. It does not invalidate the representative repair.",
+  "nextTheoremOptions": [
+    {
+      "id": "split_q17_p41_q13_p103_q2_p37_q19_p31_q53_p73_q11_p83_available_square_obstruction_subclass",
+      "status": "next",
+      "statement": "Split the p83-available residue family by the emitted square obstruction and test alternate endpoints on that subclass."
+    },
+    {
+      "id": "route_p83_unavailable_residues",
+      "status": "later",
+      "statement": "Route the first p83-unavailable residue family to alternate endpoints or a successor atom."
+    }
+  ],
+  "recommendedNextAction": "split_q17_p41_q13_p103_q2_p37_q19_p31_q53_p73_q11_p83_available_square_obstruction_subclass"
+}

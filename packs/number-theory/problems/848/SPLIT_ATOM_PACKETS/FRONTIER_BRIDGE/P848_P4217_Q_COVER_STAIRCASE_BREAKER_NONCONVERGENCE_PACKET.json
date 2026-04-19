@@ -1,0 +1,143 @@
+{
+  "schema": "erdos.number_theory.p848_p4217_q_cover_staircase_breaker_nonconvergence_packet/1",
+  "packetId": "P848_P4217_Q_COVER_STAIRCASE_BREAKER_NONCONVERGENCE_PACKET",
+  "problemId": 848,
+  "generatedAt": "2026-04-18T03:22:25.619Z",
+  "status": "q_cover_staircase_nonconvergence_blocker_emitted_theorem_wedge_required",
+  "target": "prove_p848_p4217_q_cover_staircase_breaker_for_q193_q389_successor_surface_or_emit_nonconvergence_blocker",
+  "recommendedNextAction": "derive_p848_q_cover_parametric_transition_theorem_or_route_to_independent_282_841_binding",
+  "coversPrimaryNextAction": {
+    "stepId": "prove_p848_p4217_q_cover_staircase_breaker_for_q193_q389_successor_surface_or_emit_nonconvergence_blocker",
+    "status": "completed_by_nonconvergence_blocker",
+    "tokenId": "p848_p4217_q_cover_staircase_breaker_q193_q389"
+  },
+  "sourcePackets": [
+    "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_POST31_Q_AVOIDING_POST8_31_BUCKET_Q_AVOIDING_BATCH_COVER_CONVERGENCE_ASSEMBLY_PACKET.json"
+  ],
+  "sourcePacketDigests": {
+    "qCoverConvergenceAssemblySha256": "7ea254dd7fff1f2e60c4f65ebbe5e14dcf834abb125d2fe240b7d0f6feab7ce2"
+  },
+  "breakerResult": {
+    "kind": "nonconvergence_blocker",
+    "result": "stop_finite_q_cover_staircase_before_any_next_cover",
+    "reason": "The q-cover/rank-boundary loop has repeatedly consumed a finite token and emitted a larger successor surface without proving a global well-founded decreasing measure.",
+    "completedAllowedDirective": "nonconvergence_blocker_packet_explaining_why_the_q_cover_staircase_must_stop_before_more_compute"
+  },
+  "measuredSurface": {
+    "sourceAssemblyStatus": "post31_q_avoiding_post8_successor_31_bucket_q_avoiding_batch_cover_convergence_assembly_selects_33_bucket_post9_successor_rank_compression",
+    "frontierOpenObligationCountBefore": 77,
+    "frontierOpenObligationCountAfter": 77,
+    "frontierDelta": 0,
+    "emittedBucketCount": 33,
+    "emittedPrimes": [
+      193,
+      199,
+      211,
+      223,
+      227,
+      229,
+      233,
+      239,
+      241,
+      251,
+      257,
+      263,
+      269,
+      271,
+      277,
+      281,
+      283,
+      293,
+      307,
+      311,
+      313,
+      317,
+      331,
+      337,
+      347,
+      349,
+      353,
+      359,
+      367,
+      373,
+      379,
+      383,
+      389
+    ],
+    "emittedRootChildCount": "249896344218379596446894067067500277109227014687759173459854431762690",
+    "emittedQAvoidingClassCount": "15536502041475313965667995966751777712392869680929624929606057703977518271",
+    "interpretation": "Local finite covers are closing, but the measured theorem frontier is not decreasing. The method is producing a larger next surface rather than a proof-facing terminal state."
+  },
+  "observedStaircasePattern": {
+    "status": "reproducing_without_a_proved_decreasing_measure",
+    "observedArtifacts": [
+      "p479 q-avoiding batch cover",
+      "13-bucket rank boundary",
+      "15-bucket q-cover/rank handoff",
+      "17-bucket q-cover/rank handoff",
+      "20-bucket q-cover/rank handoff",
+      "22-bucket q-cover/rank handoff",
+      "24-bucket q-cover/rank handoff",
+      "26-bucket q-cover/rank handoff",
+      "29-bucket q-cover/rank handoff",
+      "30-bucket q-cover/rank handoff",
+      "31-bucket q-cover/rank handoff",
+      "q193..q389 33-bucket successor surface"
+    ],
+    "caution": "This list is local artifact evidence, not a theorem that the process is infinite."
+  },
+  "nextAllowedMoves": [
+    {
+      "id": "parametric_transition_theorem",
+      "action": "Prove a theorem that the row-uniform two-root q-cover transition is governed by a finite or well-founded parametric mechanism.",
+      "completionRule": "Name the well-founded measure and prove it decreases, or prove a finite periodic/denominator partition covering all future q-cover surfaces."
+    },
+    {
+      "id": "structural_complement_decomposition",
+      "action": "Decompose the p4217 complement into structural square-obstruction families instead of following the next q-prime surface.",
+      "completionRule": "Every child is terminal, blocked, or assigned a strictly smaller named rank token."
+    },
+    {
+      "id": "independent_282_841_binding",
+      "action": "Use the independent 282/841 live-family binding lane while the q-cover lane is blocked from further finite expansion.",
+      "completionRule": "Bind the synthetic 282/841 row to a live family-menu row or emit the exact chronology/source blocker."
+    },
+    {
+      "id": "budgeted_theorem_wedge",
+      "action": "If local theorem extraction stalls, use one ORP/OpenAI theorem-wedge call only inside the local daily budget guard.",
+      "completionRule": "The API answer must become an audited local packet before it can change canonical proof status."
+    }
+  ],
+  "forbiddenMovesBeforeNewTheorem": [
+    "run_q193_singleton_child_descent",
+    "run_q197_singleton_child_descent",
+    "emit_naked_33_bucket_rank_boundary",
+    "launch_q193_q389_successor_q_cover",
+    "extend_to_a_larger_q_cover_without_a_decreasing_measure"
+  ],
+  "theoremWedgeQuestion": "Given the Problem 848 p4217 complement artifacts, can the repeated q-cover transition be expressed as a finite/parametric theorem? If yes, name the exact state variables and well-founded measure or finite partition. If no, identify the structural obstruction that proves this q-cover lane cannot be used as the all-N closure route.",
+  "oneNextAction": {
+    "stepId": "derive_p848_q_cover_parametric_transition_theorem_or_route_to_independent_282_841_binding",
+    "action": "Derive a parametric q-cover transition theorem from the row-uniform two-root law, or route work to the independent 282/841 live-family binding lane while this finite q-cover staircase remains blocked.",
+    "coveredFamily": "All 15,536,502,041,475,313,965,667,995,966,751,777,712,392,869,680,929,624,929,606,057,703,977,518,271 q-avoiding classes and 249,896,344,218,379,596,446,894,067,067,500,277,109,227,014,687,759,173,459,854,431,762,690 root children across q in {193,199,211,223,227,229,233,239,241,251,257,263,269,271,277,281,283,293,307,311,313,317,331,337,347,349,353,359,367,373,379,383,389}.",
+    "finiteDenominatorOrRankToken": "p848_p4217_q_cover_staircase_breaker_q193_q389",
+    "failureBoundary": "If no parametric transition theorem is found locally, keep the finite q-cover lane blocked and use either structural complement decomposition, the independent 282/841 binding lane, or one budget-guarded theorem-wedge call.",
+    "whyCheaperThanAnotherQCover": "Another q-cover would reproduce the same larger-boundary pattern. A theorem wedge is the first move that can collapse the method or honestly retire it.",
+    "completionRule": "No more q-cover/rank-boundary finite expansion until a decreasing measure, finite partition, structural cover, or audited theorem-wedge packet exists.",
+    "command": "node packs/number-theory/problems/848/compute/problem848_q_cover_staircase_breaker_nonconvergence.mjs --write-defaults --pretty"
+  },
+  "proofBoundary": "This packet blocks the repeated finite q-cover method after the q193..q389 successor surface. It does not close the 249896344218379596446894067067500277109227014687759173459854431762690 root children, the 15536502041475313965667995966751777712392869680929624929606057703977518271 q-avoiding classes, the p4217 complement, the 282/841 live-family binding, or Problem 848.",
+  "claims": {
+    "completesStaircaseBreakerByNonconvergenceBlocker": true,
+    "blocksNextQCoverUntilParametricTheoremExists": true,
+    "blocksNakedRankBoundaryUntilDecreasingMeasureExists": true,
+    "descendsIntoQ193Singleton": false,
+    "descendsIntoQ197Singleton": false,
+    "launchesAnotherQCover": false,
+    "provesParametricTransitionTheorem": false,
+    "provesStructuralComplementDecomposition": false,
+    "provesP4217ComplementCoverage": false,
+    "proves282841LiveFamilyBinding": false,
+    "provesAllN": false
+  }
+}

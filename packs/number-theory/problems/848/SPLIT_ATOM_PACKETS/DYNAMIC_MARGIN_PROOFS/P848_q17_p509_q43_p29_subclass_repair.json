@@ -1,0 +1,142 @@
+{
+  "schema": "erdos.number_theory.p848_endpoint_availability_obstruction_repair/1",
+  "generatedAt": "2026-04-17T02:15:26.644Z",
+  "problemId": "848",
+  "status": "representative_repair_found_universal_window_squarefree_lift_needed",
+  "activeAtom": "D2_p13_q17_endpoint_menu_squarefree_obstruction_p23_q29_p41_q13_p103_q2_p37_q19_p31_q53_p73_q11_p83_q17_p509_q43_subclass",
+  "sourceAvailabilitySplit": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DYNAMIC_MARGIN_PROOFS/P848_q17_p83_q17_p509_availability_split.json",
+  "target": {
+    "description": "q17 p41/q13/p103 parity/p37/q19/p31/q53/p73/q11/p83/q17/p509/q43 square-obstruction subclass alternate-endpoint repair probe",
+    "outsider": 6323,
+    "residualClass": {
+      "residue": "7031700794073966078153710526635826514162061609350757",
+      "modulus": "48513487455255588983234342795722410720087709680396900"
+    },
+    "start": "7031700794073966078153710526635826514162061609350757",
+    "end": "7031700794073966078153710526635826514162061609350757",
+    "visitedRowCount": 1,
+    "window": 28500,
+    "testedEndpointPrimes": [
+      29
+    ],
+    "blockedEndpointPrime": 509,
+    "blockedSquareDivisor": 1849,
+    "squareCheck": {
+      "mode": "factor",
+      "checkedPrimeLimit": null,
+      "factorCertificate": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DYNAMIC_MARGIN_PROOFS/P848_q17_p509_q43_p29_factor_certificate.json"
+    }
+  },
+  "obstructionSummary": {
+    "tCongruence": {
+      "residue": 69433708,
+      "modulus": 479040769,
+      "expression": "t == 69433708 mod 479040769"
+    },
+    "leftCongruence": {
+      "residue": "7031700794073966078153710526635826514162061609350757",
+      "modulus": "48513487455255588983234342795722410720087709680396900",
+      "expression": "left == 7031700794073966078153710526635826514162061609350757 mod 48513487455255588983234342795722410720087709680396900"
+    },
+    "squareDivisibilityWitness": {
+      "expression": "43^2 | left*right+1",
+      "crossProductPlusOneAtResidue": "49444816057380445096970495709100039710588001895311872443600112010281207898081487443226085772248862215577",
+      "residueModuloObstructionSquare": 0
+    }
+  },
+  "firstRepair": {
+    "left": "7031700794073966078153710526635826514162061609350757",
+    "alternateEndpoint": {
+      "prime": 29,
+      "k": 330,
+      "delta": -8264,
+      "right": "7031700794073966078153710526635826514162061609342493",
+      "withinWindow": true,
+      "squarefreeStatus": "exact_squarefree",
+      "squareDivisorPrime": null,
+      "squareDivisor": null,
+      "checkedSquarePrimeLimit": null,
+      "factorCertificateId": "p848_q17_p509_q43_p29_factor_certificate"
+    },
+    "blockedEndpoint": null,
+    "availabilityRule": {
+      "window": 28500,
+      "maxK": 1139,
+      "minimalWindowForMaxK": 28489,
+      "criterion": "within window 28500 iff k_29(left) <= 1139",
+      "leftParameterization": "left = 7031700794073966078153710526635826514162061609350757 + 48513487455255588983234342795722410720087709680396900*t",
+      "kFormulaInT": "k_29(t) = (0*t + 330) mod 841",
+      "tPeriod": 1,
+      "stepGcdWithPrimeSquare": 841,
+      "availableResidueCount": 1,
+      "unavailableResidueCount": 0,
+      "density": 1,
+      "universallyWithinWindow": true,
+      "firstAvailableTResidues": [
+        {
+          "tResidue": 0,
+          "k": 330
+        }
+      ],
+      "firstUnavailableTResidue": null
+    }
+  },
+  "firstUnrepairedRow": null,
+  "rowSamples": [
+    {
+      "left": "7031700794073966078153710526635826514162061609350757",
+      "leftModResidualClass": "7031700794073966078153710526635826514162061609350757",
+      "blockedEndpoint": null,
+      "alternateEndpoint": {
+        "prime": 29,
+        "k": 330,
+        "delta": -8264,
+        "right": "7031700794073966078153710526635826514162061609342493",
+        "withinWindow": true,
+        "squarefreeStatus": "exact_squarefree",
+        "squareDivisorPrime": null,
+        "squareDivisor": null,
+        "checkedSquarePrimeLimit": null,
+        "factorCertificateId": "p848_q17_p509_q43_p29_factor_certificate"
+      },
+      "withinWindowUsableEndpoints": [
+        {
+          "prime": 29,
+          "k": 330,
+          "delta": -8264,
+          "right": "7031700794073966078153710526635826514162061609342493",
+          "withinWindow": true,
+          "squarefreeStatus": "exact_squarefree",
+          "squareDivisorPrime": null,
+          "squareDivisor": null,
+          "checkedSquarePrimeLimit": null,
+          "factorCertificateId": "p848_q17_p509_q43_p29_factor_certificate"
+        }
+      ],
+      "blockedWithinWindowEndpoints": [],
+      "nearestUsableOutsideWindow": []
+    }
+  ],
+  "claims": {
+    "provesEndpointFormulas": true,
+    "provesRepresentativeRepair": true,
+    "provesSubclassCoverage": false,
+    "provesSymbolicSquarefreeHitting": false,
+    "provesAllN": false,
+    "provesCollisionFreeMatching": false
+  },
+  "proofBoundary": "This packet repairs the emitted p41/q13/p103 parity/p37/q19/p31/q53/p73/q11/p83/q17/p509/q43 square-obstruction representative with an alternate endpoint. Because the alternate endpoint is not yet proved across the full subclass, this is a split/availability handoff rather than a subclass proof.",
+  "nextTheoremOptions": [
+    {
+      "id": "prove_q17_p41_q13_p103_q2_p37_q19_p31_q53_p73_q11_p83_q17_p509_q43_p29_symbolic_squarefree_lift",
+      "status": "next",
+      "statement": "The p29 endpoint is universally inside the window on the p41/q13/p103 parity/p37/q19/p31/q53/p73/q11/p83/q17/p509/q43 subclass; prove the symbolic squarefree lift for that endpoint or emit its first square-divisor subprogression."
+    },
+    {
+      "id": "emit_p41_q13_p103_q2_p37_q19_p31_q53_p73_q11_p83_q17_p509_q43_square_obstruction_successor",
+      "status": "fallback",
+      "statement": "If the alternate endpoint cannot be lifted, emit the p41/q13/p103 parity/p37/q19/p31/q53/p73/q11/p83/q17/p509/q43 obstruction subclass as the next deterministic successor atom."
+    }
+  ],
+  "recommendedNextAction": "prove_q17_p41_q13_p103_q2_p37_q19_p31_q53_p73_q11_p83_q17_p509_q43_p29_symbolic_squarefree_lift"
+}

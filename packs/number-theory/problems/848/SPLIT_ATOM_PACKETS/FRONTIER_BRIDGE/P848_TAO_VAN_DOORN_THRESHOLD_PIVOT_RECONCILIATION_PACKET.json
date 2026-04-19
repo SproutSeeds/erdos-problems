@@ -1,0 +1,113 @@
+{
+  "schema": "erdos.number_theory.p848_tao_van_doorn_threshold_pivot_reconciliation_packet/1",
+  "packetId": "P848_TAO_VAN_DOORN_THRESHOLD_PIVOT_RECONCILIATION_PACKET",
+  "problemId": 848,
+  "generatedAt": "2026-04-18T05:00:14.528Z",
+  "status": "tvd_threshold_pivot_reconciled_direct_route_blocked_dual_sieve_required",
+  "target": "evaluate_p848_tao_van_doorn_threshold_collapse_claim_before_resuming_frontier",
+  "recommendedNextAction": "derive_p848_corrected_square_moduli_dual_sieve_or_union_hitting_threshold_packet",
+  "sourceClaimAudited": {
+    "claim": "A teammate report suggested pausing q-frontier work and using Tao-van Doorn Appendix A, Theorem 16 to collapse the explicit threshold to around 10^6, after which finite verification might finish 848.",
+    "repoResponse": "Pause delegation and reconcile the claim, but do not adopt the threshold-collapse route unless a corrected dual/union-hitting sieve argument is produced."
+  },
+  "inputs": {
+    "taoVanDoornDirectionAudit": {
+      "relativePath": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_TAO_VAN_DOORN_LARGE_SIEVE_DIRECTION_AUDIT_PACKET.json",
+      "sha256": "f6259a45f9708010e3d619534d6febef08df02b9b43f98e2831c9352549d0b08",
+      "status": "large_sieve_reference_verified_direction_mismatch_blocks_threshold_collapse_claim",
+      "versionChecked": "v2, revised 2025-12-07"
+    },
+    "lemma21ExplicitBound": {
+      "relativePath": "packs/number-theory/problems/848/LEMMA21_EXPLICIT_BOUND.md",
+      "sha256": "2216543d63928e02e43f0db65a87ffd06a9427ea0bb7c6af1fb9d5641f6dd71e",
+      "largePrimeTailBottleneckNamed": true
+    },
+    "progressSnapshot": {
+      "relativePath": "packs/number-theory/problems/848/PROGRESS.json",
+      "sha256": "1516761e1d14b7bf09d863815ad6acb5a64103e56782d4ad41f258f5a65308e3",
+      "generatedAt": "2026-04-18T04:58:39.607Z",
+      "openFrontierObligationCount": 80,
+      "currentOpenLeaf": "prepare_p848_p4217_complement_theorem_wedge_or_import_source_cover",
+      "nextBestTheoremMove": "Prepare a p4217-specific theorem wedge or import/source-cover audit for the missing complement cover/impossibility theorem, without live paid execution by default."
+    }
+  },
+  "theoremShape": {
+    "taoVanDoornControls": "upper_bound_for_sets_avoiding_residue_classes_mod_p_squared",
+    "sawhneyBottleneckNeeds": "upper_bound_for_union_or_hitting_sets_in_square_obstruction_classes",
+    "directMismatch": "An upper bound on the avoiding complement does not imply the required upper bound on the union/hitting side.",
+    "correctedRouteNeeded": "A dual lower bound for the avoiding side, a square-moduli sieve for union/hitting sets, or a different explicit threshold extraction with constants."
+  },
+  "numericalReconciliation": {
+    "method": "Recompute sum_{q<=Q} h(q) over squarefree q using the Tao-van Doorn h(q) weights for the two Problem 848 branch-style residue systems.",
+    "hsumTable": [
+      {
+        "Q": 50,
+        "astarHsum": 1.0239827222657203,
+        "astarReciprocal": 0.9765789776094514,
+        "lemma22Hsum": 1.177205267161646,
+        "lemma22Reciprocal": 0.8494695257447287
+      },
+      {
+        "Q": 100,
+        "astarHsum": 1.02607361630732,
+        "astarReciprocal": 0.9745889418722655,
+        "lemma22Hsum": 1.1808591037350578,
+        "lemma22Reciprocal": 0.8468410810713993
+      },
+      {
+        "Q": 1000,
+        "astarHsum": 1.0279035651775665,
+        "astarReciprocal": 0.972853907581548,
+        "lemma22Hsum": 1.1840017585185343,
+        "lemma22Reciprocal": 0.844593340174795
+      },
+      {
+        "Q": 10000,
+        "astarHsum": 1.0280946719241701,
+        "astarReciprocal": 0.9726730692304937,
+        "lemma22Hsum": 1.1843175651289024,
+        "lemma22Reciprocal": 0.8443681234189573
+      }
+    ],
+    "minimumHsumForOneOver25": 25,
+    "maxAstarHsum": 1.0280946719241701,
+    "directCollapseFeasibility": "blocked_by_denominator_size",
+    "interpretation": "For the A* branch, sum h(q) is near 1.028 even at Q=10000, not near 25. The direct reciprocal bound is near 0.973, not 0.04, before the Q^4/N term."
+  },
+  "delegationDecision": {
+    "decision": "keep_clawdad_paused_before_more_q_frontier_compute",
+    "reason": "The q-frontier obligation count is visibly growing, while the proposed analytic shortcut is high-value but not valid in its direct form. The next move should be a corrected analytic packet, not more q-bucket descent and not an all-N claim.",
+    "blockedUntil": [
+      "a corrected square-moduli dual/union-hitting threshold packet is produced",
+      "or a no-go blocker proves the analytic shortcut cannot currently replace the p4217 theorem wedge"
+    ],
+    "forbiddenMovesUntilThen": [
+      "resume_q_bucket_descent_as_default",
+      "claim_N0_around_1e6_from_Tao_van_Doorn_Theorem_16_directly",
+      "claim_exact_verifier_plus_Tao_van_Doorn_decides_848",
+      "spend_paid_or_live_API_budget_without_the_existing_ORP_guard"
+    ]
+  },
+  "oneNextAction": {
+    "stepId": "derive_p848_corrected_square_moduli_dual_sieve_or_union_hitting_threshold_packet",
+    "action": "Derive a corrected square-moduli dual/union-hitting threshold packet: either prove a valid explicit threshold route with hypotheses/constants, or emit a no-go blocker that returns the loop to the p4217 theorem wedge with the analytic shortcut closed.",
+    "finiteDenominatorOrRankToken": "p848_tao_van_doorn_threshold_pivot_reconciliation_dual_sieve_required",
+    "command": "node packs/number-theory/problems/848/compute/problem848_tao_van_doorn_threshold_pivot_reconciliation.mjs --write-defaults --pretty"
+  },
+  "claims": {
+    "reconcilesTeammateTvdPivotClaim": true,
+    "recomputesTvdHsumSanityCheck": true,
+    "preservesPrimarySourceDirectionAudit": true,
+    "blocksDirectThresholdCollapseClaim": true,
+    "keepsDelegationPausedBeforeMoreQFrontierCompute": true,
+    "selectsCorrectedDualOrUnionHittingSieveAsNextAction": true,
+    "madeNewPaidCall": false,
+    "respectsNoPaidByDefault": true,
+    "provesCorrectedDualSieve": false,
+    "provesUnionHittingThresholdBound": false,
+    "provesExplicitN0": false,
+    "decidesProblem848": false
+  },
+  "proofBoundary": "This packet is a pivot reconciliation, not a proof of Problem 848. It blocks the direct Tao-van-Doorn threshold-collapse claim by direction and denominator checks, keeps Clawdad paused from further q-frontier expansion, and requires a corrected dual/union-hitting sieve packet before resuming either the analytic shortcut or the p4217 frontier lane.",
+  "packetPath": "/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_TAO_VAN_DOORN_THRESHOLD_PIVOT_RECONCILIATION_PACKET.json"
+}

@@ -1,0 +1,164 @@
+{
+  "schema": "erdos.number_theory.p848_p4217_post_p479_obstruction_bucket_boundary_convergence_assembly_packet/1",
+  "generatedAt": "2026-04-17T13:44:34Z",
+  "problemId": 848,
+  "status": "post_p479_obstruction_bucket_boundary_convergence_assembly_selects_q109_nonuniform_bucket_structure",
+  "target": "run_p848_convergence_assembly_after_p479_obstruction_bucket_boundaries",
+  "sourcePackets": [
+    "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_COMPLEMENT_P61_Q101_P443_AVAILABILITY_SPLIT_PACKET.json",
+    "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_COMPLEMENT_P61_Q101_P443_Q97_P151_BLOCKER_OPEN_LEAF_PACKET.json",
+    "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_COMPLEMENT_P61_Q101_P443_Q97_P479_REPAIR_HANDOFF_PACKET.json",
+    "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_COMPLEMENT_P61_Q101_P443_Q97_P479_AVAILABILITY_SPLIT_PACKET.json",
+    "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_P443_Q97_P479_AVAILABLE_RESIDUE_BULK_COVER_PACKET.json",
+    "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_POST_P479_AVAILABLE_BULK_COVER_CONVERGENCE_ASSEMBLY_PACKET.json",
+    "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_P443_Q97_P479_AVAILABLE_OBSTRUCTION_BUCKET_BOUNDARY_PACKET.json",
+    "FRONTIER_LEDGER.md",
+    "P4217_COMPLEMENT_STRATEGY_GUARD.md"
+  ],
+  "orpAssembly": {
+    "command": "orp mode breakdown granular-breakdown --topic \"problem 848 | convergence assembly | Explain the 282 First-Failure Mechanism\" --json",
+    "mode": "granular-breakdown",
+    "result": "generic_breakdown_scaffold_returned_repo_writeback_supplies_specific_assembly"
+  },
+  "frontierComparison": {
+    "measureName": "open_frontier_obligation_count",
+    "previousRefreshValueBeforeBucketBoundary": 40,
+    "currentRefreshValueAfterBucketBoundary": 41,
+    "delta": 1,
+    "status": "increased_but_bucket_token_was_compressed",
+    "interpretation": "The open ledger count increased by recording the bucket-boundary object, but the 30-bucket token was consumed into 19 terminal closures, 10 exact partial two-root bucket boundaries, and one exact q109 nonuniform boundary. This is progress only if the next step recombines or further partitions the nonuniform/partial tokens rather than descending into singleton q children."
+  },
+  "assembledPieces": [
+    {
+      "pieceId": "p443_availability_split",
+      "status": "recorded",
+      "claim": "The p443 availability split exposed the selected q97 square-obstruction child and left the p443-unavailable complement open.",
+      "boundary": "It does not close the p443-unavailable complement or the wider p4217 complement."
+    },
+    {
+      "pieceId": "q97_p151_p479_leaf",
+      "status": "resolved_to_p479_availability_split_handoff",
+      "claim": "The p151 route is ledgered as blocked/open, and the p479 reserve is exact-certified as a squarefree representative repair before any deeper selector descent.",
+      "boundary": "Representative repair is not subclass coverage."
+    },
+    {
+      "pieceId": "p479_availability_split",
+      "status": "finite_partition_recorded",
+      "claim": "The selected q97 child is partitioned by the p479 availability formula into 1140 available and 228301 unavailable residues modulo 479^2.",
+      "boundary": "The split itself does not close the available residues, unavailable complement, q97 child, or p4217 complement."
+    },
+    {
+      "pieceId": "p479_available_residue_bulk_cover",
+      "status": "finite_token_classified_no_survivors",
+      "claim": "All 1140 p479-available residue classes are classified by first square-obstruction children with no survivor residues, using obstruction primes up to q=173.",
+      "boundary": "The square-obstruction children are not individually closed by the bulk cover."
+    },
+    {
+      "pieceId": "p479_obstruction_bucket_boundary",
+      "status": "bucket_token_compressed_to_terminal_partial_and_nonuniform_boundaries",
+      "claim": "The 30 obstruction-prime buckets split into 19 terminal full-family buckets covering 422 rows, 10 partial two-root buckets covering 367 rows, and one q109 nonuniform bucket covering 351 rows.",
+      "boundary": "Only the 19 terminal buckets are terminally closed; q109, the 10 partial buckets, their q-avoiding complements, and all upstream complements remain open."
+    }
+  ],
+  "jointTheoremClaimSupported": {
+    "statement": "For the selected p443/q97/p479-available branch, every recorded residue row is either terminally square-obstructed by a full-family q^2 bucket, assigned to an exact two-root partial bucket boundary, or assigned to the exact q109 nonuniform bucket boundary.",
+    "supported": true,
+    "scope": "selected p4217/p61/q101/p443/q97/p479-available branch only",
+    "doesNotClaim": [
+      "q109 bucket closure",
+      "partial bucket closure",
+      "partial q-avoiding complement coverage",
+      "p479-unavailable complement coverage",
+      "q97 child coverage",
+      "p443-unavailable complement coverage",
+      "wider p4217 complement coverage",
+      "all-n proof",
+      "collision-free matching"
+    ]
+  },
+  "finiteMeasureOrNoMeasureYet": {
+    "globalFiniteMeasureDecreased": false,
+    "consumedFiniteToken": {
+      "tokenId": "p443_q97_p479_available_obstruction_prime_buckets",
+      "bucketCount": 30,
+      "totalResidueClasses": 1140,
+      "maxObstructionPrime": 173
+    },
+    "terminalTokenClosed": {
+      "tokenId": "p443_q97_p479_terminal_full_family_square_obstruction_buckets",
+      "bucketCount": 19,
+      "residueClassCount": 422,
+      "status": "terminally_closed_at_bucket_boundary"
+    },
+    "nextFiniteToken": {
+      "tokenId": "p443_q97_p479_nonuniform_obstruction_bucket_q109",
+      "bucketCount": 1,
+      "obstructionPrime": 109,
+      "residueClassCount": 351,
+      "rankDecreaseIfCompleted": "The sole nonuniform bucket blocking a uniform partial-bucket theorem is either compressed into structural subfamilies or replaced by exact subbucket boundaries before any singleton q-child descent."
+    },
+    "parallelOpenFiniteToken": {
+      "tokenId": "p443_q97_p479_partial_two_root_obstruction_bucket_boundaries",
+      "bucketCount": 10,
+      "residueClassCount": 367,
+      "rootChildCount": 734,
+      "qAvoidingClassCount": 5564177,
+      "status": "open_for_later_batch_q_avoiding_cover_or_ranked_transition"
+    }
+  },
+  "compressionCandidate": {
+    "kind": "nonuniform_bucket_structure",
+    "name": "p479_q109_nonuniform_bucket_structure_packet",
+    "coveredFamily": "All 351 p479-available residue rows whose first obstruction bucket is q109 inside the selected p443/q97 branch.",
+    "whyThisCompresses": "q109 is the only bucket that did not fit the terminal/full-family or invertible two-root dichotomy. Classifying it first removes the unique nonuniform obstruction to a clean terminal/partial recombination theorem.",
+    "whyNotQ109SingletonDescent": "The handoff covers the whole q109 bucket as a finite structural family. It is not a repair descent into one q109 root child or a new endpoint selector ladder.",
+    "whyBeforePartialQAvoidingCover": "The partial q-avoiding complement has 5564177 descendant classes across 10 buckets. The q109 bucket is a much smaller 351-row structural blocker whose classification may expose the correct shared invariant before attacking the larger q-avoiding cover."
+  },
+  "exactBoundaryRemainingOutsideAssembly": [
+    "q109 nonuniform bucket structure",
+    "10 partial two-root bucket boundaries",
+    "734 partial root children",
+    "5564177 partial q-avoiding descendant classes",
+    "p479-unavailable complement",
+    "q97 child coverage",
+    "p443-unavailable complement",
+    "wider p4217 complement",
+    "mod-50 all-future relevant-pair recurrence",
+    "all-n recombination"
+  ],
+  "oneNextAction": {
+    "stepId": "derive_p848_p4217_p443_q97_p479_q109_nonuniform_bucket_structure_or_emit_subbucket_boundaries",
+    "action": "Classify the whole q109 nonuniform bucket by its row-shape invariants and either prove a shared structural bucket theorem or emit exact subbucket boundaries with the deterministic successor denominator.",
+    "coveredFamily": "The complete q109 nonuniform bucket: 351 p479-available residue rows from the selected p443/q97 branch, not a singleton q109 child.",
+    "finiteDenominatorOrRankToken": "Finite token p443_q97_p479_nonuniform_obstruction_bucket_q109: q=109, q^2=11881, 351 rows.",
+    "failureBoundary": "If no shared q109 structure is found, emit a deterministic q109 subbucket-boundary packet listing root-count/gcd/invertibility profiles, row counts, and the exact next denominator or blocker for each subbucket.",
+    "whyCheaperThanSingleSelector": "The q109 bucket is finite, already isolated, and is the sole nonuniform blocker. A singleton q109 or q127 child descent would reopen the sibling-ladder anti-pattern while leaving the bucket theorem surface unassembled.",
+    "completionRule": "A q109 structure packet consumes the nonuniform bucket token by proving a shared bucket theorem or by emitting exact subbucket boundaries; it must not claim p479-available, p479-unavailable, q97, p443-unavailable, p4217, or all-n closure."
+  },
+  "oneVerificationCommand": "node --check src/runtime/theorem-loop.js && node --check src/runtime/problem-progress.js && node --test test/p848-282-alignment-obstruction-packet.test.js",
+  "claims": {
+    "runsPostP479ObstructionBucketBoundaryConvergenceAssembly": true,
+    "selectsQ109BucketStructureInsteadOfQChildDescent": true,
+    "namesWholeCoveredFamily": true,
+    "namesFiniteRankToken": true,
+    "opensFreshFallbackSelector": false,
+    "descendsIntoQ109Singleton": false,
+    "descendsIntoQ127Singleton": false,
+    "provesTerminalBucketClosures": true,
+    "provesQ109BucketClosure": false,
+    "provesPartialBucketClosure": false,
+    "provesP479AvailableCoverage": false,
+    "provesP479UnavailableComplementClosed": false,
+    "provesQ97ChildCoverage": false,
+    "provesP443UnavailableComplementClosed": false,
+    "provesP4217ComplementCoverage": false,
+    "provesAllN": false
+  },
+  "coversPrimaryNextAction": {
+    "stepId": "run_p848_convergence_assembly_after_p479_obstruction_bucket_boundaries",
+    "reason": "This assembly is specifically for the current post-bucket-boundary convergence primary action after the p479 obstruction bucket token was compressed."
+  },
+  "recommendedNextAction": "derive_p848_p4217_p443_q97_p479_q109_nonuniform_bucket_structure_or_emit_subbucket_boundaries",
+  "nextTheoremMove": "Classify the whole q109 nonuniform bucket into a shared structural theorem or exact subbucket boundaries before any q109/q127 singleton descent.",
+  "proofBoundary": "This convergence assembly records the post-bucket-boundary frontier and selects q109 whole-bucket structural classification. It closes only the 19 terminal full-family bucket boundaries already proved by the bucket packet. It does not close q109, the 10 partial buckets, their q-avoiding complements, the p479-unavailable complement, the q97 child, the p443-unavailable complement, the wider p4217 complement, prove collision-free matching, or decide Problem 848."
+}

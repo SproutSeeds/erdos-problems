@@ -1,0 +1,107 @@
+{
+  "schema": "erdos.number_theory.p848_mod50_exact_bounded_crt_menu_replay_theorem_packet/1",
+  "packetId": "p848_mod50_exact_bounded_crt_menu_replay_theorem",
+  "generatedAt": "2026-04-17T12:28:04Z",
+  "problemId": 848,
+  "status": "mod50_exact_bounded_crt_menu_replay_theorem_promoted_recurrence_boundary_open",
+  "parentAction": {
+    "stepId": "promote_p848_mod50_exact_bounded_menu_enumerator_or_emit_all_future_recurrence_blocker",
+    "completionRule": "The exact bounded enumerator is promoted as a finite replay theorem with all-future scope explicit, or a symbolic recurrence/finite Q partition is proved, or a precise blocker names the missing universal source theorem."
+  },
+  "sourcePackets": [
+    "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_MOD50_BOUNDED_CRT_MENU_ENUMERATOR_AUDIT_PACKET.json",
+    "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_MOD50_MENU_GENERATOR_RESTORATION_AUDIT_PACKET.json",
+    "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_MOD50_RESTORED_MENU_SEQUENCE_STABILITY_BLOCKER_PACKET.json",
+    "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_MOD50_UNIVERSAL_DOMAIN_COVER_RESIDUAL_PACKET.json",
+    "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_CONVERGENCE_ASSEMBLY_282_FIRST_FAILURE_PACKET.json"
+  ],
+  "theoremObject": {
+    "theoremId": "p848_mod50_exact_bounded_crt_menu_replay_v1",
+    "scope": "Restored finite SIX_PREFIX_NINETEEN through SIX_PREFIX_TWENTY_FOUR family-menu surfaces only.",
+    "statement": "For each restored finite menu in SIX_PREFIX_NINETEEN through SIX_PREFIX_TWENTY_FOUR, the bounded CRT representative enumerator with left anchors 7,32,57, right anchors 82,132,182, distinct six-square tuple rows, and tie order by representative then stored tupleKey display string exactly reproduces the restored menu after taking the first menu limit rows.",
+    "proofInputs": [
+      "Restored finite menu JSON files under output/frontier-engine-local/p848-anchor-ladder/live-frontier-sync/2026-04-05.",
+      "Bounded CRT enumerator script packs/number-theory/problems/848/compute/problem848_mod50_bounded_crt_menu_enumerator.mjs.",
+      "Audit packet P848_MOD50_BOUNDED_CRT_MENU_ENUMERATOR_AUDIT_PACKET.json."
+    ],
+    "verificationCommand": "node packs/number-theory/problems/848/compute/problem848_mod50_bounded_crt_menu_enumerator.mjs --pretty"
+  },
+  "finiteReplayTheorem": {
+    "menuCount": 6,
+    "labels": [
+      "SIX_PREFIX_NINETEEN",
+      "SIX_PREFIX_TWENTY",
+      "SIX_PREFIX_TWENTY_ONE",
+      "SIX_PREFIX_TWENTY_TWO",
+      "SIX_PREFIX_TWENTY_THREE",
+      "SIX_PREFIX_TWENTY_FOUR"
+    ],
+    "limits": [220, 230, 240, 250, 260, 280],
+    "familyCounts": [220, 230, 240, 250, 260, 280],
+    "representativeBounds": [1644258991, 1684455347, 1766364109, 1835206429, 1859125225, 1837022639],
+    "allMenuRowsContained": true,
+    "allNoSmallerExtras": true,
+    "exactOrderedListReproduction": true,
+    "totalMissing": 0,
+    "totalSmallerExtra": 0,
+    "totalSameBoundExtra": 1,
+    "duplicateTiePolicy": {
+      "status": "proved_for_restored_finite_menus",
+      "rule": "Sort by representative ascending, then by the stored tupleKey display string ascending, then take the first menu limit rows.",
+      "duplicateTiePolicyOpen": false
+    },
+    "boundaryExtra": {
+      "label": "SIX_PREFIX_TWENTY_FOUR",
+      "status": "same_representative_extra_excluded_by_recovered_tie_policy_and_limit",
+      "representative": 1837022639,
+      "tuple": [9, 121, 4, 49, 1681, 529],
+      "tupleKey": "9, 11^2, 4, 7^2, 41^2, 23^2"
+    }
+  },
+  "interpretation": {
+    "promotedFiniteClaims": [
+      "The repo now owns an exact bounded CRT replay theorem for the restored finite menu surfaces.",
+      "The finite theorem proves containment of every restored row, no omitted smaller representative, exact order reproduction, and duplicate/equal-representative tie order for the six restored menus.",
+      "The one same-boundary extra is not a missing restored row; it sorts after the included boundary row under the recovered tupleKey tie policy and is outside the finite menu limit."
+    ],
+    "remainingOpen": [
+      "The original family-menu generator is not restored.",
+      "No symbolic all-future relevant-pair recurrence is proved.",
+      "No finite Q partition or universal square-witness domain cover is proved.",
+      "The contrast-only recombination theorem and post-40500 sufficiency remain open."
+    ]
+  },
+  "deterministicBoundary": {
+    "boundaryId": "p848_mod50_all_future_recurrence_source_boundary_after_bounded_replay_theorem",
+    "status": "open_all_future_recurrence_or_finite_q_partition_needed",
+    "blockedInput": "A symbolic all-future relevant-pair recurrence, finite Q partition, original generator source theorem, or a proof that the restored finite bounded replay theorem suffices for the universal mod-50 square-witness domain cover.",
+    "acceptedSuccessors": [
+      "Emit a precise all-future recurrence/source blocker naming the missing theorem and residual denominator surface.",
+      "Restore or prove the original family-menu generator and compare its ordering/source rule with the bounded replay theorem.",
+      "Prove a symbolic relevant-pair recurrence or finite Q partition independent of restored finite snapshots.",
+      "Prove contrast-only recombination and post-40500 sufficiency only after the relevant-pair/Q surface is theorem-facing."
+    ],
+    "forbiddenShortcut": "Do not treat the promoted exact finite replay theorem as original generator restoration, universal relevant-pair enumeration, finite Q partition, universal square-witness coverage, p4217 complement coverage, or all-N closure."
+  },
+  "recommendedNextAction": "derive_p848_mod50_all_future_recurrence_or_emit_source_theorem_blocker",
+  "nextTheoremMove": "Prove a symbolic all-future relevant-pair recurrence or finite Q partition for the mod-50 square-witness domain; if unavailable locally, emit a precise source-theorem blocker at the universal recurrence boundary.",
+  "suggestedVerificationCommand": "node packs/number-theory/problems/848/compute/problem848_mod50_bounded_crt_menu_enumerator.mjs --pretty",
+  "proofBoundary": "This packet promotes the exact bounded CRT enumerator as a finite restored-menu replay theorem. It does not restore the original generator, prove a symbolic all-future recurrence, prove a finite Q partition, close contrast-only recombination, justify 40501+ rollout, cover the p4217 complement, or decide Problem 848.",
+  "claims": {
+    "promotesFiniteReplayTheorem": true,
+    "provesBoundedMenuEnumerator": true,
+    "provesRestoredMenuRowsContained": true,
+    "provesNoSmallerRepresentativesOmitted": true,
+    "provesExactMenuListReproduction": true,
+    "provesDuplicateTiePolicy": true,
+    "provesOriginalGeneratorRestored": false,
+    "uses40501PlusRollout": false,
+    "provesSymbolicRelevantPairRecurrence": false,
+    "provesRelevantPairEnumerator": false,
+    "provesFiniteQPartition": false,
+    "provesUniversalSquareWitnessDomainCover": false,
+    "closesContrastOnlyRecombination": false,
+    "provesP4217ComplementCoverage": false,
+    "provesAllN": false
+  }
+}

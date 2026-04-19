@@ -1,0 +1,92 @@
+{
+  "schema": "erdos.number_theory.p848_p4217_unavailable_complement_refinement_packet/1",
+  "generatedAt": "2026-04-17T05:42:47Z",
+  "problemId": 848,
+  "title": "P848 p4217 Unavailable Complement Refinement",
+  "sourceStaircaseTheoremPacket": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_ENDPOINT_AVAILABILITY_STAIRCASE_THEOREM_V0_PACKET.json",
+  "sourceAvailabilitySplitPacket": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DYNAMIC_MARGIN_PROOFS/P848_q17_p107_q89_p4217_availability_split.json",
+  "status": "p4217_unavailable_complement_parameterized_open",
+  "theoremObject": {
+    "id": "p848_p4217_unavailable_complement_interval_refinement",
+    "status": "proved_exact_parameterization_not_cover",
+    "statement": "The p4217 unavailable complement is exactly the affine inverse image of the selector interval 1140 <= k <= 17783088. Equivalently, it is the deterministic residue family t(s) = 4749600*(s + 937) mod 17783089 for 0 <= s < 17781949.",
+    "notGlobalClosure": "This refines the complement into one deterministic interval obligation. It does not cover the complement, prove it impossible, or decide Problem 848."
+  },
+  "selectorArithmetic": {
+    "endpointPrime": 4217,
+    "endpointPrimeSquare": 17783089,
+    "window": 28500,
+    "selector": "k_4217(t) = (445517*t + 203) mod 17783089",
+    "coefficient": 445517,
+    "constant": 203,
+    "coefficientInverseModuloEndpointPrimeSquare": 4749600,
+    "inverseCheck": "(445517 * 4749600) mod 17783089 = 1",
+    "maxAvailableK": 1139,
+    "unavailableKInterval": {
+      "min": 1140,
+      "max": 17783088,
+      "count": 17781949
+    },
+    "parameterization": {
+      "parameter": "s",
+      "range": "0 <= s < 17781949",
+      "kOfS": "k = 1140 + s",
+      "tOfS": "t(s) = 4749600*(s + 937) mod 17783089",
+      "derivation": "t = 4749600*(k - 203) mod 17783089 and k = 1140 + s, so k - 203 = s + 937."
+    },
+    "samples": [
+      {
+        "s": 0,
+        "k": 1140,
+        "t": 4602950,
+        "selectorCheck": 1140
+      },
+      {
+        "s": 1,
+        "k": 1141,
+        "t": 9352550,
+        "selectorCheck": 1141
+      },
+      {
+        "s": 444580,
+        "k": 445720,
+        "t": 1,
+        "selectorCheck": 445720,
+        "note": "This is the first unavailable residue in t-order from the original split packet."
+      },
+      {
+        "s": 17781948,
+        "k": 17783088,
+        "t": 9151495,
+        "selectorCheck": 17783088
+      }
+    ]
+  },
+  "ledgerRefinement": {
+    "inputObligation": {
+      "kind": "unavailable_complement",
+      "state": "open_uncovered_complement",
+      "residueCount": 17781949
+    },
+    "outputObligation": {
+      "kind": "unavailable_complement_interval",
+      "state": "open_deterministic_interval_cover_needed",
+      "rankToken": "p4217_complement_selector_interval_pending",
+      "residueCount": 17781949
+    },
+    "decreaseClaim": "This is a refinement, not a numeric decrease: the coarse complement is replaced by a single exact interval theorem obligation with a bijective parameterization."
+  },
+  "proof": [
+    "The p4217 selector coefficient satisfies gcd(445517, 17783089) = 1.",
+    "The inverse coefficient is 4749600 because 445517 * 4749600 == 1 mod 17783089.",
+    "The endpoint availability theorem gives unavailable exactly when k_4217(t) > 1139.",
+    "Thus k ranges over the interval 1140 <= k <= 17783088, containing 17781949 residues.",
+    "Substituting k = 1140 + s into t = 4749600*(k - 203) mod 17783089 gives t(s) = 4749600*(s + 937) mod 17783089 for 0 <= s < 17781949.",
+    "Because the selector is a permutation modulo 17783089, this parameterization is bijective onto the unavailable complement."
+  ],
+  "proofBoundary": "The p4217 unavailable complement is now exactly parameterized, but not covered. The next proof must find a fallback selector, impossibility mechanism, finite subcover, or further deterministic refinement for this interval family.",
+  "recommendedNextAction": "prove_p848_p4217_complement_fallback_selector_or_cover",
+  "verification": {
+    "command": "node --test test/cli.test.js test/p848-endpoint-menu-compiler.test.js test/p848-282-alignment-obstruction-packet.test.js"
+  }
+}

@@ -1,0 +1,143 @@
+{
+  "schema": "erdos.number_theory.p848_endpoint_repair_candidate_factorization_boundary/1",
+  "generatedAt": "2026-04-17T04:00:53Z",
+  "problemId": "848",
+  "status": "superseded_by_exact_p4217_certificate",
+  "activeAtom": "D2_p13_q17_endpoint_menu_squarefree_obstruction_p23_q29_p41_q13_p103_q2_p37_q19_p31_q53_p73_q11_p83_q17_p509_q43_p29_q59_p47_q67_p79_q71_p107_q89_subclass",
+  "sourceAvailabilitySplit": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DYNAMIC_MARGIN_PROOFS/P848_q17_p79_q71_p107_availability_split.json",
+  "target": {
+    "description": "q17 p107/q89 obstruction subclass alternate-endpoint repair exact-factor boundary",
+    "outsider": 6323,
+    "window": 28500,
+    "residualClass": {
+      "residue": "760410154648626128533304355898763555393483209652336085943695959179023528577227857",
+      "modulus": "4018151289874337645868852921870587523537603036293953839351606997760601160064480100"
+    },
+    "blockedEndpointPrime": 107,
+    "blockedSquareDivisor": 7921,
+    "blockedSquarePrime": 89
+  },
+  "obstructionSummary": {
+    "tCongruence": {
+      "residue": 17162051,
+      "modulus": 90687529,
+      "expression": "t == 17162051 mod 90687529"
+    },
+    "leftCongruence": {
+      "residue": "760410154648626128533304355898763555393483209652336085943695959179023528577227857",
+      "modulus": "4018151289874337645868852921870587523537603036293953839351606997760601160064480100",
+      "expression": "left == 760410154648626128533304355898763555393483209652336085943695959179023528577227857 mod 4018151289874337645868852921870587523537603036293953839351606997760601160064480100"
+    },
+    "squareDivisibilityWitness": {
+      "expression": "89^2 | left*right+1",
+      "residueModuloObstructionSquare": 0
+    }
+  },
+  "trialRepairCandidates": [
+    {
+      "endpointPrime": 197,
+      "k": 1073,
+      "delta": -26839,
+      "right": "760410154648626128533304355898763555393483209652336085943695959179023528577201018",
+      "withinWindow": true,
+      "trialSquareCheck": {
+        "mode": "trial",
+        "checkedPrimeLimit": 199999,
+        "squarefreeStatus": "no_checked_square_divisor",
+        "squareDivisorPrime": null
+      },
+      "crossProductPlusOne": "578223603292747504993583373411801870241403661961666462785052719615139964842689748190207288652577890221184752484671816177968489728980367074652839360747506678358427",
+      "partialFactorization": {
+        "knownPrimeFactors": [
+          {
+            "factor": "3",
+            "exponent": 1
+          }
+        ],
+        "cofactor": "192741201097582501664527791137267290080467887320555487595017573205046654947563249396735762884192630073728250828223938725989496576326789024884279786915835559452809",
+        "cofactorDigits": 162,
+        "sympyIsPrime": false,
+        "noFactorFoundUpTo": 10000000
+      },
+      "exactCertificateStatus": "not_certified"
+    },
+    {
+      "endpointPrime": 4217,
+      "k": 203,
+      "delta": -5089,
+      "right": "760410154648626128533304355898763555393483209652336085943695959179023528577222768",
+      "withinWindow": true,
+      "trialSquareCheck": {
+        "mode": "trial",
+        "checkedPrimeLimit": 199999,
+        "squarefreeStatus": "no_checked_square_divisor",
+        "squareDivisorPrime": null
+      },
+      "crossProductPlusOne": "578223603292747504993583373411801870241403661961666462785052719615139964842706287111070896270873489590925550592001624437778428038849642461764983122494061384248177",
+      "partialFactorization": {
+        "knownPrimeFactors": [
+          {
+            "factor": "3",
+            "exponent": 1
+          },
+          {
+            "factor": "17",
+            "exponent": 1
+          },
+          {
+            "factor": "43",
+            "exponent": 1
+          },
+          {
+            "factor": "6229",
+            "exponent": 1
+          }
+        ],
+        "cofactor": "42329082317974440997709137973032297428902647740853697994622824225385619610222772564046543126052537133317004915229379520498747422079611477181843213717493341",
+        "cofactorDigits": 155,
+        "sympyIsPrime": false,
+        "noFactorFoundUpTo": 2000000
+      },
+      "exactCertificateStatus": "certified_by_p848_q17_p107_q89_p4217_factor_certificate"
+    }
+  ],
+  "boundedScan": {
+    "endpointPrimeRange": "23 <= p <= 50000, p prime, excluding p=107 and outsider p=6323",
+    "trialSquarePrimeLimit": 199999,
+    "smallFactorLimit": 2000000,
+    "withinWindowEndpointCount": 17,
+    "trialSquarefreeWithinWindowCandidates": [
+      197,
+      4217
+    ],
+    "easyCertificateCriterion": "all small factors removed and remaining cofactor is prime by local sympy.isprime",
+    "easyCertificateFound": false
+  },
+  "claims": {
+    "provesEndpointFormulas": true,
+    "provesRepresentativeRepair": false,
+    "provesExactSquarefree": false,
+    "provesSubclassCoverage": false,
+    "provesAllN": false,
+    "provesCollisionFreeMatching": false
+  },
+  "proofBoundary": "This packet records the bounded trial repair candidates for the p107/q89 representative and the factorization boundary encountered locally. It has since been superseded for p4217 by an exact factor certificate and a p4217 repair packet. It still does not certify p197.",
+  "recommendedNextAction": "split_q17_p41_q13_p103_q2_p37_q19_p31_q53_p73_q11_p83_q17_p509_q43_p29_q59_p47_q67_p79_q71_p107_q89_subclass_by_p4217_availability",
+  "nextTheoremOptions": [
+    {
+      "id": "exact_certify_p197_repair_candidate",
+      "status": "next",
+      "statement": "Finish exact factorization for the p197 cross product, or otherwise prove that it is squarefree, before emitting a p197 repair packet."
+    },
+    {
+      "id": "exact_certify_p4217_repair_candidate",
+      "status": "alternate",
+      "statement": "If p197 remains hard, try exact certification for the later p4217 candidate; it is trial-squarefree within the same representative window but has an unresolved composite cofactor."
+    },
+    {
+      "id": "emit_p107_q89_factorization_blocker",
+      "status": "fallback",
+      "statement": "If no exact local certificate is feasible, keep the p107/q89 child open and route it to a factorization/blocker packet or endpoint-staircase theorem ledger rather than emitting a repair."
+    }
+  ]
+}

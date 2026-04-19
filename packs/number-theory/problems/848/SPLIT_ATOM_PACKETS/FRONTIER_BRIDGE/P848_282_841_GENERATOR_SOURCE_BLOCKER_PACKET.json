@@ -1,0 +1,148 @@
+{
+  "schema": "erdos.number_theory.p848_282_841_generator_source_blocker_packet/1",
+  "generatedAt": "2026-04-17T08:53:56Z",
+  "problemId": 848,
+  "status": "row_level_family_menu_generator_blocked_not_in_local_repo",
+  "sourcePackets": [
+    "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_282_841_SEED_CHRONOLOGY_RECOVERY_PACKET.json",
+    "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_282_841_FIRST_UNAVOIDABILITY_CHRONOLOGY_BLOCKER_PACKET.json",
+    "research/frontier-engine/src/frontier_engine/p848_anchor_search.py",
+    "research/frontier-engine/src/frontier_engine/p848_bundle.py",
+    "research/frontier-engine/src/frontier_engine/cli.py",
+    "research/frontier-engine/experiments/p848-anchor-ladder/FRONTIER_STATE.json",
+    "research/frontier-engine/artifacts/p848-anchor-ladder/p848_anchor_ladder-seeds-20260411T031305Z/manifest.json"
+  ],
+  "representative": 137720141,
+  "targetContinuation": 282,
+  "witnessSquare": 841,
+  "targetRow": {
+    "stableSeedSurface": {
+      "familyCount": 280,
+      "knownFailureMatches": 25,
+      "knownFailurePacketCount": 26,
+      "sharedPrefixFailureCount": 24,
+      "latestDirectFailure": 136702637,
+      "nextUnmatched": 137720141,
+      "bestContinuation": 432
+    },
+    "targetTailFailurePacket": {
+      "packetId": "tail_282_137720141",
+      "n": 137720141,
+      "tail": 282,
+      "kind": "tail_failure"
+    }
+  },
+  "localGeneratorAudit": {
+    "searchedCodePaths": [
+      "research/frontier-engine/src/frontier_engine/p848_anchor_search.py",
+      "research/frontier-engine/src/frontier_engine/p848_bundle.py",
+      "research/frontier-engine/src/frontier_engine/p848_theorem_bridge.py",
+      "research/frontier-engine/src/frontier_engine/cli.py",
+      "research/frontier-engine/experiments/p848-anchor-ladder/README.md",
+      "src/runtime/number-theory.js",
+      "src/runtime/theorem-loop.js"
+    ],
+    "liveFrontierRoots": [
+      {
+        "path": "research/frontier-engine/experiments/p848-anchor-ladder/live-frontier-sync",
+        "exists": false,
+        "role": "repo-synced raw live frontier tree expected by load_live_p848_frontier_snapshot"
+      },
+      {
+        "path": "/tmp/erdos-problems-848-frontier",
+        "exists": false,
+        "role": "temporary raw live frontier tree expected by load_live_p848_frontier_snapshot"
+      }
+    ],
+    "candidateRawMenuPaths": [
+      {
+        "path": "research/frontier-engine/experiments/p848-anchor-ladder/live-frontier-sync/2026-04-05/SIX_PREFIX_TWENTY_FOUR_FAMILY_MENU.json",
+        "exists": false
+      },
+      {
+        "path": "research/frontier-engine/experiments/p848-anchor-ladder/live-frontier-sync/latest/SIX_PREFIX_TWENTY_FOUR_FAMILY_MENU.json",
+        "exists": false
+      },
+      {
+        "path": "C:\\Users\\codyr\\frontier-engine\\experiments\\p848-anchor-ladder\\live-frontier-sync\\latest\\SIX_PREFIX_TWENTY_FOUR_FAMILY_MENU.json",
+        "exists": false,
+        "note": "Recorded source path inside seed manifests; not available on this filesystem."
+      },
+      {
+        "path": "/home/shadeform/frontier-engine/experiments/p848-anchor-ladder/live-frontier-sync/latest/SIX_PREFIX_TWENTY_FOUR_FAMILY_MENU.json",
+        "exists": false,
+        "note": "Recorded source path inside seed manifests; not available on this filesystem."
+      }
+    ],
+    "cliCommandsAudited": [
+      {
+        "command": "p848-live-frontier",
+        "role": "load existing live snapshot",
+        "generatesRawFamilyMenu": false
+      },
+      {
+        "command": "p848-run",
+        "role": "score candidate continuations, consuming the best available family-menu surface when present",
+        "generatesRawFamilyMenu": false
+      },
+      {
+        "command": "p848-run-profile",
+        "role": "score candidate continuations from a profile",
+        "generatesRawFamilyMenu": false
+      },
+      {
+        "command": "export-p848-bundle",
+        "role": "write ranked seed bundles from a p848 search report",
+        "generatesRawFamilyMenu": false
+      },
+      {
+        "command": "export-p848-profile-bundle",
+        "role": "write ranked seed bundles from a p848 profile report",
+        "generatesRawFamilyMenu": false
+      },
+      {
+        "command": "export-p848-theorem-bridge",
+        "role": "write the search-to-theorem bridge from an existing report surface",
+        "generatesRawFamilyMenu": false
+      }
+    ],
+    "seedBundleLimitation": {
+      "latestStableBundle": "research/frontier-engine/artifacts/p848-anchor-ladder/p848_anchor_ladder-seeds-20260411T031305Z",
+      "manifestContainsFamilyMenuSurface": true,
+      "manifestContainsRawFamiliesArray": false,
+      "candidateFilesContainFullFamilyRows": false,
+      "candidateFilesContain": [
+        "candidate continuation",
+        "known packet repairs and misses",
+        "family-menu repair counts",
+        "first missed representatives only",
+        "direct finite scan evidence"
+      ]
+    },
+    "verdict": "The local repo can consume a raw SIX_PREFIX_TWENTY_FOUR_FAMILY_MENU.json and can export seed summaries, but no local source tree or CLI command here regenerates the 280 row-level menu."
+  },
+  "deterministicBoundary": {
+    "blockedObject": "raw 280-row SIX_PREFIX_TWENTY_FOUR family menu regeneration from local seed-generator inputs",
+    "blockedReason": "The local artifacts preserve summary chronology and ranked continuation repair summaries, but not the raw family rows or the generator command that produced them.",
+    "doesNotBlock": [
+      "The recovered 137720141 row binding.",
+      "The lifted 29^2 = 841 witness for continuation 282.",
+      "The stable seed-summary chronology that names 137720141 as next unmatched.",
+      "A future recurrence/order theorem that replaces the raw row menu."
+    ],
+    "nextFalsifiableInput": "A local row-level family-menu source or generator command that emits 280 rows with representatives, tuple keys, known-failure flags, and repair rows for the six-prefix family."
+  },
+  "claims": {
+    "auditsLocalGeneratorSurface": true,
+    "provesLocalRawMenuSourceAbsent": true,
+    "provesLocalGeneratorCommandAbsent": true,
+    "recoversRawFamilyMenuRows": false,
+    "provesChronologyRecurrence": false,
+    "provesFirstStructuralUnavoidability": false,
+    "provesAllN": false
+  },
+  "proofBoundary": "This packet is a generator-source blocker, not a theorem of first structural unavoidability. It narrows the local route: either provide a replayable row-level family-menu source/generator, or prove a recurrence/order theorem from the stable seed-summary chronology and known failure sequence.",
+  "recommendedNextAction": "prove_p848_282_841_ordering_recurrence_from_seed_summary_or_restore_row_menu_source",
+  "nextTheoremMove": "Prove an ordering recurrence from the stable seed-summary chronology and known failure sequence, or restore a replayable row-level family-menu source before claiming first structural unavoidability.",
+  "verificationCommand": "node --test test/p848-282-alignment-obstruction-packet.test.js"
+}

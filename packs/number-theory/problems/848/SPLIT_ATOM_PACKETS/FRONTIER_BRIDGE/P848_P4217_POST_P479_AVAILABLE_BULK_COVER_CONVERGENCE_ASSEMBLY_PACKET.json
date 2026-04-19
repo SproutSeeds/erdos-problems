@@ -1,0 +1,139 @@
+{
+  "schema": "erdos.number_theory.p848_p4217_post_p479_available_bulk_cover_convergence_assembly_packet/1",
+  "generatedAt": "2026-04-17T13:22:31Z",
+  "problemId": 848,
+  "status": "post_p479_available_bulk_cover_convergence_assembly_selects_bucket_compression",
+  "target": "compress_p848_p4217_p443_q97_p479_available_obstruction_buckets_or_emit_bucket_boundaries",
+  "sourcePackets": [
+    "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_COMPLEMENT_P61_Q101_P443_AVAILABILITY_SPLIT_PACKET.json",
+    "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_COMPLEMENT_P61_Q101_P443_Q97_P151_BLOCKER_OPEN_LEAF_PACKET.json",
+    "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_COMPLEMENT_P61_Q101_P443_Q97_P479_REPAIR_HANDOFF_PACKET.json",
+    "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_COMPLEMENT_P61_Q101_P443_Q97_P479_AVAILABILITY_SPLIT_PACKET.json",
+    "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_POST_P479_AVAILABILITY_SPLIT_CONVERGENCE_ASSEMBLY_PACKET.json",
+    "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_P443_Q97_P479_AVAILABLE_RESIDUE_BULK_COVER_PACKET.json"
+  ],
+  "frontierComparison": {
+    "measureName": "open_frontier_obligation_count",
+    "previousRefreshValueBeforeBulkCover": 39,
+    "currentRefreshValueAfterBulkCover": 40,
+    "delta": 1,
+    "status": "increased_but_bulk_classified_finite_token",
+    "interpretation": "The open ledger count increased by recording the bulk-classification object, but the p479-available residue set token was consumed: 1140 residue classes now have no survivors and are grouped into 30 finite obstruction-prime buckets. This is still not global convergence until the buckets are compressed, terminally bounded, or recombined with the remaining complements."
+  },
+  "assembledPieces": [
+    {
+      "pieceId": "p443_availability_split",
+      "status": "recorded",
+      "claim": "The p443 availability split exposed the selected q97 square-obstruction child and left the p443-unavailable complement open.",
+      "boundary": "It does not close the p443-unavailable complement or wider p4217 complement."
+    },
+    {
+      "pieceId": "q97_p151_p479_leaf",
+      "status": "resolved_to_p479_split_handoff",
+      "claim": "The p151 route is ledgered as blocked/open, and the p479 reserve is exact-certified as a squarefree representative repair before any deeper selector descent.",
+      "boundary": "Representative repair is not subclass coverage."
+    },
+    {
+      "pieceId": "p479_availability_split",
+      "status": "finite_partition_recorded",
+      "claim": "The selected q97 child is partitioned by the p479 availability formula k_479(w) = (131596*w + 250) mod 229441 into 1140 available and 228301 unavailable residues.",
+      "boundary": "The split itself does not close the available residues, unavailable complement, q97 child, or p4217 complement."
+    },
+    {
+      "pieceId": "p479_available_residue_bulk_cover",
+      "status": "finite_token_classified_no_survivors",
+      "claim": "All 1140 p479-available residue classes are classified by square-obstruction children with no survivor residues, using obstruction primes up to q=173.",
+      "boundary": "The square-obstruction children are not individually closed; they are now grouped for bucket compression."
+    },
+    {
+      "pieceId": "obstruction_bucket_histogram",
+      "status": "30_buckets_recorded",
+      "claim": "The 1140 covered residues group into 30 obstruction-prime buckets.",
+      "boundary": "A histogram is not yet a theorem over the bucket families."
+    }
+  ],
+  "finiteMeasureOrNoMeasureYet": {
+    "globalFiniteMeasureDecreased": false,
+    "consumedFiniteToken": {
+      "tokenId": "p443_q97_p479_available_residue_set",
+      "residueCount": 1140,
+      "period": 229441,
+      "survivorResidueCount": 0
+    },
+    "nextFiniteToken": {
+      "tokenId": "p443_q97_p479_available_obstruction_prime_buckets",
+      "bucketCount": 30,
+      "totalResidueClasses": 1140,
+      "maxObstructionPrime": 173,
+      "rankDecreaseIfCompleted": "The p479-available branch is replaced by 30 theorem-facing bucket families or exact per-bucket boundaries instead of 1140 separate residue rows or a singleton q127 descent."
+    }
+  },
+  "bucketCompressionCandidate": {
+    "kind": "obstruction_prime_bucket_compression",
+    "name": "p479_available_obstruction_prime_bucket_theorem",
+    "coveredFamily": "All square-obstruction children emitted by the p479-available residue bulk cover for the selected p443/q97 child.",
+    "bucketCount": 30,
+    "totalResidueClasses": 1140,
+    "largestBuckets": [
+      {
+        "obstructionPrime": 109,
+        "residueClassCount": 351
+      },
+      {
+        "obstructionPrime": 2,
+        "residueClassCount": 285
+      },
+      {
+        "obstructionPrime": 113,
+        "residueClassCount": 178
+      },
+      {
+        "obstructionPrime": 127,
+        "residueClassCount": 97
+      },
+      {
+        "obstructionPrime": 131,
+        "residueClassCount": 48
+      }
+    ],
+    "whyThisCompresses": "The no-survivor bulk cover transformed a residue-level finite screen into 30 repeated obstruction-prime mechanisms. Compressing by bucket is the smallest theorem-facing move that can reduce the repeated child shape without opening q127 or another singleton child.",
+    "whyNotSingleQChildDescent": "A q127-only repair would handle one bucket of 97 residues while leaving 29 other buckets and the p479-unavailable complement unassembled."
+  },
+  "bucketBoundaryPlan": {
+    "ifCompressionSucceeds": "Emit a theorem packet proving a shared square-obstruction family or finite boundary for each obstruction-prime bucket.",
+    "ifCompressionFails": "Emit exact bucket-boundary packets listing the bucket prime, residue-class count, root-congruence shape, any nonuniform rows, and the deterministic successor denominator or blocker.",
+    "forbiddenFallback": "Do not descend into q127 or any singleton q-bucket unless the compression packet proves it consumes a finite bucket-rank token."
+  },
+  "oneNextAction": {
+    "stepId": "compress_p848_p4217_p443_q97_p479_available_obstruction_buckets_or_emit_bucket_boundaries",
+    "action": "Compress the 30 p479-available obstruction-prime buckets into theorem-facing families, or emit exact bucket-boundary packets without q127 singleton descent.",
+    "coveredFamily": "The complete 30-bucket square-obstruction classification of all 1140 p479-available residue classes for the selected p443/q97 child.",
+    "finiteDenominatorOrRankToken": "Finite token p443_q97_p479_available_obstruction_prime_buckets: 30 buckets, 1140 total residue classes, period 479^2.",
+    "failureBoundary": "If a shared bucket theorem is unavailable, emit exact per-bucket boundary packets with bucket prime, residue-class count, nonuniform root shapes, and the deterministic successor/blocker for that bucket.",
+    "whyCheaperThanSingleSelector": "The bucket set is finite and already classified; compressing 30 buckets attacks the repeated child shape directly, while q127 descent would reopen the sibling-ladder anti-pattern.",
+    "completionRule": "A bucket-compression packet proves a shared theorem over the obstruction buckets, or emits exact per-bucket boundaries that consume a finite bucket-rank token."
+  },
+  "oneVerificationCommand": "node --check src/runtime/theorem-loop.js && node --check src/runtime/problem-progress.js && node --test test/p848-282-alignment-obstruction-packet.test.js",
+  "claims": {
+    "runsPostP479AvailableBulkCoverConvergenceAssembly": true,
+    "selectsBucketCompressionInsteadOfQChildDescent": true,
+    "namesWholeCoveredFamily": true,
+    "namesFiniteBucketRankToken": true,
+    "opensFreshFallbackSelector": false,
+    "provesBucketCompression": false,
+    "provesQ127ChildCoverage": false,
+    "provesP479AvailableFamilyCoverage": false,
+    "provesP479UnavailableComplementClosed": false,
+    "provesQ97ChildCoverage": false,
+    "provesP443UnavailableComplementClosed": false,
+    "provesP4217ComplementCoverage": false,
+    "provesAllN": false
+  },
+  "coversPrimaryNextAction": {
+    "stepId": "compress_p848_p4217_p443_q97_p479_available_obstruction_buckets_or_emit_bucket_boundaries",
+    "reason": "This assembly is specifically for the current bucket-compression primary action after the p479-available bulk cover."
+  },
+  "recommendedNextAction": "compress_p848_p4217_p443_q97_p479_available_obstruction_buckets_or_emit_bucket_boundaries",
+  "nextTheoremMove": "Compress the 30 obstruction-prime buckets into theorem-facing families, or emit exact bucket-boundary packets; do not descend into q127 or any singleton q-bucket unless a finite bucket-rank token is consumed.",
+  "proofBoundary": "This convergence assembly records the post-bulk-cover frontier and selects bucket compression. It does not prove a bucket theorem, close any square-obstruction bucket, close q127 or q127-avoiding children, close the p479-unavailable complement, close the q97 child, close the p443-unavailable complement, close the wider p4217 complement, prove collision-free matching, or decide Problem 848."
+}

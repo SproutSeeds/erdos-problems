@@ -1,0 +1,159 @@
+{
+  "schema": "erdos.number_theory.p848_282_841_live_family_binding_packet/1",
+  "generatedAt": "2026-04-17T08:25:29Z",
+  "problemId": 848,
+  "status": "live_family_binding_recorded_first_unavoidability_open",
+  "sourceAlignmentPacket": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_282_ALIGNMENT_OBSTRUCTION_PACKET.json",
+  "sourceConvergencePacket": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_CONVERGENCE_ASSEMBLY_282_FIRST_FAILURE_PACKET.json",
+  "representative": 137720141,
+  "sharedPrefix": [7, 32, 57, 82, 132, 182],
+  "targetContinuation": 282,
+  "comparisonContinuations": [332, 432, 782, 832],
+  "bindingMode": "regenerated_family_row_binding",
+  "sourceAudit": {
+    "historicalFamilyMenuPath": "/Volumes/Code_2TB/code/erdos-problems/research/frontier-engine/experiments/p848-anchor-ladder/live-frontier-sync/2026-04-05/SIX_PREFIX_TWENTY_FOUR_FAMILY_MENU.json",
+    "historicalFamilyMenuSourceExists": false,
+    "targetRepresentativeInHistoricalSharedPrefixLedger": false,
+    "recoveredRowSource": "P848_282_ALIGNMENT_OBSTRUCTION_PACKET.syntheticFamilyRows.anchorOnly",
+    "sourceRisk": "The packet binds the regenerated row and lifted witness, not an unavailable historical source file. First structural chronology remains open."
+  },
+  "recoveredAnchorRow": {
+    "source": "regenerated_from_representative_square_witnesses",
+    "representative": 137720141,
+    "tupleKey": "4, 23^2, 7^2, 9, 17^2, 11^2",
+    "values": [7, 32, 57, 82, 132, 182],
+    "squareModuli": [4, 529, 49, 9, 289, 121],
+    "crt": {
+      "modulus": "32631532164",
+      "residue": "137720141",
+      "formula": "n == 137720141 mod 32631532164"
+    },
+    "tupleRows": [
+      {
+        "anchor": 7,
+        "squarePrime": 2,
+        "squareModulus": 4,
+        "residue": 1,
+        "expression": "n*7+1 == 0 mod 4"
+      },
+      {
+        "anchor": 32,
+        "squarePrime": 23,
+        "squareModulus": 529,
+        "residue": 281,
+        "expression": "n*32+1 == 0 mod 529"
+      },
+      {
+        "anchor": 57,
+        "squarePrime": 7,
+        "squareModulus": 49,
+        "residue": 6,
+        "expression": "n*57+1 == 0 mod 49"
+      },
+      {
+        "anchor": 82,
+        "squarePrime": 3,
+        "squareModulus": 9,
+        "residue": 8,
+        "expression": "n*82+1 == 0 mod 9"
+      },
+      {
+        "anchor": 132,
+        "squarePrime": 17,
+        "squareModulus": 289,
+        "residue": 81,
+        "expression": "n*132+1 == 0 mod 289"
+      },
+      {
+        "anchor": 182,
+        "squarePrime": 11,
+        "squareModulus": 121,
+        "residue": 119,
+        "expression": "n*182+1 == 0 mod 121"
+      }
+    ],
+    "recoveryStatus": "regenerated_tuple_rows_and_crt"
+  },
+  "targetWitnessLift": {
+    "status": "target_witness_subprogression_starts_at_representative",
+    "witnessPrime": 29,
+    "witnessSquare": 841,
+    "targetContinuation": 282,
+    "anchorRowFormula": "n = 137720141 + 32631532164*t",
+    "targetWitnessCondition": "282*n + 1 == 0 mod 841",
+    "rowIndexCongruence": {
+      "coefficientModuloWitness": 543,
+      "rhsModuloWitness": 0,
+      "gcdCoeffWitness": 1,
+      "solution": 0,
+      "period": 841,
+      "expression": "t == 0 mod 841"
+    },
+    "targetContinuationClass": {
+      "modulus": "27443118549924",
+      "residue": "137720141",
+      "formula": "n == 137720141 mod 27443118549924"
+    },
+    "interpretation": "Inside the recovered anchor row, the 841 witness for continuation 282 recurs exactly on t == 0 mod 841; the representative is the first element of that subprogression."
+  },
+  "comparisonSurface": {
+    "representativeOnlySquarefreeComparisons": [
+      {
+        "continuation": 332,
+        "productPlusOne": "45723086813",
+        "squarefreeAtRepresentative": true
+      },
+      {
+        "continuation": 432,
+        "productPlusOne": "59495100913",
+        "squarefreeAtRepresentative": true
+      },
+      {
+        "continuation": 782,
+        "productPlusOne": "107697150263",
+        "squarefreeAtRepresentative": true
+      },
+      {
+        "continuation": 832,
+        "productPlusOne": "114583157313",
+        "squarefreeAtRepresentative": true
+      }
+    ],
+    "boundary": "Comparison continuations are certified only at the representative in this packet. They are not lifted to all rows in the recovered class."
+  },
+  "theoremObject": {
+    "id": "p848_282_841_recovered_family_binding_v0",
+    "status": "proved_binding_first_unavoidability_open",
+    "statement": "The regenerated anchor row n == 137720141 mod 32631532164 is a theorem-facing family-row object for the shared-prefix square obstructions, and continuation 282 has a lifted 29^2 witness on the subprogression n == 137720141 mod 27443118549924.",
+    "proofInputs": [
+      "The anchor tuple rows from P848_282_ALIGNMENT_OBSTRUCTION_PACKET.recoveredFamilyRow.",
+      "The CRT anchor class n == 137720141 mod 32631532164.",
+      "The row-index congruence t == 0 mod 841 for 282*n+1 == 0 mod 841 inside the anchor row.",
+      "The target continuation class n == 137720141 mod 27443118549924."
+    ],
+    "proofBoundary": "This theorem binds the regenerated row and lifted target witness. It does not prove that this class is first in the family-menu chronology, does not prove comparison continuations stay squarefree across the class, and does not decide Problem 848."
+  },
+  "claims": {
+    "bindsRecoveredFamilyRow": true,
+    "bindsSyntheticCrtRows": true,
+    "liftsTargetWitnessToClass": true,
+    "provesRepresentativeComparisonSquarefree": true,
+    "provesComparisonSquarefreeOnClass": false,
+    "provesHistoricalLiveSourcePresence": false,
+    "provesFirstStructuralUnavoidability": false,
+    "provesAllN": false
+  },
+  "remainingBoundary": {
+    "id": "p848_282_841_first_structural_unavoidability",
+    "status": "open",
+    "statement": "Prove that no earlier recovered/live family-menu row can occupy the 282/841 target subprogression in a way that beats representative 137720141, or emit a deterministic chronology blocker.",
+    "neededEvidence": [
+      "A recovered or live chronology for the shared-prefix family rows around 137720141.",
+      "A proof that the 29^2 target subprogression is first among the relevant family rows.",
+      "A lifted comparison or separation argument for 332, 432, 782, and 832 if the final theorem needs them beyond representative evidence."
+    ]
+  },
+  "recommendedNextAction": "prove_p848_282_841_first_structural_unavoidability_or_emit_boundary",
+  "nextTheoremMove": "Prove first structural unavoidability for the recovered 282/841 family row, or emit a chronology blocker packet that states exactly which live-family source or recurrence is still missing.",
+  "verificationCommand": "node --test test/p848-282-alignment-obstruction-packet.test.js"
+}

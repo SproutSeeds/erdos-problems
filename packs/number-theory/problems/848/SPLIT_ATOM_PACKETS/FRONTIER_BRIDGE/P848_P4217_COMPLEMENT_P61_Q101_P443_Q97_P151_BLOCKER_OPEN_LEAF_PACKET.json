@@ -1,0 +1,112 @@
+{
+  "schema": "erdos.number_theory.p848_p4217_complement_p61_q101_p443_q97_p151_blocker_open_leaf/1",
+  "generatedAt": "2026-04-17T07:58:17Z",
+  "problemId": 848,
+  "status": "p4217_complement_p61_q101_p443_q97_p151_blocker_open_leaf",
+  "activeAtom": "D2_p13_q17_endpoint_menu_squarefree_obstruction_p23_q29_p41_q13_p103_q2_p37_q19_p31_q53_p73_q11_p83_q17_p509_q43_p29_q59_p47_q67_p79_q71_p107_q89_p4217_complement_p43_q2_p61_q101_p443_q97_p151_blocker_open_leaf",
+  "sourceRepairBoundaryPacket": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_COMPLEMENT_P61_Q101_P443_Q97_REPAIR_CANDIDATE_BOUNDARY_PACKET.json",
+  "sourcePackets": [
+    "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_COMPLEMENT_P61_Q101_P443_Q97_REPAIR_CANDIDATE_BOUNDARY_PACKET.json",
+    "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_CONVERGENCE_ASSEMBLY_282_FIRST_FAILURE_PACKET.json",
+    "packs/number-theory/problems/848/P4217_COMPLEMENT_STRATEGY_GUARD.json"
+  ],
+  "targetChild": {
+    "description": "First q97 square-obstruction child inside the first p443-available family of the p61/q101 branch.",
+    "tCongruence": {
+      "residue": "858404682506186150932058",
+      "modulus": "1246408897617516648005929",
+      "expression": "t == 858404682506186150932058 mod 1246408897617516648005929"
+    },
+    "leftCongruence": {
+      "residue": "3449199882246403162146857078213360639892746996146891529938208657606051673377944521449110708641522770273657",
+      "modulus": "5008259519672675769496874520298756223775352864790330415029070839201594060956874703037101519492727102512900",
+      "expression": "left == 3449199882246403162146857078213360639892746996146891529938208657606051673377944521449110708641522770273657 mod 5008259519672675769496874520298756223775352864790330415029070839201594060956874703037101519492727102512900"
+    },
+    "inheritedSquareObstruction": {
+      "endpointPrime": 443,
+      "k": 1029,
+      "delta": -25739,
+      "obstructionPrime": 97,
+      "obstructionSquare": 9409
+    }
+  },
+  "finiteRepairScreen": {
+    "screenScope": "established endpoint-menu primes with 23 <= p <= 50000, excluding primes not invertible for the 25*6323 selector denominator",
+    "trialSquarePrimeLimit": 199999,
+    "withinWindowEndpointCount": 17,
+    "trialSquareBlockedEndpointCount": 15,
+    "trialSquarefreeCandidateCount": 2,
+    "candidateEndpointPrimes": [
+      151,
+      479
+    ],
+    "blockedCandidateEndpointPrime": 151,
+    "reserveCandidateEndpointPrime": 479
+  },
+  "blockedCandidate": {
+    "endpointPrime": 151,
+    "k": 929,
+    "delta": -23239,
+    "withinWindow": true,
+    "rightMod25": 18,
+    "checkedSquarePrimeLimit": 199999,
+    "trialSquareStatus": "no_checked_square_divisor",
+    "knownPrimeFactors": [
+      "3",
+      "7",
+      "547",
+      "14713",
+      "281112363028343503",
+      "6530015338384483333"
+    ],
+    "remainingCofactor": "38347293895261462115265760871239114558090711677484368796298938103154578788398208246822725777079527504392721735442032760827347347537616784616226808990643326259390168783",
+    "remainingCofactorDigits": 167,
+    "remainingCofactorStatus": "composite_not_certified",
+    "localAttempts": [
+      "sympy.factorint timed out after 180 seconds on the original p151 cross product",
+      "Pollard p-1 on the 203-digit residual found no factor through B=1000000/retries=8 and timed out during B=5000000",
+      "ECM split the 203-digit residual by prime 281112363028343503",
+      "recursive p-1/ECM on the 186-digit residual timed out after p-1 no-factor rungs through B=1000000/retries=4 and one no-factor ECM rung",
+      "ECM split the 186-digit residual by prime 6530015338384483333",
+      "p-1/ECM on the 167-digit residual found no p-1 factor through B=1000000/retries=6 and timed out during ECM B1=50000/B2=1000000/maxCurve=160"
+    ]
+  },
+  "reserveCandidate": {
+    "endpointPrime": 479,
+    "k": 250,
+    "delta": -6264,
+    "withinWindow": true,
+    "rightMod25": 18,
+    "checkedSquarePrimeLimit": 199999,
+    "trialSquareStatus": "no_checked_square_divisor",
+    "knownPrimeFactors": [
+      "2",
+      "7",
+      "53"
+    ],
+    "remainingCofactor": "16033665535968465552107071590302893424221413220464451435589986784714542025559083627242091401804144320923426245676773860989928463892389695051461777902893513731166769216475572148401588419454357599688402670719631",
+    "remainingCofactorDigits": 209,
+    "remainingCofactorStatus": "unfactored_not_certified"
+  },
+  "ledgerTransition": {
+    "fromState": "p4217_complement_p61_q101_p443_q97_p151_repair_candidate_boundary_open",
+    "toState": "p4217_complement_p61_q101_p443_q97_p151_blocker_open_leaf",
+    "consumedToken": "p443/q97 p151 exact-certification candidate",
+    "nextToken": "p443/q97 p479 reserve exact-certification candidate"
+  },
+  "claims": {
+    "provesP151ExactRepair": false,
+    "provesP151Impossible": false,
+    "provesP479ExactRepair": false,
+    "provesQ97ChildClosed": false,
+    "provesP443UnavailableComplementClosed": false,
+    "provesProblem848": false,
+    "provesLocalFreeP151RouteStalled": true,
+    "allowsP151RepairHandoff": false,
+    "allowsNextActionInsideSameFiniteScreen": true
+  },
+  "proofBoundary": "This packet does not prove that p151 fails as a repair in principle. It records that the local/free exact-certification route for p151 has stalled at a 167-digit composite residual after the bounded attempts listed here. No p151 repair handoff or p151 availability split may be emitted without an exact squarefree certificate. The only allowed successor inside this finite q97 screen is the recorded p479 reserve, unless a stronger p151 certificate route is explicitly justified.",
+  "recommendedNextAction": "exact_certify_p848_p4217_complement_p61_q101_p443_q97_p479_reserve_repair_candidate",
+  "nextTheoremMove": "Exact-certify the p479 reserve candidate inside the same q97 repair screen, or ledger p479 as a blocker/open leaf; after p151/p479 are ledgered, run convergence assembly before opening any fresh selector child.",
+  "verificationCommand": "node --test test/p848-endpoint-menu-compiler.test.js test/p848-282-alignment-obstruction-packet.test.js"
+}

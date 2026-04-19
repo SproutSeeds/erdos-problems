@@ -1,6 +1,6 @@
 {
   "schema": "erdos.problem_theorem_loop/1",
-  "generatedAt": "2026-04-14T11:45:57.590Z",
+  "generatedAt": "2026-04-19T04:10:14.608Z",
   "problemId": "848",
   "displayName": "Erdos Problem #848",
   "title": "Squarefree ab+1 Extremal Set Problem",
@@ -17,10 +17,13 @@
     "problemSolved": false,
     "currentClaimSurface": "bridge_backed_frontier_support",
     "routeSummary": "Convert the sufficiently-large-N theorem into a complete all-N resolution without overstating what is already closed or confusing imported thresholds with repo-owned claims.",
-    "nextHonestMove": "Promote or reject the local `1..40500` rollout; public raw exact claims remain `1..10000` until that handoff is committed.",
+    "nextHonestMove": "Write the theorem candidate and proof-obligation surface for the four-anchor obstruction.",
     "exactIntervalBookkeeping": {
       "publicRepoRawExactInterval": "1..10000",
       "localIgnoredRolloutInterval": "1..40500",
+      "publicRepoRawExactMax": 10000,
+      "localIgnoredRolloutMax": 40500,
+      "exactMaxMeaning": "Use the public raw exact max for committed raw-packet claims; use the local rollout max only for compact derivative evidence.",
       "bookkeepingArtifact": "EXACT_INTERVAL_BOOKKEEPING.md",
       "raw40500PacketCommitted": false
     }
@@ -52,7 +55,7 @@
       "item_id": "choose_next_finite_gap_move",
       "status": "ready",
       "task": "Choose the next finite-gap closure move and keep the theorem-facing claim surface honest.",
-      "why": "Promote or reject the local `1..40500` rollout; public raw exact claims remain `1..10000` until that handoff is committed."
+      "why": "Write the theorem candidate and proof-obligation surface for the four-anchor obstruction."
     },
     {
       "item_id": "explain_next_unmatched_alignment",

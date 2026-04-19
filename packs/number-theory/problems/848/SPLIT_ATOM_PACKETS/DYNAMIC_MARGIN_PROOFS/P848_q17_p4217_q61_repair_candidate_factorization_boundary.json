@@ -1,0 +1,380 @@
+{
+  "schema": "erdos.number_theory.p848_endpoint_repair_candidate_factorization_boundary/1",
+  "generatedAt": "2026-04-17T05:13:51Z",
+  "problemId": "848",
+  "status": "exact_factorization_boundary_open",
+  "activeAtom": "D2_p13_q17_endpoint_menu_squarefree_obstruction_p23_q29_p41_q13_p103_q2_p37_q19_p31_q53_p73_q11_p83_q17_p509_q43_p29_q59_p47_q67_p79_q71_p107_q89_p4217_q61_subclass",
+  "sourceAvailabilitySplit": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DYNAMIC_MARGIN_PROOFS/P848_q17_p107_q89_p4217_availability_split.json",
+  "target": {
+    "description": "q17 p4217/q61 obstruction subclass alternate-endpoint repair exact-factor boundary",
+    "outsider": 6323,
+    "window": 28500,
+    "residualClass": {
+      "residue": "169420141690585054358732178817328088519972453794407467571322168411530879091645805420092749757",
+      "modulus": "265884583394279840187007549369466635122108056254479559599229627196756604148422140623504536900"
+    },
+    "blockedEndpointPrime": 4217,
+    "blockedSquareDivisor": 3721,
+    "blockedSquarePrime": 61
+  },
+  "obstructionSummary": {
+    "tCongruence": {
+      "residue": 42163704019,
+      "modulus": 66170874169,
+      "expression": "t == 42163704019 mod 66170874169"
+    },
+    "leftCongruence": {
+      "residue": "169420141690585054358732178817328088519972453794407467571322168411530879091645805420092749757",
+      "modulus": "265884583394279840187007549369466635122108056254479559599229627196756604148422140623504536900",
+      "expression": "left == 169420141690585054358732178817328088519972453794407467571322168411530879091645805420092749757 mod 265884583394279840187007549369466635122108056254479559599229627196756604148422140623504536900"
+    },
+    "squareDivisibilityWitness": {
+      "expression": "61^2 | left*right+1",
+      "residueModuloObstructionSquare": 0
+    }
+  },
+  "boundedScan": {
+    "endpointPrimeRange": "23 <= p <= 50000, p prime, excluding blocked p=4217 and outsider p=6323",
+    "trialSquarePrimeLimit": 199999,
+    "smallFactorLimit": 2000000,
+    "withinWindowEndpointCount": 17,
+    "trialSquarefreeWithinWindowCandidates": [
+      97,
+      227
+    ],
+    "squareBlockedWithinWindowEndpoints": [
+      {
+        "endpointPrime": 23,
+        "squarePrime": 29,
+        "squareDivisor": 841
+      },
+      {
+        "endpointPrime": 29,
+        "squarePrime": 59,
+        "squareDivisor": 3481
+      },
+      {
+        "endpointPrime": 31,
+        "squarePrime": 53,
+        "squareDivisor": 2809
+      },
+      {
+        "endpointPrime": 37,
+        "squarePrime": 19,
+        "squareDivisor": 361
+      },
+      {
+        "endpointPrime": 41,
+        "squarePrime": 13,
+        "squareDivisor": 169
+      },
+      {
+        "endpointPrime": 43,
+        "squarePrime": 2,
+        "squareDivisor": 4
+      },
+      {
+        "endpointPrime": 47,
+        "squarePrime": 67,
+        "squareDivisor": 4489
+      },
+      {
+        "endpointPrime": 73,
+        "squarePrime": 11,
+        "squareDivisor": 121
+      },
+      {
+        "endpointPrime": 79,
+        "squarePrime": 71,
+        "squareDivisor": 5041
+      },
+      {
+        "endpointPrime": 83,
+        "squarePrime": 17,
+        "squareDivisor": 289
+      },
+      {
+        "endpointPrime": 103,
+        "squarePrime": 2,
+        "squareDivisor": 4
+      },
+      {
+        "endpointPrime": 107,
+        "squarePrime": 89,
+        "squareDivisor": 7921
+      },
+      {
+        "endpointPrime": 109,
+        "squarePrime": 7,
+        "squareDivisor": 49
+      },
+      {
+        "endpointPrime": 509,
+        "squarePrime": 43,
+        "squareDivisor": 1849
+      },
+      {
+        "endpointPrime": 619,
+        "squarePrime": 7,
+        "squareDivisor": 49
+      }
+    ],
+    "easyCertificateCriterion": "all small factors removed and remaining cofactor is prime by local sympy.isprime",
+    "easyCertificateFound": false
+  },
+  "trialRepairCandidates": [
+    {
+      "endpointPrime": 97,
+      "k": 102,
+      "delta": -2564,
+      "right": "169420141690585054358732178817328088519972453794407467571322168411530879091645805420092747193",
+      "withinWindow": true,
+      "availabilityRule": {
+        "window": 28500,
+        "maxK": 1139,
+        "criterion": "within window 28500 iff k_97(left) <= 1139",
+        "kFormulaInT": "k_97(t) = (6649*t + 102) mod 9409",
+        "availableResidueCount": 1140,
+        "unavailableResidueCount": 8269,
+        "universallyWithinWindow": false,
+        "firstUnavailableTResidue": {
+          "tResidue": 1,
+          "k": 6751
+        }
+      },
+      "trialSquareCheck": {
+        "mode": "trial",
+        "checkedPrimeLimit": 199999,
+        "squarefreeStatus": "no_checked_square_divisor",
+        "squareDivisorPrime": null
+      },
+      "crossProductPlusOne": "28703184410457916040805857936590954289521553287520365837737664421960389508793158731865991370703045876455756376306044011774837966544589719555604020417807333982820443785712071279613182102",
+      "partialFactorization": {
+        "knownPrimeFactors": [
+          {
+            "factor": "2",
+            "exponent": 1
+          },
+          {
+            "factor": "29",
+            "exponent": 1
+          },
+          {
+            "factor": "4984999",
+            "exponent": 1
+          },
+          {
+            "factor": "20049382114183789",
+            "exponent": 1
+          },
+          {
+            "factor": "42227912403779999179",
+            "exponent": 1
+          }
+        ],
+        "cofactor": "117256359714726963150139156404557256954820898610624509684791481511720847765231680964627572629037553166229475039228398233780067755378188368751",
+        "cofactorDigits": 141,
+        "sympyIsPrime": false,
+        "noFactorFoundUpTo": 20000000
+      },
+      "boundedEcmStatus": {
+        "sourceTool": "sympy.ntheory.factor_.pollard_pm1 + sympy.ntheory.factor_._ecm_one_factor",
+        "rungs": [
+          {
+            "method": "pollard_pm1",
+            "B": 1000000,
+            "status": "found_factor",
+            "factor": "4984999",
+            "factorPrimeBySympyIsPrime": true
+          },
+          {
+            "method": "ecm",
+            "B1": 100000,
+            "B2": 5000000,
+            "maxCurve": 1200,
+            "seed": 9848,
+            "status": "found_factor",
+            "factor": "20049382114183789",
+            "factorPrimeBySympyIsPrime": true
+          },
+          {
+            "method": "ecm",
+            "B1": 100000,
+            "B2": 5000000,
+            "maxCurve": 1200,
+            "seed": 19849,
+            "status": "found_factor",
+            "factor": "42227912403779999179",
+            "factorPrimeBySympyIsPrime": true
+          },
+          {
+            "method": "pollard_pm1",
+            "B": 5000000,
+            "status": "timeout_on_141_digit_residual",
+            "wallSeconds": 30
+          },
+          {
+            "method": "ecm",
+            "B1": 100000,
+            "B2": 5000000,
+            "maxCurve": 1200,
+            "seed": 29848,
+            "status": "timeout_on_141_digit_residual",
+            "wallSeconds": 90
+          },
+          {
+            "method": "ecm",
+            "B1": 100000,
+            "B2": 5000000,
+            "maxCurve": 1200,
+            "seed": 29849,
+            "status": "timeout_on_141_digit_residual",
+            "wallSeconds": 90
+          },
+          {
+            "method": "ecm",
+            "B1": 100000,
+            "B2": 5000000,
+            "maxCurve": 1200,
+            "seed": 29850,
+            "status": "timeout_on_141_digit_residual",
+            "wallSeconds": 90,
+            "residualCofactor": "117256359714726963150139156404557256954820898610624509684791481511720847765231680964627572629037553166229475039228398233780067755378188368751"
+          },
+          {
+            "method": "trial_division",
+            "status": "no_factor_found_on_141_digit_residual",
+            "checkedPrimeLowerExclusive": 2000000,
+            "checkedPrimeUpperInclusive": 20000000
+          },
+          {
+            "method": "ecm",
+            "B1": 200000,
+            "B2": 10000000,
+            "maxCurve": 1800,
+            "seed": 39848,
+            "status": "timeout_on_141_digit_residual",
+            "wallSeconds": 180,
+            "residualCofactor": "117256359714726963150139156404557256954820898610624509684791481511720847765231680964627572629037553166229475039228398233780067755378188368751"
+          },
+          {
+            "method": "pollard_pm1",
+            "B": 5000000,
+            "retries": 8,
+            "seed": 49848,
+            "status": "completed_no_factor_on_141_digit_residual",
+            "wallSeconds": 103.482,
+            "residualCofactor": "117256359714726963150139156404557256954820898610624509684791481511720847765231680964627572629037553166229475039228398233780067755378188368751"
+          }
+        ],
+        "factorFound": true,
+        "exactComplete": false
+      },
+      "exactCertificateStatus": "partial_factorization_sharpened_not_certified"
+    },
+    {
+      "endpointPrime": 227,
+      "k": 549,
+      "delta": -13739,
+      "right": "169420141690585054358732178817328088519972453794407467571322168411530879091645805420092736018",
+      "withinWindow": true,
+      "availabilityRule": {
+        "window": 28500,
+        "maxK": 1139,
+        "criterion": "within window 28500 iff k_227(left) <= 1139",
+        "kFormulaInT": "k_227(t) = (21306*t + 549) mod 51529",
+        "availableResidueCount": 1140,
+        "unavailableResidueCount": 50389,
+        "universallyWithinWindow": false,
+        "firstUnavailableTResidue": {
+          "tResidue": 1,
+          "k": 21855
+        }
+      },
+      "trialSquareCheck": {
+        "mode": "trial",
+        "checkedPrimeLimit": 199999,
+        "squarefreeStatus": "no_checked_square_divisor",
+        "squareDivisorPrime": null
+      },
+      "crossProductPlusOne": "28703184410457916040805857936590954289521553287520365837737664421960389508793158731865989477432962484167773917473945728133448755852418567052153910892575335125246594643836501743134647627",
+      "partialFactorization": {
+        "knownPrimeFactors": [
+          {
+            "factor": "13297",
+            "exponent": 1
+          }
+        ],
+        "cofactor": "2158621073208837786027363911904260682072764780591138289669674695191425848596913494161539405687971909766697293936522954661461138290773751000387599525650547877359298687210385932400891",
+        "cofactorDigits": 181,
+        "sympyIsPrime": false,
+        "noFactorFoundUpTo": 2000000
+      },
+      "boundedEcmStatus": {
+        "sourceTool": "sympy.ntheory.ecm + sympy.ntheory.factor_.pollard_pm1",
+        "rungs": [
+          {
+            "B1": 10000,
+            "B2": 100000,
+            "maxCurve": 200,
+            "wallSeconds": 20,
+            "status": "timeout"
+          },
+          {
+            "B1": 50000,
+            "B2": 1000000,
+            "maxCurve": 500,
+            "wallSeconds": 40,
+            "status": "timeout"
+          },
+          {
+            "B1": 100000,
+            "B2": 5000000,
+            "maxCurve": 800,
+            "wallSeconds": 60,
+            "status": "timeout"
+          },
+          {
+            "method": "pollard_pm1",
+            "B": 5000000,
+            "retries": 8,
+            "seed": 22748,
+            "status": "completed_no_factor_on_181_digit_residual",
+            "wallSeconds": 140.115,
+            "residualCofactor": "2158621073208837786027363911904260682072764780591138289669674695191425848596913494161539405687971909766697293936522954661461138290773751000387599525650547877359298687210385932400891"
+          }
+        ],
+        "factorFound": false
+      },
+      "exactCertificateStatus": "not_certified"
+    }
+  ],
+  "claims": {
+    "provesEndpointFormulas": true,
+    "provesBoundedTrialScreenThroughP50000": true,
+    "provesRepresentativeRepair": false,
+    "provesExactSquarefree": false,
+    "provesSubclassCoverage": false,
+    "provesAllN": false,
+    "provesCollisionFreeMatching": false
+  },
+  "proofBoundary": "This packet records the bounded p4217/q61 repair candidates and the exact-factorization boundary encountered locally. p97 and p227 are the only within-window endpoints through p=50000 whose representative cross products survived trial square checks through prime 199999. The p97 cofactor is now partially split down to a composite 141-digit residual, with no trial factor found through 20000000, a stronger local ECM seed timing out, and a bounded Pollard p-1 run at B=5000000/retries=8 completing without a factor. The p227 cofactor remains a composite 181-digit residual after bounded ECM timeouts and a bounded Pollard p-1 run at B=5000000/retries=8 completing without a factor. Neither candidate has an exact squarefree certificate. Do not emit a p97 or p227 repair packet until one candidate is exactly certified.",
+  "recommendedNextAction": "exact_certify_q17_p4217_q61_repair_candidate",
+  "nextTheoremOptions": [
+    {
+      "id": "exact_certify_p97_repair_candidate",
+      "status": "stalled_after_bounded_pm1_and_ecm",
+      "statement": "Finish exact factorization for the p97 cross product, or otherwise prove that it is squarefree, before emitting a p97 repair packet."
+    },
+    {
+      "id": "exact_certify_p227_repair_candidate",
+      "status": "stalled_after_bounded_pm1_and_ecm",
+      "statement": "Finish exact factorization for the p227 cross product, or otherwise prove that it is squarefree, before emitting a p227 repair packet."
+    },
+    {
+      "id": "emit_p4217_q61_factorization_blocker",
+      "status": "next_if_no_stronger_local_factor_route",
+      "statement": "If no exact local certificate is feasible, keep the p4217/q61 child open and route it to a factorization/blocker packet or endpoint-staircase theorem ledger rather than emitting a repair."
+    }
+  ]
+}

@@ -1,0 +1,120 @@
+{
+  "schema": "erdos.number_theory.p848_no_spend_local_theorem_backlog_after_source_import_boundary_packet/1",
+  "packetId": "P848_NO_SPEND_LOCAL_THEOREM_BACKLOG_AFTER_SOURCE_IMPORT_BOUNDARY_PACKET",
+  "problemId": 848,
+  "generatedAt": "2026-04-18T11:25:11.538Z",
+  "status": "no_spend_local_theorem_backlog_prepared_after_source_import_boundary",
+  "target": "prepare_p848_no_spend_local_theorem_backlog_after_source_import_boundary",
+  "recommendedNextAction": "execute_p848_square_moduli_union_hitting_source_index_no_spend_audit",
+  "coversPrimaryNextAction": {
+    "stepId": "prepare_p848_no_spend_local_theorem_backlog_after_source_import_boundary",
+    "status": "completed_by_no_spend_local_theorem_backlog_selection",
+    "boundaryPacket": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_NO_SPEND_SOURCE_IMPORT_BOUNDARY_AFTER_LOCAL_P4217_HARD_BLOCKER_PACKET.json",
+    "boundarySha256": "8517fb5ff9dd43a8ac19609141397435b24321a06f7f52e27069fd16f0c47b50",
+    "p4217HardBlockerPacket": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_LOCAL_P4217_RESIDUAL_SOURCE_THEOREM_PROOF_ATTEMPT_HARD_BLOCKER_PACKET.json",
+    "p4217HardBlockerSha256": "a7ae92b8753dfdd1b86a8e19d101790c100f8931ec4245a5065e6ae9e1b87a9d",
+    "mod50WedgeBlockerPacket": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_MOD50_THEOREM_WEDGE_DECISION_BLOCKER_PACKET.json",
+    "mod50WedgeBlockerSha256": "9ca8da429267924f93046d7099759d0a19d1189958a10bd32e5a1682c94b454a",
+    "squareModuliNoGoPacket": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_CORRECTED_SQUARE_MODULI_DUAL_SIEVE_OR_UNION_HITTING_THRESHOLD_PACKET.json",
+    "squareModuliNoGoSha256": "e667bcc284cb0d2b2d7afe841762b85c9defab5226bf3165383fabccff1c82ac"
+  },
+  "backlogDecision": {
+    "status": "prepared_local_only_backlog",
+    "madeNewPaidCall": false,
+    "currentStepAllowsPaidCall": false,
+    "openFrontierObligationCountAtInput": 90,
+    "selectionRule": "Prefer the theorem object that is orthogonal to the freshly hard-blocked p4217 local proof and the already failed/bounded mod-50 wedge, while remaining executable with local/free source-index work and no finite frontier expansion.",
+    "selectedBacklogItemId": "square_moduli_union_hitting_local_backlog",
+    "selectedNextAction": "execute_p848_square_moduli_union_hitting_source_index_no_spend_audit",
+    "selectedReason": "The p4217 residual lane has just been locally hard-blocked, and the mod-50 recurrence/generator lane already has a source blocker, archaeology packet, and wedge decision blocker. The square-moduli lane is a distinct source/import theorem gap: the current repo only has avoiding-side Tao-van-Doorn evidence and a direction blocker, so a no-spend source-index audit for the missing union/hitting upper-bound direction and constants is the cleanest next local probe."
+  },
+  "backlogItems": [
+    {
+      "itemId": "p4217_residual_partition_rank_or_squarefree_source_local_backlog",
+      "priority": 2,
+      "disposition": "defer_after_fresh_local_hard_blocker",
+      "currentEvidence": "The local p4217 residual proof attempt found no finite CRT partition, residual rank, or squarefree-realization source theorem.",
+      "allowedFutureWork": "Only a new theorem statement, finite partition candidate, rank proof, or future guarded source import should reopen this lane.",
+      "forbiddenWork": "Do not resume fallback-selector or q-cover descent from this backlog."
+    },
+    {
+      "itemId": "mod50_generator_or_recurrence_local_backlog",
+      "priority": 3,
+      "disposition": "defer_until_concrete_generator_or_denominator_clue",
+      "currentEvidence": "The mod-50 source blocker, archaeology packet, and theorem-wedge decision blocker found finite replay evidence but no all-future recurrence/generator theorem.",
+      "allowedFutureWork": "Reopen when a concrete generator filename, finite-Q denominator, or recurrence source target appears.",
+      "forbiddenWork": "Do not promote finite replay or 280-row menu evidence as all-future coverage."
+    },
+    {
+      "itemId": "square_moduli_union_hitting_local_backlog",
+      "priority": 1,
+      "disposition": "selected_for_no_spend_source_index_audit",
+      "currentEvidence": "The corrected square-moduli packet proves the current Tao-van-Doorn avoiding-side theorem and complement duality do not supply the Sawhney union/hitting upper-bound direction.",
+      "allowedFutureWork": "Run a local/free source-index audit for union/hitting square-moduli theorems with audited inequality direction, hypotheses, constants, and threshold relevance.",
+      "forbiddenWork": "Do not claim an analytic N0 or threshold before a valid union/hitting theorem source is packetized."
+    }
+  ],
+  "nextProbe": {
+    "stepId": "execute_p848_square_moduli_union_hitting_source_index_no_spend_audit",
+    "mode": "no_spend_source_index_audit",
+    "sourceIndexAuditCommand": "rg -n \"(union|hitting|large sieve|square moduli|Tao|van Doorn|Sawhney|Appendix A|Theorem 16|avoiding)\" packs/number-theory/problems/848 docs src test",
+    "auditQuestion": "Is there a local/free source theorem, distinct from the current Tao-van-Doorn avoiding-side bound, that gives Sawhney-compatible union/hitting upper bounds for square moduli with usable hypotheses/constants?",
+    "successCriteria": [
+      "A source theorem with the union/hitting upper-bound direction is found and its hypotheses/constants are auditable against the 848/Sawhney setup.",
+      "Or the audit emits a sharper no-source blocker explaining exactly which theorem direction and constants remain absent."
+    ],
+    "failureBoundary": "If the source-index audit finds only avoiding-set upper bounds, lower bounds, threshold heuristics, or existing no-go packets, it must emit a no-spend source-index blocker and must not lower N0 or decide 848."
+  },
+  "noSpendPolicy": {
+    "madeNewPaidCall": false,
+    "futurePaidExecutionAllowedByThisPacket": false,
+    "providerExecutionThisTurn": "blocked",
+    "usageCheckRequiredThisTurn": false,
+    "futureReleaseRequires": [
+      "explicit future approval",
+      "local usage and USD guard check",
+      "single theorem/source target",
+      "audited proof-boundary packet before promotion"
+    ]
+  },
+  "forbiddenMovesAfterBacklog": [
+    "execute_provider_source_import_without_future_guarded_approval",
+    "resume_q193_q197_singleton_descent",
+    "launch_q193_q389_or_larger_q_cover_without_new_theorem",
+    "emit_a_naked_deterministic_rank_boundary",
+    "try_fallback_selectors_one_by_one",
+    "rerun_the_same_p4217_paid_wedge_by_default",
+    "claim_tao_van_doorn_plus_exact_verifier_decides_848_without_union_hitting_source",
+    "claim_N0_around_1e6_or_N0_at_most_40500_without_imported_threshold_source",
+    "treat_bounded_finite_evidence_as_all_N_proof"
+  ],
+  "oneNextAction": {
+    "stepId": "execute_p848_square_moduli_union_hitting_source_index_no_spend_audit",
+    "action": "Execute a no-spend source-index audit for the square-moduli union/hitting upper-bound theorem direction and constants, using local/free sources only and emitting a source theorem packet or sharper no-source blocker.",
+    "finiteDenominatorOrRankToken": "p848_square_moduli_union_hitting_source_index_no_spend_audit",
+    "verificationCommand": "./bin/erdos problem progress 848 --json"
+  },
+  "proofBoundary": "This packet completes the no-spend local theorem backlog after the source/import boundary. It selects the square-moduli union/hitting source-index audit as the next local-only theorem probe because p4217 has just been hard-blocked locally and mod-50 already has source/wedge blockers. It does not execute any provider call, prove a p4217 complement theorem, prove a mod-50 recurrence/generator theorem, prove a Sawhney-compatible union/hitting theorem, lower any threshold, prove all-N recombination, or decide Problem 848.",
+  "claims": {
+    "completesNoSpendLocalTheoremBacklog": true,
+    "selectsExactlyOneBacklogItem": true,
+    "selectedBacklogItemIsSquareModuliUnionHitting": true,
+    "selectedNextActionIsSourceIndexAudit": true,
+    "madeNewPaidCall": false,
+    "currentStepAllowsPaidCall": false,
+    "providerExecutionBlockedThisTurn": true,
+    "blocksQCoverExpansion": true,
+    "blocksSingletonQDescent": true,
+    "blocksSingleFallbackSelectorLadder": true,
+    "blocksNakedRankBoundary": true,
+    "provesFiniteP4217Partition": false,
+    "provesP4217ResidualRankDecrease": false,
+    "provesSquarefreeRealizationSourceTheorem": false,
+    "provesMod50AllFutureRecurrence": false,
+    "provesSawhneyUnionHittingUpperBound": false,
+    "lowersAnalyticThreshold": false,
+    "provesAllN": false,
+    "decidesProblem848": false
+  },
+  "packetPath": "/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_NO_SPEND_LOCAL_THEOREM_BACKLOG_AFTER_SOURCE_IMPORT_BOUNDARY_PACKET.json"
+}

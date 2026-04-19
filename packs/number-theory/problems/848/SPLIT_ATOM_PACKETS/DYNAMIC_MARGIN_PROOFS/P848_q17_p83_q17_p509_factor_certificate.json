@@ -1,0 +1,36 @@
+{
+  "schema": "erdos.number_theory.p848_endpoint_factor_certificate/1",
+  "problemId": "848",
+  "certificateId": "p848_q17_p73_q11_p83_q17_p509_factor_certificate",
+  "sourceTool": {
+    "name": "sympy.factorint",
+    "version": "1.14.0",
+    "mode": "local_free_cpu"
+  },
+  "sourceAvailabilitySplit": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DYNAMIC_MARGIN_PROOFS/D2_p13_dynamic_margin_exact_mixed_matching_injection_selected_cross_squarefree_exception_period_shifted_endpoint_menu_q17_residual_window_relaxed_fallback_menu_squarefree_obstruction_p41_q13_p103_q2_p37_q19_p31_q53_p73_q11_p83_availability_split.json",
+  "endpointPrime": 509,
+  "left": "70434973191454519683340203976042263775739957",
+  "right": "70434973191454519683340203976042263775730568",
+  "crossProductPlusOne": "4961085448480916885902904740912560589949535178398909389391937178478546800563272463905577",
+  "factors": [
+    {
+      "factor": "809",
+      "exponent": 1
+    },
+    {
+      "factor": "2793103",
+      "exponent": 1
+    },
+    {
+      "factor": "2195539396243410092983689441253889282236721168599626157191998555816915697520751",
+      "exponent": 1
+    }
+  ],
+  "claims": {
+    "factorsMultiplyToCrossProductPlusOne": true,
+    "allExponentsAreOne": true,
+    "provesExactSquarefree": true,
+    "provesAllN": false,
+    "provesCollisionFreeMatching": false
+  }
+}

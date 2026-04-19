@@ -1,0 +1,150 @@
+{
+  "schema": "erdos.number_theory.p848_p4217_post_29_bucket_rank_boundary_convergence_assembly_packet/1",
+  "problemId": 848,
+  "generatedAt": "2026-04-17T21:51:21.000Z",
+  "status": "post_29_bucket_rank_boundary_convergence_assembly_selects_29_bucket_q_avoiding_cover",
+  "target": "run_p848_convergence_assembly_after_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_post_post_post_successor_26_bucket_post_post_post_post_successor_29_bucket_rank_boundary",
+  "coversPrimaryNextAction": {
+    "stepId": "run_p848_convergence_assembly_after_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_post_post_post_successor_26_bucket_post_post_post_post_successor_29_bucket_rank_boundary",
+    "status": "covered_by_post_post_post_post_successor_29_bucket_rank_boundary_convergence_assembly"
+  },
+  "sourcePackets": [
+    "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_POST_LATER_PRIME_15_BUCKET_NEXT_PRIME_17_BUCKET_POST_NEXT_20_BUCKET_SUCCESSOR_22_BUCKET_POST_SUCCESSOR_24_BUCKET_POST_POST_SUCCESSOR_24_BUCKET_POST_POST_POST_SUCCESSOR_26_BUCKET_Q_AVOIDING_BATCH_COVER_CONVERGENCE_ASSEMBLY_PACKET.json",
+    "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_POST_26_Q_AVOIDING_29_BUCKET_RANK_BOUNDARY_PACKET.json"
+  ],
+  "sourcePacketDigests": {
+    "post26QAvoidingCoverConvergenceAssemblySha256": "e0a58310098491ec93951474d3915549b76a3a8c2908dc5d6ce5a2ac91515e27",
+    "post26QAvoiding29BucketRankBoundarySha256": "d751d4d561eda704bbdbe1a13a1bddad0ba4b7d59da76e8e8df9e87ef40b3385"
+  },
+  "frontierComparison": {
+    "previousRefreshValueBefore29BucketRankBoundary": 72,
+    "currentRefreshValueAfter29BucketRankBoundary": 74,
+    "delta": 2,
+    "interpretation": "The deterministic 29-bucket rank boundary accounts for every post-post-post-post-successor bucket but exposes the whole 29-bucket q-avoiding cover as the next finite token. This is a ranked handoff, not global convergence; q163/q167 singleton descent remains blocked."
+  },
+  "assembledPieces": [
+    {
+      "id": "post_26_q_avoiding_cover_closed",
+      "claim": "The 26-bucket post-post-post-successor q-avoiding cover classified every source q-avoiding class with no survivors and emitted 29 post-post-post-post-successor obstruction-prime buckets."
+    },
+    {
+      "id": "post_29_rank_boundary_emitted",
+      "claim": "The deterministic rank-boundary packet accounts for all 29 buckets and records the row-uniform two-root law at q in {163,167,173,179,181,191,193,197,199,211,223,227,229,233,239,241,251,257,263,269,271,277,281,283,293,307,311,313,331}."
+    },
+    {
+      "id": "whole_q_avoiding_token_named",
+      "claim": "The next finite token is the whole 29-bucket q-avoiding cover with 1,256,125,158,212,428,260,162,381,710,030,390,124,682,911,240,345 q-avoiding classes."
+    },
+    {
+      "id": "singleton_descent_blocked",
+      "claim": "No q163, q167, or other singleton q-child descent is allowed until a later packet consumes a smaller finite token or closes the whole 29-bucket cover."
+    }
+  ],
+  "supportedClaim": {
+    "claim": "The 29-bucket deterministic rank boundary is assembled into a single whole-boundary q-avoiding cover handoff.",
+    "proofBoundary": "This assembly selects the next finite token. It does not close the root children, the q-avoiding cover, the p479 branches, q97, p443-unavailable, the p4217 complement, collision-free matching, or Problem 848."
+  },
+  "finiteMeasureOrNoMeasureYet": {
+    "globalFiniteMeasureDecreased": false,
+    "consumedDecisionToken": {
+      "tokenId": "post_post_post_post_successor_29_bucket_rank_boundary_convergence_assembly",
+      "sourceAction": "run_p848_convergence_assembly_after_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_post_post_post_successor_26_bucket_post_post_post_post_successor_29_bucket_rank_boundary",
+      "status": "consumed_by_convergence_assembly"
+    },
+    "closedSourceToken": {
+      "tokenId": "p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_post_post_post_successor_26_bucket_post_post_post_post_successor_29_bucket_rank_boundary",
+      "sourcePostPostPostSuccessorBucketCount": 26,
+      "sourceRowCount": 718,
+      "sourcePostPostPostSuccessorQAvoidingClassCount": "17122811411360928250603246815478193773776015",
+      "postPostPostPostSuccessorObstructionPrimeBucketCount": 29,
+      "postPostPostPostSuccessorRootChildCount": "34245622822721856501206493630956387547552030",
+      "postPostPostPostSuccessorQAvoidingClassCount": "1256125158212428260162381710030390124682911240345",
+      "status": "consumed_by_29_bucket_rank_boundary_convergence_assembly"
+    },
+    "nextFiniteToken": {
+      "tokenId": "p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_post_post_post_successor_26_bucket_post_post_post_post_successor_29_bucket_q_avoiding_batch_cover",
+      "bucketCount": 29,
+      "postPostPostPostSuccessorQAvoidingClassCount": "1256125158212428260162381710030390124682911240345",
+      "status": "selected_for_whole_boundary_q_avoiding_batch_cover"
+    }
+  },
+  "postPostPostPostSuccessorQCoverSummary": {
+    "bucketCount": 29,
+    "postPostPostPostSuccessorPrimes": [
+      163,
+      167,
+      173,
+      179,
+      181,
+      191,
+      193,
+      197,
+      199,
+      211,
+      223,
+      227,
+      229,
+      233,
+      239,
+      241,
+      251,
+      257,
+      263,
+      269,
+      271,
+      277,
+      281,
+      283,
+      293,
+      307,
+      311,
+      313,
+      331
+    ],
+    "sourcePostPostPostSuccessorBucketCount": 26,
+    "sourceRowCount": 718,
+    "sourcePostPostPostSuccessorQAvoidingClassCount": "17122811411360928250603246815478193773776015",
+    "rootResidueCountsPerClass": [
+      2
+    ],
+    "postPostPostPostSuccessorRootChildCount": "34245622822721856501206493630956387547552030",
+    "postPostPostPostSuccessorQAvoidingClassCount": "1256125158212428260162381710030390124682911240345"
+  },
+  "compressionCandidate": {
+    "statement": "A repeated two-root q-avoiding cover lemma may compress this ladder, but this packet only assembles the emitted rank boundary into the next whole-boundary q-cover token.",
+    "missingForUse": "A theorem proving uniform closure or a finite rank decrease for all future two-root successor buckets."
+  },
+  "remainingPuzzleBoundary": {
+    "openBoundary": "The 29-bucket q-avoiding cover, its root children, p479-available and p479-unavailable branches, q97, p443-unavailable, the wider p4217 complement, collision-free matching, and Problem 848 remain open."
+  },
+  "oneNextAction": {
+    "stepId": "derive_p848_p4217_p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_post_post_post_successor_26_bucket_post_post_post_post_successor_29_bucket_q_avoiding_batch_cover_or_emit_boundary",
+    "action": "Run the whole 29-bucket post-post-post-post-successor q-avoiding batch cover, structural decomposition, impossibility theorem, or exact survivor/rank boundary.",
+    "coveredFamily": "All 1,256,125,158,212,428,260,162,381,710,030,390,124,682,911,240,345 q-avoiding classes across q in {163,167,173,179,181,191,193,197,199,211,223,227,229,233,239,241,251,257,263,269,271,277,281,283,293,307,311,313,331}.",
+    "finiteDenominatorOrRankToken": "p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_post_post_post_successor_26_bucket_post_post_post_post_successor_29_bucket_q_avoiding_batch_cover",
+    "failureBoundary": "If the whole-boundary cover does not close, emit a deterministic survivor/rank boundary grouped by q and previous support; do not open q163, q167, or any singleton q-child first.",
+    "whyCheaperThanSingleSelector": "The exact rank packet already names the whole finite q-cover token, so a singleton q selector would fragment the measured boundary instead of consuming it.",
+    "completionRule": "Either all 29-bucket q-avoiding classes are covered, or an exact survivor/rank boundary for the whole token is emitted.",
+    "command": null
+  },
+  "oneVerificationCommand": "node --check src/runtime/theorem-loop.js && node --check src/runtime/problem-progress.js && node --test test/p848-282-alignment-obstruction-packet.test.js",
+  "recommendedNextAction": "derive_p848_p4217_p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_post_post_post_successor_26_bucket_post_post_post_post_successor_29_bucket_q_avoiding_batch_cover_or_emit_boundary",
+  "nextTheoremMove": "Run the whole 29-bucket post-post-post-post-successor q-avoiding batch cover or emit a structural/survivor boundary; singleton q descent remains blocked.",
+  "proofBoundary": "This convergence assembly consumes the deterministic 29-bucket rank-boundary handoff and selects the whole q-avoiding cover. It does not close the 34,245,622,822,721,856,501,206,493,630,956,387,547,552,030 root children, the 1,256,125,158,212,428,260,162,381,710,030,390,124,682,911,240,345 q-avoiding classes, the p479 branches, q97, p443-unavailable, the p4217 complement, collision-free matching, or Problem 848.",
+  "claims": {
+    "runsPostPostPostPostSuccessor29BucketRankBoundaryConvergenceAssembly": true,
+    "consumesPostPostPostPostSuccessor29BucketRankBoundaryDecisionToken": true,
+    "selects29BucketPostPostPostPostSuccessorQAvoidingCoverInsteadOfSingletonDescent": true,
+    "accountsForAll29PostPostPostPostSuccessorBuckets": true,
+    "namesWholeCoveredFamily": true,
+    "namesFiniteQCoverToken": true,
+    "opensFreshFallbackSelector": false,
+    "descendsIntoQ163Singleton": false,
+    "descendsIntoQ167Singleton": false,
+    "descendsIntoSingletonQChild": false,
+    "provesPostPostPostPostSuccessorRootChildrenClosed": false,
+    "provesPostPostPostPostSuccessorQAvoidingBoundaryClosed": false,
+    "provesP4217ComplementCoverage": false,
+    "provesAllN": false
+  }
+}

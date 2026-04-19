@@ -1,0 +1,98 @@
+{
+  "schema": "erdos.number_theory.p848_p4217_complement_p43_square_obstruction/1",
+  "generatedAt": "2026-04-17T05:59:22Z",
+  "problemId": "848",
+  "status": "p4217_complement_p43_fallback_globally_square_blocked_by_2",
+  "activeAtom": "D2_p13_q17_endpoint_menu_squarefree_obstruction_p23_q29_p41_q13_p103_q2_p37_q19_p31_q53_p73_q11_p83_q17_p509_q43_p29_q59_p47_q67_p79_q71_p107_q89_p4217_complement_p43_q2_obstruction",
+  "sourcePackets": {
+    "p4217ComplementP43FallbackSelector": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_COMPLEMENT_P43_FALLBACK_SELECTOR_PACKET.json",
+    "p4217ComplementRefinement": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_UNAVAILABLE_COMPLEMENT_REFINEMENT_PACKET.json"
+  },
+  "sourceClass": {
+    "outsider": 6323,
+    "leftParameterization": "left = 760410154648626128533304355898763555393483209652336085943695959179023528577227857 + 4018151289874337645868852921870587523537603036293953839351606997760601160064480100*t",
+    "residualClass": {
+      "residue": "760410154648626128533304355898763555393483209652336085943695959179023528577227857",
+      "modulus": "4018151289874337645868852921870587523537603036293953839351606997760601160064480100"
+    }
+  },
+  "complementInput": {
+    "endpointPrime": 4217,
+    "endpointPrimeSquare": 17783089,
+    "selector": "k_4217(t) = (445517*t + 203) mod 17783089",
+    "unavailableKInterval": {
+      "min": 1140,
+      "max": 17783088,
+      "count": 17781949
+    },
+    "parameterization": {
+      "range": "0 <= s < 17781949",
+      "tOfS": "t(s) = 4749600*(s + 937) mod 17783089"
+    }
+  },
+  "blockedFallbackSelector": {
+    "endpointPrime": 43,
+    "endpointPrimeSquare": 1849,
+    "kFormulaOnSourceClass": "k_43(t) = 200",
+    "delta": -5014,
+    "rightFormula": "right_43(left) = left - 5014",
+    "squarefreeStatus": "globally_non_squarefree_on_source_class",
+    "obstructionPrime": 2,
+    "obstructionSquare": 4,
+    "blockedResiduesInP4217Complement": 17781949
+  },
+  "squareObstructionProof": {
+    "id": "p848_p4217_complement_p43_parity_obstruction",
+    "status": "proved",
+    "statement": "For every source parameter t, including every p4217-unavailable complement residue, 2^2 divides left*(left - 5014)+1 for the p43 fallback endpoint.",
+    "modulus": 4,
+    "sourceResidueModulo4": 1,
+    "sourceModulusModulo4": 0,
+    "rightResidueModulo4": 3,
+    "crossProductResidueModulo4": 0,
+    "derivation": [
+      "The source class has left == 1 mod 4 because the source residue is 1 mod 4 and the source modulus is 0 mod 4.",
+      "The p43 fallback endpoint is right = left - 5014, and 5014 == 2 mod 4, so right == 3 mod 4.",
+      "Therefore left*right + 1 == 1*3 + 1 == 0 mod 4.",
+      "This parity obstruction is independent of the p4217 complement parameter, so it applies to all 17781949 complement residues."
+    ],
+    "rootResiduesModulo4": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "sampleComplementWitness": {
+      "t": 1,
+      "k4217": 445720,
+      "p4217Available": false,
+      "leftMod4": 1,
+      "rightMod4": 3,
+      "crossProductModulo4": 0
+    }
+  },
+  "ledgerTransition": {
+    "inputObligation": {
+      "state": "p4217_complement_p43_squarefree_hitting_pending",
+      "residueCount": 17781949,
+      "endpointPrime": 43
+    },
+    "outputObligation": {
+      "state": "p4217_complement_p43_blocked_next_selector_needed",
+      "residueCount": 17781949,
+      "excludedEndpointPrime": 43
+    },
+    "measureEffect": "The p43 squarefree-hitting obligation is closed negatively: p43 is ruled out by a uniform 2^2 obstruction, so the full p4217 complement remains open for a different selector or cover."
+  },
+  "claims": {
+    "provesP43SquareObstructionOnComplement": true,
+    "provesP43SquarefreeHitting": false,
+    "provesComplementCoveredByAnotherEndpoint": false,
+    "provesCollisionFreeMatching": false,
+    "provesAllN": false,
+    "decidesProblem848": false
+  },
+  "proofBoundary": "The p43 fallback selector is eliminated for the entire p4217 complement by a uniform 2^2 obstruction. The p4217 complement itself remains open and now needs a different fallback selector, finite cover, impossibility theorem, or deterministic refinement.",
+  "recommendedNextAction": "prove_p848_p4217_complement_next_fallback_selector_or_cover",
+  "verificationCommand": "node --test test/p848-endpoint-menu-compiler.test.js test/p848-282-alignment-obstruction-packet.test.js"
+}

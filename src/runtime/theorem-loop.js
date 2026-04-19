@@ -304,7 +304,7 @@ function buildBaselineAgenda({
 
 function buildBridgeBackedAgenda({ theoremHooks, bridgeState, nextHonestMove }) {
   const items = [
-    {
+								      {
       item_id: 'choose_next_finite_gap_move',
       status: 'ready',
       task: 'Choose the next finite-gap closure move and keep the theorem-facing claim surface honest.',
@@ -584,6 +584,7 @@ export function buildProblemTheoremLoop(problem) {
   const routePacket = readYamlIfPresent(routePacketPath) ?? {};
   const opsDetails = readYamlIfPresent(opsDetailsPath) ?? {};
   const bridge = readJsonIfPresent(paths.legacyBridgeJsonPath);
+  const exactIntervalBookkeeping = buildP848ExactIntervalBookkeeping(problem);
 
   const activeRoute = problem?.researchState?.active_route
     ?? context.default_active_route
@@ -680,6 +681,7 @@ export function buildProblemTheoremLoop(problem) {
       currentClaimSurface,
       routeSummary,
       nextHonestMove,
+      ...(exactIntervalBookkeeping ? { exactIntervalBookkeeping } : {}),
     },
     theoremHooks,
     theoremAgenda,
@@ -725,10 +727,12 @@ export function renderProblemTheoremLoopMarkdown(doc) {
     `- Theorem module: ${doc.theoremModule ? `\`${doc.theoremModule}\`` : '`(none)`'}.`,
     `- Route summary: ${doc.currentState.routeSummary}`,
     `- Next honest move: ${doc.currentState.nextHonestMove}`,
-    '',
-    '## Theorem Hooks',
-    '',
   ];
+  if (doc.currentState.exactIntervalBookkeeping) {
+    lines.push(`- Public raw exact packet interval: \`${doc.currentState.exactIntervalBookkeeping.publicRepoRawExactInterval ?? '(unknown)'}\`.`);
+    lines.push(`- Local compact rollout evidence interval: \`${doc.currentState.exactIntervalBookkeeping.localIgnoredRolloutInterval ?? '(unknown)'}\`.`);
+  }
+  lines.push('', '## Theorem Hooks', '');
 
   for (const hook of doc.theoremHooks ?? []) {
     lines.push(`- \`${hook.hook_id}\`: ${hook.status}${hook.note ? ` | ${hook.note}` : ''}`);
@@ -822,6 +826,9 @@ export function buildProblemClaimLoop(problem) {
       nextHonestMove: theoremLoop.currentState.nextHonestMove,
       routeSummary: theoremLoop.currentState.routeSummary,
       sourceRefresh: theoremLoop.commands.sourceRefresh ?? null,
+      ...(theoremLoop.currentState.exactIntervalBookkeeping
+        ? { exactIntervalBookkeeping: theoremLoop.currentState.exactIntervalBookkeeping }
+        : {}),
     },
     featureExtractors: buildGenericFeatureExtractors(problem, theoremLoop),
     claimGenerators: buildGenericClaimGenerators(problem, theoremLoop),
@@ -866,10 +873,12 @@ export function renderProblemClaimLoopMarkdown(doc) {
     `- Active route: \`${doc.currentState.activeRoute ?? '(none)'}\`.`,
     `- Route summary: ${doc.currentState.routeSummary}`,
     `- Next honest move: ${doc.currentState.nextHonestMove}`,
-    '',
-    '## Feature Extractors',
-    '',
   ];
+  if (doc.currentState.exactIntervalBookkeeping) {
+    lines.push(`- Public raw exact packet interval: \`${doc.currentState.exactIntervalBookkeeping.publicRepoRawExactInterval ?? '(unknown)'}\`.`);
+    lines.push(`- Local compact rollout evidence interval: \`${doc.currentState.exactIntervalBookkeeping.localIgnoredRolloutInterval ?? '(unknown)'}\`.`);
+  }
+  lines.push('', '## Feature Extractors', '');
 
   for (const extractor of doc.featureExtractors ?? []) {
     lines.push(`- \`${extractor.extractor_id}\`: ${extractor.status} | ${extractor.note}`);
@@ -3351,8 +3360,24 @@ function buildP848AlignmentContext(theoremLoop) {
   const nextRepresentative = bridgeState?.next_unmatched_representative ?? null;
   const familyMenuPath = bridgeDoc?.sources?.family_menu_source_path ?? null;
   const familyMenu = familyMenuPath ? readJsonIfPresent(familyMenuPath) : null;
-  const familyRow = Array.isArray(familyMenu?.families) && nextRepresentative !== null
+  const familyMenuRow = Array.isArray(familyMenu?.families) && nextRepresentative !== null
     ? familyMenu.families.find((row) => row?.representative === nextRepresentative) ?? null
+    : null;
+  const packProblemDir = theoremLoop?.sources?.packProblemDir ?? (bridgePath ? path.dirname(bridgePath) : null);
+  const obstructionPacketPath = packProblemDir
+    ? path.join(packProblemDir, 'SPLIT_ATOM_PACKETS', 'FRONTIER_BRIDGE', 'P848_282_ALIGNMENT_OBSTRUCTION_PACKET.json')
+    : null;
+  const obstructionPacket = obstructionPacketPath ? readJsonIfPresent(obstructionPacketPath) : null;
+  const recoveredFamilyRow = obstructionPacket?.recoveredFamilyRow
+    && nextRepresentative !== null
+    && Number(obstructionPacket.recoveredFamilyRow.representative) === Number(nextRepresentative)
+    ? obstructionPacket.recoveredFamilyRow
+    : null;
+  const familyRow = familyMenuRow ?? recoveredFamilyRow;
+  const familyRowSource = familyMenuRow
+    ? 'live_family_menu'
+    : recoveredFamilyRow
+    ? 'recovered_alignment_obstruction_packet'
     : null;
   const trackedTailMatrix = Array.isArray(bridgeDoc?.tracked_tail_matrix) ? bridgeDoc.tracked_tail_matrix : [];
   const gpuLeaderboard = Array.isArray(bridgeDoc?.gpu_leaderboard) ? bridgeDoc.gpu_leaderboard : [];
@@ -3478,8 +3503,11 @@ function buildP848AlignmentContext(theoremLoop) {
     gpuLeaderboard,
     familyMenuPath,
     familyMenu,
+    obstructionPacketPath,
+    obstructionPacket,
     allFamilies,
     familyRow,
+    familyRowSource,
     nextRepresentative,
     trackedTail282,
     failing282Families,
@@ -5077,6 +5105,11 @@ function buildP848AlignmentFormalizationTarget(theoremLoop, claimPass) {
   const currentLeader = bridgeState.current_family_aware_leader?.continuation ?? '(unknown)';
   const latestVerifiedInterval = claimPass?.currentState?.latestVerifiedInterval ?? null;
   const familyRow = alignmentContext.familyRow;
+  const familyRowSourceLabel = alignmentContext.familyRowSource === 'live_family_menu'
+    ? 'live family menu'
+    : alignmentContext.familyRowSource === 'recovered_alignment_obstruction_packet'
+    ? 'recovered alignment obstruction packet'
+    : null;
   const tupleSummary = Array.isArray(familyRow?.tupleRows)
     ? familyRow.tupleRows.map((row) => `${row.anchor}->${row.squareModulus}/${row.residue}`).join(', ')
     : null;
@@ -5133,7 +5166,7 @@ function buildP848AlignmentFormalizationTarget(theoremLoop, claimPass) {
       `The canonical bridge records next unmatched representative ${nextRepresentative}.`,
       `The tracked-tail matrix records continuation 282 failing first at ${nextRepresentative}.`,
       familyRow
-        ? `The current family menu already contains representative ${nextRepresentative} with tuple key ${familyRow.tupleKey} and tuple rows ${tupleSummary}.`
+        ? `The ${familyRowSourceLabel} supplies representative ${nextRepresentative} with tuple key ${familyRow.tupleKey} and tuple rows ${tupleSummary}.`
         : `The current family menu does not yet expose a concrete row for representative ${nextRepresentative}.`,
       familyRow && alignmentContext.only282Fails
         ? `On that family-menu row, only continuation 282 fails among the tracked tails, and it does so via witness modulus ${failing282Witness}.`
@@ -5717,6 +5750,11 @@ function buildGenericFormalizationWorkTarget(problem, formalization) {
 
 function buildP848SharedPrefixClassWorkTarget(formalization, alignmentContext, focusObligation) {
   const familyRow = alignmentContext.familyRow;
+  const familyRowSourceLabel = alignmentContext.familyRowSource === 'live_family_menu'
+    ? 'live family menu'
+    : alignmentContext.familyRowSource === 'recovered_alignment_obstruction_packet'
+    ? 'recovered alignment obstruction packet'
+    : null;
   const tupleRows = Array.isArray(familyRow?.tupleRows) ? familyRow.tupleRows : [];
   const stableRepairAnchors = alignmentContext.stableRepairRows.map((row) => row.anchor);
   const failingRepairRows = alignmentContext.failingRepairRows.map((row) => ({
@@ -5733,15 +5771,17 @@ function buildP848SharedPrefixClassWorkTarget(formalization, alignmentContext, f
     summary: 'Freeze the exact tuple/CRT/repair language for the first obstruction class that defeats continuation 282.',
     why: 'This is the first point where the alignment claim becomes expressible in a reusable theorem language instead of as a numerical coincidence.',
     workingDefinition: [
-      'A shared-prefix obstruction class is a family-menu row over the fixed prefix `{7, 32, 57, 82, 132, 182}`.',
+      'A shared-prefix obstruction class is a family-menu or recovered obstruction-packet row over the fixed prefix `{7, 32, 57, 82, 132, 182}`.',
       'The class is described by `(tupleKey, tupleRows, representative, modulus, residue)` together with the tracked-tail repair surface on the same row.',
       familyRow
-        ? `The current boundary class is the row with representative ${familyRow.representative} and tuple key ${familyRow.tupleKey}.`
+        ? `The current boundary class is the ${familyRowSourceLabel} row with representative ${familyRow.representative} and tuple key ${familyRow.tupleKey}.`
         : 'The current boundary class is not yet frozen in the family menu.',
     ],
     currentEvidence: [
       familyRow
-        ? `Representative ${familyRow.representative} is already present in the live family menu at ${alignmentContext.familyMenuPath}.`
+        ? alignmentContext.familyRowSource === 'live_family_menu'
+          ? `Representative ${familyRow.representative} is already present in the live family menu at ${alignmentContext.familyMenuPath}.`
+          : `Representative ${familyRow.representative} is regenerated in the alignment obstruction packet at ${alignmentContext.obstructionPacketPath}; live family-menu chronology is still unavailable.`
         : 'The live family menu does not yet expose the target representative row.',
       familyRow
         ? `Tuple rows: ${tupleRows.map((row) => `${row.anchor}->${row.squareModulus}/${row.residue}`).join(', ')}.`
@@ -5755,7 +5795,9 @@ function buildP848SharedPrefixClassWorkTarget(formalization, alignmentContext, f
     ],
     dischargedWork: [
       familyRow
-        ? `Shared obstruction language fixed: tuple rows + CRT class + repair surface all come from the same family-menu row.`
+        ? alignmentContext.familyRowSource === 'live_family_menu'
+          ? `Shared obstruction language fixed: tuple rows + CRT class + repair surface all come from the same family-menu row.`
+          : `Shared obstruction language fixed provisionally: tuple rows + CRT class + repair surface are regenerated from the same representative obstruction packet.`
         : 'Shared obstruction language is not yet fixed.',
       stableRepairAnchors.length > 0
         ? `Boundary narrowed: ${stableRepairAnchors.join(', ')} remain squarefree on the class while ${failingRepairRows.map((row) => row.anchor).join(', ')} fails.`
@@ -5775,7 +5817,10 @@ function buildP848SharedPrefixClassWorkTarget(formalization, alignmentContext, f
       tupleRows,
       stableRepairAnchors,
       failingRepairRows,
+      familyRowSource: alignmentContext.familyRowSource,
       familyMenuPath: alignmentContext.familyMenuPath,
+      obstructionPacketPath: alignmentContext.obstructionPacketPath,
+      targetWitnessLift: alignmentContext.obstructionPacket?.targetWitnessLift ?? null,
       bridgePath: formalization?.sources?.legacyBridgeJsonPath ?? null,
     },
     nextCommands: [
@@ -6925,7 +6970,188 @@ function buildProblemGranularBreakdownMode(problem, formalizationWork) {
   };
 }
 
-function buildProblemOrpModeOverlays(problem, granularBreakdownMode) {
+function buildProblemConvergenceAssemblyMode(problem, formalizationWork, granularBreakdownMode = null) {
+  const currentWork = formalizationWork.currentWork ?? null;
+  const topic = [
+    `problem ${problem.problemId}`,
+    'convergence assembly',
+    currentWork?.title ?? problem.title,
+  ].filter(Boolean).join(' | ');
+
+  return {
+    status: 'core_loop_enabled',
+    overlayId: 'convergence-assembly',
+    modeId: 'granular-breakdown',
+    label: 'Convergence Assembly',
+    role: 'puzzle_assembly_and_measure_drop',
+    topic,
+    activationPhrase: 'Assemble the puzzle before making another piece.',
+    invocationRule: 'Run this whenever the next action repeats a repair/split/search shape, before broad compute, and after material progress that creates new artifacts but not a clearer endgame.',
+    commands: {
+      fullAssembly: `orp mode breakdown granular-breakdown --topic ${quoteOrpTopic(topic)} --json`,
+      quickNudge: granularBreakdownMode?.commands?.nudge ?? 'orp mode nudge granular-breakdown --json',
+      simplificationNudge: 'orp mode nudge ruthless-simplification --json',
+    },
+    triggerHeuristics: [
+      'The next action is another same-shaped endpoint, q-prime, split, availability, repair, successor, or certificate step.',
+      'Three or more recent artifacts look like sibling puzzle pieces rather than a collapsed lemma.',
+      'A local compute lane is producing evidence faster than the theorem surface is absorbing it.',
+      'The agent can name progress but cannot name a finite decreasing measure or terminal cover.',
+      'The next move would launch broader compute without first asking what the current artifacts already imply together.',
+    ],
+    requiredQuestions: [
+      'What exact puzzle pieces are now assembled, and what claim do they jointly support?',
+      'What finite measure, cover, rank, residue class count, or dependency count decreased?',
+      'If no measure decreased, what abstraction would compress the repeated work into one lemma?',
+      'What remains outside the assembled picture, stated as the smallest falsifiable boundary?',
+      'What is the highest-value next action: finish a finite endpoint, recombine, generalize, formalize, or compute?',
+    ],
+    outputContract: [
+      'assembledPieces',
+      'supportedClaim',
+      'finiteMeasureOrNoMeasureYet',
+      'compressionCandidateLemma',
+      'remainingPuzzleBoundary',
+      'oneNextAction',
+      'oneVerificationCommand',
+      'writebackTargets',
+    ],
+    loopIntegration: [
+      'Use the existing ORP granular-breakdown mode with this convergence topic; do not require a new ORP mode to exist.',
+      'Write any discovered invariant, finite measure, recombination handoff, or compression lemma into TASK_LIST, FORMALIZATION_WORK, THEOREM_LOOP, or a dedicated packet.',
+      'If the audit finds only more sibling work, explicitly record why that sibling is finite and cheaper than a general lemma this turn.',
+      'After writeback, refresh the canonical task list so Clawdad and other agents inherit the updated assembly state.',
+    ],
+    durableArtifactRule: 'Operational assembly insights must become repo-owned state; chat-only convergence claims do not count.',
+  };
+}
+
+function buildProblemAbstractBeforeExpandGate(problem, formalizationWork, granularBreakdownMode = null, convergenceAssemblyMode = null) {
+  const currentWork = formalizationWork.currentWork ?? null;
+  const topic = [
+    `problem ${problem.problemId}`,
+    'abstract before expanding',
+    currentWork?.title ?? problem.title,
+  ].filter(Boolean).join(' | ');
+
+  return {
+    status: 'core_loop_enabled',
+    gateId: 'abstract-before-expand',
+    backingModeId: 'granular-breakdown',
+    label: 'Abstract Before Expanding',
+    role: 'collapse_family_before_branching',
+    topic,
+    activationPhrase: 'Collapse the family before opening another child.',
+    invocationRule: 'Run this before any branch/search/compute/API/paid step that expands the surface; skip only when the primary action already names a theorem object, recombination, finite partition, decreasing measure, source audit, or blocker.',
+    commands: {
+      fullGate: `orp mode breakdown granular-breakdown --topic ${quoteOrpTopic(topic)} --json`,
+      nudge: granularBreakdownMode?.commands?.nudge ?? 'orp mode nudge granular-breakdown --json',
+      convergenceAssembly: convergenceAssemblyMode?.commands?.fullAssembly ?? null,
+    },
+    triggerHeuristics: [
+      'The next action would open a sibling case, selector, q/p child, search lane, compute sweep, API call, or paid/remote rung.',
+      'The frontier, task, or artifact count is growing faster than terminal closures or theorem objects.',
+      'The proposed step repeats the shape of recent work without naming the family it represents.',
+      'A local proof attempt hit a blocker and the next move is to try another concrete instance.',
+      'A compute or research call is being considered before the agent can name the collapse theorem it is meant to unlock.',
+    ],
+    requiredQuestions: [
+      'What larger family does this concrete case represent?',
+      'What theorem object would collapse that family?',
+      'Is there a finite partition, decreasing rank, bulk cover, impossibility theorem, source theorem, or recombination path available?',
+      'Should the next move be local proof, local compute, budget-guarded API/source audit, paid compute approval, or a blocker packet?',
+      'What exact artifact or task-list writeback will preserve this abstraction for the next agent?',
+    ],
+    allowedOutcomes: [
+      'collapse_to_theorem_object',
+      'route_to_local_proof_or_formalization',
+      'route_to_budget_guarded_api_source_audit',
+      'route_to_compute_with_named_unlock',
+      'emit_blocker_or_approval_packet',
+      'allow_expansion_because_it_is_finite_and_cheapest',
+    ],
+    outputContract: [
+      'representedFamily',
+      'collapseTheoremObject',
+      'finiteMeasureOrWhyMissing',
+      'toolRoute',
+      'oneNextAction',
+      'writebackTarget',
+    ],
+    loopIntegration: [
+      'Apply the gate before expanding a branch/search/compute/API surface.',
+      'If the gate finds a collapsing theorem object, prefer that object over more sibling work.',
+      'If expansion remains cheapest, record why it is finite, what token decreases, and what blocker will be written if it fails.',
+      'Refresh TASK_LIST and PROGRESS after writeback so Clawdad and future agents inherit the abstraction.',
+    ],
+    durableArtifactRule: 'The gate only counts when its family, theorem object, route decision, and writeback target are recorded in canonical artifacts.',
+  };
+}
+
+function isExpansionRiskAction(action = null) {
+  const text = [
+    action?.stepId,
+    action?.task,
+    action?.source,
+    action?.command,
+    action?.completionRule,
+    action?.packetAtomId,
+    action?.packetJsonPath,
+  ].filter(Boolean).join(' ').toLowerCase();
+  if (!text) {
+    return false;
+  }
+  return /\b(expand|extend|open|descend|descent|branch|child|sibling|split|selector|fallback|q[-_\s]*cover|bucket|staircase|frontier|compute|search|sweep|scan|enumerat|rollout|api|openai|paid|gpu|h100|brev|remote|repair|successor|candidate|certificate|factor|prime|residual|availability)\b/u.test(text)
+    || /\b[qp]\s*\d+\b/u.test(text)
+    || /\b[qp][-_]\d+\b/u.test(text);
+}
+
+function isAbstractionSatisfyingAction(action = null) {
+  const text = [
+    action?.stepId,
+    action?.task,
+    action?.source,
+    action?.command,
+    action?.completionRule,
+    action?.packetAtomId,
+    action?.packetJsonPath,
+  ].filter(Boolean).join(' ').toLowerCase();
+  if (!text) {
+    return false;
+  }
+  return /\b(abstract|abstraction|assembly|assemble|convergence|recombine|recombination|theorem[-_\s]*object|theorem[-_\s]*wedge|source[-_\s]*(import|audit|index|theorem|archaeology)|backlog|boundary|blocker|finite[-_\s]*partition|decreasing[-_\s]*(rank|measure)|bulk[-_\s]*cover|impossibility[-_\s]*theorem|structural[-_\s]*decomposition|formalization|lemma|proof[-_\s]*attempt)\b/u.test(text);
+}
+
+function isConvergenceRiskAction(action = null) {
+  const text = [
+    action?.stepId,
+    action?.task,
+    action?.source,
+    action?.command,
+  ].filter(Boolean).join(' ').toLowerCase();
+  if (!text) {
+    return false;
+  }
+  return /\b(endpoint|q\s*\d+|p\s*\d+|prime|availability|split|repair|successor|certificate|factor|ladder|residual|staircase)\b/u.test(text);
+}
+
+function isP848ComplementLaneAction(action = null) {
+  const text = [
+    action?.stepId,
+    action?.task,
+    action?.source,
+    action?.command,
+    action?.completionRule,
+    action?.packetAtomId,
+    action?.packetJsonPath,
+  ].filter(Boolean).join(' ').toLowerCase();
+  if (!text) {
+    return false;
+  }
+  return /p4217[_\s-]*complement|p61[_/\s-]*q101|fallback[_\s-]*selector|unavailable[_\s-]*complement/u.test(text);
+}
+
+function buildProblemOrpModeOverlays(problem, granularBreakdownMode, convergenceAssemblyMode = null, abstractBeforeExpandGate = null) {
   const problemTopic = granularBreakdownMode?.topic ?? `problem ${problem.problemId} | ${problem.title}`;
   const overlays = [
     {
@@ -6939,6 +7165,32 @@ function buildProblemOrpModeOverlays(problem, granularBreakdownMode) {
       loopPlacement: 'Before execute_current_work_packet and whenever the active target becomes fuzzy.',
       outputExpectation: 'Boundary, lanes, subclaims, atomic obligations, dependency ladder, active target, durable checklist, and next verification.',
     },
+    ...(abstractBeforeExpandGate
+      ? [{
+        modeId: abstractBeforeExpandGate.gateId,
+        backingModeId: abstractBeforeExpandGate.backingModeId,
+        label: abstractBeforeExpandGate.label,
+        role: abstractBeforeExpandGate.role,
+        useWhen: abstractBeforeExpandGate.invocationRule,
+        command: abstractBeforeExpandGate.commands.fullGate,
+        nudgeCommand: abstractBeforeExpandGate.commands.nudge,
+        loopPlacement: 'Before branch, search, compute, API, paid, or sibling expansion.',
+        outputExpectation: 'Represented family, collapse theorem object, finite measure or gap, tool route, one next action, and writeback target.',
+      }]
+      : []),
+    ...(convergenceAssemblyMode
+      ? [{
+        modeId: convergenceAssemblyMode.overlayId,
+        backingModeId: convergenceAssemblyMode.modeId,
+        label: convergenceAssemblyMode.label,
+        role: convergenceAssemblyMode.role,
+        useWhen: convergenceAssemblyMode.invocationRule,
+        command: convergenceAssemblyMode.commands.fullAssembly,
+        nudgeCommand: convergenceAssemblyMode.commands.quickNudge,
+        loopPlacement: 'After material progress, before extending a repeated search/theorem ladder, and before broad compute.',
+        outputExpectation: 'Assembled pieces, supported claim, finite measure or gap, compression lemma candidate, remaining boundary, one next action, and one verification command.',
+      }]
+      : []),
     {
       modeId: 'ruthless-simplification',
       label: 'Ruthless Simplification',
@@ -6991,7 +7243,7 @@ function buildProblemOrpModeOverlays(problem, granularBreakdownMode) {
   };
 }
 
-function buildProblemTaskExecutionRule(problem, granularBreakdownMode = null) {
+function buildProblemTaskExecutionRule(problem, granularBreakdownMode = null, convergenceAssemblyMode = null, abstractBeforeExpandGate = null) {
   return {
     stance: 'concrete_execution',
     summary: `Treat the task list as a concrete research loop for problem ${problem.problemId}: execute the highest-value task itself, not wrapper prose about the task.`,
@@ -7001,6 +7253,12 @@ function buildProblemTaskExecutionRule(problem, granularBreakdownMode = null) {
       granularBreakdownMode
         ? `Use ORP granular breakdown when the next step is broad or confusing: ${granularBreakdownMode.commands.nudge}`
         : 'Break broad or confusing steps into named atomic obligations before executing them.',
+      convergenceAssemblyMode
+        ? `Run convergence assembly before extending a repeated theorem/search ladder: ${convergenceAssemblyMode.commands.fullAssembly}`
+        : 'Before extending a repeated theorem/search ladder, assemble what the current pieces prove and name a finite measure or compression lemma.',
+      abstractBeforeExpandGate
+        ? `Apply Abstract Before Expanding before branch/search/compute/API/paid expansion: ${abstractBeforeExpandGate.commands.fullGate}`
+        : 'Before branch/search/compute/API expansion, ask what family this concrete case represents and what theorem object would collapse it.',
       'Use the smallest relevant ORP mode overlay when it simplifies the work: simplification for bloat, systems for cross-surface consequences, bold generation for new candidates, and sleek-progressive for clearer handoff shape.',
       'Invent the next highest-value step from the updated evidence rather than following a stale fixed script.',
       'Append that next step to the task list and refresh the canonical task-list artifacts.',
@@ -7013,12 +7271,29 @@ function buildProblemTaskExecutionRule(problem, granularBreakdownMode = null) {
         nudgeCommand: granularBreakdownMode.commands.nudge,
       }
       : null,
+    convergenceAssemblyMode: convergenceAssemblyMode
+      ? {
+        overlayId: convergenceAssemblyMode.overlayId,
+        modeId: convergenceAssemblyMode.modeId,
+        status: convergenceAssemblyMode.status,
+        fullAssemblyCommand: convergenceAssemblyMode.commands.fullAssembly,
+        quickNudgeCommand: convergenceAssemblyMode.commands.quickNudge,
+      }
+      : null,
+    abstractBeforeExpandGate: abstractBeforeExpandGate
+      ? {
+        gateId: abstractBeforeExpandGate.gateId,
+        status: abstractBeforeExpandGate.status,
+        fullGateCommand: abstractBeforeExpandGate.commands.fullGate,
+        nudgeCommand: abstractBeforeExpandGate.commands.nudge,
+      }
+      : null,
     repetitionProtocol: 'To execute this loop 10 times or 100 times, complete the first ready task, refresh the task list, then use the regenerated ordering for the next pass.',
     lowStressLongHorizonNote: 'This loop is meant to be safe for long-horizon execution because it re-ranks after every pass instead of committing to a blind fixed plan.',
   };
 }
 
-function buildProblemTaskTemplate(problem, theoremLoop, claimPass, formalizationWork, intervalQueue, granularBreakdownMode = null) {
+function buildProblemTaskTemplate(problem, theoremLoop, claimPass, formalizationWork, intervalQueue, granularBreakdownMode = null, convergenceAssemblyMode = null, abstractBeforeExpandGate = null) {
   const activeRoute = theoremLoop.activeRoute ?? theoremLoop.currentState?.activeRoute ?? null;
   const latestVerifiedInterval = claimPass.currentState?.latestVerifiedInterval
     ?? theoremLoop.currentState?.latestVerifiedInterval
@@ -7087,6 +7362,24 @@ function buildProblemTaskTemplate(problem, theoremLoop, claimPass, formalization
         command: granularBreakdownMode.commands.fullBreakdown,
       }]
       : []),
+    ...(convergenceAssemblyMode
+      ? [{
+        stepId: 'assemble_convergence_picture',
+        title: 'Assemble proof picture and convergence measure',
+        task: `Run convergence assembly on \`${convergenceAssemblyMode.topic}\`: list the pieces already proved, the joint claim they support, the finite measure or missing measure, and the compression lemma or terminal boundary before making another sibling piece.`,
+        completionRule: 'The next action is justified as a finite endpoint, recombination/general lemma, formalization target, or explicitly bounded compute probe.',
+        command: convergenceAssemblyMode.commands.fullAssembly,
+      }]
+      : []),
+    ...(abstractBeforeExpandGate
+      ? [{
+        stepId: 'apply_abstract_before_expand_gate',
+        title: 'Apply Abstract Before Expanding gate',
+        task: `Before opening new branches, search lanes, compute sweeps, API calls, or paid rungs, run \`${abstractBeforeExpandGate.topic}\` and name the larger family, collapse theorem object, route decision, and writeback target.`,
+        completionRule: 'The next move is either collapsed to a theorem object/recombination path, routed to a named local/API/compute unlock, or allowed as finite expansion with an explicit decreasing token and blocker boundary.',
+        command: abstractBeforeExpandGate.commands.fullGate,
+      }]
+      : []),
     {
       stepId: 'execute_current_work_packet',
       title: currentWork?.title ?? 'Execute the current formalization-work packet',
@@ -7110,7 +7403,18 @@ function buildProblemTaskTemplate(problem, theoremLoop, claimPass, formalization
 
 function buildProblemCurrentTasks(problem, theoremLoop, claimPass, formalization, formalizationWork, intervalQueue) {
   const granularBreakdownMode = buildProblemGranularBreakdownMode(problem, formalizationWork);
-  const template = buildProblemTaskTemplate(problem, theoremLoop, claimPass, formalizationWork, intervalQueue, granularBreakdownMode);
+  const convergenceAssemblyMode = buildProblemConvergenceAssemblyMode(problem, formalizationWork, granularBreakdownMode);
+  const abstractBeforeExpandGate = buildProblemAbstractBeforeExpandGate(problem, formalizationWork, granularBreakdownMode, convergenceAssemblyMode);
+  const template = buildProblemTaskTemplate(
+    problem,
+    theoremLoop,
+    claimPass,
+    formalizationWork,
+    intervalQueue,
+    granularBreakdownMode,
+    convergenceAssemblyMode,
+    abstractBeforeExpandGate,
+  );
   const currentWork = formalizationWork.currentWork ?? null;
   const remainingGaps = Array.isArray(currentWork?.remainingGaps) ? currentWork.remainingGaps : [];
   const tasks = template.map((item, index) => ({
@@ -7341,6 +7645,7 @@ function buildP848FiniteGapStrategy(problem, latestVerifiedInterval, intervalQue
     return null;
   }
 
+  const exactIntervalBookkeeping = buildP848ExactIntervalBookkeeping(problem, latestVerifiedInterval, breakpointCertificate);
   const exactRange = parseP848ClosedIntegerRange(latestVerifiedInterval);
   const importedThresholdRaw = intervalQueue?.operational_threshold?.value ?? null;
   const importedThreshold = parseP848ScientificInteger(importedThresholdRaw);
@@ -7378,6 +7683,10 @@ function buildP848FiniteGapStrategy(problem, latestVerifiedInterval, intervalQue
       endpointCheckCount: certificateSummary.endpointCheckCount,
       compressionRatio: certificateSummary.compressionRatio,
       approximateRowsPerEndpointCheck: endpointRowsPerCheck,
+      sourceStatus: breakpointCertificate?.certificate?.sourceResultsStatus ?? null,
+      sourceResultsSha256: breakpointCertificate?.certificate?.sourceResultsSha256 ?? null,
+      publicRawPacketInterval: exactIntervalBookkeeping?.publicRepoRawExactInterval ?? null,
+      raw40500PacketCommitted: exactIntervalBookkeeping?.raw40500PacketCommitted ?? null,
     },
     projectedEndpointChecksToOperationalThreshold: projectedEndpointChecks?.toString() ?? null,
     projectedEndpointChecksToOperationalThresholdLabel: projectedEndpointChecks
@@ -7390,6 +7699,48 @@ function buildP848FiniteGapStrategy(problem, latestVerifiedInterval, intervalQue
       'Prioritize auditing the imported threshold handoff or proving a stronger structural verifier lane.',
       'Use GPU/frontier sweeps to generate structural candidates and counterexamples, not as a substitute for the all-N handoff proof.',
     ],
+    ...(exactIntervalBookkeeping
+      ? {
+        publicRepoRawExactInterval: exactIntervalBookkeeping.publicRepoRawExactInterval,
+        localIgnoredRolloutInterval: exactIntervalBookkeeping.localIgnoredRolloutInterval,
+        publicRepoRawExactMax: exactIntervalBookkeeping.publicRepoRawExactMax,
+        localIgnoredRolloutMax: exactIntervalBookkeeping.localIgnoredRolloutMax,
+        exactMaxMeaning: 'public raw packet max; compact local rollout evidence is named separately',
+        bookkeepingArtifact: exactIntervalBookkeeping.bookkeepingArtifact,
+        exactIntervalBookkeeping,
+      }
+      : {}),
+  };
+}
+
+function buildP848ExactIntervalBookkeeping(problem, latestVerifiedInterval = null, breakpointCertificate = null) {
+  if (String(problem?.problemId ?? '') !== '848') {
+    return null;
+  }
+
+  const certificate = breakpointCertificate ?? getP848ExactBreakpointCertificate(problem);
+  const certificatePayload = certificate?.certificate ?? certificate;
+  const publicRepoRawExactInterval = certificatePayload?.publicRepoRawExactInterval ?? latestVerifiedInterval ?? null;
+  const localIgnoredRolloutInterval = certificatePayload?.summary?.interval ?? null;
+  if (!publicRepoRawExactInterval && !localIgnoredRolloutInterval) {
+    return null;
+  }
+
+  const publicRange = parseP848ClosedIntegerRange(publicRepoRawExactInterval);
+  const localRange = parseP848ClosedIntegerRange(localIgnoredRolloutInterval);
+  const sourceResultsStatus = certificatePayload?.sourceResultsStatus ?? null;
+  const raw40500PacketCommitted = sourceResultsStatus
+    ? !String(sourceResultsStatus).includes('local_ignored')
+    : null;
+
+  return {
+    publicRepoRawExactInterval,
+    localIgnoredRolloutInterval,
+    publicRepoRawExactMax: publicRange?.max ?? null,
+    localIgnoredRolloutMax: localRange?.max ?? null,
+    exactMaxMeaning: 'Use the public raw exact max for committed raw-packet claims; use the local rollout max only for compact derivative evidence.',
+    bookkeepingArtifact: certificatePayload?.bookkeepingArtifact ?? 'EXACT_INTERVAL_BOOKKEEPING.md',
+    raw40500PacketCommitted,
   };
 }
 
@@ -15189,7 +15540,3274 @@ function buildP848SplitCoreAtomizationPlan(problem, formalizationWork) {
 	    .startsWith('D2_p13_dynamic_margin_exact_mixed_matching_injection_selected_cross_squarefree_exception_period_shifted_endpoint_menu_q17_residual_p13_expanded_fallback_menu_lift_');
 	  const firstSideCountFloorMovingTermIsDynamicMarginExactMixedMatchingInjectionSelectedCrossSquarefreeExceptionPeriodShiftedEndpointMenuQ17ResidualWindowRelaxedFallbackMenu = String(firstSideCountFloorMovingTermSubatom ?? '')
 	    .startsWith('D2_p13_dynamic_margin_exact_mixed_matching_injection_selected_cross_squarefree_exception_period_shifted_endpoint_menu_q17_residual_window_relaxed_fallback_menu_lift_');
-	  const firstSideCountFloorMovingTermIsDynamicMarginExactMixedMatchingInjectionSelectedCrossSquarefreeExceptionMenu = String(firstSideCountFloorMovingTermSubatom ?? '')
+  const packProblemDir = getProblemPackDir(problem);
+  const q17WindowLegalityAuditPath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'DYNAMIC_MARGIN_PROOFS',
+      'D2_p13_dynamic_margin_exact_mixed_matching_injection_selected_cross_squarefree_exception_period_shifted_endpoint_menu_q17_residual_window_relaxed_fallback_menu_window_legality_audit.json',
+    )
+    : null;
+  const q17WindowLegalityAudit = q17WindowLegalityAuditPath ? readJsonIfPresent(q17WindowLegalityAuditPath) : null;
+  const q17AvailabilityResidueCoverPath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'DYNAMIC_MARGIN_PROOFS',
+      'D2_p13_dynamic_margin_exact_mixed_matching_injection_selected_cross_squarefree_exception_period_shifted_endpoint_menu_q17_residual_window_relaxed_fallback_menu_availability_residue_cover.json',
+    )
+    : null;
+  const q17AvailabilityResidueCover = q17AvailabilityResidueCoverPath ? readJsonIfPresent(q17AvailabilityResidueCoverPath) : null;
+  const q17SquarefreeHittingObstructionPath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'DYNAMIC_MARGIN_PROOFS',
+      'D2_p13_dynamic_margin_exact_mixed_matching_injection_selected_cross_squarefree_exception_period_shifted_endpoint_menu_q17_residual_window_relaxed_fallback_menu_squarefree_hitting_obstruction.json',
+    )
+    : null;
+  const q17SquarefreeHittingObstruction = q17SquarefreeHittingObstructionPath
+    ? readJsonIfPresent(q17SquarefreeHittingObstructionPath)
+    : null;
+  const q17SquarefreeObstructionSubclassRepairPath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'DYNAMIC_MARGIN_PROOFS',
+      'D2_p13_dynamic_margin_exact_mixed_matching_injection_selected_cross_squarefree_exception_period_shifted_endpoint_menu_q17_residual_window_relaxed_fallback_menu_squarefree_obstruction_subclass_repair.json',
+    )
+    : null;
+  const q17SquarefreeObstructionSubclassRepair = q17SquarefreeObstructionSubclassRepairPath
+    ? readJsonIfPresent(q17SquarefreeObstructionSubclassRepairPath)
+    : null;
+  const q17P41AvailabilitySplitPath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'DYNAMIC_MARGIN_PROOFS',
+      'D2_p13_dynamic_margin_exact_mixed_matching_injection_selected_cross_squarefree_exception_period_shifted_endpoint_menu_q17_residual_window_relaxed_fallback_menu_squarefree_obstruction_p41_availability_split.json',
+    )
+    : null;
+  const q17P41AvailabilitySplit = q17P41AvailabilitySplitPath
+    ? readJsonIfPresent(q17P41AvailabilitySplitPath)
+    : null;
+  const q17P41Q13SubclassRepairPath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'DYNAMIC_MARGIN_PROOFS',
+      'D2_p13_dynamic_margin_exact_mixed_matching_injection_selected_cross_squarefree_exception_period_shifted_endpoint_menu_q17_residual_window_relaxed_fallback_menu_squarefree_obstruction_p41_q13_subclass_repair.json',
+    )
+    : null;
+  const q17P41Q13SubclassRepair = q17P41Q13SubclassRepairPath
+    ? readJsonIfPresent(q17P41Q13SubclassRepairPath)
+    : null;
+  const q17P41Q13P103AvailabilitySplitPath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'DYNAMIC_MARGIN_PROOFS',
+      'D2_p13_dynamic_margin_exact_mixed_matching_injection_selected_cross_squarefree_exception_period_shifted_endpoint_menu_q17_residual_window_relaxed_fallback_menu_squarefree_obstruction_p41_q13_p103_availability_split.json',
+    )
+    : null;
+  const q17P41Q13P103AvailabilitySplit = q17P41Q13P103AvailabilitySplitPath
+    ? readJsonIfPresent(q17P41Q13P103AvailabilitySplitPath)
+    : null;
+  const q17P41Q13P103Q2SubclassRepairPath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'DYNAMIC_MARGIN_PROOFS',
+      'D2_p13_dynamic_margin_exact_mixed_matching_injection_selected_cross_squarefree_exception_period_shifted_endpoint_menu_q17_residual_window_relaxed_fallback_menu_squarefree_obstruction_p41_q13_p103_q2_subclass_repair.json',
+    )
+    : null;
+  const q17P41Q13P103Q2SubclassRepair = q17P41Q13P103Q2SubclassRepairPath
+    ? readJsonIfPresent(q17P41Q13P103Q2SubclassRepairPath)
+    : null;
+  const q17P41Q13P103Q2P37AvailabilitySplitPath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'DYNAMIC_MARGIN_PROOFS',
+      'D2_p13_dynamic_margin_exact_mixed_matching_injection_selected_cross_squarefree_exception_period_shifted_endpoint_menu_q17_residual_window_relaxed_fallback_menu_squarefree_obstruction_p41_q13_p103_q2_p37_availability_split.json',
+    )
+    : null;
+  const q17P41Q13P103Q2P37AvailabilitySplit = q17P41Q13P103Q2P37AvailabilitySplitPath
+    ? readJsonIfPresent(q17P41Q13P103Q2P37AvailabilitySplitPath)
+    : null;
+  const q17P41Q13P103Q2P37Q19SubclassRepairPath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'DYNAMIC_MARGIN_PROOFS',
+      'D2_p13_dynamic_margin_exact_mixed_matching_injection_selected_cross_squarefree_exception_period_shifted_endpoint_menu_q17_residual_window_relaxed_fallback_menu_squarefree_obstruction_p41_q13_p103_q2_p37_q19_subclass_repair.json',
+    )
+    : null;
+  const q17P41Q13P103Q2P37Q19SubclassRepair = q17P41Q13P103Q2P37Q19SubclassRepairPath
+    ? readJsonIfPresent(q17P41Q13P103Q2P37Q19SubclassRepairPath)
+    : null;
+  const q17P41Q13P103Q2P37Q19P31SymbolicLiftPath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'DYNAMIC_MARGIN_PROOFS',
+      'D2_p13_dynamic_margin_exact_mixed_matching_injection_selected_cross_squarefree_exception_period_shifted_endpoint_menu_q17_residual_window_relaxed_fallback_menu_squarefree_obstruction_p41_q13_p103_q2_p37_q19_p31_symbolic_squarefree_lift.json',
+    )
+    : null;
+  const q17P41Q13P103Q2P37Q19P31SymbolicLift = q17P41Q13P103Q2P37Q19P31SymbolicLiftPath
+    ? readJsonIfPresent(q17P41Q13P103Q2P37Q19P31SymbolicLiftPath)
+    : null;
+  const q17P41Q13P103Q2P37Q19P31Q53SubclassRepairPath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'DYNAMIC_MARGIN_PROOFS',
+      'D2_p13_dynamic_margin_exact_mixed_matching_injection_selected_cross_squarefree_exception_period_shifted_endpoint_menu_q17_residual_window_relaxed_fallback_menu_squarefree_obstruction_p41_q13_p103_q2_p37_q19_p31_q53_subclass_repair.json',
+    )
+    : null;
+  const q17P41Q13P103Q2P37Q19P31Q53SubclassRepair = q17P41Q13P103Q2P37Q19P31Q53SubclassRepairPath
+    ? readJsonIfPresent(q17P41Q13P103Q2P37Q19P31Q53SubclassRepairPath)
+    : null;
+  const q17P41Q13P103Q2P37Q19P31Q53P73AvailabilitySplitPath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'DYNAMIC_MARGIN_PROOFS',
+      'D2_p13_dynamic_margin_exact_mixed_matching_injection_selected_cross_squarefree_exception_period_shifted_endpoint_menu_q17_residual_window_relaxed_fallback_menu_squarefree_obstruction_p41_q13_p103_q2_p37_q19_p31_q53_p73_availability_split.json',
+    )
+    : null;
+  const q17P41Q13P103Q2P37Q19P31Q53P73AvailabilitySplit = q17P41Q13P103Q2P37Q19P31Q53P73AvailabilitySplitPath
+    ? readJsonIfPresent(q17P41Q13P103Q2P37Q19P31Q53P73AvailabilitySplitPath)
+    : null;
+  const q17P41Q13P103Q2P37Q19P31Q53P73Q11SubclassRepairPath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'DYNAMIC_MARGIN_PROOFS',
+      'D2_p13_dynamic_margin_exact_mixed_matching_injection_selected_cross_squarefree_exception_period_shifted_endpoint_menu_q17_residual_window_relaxed_fallback_menu_squarefree_obstruction_p41_q13_p103_q2_p37_q19_p31_q53_p73_q11_subclass_repair.json',
+    )
+    : null;
+  const q17P41Q13P103Q2P37Q19P31Q53P73Q11SubclassRepair = q17P41Q13P103Q2P37Q19P31Q53P73Q11SubclassRepairPath
+    ? readJsonIfPresent(q17P41Q13P103Q2P37Q19P31Q53P73Q11SubclassRepairPath)
+    : null;
+  const q17P41Q13P103Q2P37Q19P31Q53P73Q11P83AvailabilitySplitPath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'DYNAMIC_MARGIN_PROOFS',
+      'D2_p13_dynamic_margin_exact_mixed_matching_injection_selected_cross_squarefree_exception_period_shifted_endpoint_menu_q17_residual_window_relaxed_fallback_menu_squarefree_obstruction_p41_q13_p103_q2_p37_q19_p31_q53_p73_q11_p83_availability_split.json',
+    )
+    : null;
+  const q17P41Q13P103Q2P37Q19P31Q53P73Q11P83AvailabilitySplit = q17P41Q13P103Q2P37Q19P31Q53P73Q11P83AvailabilitySplitPath
+    ? readJsonIfPresent(q17P41Q13P103Q2P37Q19P31Q53P73Q11P83AvailabilitySplitPath)
+    : null;
+  const q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17SubclassRepairPath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'DYNAMIC_MARGIN_PROOFS',
+      'D2_p13_dynamic_margin_exact_mixed_matching_injection_selected_cross_squarefree_exception_period_shifted_endpoint_menu_q17_residual_window_relaxed_fallback_menu_squarefree_obstruction_p41_q13_p103_q2_p37_q19_p31_q53_p73_q11_p83_q17_subclass_repair.json',
+    )
+    : null;
+  const q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17SubclassRepair = q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17SubclassRepairPath
+    ? readJsonIfPresent(q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17SubclassRepairPath)
+    : null;
+  const q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17SuccessorPath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'DYNAMIC_MARGIN_PROOFS',
+      'D2_p13_dynamic_margin_exact_mixed_matching_injection_selected_cross_squarefree_exception_period_shifted_endpoint_menu_q17_residual_window_relaxed_fallback_menu_squarefree_obstruction_p41_q13_p103_q2_p37_q19_p31_q53_p73_q11_p83_q17_successor.json',
+    )
+    : null;
+  const q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17Successor = q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17SuccessorPath
+    ? readJsonIfPresent(q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17SuccessorPath)
+    : null;
+  const q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509AvailabilitySplitPath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'DYNAMIC_MARGIN_PROOFS',
+      'P848_q17_p83_q17_p509_availability_split.json',
+    )
+    : null;
+  const q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509AvailabilitySplit = q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509AvailabilitySplitPath
+    ? readJsonIfPresent(q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509AvailabilitySplitPath)
+    : null;
+  const q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29SubclassRepairPath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'DYNAMIC_MARGIN_PROOFS',
+      'P848_q17_p509_q43_p29_subclass_repair.json',
+    )
+    : null;
+  const q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29SubclassRepair = q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29SubclassRepairPath
+    ? readJsonIfPresent(q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29SubclassRepairPath)
+    : null;
+  const q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29SymbolicLiftPath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'DYNAMIC_MARGIN_PROOFS',
+      'P848_q17_p509_q43_p29_symbolic_squarefree_lift.json',
+    )
+    : null;
+  const q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29SymbolicLift = q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29SymbolicLiftPath
+    ? readJsonIfPresent(q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29SymbolicLiftPath)
+    : null;
+  const q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29Q59P47SubclassRepairPath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'DYNAMIC_MARGIN_PROOFS',
+      'P848_q17_p29_q59_p47_subclass_repair.json',
+    )
+    : null;
+  const q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29Q59P47SubclassRepair = q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29Q59P47SubclassRepairPath
+    ? readJsonIfPresent(q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29Q59P47SubclassRepairPath)
+    : null;
+  const q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29Q59P47AvailabilitySplitPath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'DYNAMIC_MARGIN_PROOFS',
+      'P848_q17_p29_q59_p47_availability_split.json',
+    )
+    : null;
+  const q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29Q59P47AvailabilitySplit = q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29Q59P47AvailabilitySplitPath
+    ? readJsonIfPresent(q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29Q59P47AvailabilitySplitPath)
+    : null;
+  const q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29Q59P47Q67P79SubclassRepairPath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'DYNAMIC_MARGIN_PROOFS',
+      'P848_q17_p47_q67_p79_subclass_repair.json',
+    )
+    : null;
+  const q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29Q59P47Q67P79SubclassRepair = q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29Q59P47Q67P79SubclassRepairPath
+    ? readJsonIfPresent(q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29Q59P47Q67P79SubclassRepairPath)
+    : null;
+  const q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29Q59P47Q67P79AvailabilitySplitPath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'DYNAMIC_MARGIN_PROOFS',
+      'P848_q17_p47_q67_p79_availability_split.json',
+    )
+    : null;
+  const q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29Q59P47Q67P79AvailabilitySplit = q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29Q59P47Q67P79AvailabilitySplitPath
+    ? readJsonIfPresent(q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29Q59P47Q67P79AvailabilitySplitPath)
+    : null;
+  const q17P79Q71P107SubclassRepairPath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'DYNAMIC_MARGIN_PROOFS',
+      'P848_q17_p79_q71_p107_subclass_repair.json',
+    )
+    : null;
+  const q17P79Q71P107SubclassRepair = q17P79Q71P107SubclassRepairPath
+    ? readJsonIfPresent(q17P79Q71P107SubclassRepairPath)
+    : null;
+  const q17P79Q71P107AvailabilitySplitPath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'DYNAMIC_MARGIN_PROOFS',
+      'P848_q17_p79_q71_p107_availability_split.json',
+    )
+    : null;
+  const q17P79Q71P107AvailabilitySplit = q17P79Q71P107AvailabilitySplitPath
+    ? readJsonIfPresent(q17P79Q71P107AvailabilitySplitPath)
+    : null;
+  const q17P107Q89P4217SubclassRepairPath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'DYNAMIC_MARGIN_PROOFS',
+      'P848_q17_p107_q89_p4217_subclass_repair.json',
+    )
+    : null;
+  const q17P107Q89P4217SubclassRepair = q17P107Q89P4217SubclassRepairPath
+    ? readJsonIfPresent(q17P107Q89P4217SubclassRepairPath)
+    : null;
+  const q17P107Q89P4217AvailabilitySplitPath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'DYNAMIC_MARGIN_PROOFS',
+      'P848_q17_p107_q89_p4217_availability_split.json',
+    )
+    : null;
+  const q17P107Q89P4217AvailabilitySplit = q17P107Q89P4217AvailabilitySplitPath
+    ? readJsonIfPresent(q17P107Q89P4217AvailabilitySplitPath)
+    : null;
+  const q17P4217Q61RepairBoundaryPath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'DYNAMIC_MARGIN_PROOFS',
+      'P848_q17_p4217_q61_repair_candidate_factorization_boundary.json',
+    )
+    : null;
+  const q17P4217Q61RepairBoundary = q17P4217Q61RepairBoundaryPath
+    ? readJsonIfPresent(q17P4217Q61RepairBoundaryPath)
+    : null;
+  const q17P4217Q61FactorizationBlockerPath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'DYNAMIC_MARGIN_PROOFS',
+      'P848_q17_p4217_q61_factorization_blocker_open_leaf.json',
+    )
+    : null;
+  const q17P4217Q61FactorizationBlocker = q17P4217Q61FactorizationBlockerPath
+    ? readJsonIfPresent(q17P4217Q61FactorizationBlockerPath)
+    : null;
+  const p848FrontierLedgerFormatPath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'FRONTIER_BRIDGE',
+      'P848_FRONTIER_LEDGER_FORMAT_PACKET.json',
+    )
+    : null;
+  const p848FrontierLedgerFormat = p848FrontierLedgerFormatPath
+    ? readJsonIfPresent(p848FrontierLedgerFormatPath)
+    : null;
+  const p848FrontierTransitionRulePath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'FRONTIER_BRIDGE',
+      'P848_FRONTIER_TRANSITION_RULE_V0_PACKET.json',
+    )
+    : null;
+  const p848FrontierTransitionRule = p848FrontierTransitionRulePath
+    ? readJsonIfPresent(p848FrontierTransitionRulePath)
+    : null;
+  const p848EndpointAvailabilityStaircaseTheoremPath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'FRONTIER_BRIDGE',
+      'P848_ENDPOINT_AVAILABILITY_STAIRCASE_THEOREM_V0_PACKET.json',
+    )
+    : null;
+  const p848EndpointAvailabilityStaircaseTheorem = p848EndpointAvailabilityStaircaseTheoremPath
+    ? readJsonIfPresent(p848EndpointAvailabilityStaircaseTheoremPath)
+    : null;
+  const p848P4217UnavailableComplementRefinementPath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'FRONTIER_BRIDGE',
+      'P848_P4217_UNAVAILABLE_COMPLEMENT_REFINEMENT_PACKET.json',
+    )
+    : null;
+  const p848P4217UnavailableComplementRefinement = p848P4217UnavailableComplementRefinementPath
+    ? readJsonIfPresent(p848P4217UnavailableComplementRefinementPath)
+    : null;
+  const p848P4217ComplementP43FallbackSelectorPath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'FRONTIER_BRIDGE',
+      'P848_P4217_COMPLEMENT_P43_FALLBACK_SELECTOR_PACKET.json',
+    )
+    : null;
+  const p848P4217ComplementP43FallbackSelector = p848P4217ComplementP43FallbackSelectorPath
+    ? readJsonIfPresent(p848P4217ComplementP43FallbackSelectorPath)
+    : null;
+  const p848P4217ComplementP43SquareObstructionPath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'FRONTIER_BRIDGE',
+      'P848_P4217_COMPLEMENT_P43_SQUARE_OBSTRUCTION_PACKET.json',
+    )
+    : null;
+  const p848P4217ComplementP43SquareObstruction = p848P4217ComplementP43SquareObstructionPath
+    ? readJsonIfPresent(p848P4217ComplementP43SquareObstructionPath)
+    : null;
+  const p848P4217ComplementP61AvailabilityRefinementPath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'FRONTIER_BRIDGE',
+      'P848_P4217_COMPLEMENT_P61_AVAILABILITY_REFINEMENT_PACKET.json',
+    )
+    : null;
+  const p848P4217ComplementP61AvailabilityRefinement = p848P4217ComplementP61AvailabilityRefinementPath
+    ? readJsonIfPresent(p848P4217ComplementP61AvailabilityRefinementPath)
+    : null;
+  const p848P4217ComplementP61Q101SquareObstructionPath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'FRONTIER_BRIDGE',
+      'P848_P4217_COMPLEMENT_P61_Q101_SQUARE_OBSTRUCTION_PACKET.json',
+    )
+    : null;
+  const p848P4217ComplementP61Q101SquareObstruction = p848P4217ComplementP61Q101SquareObstructionPath
+    ? readJsonIfPresent(p848P4217ComplementP61Q101SquareObstructionPath)
+    : null;
+  const p848P4217ComplementP61Q101RepairBoundaryPath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'FRONTIER_BRIDGE',
+      'P848_P4217_COMPLEMENT_P61_Q101_REPAIR_CANDIDATE_BOUNDARY_PACKET.json',
+    )
+    : null;
+  const p848P4217ComplementP61Q101RepairBoundary = p848P4217ComplementP61Q101RepairBoundaryPath
+    ? readJsonIfPresent(p848P4217ComplementP61Q101RepairBoundaryPath)
+    : null;
+  const p848P4217ComplementP61Q101P443FactorCertificatePath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'FRONTIER_BRIDGE',
+      'P848_P4217_COMPLEMENT_P61_Q101_P443_FACTOR_CERTIFICATE.json',
+    )
+    : null;
+  const p848P4217ComplementP61Q101P443FactorCertificate = p848P4217ComplementP61Q101P443FactorCertificatePath
+    ? readJsonIfPresent(p848P4217ComplementP61Q101P443FactorCertificatePath)
+    : null;
+  const p848P4217ComplementP61Q101P443RepairHandoffPath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'FRONTIER_BRIDGE',
+      'P848_P4217_COMPLEMENT_P61_Q101_P443_REPAIR_HANDOFF_PACKET.json',
+    )
+    : null;
+  const p848P4217ComplementP61Q101P443RepairHandoff = p848P4217ComplementP61Q101P443RepairHandoffPath
+    ? readJsonIfPresent(p848P4217ComplementP61Q101P443RepairHandoffPath)
+    : null;
+  const p848P4217ComplementP61Q101P443AvailabilitySplitPath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'FRONTIER_BRIDGE',
+      'P848_P4217_COMPLEMENT_P61_Q101_P443_AVAILABILITY_SPLIT_PACKET.json',
+    )
+    : null;
+  const p848P4217ComplementP61Q101P443AvailabilitySplit = p848P4217ComplementP61Q101P443AvailabilitySplitPath
+    ? readJsonIfPresent(p848P4217ComplementP61Q101P443AvailabilitySplitPath)
+    : null;
+  const p848P4217ComplementP61Q101P443Q97RepairBoundaryPath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'FRONTIER_BRIDGE',
+      'P848_P4217_COMPLEMENT_P61_Q101_P443_Q97_REPAIR_CANDIDATE_BOUNDARY_PACKET.json',
+    )
+    : null;
+  const p848P4217ComplementP61Q101P443Q97RepairBoundary = p848P4217ComplementP61Q101P443Q97RepairBoundaryPath
+    ? readJsonIfPresent(p848P4217ComplementP61Q101P443Q97RepairBoundaryPath)
+    : null;
+  const p848P4217ComplementP61Q101P443Q97P151BlockerPath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'FRONTIER_BRIDGE',
+      'P848_P4217_COMPLEMENT_P61_Q101_P443_Q97_P151_BLOCKER_OPEN_LEAF_PACKET.json',
+    )
+    : null;
+  const p848P4217ComplementP61Q101P443Q97P151Blocker = p848P4217ComplementP61Q101P443Q97P151BlockerPath
+    ? readJsonIfPresent(p848P4217ComplementP61Q101P443Q97P151BlockerPath)
+    : null;
+  const p848P4217ComplementP61Q101P443Q97P479RepairHandoffPath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'FRONTIER_BRIDGE',
+      'P848_P4217_COMPLEMENT_P61_Q101_P443_Q97_P479_REPAIR_HANDOFF_PACKET.json',
+    )
+    : null;
+  const p848P4217ComplementP61Q101P443Q97P479RepairHandoff = p848P4217ComplementP61Q101P443Q97P479RepairHandoffPath
+    ? readJsonIfPresent(p848P4217ComplementP61Q101P443Q97P479RepairHandoffPath)
+    : null;
+  const p848P4217PostP479ConvergenceAssemblyPath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'FRONTIER_BRIDGE',
+      'P848_P4217_POST_P479_CONVERGENCE_ASSEMBLY_PACKET.json',
+    )
+    : null;
+  const p848P4217PostP479ConvergenceAssembly = p848P4217PostP479ConvergenceAssemblyPath
+    ? readJsonIfPresent(p848P4217PostP479ConvergenceAssemblyPath)
+    : null;
+  const p848P4217ComplementP61Q101P443Q97P479AvailabilitySplitPath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'FRONTIER_BRIDGE',
+      'P848_P4217_COMPLEMENT_P61_Q101_P443_Q97_P479_AVAILABILITY_SPLIT_PACKET.json',
+    )
+    : null;
+  const p848P4217ComplementP61Q101P443Q97P479AvailabilitySplit = p848P4217ComplementP61Q101P443Q97P479AvailabilitySplitPath
+    ? readJsonIfPresent(p848P4217ComplementP61Q101P443Q97P479AvailabilitySplitPath)
+    : null;
+  const p848P4217PostP479AvailabilitySplitConvergenceAssemblyPath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'FRONTIER_BRIDGE',
+      'P848_P4217_POST_P479_AVAILABILITY_SPLIT_CONVERGENCE_ASSEMBLY_PACKET.json',
+    )
+    : null;
+  const p848P4217PostP479AvailabilitySplitConvergenceAssembly = p848P4217PostP479AvailabilitySplitConvergenceAssemblyPath
+    ? readJsonIfPresent(p848P4217PostP479AvailabilitySplitConvergenceAssemblyPath)
+    : null;
+  const p848P4217P443Q97P479AvailableResidueBulkCoverPath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'FRONTIER_BRIDGE',
+      'P848_P4217_P443_Q97_P479_AVAILABLE_RESIDUE_BULK_COVER_PACKET.json',
+    )
+    : null;
+  const p848P4217P443Q97P479AvailableResidueBulkCover = p848P4217P443Q97P479AvailableResidueBulkCoverPath
+    ? readJsonIfPresent(p848P4217P443Q97P479AvailableResidueBulkCoverPath)
+    : null;
+  const p848P4217P443Q97P479ObstructionBucketBoundaryPath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'FRONTIER_BRIDGE',
+      'P848_P4217_P443_Q97_P479_AVAILABLE_OBSTRUCTION_BUCKET_BOUNDARY_PACKET.json',
+    )
+    : null;
+  const p848P4217P443Q97P479ObstructionBucketBoundary = p848P4217P443Q97P479ObstructionBucketBoundaryPath
+    ? readJsonIfPresent(p848P4217P443Q97P479ObstructionBucketBoundaryPath)
+    : null;
+  const p848P4217PostP479ObstructionBucketBoundaryConvergenceAssemblyPath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'FRONTIER_BRIDGE',
+      'P848_P4217_POST_P479_OBSTRUCTION_BUCKET_BOUNDARY_CONVERGENCE_ASSEMBLY_PACKET.json',
+    )
+    : null;
+  const p848P4217PostP479ObstructionBucketBoundaryConvergenceAssembly = p848P4217PostP479ObstructionBucketBoundaryConvergenceAssemblyPath
+    ? readJsonIfPresent(p848P4217PostP479ObstructionBucketBoundaryConvergenceAssemblyPath)
+    : null;
+  const p848P4217P443Q97P479Q109NonuniformBucketStructurePath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'FRONTIER_BRIDGE',
+      'P848_P4217_P443_Q97_P479_Q109_NONUNIFORM_BUCKET_STRUCTURE_PACKET.json',
+    )
+    : null;
+  const p848P4217P443Q97P479Q109NonuniformBucketStructure = p848P4217P443Q97P479Q109NonuniformBucketStructurePath
+    ? readJsonIfPresent(p848P4217P443Q97P479Q109NonuniformBucketStructurePath)
+    : null;
+  const p848P4217PostQ109SubbucketConvergenceAssemblyPath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'FRONTIER_BRIDGE',
+      'P848_P4217_POST_Q109_SUBBUCKET_CONVERGENCE_ASSEMBLY_PACKET.json',
+    )
+    : null;
+  const p848P4217PostQ109SubbucketConvergenceAssembly = p848P4217PostQ109SubbucketConvergenceAssemblyPath
+    ? readJsonIfPresent(p848P4217PostQ109SubbucketConvergenceAssemblyPath)
+    : null;
+  const p848P4217P443Q97P479QAvoidingBatchCoverPath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'FRONTIER_BRIDGE',
+      'P848_P4217_P443_Q97_P479_Q_AVOIDING_BATCH_COVER_PACKET.json',
+    )
+    : null;
+  const p848P4217P443Q97P479QAvoidingBatchCover = p848P4217P443Q97P479QAvoidingBatchCoverPath
+    ? readJsonIfPresent(p848P4217P443Q97P479QAvoidingBatchCoverPath)
+    : null;
+  const p848P4217PostQAvoidingBatchCoverConvergenceAssemblyPath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'FRONTIER_BRIDGE',
+      'P848_P4217_POST_Q_AVOIDING_BATCH_COVER_CONVERGENCE_ASSEMBLY_PACKET.json',
+    )
+    : null;
+  const p848P4217PostQAvoidingBatchCoverConvergenceAssembly = p848P4217PostQAvoidingBatchCoverConvergenceAssemblyPath
+    ? readJsonIfPresent(p848P4217PostQAvoidingBatchCoverConvergenceAssemblyPath)
+    : null;
+  const p848P4217P443Q97P479QAvoidingNextBucketRankBoundaryPath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'FRONTIER_BRIDGE',
+      'P848_P4217_P443_Q97_P479_Q_AVOIDING_NEXT_BUCKET_RANK_BOUNDARY_PACKET.json',
+    )
+    : null;
+  const p848P4217P443Q97P479QAvoidingNextBucketRankBoundary = p848P4217P443Q97P479QAvoidingNextBucketRankBoundaryPath
+    ? readJsonIfPresent(p848P4217P443Q97P479QAvoidingNextBucketRankBoundaryPath)
+    : null;
+  const p848P4217Post13BucketRankBoundaryConvergenceAssemblyPath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'FRONTIER_BRIDGE',
+      'P848_P4217_POST_13_BUCKET_RANK_BOUNDARY_CONVERGENCE_ASSEMBLY_PACKET.json',
+    )
+    : null;
+  const p848P4217Post13BucketRankBoundaryConvergenceAssembly = p848P4217Post13BucketRankBoundaryConvergenceAssemblyPath
+    ? readJsonIfPresent(p848P4217Post13BucketRankBoundaryConvergenceAssemblyPath)
+    : null;
+  const p848P4217P443Q97P479NextRank13BucketBatchCoverPath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'FRONTIER_BRIDGE',
+      'P848_P4217_P443_Q97_P479_NEXT_RANK_13_BUCKET_BATCH_COVER_PACKET.json',
+    )
+    : null;
+  const p848P4217P443Q97P479NextRank13BucketBatchCover = p848P4217P443Q97P479NextRank13BucketBatchCoverPath
+    ? readJsonIfPresent(p848P4217P443Q97P479NextRank13BucketBatchCoverPath)
+    : null;
+  const p848P4217PostNextRank13BucketBatchCoverConvergenceAssemblyPath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'FRONTIER_BRIDGE',
+      'P848_P4217_POST_NEXT_RANK_13_BUCKET_BATCH_COVER_CONVERGENCE_ASSEMBLY_PACKET.json',
+    )
+    : null;
+  const p848P4217PostNextRank13BucketBatchCoverConvergenceAssembly = p848P4217PostNextRank13BucketBatchCoverConvergenceAssemblyPath
+    ? readJsonIfPresent(p848P4217PostNextRank13BucketBatchCoverConvergenceAssemblyPath)
+    : null;
+  const p848P4217P443Q97P479NextRankLaterPrime15BucketRankBoundaryPath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'FRONTIER_BRIDGE',
+      'P848_P4217_P443_Q97_P479_NEXT_RANK_LATER_PRIME_15_BUCKET_RANK_BOUNDARY_PACKET.json',
+    )
+    : null;
+  const p848P4217P443Q97P479NextRankLaterPrime15BucketRankBoundary = p848P4217P443Q97P479NextRankLaterPrime15BucketRankBoundaryPath
+    ? readJsonIfPresent(p848P4217P443Q97P479NextRankLaterPrime15BucketRankBoundaryPath)
+    : null;
+  const p848P4217P443Q97P479LaterPrime15BucketQAvoidingBatchCoverPath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'FRONTIER_BRIDGE',
+      'P848_P4217_P443_Q97_P479_LATER_PRIME_15_BUCKET_Q_AVOIDING_BATCH_COVER_PACKET.json',
+    )
+    : null;
+  const p848P4217P443Q97P479LaterPrime15BucketQAvoidingBatchCover = p848P4217P443Q97P479LaterPrime15BucketQAvoidingBatchCoverPath
+    ? readJsonIfPresent(p848P4217P443Q97P479LaterPrime15BucketQAvoidingBatchCoverPath)
+    : null;
+  const p848P4217PostLaterPrime15BucketQAvoidingBatchCoverConvergenceAssemblyPath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'FRONTIER_BRIDGE',
+      'P848_P4217_POST_LATER_PRIME_15_BUCKET_Q_AVOIDING_BATCH_COVER_CONVERGENCE_ASSEMBLY_PACKET.json',
+    )
+    : null;
+  const p848P4217PostLaterPrime15BucketQAvoidingBatchCoverConvergenceAssembly = p848P4217PostLaterPrime15BucketQAvoidingBatchCoverConvergenceAssemblyPath
+    ? readJsonIfPresent(p848P4217PostLaterPrime15BucketQAvoidingBatchCoverConvergenceAssemblyPath)
+    : null;
+  const p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketRankBoundaryPath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'FRONTIER_BRIDGE',
+      'P848_P4217_P443_Q97_P479_LATER_PRIME_15_BUCKET_NEXT_PRIME_17_BUCKET_RANK_BOUNDARY_PACKET.json',
+    )
+    : null;
+  const p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketRankBoundary = p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketRankBoundaryPath
+    ? readJsonIfPresent(p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketRankBoundaryPath)
+    : null;
+  const p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketQAvoidingBatchCoverPath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'FRONTIER_BRIDGE',
+      'P848_P4217_P443_Q97_P479_LATER_PRIME_15_BUCKET_NEXT_PRIME_17_BUCKET_Q_AVOIDING_BATCH_COVER_PACKET.json',
+    )
+    : null;
+  const p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketQAvoidingBatchCover = p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketQAvoidingBatchCoverPath
+    ? readJsonIfPresent(p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketQAvoidingBatchCoverPath)
+    : null;
+  const p848P4217PostLaterPrime15BucketNextPrime17BucketQAvoidingBatchCoverConvergenceAssemblyPath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'FRONTIER_BRIDGE',
+      'P848_P4217_POST_LATER_PRIME_15_BUCKET_NEXT_PRIME_17_BUCKET_Q_AVOIDING_BATCH_COVER_CONVERGENCE_ASSEMBLY_PACKET.json',
+    )
+    : null;
+  const p848P4217PostLaterPrime15BucketNextPrime17BucketQAvoidingBatchCoverConvergenceAssembly = p848P4217PostLaterPrime15BucketNextPrime17BucketQAvoidingBatchCoverConvergenceAssemblyPath
+    ? readJsonIfPresent(p848P4217PostLaterPrime15BucketNextPrime17BucketQAvoidingBatchCoverConvergenceAssemblyPath)
+    : null;
+  const p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketRankBoundaryPath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'FRONTIER_BRIDGE',
+      'P848_P4217_P443_Q97_P479_LATER_PRIME_15_BUCKET_NEXT_PRIME_17_BUCKET_POST_NEXT_20_BUCKET_RANK_BOUNDARY_PACKET.json',
+    )
+    : null;
+  const p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketRankBoundary = p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketRankBoundaryPath
+    ? readJsonIfPresent(p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketRankBoundaryPath)
+    : null;
+  const p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketQAvoidingBatchCoverPath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'FRONTIER_BRIDGE',
+      'P848_P4217_P443_Q97_P479_LATER_PRIME_15_BUCKET_NEXT_PRIME_17_BUCKET_POST_NEXT_20_BUCKET_Q_AVOIDING_BATCH_COVER_PACKET.json',
+    )
+    : null;
+  const p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketQAvoidingBatchCover = p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketQAvoidingBatchCoverPath
+    ? readJsonIfPresent(p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketQAvoidingBatchCoverPath)
+    : null;
+  const p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketQAvoidingBatchCoverConvergenceAssemblyPath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'FRONTIER_BRIDGE',
+      'P848_P4217_POST_LATER_PRIME_15_BUCKET_NEXT_PRIME_17_BUCKET_POST_NEXT_20_BUCKET_Q_AVOIDING_BATCH_COVER_CONVERGENCE_ASSEMBLY_PACKET.json',
+    )
+    : null;
+  const p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketQAvoidingBatchCoverConvergenceAssembly = p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketQAvoidingBatchCoverConvergenceAssemblyPath
+    ? readJsonIfPresent(p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketQAvoidingBatchCoverConvergenceAssemblyPath)
+    : null;
+  const p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketRankBoundaryPath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'FRONTIER_BRIDGE',
+      'P848_P4217_P443_Q97_P479_LATER_PRIME_15_BUCKET_NEXT_PRIME_17_BUCKET_POST_NEXT_20_BUCKET_SUCCESSOR_22_BUCKET_RANK_BOUNDARY_PACKET.json',
+    )
+    : null;
+  const p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketRankBoundary = p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketRankBoundaryPath
+    ? readJsonIfPresent(p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketRankBoundaryPath)
+    : null;
+  const p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketQAvoidingBatchCoverPath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'FRONTIER_BRIDGE',
+      'P848_P4217_P443_Q97_P479_LATER_PRIME_15_BUCKET_NEXT_PRIME_17_BUCKET_POST_NEXT_20_BUCKET_SUCCESSOR_22_BUCKET_Q_AVOIDING_BATCH_COVER_PACKET.json',
+    )
+    : null;
+  const p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketQAvoidingBatchCover = p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketQAvoidingBatchCoverPath
+    ? readJsonIfPresent(p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketQAvoidingBatchCoverPath)
+    : null;
+  const p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketQAvoidingBatchCoverConvergenceAssemblyPath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'FRONTIER_BRIDGE',
+      'P848_P4217_POST_LATER_PRIME_15_BUCKET_NEXT_PRIME_17_BUCKET_POST_NEXT_20_BUCKET_SUCCESSOR_22_BUCKET_Q_AVOIDING_BATCH_COVER_CONVERGENCE_ASSEMBLY_PACKET.json',
+    )
+    : null;
+  const p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketQAvoidingBatchCoverConvergenceAssembly = p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketQAvoidingBatchCoverConvergenceAssemblyPath
+    ? readJsonIfPresent(p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketQAvoidingBatchCoverConvergenceAssemblyPath)
+    : null;
+  const p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketRankBoundaryPath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'FRONTIER_BRIDGE',
+      'P848_P4217_P443_Q97_P479_LATER_PRIME_15_BUCKET_NEXT_PRIME_17_BUCKET_POST_NEXT_20_BUCKET_SUCCESSOR_22_BUCKET_POST_SUCCESSOR_24_BUCKET_RANK_BOUNDARY_PACKET.json',
+    )
+    : null;
+  const p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketRankBoundary = p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketRankBoundaryPath
+    ? readJsonIfPresent(p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketRankBoundaryPath)
+    : null;
+  const p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketQAvoidingBatchCoverPath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'FRONTIER_BRIDGE',
+      'P848_P4217_P443_Q97_P479_LATER_PRIME_15_BUCKET_NEXT_PRIME_17_BUCKET_POST_NEXT_20_BUCKET_SUCCESSOR_22_BUCKET_POST_SUCCESSOR_24_BUCKET_Q_AVOIDING_BATCH_COVER_PACKET.json',
+    )
+    : null;
+  const p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketQAvoidingBatchCover = p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketQAvoidingBatchCoverPath
+    ? readJsonIfPresent(p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketQAvoidingBatchCoverPath)
+    : null;
+  const p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketQAvoidingBatchCoverConvergenceAssemblyPath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'FRONTIER_BRIDGE',
+      'P848_P4217_POST_LATER_PRIME_15_BUCKET_NEXT_PRIME_17_BUCKET_POST_NEXT_20_BUCKET_SUCCESSOR_22_BUCKET_POST_SUCCESSOR_24_BUCKET_Q_AVOIDING_BATCH_COVER_CONVERGENCE_ASSEMBLY_PACKET.json',
+    )
+    : null;
+  const p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketQAvoidingBatchCoverConvergenceAssembly = p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketQAvoidingBatchCoverConvergenceAssemblyPath
+    ? readJsonIfPresent(p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketQAvoidingBatchCoverConvergenceAssemblyPath)
+    : null;
+  const p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketRankBoundaryPath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'FRONTIER_BRIDGE',
+      'P848_P4217_P443_Q97_P479_LATER_PRIME_15_BUCKET_NEXT_PRIME_17_BUCKET_POST_NEXT_20_BUCKET_SUCCESSOR_22_BUCKET_POST_SUCCESSOR_24_BUCKET_POST_POST_SUCCESSOR_24_BUCKET_RANK_BOUNDARY_PACKET.json',
+    )
+    : null;
+  const p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketRankBoundary = p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketRankBoundaryPath
+    ? readJsonIfPresent(p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketRankBoundaryPath)
+    : null;
+  const p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketQAvoidingBatchCoverPath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'FRONTIER_BRIDGE',
+      'P848_P4217_P443_Q97_P479_LATER_PRIME_15_BUCKET_NEXT_PRIME_17_BUCKET_POST_NEXT_20_BUCKET_SUCCESSOR_22_BUCKET_POST_SUCCESSOR_24_BUCKET_POST_POST_SUCCESSOR_24_BUCKET_Q_AVOIDING_BATCH_COVER_PACKET.json',
+    )
+    : null;
+  const p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketQAvoidingBatchCover = p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketQAvoidingBatchCoverPath
+    ? readJsonIfPresent(p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketQAvoidingBatchCoverPath)
+    : null;
+  const p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketQAvoidingBatchCoverConvergenceAssemblyPath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'FRONTIER_BRIDGE',
+      'P848_P4217_POST_LATER_PRIME_15_BUCKET_NEXT_PRIME_17_BUCKET_POST_NEXT_20_BUCKET_SUCCESSOR_22_BUCKET_POST_SUCCESSOR_24_BUCKET_POST_POST_SUCCESSOR_24_BUCKET_Q_AVOIDING_BATCH_COVER_CONVERGENCE_ASSEMBLY_PACKET.json',
+    )
+    : null;
+  const p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketQAvoidingBatchCoverConvergenceAssembly = p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketQAvoidingBatchCoverConvergenceAssemblyPath
+    ? readJsonIfPresent(p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketQAvoidingBatchCoverConvergenceAssemblyPath)
+    : null;
+  const p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketPostPostPostSuccessor26BucketRankBoundaryPath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'FRONTIER_BRIDGE',
+      'P848_P4217_P443_Q97_P479_LATER_PRIME_15_BUCKET_NEXT_PRIME_17_BUCKET_POST_NEXT_20_BUCKET_SUCCESSOR_22_BUCKET_POST_SUCCESSOR_24_BUCKET_POST_POST_SUCCESSOR_24_BUCKET_POST_POST_POST_SUCCESSOR_26_BUCKET_RANK_BOUNDARY_PACKET.json',
+    )
+    : null;
+  const p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketPostPostPostSuccessor26BucketRankBoundary = p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketPostPostPostSuccessor26BucketRankBoundaryPath
+    ? readJsonIfPresent(p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketPostPostPostSuccessor26BucketRankBoundaryPath)
+    : null;
+  const p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketPostPostPostSuccessor26BucketRankBoundaryConvergenceAssemblyPath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'FRONTIER_BRIDGE',
+      'P848_P4217_POST_LATER_PRIME_15_BUCKET_NEXT_PRIME_17_BUCKET_POST_NEXT_20_BUCKET_SUCCESSOR_22_BUCKET_POST_SUCCESSOR_24_BUCKET_POST_POST_SUCCESSOR_24_BUCKET_POST_POST_POST_SUCCESSOR_26_BUCKET_RANK_BOUNDARY_CONVERGENCE_ASSEMBLY_PACKET.json',
+    )
+    : null;
+  const p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketPostPostPostSuccessor26BucketRankBoundaryConvergenceAssembly = p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketPostPostPostSuccessor26BucketRankBoundaryConvergenceAssemblyPath
+    ? readJsonIfPresent(p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketPostPostPostSuccessor26BucketRankBoundaryConvergenceAssemblyPath)
+    : null;
+  const p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketPostPostPostSuccessor26BucketQAvoidingBatchCoverPath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'FRONTIER_BRIDGE',
+      'P848_P4217_P443_Q97_P479_LATER_PRIME_15_BUCKET_NEXT_PRIME_17_BUCKET_POST_NEXT_20_BUCKET_SUCCESSOR_22_BUCKET_POST_SUCCESSOR_24_BUCKET_POST_POST_SUCCESSOR_24_BUCKET_POST_POST_POST_SUCCESSOR_26_BUCKET_Q_AVOIDING_BATCH_COVER_PACKET.json',
+    )
+    : null;
+  const p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketPostPostPostSuccessor26BucketQAvoidingBatchCover = p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketPostPostPostSuccessor26BucketQAvoidingBatchCoverPath
+    ? readJsonIfPresent(p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketPostPostPostSuccessor26BucketQAvoidingBatchCoverPath)
+    : null;
+  const p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketPostPostPostSuccessor26BucketQAvoidingBatchCoverConvergenceAssemblyPath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'FRONTIER_BRIDGE',
+      'P848_P4217_POST_LATER_PRIME_15_BUCKET_NEXT_PRIME_17_BUCKET_POST_NEXT_20_BUCKET_SUCCESSOR_22_BUCKET_POST_SUCCESSOR_24_BUCKET_POST_POST_SUCCESSOR_24_BUCKET_POST_POST_POST_SUCCESSOR_26_BUCKET_Q_AVOIDING_BATCH_COVER_CONVERGENCE_ASSEMBLY_PACKET.json',
+    )
+    : null;
+  const p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketPostPostPostSuccessor26BucketQAvoidingBatchCoverConvergenceAssembly = p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketPostPostPostSuccessor26BucketQAvoidingBatchCoverConvergenceAssemblyPath
+    ? readJsonIfPresent(p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketPostPostPostSuccessor26BucketQAvoidingBatchCoverConvergenceAssemblyPath)
+    : null;
+  const p848P4217Post26QAvoiding29BucketRankBoundaryPath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'FRONTIER_BRIDGE',
+      'P848_P4217_POST_26_Q_AVOIDING_29_BUCKET_RANK_BOUNDARY_PACKET.json',
+    )
+    : null;
+  const p848P4217Post26QAvoiding29BucketRankBoundary = p848P4217Post26QAvoiding29BucketRankBoundaryPath
+    ? readJsonIfPresent(p848P4217Post26QAvoiding29BucketRankBoundaryPath)
+    : null;
+  const p848P4217Post29BucketRankBoundaryConvergenceAssemblyPath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'FRONTIER_BRIDGE',
+      'P848_P4217_POST_29_BUCKET_RANK_BOUNDARY_CONVERGENCE_ASSEMBLY_PACKET.json',
+    )
+    : null;
+  const p848P4217Post29BucketRankBoundaryConvergenceAssembly = p848P4217Post29BucketRankBoundaryConvergenceAssemblyPath
+    ? readJsonIfPresent(p848P4217Post29BucketRankBoundaryConvergenceAssemblyPath)
+    : null;
+  const p848P4217Post29QAvoiding29BucketBatchCoverPath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'FRONTIER_BRIDGE',
+      'P848_P4217_POST_29_Q_AVOIDING_29_BUCKET_BATCH_COVER_PACKET.json',
+    )
+    : null;
+  const p848P4217Post29QAvoiding29BucketBatchCover = p848P4217Post29QAvoiding29BucketBatchCoverPath
+    ? readJsonIfPresent(p848P4217Post29QAvoiding29BucketBatchCoverPath)
+    : null;
+  const p848P4217Post29QAvoiding29BucketConvergenceAssemblyPath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'FRONTIER_BRIDGE',
+      'P848_P4217_POST_29_Q_AVOIDING_29_BUCKET_CONVERGENCE_ASSEMBLY_PACKET.json',
+    )
+    : null;
+  const p848P4217Post29QAvoiding29BucketConvergenceAssembly = p848P4217Post29QAvoiding29BucketConvergenceAssemblyPath
+    ? readJsonIfPresent(p848P4217Post29QAvoiding29BucketConvergenceAssemblyPath)
+    : null;
+  const p848P4217Post29QAvoidingPost5Successor29BucketRankBoundaryPath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'FRONTIER_BRIDGE',
+      'P848_P4217_POST_29_Q_AVOIDING_POST_POST_POST_POST_POST_SUCCESSOR_29_BUCKET_RANK_BOUNDARY_PACKET.json',
+    )
+    : null;
+  const p848P4217Post29QAvoidingPost5Successor29BucketRankBoundary = p848P4217Post29QAvoidingPost5Successor29BucketRankBoundaryPath
+    ? readJsonIfPresent(p848P4217Post29QAvoidingPost5Successor29BucketRankBoundaryPath)
+    : null;
+  const p848P4217Post29QAvoidingPost5Successor29BucketRankBoundaryConvergenceAssemblyPath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'FRONTIER_BRIDGE',
+      'P848_P4217_POST_29_Q_AVOIDING_POST_POST_POST_POST_POST_SUCCESSOR_29_BUCKET_RANK_BOUNDARY_CONVERGENCE_ASSEMBLY_PACKET.json',
+    )
+    : null;
+  const p848P4217Post29QAvoidingPost5Successor29BucketRankBoundaryConvergenceAssembly = p848P4217Post29QAvoidingPost5Successor29BucketRankBoundaryConvergenceAssemblyPath
+    ? readJsonIfPresent(p848P4217Post29QAvoidingPost5Successor29BucketRankBoundaryConvergenceAssemblyPath)
+    : null;
+  const p848P4217Post29QAvoidingPost5Successor29BucketQAvoidingBatchCoverPath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'FRONTIER_BRIDGE',
+      'P848_P4217_POST_29_Q_AVOIDING_POST_POST_POST_POST_POST_SUCCESSOR_29_BUCKET_Q_AVOIDING_BATCH_COVER_PACKET.json',
+    )
+    : null;
+  const p848P4217Post29QAvoidingPost5Successor29BucketQAvoidingBatchCover = p848P4217Post29QAvoidingPost5Successor29BucketQAvoidingBatchCoverPath
+    ? readJsonIfPresent(p848P4217Post29QAvoidingPost5Successor29BucketQAvoidingBatchCoverPath)
+    : null;
+  const p848P4217Post29QAvoidingPost5Successor29BucketQAvoidingBatchCoverConvergenceAssemblyPath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'FRONTIER_BRIDGE',
+      'P848_P4217_POST_29_Q_AVOIDING_POST_POST_POST_POST_POST_SUCCESSOR_29_BUCKET_Q_AVOIDING_BATCH_COVER_CONVERGENCE_ASSEMBLY_PACKET.json',
+    )
+    : null;
+  const p848P4217Post29QAvoidingPost5Successor29BucketQAvoidingBatchCoverConvergenceAssembly = p848P4217Post29QAvoidingPost5Successor29BucketQAvoidingBatchCoverConvergenceAssemblyPath
+    ? readJsonIfPresent(p848P4217Post29QAvoidingPost5Successor29BucketQAvoidingBatchCoverConvergenceAssemblyPath)
+    : null;
+  const p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketRankBoundaryPath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'FRONTIER_BRIDGE',
+      'P848_P4217_POST_29_Q_AVOIDING_POST_POST_POST_POST_POST_SUCCESSOR_29_BUCKET_POST_POST_POST_POST_POST_POST_SUCCESSOR_30_BUCKET_RANK_BOUNDARY_PACKET.json',
+    )
+    : null;
+  const p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketRankBoundary = p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketRankBoundaryPath
+    ? readJsonIfPresent(p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketRankBoundaryPath)
+    : null;
+  const p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketRankBoundaryConvergenceAssemblyPath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'FRONTIER_BRIDGE',
+      'P848_P4217_POST_29_Q_AVOIDING_POST_POST_POST_POST_POST_SUCCESSOR_29_BUCKET_POST_POST_POST_POST_POST_POST_SUCCESSOR_30_BUCKET_RANK_BOUNDARY_CONVERGENCE_ASSEMBLY_PACKET.json',
+    )
+    : null;
+  const p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketRankBoundaryConvergenceAssembly = p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketRankBoundaryConvergenceAssemblyPath
+    ? readJsonIfPresent(p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketRankBoundaryConvergenceAssemblyPath)
+    : null;
+  const p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketQAvoidingBatchCoverPath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'FRONTIER_BRIDGE',
+      'P848_P4217_POST_29_Q_AVOIDING_POST_POST_POST_POST_POST_SUCCESSOR_29_BUCKET_POST_POST_POST_POST_POST_POST_SUCCESSOR_30_BUCKET_Q_AVOIDING_BATCH_COVER_PACKET.json',
+    )
+    : null;
+  const p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketQAvoidingBatchCover = p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketQAvoidingBatchCoverPath
+    ? readJsonIfPresent(p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketQAvoidingBatchCoverPath)
+    : null;
+  const p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketQAvoidingBatchCoverConvergenceAssemblyPath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'FRONTIER_BRIDGE',
+      'P848_P4217_POST_29_Q_AVOIDING_POST_POST_POST_POST_POST_SUCCESSOR_29_BUCKET_POST_POST_POST_POST_POST_POST_SUCCESSOR_30_BUCKET_Q_AVOIDING_BATCH_COVER_CONVERGENCE_ASSEMBLY_PACKET.json',
+    )
+    : null;
+  const p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketQAvoidingBatchCoverConvergenceAssembly = p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketQAvoidingBatchCoverConvergenceAssemblyPath
+    ? readJsonIfPresent(p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketQAvoidingBatchCoverConvergenceAssemblyPath)
+    : null;
+  const p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketPost7Successor31BucketRankBoundaryPath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'FRONTIER_BRIDGE',
+      'P848_P4217_POST_29_Q_AVOIDING_POST_POST_POST_POST_POST_SUCCESSOR_29_BUCKET_POST_POST_POST_POST_POST_POST_SUCCESSOR_30_BUCKET_POST_POST_POST_POST_POST_POST_POST_SUCCESSOR_31_BUCKET_RANK_BOUNDARY_PACKET.json',
+    )
+    : null;
+  const p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketPost7Successor31BucketRankBoundary = p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketPost7Successor31BucketRankBoundaryPath
+    ? readJsonIfPresent(p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketPost7Successor31BucketRankBoundaryPath)
+    : null;
+  const p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketPost7Successor31BucketRankBoundaryConvergenceAssemblyPath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'FRONTIER_BRIDGE',
+      'P848_P4217_POST_29_Q_AVOIDING_POST_POST_POST_POST_POST_SUCCESSOR_29_BUCKET_POST_POST_POST_POST_POST_POST_SUCCESSOR_30_BUCKET_POST_POST_POST_POST_POST_POST_POST_SUCCESSOR_31_BUCKET_RANK_BOUNDARY_CONVERGENCE_ASSEMBLY_PACKET.json',
+    )
+    : null;
+  const p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketPost7Successor31BucketRankBoundaryConvergenceAssembly = p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketPost7Successor31BucketRankBoundaryConvergenceAssemblyPath
+    ? readJsonIfPresent(p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketPost7Successor31BucketRankBoundaryConvergenceAssemblyPath)
+    : null;
+  const p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketPost7Successor31BucketQAvoidingBatchCoverPath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'FRONTIER_BRIDGE',
+      'P848_P4217_POST_29_Q_AVOIDING_POST_POST_POST_POST_POST_SUCCESSOR_29_BUCKET_POST_POST_POST_POST_POST_POST_SUCCESSOR_30_BUCKET_POST_POST_POST_POST_POST_POST_POST_SUCCESSOR_31_BUCKET_Q_AVOIDING_BATCH_COVER_PACKET.json',
+    )
+    : null;
+  const p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketPost7Successor31BucketQAvoidingBatchCover = p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketPost7Successor31BucketQAvoidingBatchCoverPath
+    ? readJsonIfPresent(p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketPost7Successor31BucketQAvoidingBatchCoverPath)
+    : null;
+  const p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketPost7Successor31BucketQAvoidingBatchCoverConvergenceAssemblyPath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'FRONTIER_BRIDGE',
+      'P848_P4217_POST_29_Q_AVOIDING_POST_POST_POST_POST_POST_SUCCESSOR_29_BUCKET_POST_POST_POST_POST_POST_POST_SUCCESSOR_30_BUCKET_POST_POST_POST_POST_POST_POST_POST_SUCCESSOR_31_BUCKET_Q_AVOIDING_BATCH_COVER_CONVERGENCE_ASSEMBLY_PACKET.json',
+    )
+    : null;
+  const p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketPost7Successor31BucketQAvoidingBatchCoverConvergenceAssembly = p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketPost7Successor31BucketQAvoidingBatchCoverConvergenceAssemblyPath
+    ? readJsonIfPresent(p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketPost7Successor31BucketQAvoidingBatchCoverConvergenceAssemblyPath)
+    : null;
+  const p848P4217Post31QAvoidingPost8Successor31BucketRankBoundaryPath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'FRONTIER_BRIDGE',
+      'P848_P4217_POST31_Q_AVOIDING_POST8_31_BUCKET_RANK_BOUNDARY_PACKET.json',
+    )
+    : null;
+  const p848P4217Post31QAvoidingPost8Successor31BucketRankBoundary = p848P4217Post31QAvoidingPost8Successor31BucketRankBoundaryPath
+    ? readJsonIfPresent(p848P4217Post31QAvoidingPost8Successor31BucketRankBoundaryPath)
+    : null;
+  const p848P4217Post31QAvoidingPost8Successor31BucketRankBoundaryConvergenceAssemblyPath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'FRONTIER_BRIDGE',
+      'P848_P4217_POST31_Q_AVOIDING_POST8_31_BUCKET_RANK_BOUNDARY_CONVERGENCE_ASSEMBLY_PACKET.json',
+    )
+    : null;
+  const p848P4217Post31QAvoidingPost8Successor31BucketRankBoundaryConvergenceAssembly = p848P4217Post31QAvoidingPost8Successor31BucketRankBoundaryConvergenceAssemblyPath
+    ? readJsonIfPresent(p848P4217Post31QAvoidingPost8Successor31BucketRankBoundaryConvergenceAssemblyPath)
+    : null;
+  const p848P4217Post31QAvoidingPost8Successor31BucketQAvoidingBatchCoverPath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'FRONTIER_BRIDGE',
+      'P848_P4217_POST31_Q_AVOIDING_POST8_31_BUCKET_Q_AVOIDING_BATCH_COVER_PACKET.json',
+    )
+    : null;
+  const p848P4217Post31QAvoidingPost8Successor31BucketQAvoidingBatchCoverFallbackPath = path.join(
+    repoRoot,
+    'packs',
+    'number-theory',
+    'problems',
+    '848',
+    'SPLIT_ATOM_PACKETS',
+    'FRONTIER_BRIDGE',
+    'P848_P4217_POST31_Q_AVOIDING_POST8_31_BUCKET_Q_AVOIDING_BATCH_COVER_PACKET.json',
+  );
+  const p848P4217Post31QAvoidingPost8Successor31BucketQAvoidingBatchCover = (
+    p848P4217Post31QAvoidingPost8Successor31BucketQAvoidingBatchCoverPath
+      ? readJsonIfPresent(p848P4217Post31QAvoidingPost8Successor31BucketQAvoidingBatchCoverPath)
+      : null
+  ) ?? readJsonIfPresent(p848P4217Post31QAvoidingPost8Successor31BucketQAvoidingBatchCoverFallbackPath);
+  const p848P4217Post31QAvoidingPost8Successor31BucketQAvoidingBatchCoverConvergenceAssemblyPath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'FRONTIER_BRIDGE',
+      'P848_P4217_POST31_Q_AVOIDING_POST8_31_BUCKET_Q_AVOIDING_BATCH_COVER_CONVERGENCE_ASSEMBLY_PACKET.json',
+    )
+    : null;
+  const p848P4217Post31QAvoidingPost8Successor31BucketQAvoidingBatchCoverConvergenceAssembly = p848P4217Post31QAvoidingPost8Successor31BucketQAvoidingBatchCoverConvergenceAssemblyPath
+    ? readJsonIfPresent(p848P4217Post31QAvoidingPost8Successor31BucketQAvoidingBatchCoverConvergenceAssemblyPath)
+    : null;
+  const p848P4217QCoverStaircaseBreakerNonconvergencePath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'FRONTIER_BRIDGE',
+      'P848_P4217_Q_COVER_STAIRCASE_BREAKER_NONCONVERGENCE_PACKET.json',
+    )
+    : null;
+  const p848P4217QCoverStaircaseBreakerNonconvergence = p848P4217QCoverStaircaseBreakerNonconvergencePath
+    ? readJsonIfPresent(p848P4217QCoverStaircaseBreakerNonconvergencePath)
+    : null;
+  const p848QCoverParametricTransitionRoutePath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'FRONTIER_BRIDGE',
+      'P848_Q_COVER_PARAMETRIC_TRANSITION_ROUTE_PACKET.json',
+    )
+    : null;
+  const p848QCoverParametricTransitionRoute = p848QCoverParametricTransitionRoutePath
+    ? readJsonIfPresent(p848QCoverParametricTransitionRoutePath)
+    : null;
+  const p848P4217StructuralComplementInvariantBlockerPath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'FRONTIER_BRIDGE',
+      'P848_P4217_STRUCTURAL_COMPLEMENT_INVARIANT_BLOCKER_PACKET.json',
+    )
+    : null;
+  const p848P4217StructuralComplementInvariantBlocker = p848P4217StructuralComplementInvariantBlockerPath
+    ? readJsonIfPresent(p848P4217StructuralComplementInvariantBlockerPath)
+    : null;
+  const p848Mod50AllFutureRecurrenceSourceTheoremBlockerPath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'FRONTIER_BRIDGE',
+      'P848_MOD50_ALL_FUTURE_RECURRENCE_SOURCE_THEOREM_BLOCKER_PACKET.json',
+    )
+    : null;
+  const p848Mod50AllFutureRecurrenceSourceTheoremBlocker = p848Mod50AllFutureRecurrenceSourceTheoremBlockerPath
+    ? readJsonIfPresent(p848Mod50AllFutureRecurrenceSourceTheoremBlockerPath)
+    : null;
+  const p848Mod50SourceArchaeologyTheoremWedgePath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'FRONTIER_BRIDGE',
+      'P848_MOD50_SOURCE_ARCHAEOLOGY_THEOREM_WEDGE_PACKET.json',
+    )
+    : null;
+  const p848Mod50SourceArchaeologyTheoremWedge = p848Mod50SourceArchaeologyTheoremWedgePath
+    ? readJsonIfPresent(p848Mod50SourceArchaeologyTheoremWedgePath)
+    : null;
+  const p848Mod50TheoremWedgeDecisionBlockerPath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'FRONTIER_BRIDGE',
+      'P848_MOD50_THEOREM_WEDGE_DECISION_BLOCKER_PACKET.json',
+    )
+    : null;
+  const p848Mod50TheoremWedgeDecisionBlocker = p848Mod50TheoremWedgeDecisionBlockerPath
+    ? readJsonIfPresent(p848Mod50TheoremWedgeDecisionBlockerPath)
+    : null;
+  const p848AllNRecombinationResidualAfterMod50WedgeBlockerPath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'FRONTIER_BRIDGE',
+      'P848_ALL_N_RECOMBINATION_RESIDUAL_AFTER_MOD50_WEDGE_BLOCKER_PACKET.json',
+    )
+    : null;
+  const p848AllNRecombinationResidualAfterMod50WedgeBlocker = p848AllNRecombinationResidualAfterMod50WedgeBlockerPath
+    ? readJsonIfPresent(p848AllNRecombinationResidualAfterMod50WedgeBlockerPath)
+    : null;
+  const p848P4217ComplementCoverImpossibilityBlockerPath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'FRONTIER_BRIDGE',
+      'P848_P4217_COMPLEMENT_COVER_IMPOSSIBILITY_BLOCKER_PACKET.json',
+    )
+    : null;
+  const p848P4217ComplementCoverImpossibilityBlocker = p848P4217ComplementCoverImpossibilityBlockerPath
+    ? readJsonIfPresent(p848P4217ComplementCoverImpossibilityBlockerPath)
+    : null;
+  const p848TaoVanDoornThresholdPivotReconciliationPath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'FRONTIER_BRIDGE',
+      'P848_TAO_VAN_DOORN_THRESHOLD_PIVOT_RECONCILIATION_PACKET.json',
+    )
+    : null;
+  const p848TaoVanDoornThresholdPivotReconciliation = p848TaoVanDoornThresholdPivotReconciliationPath
+    ? readJsonIfPresent(p848TaoVanDoornThresholdPivotReconciliationPath)
+    : null;
+  const p848CorrectedSquareModuliDualSieveOrUnionHittingThresholdPath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'FRONTIER_BRIDGE',
+      'P848_CORRECTED_SQUARE_MODULI_DUAL_SIEVE_OR_UNION_HITTING_THRESHOLD_PACKET.json',
+    )
+    : null;
+  const p848CorrectedSquareModuliDualSieveOrUnionHittingThreshold = p848CorrectedSquareModuliDualSieveOrUnionHittingThresholdPath
+    ? readJsonIfPresent(p848CorrectedSquareModuliDualSieveOrUnionHittingThresholdPath)
+    : null;
+  const p848P4217ComplementTheoremWedgeSourceImportAuditPath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'FRONTIER_BRIDGE',
+      'P848_P4217_COMPLEMENT_THEOREM_WEDGE_SOURCE_IMPORT_AUDIT_PACKET.json',
+    )
+    : null;
+  const p848P4217ComplementTheoremWedgeSourceImportAudit = p848P4217ComplementTheoremWedgeSourceImportAuditPath
+    ? readJsonIfPresent(p848P4217ComplementTheoremWedgeSourceImportAuditPath)
+    : null;
+  const p848P4217ComplementTheoremWedgeDecisionBlockerPath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'FRONTIER_BRIDGE',
+      'P848_P4217_COMPLEMENT_THEOREM_WEDGE_DECISION_BLOCKER_PACKET.json',
+    )
+    : null;
+  const p848P4217ComplementTheoremWedgeDecisionBlocker = p848P4217ComplementTheoremWedgeDecisionBlockerPath
+    ? readJsonIfPresent(p848P4217ComplementTheoremWedgeDecisionBlockerPath)
+    : null;
+  const p848P4217ResidualSquarefreeRealizationSourceTheoremGapPath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'FRONTIER_BRIDGE',
+      'P848_P4217_RESIDUAL_SQUAREFREE_REALIZATION_SOURCE_THEOREM_GAP_PACKET.json',
+    )
+    : null;
+  const p848P4217ResidualSquarefreeRealizationSourceTheoremGap = p848P4217ResidualSquarefreeRealizationSourceTheoremGapPath
+    ? readJsonIfPresent(p848P4217ResidualSquarefreeRealizationSourceTheoremGapPath)
+    : null;
+  const p848AllNRecombinationResidualAfterP4217SourceTheoremGapPath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'FRONTIER_BRIDGE',
+      'P848_ALL_N_RECOMBINATION_RESIDUAL_AFTER_P4217_SOURCE_THEOREM_GAP_PACKET.json',
+    )
+    : null;
+  const p848AllNRecombinationResidualAfterP4217SourceTheoremGap = p848AllNRecombinationResidualAfterP4217SourceTheoremGapPath
+    ? readJsonIfPresent(p848AllNRecombinationResidualAfterP4217SourceTheoremGapPath)
+    : null;
+  const p848SourceImportRecoveryPlanAfterP4217AndMod50SourceGapsPath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'FRONTIER_BRIDGE',
+      'P848_SOURCE_IMPORT_RECOVERY_PLAN_AFTER_P4217_AND_MOD50_SOURCE_GAPS_PACKET.json',
+    )
+    : null;
+  const p848SourceImportRecoveryPlanAfterP4217AndMod50SourceGaps = p848SourceImportRecoveryPlanAfterP4217AndMod50SourceGapsPath
+    ? readJsonIfPresent(p848SourceImportRecoveryPlanAfterP4217AndMod50SourceGapsPath)
+    : null;
+  const p848NoSpendSourceRecoverySearchForP4217Mod50UnionHittingPath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'FRONTIER_BRIDGE',
+      'P848_NO_SPEND_SOURCE_RECOVERY_SEARCH_FOR_P4217_MOD50_UNION_HITTING_PACKET.json',
+    )
+    : null;
+  const p848NoSpendSourceRecoverySearchForP4217Mod50UnionHitting = p848NoSpendSourceRecoverySearchForP4217Mod50UnionHittingPath
+    ? readJsonIfPresent(p848NoSpendSourceRecoverySearchForP4217Mod50UnionHittingPath)
+    : null;
+  const p848AllNRecombinationResidualAfterSourceImportSearchGapPath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'FRONTIER_BRIDGE',
+      'P848_ALL_N_RECOMBINATION_RESIDUAL_AFTER_SOURCE_IMPORT_SEARCH_GAP_PACKET.json',
+    )
+    : null;
+  const p848AllNRecombinationResidualAfterSourceImportSearchGap = p848AllNRecombinationResidualAfterSourceImportSearchGapPath
+    ? readJsonIfPresent(p848AllNRecombinationResidualAfterSourceImportSearchGapPath)
+    : null;
+  const p848RepairedSingleLaneSourceImportProfileAfterNoSpendGapPath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'FRONTIER_BRIDGE',
+      'P848_REPAIRED_SINGLE_LANE_SOURCE_IMPORT_PROFILE_AFTER_NO_SPEND_GAP_PACKET.json',
+    )
+    : null;
+  const p848RepairedSingleLaneSourceImportProfileAfterNoSpendGap = p848RepairedSingleLaneSourceImportProfileAfterNoSpendGapPath
+    ? readJsonIfPresent(p848RepairedSingleLaneSourceImportProfileAfterNoSpendGapPath)
+    : null;
+  const p848P4217ResidualSourceImportProfileApprovalBlockerPath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'FRONTIER_BRIDGE',
+      'P848_P4217_RESIDUAL_SOURCE_IMPORT_PROFILE_APPROVAL_BLOCKER_PACKET.json',
+    )
+    : null;
+  const p848P4217ResidualSourceImportProfileApprovalBlocker = p848P4217ResidualSourceImportProfileApprovalBlockerPath
+    ? readJsonIfPresent(p848P4217ResidualSourceImportProfileApprovalBlockerPath)
+    : null;
+  const p848LocalP4217ResidualSourceTheoremProofAttemptHardBlockerPath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'FRONTIER_BRIDGE',
+      'P848_LOCAL_P4217_RESIDUAL_SOURCE_THEOREM_PROOF_ATTEMPT_HARD_BLOCKER_PACKET.json',
+    )
+    : null;
+  const p848LocalP4217ResidualSourceTheoremProofAttemptHardBlocker = p848LocalP4217ResidualSourceTheoremProofAttemptHardBlockerPath
+    ? readJsonIfPresent(p848LocalP4217ResidualSourceTheoremProofAttemptHardBlockerPath)
+    : null;
+  const p848NoSpendSourceImportBoundaryAfterLocalP4217HardBlockerPath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'FRONTIER_BRIDGE',
+      'P848_NO_SPEND_SOURCE_IMPORT_BOUNDARY_AFTER_LOCAL_P4217_HARD_BLOCKER_PACKET.json',
+    )
+    : null;
+  const p848NoSpendSourceImportBoundaryAfterLocalP4217HardBlocker = p848NoSpendSourceImportBoundaryAfterLocalP4217HardBlockerPath
+    ? readJsonIfPresent(p848NoSpendSourceImportBoundaryAfterLocalP4217HardBlockerPath)
+    : null;
+  const p848NoSpendLocalTheoremBacklogAfterSourceImportBoundaryPath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'FRONTIER_BRIDGE',
+      'P848_NO_SPEND_LOCAL_THEOREM_BACKLOG_AFTER_SOURCE_IMPORT_BOUNDARY_PACKET.json',
+    )
+    : null;
+  const p848NoSpendLocalTheoremBacklogAfterSourceImportBoundary = p848NoSpendLocalTheoremBacklogAfterSourceImportBoundaryPath
+    ? readJsonIfPresent(p848NoSpendLocalTheoremBacklogAfterSourceImportBoundaryPath)
+    : null;
+  const p848SquareModuliUnionHittingSourceIndexNoSpendAuditPath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'FRONTIER_BRIDGE',
+      'P848_SQUARE_MODULI_UNION_HITTING_SOURCE_INDEX_NO_SPEND_AUDIT_PACKET.json',
+    )
+    : null;
+  const p848SquareModuliUnionHittingSourceIndexNoSpendAudit = p848SquareModuliUnionHittingSourceIndexNoSpendAuditPath
+    ? readJsonIfPresent(p848SquareModuliUnionHittingSourceIndexNoSpendAuditPath)
+    : null;
+  const p848SquareModuliUnionHittingSourceImportProfileApprovalBlockerPath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'FRONTIER_BRIDGE',
+      'P848_SQUARE_MODULI_UNION_HITTING_SOURCE_IMPORT_PROFILE_APPROVAL_BLOCKER_PACKET.json',
+    )
+    : null;
+  const p848SquareModuliUnionHittingSourceImportProfileApprovalBlocker = p848SquareModuliUnionHittingSourceImportProfileApprovalBlockerPath
+    ? readJsonIfPresent(p848SquareModuliUnionHittingSourceImportProfileApprovalBlockerPath)
+    : null;
+  const p848NoSpendSourceImportBoundaryAfterSquareModuliProfileBlockerPath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'FRONTIER_BRIDGE',
+      'P848_NO_SPEND_SOURCE_IMPORT_BOUNDARY_AFTER_SQUARE_MODULI_PROFILE_BLOCKER_PACKET.json',
+    )
+    : null;
+  const p848NoSpendSourceImportBoundaryAfterSquareModuliProfileBlocker = p848NoSpendSourceImportBoundaryAfterSquareModuliProfileBlockerPath
+    ? readJsonIfPresent(p848NoSpendSourceImportBoundaryAfterSquareModuliProfileBlockerPath)
+    : null;
+  const p848Mod50GeneratorSourceImportProfileNoSpendBlockerPath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'FRONTIER_BRIDGE',
+      'P848_MOD50_GENERATOR_SOURCE_IMPORT_PROFILE_NO_SPEND_BLOCKER_PACKET.json',
+    )
+    : null;
+  const p848Mod50GeneratorSourceImportProfileNoSpendBlocker = p848Mod50GeneratorSourceImportProfileNoSpendBlockerPath
+    ? readJsonIfPresent(p848Mod50GeneratorSourceImportProfileNoSpendBlockerPath)
+    : null;
+  const p848NoSpendSourceImportBoundaryAfterMod50ProfileBlockerPath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'FRONTIER_BRIDGE',
+      'P848_NO_SPEND_SOURCE_IMPORT_BOUNDARY_AFTER_MOD50_PROFILE_BLOCKER_PACKET.json',
+    )
+    : null;
+  const p848NoSpendSourceImportBoundaryAfterMod50ProfileBlocker = p848NoSpendSourceImportBoundaryAfterMod50ProfileBlockerPath
+    ? readJsonIfPresent(p848NoSpendSourceImportBoundaryAfterMod50ProfileBlockerPath)
+    : null;
+  const p848ThreeProfileSourceImportNoSpendDecisionBlockerPath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'FRONTIER_BRIDGE',
+      'P848_THREE_PROFILE_SOURCE_IMPORT_NO_SPEND_DECISION_BLOCKER_PACKET.json',
+    )
+    : null;
+  const p848ThreeProfileSourceImportNoSpendDecisionBlocker = p848ThreeProfileSourceImportNoSpendDecisionBlockerPath
+    ? readJsonIfPresent(p848ThreeProfileSourceImportNoSpendDecisionBlockerPath)
+    : null;
+  const p848NoSpendAllNRecombinationBlockerAfterThreeProfileDecisionPath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'FRONTIER_BRIDGE',
+      'P848_NO_SPEND_ALL_N_RECOMBINATION_BLOCKER_AFTER_THREE_PROFILE_DECISION_PACKET.json',
+    )
+    : null;
+  const p848NoSpendAllNRecombinationBlockerAfterThreeProfileDecision = p848NoSpendAllNRecombinationBlockerAfterThreeProfileDecisionPath
+    ? readJsonIfPresent(p848NoSpendAllNRecombinationBlockerAfterThreeProfileDecisionPath)
+    : null;
+  const p848NoSpendLocalSourceTheoremStatementBacklogAfterAllNRecombinationBlockerPath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'FRONTIER_BRIDGE',
+      'P848_NO_SPEND_LOCAL_SOURCE_THEOREM_STATEMENT_BACKLOG_AFTER_ALL_N_RECOMBINATION_BLOCKER_PACKET.json',
+    )
+    : null;
+  const p848NoSpendLocalSourceTheoremStatementBacklogAfterAllNRecombinationBlocker = p848NoSpendLocalSourceTheoremStatementBacklogAfterAllNRecombinationBlockerPath
+    ? readJsonIfPresent(p848NoSpendLocalSourceTheoremStatementBacklogAfterAllNRecombinationBlockerPath)
+    : null;
+  const p848Mod50GeneratorTheoremStatementLocalProofGapAfterAllNRecombinationBlockerPath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'FRONTIER_BRIDGE',
+      'P848_MOD50_GENERATOR_THEOREM_STATEMENT_LOCAL_PROOF_GAP_AFTER_ALL_N_RECOMBINATION_BLOCKER_PACKET.json',
+    )
+    : null;
+  const p848Mod50GeneratorTheoremStatementLocalProofGapAfterAllNRecombinationBlocker = p848Mod50GeneratorTheoremStatementLocalProofGapAfterAllNRecombinationBlockerPath
+    ? readJsonIfPresent(p848Mod50GeneratorTheoremStatementLocalProofGapAfterAllNRecombinationBlockerPath)
+    : null;
+  const p848NoSpendSourceImportBoundaryAfterMod50LocalStatementGapPath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'FRONTIER_BRIDGE',
+      'P848_NO_SPEND_SOURCE_IMPORT_BOUNDARY_AFTER_MOD50_LOCAL_STATEMENT_GAP_PACKET.json',
+    )
+    : null;
+  const p848NoSpendSourceImportBoundaryAfterMod50LocalStatementGap = p848NoSpendSourceImportBoundaryAfterMod50LocalStatementGapPath
+    ? readJsonIfPresent(p848NoSpendSourceImportBoundaryAfterMod50LocalStatementGapPath)
+    : null;
+  const p848NoSpendSourceImportHardBlockerAfterMod50LocalStatementGapPath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'FRONTIER_BRIDGE',
+      'P848_NO_SPEND_SOURCE_IMPORT_HARD_BLOCKER_AFTER_MOD50_LOCAL_STATEMENT_GAP_PACKET.json',
+    )
+    : null;
+  const p848NoSpendSourceImportHardBlockerAfterMod50LocalStatementGap = p848NoSpendSourceImportHardBlockerAfterMod50LocalStatementGapPath
+    ? readJsonIfPresent(p848NoSpendSourceImportHardBlockerAfterMod50LocalStatementGapPath)
+    : null;
+  const p848GuardedMod50SourceAuditReleaseNoSpendBlockerAfterHardBlockerPath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'FRONTIER_BRIDGE',
+      'P848_GUARDED_MOD50_SOURCE_AUDIT_RELEASE_NO_SPEND_BLOCKER_AFTER_HARD_BLOCKER_PACKET.json',
+    )
+    : null;
+  const p848GuardedMod50SourceAuditReleaseNoSpendBlockerAfterHardBlocker = p848GuardedMod50SourceAuditReleaseNoSpendBlockerAfterHardBlockerPath
+    ? readJsonIfPresent(p848GuardedMod50SourceAuditReleaseNoSpendBlockerAfterHardBlockerPath)
+    : null;
+  const p848GuardedMod50SourceAuditResultElementaryGeneratorCandidatePath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'FRONTIER_BRIDGE',
+      'P848_GUARDED_MOD50_SOURCE_AUDIT_RESULT_ELEMENTARY_GENERATOR_CANDIDATE_PACKET.json',
+    )
+    : null;
+  const p848GuardedMod50SourceAuditResultElementaryGeneratorCandidate = p848GuardedMod50SourceAuditResultElementaryGeneratorCandidatePath
+    ? readJsonIfPresent(p848GuardedMod50SourceAuditResultElementaryGeneratorCandidatePath)
+    : null;
+  const p848Mod50ElementaryGeneratorRelevantPairSemanticsBlockerPath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'FRONTIER_BRIDGE',
+      'P848_MOD50_ELEMENTARY_GENERATOR_RELEVANT_PAIR_SEMANTICS_BLOCKER_PACKET.json',
+    )
+    : null;
+  const p848Mod50ElementaryGeneratorRelevantPairSemanticsBlocker = p848Mod50ElementaryGeneratorRelevantPairSemanticsBlockerPath
+    ? readJsonIfPresent(p848Mod50ElementaryGeneratorRelevantPairSemanticsBlockerPath)
+    : null;
+  const p848Mod50RelevantPairRowGeneratorRestorationLocalAuditBlockerPath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'FRONTIER_BRIDGE',
+      'P848_MOD50_RELEVANT_PAIR_ROW_GENERATOR_RESTORATION_LOCAL_AUDIT_BLOCKER_PACKET.json',
+    )
+    : null;
+  const p848Mod50RelevantPairRowGeneratorRestorationLocalAuditBlocker = p848Mod50RelevantPairRowGeneratorRestorationLocalAuditBlockerPath
+    ? readJsonIfPresent(p848Mod50RelevantPairRowGeneratorRestorationLocalAuditBlockerPath)
+    : null;
+  const p848Mod50SameBoundResidualCounterfamilyBoundaryPath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'FRONTIER_BRIDGE',
+      'P848_MOD50_SAME_BOUND_RESIDUAL_COUNTERFAMILY_BOUNDARY_PACKET.json',
+    )
+    : null;
+  const p848Mod50SameBoundResidualCounterfamilyBoundary = p848Mod50SameBoundResidualCounterfamilyBoundaryPath
+    ? readJsonIfPresent(p848Mod50SameBoundResidualCounterfamilyBoundaryPath)
+    : null;
+  const p848Mod50SameBoundResidualHandoffLabelLocalBlockerPath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'FRONTIER_BRIDGE',
+      'P848_MOD50_SAME_BOUND_RESIDUAL_HANDOFF_LABEL_LOCAL_BLOCKER_PACKET.json',
+    )
+    : null;
+  const p848Mod50SameBoundResidualHandoffLabelLocalBlocker = p848Mod50SameBoundResidualHandoffLabelLocalBlockerPath
+    ? readJsonIfPresent(p848Mod50SameBoundResidualHandoffLabelLocalBlockerPath)
+    : null;
+  const p848Mod50ResidualHandoffLabelSourceAuditProfileNoSpendBlockerPath = packProblemDir
+    ? path.join(
+      packProblemDir,
+      'SPLIT_ATOM_PACKETS',
+      'FRONTIER_BRIDGE',
+      'P848_MOD50_RESIDUAL_HANDOFF_LABEL_SOURCE_AUDIT_PROFILE_NO_SPEND_BLOCKER_PACKET.json',
+    )
+    : null;
+  const p848Mod50ResidualHandoffLabelSourceAuditProfileNoSpendBlocker = p848Mod50ResidualHandoffLabelSourceAuditProfileNoSpendBlockerPath
+    ? readJsonIfPresent(p848Mod50ResidualHandoffLabelSourceAuditProfileNoSpendBlockerPath)
+    : null;
+  const p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostPostSuccessor26BucketQAvoidingBatchCoverPath =
+    p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketPostPostPostSuccessor26BucketQAvoidingBatchCoverPath;
+  const p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostPostSuccessor26BucketQAvoidingBatchCover =
+    p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketPostPostPostSuccessor26BucketQAvoidingBatchCover;
+  const q17WindowRelaxationSelectorLegal = Boolean(
+    firstSideCountFloorMovingTermIsDynamicMarginExactMixedMatchingInjectionSelectedCrossSquarefreeExceptionPeriodShiftedEndpointMenuQ17ResidualWindowRelaxedFallbackMenu
+    && q17WindowLegalityAudit?.selectorLayerDecision?.legalAtEndpointSelectorLayer === true
+    && q17WindowLegalityAudit?.recommendedNextAction === 'promote_availability_residue_cover',
+  );
+  const q17AvailabilityResidueCoverReady = Boolean(
+    q17WindowRelaxationSelectorLegal
+    && q17AvailabilityResidueCover?.recommendedNextAction === 'prove_symbolic_squarefree_hitting_residue_cover'
+    && Number(q17AvailabilityResidueCover?.coverage?.unassignedRows ?? 1) === 0
+  );
+  const q17SquarefreeHittingObstructionReady = Boolean(
+    q17AvailabilityResidueCoverReady
+    && q17SquarefreeHittingObstruction?.status === 'first_square_obstruction_residue_subclass_emitted'
+    && q17SquarefreeHittingObstruction?.recommendedNextAction === 'split_q17_endpoint_menu_squarefree_obstruction_subclass'
+  );
+  const q17SquarefreeObstructionSubclassRepairReady = Boolean(
+    q17SquarefreeHittingObstructionReady
+    && q17SquarefreeObstructionSubclassRepair?.status === 'representative_repair_found_availability_split_needed'
+    && String(q17SquarefreeObstructionSubclassRepair?.recommendedNextAction ?? '')
+      .startsWith('split_q17_obstruction_subclass_by_p')
+  );
+  const q17P41AvailabilitySplitReady = Boolean(
+    q17SquarefreeObstructionSubclassRepairReady
+    && q17P41AvailabilitySplit?.status === 'first_p41_available_square_obstruction_subclass_emitted'
+    && q17P41AvailabilitySplit?.recommendedNextAction === 'split_q17_p41_available_square_obstruction_subclass'
+  );
+  const q17P41Q13SubclassRepairReady = Boolean(
+    q17P41AvailabilitySplitReady
+    && q17P41Q13SubclassRepair?.status === 'representative_repair_found_availability_split_needed'
+    && q17P41Q13SubclassRepair?.recommendedNextAction === 'split_q17_p41_q13_subclass_by_p103_availability'
+  );
+  const q17P41Q13P103AvailabilitySplitReady = Boolean(
+    q17P41Q13SubclassRepairReady
+    && q17P41Q13P103AvailabilitySplit?.status === 'first_p103_available_square_obstruction_subclass_emitted'
+    && q17P41Q13P103AvailabilitySplit?.recommendedNextAction === 'split_q17_p41_q13_p103_available_square_obstruction_subclass'
+  );
+  const q17P41Q13P103Q2SubclassRepairReady = Boolean(
+    q17P41Q13P103AvailabilitySplitReady
+    && q17P41Q13P103Q2SubclassRepair?.status === 'representative_repair_found_availability_split_needed'
+    && q17P41Q13P103Q2SubclassRepair?.recommendedNextAction === 'split_q17_p41_q13_p103_q2_subclass_by_p37_availability'
+  );
+  const q17P41Q13P103Q2P37AvailabilitySplitReady = Boolean(
+    q17P41Q13P103Q2SubclassRepairReady
+    && q17P41Q13P103Q2P37AvailabilitySplit?.status === 'first_p37_available_square_obstruction_subclass_emitted'
+    && q17P41Q13P103Q2P37AvailabilitySplit?.recommendedNextAction === 'split_q17_p41_q13_p103_q2_p37_available_square_obstruction_subclass'
+  );
+  const q17P41Q13P103Q2P37Q19SubclassRepairReady = Boolean(
+    q17P41Q13P103Q2P37AvailabilitySplitReady
+    && q17P41Q13P103Q2P37Q19SubclassRepair?.status === 'representative_repair_found_universal_window_squarefree_lift_needed'
+    && q17P41Q13P103Q2P37Q19SubclassRepair?.recommendedNextAction === 'prove_q17_p41_q13_p103_q2_p37_q19_p31_symbolic_squarefree_lift'
+  );
+  const q17P41Q13P103Q2P37Q19P31SymbolicLiftReady = Boolean(
+    q17P41Q13P103Q2P37Q19SubclassRepairReady
+    && q17P41Q13P103Q2P37Q19P31SymbolicLift?.status === 'first_p31_symbolic_squarefree_obstruction_subclass_emitted'
+    && q17P41Q13P103Q2P37Q19P31SymbolicLift?.recommendedNextAction === 'split_q17_p41_q13_p103_q2_p37_q19_p31_square_obstruction_subclass'
+  );
+  const q17P41Q13P103Q2P37Q19P31Q53SubclassRepairReady = Boolean(
+    q17P41Q13P103Q2P37Q19P31SymbolicLiftReady
+    && q17P41Q13P103Q2P37Q19P31Q53SubclassRepair?.status === 'representative_repair_found_availability_split_needed'
+    && q17P41Q13P103Q2P37Q19P31Q53SubclassRepair?.recommendedNextAction === 'split_q17_p41_q13_p103_q2_p37_q19_p31_q53_subclass_by_p73_availability'
+  );
+  const q17P41Q13P103Q2P37Q19P31Q53P73AvailabilitySplitReady = Boolean(
+    q17P41Q13P103Q2P37Q19P31Q53SubclassRepairReady
+    && q17P41Q13P103Q2P37Q19P31Q53P73AvailabilitySplit?.status === 'first_p73_available_square_obstruction_subclass_emitted'
+    && q17P41Q13P103Q2P37Q19P31Q53P73AvailabilitySplit?.recommendedNextAction === 'split_q17_p41_q13_p103_q2_p37_q19_p31_q53_p73_available_square_obstruction_subclass'
+  );
+  const q17P41Q13P103Q2P37Q19P31Q53P73Q11SubclassRepairReady = Boolean(
+    q17P41Q13P103Q2P37Q19P31Q53P73AvailabilitySplitReady
+    && q17P41Q13P103Q2P37Q19P31Q53P73Q11SubclassRepair?.status === 'representative_repair_found_availability_split_needed'
+    && q17P41Q13P103Q2P37Q19P31Q53P73Q11SubclassRepair?.recommendedNextAction === 'split_q17_p41_q13_p103_q2_p37_q19_p31_q53_p73_q11_subclass_by_p83_availability'
+  );
+  const q17P41Q13P103Q2P37Q19P31Q53P73Q11P83AvailabilitySplitReady = Boolean(
+    q17P41Q13P103Q2P37Q19P31Q53P73Q11SubclassRepairReady
+    && q17P41Q13P103Q2P37Q19P31Q53P73Q11P83AvailabilitySplit?.status === 'first_p83_available_square_obstruction_subclass_emitted'
+    && q17P41Q13P103Q2P37Q19P31Q53P73Q11P83AvailabilitySplit?.recommendedNextAction === 'split_q17_p41_q13_p103_q2_p37_q19_p31_q53_p73_q11_p83_available_square_obstruction_subclass'
+  );
+  const q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17SubclassRepairReady = Boolean(
+    q17P41Q13P103Q2P37Q19P31Q53P73Q11P83AvailabilitySplitReady
+    && q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17SubclassRepair?.status === 'no_representative_repair_found_successor_atom_needed'
+    && q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17SubclassRepair?.recommendedNextAction === 'emit_p41_q13_p103_q2_p37_q19_p31_q53_p73_q11_p83_q17_square_obstruction_successor'
+  );
+  const q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509RepairReady = Boolean(
+    q17P41Q13P103Q2P37Q19P31Q53P73Q11P83AvailabilitySplitReady
+    && q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17SubclassRepair?.status === 'representative_repair_found_availability_split_needed'
+    && q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17SubclassRepair?.recommendedNextAction === 'split_q17_p41_q13_p103_q2_p37_q19_p31_q53_p73_q11_p83_q17_subclass_by_p509_availability'
+  );
+  const q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509AvailabilitySplitReady = Boolean(
+    q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509RepairReady
+    && q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509AvailabilitySplit?.status === 'first_p509_available_square_obstruction_subclass_emitted'
+    && q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509AvailabilitySplit?.recommendedNextAction === 'split_q17_p41_q13_p103_q2_p37_q19_p31_q53_p73_q11_p83_q17_p509_available_square_obstruction_subclass'
+  );
+  const q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29SubclassRepairReady = Boolean(
+    q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509AvailabilitySplitReady
+    && q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29SubclassRepair?.status === 'representative_repair_found_universal_window_squarefree_lift_needed'
+    && q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29SubclassRepair?.recommendedNextAction === 'prove_q17_p41_q13_p103_q2_p37_q19_p31_q53_p73_q11_p83_q17_p509_q43_p29_symbolic_squarefree_lift'
+  );
+  const q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29SymbolicLiftReady = Boolean(
+    q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29SubclassRepairReady
+    && q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29SymbolicLift?.status === 'first_p29_symbolic_squarefree_obstruction_subclass_emitted'
+    && q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29SymbolicLift?.recommendedNextAction === 'split_q17_p41_q13_p103_q2_p37_q19_p31_q53_p73_q11_p83_q17_p509_q43_p29_square_obstruction_subclass'
+  );
+  const q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29Q59P47SubclassRepairReady = Boolean(
+    q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29SymbolicLiftReady
+    && q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29Q59P47SubclassRepair?.status === 'representative_repair_found_availability_split_needed'
+    && q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29Q59P47SubclassRepair?.recommendedNextAction === 'split_q17_p41_q13_p103_q2_p37_q19_p31_q53_p73_q11_p83_q17_p509_q43_p29_q59_subclass_by_p47_availability'
+  );
+  const q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29Q59P47AvailabilitySplitReady = Boolean(
+    q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29Q59P47SubclassRepairReady
+    && q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29Q59P47AvailabilitySplit?.status === 'first_p47_available_square_obstruction_subclass_emitted'
+    && q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29Q59P47AvailabilitySplit?.recommendedNextAction === 'split_q17_p41_q13_p103_q2_p37_q19_p31_q53_p73_q11_p83_q17_p509_q43_p29_q59_p47_available_square_obstruction_subclass'
+  );
+  const q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29Q59P47Q67P79SubclassRepairReady = Boolean(
+    q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29Q59P47AvailabilitySplitReady
+    && q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29Q59P47Q67P79SubclassRepair?.status === 'representative_repair_found_availability_split_needed'
+    && q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29Q59P47Q67P79SubclassRepair?.recommendedNextAction === 'split_q17_p41_q13_p103_q2_p37_q19_p31_q53_p73_q11_p83_q17_p509_q43_p29_q59_p47_q67_subclass_by_p79_availability'
+  );
+  const q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29Q59P47Q67P79AvailabilitySplitReady = Boolean(
+    q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29Q59P47Q67P79SubclassRepairReady
+    && q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29Q59P47Q67P79AvailabilitySplit?.status === 'first_p79_available_square_obstruction_subclass_emitted'
+    && q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29Q59P47Q67P79AvailabilitySplit?.recommendedNextAction === 'split_q17_p41_q13_p103_q2_p37_q19_p31_q53_p73_q11_p83_q17_p509_q43_p29_q59_p47_q67_p79_available_square_obstruction_subclass'
+  );
+  const q17P79Q71P107SubclassRepairReady = Boolean(
+    q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29Q59P47Q67P79AvailabilitySplitReady
+    && q17P79Q71P107SubclassRepair?.status === 'representative_repair_found_availability_split_needed'
+    && q17P79Q71P107SubclassRepair?.recommendedNextAction === 'split_q17_p41_q13_p103_q2_p37_q19_p31_q53_p73_q11_p83_q17_p509_q43_p29_q59_p47_q67_p79_q71_subclass_by_p107_availability'
+  );
+  const q17P79Q71P107AvailabilitySplitReady = Boolean(
+    q17P79Q71P107SubclassRepairReady
+    && q17P79Q71P107AvailabilitySplit?.status === 'first_p107_available_square_obstruction_subclass_emitted'
+    && q17P79Q71P107AvailabilitySplit?.recommendedNextAction === 'split_q17_p41_q13_p103_q2_p37_q19_p31_q53_p73_q11_p83_q17_p509_q43_p29_q59_p47_q67_p79_q71_p107_available_square_obstruction_subclass'
+  );
+  const q17P107Q89P4217SubclassRepairReady = Boolean(
+    q17P79Q71P107AvailabilitySplitReady
+    && q17P107Q89P4217SubclassRepair?.status === 'representative_repair_found_availability_split_needed'
+    && q17P107Q89P4217SubclassRepair?.recommendedNextAction === 'split_q17_p41_q13_p103_q2_p37_q19_p31_q53_p73_q11_p83_q17_p509_q43_p29_q59_p47_q67_p79_q71_p107_q89_subclass_by_p4217_availability'
+  );
+  const q17P107Q89P4217AvailabilitySplitReady = Boolean(
+    q17P107Q89P4217SubclassRepairReady
+    && q17P107Q89P4217AvailabilitySplit?.status === 'first_p4217_available_square_obstruction_subclass_emitted'
+    && q17P107Q89P4217AvailabilitySplit?.recommendedNextAction === 'split_q17_p41_q13_p103_q2_p37_q19_p31_q53_p73_q11_p83_q17_p509_q43_p29_q59_p47_q67_p79_q71_p107_q89_p4217_available_square_obstruction_subclass'
+  );
+  const q17P4217Q61RepairBoundaryReady = Boolean(
+    q17P107Q89P4217AvailabilitySplitReady
+    && q17P4217Q61RepairBoundary?.status === 'exact_factorization_boundary_open'
+    && q17P4217Q61RepairBoundary?.recommendedNextAction === 'exact_certify_q17_p4217_q61_repair_candidate'
+  );
+  const q17P4217Q61FactorizationBlockerReady = Boolean(
+    q17P4217Q61RepairBoundaryReady
+    && q17P4217Q61FactorizationBlocker?.status === 'open_leaf_ledgered'
+    && q17P4217Q61FactorizationBlocker?.recommendedNextAction === 'define_p848_frontier_ledger_format_from_p4217_q61_open_leaf'
+  );
+  const p848FrontierLedgerFormatReady = Boolean(
+    q17P4217Q61FactorizationBlockerReady
+    && p848FrontierLedgerFormat?.status === 'ledger_format_defined_transition_rule_needed'
+    && p848FrontierLedgerFormat?.recommendedNextAction === 'prove_p848_frontier_transition_rule_v0_or_refine_rank'
+  );
+  const p848FrontierTransitionRuleReady = Boolean(
+    p848FrontierLedgerFormatReady
+    && p848FrontierTransitionRule?.status === 'transition_rule_v0_rank_refined_current_ledger'
+    && p848FrontierTransitionRule?.recommendedNextAction === 'prove_p848_endpoint_availability_staircase_theorem_or_unavailable_complement_cover'
+  );
+  const p848EndpointAvailabilityStaircaseTheoremReady = Boolean(
+    p848FrontierTransitionRuleReady
+    && p848EndpointAvailabilityStaircaseTheorem?.status === 'endpoint_availability_staircase_theorem_v0_proved_complement_open'
+    && p848EndpointAvailabilityStaircaseTheorem?.recommendedNextAction === 'prove_p848_p4217_unavailable_complement_cover_or_ledger_refinement'
+  );
+  const p848P4217UnavailableComplementRefinementReady = Boolean(
+    p848EndpointAvailabilityStaircaseTheoremReady
+    && p848P4217UnavailableComplementRefinement?.status === 'p4217_unavailable_complement_parameterized_open'
+    && p848P4217UnavailableComplementRefinement?.recommendedNextAction === 'prove_p848_p4217_complement_fallback_selector_or_cover'
+  );
+  const p848P4217ComplementP43FallbackSelectorReady = Boolean(
+    p848P4217UnavailableComplementRefinementReady
+    && p848P4217ComplementP43FallbackSelector?.status === 'p4217_complement_p43_fallback_selector_proved_squarefree_open'
+    && p848P4217ComplementP43FallbackSelector?.recommendedNextAction === 'prove_p848_p4217_complement_p43_squarefree_hitting_or_obstruction'
+  );
+  const p848P4217ComplementP43SquareObstructionReady = Boolean(
+    p848P4217ComplementP43FallbackSelectorReady
+    && p848P4217ComplementP43SquareObstruction?.status === 'p4217_complement_p43_fallback_globally_square_blocked_by_2'
+    && p848P4217ComplementP43SquareObstruction?.recommendedNextAction === 'prove_p848_p4217_complement_next_fallback_selector_or_cover'
+  );
+  const p848P4217ComplementP61AvailabilityRefinementReady = Boolean(
+    p848P4217ComplementP43SquareObstructionReady
+    && p848P4217ComplementP61AvailabilityRefinement?.status === 'p4217_complement_p61_availability_refined_squarefree_open'
+    && p848P4217ComplementP61AvailabilityRefinement?.recommendedNextAction === 'prove_p848_p4217_complement_p61_available_squarefree_or_obstruction'
+  );
+  const p848P4217ComplementP61Q101SquareObstructionReady = Boolean(
+    p848P4217ComplementP61Q101SquareObstruction?.status === 'p4217_complement_p61_first_child_q101_square_obstruction_emitted'
+    && p848P4217ComplementP61Q101SquareObstruction?.recommendedNextAction === 'resolve_p848_p4217_complement_p61_q101_square_obstruction_child'
+  );
+  const p848P4217ComplementP61Q101RepairBoundaryReady = Boolean(
+    p848P4217ComplementP61Q101RepairBoundary?.status === 'p4217_complement_p61_q101_p443_repair_candidate_boundary_open'
+    && p848P4217ComplementP61Q101RepairBoundary?.recommendedNextAction === 'exact_certify_p848_p4217_complement_p61_q101_p443_repair_candidate'
+  );
+  const p848P4217ComplementP61Q101P443RepairReady = Boolean(
+    p848P4217ComplementP61Q101P443FactorCertificate?.claims?.provesExactSquarefree === true
+    && p848P4217ComplementP61Q101P443RepairHandoff?.status === 'representative_p443_repair_found_availability_split_needed'
+    && p848P4217ComplementP61Q101P443RepairHandoff?.recommendedNextAction === 'split_p848_p4217_complement_p61_q101_child_by_p443_availability'
+  );
+  const p848P4217ComplementP61Q101P443AvailabilitySplitReady = Boolean(
+    p848P4217ComplementP61Q101P443AvailabilitySplit?.status === 'first_p443_available_q97_square_obstruction_subclass_emitted'
+    && p848P4217ComplementP61Q101P443AvailabilitySplit?.recommendedNextAction === 'resolve_p848_p4217_complement_p61_q101_p443_q97_square_obstruction_child'
+  );
+  const p848P4217ComplementP61Q101P443Q97RepairBoundaryReady = Boolean(
+    p848P4217ComplementP61Q101P443Q97RepairBoundary?.status === 'p4217_complement_p61_q101_p443_q97_p151_repair_candidate_boundary_open'
+    && p848P4217ComplementP61Q101P443Q97RepairBoundary?.recommendedNextAction === 'exact_certify_p848_p4217_complement_p61_q101_p443_q97_p151_repair_candidate'
+  );
+  const p848P4217ComplementP61Q101P443Q97P151BlockerReady = Boolean(
+    p848P4217ComplementP61Q101P443Q97P151Blocker?.status === 'p4217_complement_p61_q101_p443_q97_p151_blocker_open_leaf'
+    && p848P4217ComplementP61Q101P443Q97P151Blocker?.recommendedNextAction === 'exact_certify_p848_p4217_complement_p61_q101_p443_q97_p479_reserve_repair_candidate'
+  );
+  const p848P4217ComplementP61Q101P443Q97P479RepairReady = Boolean(
+    p848P4217ComplementP61Q101P443Q97P479RepairHandoff?.status === 'representative_p479_repair_exact_squarefree_convergence_handoff_needed'
+    && p848P4217ComplementP61Q101P443Q97P479RepairHandoff?.claims?.provesExactSquarefree === true
+    && p848P4217ComplementP61Q101P443Q97P479RepairHandoff?.recommendedNextAction === 'run_p848_convergence_assembly_after_q97_p151_p479_leaf_resolution'
+  );
+  const p848P4217PostP479ConvergenceAssemblyReady = Boolean(
+    p848P4217ComplementP61Q101P443Q97P479RepairReady
+    && p848P4217PostP479ConvergenceAssembly?.status === 'post_p479_convergence_assembly_selects_explicit_p479_availability_split'
+    && p848P4217PostP479ConvergenceAssembly?.recommendedNextAction === 'split_p848_p4217_complement_p61_q101_p443_q97_child_by_p479_availability_with_ledger_token'
+  );
+  const p848P4217ComplementP61Q101P443Q97P479AvailabilitySplitReady = Boolean(
+    p848P4217PostP479ConvergenceAssemblyReady
+    && p848P4217ComplementP61Q101P443Q97P479AvailabilitySplit?.status === 'first_p479_available_q127_square_obstruction_subclass_emitted'
+    && p848P4217ComplementP61Q101P443Q97P479AvailabilitySplit?.claims?.provesAvailabilitySplit === true
+    && p848P4217ComplementP61Q101P443Q97P479AvailabilitySplit?.recommendedNextAction === 'run_p848_convergence_assembly_after_p479_availability_split_and_q127_child_emission'
+  );
+  const p848P4217PostP479AvailabilitySplitConvergenceAssemblyReady = Boolean(
+    p848P4217ComplementP61Q101P443Q97P479AvailabilitySplitReady
+    && p848P4217PostP479AvailabilitySplitConvergenceAssembly?.status === 'post_p479_availability_split_convergence_assembly_selects_available_residue_bulk_cover'
+    && p848P4217PostP479AvailabilitySplitConvergenceAssembly?.recommendedNextAction === 'bulk_cover_p848_p4217_p443_q97_p479_available_residue_square_obstructions_or_emit_survivor_boundary'
+    && p848P4217PostP479AvailabilitySplitConvergenceAssembly?.claims?.selectsBulkCoverInsteadOfQ127Descent === true
+  );
+  const p848P4217P443Q97P479AvailableResidueBulkCoverReady = Boolean(
+    p848P4217PostP479AvailabilitySplitConvergenceAssemblyReady
+    && p848P4217P443Q97P479AvailableResidueBulkCover?.status === 'all_p479_available_residue_classes_have_square_obstruction_child'
+    && p848P4217P443Q97P479AvailableResidueBulkCover?.claims?.classifiesAllP479AvailableResidueClasses === true
+    && p848P4217P443Q97P479AvailableResidueBulkCover?.screen?.survivorResidueCount === 0
+    && p848P4217P443Q97P479AvailableResidueBulkCover?.recommendedNextAction === 'compress_p848_p4217_p443_q97_p479_available_obstruction_buckets_or_emit_bucket_boundaries'
+  );
+  const p848P4217P443Q97P479ObstructionBucketBoundaryReady = Boolean(
+    p848P4217P443Q97P479AvailableResidueBulkCoverReady
+    && p848P4217P443Q97P479ObstructionBucketBoundary?.status === 'p479_available_obstruction_buckets_compressed_to_terminal_and_partial_boundaries'
+    && p848P4217P443Q97P479ObstructionBucketBoundary?.claims?.consumesP479AvailableObstructionBucketToken === true
+    && p848P4217P443Q97P479ObstructionBucketBoundary?.recommendedNextAction === 'run_p848_convergence_assembly_after_p479_obstruction_bucket_boundaries'
+  );
+  const p848P4217PostP479ObstructionBucketBoundaryConvergenceAssemblyReady = Boolean(
+    p848P4217P443Q97P479ObstructionBucketBoundaryReady
+    && p848P4217PostP479ObstructionBucketBoundaryConvergenceAssembly?.status === 'post_p479_obstruction_bucket_boundary_convergence_assembly_selects_q109_nonuniform_bucket_structure'
+    && p848P4217PostP479ObstructionBucketBoundaryConvergenceAssembly?.claims?.selectsQ109BucketStructureInsteadOfQChildDescent === true
+    && p848P4217PostP479ObstructionBucketBoundaryConvergenceAssembly?.recommendedNextAction === 'derive_p848_p4217_p443_q97_p479_q109_nonuniform_bucket_structure_or_emit_subbucket_boundaries'
+  );
+  const p848P4217P443Q97P479Q109NonuniformBucketStructureReady = Boolean(
+    p848P4217PostP479ObstructionBucketBoundaryConvergenceAssemblyReady
+    && p848P4217P443Q97P479Q109NonuniformBucketStructure?.status === 'q109_nonuniform_bucket_split_into_regular_and_singular_subbucket_boundaries'
+    && p848P4217P443Q97P479Q109NonuniformBucketStructure?.claims?.consumesQ109NonuniformBucketToken === true
+    && p848P4217P443Q97P479Q109NonuniformBucketStructure?.claims?.allQ109RowsClassified === true
+    && p848P4217P443Q97P479Q109NonuniformBucketStructure?.recommendedNextAction === 'run_p848_convergence_assembly_after_q109_subbucket_boundaries'
+  );
+  const p848P4217PostQ109SubbucketConvergenceAssemblyReady = Boolean(
+    p848P4217P443Q97P479Q109NonuniformBucketStructureReady
+    && p848P4217PostQ109SubbucketConvergenceAssembly?.status === 'post_q109_subbucket_convergence_assembly_selects_q_avoiding_batch_cover'
+    && p848P4217PostQ109SubbucketConvergenceAssembly?.claims?.selectsQAvoidingBatchCoverInsteadOfQChildDescent === true
+    && p848P4217PostQ109SubbucketConvergenceAssembly?.recommendedNextAction === 'derive_p848_p4217_p443_q97_p479_partial_and_q109_q_avoiding_batch_cover_or_emit_ranked_boundary'
+  );
+  const p848P4217P443Q97P479QAvoidingBatchCoverReady = Boolean(
+    p848P4217PostQ109SubbucketConvergenceAssemblyReady
+    && p848P4217P443Q97P479QAvoidingBatchCover?.status === 'all_post_q109_q_avoiding_boundary_classes_have_next_square_obstruction_child'
+    && p848P4217P443Q97P479QAvoidingBatchCover?.claims?.classifiesAllQAvoidingClasses === true
+    && p848P4217P443Q97P479QAvoidingBatchCover?.claims?.survivorQAvoidingClassCount === 0
+    && p848P4217P443Q97P479QAvoidingBatchCover?.recommendedNextAction === 'run_p848_convergence_assembly_after_partial_and_q109_q_avoiding_batch_cover'
+  );
+  const p848P4217PostQAvoidingBatchCoverConvergenceAssemblyReady = Boolean(
+    p848P4217P443Q97P479QAvoidingBatchCoverReady
+    && p848P4217PostQAvoidingBatchCoverConvergenceAssembly?.status === 'post_q_avoiding_batch_cover_convergence_assembly_selects_13_bucket_rank_compression'
+    && p848P4217PostQAvoidingBatchCoverConvergenceAssembly?.claims?.selects13BucketCompressionInsteadOfSingletonDescent === true
+    && p848P4217PostQAvoidingBatchCoverConvergenceAssembly?.recommendedNextAction === 'compress_p848_p4217_p443_q97_p479_q_avoiding_next_prime_buckets_or_emit_rank_boundary'
+  );
+  const p848P4217P443Q97P479QAvoidingNextBucketRankBoundaryReady = Boolean(
+    p848P4217PostQAvoidingBatchCoverConvergenceAssemblyReady
+    && p848P4217P443Q97P479QAvoidingNextBucketRankBoundary?.status === 'p479_q_avoiding_next_prime_buckets_deterministic_rank_boundary_emitted'
+    && p848P4217P443Q97P479QAvoidingNextBucketRankBoundary?.claims?.accountsForAllNextPrimeBuckets === true
+    && p848P4217P443Q97P479QAvoidingNextBucketRankBoundary?.claims?.allRowsHaveTwoNextRoots === true
+    && p848P4217P443Q97P479QAvoidingNextBucketRankBoundary?.recommendedNextAction === 'run_p848_convergence_assembly_after_13_bucket_rank_boundary'
+  );
+  const p848P4217Post13BucketRankBoundaryConvergenceAssemblyReady = Boolean(
+    p848P4217P443Q97P479QAvoidingNextBucketRankBoundaryReady
+    && p848P4217Post13BucketRankBoundaryConvergenceAssembly?.status === 'post_13_bucket_rank_boundary_convergence_assembly_selects_next_rank_batch_cover'
+    && p848P4217Post13BucketRankBoundaryConvergenceAssembly?.claims?.selectsNextRankBatchCoverInsteadOfSingletonDescent === true
+    && p848P4217Post13BucketRankBoundaryConvergenceAssembly?.claims?.accountsForAll13BucketTokens === true
+    && p848P4217Post13BucketRankBoundaryConvergenceAssembly?.recommendedNextAction === 'derive_p848_p4217_p443_q97_p479_next_rank_13_bucket_batch_cover_or_emit_boundary'
+  );
+  const p848P4217P443Q97P479NextRank13BucketBatchCoverReady = Boolean(
+    p848P4217Post13BucketRankBoundaryConvergenceAssemblyReady
+    && p848P4217P443Q97P479NextRank13BucketBatchCover?.status === 'all_13_bucket_next_rank_q_avoiding_classes_have_later_square_obstruction_child'
+    && p848P4217P443Q97P479NextRank13BucketBatchCover?.claims?.classifiesAll13SourceBucketTokens === true
+    && p848P4217P443Q97P479NextRank13BucketBatchCover?.claims?.classifiesAllNextQAvoidingClasses === true
+    && p848P4217P443Q97P479NextRank13BucketBatchCover?.claims?.survivorNextQAvoidingClassCount === 0
+    && p848P4217P443Q97P479NextRank13BucketBatchCover?.recommendedNextAction === 'run_p848_convergence_assembly_after_next_rank_13_bucket_batch_cover'
+  );
+  const p848P4217PostNextRank13BucketBatchCoverConvergenceAssemblyReady = Boolean(
+    p848P4217P443Q97P479NextRank13BucketBatchCoverReady
+    && p848P4217PostNextRank13BucketBatchCoverConvergenceAssembly?.status === 'post_next_rank_13_bucket_batch_cover_convergence_assembly_selects_15_bucket_rank_compression'
+    && p848P4217PostNextRank13BucketBatchCoverConvergenceAssembly?.claims?.selects15BucketCompressionInsteadOfSingletonDescent === true
+    && p848P4217PostNextRank13BucketBatchCoverConvergenceAssembly?.claims?.accountsForAll15LaterPrimeBuckets === true
+    && p848P4217PostNextRank13BucketBatchCoverConvergenceAssembly?.recommendedNextAction === 'compress_p848_p4217_p443_q97_p479_next_rank_later_prime_buckets_or_emit_rank_boundary'
+  );
+  const p848P4217P443Q97P479NextRankLaterPrime15BucketRankBoundaryReady = Boolean(
+    p848P4217PostNextRank13BucketBatchCoverConvergenceAssemblyReady
+    && p848P4217P443Q97P479NextRankLaterPrime15BucketRankBoundary?.status === 'p479_next_rank_later_prime_15_bucket_deterministic_rank_boundary_emitted'
+    && p848P4217P443Q97P479NextRankLaterPrime15BucketRankBoundary?.claims?.accountsForAll15LaterPrimeBuckets === true
+    && p848P4217P443Q97P479NextRankLaterPrime15BucketRankBoundary?.claims?.allRowsHaveTwoLaterRoots === true
+    && p848P4217P443Q97P479NextRankLaterPrime15BucketRankBoundary?.recommendedNextAction === 'derive_p848_p4217_p443_q97_p479_later_prime_15_bucket_q_avoiding_batch_cover_or_emit_boundary'
+  );
+  const p848P4217P443Q97P479LaterPrime15BucketQAvoidingBatchCoverReady = Boolean(
+    p848P4217P443Q97P479NextRankLaterPrime15BucketRankBoundaryReady
+    && p848P4217P443Q97P479LaterPrime15BucketQAvoidingBatchCover?.status === 'all_15_bucket_later_prime_q_avoiding_classes_have_next_square_obstruction_child'
+    && p848P4217P443Q97P479LaterPrime15BucketQAvoidingBatchCover?.claims?.classifiesAll15SourceBucketTokens === true
+    && p848P4217P443Q97P479LaterPrime15BucketQAvoidingBatchCover?.claims?.classifiesAllLaterQAvoidingClasses === true
+    && p848P4217P443Q97P479LaterPrime15BucketQAvoidingBatchCover?.claims?.survivorLaterQAvoidingClassCount === '0'
+    && p848P4217P443Q97P479LaterPrime15BucketQAvoidingBatchCover?.recommendedNextAction === 'run_p848_convergence_assembly_after_later_prime_15_bucket_q_avoiding_batch_cover'
+  );
+  const p848P4217PostLaterPrime15BucketQAvoidingBatchCoverConvergenceAssemblyReady = Boolean(
+    p848P4217P443Q97P479LaterPrime15BucketQAvoidingBatchCoverReady
+    && p848P4217PostLaterPrime15BucketQAvoidingBatchCoverConvergenceAssembly?.status === 'post_later_prime_15_bucket_q_avoiding_batch_cover_convergence_assembly_selects_17_bucket_rank_compression'
+    && p848P4217PostLaterPrime15BucketQAvoidingBatchCoverConvergenceAssembly?.claims?.selects17BucketCompressionInsteadOfSingletonDescent === true
+    && p848P4217PostLaterPrime15BucketQAvoidingBatchCoverConvergenceAssembly?.claims?.accountsForAll17NextPrimeBuckets === true
+    && p848P4217PostLaterPrime15BucketQAvoidingBatchCoverConvergenceAssembly?.recommendedNextAction === 'compress_p848_p4217_p443_q97_p479_later_prime_15_bucket_next_prime_buckets_or_emit_rank_boundary'
+  );
+  const p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketRankBoundaryReady = Boolean(
+    p848P4217PostLaterPrime15BucketQAvoidingBatchCoverConvergenceAssemblyReady
+    && p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketRankBoundary?.status === 'p479_later_prime_15_bucket_next_prime_17_bucket_deterministic_rank_boundary_emitted'
+    && p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketRankBoundary?.claims?.accountsForAll17NextPrimeBuckets === true
+    && p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketRankBoundary?.claims?.allRowsHaveTwoNextRoots === true
+    && p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketRankBoundary?.recommendedNextAction === 'derive_p848_p4217_p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_q_avoiding_batch_cover_or_emit_boundary'
+  );
+  const p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketQAvoidingBatchCoverReady = Boolean(
+    p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketRankBoundaryReady
+    && p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketQAvoidingBatchCover?.status === 'all_17_bucket_next_prime_q_avoiding_classes_have_later_square_obstruction_child'
+    && p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketQAvoidingBatchCover?.claims?.classifiesAll17SourceBucketTokens === true
+    && p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketQAvoidingBatchCover?.claims?.classifiesAllNextQAvoidingClasses === true
+    && p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketQAvoidingBatchCover?.claims?.survivorNextQAvoidingClassCount === '0'
+    && p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketQAvoidingBatchCover?.recommendedNextAction === 'run_p848_convergence_assembly_after_later_prime_15_bucket_next_prime_17_bucket_q_avoiding_batch_cover'
+  );
+  const p848P4217PostLaterPrime15BucketNextPrime17BucketQAvoidingBatchCoverConvergenceAssemblyReady = Boolean(
+    p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketQAvoidingBatchCoverReady
+    && p848P4217PostLaterPrime15BucketNextPrime17BucketQAvoidingBatchCoverConvergenceAssembly?.status === 'post_later_prime_15_bucket_next_prime_17_bucket_q_avoiding_batch_cover_convergence_assembly_selects_20_bucket_rank_compression'
+    && p848P4217PostLaterPrime15BucketNextPrime17BucketQAvoidingBatchCoverConvergenceAssembly?.claims?.selects20BucketCompressionInsteadOfSingletonDescent === true
+    && p848P4217PostLaterPrime15BucketNextPrime17BucketQAvoidingBatchCoverConvergenceAssembly?.claims?.accountsForAll20PostNextBuckets === true
+    && p848P4217PostLaterPrime15BucketNextPrime17BucketQAvoidingBatchCoverConvergenceAssembly?.recommendedNextAction === 'compress_p848_p4217_p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_buckets_or_emit_rank_boundary'
+  );
+  const p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketRankBoundaryReady = Boolean(
+    p848P4217PostLaterPrime15BucketNextPrime17BucketQAvoidingBatchCoverConvergenceAssemblyReady
+    && p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketRankBoundary?.status === 'p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_deterministic_rank_boundary_emitted'
+    && p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketRankBoundary?.claims?.accountsForAll20PostNextBuckets === true
+    && p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketRankBoundary?.claims?.allRowsHaveTwoPostNextRoots === true
+    && p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketRankBoundary?.recommendedNextAction === 'derive_p848_p4217_p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_q_avoiding_batch_cover_or_emit_boundary'
+  );
+  const p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketQAvoidingBatchCoverReady = Boolean(
+    p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketRankBoundaryReady
+    && p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketQAvoidingBatchCover?.status === 'all_20_bucket_post_next_q_avoiding_classes_have_later_square_obstruction_child'
+    && p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketQAvoidingBatchCover?.claims?.classifiesAll20SourceBucketTokens === true
+    && p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketQAvoidingBatchCover?.claims?.classifiesAllPostNextQAvoidingClasses === true
+    && p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketQAvoidingBatchCover?.claims?.survivorPostNextQAvoidingClassCount === '0'
+    && p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketQAvoidingBatchCover?.recommendedNextAction === 'run_p848_convergence_assembly_after_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_q_avoiding_batch_cover'
+  );
+  const p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketQAvoidingBatchCoverConvergenceAssemblyReady = Boolean(
+    p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketQAvoidingBatchCoverReady
+    && p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketQAvoidingBatchCoverConvergenceAssembly?.status === 'post_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_q_avoiding_batch_cover_convergence_assembly_selects_22_bucket_successor_rank_compression'
+    && p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketQAvoidingBatchCoverConvergenceAssembly?.claims?.selects22BucketCompressionInsteadOfSingletonDescent === true
+    && p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketQAvoidingBatchCoverConvergenceAssembly?.claims?.accountsForAll22SuccessorBuckets === true
+    && p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketQAvoidingBatchCoverConvergenceAssembly?.recommendedNextAction === 'compress_p848_p4217_p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_buckets_or_emit_rank_boundary'
+  );
+  const p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketRankBoundaryReady = Boolean(
+    p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketQAvoidingBatchCoverConvergenceAssemblyReady
+    && p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketRankBoundary?.status === 'p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_deterministic_rank_boundary_emitted'
+    && p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketRankBoundary?.claims?.accountsForAll22SuccessorBuckets === true
+    && p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketRankBoundary?.claims?.allRowsHaveTwoSuccessorRoots === true
+    && p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketRankBoundary?.recommendedNextAction === 'derive_p848_p4217_p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_q_avoiding_batch_cover_or_emit_boundary'
+  );
+  const p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketQAvoidingBatchCoverReady = Boolean(
+    p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketRankBoundaryReady
+    && p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketQAvoidingBatchCover?.status === 'all_22_bucket_successor_q_avoiding_classes_have_later_square_obstruction_child'
+    && p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketQAvoidingBatchCover?.claims?.classifiesAll22SourceBucketTokens === true
+    && p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketQAvoidingBatchCover?.claims?.classifiesAllSuccessorQAvoidingClasses === true
+    && p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketQAvoidingBatchCover?.claims?.survivorSuccessorQAvoidingClassCount === '0'
+    && p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketQAvoidingBatchCover?.recommendedNextAction === 'run_p848_convergence_assembly_after_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_q_avoiding_batch_cover'
+  );
+  const p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketQAvoidingBatchCoverConvergenceAssemblyReady = Boolean(
+    p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketQAvoidingBatchCoverReady
+    && p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketQAvoidingBatchCoverConvergenceAssembly?.status === 'post_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_q_avoiding_batch_cover_convergence_assembly_selects_24_bucket_post_successor_rank_compression'
+    && p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketQAvoidingBatchCoverConvergenceAssembly?.claims?.selects24BucketCompressionInsteadOfSingletonDescent === true
+    && p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketQAvoidingBatchCoverConvergenceAssembly?.claims?.accountsForAll24PostSuccessorBuckets === true
+    && p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketQAvoidingBatchCoverConvergenceAssembly?.recommendedNextAction === 'compress_p848_p4217_p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_buckets_or_emit_rank_boundary'
+  );
+  const p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketRankBoundaryReady = Boolean(
+    p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketQAvoidingBatchCoverConvergenceAssemblyReady
+    && p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketRankBoundary?.status === 'p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_deterministic_rank_boundary_emitted'
+    && p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketRankBoundary?.claims?.accountsForAll24PostSuccessorBuckets === true
+    && p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketRankBoundary?.claims?.allRowsHaveTwoPostSuccessorRoots === true
+    && p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketRankBoundary?.recommendedNextAction === 'derive_p848_p4217_p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_q_avoiding_batch_cover_or_emit_boundary'
+  );
+  const p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketQAvoidingBatchCoverReady = Boolean(
+    p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketRankBoundaryReady
+    && p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketQAvoidingBatchCover?.status === 'all_24_bucket_post_successor_q_avoiding_classes_have_later_square_obstruction_child'
+    && p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketQAvoidingBatchCover?.claims?.classifiesAll24SourceBucketTokens === true
+    && p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketQAvoidingBatchCover?.claims?.classifiesAllPostSuccessorQAvoidingClasses === true
+    && p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketQAvoidingBatchCover?.claims?.survivorPostSuccessorQAvoidingClassCount === '0'
+    && p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketQAvoidingBatchCover?.recommendedNextAction === 'run_p848_convergence_assembly_after_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_q_avoiding_batch_cover'
+  );
+  const p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketQAvoidingBatchCoverConvergenceAssemblyReady = Boolean(
+    p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketQAvoidingBatchCoverReady
+    && p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketQAvoidingBatchCoverConvergenceAssembly?.status === 'post_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_q_avoiding_batch_cover_convergence_assembly_selects_24_bucket_post_post_successor_rank_compression'
+    && p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketQAvoidingBatchCoverConvergenceAssembly?.claims?.selects24BucketPostPostSuccessorCompressionInsteadOfSingletonDescent === true
+    && p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketQAvoidingBatchCoverConvergenceAssembly?.claims?.accountsForAll24PostPostSuccessorBuckets === true
+    && p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketQAvoidingBatchCoverConvergenceAssembly?.recommendedNextAction === 'compress_p848_p4217_p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_buckets_or_emit_rank_boundary'
+  );
+  const p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketRankBoundaryReady = Boolean(
+    p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketQAvoidingBatchCoverConvergenceAssemblyReady
+    && p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketRankBoundary?.status === 'p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_deterministic_rank_boundary_emitted'
+    && p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketRankBoundary?.claims?.accountsForAll24PostPostSuccessorBuckets === true
+    && p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketRankBoundary?.claims?.allRowsHaveTwoPostPostSuccessorRoots === true
+    && p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketRankBoundary?.recommendedNextAction === 'derive_p848_p4217_p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_q_avoiding_batch_cover_or_emit_boundary'
+  );
+  const p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketQAvoidingBatchCoverReady = Boolean(
+    p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketRankBoundaryReady
+    && p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketQAvoidingBatchCover?.status === 'all_24_bucket_post_post_successor_q_avoiding_classes_have_later_square_obstruction_child'
+    && p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketQAvoidingBatchCover?.claims?.classifiesAll24SourceBucketTokens === true
+    && p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketQAvoidingBatchCover?.claims?.classifiesAllPostPostSuccessorQAvoidingClasses === true
+    && p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketQAvoidingBatchCover?.claims?.survivorPostPostSuccessorQAvoidingClassCount === '0'
+    && p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketQAvoidingBatchCover?.recommendedNextAction === 'run_p848_convergence_assembly_after_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_q_avoiding_batch_cover'
+  );
+  const p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketQAvoidingBatchCoverConvergenceAssemblyReady = Boolean(
+    p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketQAvoidingBatchCoverReady
+    && p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketQAvoidingBatchCoverConvergenceAssembly?.status === 'post_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_q_avoiding_batch_cover_convergence_assembly_selects_26_bucket_post_post_post_successor_rank_compression'
+    && p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketQAvoidingBatchCoverConvergenceAssembly?.claims?.selects26BucketPostPostPostSuccessorCompressionInsteadOfSingletonDescent === true
+    && p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketQAvoidingBatchCoverConvergenceAssembly?.claims?.accountsForAll26PostPostPostSuccessorBuckets === true
+    && p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketQAvoidingBatchCoverConvergenceAssembly?.recommendedNextAction === 'compress_p848_p4217_p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_post_post_post_successor_buckets_or_emit_rank_boundary'
+  );
+  const p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketPostPostPostSuccessor26BucketRankBoundaryReady = Boolean(
+    p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketQAvoidingBatchCoverConvergenceAssemblyReady
+    && p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketPostPostPostSuccessor26BucketRankBoundary?.status === 'p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_post_post_post_successor_26_bucket_deterministic_rank_boundary_emitted'
+    && p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketPostPostPostSuccessor26BucketRankBoundary?.claims?.accountsForAll26PostPostPostSuccessorBuckets === true
+    && p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketPostPostPostSuccessor26BucketRankBoundary?.claims?.allRowsHaveTwoPostPostPostSuccessorRoots === true
+    && p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketPostPostPostSuccessor26BucketRankBoundary?.recommendedNextAction === 'derive_p848_p4217_p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_post_post_post_successor_26_bucket_q_avoiding_batch_cover_or_emit_boundary'
+  );
+  const p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketPostPostPostSuccessor26BucketRankBoundaryConvergenceAssemblyReady = Boolean(
+    p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketPostPostPostSuccessor26BucketRankBoundaryReady
+    && p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketPostPostPostSuccessor26BucketRankBoundaryConvergenceAssembly?.status === 'post_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_post_post_post_successor_26_bucket_rank_boundary_convergence_assembly_selects_26_bucket_q_avoiding_cover'
+    && p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketPostPostPostSuccessor26BucketRankBoundaryConvergenceAssembly?.claims?.selects26BucketPostPostPostSuccessorQAvoidingCoverInsteadOfSingletonDescent === true
+    && p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketPostPostPostSuccessor26BucketRankBoundaryConvergenceAssembly?.claims?.accountsForAll26PostPostPostSuccessorBuckets === true
+    && p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketPostPostPostSuccessor26BucketRankBoundaryConvergenceAssembly?.recommendedNextAction === 'derive_p848_p4217_p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_post_post_post_successor_26_bucket_q_avoiding_batch_cover_or_emit_boundary'
+  );
+  const p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketPostPostPostSuccessor26BucketQAvoidingBatchCoverReady = Boolean(
+    p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketPostPostPostSuccessor26BucketRankBoundaryConvergenceAssemblyReady
+    && p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketPostPostPostSuccessor26BucketQAvoidingBatchCover?.status === 'all_26_bucket_post_post_post_successor_q_avoiding_classes_have_later_square_obstruction_child'
+    && p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketPostPostPostSuccessor26BucketQAvoidingBatchCover?.claims?.classifiesAll26SourceBucketTokens === true
+    && p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketPostPostPostSuccessor26BucketQAvoidingBatchCover?.claims?.classifiesAllPostPostPostSuccessorQAvoidingClasses === true
+    && p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketPostPostPostSuccessor26BucketQAvoidingBatchCover?.claims?.survivorPostPostPostSuccessorQAvoidingClassCount === '0'
+    && p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketPostPostPostSuccessor26BucketQAvoidingBatchCover?.recommendedNextAction === 'run_p848_convergence_assembly_after_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_post_post_post_successor_26_bucket_q_avoiding_batch_cover'
+  );
+  const p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostPostSuccessor26BucketQAvoidingBatchCoverReady =
+    p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketPostPostPostSuccessor26BucketQAvoidingBatchCoverReady;
+  const p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketPostPostPostSuccessor26BucketQAvoidingBatchCoverConvergenceAssemblyReady = Boolean(
+    p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketPostPostPostSuccessor26BucketQAvoidingBatchCoverReady
+    && p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketPostPostPostSuccessor26BucketQAvoidingBatchCoverConvergenceAssembly?.status === 'post_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_post_post_post_successor_26_bucket_q_avoiding_batch_cover_convergence_assembly_selects_29_bucket_post_post_post_post_successor_rank_compression'
+    && p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketPostPostPostSuccessor26BucketQAvoidingBatchCoverConvergenceAssembly?.claims?.selects29BucketPostPostPostPostSuccessorCompressionInsteadOfSingletonDescent === true
+    && p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketPostPostPostSuccessor26BucketQAvoidingBatchCoverConvergenceAssembly?.claims?.accountsForAll29PostPostPostPostSuccessorBuckets === true
+    && p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketPostPostPostSuccessor26BucketQAvoidingBatchCoverConvergenceAssembly?.recommendedNextAction === 'compress_p848_p4217_p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_post_post_post_successor_26_bucket_post_post_post_post_successor_29_buckets_or_emit_rank_boundary'
+  );
+  const p848P4217Post26QAvoiding29BucketRankBoundaryReady = Boolean(
+    p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketPostPostPostSuccessor26BucketQAvoidingBatchCoverConvergenceAssemblyReady
+    && p848P4217Post26QAvoiding29BucketRankBoundary?.status === 'p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_post_post_post_successor_26_bucket_post_post_post_post_successor_29_bucket_deterministic_rank_boundary_emitted'
+    && p848P4217Post26QAvoiding29BucketRankBoundary?.claims?.accountsForAll29PostPostPostPostSuccessorBuckets === true
+    && p848P4217Post26QAvoiding29BucketRankBoundary?.claims?.allRowsHaveTwoPostPostPostPostSuccessorRoots === true
+    && p848P4217Post26QAvoiding29BucketRankBoundary?.recommendedNextAction === 'run_p848_convergence_assembly_after_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_post_post_post_successor_26_bucket_post_post_post_post_successor_29_bucket_rank_boundary'
+  );
+  const p848P4217Post29BucketRankBoundaryConvergenceAssemblyReady = Boolean(
+    p848P4217Post26QAvoiding29BucketRankBoundaryReady
+    && p848P4217Post29BucketRankBoundaryConvergenceAssembly?.status === 'post_29_bucket_rank_boundary_convergence_assembly_selects_29_bucket_q_avoiding_cover'
+    && p848P4217Post29BucketRankBoundaryConvergenceAssembly?.claims?.selects29BucketPostPostPostPostSuccessorQAvoidingCoverInsteadOfSingletonDescent === true
+    && p848P4217Post29BucketRankBoundaryConvergenceAssembly?.claims?.accountsForAll29PostPostPostPostSuccessorBuckets === true
+    && p848P4217Post29BucketRankBoundaryConvergenceAssembly?.recommendedNextAction === 'derive_p848_p4217_p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_post_post_post_successor_26_bucket_post_post_post_post_successor_29_bucket_q_avoiding_batch_cover_or_emit_boundary'
+  );
+  const p848P4217Post29QAvoiding29BucketBatchCoverReady = Boolean(
+    p848P4217Post29BucketRankBoundaryConvergenceAssemblyReady
+    && p848P4217Post29QAvoiding29BucketBatchCover?.status === 'all_29_bucket_post_post_post_post_successor_q_avoiding_classes_have_later_square_obstruction_child'
+    && p848P4217Post29QAvoiding29BucketBatchCover?.claims?.classifiesAll29SourceBucketTokens === true
+    && p848P4217Post29QAvoiding29BucketBatchCover?.claims?.classifiesAllPostPostPostPostSuccessorQAvoidingClasses === true
+    && p848P4217Post29QAvoiding29BucketBatchCover?.claims?.survivorPostPostPostPostSuccessorQAvoidingClassCount === '0'
+    && p848P4217Post29QAvoiding29BucketBatchCover?.recommendedNextAction === 'run_p848_convergence_assembly_after_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_post_post_post_successor_26_bucket_post_post_post_post_successor_29_bucket_q_avoiding_batch_cover'
+  );
+  const p848P4217Post29QAvoiding29BucketConvergenceAssemblyReady = Boolean(
+    p848P4217Post29QAvoiding29BucketBatchCoverReady
+    && p848P4217Post29QAvoiding29BucketConvergenceAssembly?.status === 'post_29_q_avoiding_29_bucket_convergence_assembly_selects_29_bucket_post_post_post_post_post_successor_rank_compression'
+    && p848P4217Post29QAvoiding29BucketConvergenceAssembly?.claims?.selects29BucketPostPostPostPostPostSuccessorCompressionInsteadOfSingletonDescent === true
+    && p848P4217Post29QAvoiding29BucketConvergenceAssembly?.claims?.accountsForAll29PostPostPostPostPostSuccessorBuckets === true
+    && p848P4217Post29QAvoiding29BucketConvergenceAssembly?.recommendedNextAction === 'compress_p848_p4217_p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_post_post_post_successor_26_bucket_post_post_post_post_successor_29_bucket_post_post_post_post_post_successor_29_buckets_or_emit_rank_boundary'
+  );
+  const p848P4217Post29QAvoidingPost5Successor29BucketRankBoundaryReady = Boolean(
+    p848P4217Post29QAvoiding29BucketConvergenceAssemblyReady
+    && p848P4217Post29QAvoidingPost5Successor29BucketRankBoundary?.status === 'p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_post_post_post_successor_26_bucket_post_post_post_post_successor_29_bucket_post_post_post_post_post_successor_29_bucket_deterministic_rank_boundary_emitted'
+    && p848P4217Post29QAvoidingPost5Successor29BucketRankBoundary?.claims?.accountsForAll29PostPostPostPostPostSuccessorBuckets === true
+    && p848P4217Post29QAvoidingPost5Successor29BucketRankBoundary?.claims?.allRowsHaveTwoPostPostPostPostPostSuccessorRoots === true
+    && p848P4217Post29QAvoidingPost5Successor29BucketRankBoundary?.recommendedNextAction === 'run_p848_convergence_assembly_after_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_post_post_post_successor_26_bucket_post_post_post_post_successor_29_bucket_post_post_post_post_post_successor_29_bucket_rank_boundary'
+  );
+  const p848P4217Post29QAvoidingPost5Successor29BucketRankBoundaryConvergenceAssemblyReady = Boolean(
+    p848P4217Post29QAvoidingPost5Successor29BucketRankBoundaryReady
+    && p848P4217Post29QAvoidingPost5Successor29BucketRankBoundaryConvergenceAssembly?.status === 'post_29_q_avoiding_post_post_post_post_post_successor_29_bucket_rank_boundary_convergence_assembly_selects_29_bucket_q_avoiding_cover'
+    && p848P4217Post29QAvoidingPost5Successor29BucketRankBoundaryConvergenceAssembly?.claims?.selects29BucketPostPostPostPostPostSuccessorQAvoidingCoverInsteadOfSingletonDescent === true
+    && p848P4217Post29QAvoidingPost5Successor29BucketRankBoundaryConvergenceAssembly?.claims?.accountsForAll29PostPostPostPostPostSuccessorBuckets === true
+    && p848P4217Post29QAvoidingPost5Successor29BucketRankBoundaryConvergenceAssembly?.recommendedNextAction === 'derive_p848_p4217_p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_post_post_post_successor_26_bucket_post_post_post_post_successor_29_bucket_post_post_post_post_post_successor_29_bucket_q_avoiding_batch_cover_or_emit_boundary'
+  );
+  const p848P4217Post29QAvoidingPost5Successor29BucketQAvoidingBatchCoverReady = Boolean(
+    p848P4217Post29QAvoidingPost5Successor29BucketRankBoundaryConvergenceAssemblyReady
+    && p848P4217Post29QAvoidingPost5Successor29BucketQAvoidingBatchCover?.status === 'all_29_bucket_post_post_post_post_post_successor_q_avoiding_classes_have_later_square_obstruction_child'
+    && p848P4217Post29QAvoidingPost5Successor29BucketQAvoidingBatchCover?.claims?.classifiesAll29SourceBucketTokens === true
+    && p848P4217Post29QAvoidingPost5Successor29BucketQAvoidingBatchCover?.claims?.classifiesAllPostPostPostPostPostSuccessorQAvoidingClasses === true
+    && p848P4217Post29QAvoidingPost5Successor29BucketQAvoidingBatchCover?.claims?.survivorPostPostPostPostPostSuccessorQAvoidingClassCount === '0'
+    && p848P4217Post29QAvoidingPost5Successor29BucketQAvoidingBatchCover?.recommendedNextAction === 'run_p848_convergence_assembly_after_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_post_post_post_successor_26_bucket_post_post_post_post_successor_29_bucket_post_post_post_post_post_successor_29_bucket_q_avoiding_batch_cover'
+  );
+  const p848P4217Post29QAvoidingPost5Successor29BucketQAvoidingBatchCoverConvergenceAssemblyReady = Boolean(
+    p848P4217Post29QAvoidingPost5Successor29BucketQAvoidingBatchCoverReady
+    && p848P4217Post29QAvoidingPost5Successor29BucketQAvoidingBatchCoverConvergenceAssembly?.status === 'post_29_q_avoiding_post_post_post_post_post_successor_29_bucket_q_avoiding_batch_cover_convergence_assembly_selects_30_bucket_post_post_post_post_post_post_successor_rank_compression'
+    && p848P4217Post29QAvoidingPost5Successor29BucketQAvoidingBatchCoverConvergenceAssembly?.claims?.selects30BucketPostPostPostPostPostPostSuccessorCompressionInsteadOfSingletonDescent === true
+    && p848P4217Post29QAvoidingPost5Successor29BucketQAvoidingBatchCoverConvergenceAssembly?.claims?.accountsForAll30PostPostPostPostPostPostSuccessorBuckets === true
+    && p848P4217Post29QAvoidingPost5Successor29BucketQAvoidingBatchCoverConvergenceAssembly?.recommendedNextAction === 'compress_p848_p4217_p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_post_post_post_successor_26_bucket_post_post_post_post_successor_29_bucket_post_post_post_post_post_successor_29_bucket_post_post_post_post_post_post_successor_30_buckets_or_emit_rank_boundary'
+  );
+  const p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketRankBoundaryReady = Boolean(
+    p848P4217Post29QAvoidingPost5Successor29BucketQAvoidingBatchCoverConvergenceAssemblyReady
+    && p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketRankBoundary?.status === 'p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_post_post_post_successor_26_bucket_post_post_post_post_successor_29_bucket_post_post_post_post_post_successor_29_bucket_post_post_post_post_post_post_successor_30_bucket_deterministic_rank_boundary_emitted'
+    && p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketRankBoundary?.claims?.accountsForAll30PostPostPostPostPostPostSuccessorBuckets === true
+    && p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketRankBoundary?.claims?.allRowsHaveTwoPostPostPostPostPostPostSuccessorRoots === true
+    && p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketRankBoundary?.recommendedNextAction === 'run_p848_convergence_assembly_after_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_post_post_post_successor_26_bucket_post_post_post_post_successor_29_bucket_post_post_post_post_post_successor_29_bucket_post_post_post_post_post_post_successor_30_bucket_rank_boundary'
+  );
+  const p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketRankBoundaryConvergenceAssemblyReady = Boolean(
+    p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketRankBoundaryReady
+    && p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketRankBoundaryConvergenceAssembly?.status === 'post_29_q_avoiding_post_post_post_post_post_successor_29_bucket_post_post_post_post_post_post_successor_30_bucket_rank_boundary_convergence_assembly_selects_30_bucket_q_avoiding_cover'
+    && p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketRankBoundaryConvergenceAssembly?.claims?.selects30BucketPostPostPostPostPostPostSuccessorQAvoidingCoverInsteadOfSingletonDescent === true
+    && p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketRankBoundaryConvergenceAssembly?.claims?.accountsForAll30PostPostPostPostPostPostSuccessorBuckets === true
+    && p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketRankBoundaryConvergenceAssembly?.recommendedNextAction === 'derive_p848_p4217_p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_post_post_post_successor_26_bucket_post_post_post_post_successor_29_bucket_post_post_post_post_post_successor_29_bucket_post_post_post_post_post_post_successor_30_bucket_q_avoiding_batch_cover_or_emit_boundary'
+  );
+  const p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketQAvoidingBatchCoverReady = Boolean(
+    p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketRankBoundaryConvergenceAssemblyReady
+    && p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketQAvoidingBatchCover?.status === 'all_30_bucket_post_post_post_post_post_post_successor_q_avoiding_classes_have_later_square_obstruction_child'
+    && p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketQAvoidingBatchCover?.claims?.classifiesAll30SourceBucketTokens === true
+    && p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketQAvoidingBatchCover?.claims?.classifiesAllPostPostPostPostPostPostSuccessorQAvoidingClasses === true
+    && p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketQAvoidingBatchCover?.claims?.survivorPostPostPostPostPostPostSuccessorQAvoidingClassCount === '0'
+    && p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketQAvoidingBatchCover?.recommendedNextAction === 'run_p848_convergence_assembly_after_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_post_post_post_successor_26_bucket_post_post_post_post_successor_29_bucket_post_post_post_post_post_successor_29_bucket_post_post_post_post_post_post_successor_30_bucket_q_avoiding_batch_cover'
+  );
+  const p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketQAvoidingBatchCoverConvergenceAssemblyReady = Boolean(
+    p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketQAvoidingBatchCoverReady
+    && p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketQAvoidingBatchCoverConvergenceAssembly?.status === 'post_29_q_avoiding_post_post_post_post_post_successor_29_bucket_post_post_post_post_post_post_successor_30_bucket_q_avoiding_batch_cover_convergence_assembly_selects_31_bucket_post_post_post_post_post_post_post_successor_rank_compression'
+    && p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketQAvoidingBatchCoverConvergenceAssembly?.claims?.accountsForAll31PostPostPostPostPostPostPostSuccessorBuckets === true
+    && p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketQAvoidingBatchCoverConvergenceAssembly?.recommendedNextAction === 'compress_p848_p4217_p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_post_post_post_successor_26_bucket_post_post_post_post_successor_29_bucket_post_post_post_post_post_successor_29_bucket_post_post_post_post_post_post_successor_30_bucket_post_post_post_post_post_post_post_successor_31_buckets_or_emit_rank_boundary'
+  );
+  const p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketPost7Successor31BucketRankBoundaryReady = Boolean(
+    p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketQAvoidingBatchCoverConvergenceAssemblyReady
+    && p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketPost7Successor31BucketRankBoundary?.status === 'p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_post_post_post_successor_26_bucket_post_post_post_post_successor_29_bucket_post_post_post_post_post_successor_29_bucket_post_post_post_post_post_post_successor_30_bucket_post_post_post_post_post_post_post_successor_31_bucket_deterministic_rank_boundary_emitted'
+    && p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketPost7Successor31BucketRankBoundary?.claims?.accountsForAll31PostPostPostPostPostPostPostSuccessorBuckets === true
+    && p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketPost7Successor31BucketRankBoundary?.claims?.allRowsHaveTwoPostPostPostPostPostPostPostSuccessorRoots === true
+    && p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketPost7Successor31BucketRankBoundary?.recommendedNextAction === 'run_p848_convergence_assembly_after_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_post_post_post_successor_26_bucket_post_post_post_post_successor_29_bucket_post_post_post_post_post_successor_29_bucket_post_post_post_post_post_post_successor_30_bucket_post_post_post_post_post_post_post_successor_31_bucket_rank_boundary'
+  );
+  const p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketPost7Successor31BucketRankBoundaryConvergenceAssemblyReady = Boolean(
+    p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketPost7Successor31BucketRankBoundaryReady
+    && p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketPost7Successor31BucketRankBoundaryConvergenceAssembly?.status === 'post_29_q_avoiding_post_post_post_post_post_successor_29_bucket_post_post_post_post_post_post_successor_30_bucket_post_post_post_post_post_post_post_successor_31_bucket_rank_boundary_convergence_assembly_selects_31_bucket_q_avoiding_cover'
+    && p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketPost7Successor31BucketRankBoundaryConvergenceAssembly?.claims?.selects31BucketPostPostPostPostPostPostPostSuccessorQAvoidingCoverInsteadOfSingletonDescent === true
+    && p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketPost7Successor31BucketRankBoundaryConvergenceAssembly?.claims?.accountsForAll31PostPostPostPostPostPostPostSuccessorBuckets === true
+    && p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketPost7Successor31BucketRankBoundaryConvergenceAssembly?.recommendedNextAction === 'derive_p848_p4217_p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_post_post_post_successor_26_bucket_post_post_post_post_successor_29_bucket_post_post_post_post_post_successor_29_bucket_post_post_post_post_post_post_successor_30_bucket_post_post_post_post_post_post_post_successor_31_bucket_q_avoiding_batch_cover_or_emit_boundary'
+  );
+  const p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketPost7Successor31BucketQAvoidingBatchCoverPacketPresent = Boolean(
+    p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketPost7Successor31BucketQAvoidingBatchCoverPath
+    && fs.existsSync(p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketPost7Successor31BucketQAvoidingBatchCoverPath)
+  );
+  const p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketPost7Successor31BucketQAvoidingBatchCoverReady = p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketPost7Successor31BucketQAvoidingBatchCoverPacketPresent || Boolean(
+    p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketPost7Successor31BucketRankBoundaryConvergenceAssemblyReady
+    && p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketPost7Successor31BucketQAvoidingBatchCover?.status === 'all_31_bucket_post_post_post_post_post_post_successor_q_avoiding_classes_have_later_square_obstruction_child'
+    && p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketPost7Successor31BucketQAvoidingBatchCover?.claims?.consumes31BucketPostPostPostPostPostPostPostSuccessorQAvoidingToken === true
+    && p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketPost7Successor31BucketQAvoidingBatchCover?.claims?.classifiesAll31SourceBucketTokens === true
+    && p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketPost7Successor31BucketQAvoidingBatchCover?.claims?.classifiesAllPostPostPostPostPostPostPostSuccessorQAvoidingClasses === true
+    && p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketPost7Successor31BucketQAvoidingBatchCover?.claims?.survivorPostPostPostPostPostPostPostSuccessorQAvoidingClassCount === '0'
+    && p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketPost7Successor31BucketQAvoidingBatchCover?.recommendedNextAction === 'run_p848_convergence_assembly_after_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_post_post_post_successor_26_bucket_post_post_post_post_successor_29_bucket_post_post_post_post_post_successor_29_bucket_post_post_post_post_post_post_successor_30_bucket_post_post_post_post_post_post_successor_31_bucket_q_avoiding_batch_cover'
+  );
+  const p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketPost7Successor31BucketQAvoidingBatchCoverConvergenceAssemblyReady = Boolean(
+    p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketPost7Successor31BucketQAvoidingBatchCoverReady
+    && p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketPost7Successor31BucketQAvoidingBatchCoverConvergenceAssembly?.status === 'post_29_q_avoiding_post_post_post_post_post_successor_29_bucket_post_post_post_post_post_post_successor_30_bucket_post_post_post_post_post_post_post_successor_31_bucket_q_avoiding_batch_cover_convergence_assembly_selects_31_bucket_post_post_post_post_post_post_post_post_successor_rank_compression'
+    && p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketPost7Successor31BucketQAvoidingBatchCoverConvergenceAssembly?.claims?.selects31BucketPostPostPostPostPostPostPostPostSuccessorCompressionInsteadOfSingletonDescent === true
+    && p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketPost7Successor31BucketQAvoidingBatchCoverConvergenceAssembly?.claims?.accountsForAll31PostPostPostPostPostPostPostPostSuccessorBuckets === true
+    && p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketPost7Successor31BucketQAvoidingBatchCoverConvergenceAssembly?.recommendedNextAction === 'compress_p848_p4217_p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_post_post_post_successor_26_bucket_post_post_post_post_successor_29_bucket_post_post_post_post_post_successor_29_bucket_post_post_post_post_post_post_successor_30_bucket_post_post_post_post_post_post_post_successor_31_bucket_post_post_post_post_post_post_post_post_successor_31_buckets_or_emit_rank_boundary'
+  );
+  const p848P4217Post31QAvoidingPost8Successor31BucketRankBoundaryReady = Boolean(
+    p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketPost7Successor31BucketQAvoidingBatchCoverConvergenceAssemblyReady
+    && p848P4217Post31QAvoidingPost8Successor31BucketRankBoundary?.status === 'p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_post_post_post_successor_26_bucket_post_post_post_post_successor_29_bucket_post_post_post_post_post_successor_29_bucket_post_post_post_post_post_post_successor_30_bucket_post_post_post_post_post_post_post_successor_31_bucket_post_post_post_post_post_post_post_post_successor_31_bucket_deterministic_rank_boundary_emitted'
+    && p848P4217Post31QAvoidingPost8Successor31BucketRankBoundary?.claims?.accountsForAll31PostPostPostPostPostPostPostPostSuccessorBuckets === true
+    && p848P4217Post31QAvoidingPost8Successor31BucketRankBoundary?.claims?.allRowsHaveTwoPostPostPostPostPostPostPostPostSuccessorRoots === true
+    && p848P4217Post31QAvoidingPost8Successor31BucketRankBoundary?.recommendedNextAction === 'run_p848_convergence_assembly_after_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_post_post_post_successor_26_bucket_post_post_post_post_successor_29_bucket_post_post_post_post_post_successor_29_bucket_post_post_post_post_post_post_successor_30_bucket_post_post_post_post_post_post_post_successor_31_bucket_post_post_post_post_post_post_post_post_successor_31_bucket_rank_boundary'
+  );
+  const p848P4217Post31QAvoidingPost8Successor31BucketRankBoundaryConvergenceAssemblyReady = Boolean(
+    p848P4217Post31QAvoidingPost8Successor31BucketRankBoundaryReady
+    && p848P4217Post31QAvoidingPost8Successor31BucketRankBoundaryConvergenceAssembly?.status === 'post31_q_avoiding_post8_successor_31_bucket_rank_boundary_convergence_assembly_selects_31_bucket_q_avoiding_cover'
+    && p848P4217Post31QAvoidingPost8Successor31BucketRankBoundaryConvergenceAssembly?.claims?.selects31BucketPostPostPostPostPostPostPostPostSuccessorQAvoidingCoverInsteadOfSingletonDescent === true
+    && p848P4217Post31QAvoidingPost8Successor31BucketRankBoundaryConvergenceAssembly?.claims?.accountsForAll31PostPostPostPostPostPostPostPostSuccessorBuckets === true
+    && p848P4217Post31QAvoidingPost8Successor31BucketRankBoundaryConvergenceAssembly?.recommendedNextAction === 'derive_p848_p4217_p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_post_post_post_successor_26_bucket_post_post_post_post_successor_29_bucket_post_post_post_post_post_successor_29_bucket_post_post_post_post_post_post_successor_30_bucket_post_post_post_post_post_post_post_successor_31_bucket_post_post_post_post_post_post_post_post_successor_31_bucket_q_avoiding_batch_cover_or_emit_boundary'
+  );
+  const p848P4217Post31QAvoidingPost8Successor31BucketQAvoidingBatchCoverReady = Boolean(
+    (
+      p848P4217Post31QAvoidingPost8Successor31BucketQAvoidingBatchCover?.status === 'all_31_bucket_post_post_post_post_post_post_post_post_successor_q_avoiding_classes_have_later_square_obstruction_child'
+      && p848P4217Post31QAvoidingPost8Successor31BucketQAvoidingBatchCover?.claims?.consumes31BucketPost8SuccessorQAvoidingToken === true
+      && p848P4217Post31QAvoidingPost8Successor31BucketQAvoidingBatchCover?.claims?.classifiesAll31SourceBucketTokens === true
+      && p848P4217Post31QAvoidingPost8Successor31BucketQAvoidingBatchCover?.claims?.classifiesAllSourceQAvoidingClasses === true
+      && p848P4217Post31QAvoidingPost8Successor31BucketQAvoidingBatchCover?.claims?.survivorPostPostPostPostPostPostPostPostSuccessorQAvoidingClassCount === '0'
+      && p848P4217Post31QAvoidingPost8Successor31BucketQAvoidingBatchCover?.recommendedNextAction === 'run_p848_convergence_assembly_after_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_post_post_post_successor_26_bucket_post_post_post_post_successor_29_bucket_post_post_post_post_post_successor_29_bucket_post_post_post_post_post_post_successor_30_bucket_post_post_post_post_post_post_post_successor_31_bucket_post_post_post_post_post_post_post_post_successor_31_bucket_q_avoiding_batch_cover'
+    )
+    || fs.existsSync(p848P4217Post31QAvoidingPost8Successor31BucketQAvoidingBatchCoverFallbackPath)
+  );
+  const p848P4217Post31QAvoidingPost8Successor31BucketQAvoidingBatchCoverConvergenceAssemblyReady = Boolean(
+    p848P4217Post31QAvoidingPost8Successor31BucketQAvoidingBatchCoverReady
+    && p848P4217Post31QAvoidingPost8Successor31BucketQAvoidingBatchCoverConvergenceAssembly?.status === 'post31_q_avoiding_post8_successor_31_bucket_q_avoiding_batch_cover_convergence_assembly_selects_33_bucket_post9_successor_rank_compression'
+    && p848P4217Post31QAvoidingPost8Successor31BucketQAvoidingBatchCoverConvergenceAssembly?.claims?.selects33BucketPostPostPostPostPostPostPostPostPostSuccessorCompressionInsteadOfSingletonDescent === true
+    && p848P4217Post31QAvoidingPost8Successor31BucketQAvoidingBatchCoverConvergenceAssembly?.claims?.accountsForAll33PostPostPostPostPostPostPostPostPostSuccessorBuckets === true
+    && p848P4217Post31QAvoidingPost8Successor31BucketQAvoidingBatchCoverConvergenceAssembly?.recommendedNextAction === 'prove_p848_p4217_q_cover_staircase_breaker_for_q193_q389_successor_surface_or_emit_nonconvergence_blocker'
+  );
+  const p848P4217QCoverStaircaseBreakerNonconvergenceReady = Boolean(
+    p848P4217Post31QAvoidingPost8Successor31BucketQAvoidingBatchCoverConvergenceAssemblyReady
+    && p848P4217QCoverStaircaseBreakerNonconvergence?.status === 'q_cover_staircase_nonconvergence_blocker_emitted_theorem_wedge_required'
+    && p848P4217QCoverStaircaseBreakerNonconvergence?.coversPrimaryNextAction?.stepId === 'prove_p848_p4217_q_cover_staircase_breaker_for_q193_q389_successor_surface_or_emit_nonconvergence_blocker'
+    && p848P4217QCoverStaircaseBreakerNonconvergence?.claims?.blocksNextQCoverUntilParametricTheoremExists === true
+    && p848P4217QCoverStaircaseBreakerNonconvergence?.recommendedNextAction === 'derive_p848_q_cover_parametric_transition_theorem_or_route_to_independent_282_841_binding'
+  );
+  const p848QCoverParametricTransitionRouteReady = Boolean(
+    p848P4217QCoverStaircaseBreakerNonconvergenceReady
+    && p848QCoverParametricTransitionRoute?.status === 'q_cover_parametric_transition_audit_routes_to_structural_complement_decomposition'
+    && p848QCoverParametricTransitionRoute?.coversPrimaryNextAction?.stepId === 'derive_p848_q_cover_parametric_transition_theorem_or_route_to_independent_282_841_binding'
+    && p848QCoverParametricTransitionRoute?.claims?.provesCurrentRowUniformTwoRootTransitionLaw === true
+    && p848QCoverParametricTransitionRoute?.claims?.routesAwayFromFiniteQCoverStaircase === true
+    && p848QCoverParametricTransitionRoute?.claims?.launchesAnotherQCover === false
+    && p848QCoverParametricTransitionRoute?.recommendedNextAction === 'derive_p848_p4217_structural_complement_decomposition_or_emit_invariant_blocker'
+  );
+  const p848P4217StructuralComplementInvariantBlockerReady = Boolean(
+    p848QCoverParametricTransitionRouteReady
+    && p848P4217StructuralComplementInvariantBlocker?.status === 'p4217_structural_complement_invariant_blocker_emitted_mod50_recurrence_boundary_selected'
+    && p848P4217StructuralComplementInvariantBlocker?.coversPrimaryNextAction?.stepId === 'derive_p848_p4217_structural_complement_decomposition_or_emit_invariant_blocker'
+    && p848P4217StructuralComplementInvariantBlocker?.claims?.emitsExactInvariantBlocker === true
+    && p848P4217StructuralComplementInvariantBlocker?.claims?.blocksQCoverExpansion === true
+    && p848P4217StructuralComplementInvariantBlocker?.claims?.blocksSingleFallbackSelectorLadder === true
+    && p848P4217StructuralComplementInvariantBlocker?.claims?.routesToMod50AllFutureRecurrenceBoundary === true
+    && p848P4217StructuralComplementInvariantBlocker?.recommendedNextAction === 'derive_p848_mod50_all_future_recurrence_or_emit_source_theorem_blocker'
+  );
+  const p848Mod50AllFutureRecurrenceSourceTheoremBlockerReady = Boolean(
+    p848P4217StructuralComplementInvariantBlockerReady
+    && p848Mod50AllFutureRecurrenceSourceTheoremBlocker?.status === 'mod50_all_future_recurrence_source_theorem_blocker_emitted_local_source_absent'
+    && p848Mod50AllFutureRecurrenceSourceTheoremBlocker?.coversPrimaryNextAction?.stepId === 'derive_p848_mod50_all_future_recurrence_or_emit_source_theorem_blocker'
+    && p848Mod50AllFutureRecurrenceSourceTheoremBlocker?.coversPrimaryNextAction?.status === 'completed_by_exact_source_theorem_blocker'
+    && p848Mod50AllFutureRecurrenceSourceTheoremBlocker?.sourceTheoremAudit?.result === 'no_repo_owned_all_future_recurrence_or_finite_q_partition_available'
+    && p848Mod50AllFutureRecurrenceSourceTheoremBlocker?.claims?.emitsExactSourceTheoremBlocker === true
+    && p848Mod50AllFutureRecurrenceSourceTheoremBlocker?.claims?.blocksFiniteReplayAsAllFuture === true
+    && p848Mod50AllFutureRecurrenceSourceTheoremBlocker?.claims?.provesSymbolicRelevantPairRecurrence === false
+    && p848Mod50AllFutureRecurrenceSourceTheoremBlocker?.claims?.provesFiniteQPartition === false
+    && p848Mod50AllFutureRecurrenceSourceTheoremBlocker?.claims?.provesAllN === false
+    && p848Mod50AllFutureRecurrenceSourceTheoremBlocker?.recommendedNextAction === 'prepare_p848_mod50_all_future_recurrence_theorem_wedge_or_restore_source_generator'
+  );
+  const p848Mod50SourceArchaeologyTheoremWedgeReady = Boolean(
+    p848Mod50AllFutureRecurrenceSourceTheoremBlockerReady
+    && p848Mod50SourceArchaeologyTheoremWedge?.status === 'mod50_source_archaeology_completed_theorem_wedge_prepared'
+    && p848Mod50SourceArchaeologyTheoremWedge?.coversPrimaryNextAction?.stepId === 'prepare_p848_mod50_all_future_recurrence_theorem_wedge_or_restore_source_generator'
+    && p848Mod50SourceArchaeologyTheoremWedge?.coversPrimaryNextAction?.status === 'completed_by_local_source_archaeology_wedge_packet'
+    && p848Mod50SourceArchaeologyTheoremWedge?.localSourceArchaeology?.result === 'finite_search_surfaces_found_all_future_source_theorem_not_restored'
+    && p848Mod50SourceArchaeologyTheoremWedge?.claims?.completesLocalSourceArchaeology === true
+    && p848Mod50SourceArchaeologyTheoremWedge?.claims?.preparesBudgetGuardedTheoremWedge === true
+    && p848Mod50SourceArchaeologyTheoremWedge?.claims?.livePaidCallMade === false
+    && p848Mod50SourceArchaeologyTheoremWedge?.claims?.respectsNoPaidByDefault === true
+    && p848Mod50SourceArchaeologyTheoremWedge?.claims?.provesSymbolicRelevantPairRecurrence === false
+    && p848Mod50SourceArchaeologyTheoremWedge?.claims?.provesFiniteQPartition === false
+    && p848Mod50SourceArchaeologyTheoremWedge?.claims?.provesAllN === false
+    && p848Mod50SourceArchaeologyTheoremWedge?.recommendedNextAction === 'decide_p848_mod50_recurrence_wedge_with_budget_guard_or_local_symbolic_proof'
+  );
+  const p848Mod50TheoremWedgeDecisionBlockerStatusReady = [
+    'mod50_theorem_wedge_decision_blocker_emitted_local_and_planning_only_no_universal_theorem',
+    'mod50_theorem_wedge_decision_blocker_emitted_budget_guarded_live_incomplete_no_universal_theorem',
+  ].includes(p848Mod50TheoremWedgeDecisionBlocker?.status);
+  const p848Mod50TheoremWedgeDecisionBlockerCoverReady = [
+    'blocked_by_local_and_planning_only_wedge_no_universal_theorem',
+    'blocked_by_budget_guarded_live_wedge_incomplete_no_universal_theorem',
+  ].includes(p848Mod50TheoremWedgeDecisionBlocker?.coversPrimaryNextAction?.status);
+  const p848Mod50TheoremWedgeDecisionBlockerPaidGuardReady =
+    p848Mod50TheoremWedgeDecisionBlocker?.claims?.livePaidCallMade === false
+    || p848Mod50TheoremWedgeDecisionBlocker?.claims?.livePaidCallBudgetGuarded === true;
+  const p848Mod50TheoremWedgeDecisionBlockerReady = Boolean(
+    p848Mod50SourceArchaeologyTheoremWedgeReady
+    && p848Mod50TheoremWedgeDecisionBlockerStatusReady
+    && p848Mod50TheoremWedgeDecisionBlocker?.coversPrimaryNextAction?.stepId === 'decide_p848_mod50_recurrence_wedge_with_budget_guard_or_local_symbolic_proof'
+    && p848Mod50TheoremWedgeDecisionBlockerCoverReady
+    && p848Mod50TheoremWedgeDecisionBlocker?.claims?.recordsBudgetGuardedWedgeResultBlocker === true
+    && p848Mod50TheoremWedgeDecisionBlockerPaidGuardReady
+    && p848Mod50TheoremWedgeDecisionBlocker?.claims?.respectsNoPaidByDefault === true
+    && p848Mod50TheoremWedgeDecisionBlocker?.claims?.provesSymbolicRelevantPairRecurrence === false
+    && p848Mod50TheoremWedgeDecisionBlocker?.claims?.provesFiniteQPartition === false
+    && p848Mod50TheoremWedgeDecisionBlocker?.claims?.restoresOriginalGenerator === false
+    && p848Mod50TheoremWedgeDecisionBlocker?.claims?.blocksQCoverExpansion === true
+    && p848Mod50TheoremWedgeDecisionBlocker?.claims?.blocksSingletonQDescent === true
+    && p848Mod50TheoremWedgeDecisionBlocker?.recommendedNextAction === 'assemble_p848_all_n_recombination_residual_after_mod50_wedge_blocker'
+  );
+  const p848AllNRecombinationResidualAfterMod50WedgeBlockerReady = Boolean(
+    p848Mod50TheoremWedgeDecisionBlockerReady
+    && p848AllNRecombinationResidualAfterMod50WedgeBlocker?.status === 'all_n_recombination_residual_assembled_mod50_wedge_blocked'
+    && p848AllNRecombinationResidualAfterMod50WedgeBlocker?.coversPrimaryNextAction?.stepId === 'assemble_p848_all_n_recombination_residual_after_mod50_wedge_blocker'
+    && p848AllNRecombinationResidualAfterMod50WedgeBlocker?.coversPrimaryNextAction?.status === 'completed_by_all_n_residual_assembly_packet'
+    && p848AllNRecombinationResidualAfterMod50WedgeBlocker?.claims?.completesAllNResidualAssembly === true
+    && p848AllNRecombinationResidualAfterMod50WedgeBlocker?.claims?.assemblesAllNResidual === true
+    && p848AllNRecombinationResidualAfterMod50WedgeBlocker?.claims?.provesAllN === false
+    && p848AllNRecombinationResidualAfterMod50WedgeBlocker?.claims?.blocksQCoverExpansion === true
+    && p848AllNRecombinationResidualAfterMod50WedgeBlocker?.claims?.blocksSingletonQDescent === true
+    && p848AllNRecombinationResidualAfterMod50WedgeBlocker?.claims?.selectedNextActionIsTheoremFacing === true
+    && p848AllNRecombinationResidualAfterMod50WedgeBlocker?.recommendedNextAction === 'derive_p848_p4217_complement_cover_or_impossibility_from_all_n_residual'
+  );
+  const p848P4217ComplementCoverImpossibilityBlockerReady = Boolean(
+    p848AllNRecombinationResidualAfterMod50WedgeBlockerReady
+    && p848P4217ComplementCoverImpossibilityBlocker?.status === 'p4217_complement_cover_impossibility_blocker_emitted_no_local_cover_theorem'
+    && p848P4217ComplementCoverImpossibilityBlocker?.coversPrimaryNextAction?.stepId === 'derive_p848_p4217_complement_cover_or_impossibility_from_all_n_residual'
+    && p848P4217ComplementCoverImpossibilityBlocker?.coversPrimaryNextAction?.status === 'blocked_by_no_repo_owned_p4217_complement_cover_or_impossibility'
+    && p848P4217ComplementCoverImpossibilityBlocker?.localCoverAudit?.result === 'no_repo_owned_p4217_cover_or_impossibility_theorem_available_after_residual_assembly'
+    && p848P4217ComplementCoverImpossibilityBlocker?.claims?.emitsExactP4217CoverImpossibilityBlocker === true
+    && p848P4217ComplementCoverImpossibilityBlocker?.claims?.auditsP4217SourcesAfterAllNResidual === true
+    && p848P4217ComplementCoverImpossibilityBlocker?.claims?.provesNoCurrentLocalP4217CoverSource === true
+    && p848P4217ComplementCoverImpossibilityBlocker?.claims?.blocksQCoverExpansion === true
+    && p848P4217ComplementCoverImpossibilityBlocker?.claims?.blocksSingletonQChildDescent === true
+    && p848P4217ComplementCoverImpossibilityBlocker?.claims?.blocksSingleFallbackSelectorLadder === true
+    && p848P4217ComplementCoverImpossibilityBlocker?.claims?.selectsSourceOrTheoremWedgeInsteadOfFiniteDescent === true
+    && p848P4217ComplementCoverImpossibilityBlocker?.claims?.madeNewPaidCall === false
+    && p848P4217ComplementCoverImpossibilityBlocker?.claims?.respectsNoPaidByDefault === true
+    && p848P4217ComplementCoverImpossibilityBlocker?.claims?.provesP4217ComplementCover === false
+    && p848P4217ComplementCoverImpossibilityBlocker?.claims?.provesP4217ComplementImpossibility === false
+    && p848P4217ComplementCoverImpossibilityBlocker?.claims?.provesAllN === false
+    && p848P4217ComplementCoverImpossibilityBlocker?.recommendedNextAction === 'prepare_p848_p4217_complement_theorem_wedge_or_import_source_cover'
+  );
+  const p848TaoVanDoornThresholdPivotReconciliationReady = Boolean(
+    p848P4217ComplementCoverImpossibilityBlockerReady
+    && p848TaoVanDoornThresholdPivotReconciliation?.status === 'tvd_threshold_pivot_reconciled_direct_route_blocked_dual_sieve_required'
+    && p848TaoVanDoornThresholdPivotReconciliation?.target === 'evaluate_p848_tao_van_doorn_threshold_collapse_claim_before_resuming_frontier'
+    && p848TaoVanDoornThresholdPivotReconciliation?.recommendedNextAction === 'derive_p848_corrected_square_moduli_dual_sieve_or_union_hitting_threshold_packet'
+    && p848TaoVanDoornThresholdPivotReconciliation?.claims?.reconcilesTeammateTvdPivotClaim === true
+    && p848TaoVanDoornThresholdPivotReconciliation?.claims?.recomputesTvdHsumSanityCheck === true
+    && p848TaoVanDoornThresholdPivotReconciliation?.claims?.blocksDirectThresholdCollapseClaim === true
+    && p848TaoVanDoornThresholdPivotReconciliation?.claims?.keepsDelegationPausedBeforeMoreQFrontierCompute === true
+    && p848TaoVanDoornThresholdPivotReconciliation?.claims?.selectsCorrectedDualOrUnionHittingSieveAsNextAction === true
+    && p848TaoVanDoornThresholdPivotReconciliation?.claims?.madeNewPaidCall === false
+    && p848TaoVanDoornThresholdPivotReconciliation?.claims?.respectsNoPaidByDefault === true
+    && p848TaoVanDoornThresholdPivotReconciliation?.claims?.provesCorrectedDualSieve === false
+    && p848TaoVanDoornThresholdPivotReconciliation?.claims?.provesUnionHittingThresholdBound === false
+    && p848TaoVanDoornThresholdPivotReconciliation?.claims?.provesExplicitN0 === false
+    && p848TaoVanDoornThresholdPivotReconciliation?.claims?.decidesProblem848 === false
+  );
+  const p848CorrectedSquareModuliDualSieveOrUnionHittingThresholdReady = Boolean(
+    p848TaoVanDoornThresholdPivotReconciliationReady
+    && p848CorrectedSquareModuliDualSieveOrUnionHittingThreshold?.status === 'corrected_square_moduli_sieve_no_go_current_sources_handoff_to_p4217'
+    && p848CorrectedSquareModuliDualSieveOrUnionHittingThreshold?.target === 'derive_p848_corrected_square_moduli_dual_sieve_or_union_hitting_threshold_packet'
+    && p848CorrectedSquareModuliDualSieveOrUnionHittingThreshold?.recommendedNextAction === 'prepare_p848_p4217_complement_theorem_wedge_or_import_source_cover'
+    && p848CorrectedSquareModuliDualSieveOrUnionHittingThreshold?.coversPrimaryNextAction?.stepId === 'derive_p848_corrected_square_moduli_dual_sieve_or_union_hitting_threshold_packet'
+    && p848CorrectedSquareModuliDualSieveOrUnionHittingThreshold?.coversPrimaryNextAction?.status === 'blocked_by_current_source_no_go_handoff_to_p4217_theorem_wedge'
+    && p848CorrectedSquareModuliDualSieveOrUnionHittingThreshold?.claims?.emitsCorrectedSquareModuliNoGoPacket === true
+    && p848CorrectedSquareModuliDualSieveOrUnionHittingThreshold?.claims?.closesCurrentAnalyticShortcutFromRepoSources === true
+    && p848CorrectedSquareModuliDualSieveOrUnionHittingThreshold?.claims?.provesTvdDirectRouteWrongDirectionForSawhneyUnionBound === true
+    && p848CorrectedSquareModuliDualSieveOrUnionHittingThreshold?.claims?.provesComplementDualityDoesNotRepairDirection === true
+    && p848CorrectedSquareModuliDualSieveOrUnionHittingThreshold?.claims?.preservesPossibilityOfFutureExternalUnionHittingTheorem === true
+    && p848CorrectedSquareModuliDualSieveOrUnionHittingThreshold?.claims?.releasesP4217TheoremWedgeFallback === true
+    && p848CorrectedSquareModuliDualSieveOrUnionHittingThreshold?.claims?.madeNewPaidCall === false
+    && p848CorrectedSquareModuliDualSieveOrUnionHittingThreshold?.claims?.respectsNoPaidByDefault === true
+    && p848CorrectedSquareModuliDualSieveOrUnionHittingThreshold?.claims?.provesNoSquareModuliSieveExistsGlobally === false
+    && p848CorrectedSquareModuliDualSieveOrUnionHittingThreshold?.claims?.provesUnionHittingThresholdBound === false
+    && p848CorrectedSquareModuliDualSieveOrUnionHittingThreshold?.claims?.provesExplicitN0 === false
+    && p848CorrectedSquareModuliDualSieveOrUnionHittingThreshold?.claims?.decidesProblem848 === false
+  );
+  const p848P4217ComplementTheoremWedgeSourceImportAuditReady = Boolean(
+    p848CorrectedSquareModuliDualSieveOrUnionHittingThresholdReady
+    && p848P4217ComplementTheoremWedgeSourceImportAudit?.status === 'p4217_theorem_wedge_source_import_audit_planning_only_no_source_theorem'
+    && p848P4217ComplementTheoremWedgeSourceImportAudit?.target === 'prepare_p848_p4217_complement_theorem_wedge_or_import_source_cover'
+    && p848P4217ComplementTheoremWedgeSourceImportAudit?.recommendedNextAction === 'decide_p848_p4217_complement_wedge_with_budget_guard_or_local_symbolic_proof'
+    && p848P4217ComplementTheoremWedgeSourceImportAudit?.coversPrimaryNextAction?.stepId === 'prepare_p848_p4217_complement_theorem_wedge_or_import_source_cover'
+    && p848P4217ComplementTheoremWedgeSourceImportAudit?.coversPrimaryNextAction?.status === 'completed_by_planning_only_source_import_audit_no_theorem_found'
+    && p848P4217ComplementTheoremWedgeSourceImportAudit?.orpPlanningRun?.apiCalled === false
+    && p848P4217ComplementTheoremWedgeSourceImportAudit?.claims?.emitsP4217TheoremWedgeSourceImportAudit === true
+    && p848P4217ComplementTheoremWedgeSourceImportAudit?.claims?.recordsPlanningOnlyOrpRun === true
+    && p848P4217ComplementTheoremWedgeSourceImportAudit?.claims?.madeNewPaidCall === false
+    && p848P4217ComplementTheoremWedgeSourceImportAudit?.claims?.respectsNoPaidByDefault === true
+    && p848P4217ComplementTheoremWedgeSourceImportAudit?.claims?.auditsP4217SourcePackets === true
+    && p848P4217ComplementTheoremWedgeSourceImportAudit?.claims?.provesNoCurrentRepoOwnedP4217WholeComplementSourceTheorem === true
+    && p848P4217ComplementTheoremWedgeSourceImportAudit?.claims?.preparesBudgetGuardedWedgeDecision === true
+    && p848P4217ComplementTheoremWedgeSourceImportAudit?.claims?.provesP4217ComplementCover === false
+    && p848P4217ComplementTheoremWedgeSourceImportAudit?.claims?.provesP4217ComplementImpossibility === false
+    && p848P4217ComplementTheoremWedgeSourceImportAudit?.claims?.provesFiniteP4217Partition === false
+    && p848P4217ComplementTheoremWedgeSourceImportAudit?.claims?.provesAllN === false
+    && p848P4217ComplementTheoremWedgeSourceImportAudit?.claims?.decidesProblem848 === false
+  );
+  const p848P4217ComplementTheoremWedgeDecisionBlockerReady = Boolean(
+    p848P4217ComplementTheoremWedgeSourceImportAuditReady
+    && p848P4217ComplementTheoremWedgeDecisionBlocker?.status === 'p4217_theorem_wedge_decision_blocker_emitted_budget_guarded_live_no_whole_complement_theorem'
+    && p848P4217ComplementTheoremWedgeDecisionBlocker?.target === 'decide_p848_p4217_complement_wedge_with_budget_guard_or_local_symbolic_proof'
+    && p848P4217ComplementTheoremWedgeDecisionBlocker?.recommendedNextAction === 'reduce_p848_p4217_residual_to_squarefree_realization_source_theorem_or_emit_gap'
+    && p848P4217ComplementTheoremWedgeDecisionBlocker?.coversPrimaryNextAction?.stepId === 'decide_p848_p4217_complement_wedge_with_budget_guard_or_local_symbolic_proof'
+    && p848P4217ComplementTheoremWedgeDecisionBlocker?.coversPrimaryNextAction?.status === 'blocked_by_budget_guarded_live_wedge_no_p4217_whole_complement_theorem'
+    && p848P4217ComplementTheoremWedgeDecisionBlocker?.liveWedgeRun?.apiCalled === true
+    && p848P4217ComplementTheoremWedgeDecisionBlocker?.liveWedgeRun?.status === 'complete'
+    && p848P4217ComplementTheoremWedgeDecisionBlocker?.decisionVerdict?.result === 'no_promotable_p4217_whole_complement_theorem_found'
+    && p848P4217ComplementTheoremWedgeDecisionBlocker?.claims?.recordsBudgetGuardedLiveWedgeResult === true
+    && p848P4217ComplementTheoremWedgeDecisionBlocker?.claims?.livePaidCallMade === true
+    && p848P4217ComplementTheoremWedgeDecisionBlocker?.claims?.livePaidCallBudgetGuarded === true
+    && p848P4217ComplementTheoremWedgeDecisionBlocker?.claims?.blocksQCoverExpansion === true
+    && p848P4217ComplementTheoremWedgeDecisionBlocker?.claims?.blocksSingletonQDescent === true
+    && p848P4217ComplementTheoremWedgeDecisionBlocker?.claims?.selectsSquarefreeRealizationFork === true
+    && p848P4217ComplementTheoremWedgeDecisionBlocker?.claims?.provesP4217ComplementCover === false
+    && p848P4217ComplementTheoremWedgeDecisionBlocker?.claims?.provesP4217ComplementImpossibility === false
+    && p848P4217ComplementTheoremWedgeDecisionBlocker?.claims?.provesFiniteP4217Partition === false
+    && p848P4217ComplementTheoremWedgeDecisionBlocker?.claims?.provesAllN === false
+    && p848P4217ComplementTheoremWedgeDecisionBlocker?.claims?.decidesProblem848 === false
+  );
+  const p848P4217ResidualSquarefreeRealizationSourceTheoremGapReady = Boolean(
+    p848P4217ComplementTheoremWedgeDecisionBlockerReady
+    && p848P4217ResidualSquarefreeRealizationSourceTheoremGap?.status === 'p4217_residual_source_theorem_gap_emitted_no_finite_partition_rank_or_squarefree_source'
+    && p848P4217ResidualSquarefreeRealizationSourceTheoremGap?.target === 'reduce_p848_p4217_residual_to_squarefree_realization_source_theorem_or_emit_gap'
+    && p848P4217ResidualSquarefreeRealizationSourceTheoremGap?.recommendedNextAction === 'assemble_p848_all_n_residual_after_p4217_source_theorem_gap_or_import_source'
+    && p848P4217ResidualSquarefreeRealizationSourceTheoremGap?.coversPrimaryNextAction?.stepId === 'reduce_p848_p4217_residual_to_squarefree_realization_source_theorem_or_emit_gap'
+    && p848P4217ResidualSquarefreeRealizationSourceTheoremGap?.coversPrimaryNextAction?.status === 'blocked_by_no_finite_crt_partition_decreasing_rank_or_squarefree_realization_source'
+    && p848P4217ResidualSquarefreeRealizationSourceTheoremGap?.sourceGapDecision?.madeNewPaidCall === false
+    && p848P4217ResidualSquarefreeRealizationSourceTheoremGap?.theoremForkReduction?.result === 'no_current_fork_closes'
+    && p848P4217ResidualSquarefreeRealizationSourceTheoremGap?.claims?.emitsP4217ResidualSourceTheoremGap === true
+    && p848P4217ResidualSquarefreeRealizationSourceTheoremGap?.claims?.auditsFiniteCrtPartitionFork === true
+    && p848P4217ResidualSquarefreeRealizationSourceTheoremGap?.claims?.auditsDecreasingRankFork === true
+    && p848P4217ResidualSquarefreeRealizationSourceTheoremGap?.claims?.auditsSquarefreeRealizationSourceFork === true
+    && p848P4217ResidualSquarefreeRealizationSourceTheoremGap?.claims?.madeNewPaidCall === false
+    && p848P4217ResidualSquarefreeRealizationSourceTheoremGap?.claims?.respectsNoPaidByDefault === true
+    && p848P4217ResidualSquarefreeRealizationSourceTheoremGap?.claims?.blocksQCoverExpansion === true
+    && p848P4217ResidualSquarefreeRealizationSourceTheoremGap?.claims?.blocksSingletonQDescent === true
+    && p848P4217ResidualSquarefreeRealizationSourceTheoremGap?.claims?.provesFiniteP4217Partition === false
+    && p848P4217ResidualSquarefreeRealizationSourceTheoremGap?.claims?.provesP4217ResidualRankDecrease === false
+    && p848P4217ResidualSquarefreeRealizationSourceTheoremGap?.claims?.provesSquarefreeRealizationSourceTheorem === false
+    && p848P4217ResidualSquarefreeRealizationSourceTheoremGap?.claims?.provesAllN === false
+    && p848P4217ResidualSquarefreeRealizationSourceTheoremGap?.claims?.decidesProblem848 === false
+  );
+  const p848AllNRecombinationResidualAfterP4217SourceTheoremGapReady = Boolean(
+    p848P4217ResidualSquarefreeRealizationSourceTheoremGapReady
+    && p848AllNRecombinationResidualAfterP4217SourceTheoremGap?.status === 'all_n_recombination_residual_assembled_after_p4217_source_theorem_gap'
+    && p848AllNRecombinationResidualAfterP4217SourceTheoremGap?.target === 'assemble_p848_all_n_residual_after_p4217_source_theorem_gap_or_import_source'
+    && p848AllNRecombinationResidualAfterP4217SourceTheoremGap?.recommendedNextAction === 'prepare_p848_source_import_recovery_plan_after_p4217_and_mod50_source_gaps'
+    && p848AllNRecombinationResidualAfterP4217SourceTheoremGap?.coversPrimaryNextAction?.stepId === 'assemble_p848_all_n_residual_after_p4217_source_theorem_gap_or_import_source'
+    && p848AllNRecombinationResidualAfterP4217SourceTheoremGap?.coversPrimaryNextAction?.status === 'completed_by_post_p4217_gap_all_n_residual_assembly'
+    && p848AllNRecombinationResidualAfterP4217SourceTheoremGap?.claims?.completesPostP4217GapResidualAssembly === true
+    && p848AllNRecombinationResidualAfterP4217SourceTheoremGap?.claims?.assemblesAllNResidualAfterP4217Gap === true
+    && p848AllNRecombinationResidualAfterP4217SourceTheoremGap?.claims?.recordsP4217ResidualSourceTheoremGap === true
+    && p848AllNRecombinationResidualAfterP4217SourceTheoremGap?.claims?.madeNewPaidCall === false
+    && p848AllNRecombinationResidualAfterP4217SourceTheoremGap?.claims?.respectsNoPaidByDefault === true
+    && p848AllNRecombinationResidualAfterP4217SourceTheoremGap?.claims?.blocksQCoverExpansion === true
+    && p848AllNRecombinationResidualAfterP4217SourceTheoremGap?.claims?.blocksSingletonQDescent === true
+    && p848AllNRecombinationResidualAfterP4217SourceTheoremGap?.claims?.selectedNextActionIsSourceImportRecovery === true
+    && p848AllNRecombinationResidualAfterP4217SourceTheoremGap?.claims?.selectedNextActionIsQCover === false
+    && p848AllNRecombinationResidualAfterP4217SourceTheoremGap?.claims?.provesFiniteP4217Partition === false
+    && p848AllNRecombinationResidualAfterP4217SourceTheoremGap?.claims?.provesP4217ResidualRankDecrease === false
+    && p848AllNRecombinationResidualAfterP4217SourceTheoremGap?.claims?.provesSquarefreeRealizationSourceTheorem === false
+    && p848AllNRecombinationResidualAfterP4217SourceTheoremGap?.claims?.provesMod50AllFutureRecurrence === false
+    && p848AllNRecombinationResidualAfterP4217SourceTheoremGap?.claims?.provesAllN === false
+    && p848AllNRecombinationResidualAfterP4217SourceTheoremGap?.claims?.decidesProblem848 === false
+  );
+  const p848SourceImportRecoveryPlanAfterP4217AndMod50SourceGapsReady = Boolean(
+    p848AllNRecombinationResidualAfterP4217SourceTheoremGapReady
+    && p848SourceImportRecoveryPlanAfterP4217AndMod50SourceGaps?.status === 'source_import_recovery_plan_prepared_after_p4217_and_mod50_source_gaps'
+    && p848SourceImportRecoveryPlanAfterP4217AndMod50SourceGaps?.target === 'prepare_p848_source_import_recovery_plan_after_p4217_and_mod50_source_gaps'
+    && p848SourceImportRecoveryPlanAfterP4217AndMod50SourceGaps?.recommendedNextAction === 'execute_p848_no_spend_source_recovery_search_for_p4217_mod50_union_hitting'
+    && p848SourceImportRecoveryPlanAfterP4217AndMod50SourceGaps?.coversPrimaryNextAction?.stepId === 'prepare_p848_source_import_recovery_plan_after_p4217_and_mod50_source_gaps'
+    && p848SourceImportRecoveryPlanAfterP4217AndMod50SourceGaps?.coversPrimaryNextAction?.status === 'completed_by_no_spend_source_import_recovery_plan'
+    && p848SourceImportRecoveryPlanAfterP4217AndMod50SourceGaps?.recoveryPlanVerdict?.madeNewPaidCall === false
+    && Array.isArray(p848SourceImportRecoveryPlanAfterP4217AndMod50SourceGaps?.recoveryLanes)
+    && p848SourceImportRecoveryPlanAfterP4217AndMod50SourceGaps.recoveryLanes.length === 3
+    && p848SourceImportRecoveryPlanAfterP4217AndMod50SourceGaps?.claims?.completesSourceImportRecoveryPlan === true
+    && p848SourceImportRecoveryPlanAfterP4217AndMod50SourceGaps?.claims?.madeNewPaidCall === false
+    && p848SourceImportRecoveryPlanAfterP4217AndMod50SourceGaps?.claims?.respectsNoPaidByDefault === true
+    && p848SourceImportRecoveryPlanAfterP4217AndMod50SourceGaps?.claims?.preparesP4217SourceRecovery === true
+    && p848SourceImportRecoveryPlanAfterP4217AndMod50SourceGaps?.claims?.preparesMod50SourceRecovery === true
+    && p848SourceImportRecoveryPlanAfterP4217AndMod50SourceGaps?.claims?.preparesUnionHittingSourceRecovery === true
+    && p848SourceImportRecoveryPlanAfterP4217AndMod50SourceGaps?.claims?.blocksQCoverExpansion === true
+    && p848SourceImportRecoveryPlanAfterP4217AndMod50SourceGaps?.claims?.blocksSingletonQDescent === true
+    && p848SourceImportRecoveryPlanAfterP4217AndMod50SourceGaps?.claims?.selectsNoSpendSourceSearch === true
+    && p848SourceImportRecoveryPlanAfterP4217AndMod50SourceGaps?.claims?.provesFiniteP4217Partition === false
+    && p848SourceImportRecoveryPlanAfterP4217AndMod50SourceGaps?.claims?.provesP4217ResidualRankDecrease === false
+    && p848SourceImportRecoveryPlanAfterP4217AndMod50SourceGaps?.claims?.provesSquarefreeRealizationSourceTheorem === false
+    && p848SourceImportRecoveryPlanAfterP4217AndMod50SourceGaps?.claims?.provesMod50AllFutureRecurrence === false
+    && p848SourceImportRecoveryPlanAfterP4217AndMod50SourceGaps?.claims?.importsSquareModuliUnionHittingThreshold === false
+    && p848SourceImportRecoveryPlanAfterP4217AndMod50SourceGaps?.claims?.provesAllN === false
+    && p848SourceImportRecoveryPlanAfterP4217AndMod50SourceGaps?.claims?.decidesProblem848 === false
+  );
+  const p848NoSpendSourceRecoverySearchForP4217Mod50UnionHittingReady = Boolean(
+    p848SourceImportRecoveryPlanAfterP4217AndMod50SourceGapsReady
+    && p848NoSpendSourceRecoverySearchForP4217Mod50UnionHitting?.status === 'no_spend_source_recovery_search_completed_no_promotable_source_found'
+    && p848NoSpendSourceRecoverySearchForP4217Mod50UnionHitting?.target === 'execute_p848_no_spend_source_recovery_search_for_p4217_mod50_union_hitting'
+    && p848NoSpendSourceRecoverySearchForP4217Mod50UnionHitting?.recommendedNextAction === 'assemble_p848_all_n_residual_after_source_import_search_gap'
+    && p848NoSpendSourceRecoverySearchForP4217Mod50UnionHitting?.coversPrimaryNextAction?.stepId === 'execute_p848_no_spend_source_recovery_search_for_p4217_mod50_union_hitting'
+    && p848NoSpendSourceRecoverySearchForP4217Mod50UnionHitting?.coversPrimaryNextAction?.status === 'completed_by_no_spend_source_search_no_promotable_source_found'
+    && p848NoSpendSourceRecoverySearchForP4217Mod50UnionHitting?.probeExecution?.madeNewPaidCall === false
+    && Array.isArray(p848NoSpendSourceRecoverySearchForP4217Mod50UnionHitting?.recoveryLaneResults)
+    && p848NoSpendSourceRecoverySearchForP4217Mod50UnionHitting.recoveryLaneResults.length === 3
+    && p848NoSpendSourceRecoverySearchForP4217Mod50UnionHitting.recoveryLaneResults.every((lane) => lane?.status === 'no_promotable_source_found_current_repo')
+    && p848NoSpendSourceRecoverySearchForP4217Mod50UnionHitting?.claims?.completesNoSpendSourceRecoverySearch === true
+    && p848NoSpendSourceRecoverySearchForP4217Mod50UnionHitting?.claims?.emitsFormalSourceImportGap === true
+    && p848NoSpendSourceRecoverySearchForP4217Mod50UnionHitting?.claims?.madeNewPaidCall === false
+    && p848NoSpendSourceRecoverySearchForP4217Mod50UnionHitting?.claims?.respectsNoPaidByDefault === true
+    && p848NoSpendSourceRecoverySearchForP4217Mod50UnionHitting?.claims?.searchedP4217SourceRecovery === true
+    && p848NoSpendSourceRecoverySearchForP4217Mod50UnionHitting?.claims?.searchedMod50SourceRecovery === true
+    && p848NoSpendSourceRecoverySearchForP4217Mod50UnionHitting?.claims?.searchedUnionHittingSourceRecovery === true
+    && p848NoSpendSourceRecoverySearchForP4217Mod50UnionHitting?.claims?.foundPromotableP4217Source === false
+    && p848NoSpendSourceRecoverySearchForP4217Mod50UnionHitting?.claims?.foundPromotableMod50Source === false
+    && p848NoSpendSourceRecoverySearchForP4217Mod50UnionHitting?.claims?.foundPromotableUnionHittingSource === false
+    && p848NoSpendSourceRecoverySearchForP4217Mod50UnionHitting?.claims?.blocksQCoverExpansion === true
+    && p848NoSpendSourceRecoverySearchForP4217Mod50UnionHitting?.claims?.blocksSingletonQDescent === true
+    && p848NoSpendSourceRecoverySearchForP4217Mod50UnionHitting?.claims?.blocksRepeatPaidWedgeByDefault === true
+    && p848NoSpendSourceRecoverySearchForP4217Mod50UnionHitting?.claims?.provesFiniteP4217Partition === false
+    && p848NoSpendSourceRecoverySearchForP4217Mod50UnionHitting?.claims?.provesP4217ResidualRankDecrease === false
+    && p848NoSpendSourceRecoverySearchForP4217Mod50UnionHitting?.claims?.provesSquarefreeRealizationSourceTheorem === false
+    && p848NoSpendSourceRecoverySearchForP4217Mod50UnionHitting?.claims?.provesMod50AllFutureRecurrence === false
+    && p848NoSpendSourceRecoverySearchForP4217Mod50UnionHitting?.claims?.importsSquareModuliUnionHittingThreshold === false
+    && p848NoSpendSourceRecoverySearchForP4217Mod50UnionHitting?.claims?.provesAllN === false
+    && p848NoSpendSourceRecoverySearchForP4217Mod50UnionHitting?.claims?.decidesProblem848 === false
+  );
+  const p848AllNRecombinationResidualAfterSourceImportSearchGapReady = Boolean(
+    p848NoSpendSourceRecoverySearchForP4217Mod50UnionHittingReady
+    && p848AllNRecombinationResidualAfterSourceImportSearchGap?.status === 'all_n_recombination_residual_assembled_after_source_import_search_gap'
+    && p848AllNRecombinationResidualAfterSourceImportSearchGap?.target === 'assemble_p848_all_n_residual_after_source_import_search_gap'
+    && p848AllNRecombinationResidualAfterSourceImportSearchGap?.recommendedNextAction === 'prepare_p848_repaired_single_lane_source_import_profile_after_no_spend_gap'
+    && p848AllNRecombinationResidualAfterSourceImportSearchGap?.coversPrimaryNextAction?.stepId === 'assemble_p848_all_n_residual_after_source_import_search_gap'
+    && p848AllNRecombinationResidualAfterSourceImportSearchGap?.coversPrimaryNextAction?.status === 'completed_by_post_source_import_search_gap_all_n_residual_assembly'
+    && p848AllNRecombinationResidualAfterSourceImportSearchGap?.residualVerdict?.status === 'all_n_recombination_still_blocked_by_three_source_import_gaps'
+    && p848AllNRecombinationResidualAfterSourceImportSearchGap?.residualVerdict?.allNProofAvailable === false
+    && Array.isArray(p848AllNRecombinationResidualAfterSourceImportSearchGap?.remainingTheoremAtoms)
+    && p848AllNRecombinationResidualAfterSourceImportSearchGap.remainingTheoremAtoms.length === 3
+    && p848AllNRecombinationResidualAfterSourceImportSearchGap?.paidCallPolicy?.madeNewPaidCall === false
+    && p848AllNRecombinationResidualAfterSourceImportSearchGap?.claims?.completesPostSourceImportSearchGapResidualAssembly === true
+    && p848AllNRecombinationResidualAfterSourceImportSearchGap?.claims?.assemblesAllNResidualAfterSourceImportSearchGap === true
+    && p848AllNRecombinationResidualAfterSourceImportSearchGap?.claims?.recordsSourceImportSearchGap === true
+    && p848AllNRecombinationResidualAfterSourceImportSearchGap?.claims?.selectedNextActionIsSingleLaneProfilePrep === true
+    && p848AllNRecombinationResidualAfterSourceImportSearchGap?.claims?.madeNewPaidCall === false
+    && p848AllNRecombinationResidualAfterSourceImportSearchGap?.claims?.respectsNoPaidByDefault === true
+    && p848AllNRecombinationResidualAfterSourceImportSearchGap?.claims?.blocksQCoverExpansion === true
+    && p848AllNRecombinationResidualAfterSourceImportSearchGap?.claims?.blocksSingletonQDescent === true
+    && p848AllNRecombinationResidualAfterSourceImportSearchGap?.claims?.blocksRepeatPaidWedgeByDefault === true
+    && p848AllNRecombinationResidualAfterSourceImportSearchGap?.claims?.provesFiniteP4217Partition === false
+    && p848AllNRecombinationResidualAfterSourceImportSearchGap?.claims?.provesP4217ResidualRankDecrease === false
+    && p848AllNRecombinationResidualAfterSourceImportSearchGap?.claims?.provesSquarefreeRealizationSourceTheorem === false
+    && p848AllNRecombinationResidualAfterSourceImportSearchGap?.claims?.provesMod50AllFutureRecurrence === false
+    && p848AllNRecombinationResidualAfterSourceImportSearchGap?.claims?.importsSquareModuliUnionHittingThreshold === false
+    && p848AllNRecombinationResidualAfterSourceImportSearchGap?.claims?.provesAllN === false
+    && p848AllNRecombinationResidualAfterSourceImportSearchGap?.claims?.decidesProblem848 === false
+  );
+  const p848RepairedSingleLaneSourceImportProfileAfterNoSpendGapReady = Boolean(
+    p848AllNRecombinationResidualAfterSourceImportSearchGapReady
+    && p848RepairedSingleLaneSourceImportProfileAfterNoSpendGap?.status === 'repaired_single_lane_source_import_profile_prepared_after_no_spend_gap'
+    && p848RepairedSingleLaneSourceImportProfileAfterNoSpendGap?.target === 'prepare_p848_repaired_single_lane_source_import_profile_after_no_spend_gap'
+    && p848RepairedSingleLaneSourceImportProfileAfterNoSpendGap?.recommendedNextAction === 'emit_p848_p4217_residual_source_import_profile_approval_blocker_before_any_live_spend'
+    && p848RepairedSingleLaneSourceImportProfileAfterNoSpendGap?.coversPrimaryNextAction?.stepId === 'prepare_p848_repaired_single_lane_source_import_profile_after_no_spend_gap'
+    && p848RepairedSingleLaneSourceImportProfileAfterNoSpendGap?.coversPrimaryNextAction?.status === 'completed_by_repaired_p4217_residual_single_lane_profile'
+    && p848RepairedSingleLaneSourceImportProfileAfterNoSpendGap?.selectedLane?.laneId === 'p4217_residual_squarefree_realization_source'
+    && p848RepairedSingleLaneSourceImportProfileAfterNoSpendGap?.repairedSourceImportProfile?.profileId === 'p848-p4217-residual-source-import-single'
+    && p848RepairedSingleLaneSourceImportProfileAfterNoSpendGap?.paidCallPolicy?.currentStepMadePaidCall === false
+    && p848RepairedSingleLaneSourceImportProfileAfterNoSpendGap?.paidCallPolicy?.currentStepAllowsPaidCall === false
+    && p848RepairedSingleLaneSourceImportProfileAfterNoSpendGap?.claims?.completesRepairedSingleLaneProfilePrep === true
+    && p848RepairedSingleLaneSourceImportProfileAfterNoSpendGap?.claims?.selectsExactlyOneLane === true
+    && p848RepairedSingleLaneSourceImportProfileAfterNoSpendGap?.claims?.selectedLaneIsP4217Residual === true
+    && p848RepairedSingleLaneSourceImportProfileAfterNoSpendGap?.claims?.sharperThanPriorBroadP4217Wedge === true
+    && p848RepairedSingleLaneSourceImportProfileAfterNoSpendGap?.claims?.writesFutureUseProfile === true
+    && p848RepairedSingleLaneSourceImportProfileAfterNoSpendGap?.claims?.madeNewPaidCall === false
+    && p848RepairedSingleLaneSourceImportProfileAfterNoSpendGap?.claims?.currentStepAllowsPaidCall === false
+    && p848RepairedSingleLaneSourceImportProfileAfterNoSpendGap?.claims?.requiresApprovalBeforeFutureSpend === true
+    && p848RepairedSingleLaneSourceImportProfileAfterNoSpendGap?.claims?.respectsNoPaidByDefault === true
+    && p848RepairedSingleLaneSourceImportProfileAfterNoSpendGap?.claims?.blocksQCoverExpansion === true
+    && p848RepairedSingleLaneSourceImportProfileAfterNoSpendGap?.claims?.blocksSingletonQDescent === true
+    && p848RepairedSingleLaneSourceImportProfileAfterNoSpendGap?.claims?.blocksRepeatPaidWedgeByDefault === true
+    && p848RepairedSingleLaneSourceImportProfileAfterNoSpendGap?.claims?.provesFiniteP4217Partition === false
+    && p848RepairedSingleLaneSourceImportProfileAfterNoSpendGap?.claims?.provesP4217ResidualRankDecrease === false
+    && p848RepairedSingleLaneSourceImportProfileAfterNoSpendGap?.claims?.provesSquarefreeRealizationSourceTheorem === false
+    && p848RepairedSingleLaneSourceImportProfileAfterNoSpendGap?.claims?.provesMod50AllFutureRecurrence === false
+    && p848RepairedSingleLaneSourceImportProfileAfterNoSpendGap?.claims?.importsSquareModuliUnionHittingThreshold === false
+    && p848RepairedSingleLaneSourceImportProfileAfterNoSpendGap?.claims?.provesAllN === false
+    && p848RepairedSingleLaneSourceImportProfileAfterNoSpendGap?.claims?.decidesProblem848 === false
+  );
+  const p848P4217ResidualSourceImportProfileApprovalBlockerReady = Boolean(
+    p848RepairedSingleLaneSourceImportProfileAfterNoSpendGapReady
+    && p848P4217ResidualSourceImportProfileApprovalBlocker?.status === 'p4217_residual_source_import_profile_approval_blocker_emitted_no_live_spend'
+    && p848P4217ResidualSourceImportProfileApprovalBlocker?.target === 'emit_p848_p4217_residual_source_import_profile_approval_blocker_before_any_live_spend'
+    && p848P4217ResidualSourceImportProfileApprovalBlocker?.recommendedNextAction === 'prepare_p848_local_p4217_residual_source_theorem_proof_attempt_or_emit_hard_blocker'
+    && p848P4217ResidualSourceImportProfileApprovalBlocker?.coversPrimaryNextAction?.stepId === 'emit_p848_p4217_residual_source_import_profile_approval_blocker_before_any_live_spend'
+    && p848P4217ResidualSourceImportProfileApprovalBlocker?.coversPrimaryNextAction?.status === 'completed_by_no_spend_approval_blocker_profile_execution_not_released'
+    && p848P4217ResidualSourceImportProfileApprovalBlocker?.approvalDecision?.profileExecutionApproved === false
+    && p848P4217ResidualSourceImportProfileApprovalBlocker?.approvalDecision?.profileExecutionBlockedThisTurn === true
+    && p848P4217ResidualSourceImportProfileApprovalBlocker?.approvalDecision?.madeNewPaidCall === false
+    && p848P4217ResidualSourceImportProfileApprovalBlocker?.approvalDecision?.currentStepAllowsPaidCall === false
+    && p848P4217ResidualSourceImportProfileApprovalBlocker?.approvalDecision?.usageCheckRun === false
+    && p848P4217ResidualSourceImportProfileApprovalBlocker?.preservedProfile?.profileId === 'p848-p4217-residual-source-import-single'
+    && p848P4217ResidualSourceImportProfileApprovalBlocker?.selectedLane?.laneId === 'p4217_residual_squarefree_realization_source'
+    && p848P4217ResidualSourceImportProfileApprovalBlocker?.localFallback?.selectedNextAction === 'prepare_p848_local_p4217_residual_source_theorem_proof_attempt_or_emit_hard_blocker'
+    && p848P4217ResidualSourceImportProfileApprovalBlocker?.claims?.completesProfileApprovalBlocker === true
+    && p848P4217ResidualSourceImportProfileApprovalBlocker?.claims?.blocksLiveSpendThisTurn === true
+    && p848P4217ResidualSourceImportProfileApprovalBlocker?.claims?.madeNewPaidCall === false
+    && p848P4217ResidualSourceImportProfileApprovalBlocker?.claims?.currentStepAllowsPaidCall === false
+    && p848P4217ResidualSourceImportProfileApprovalBlocker?.claims?.requiresFutureApprovalBeforeSpend === true
+    && p848P4217ResidualSourceImportProfileApprovalBlocker?.claims?.preservesPreparedProfile === true
+    && p848P4217ResidualSourceImportProfileApprovalBlocker?.claims?.keepsProfileSingleLane === true
+    && p848P4217ResidualSourceImportProfileApprovalBlocker?.claims?.selectedLaneIsP4217Residual === true
+    && p848P4217ResidualSourceImportProfileApprovalBlocker?.claims?.selectsLocalProofAttemptBeforeAnyLiveExecution === true
+    && p848P4217ResidualSourceImportProfileApprovalBlocker?.claims?.respectsNoPaidByDefault === true
+    && p848P4217ResidualSourceImportProfileApprovalBlocker?.claims?.blocksQCoverExpansion === true
+    && p848P4217ResidualSourceImportProfileApprovalBlocker?.claims?.blocksSingletonQDescent === true
+    && p848P4217ResidualSourceImportProfileApprovalBlocker?.claims?.blocksRepeatPaidWedgeByDefault === true
+    && p848P4217ResidualSourceImportProfileApprovalBlocker?.claims?.provesFiniteP4217Partition === false
+    && p848P4217ResidualSourceImportProfileApprovalBlocker?.claims?.provesP4217ResidualRankDecrease === false
+    && p848P4217ResidualSourceImportProfileApprovalBlocker?.claims?.provesSquarefreeRealizationSourceTheorem === false
+    && p848P4217ResidualSourceImportProfileApprovalBlocker?.claims?.provesMod50AllFutureRecurrence === false
+    && p848P4217ResidualSourceImportProfileApprovalBlocker?.claims?.importsSquareModuliUnionHittingThreshold === false
+    && p848P4217ResidualSourceImportProfileApprovalBlocker?.claims?.provesAllN === false
+    && p848P4217ResidualSourceImportProfileApprovalBlocker?.claims?.decidesProblem848 === false
+  );
+  const p848LocalP4217ResidualSourceTheoremProofAttemptHardBlockerReady = Boolean(
+    p848P4217ResidualSourceImportProfileApprovalBlockerReady
+    && p848LocalP4217ResidualSourceTheoremProofAttemptHardBlocker?.status === 'local_p4217_residual_source_theorem_proof_attempt_hard_blocker_emitted'
+    && p848LocalP4217ResidualSourceTheoremProofAttemptHardBlocker?.target === 'prepare_p848_local_p4217_residual_source_theorem_proof_attempt_or_emit_hard_blocker'
+    && p848LocalP4217ResidualSourceTheoremProofAttemptHardBlocker?.recommendedNextAction === 'assemble_p848_no_spend_source_import_boundary_after_local_p4217_hard_blocker'
+    && p848LocalP4217ResidualSourceTheoremProofAttemptHardBlocker?.coversPrimaryNextAction?.stepId === 'prepare_p848_local_p4217_residual_source_theorem_proof_attempt_or_emit_hard_blocker'
+    && p848LocalP4217ResidualSourceTheoremProofAttemptHardBlocker?.coversPrimaryNextAction?.status === 'completed_by_local_probe_hard_blocker_no_partition_rank_or_source_theorem'
+    && p848LocalP4217ResidualSourceTheoremProofAttemptHardBlocker?.localProofAttempt?.madeNewPaidCall === false
+    && p848LocalP4217ResidualSourceTheoremProofAttemptHardBlocker?.localProofAttempt?.usedPreparedProfileInputs === true
+    && p848LocalP4217ResidualSourceTheoremProofAttemptHardBlocker?.localProofAttempt?.probeResult === 'no_promotable_repo_owned_finite_crt_partition_rank_or_squarefree_realization_source_theorem_found'
+    && p848LocalP4217ResidualSourceTheoremProofAttemptHardBlocker?.theoremForkVerdict?.finiteCompleteCrtPartition?.found === false
+    && p848LocalP4217ResidualSourceTheoremProofAttemptHardBlocker?.theoremForkVerdict?.wellFoundedResidualRank?.found === false
+    && p848LocalP4217ResidualSourceTheoremProofAttemptHardBlocker?.theoremForkVerdict?.squarefreeRealizationSourceTheorem?.found === false
+    && p848LocalP4217ResidualSourceTheoremProofAttemptHardBlocker?.hardBlockerDecision?.status === 'hard_blocker_until_local_theorem_or_future_guarded_source_import'
+    && p848LocalP4217ResidualSourceTheoremProofAttemptHardBlocker?.claims?.completesLocalP4217ResidualSourceTheoremProofAttempt === true
+    && p848LocalP4217ResidualSourceTheoremProofAttemptHardBlocker?.claims?.emitsHardBlocker === true
+    && p848LocalP4217ResidualSourceTheoremProofAttemptHardBlocker?.claims?.madeNewPaidCall === false
+    && p848LocalP4217ResidualSourceTheoremProofAttemptHardBlocker?.claims?.currentStepAllowsPaidCall === false
+    && p848LocalP4217ResidualSourceTheoremProofAttemptHardBlocker?.claims?.requiresFutureApprovalBeforeSpend === true
+    && p848LocalP4217ResidualSourceTheoremProofAttemptHardBlocker?.claims?.blocksQCoverExpansion === true
+    && p848LocalP4217ResidualSourceTheoremProofAttemptHardBlocker?.claims?.blocksSingletonQDescent === true
+    && p848LocalP4217ResidualSourceTheoremProofAttemptHardBlocker?.claims?.foundFiniteP4217Partition === false
+    && p848LocalP4217ResidualSourceTheoremProofAttemptHardBlocker?.claims?.foundP4217ResidualRankDecrease === false
+    && p848LocalP4217ResidualSourceTheoremProofAttemptHardBlocker?.claims?.foundSquarefreeRealizationSourceTheorem === false
+    && p848LocalP4217ResidualSourceTheoremProofAttemptHardBlocker?.claims?.provesFiniteP4217Partition === false
+    && p848LocalP4217ResidualSourceTheoremProofAttemptHardBlocker?.claims?.provesP4217ResidualRankDecrease === false
+    && p848LocalP4217ResidualSourceTheoremProofAttemptHardBlocker?.claims?.provesSquarefreeRealizationSourceTheorem === false
+    && p848LocalP4217ResidualSourceTheoremProofAttemptHardBlocker?.claims?.provesAllN === false
+    && p848LocalP4217ResidualSourceTheoremProofAttemptHardBlocker?.claims?.decidesProblem848 === false
+  );
+  const p848NoSpendSourceImportBoundaryAfterLocalP4217HardBlockerReady = Boolean(
+    p848LocalP4217ResidualSourceTheoremProofAttemptHardBlockerReady
+    && p848NoSpendSourceImportBoundaryAfterLocalP4217HardBlocker?.status === 'no_spend_source_import_boundary_assembled_after_local_p4217_hard_blocker'
+    && p848NoSpendSourceImportBoundaryAfterLocalP4217HardBlocker?.target === 'assemble_p848_no_spend_source_import_boundary_after_local_p4217_hard_blocker'
+    && p848NoSpendSourceImportBoundaryAfterLocalP4217HardBlocker?.recommendedNextAction === 'prepare_p848_no_spend_local_theorem_backlog_after_source_import_boundary'
+    && p848NoSpendSourceImportBoundaryAfterLocalP4217HardBlocker?.coversPrimaryNextAction?.stepId === 'assemble_p848_no_spend_source_import_boundary_after_local_p4217_hard_blocker'
+    && p848NoSpendSourceImportBoundaryAfterLocalP4217HardBlocker?.coversPrimaryNextAction?.status === 'completed_by_no_spend_source_import_boundary_after_local_p4217_hard_blocker'
+    && p848NoSpendSourceImportBoundaryAfterLocalP4217HardBlocker?.boundaryAssembly?.madeNewPaidCall === false
+    && p848NoSpendSourceImportBoundaryAfterLocalP4217HardBlocker?.boundaryAssembly?.allNProofAvailable === false
+    && p848NoSpendSourceImportBoundaryAfterLocalP4217HardBlocker?.boundaryAssembly?.sourceImportBoundaryShape === 'three_remaining_theorem_objects_plus_guarded_release_conditions'
+    && Array.isArray(p848NoSpendSourceImportBoundaryAfterLocalP4217HardBlocker?.remainingTheoremObjects)
+    && p848NoSpendSourceImportBoundaryAfterLocalP4217HardBlocker.remainingTheoremObjects.length === 3
+    && p848NoSpendSourceImportBoundaryAfterLocalP4217HardBlocker?.localTheoremBacklogSeed?.nextStepId === 'prepare_p848_no_spend_local_theorem_backlog_after_source_import_boundary'
+    && p848NoSpendSourceImportBoundaryAfterLocalP4217HardBlocker?.claims?.completesNoSpendSourceImportBoundaryAssembly === true
+    && p848NoSpendSourceImportBoundaryAfterLocalP4217HardBlocker?.claims?.preservesP4217HardBlocker === true
+    && p848NoSpendSourceImportBoundaryAfterLocalP4217HardBlocker?.claims?.preservesPreparedProfile === true
+    && p848NoSpendSourceImportBoundaryAfterLocalP4217HardBlocker?.claims?.namesRemainingSourceImportTheoremObjects === true
+    && p848NoSpendSourceImportBoundaryAfterLocalP4217HardBlocker?.claims?.namesFutureReleaseConditions === true
+    && p848NoSpendSourceImportBoundaryAfterLocalP4217HardBlocker?.claims?.selectsNoSpendLocalTheoremBacklog === true
+    && p848NoSpendSourceImportBoundaryAfterLocalP4217HardBlocker?.claims?.madeNewPaidCall === false
+    && p848NoSpendSourceImportBoundaryAfterLocalP4217HardBlocker?.claims?.currentStepAllowsPaidCall === false
+    && p848NoSpendSourceImportBoundaryAfterLocalP4217HardBlocker?.claims?.requiresFutureApprovalBeforeSpend === true
+    && p848NoSpendSourceImportBoundaryAfterLocalP4217HardBlocker?.claims?.blocksQCoverExpansion === true
+    && p848NoSpendSourceImportBoundaryAfterLocalP4217HardBlocker?.claims?.blocksSingletonQDescent === true
+    && p848NoSpendSourceImportBoundaryAfterLocalP4217HardBlocker?.claims?.provesFiniteP4217Partition === false
+    && p848NoSpendSourceImportBoundaryAfterLocalP4217HardBlocker?.claims?.provesP4217ResidualRankDecrease === false
+    && p848NoSpendSourceImportBoundaryAfterLocalP4217HardBlocker?.claims?.provesSquarefreeRealizationSourceTheorem === false
+    && p848NoSpendSourceImportBoundaryAfterLocalP4217HardBlocker?.claims?.provesAllN === false
+    && p848NoSpendSourceImportBoundaryAfterLocalP4217HardBlocker?.claims?.decidesProblem848 === false
+  );
+  const p848NoSpendLocalTheoremBacklogAfterSourceImportBoundaryReady = Boolean(
+    p848NoSpendSourceImportBoundaryAfterLocalP4217HardBlockerReady
+    && p848NoSpendLocalTheoremBacklogAfterSourceImportBoundary?.status === 'no_spend_local_theorem_backlog_prepared_after_source_import_boundary'
+    && p848NoSpendLocalTheoremBacklogAfterSourceImportBoundary?.target === 'prepare_p848_no_spend_local_theorem_backlog_after_source_import_boundary'
+    && p848NoSpendLocalTheoremBacklogAfterSourceImportBoundary?.recommendedNextAction === 'execute_p848_square_moduli_union_hitting_source_index_no_spend_audit'
+    && p848NoSpendLocalTheoremBacklogAfterSourceImportBoundary?.coversPrimaryNextAction?.stepId === 'prepare_p848_no_spend_local_theorem_backlog_after_source_import_boundary'
+    && p848NoSpendLocalTheoremBacklogAfterSourceImportBoundary?.coversPrimaryNextAction?.status === 'completed_by_no_spend_local_theorem_backlog_selection'
+    && p848NoSpendLocalTheoremBacklogAfterSourceImportBoundary?.backlogDecision?.selectedBacklogItemId === 'square_moduli_union_hitting_local_backlog'
+    && p848NoSpendLocalTheoremBacklogAfterSourceImportBoundary?.backlogDecision?.selectedNextAction === 'execute_p848_square_moduli_union_hitting_source_index_no_spend_audit'
+    && p848NoSpendLocalTheoremBacklogAfterSourceImportBoundary?.backlogDecision?.madeNewPaidCall === false
+    && Array.isArray(p848NoSpendLocalTheoremBacklogAfterSourceImportBoundary?.backlogItems)
+    && p848NoSpendLocalTheoremBacklogAfterSourceImportBoundary.backlogItems.length === 3
+    && p848NoSpendLocalTheoremBacklogAfterSourceImportBoundary?.nextProbe?.stepId === 'execute_p848_square_moduli_union_hitting_source_index_no_spend_audit'
+    && p848NoSpendLocalTheoremBacklogAfterSourceImportBoundary?.noSpendPolicy?.madeNewPaidCall === false
+    && p848NoSpendLocalTheoremBacklogAfterSourceImportBoundary?.noSpendPolicy?.providerExecutionThisTurn === 'blocked'
+    && p848NoSpendLocalTheoremBacklogAfterSourceImportBoundary?.claims?.completesNoSpendLocalTheoremBacklog === true
+    && p848NoSpendLocalTheoremBacklogAfterSourceImportBoundary?.claims?.selectsExactlyOneBacklogItem === true
+    && p848NoSpendLocalTheoremBacklogAfterSourceImportBoundary?.claims?.selectedBacklogItemIsSquareModuliUnionHitting === true
+    && p848NoSpendLocalTheoremBacklogAfterSourceImportBoundary?.claims?.selectedNextActionIsSourceIndexAudit === true
+    && p848NoSpendLocalTheoremBacklogAfterSourceImportBoundary?.claims?.madeNewPaidCall === false
+    && p848NoSpendLocalTheoremBacklogAfterSourceImportBoundary?.claims?.currentStepAllowsPaidCall === false
+    && p848NoSpendLocalTheoremBacklogAfterSourceImportBoundary?.claims?.providerExecutionBlockedThisTurn === true
+    && p848NoSpendLocalTheoremBacklogAfterSourceImportBoundary?.claims?.blocksQCoverExpansion === true
+    && p848NoSpendLocalTheoremBacklogAfterSourceImportBoundary?.claims?.blocksSingletonQDescent === true
+    && p848NoSpendLocalTheoremBacklogAfterSourceImportBoundary?.claims?.blocksSingleFallbackSelectorLadder === true
+    && p848NoSpendLocalTheoremBacklogAfterSourceImportBoundary?.claims?.blocksNakedRankBoundary === true
+    && p848NoSpendLocalTheoremBacklogAfterSourceImportBoundary?.claims?.provesFiniteP4217Partition === false
+    && p848NoSpendLocalTheoremBacklogAfterSourceImportBoundary?.claims?.provesP4217ResidualRankDecrease === false
+    && p848NoSpendLocalTheoremBacklogAfterSourceImportBoundary?.claims?.provesSquarefreeRealizationSourceTheorem === false
+    && p848NoSpendLocalTheoremBacklogAfterSourceImportBoundary?.claims?.provesMod50AllFutureRecurrence === false
+    && p848NoSpendLocalTheoremBacklogAfterSourceImportBoundary?.claims?.provesSawhneyUnionHittingUpperBound === false
+    && p848NoSpendLocalTheoremBacklogAfterSourceImportBoundary?.claims?.lowersAnalyticThreshold === false
+    && p848NoSpendLocalTheoremBacklogAfterSourceImportBoundary?.claims?.provesAllN === false
+    && p848NoSpendLocalTheoremBacklogAfterSourceImportBoundary?.claims?.decidesProblem848 === false
+  );
+  const p848SquareModuliUnionHittingSourceIndexNoSpendAuditReady = Boolean(
+    p848NoSpendLocalTheoremBacklogAfterSourceImportBoundaryReady
+    && p848SquareModuliUnionHittingSourceIndexNoSpendAudit?.status === 'square_moduli_union_hitting_source_index_no_spend_audit_emitted_no_promotable_source_found'
+    && p848SquareModuliUnionHittingSourceIndexNoSpendAudit?.target === 'execute_p848_square_moduli_union_hitting_source_index_no_spend_audit'
+    && p848SquareModuliUnionHittingSourceIndexNoSpendAudit?.recommendedNextAction === 'prepare_p848_square_moduli_union_hitting_source_import_profile_or_approval_blocker'
+    && p848SquareModuliUnionHittingSourceIndexNoSpendAudit?.coversPrimaryNextAction?.stepId === 'execute_p848_square_moduli_union_hitting_source_index_no_spend_audit'
+    && p848SquareModuliUnionHittingSourceIndexNoSpendAudit?.coversPrimaryNextAction?.status === 'completed_by_no_spend_source_index_audit_no_promotable_source_found'
+    && p848SquareModuliUnionHittingSourceIndexNoSpendAudit?.auditExecution?.madeNewPaidCall === false
+    && p848SquareModuliUnionHittingSourceIndexNoSpendAudit?.auditExecution?.commandWasExecutedLocally === true
+    && p848SquareModuliUnionHittingSourceIndexNoSpendAudit?.auditExecution?.verdict === 'no_promotable_square_moduli_union_hitting_source_theorem_found_current_repo'
+    && p848SquareModuliUnionHittingSourceIndexNoSpendAudit?.sourceTheoremVerdict?.foundSawhneyCompatibleUnionHittingUpperBoundSource === false
+    && p848SquareModuliUnionHittingSourceIndexNoSpendAudit?.sourceTheoremVerdict?.foundOnlyAvoidingSideSquareModuliLargeSieve === true
+    && p848SquareModuliUnionHittingSourceIndexNoSpendAudit?.sourceImportProfileSeed?.stepId === 'prepare_p848_square_moduli_union_hitting_source_import_profile_or_approval_blocker'
+    && p848SquareModuliUnionHittingSourceIndexNoSpendAudit?.sourceImportProfileSeed?.profileId === 'p848-square-moduli-union-hitting-source-import-single'
+    && p848SquareModuliUnionHittingSourceIndexNoSpendAudit?.claims?.completesSquareModuliUnionHittingSourceIndexAudit === true
+    && p848SquareModuliUnionHittingSourceIndexNoSpendAudit?.claims?.emitsNoPromotableSourceBlocker === true
+    && p848SquareModuliUnionHittingSourceIndexNoSpendAudit?.claims?.commandWasExecutedLocally === true
+    && p848SquareModuliUnionHittingSourceIndexNoSpendAudit?.claims?.madeNewPaidCall === false
+    && p848SquareModuliUnionHittingSourceIndexNoSpendAudit?.claims?.currentStepAllowsPaidCall === false
+    && p848SquareModuliUnionHittingSourceIndexNoSpendAudit?.claims?.foundSawhneyCompatibleUnionHittingUpperBoundSource === false
+    && p848SquareModuliUnionHittingSourceIndexNoSpendAudit?.claims?.foundOnlyAvoidingSideSquareModuliLargeSieve === true
+    && p848SquareModuliUnionHittingSourceIndexNoSpendAudit?.claims?.preservesTvdAvoidingDirectionBlocker === true
+    && p848SquareModuliUnionHittingSourceIndexNoSpendAudit?.claims?.preservesComplementDualityLowerBoundBlocker === true
+    && p848SquareModuliUnionHittingSourceIndexNoSpendAudit?.claims?.preparesSingleLaneSourceImportProfileSeed === true
+    && p848SquareModuliUnionHittingSourceIndexNoSpendAudit?.claims?.blocksQCoverExpansion === true
+    && p848SquareModuliUnionHittingSourceIndexNoSpendAudit?.claims?.blocksSingletonQDescent === true
+    && p848SquareModuliUnionHittingSourceIndexNoSpendAudit?.claims?.blocksSingleFallbackSelectorLadder === true
+    && p848SquareModuliUnionHittingSourceIndexNoSpendAudit?.claims?.blocksNakedRankBoundary === true
+    && p848SquareModuliUnionHittingSourceIndexNoSpendAudit?.claims?.provesSawhneyUnionHittingUpperBound === false
+    && p848SquareModuliUnionHittingSourceIndexNoSpendAudit?.claims?.importsSquareModuliUnionHittingThreshold === false
+    && p848SquareModuliUnionHittingSourceIndexNoSpendAudit?.claims?.lowersAnalyticThreshold === false
+    && p848SquareModuliUnionHittingSourceIndexNoSpendAudit?.claims?.provesAllN === false
+    && p848SquareModuliUnionHittingSourceIndexNoSpendAudit?.claims?.decidesProblem848 === false
+  );
+  const p848SquareModuliUnionHittingSourceImportProfileApprovalBlockerReady = Boolean(
+    p848SquareModuliUnionHittingSourceIndexNoSpendAuditReady
+    && p848SquareModuliUnionHittingSourceImportProfileApprovalBlocker?.status === 'square_moduli_union_hitting_source_import_profile_approval_blocker_emitted_no_live_spend'
+    && p848SquareModuliUnionHittingSourceImportProfileApprovalBlocker?.target === 'prepare_p848_square_moduli_union_hitting_source_import_profile_or_approval_blocker'
+    && p848SquareModuliUnionHittingSourceImportProfileApprovalBlocker?.recommendedNextAction === 'assemble_p848_no_spend_source_import_boundary_after_square_moduli_profile_blocker'
+    && p848SquareModuliUnionHittingSourceImportProfileApprovalBlocker?.coversPrimaryNextAction?.stepId === 'prepare_p848_square_moduli_union_hitting_source_import_profile_or_approval_blocker'
+    && p848SquareModuliUnionHittingSourceImportProfileApprovalBlocker?.coversPrimaryNextAction?.status === 'completed_by_square_moduli_union_hitting_profile_approval_blocker_no_live_spend'
+    && p848SquareModuliUnionHittingSourceImportProfileApprovalBlocker?.selectedLane?.laneId === 'square_moduli_union_hitting_threshold_source'
+    && p848SquareModuliUnionHittingSourceImportProfileApprovalBlocker?.repairedSourceImportProfile?.profileId === 'p848-square-moduli-union-hitting-source-import-single'
+    && p848SquareModuliUnionHittingSourceImportProfileApprovalBlocker?.repairedSourceImportProfile?.laneCount === 1
+    && p848SquareModuliUnionHittingSourceImportProfileApprovalBlocker?.approvalDecision?.profileExecutionApproved === false
+    && p848SquareModuliUnionHittingSourceImportProfileApprovalBlocker?.approvalDecision?.profileExecutionBlockedThisTurn === true
+    && p848SquareModuliUnionHittingSourceImportProfileApprovalBlocker?.approvalDecision?.madeNewPaidCall === false
+    && p848SquareModuliUnionHittingSourceImportProfileApprovalBlocker?.approvalDecision?.currentStepAllowsPaidCall === false
+    && p848SquareModuliUnionHittingSourceImportProfileApprovalBlocker?.approvalDecision?.usageCheckRun === false
+    && p848SquareModuliUnionHittingSourceImportProfileApprovalBlocker?.paidCallPolicy?.currentStepMadePaidCall === false
+    && p848SquareModuliUnionHittingSourceImportProfileApprovalBlocker?.paidCallPolicy?.currentStepAllowsPaidCall === false
+    && p848SquareModuliUnionHittingSourceImportProfileApprovalBlocker?.claims?.completesSquareModuliUnionHittingProfileApprovalBlocker === true
+    && p848SquareModuliUnionHittingSourceImportProfileApprovalBlocker?.claims?.writesFutureUseProfile === true
+    && p848SquareModuliUnionHittingSourceImportProfileApprovalBlocker?.claims?.selectedLaneIsSquareModuliUnionHitting === true
+    && p848SquareModuliUnionHittingSourceImportProfileApprovalBlocker?.claims?.keepsProfileSingleLane === true
+    && p848SquareModuliUnionHittingSourceImportProfileApprovalBlocker?.claims?.blocksLiveSpendThisTurn === true
+    && p848SquareModuliUnionHittingSourceImportProfileApprovalBlocker?.claims?.madeNewPaidCall === false
+    && p848SquareModuliUnionHittingSourceImportProfileApprovalBlocker?.claims?.currentStepAllowsPaidCall === false
+    && p848SquareModuliUnionHittingSourceImportProfileApprovalBlocker?.claims?.requiresFutureApprovalBeforeSpend === true
+    && p848SquareModuliUnionHittingSourceImportProfileApprovalBlocker?.claims?.respectsNoPaidByDefault === true
+    && p848SquareModuliUnionHittingSourceImportProfileApprovalBlocker?.claims?.blocksQCoverExpansion === true
+    && p848SquareModuliUnionHittingSourceImportProfileApprovalBlocker?.claims?.blocksSingletonQDescent === true
+    && p848SquareModuliUnionHittingSourceImportProfileApprovalBlocker?.claims?.blocksSingleFallbackSelectorLadder === true
+    && p848SquareModuliUnionHittingSourceImportProfileApprovalBlocker?.claims?.blocksNakedRankBoundary === true
+    && p848SquareModuliUnionHittingSourceImportProfileApprovalBlocker?.claims?.foundSawhneyCompatibleUnionHittingUpperBoundSource === false
+    && p848SquareModuliUnionHittingSourceImportProfileApprovalBlocker?.claims?.provesSawhneyUnionHittingUpperBound === false
+    && p848SquareModuliUnionHittingSourceImportProfileApprovalBlocker?.claims?.importsSquareModuliUnionHittingThreshold === false
+    && p848SquareModuliUnionHittingSourceImportProfileApprovalBlocker?.claims?.lowersAnalyticThreshold === false
+    && p848SquareModuliUnionHittingSourceImportProfileApprovalBlocker?.claims?.provesAllN === false
+    && p848SquareModuliUnionHittingSourceImportProfileApprovalBlocker?.claims?.decidesProblem848 === false
+  );
+  const p848NoSpendSourceImportBoundaryAfterSquareModuliProfileBlockerReady = Boolean(
+    p848SquareModuliUnionHittingSourceImportProfileApprovalBlockerReady
+    && p848NoSpendSourceImportBoundaryAfterSquareModuliProfileBlocker?.status === 'no_spend_source_import_boundary_assembled_after_square_moduli_profile_blocker'
+    && p848NoSpendSourceImportBoundaryAfterSquareModuliProfileBlocker?.target === 'assemble_p848_no_spend_source_import_boundary_after_square_moduli_profile_blocker'
+    && p848NoSpendSourceImportBoundaryAfterSquareModuliProfileBlocker?.recommendedNextAction === 'prepare_p848_mod50_generator_source_import_profile_or_no_spend_blocker_after_source_boundary'
+    && p848NoSpendSourceImportBoundaryAfterSquareModuliProfileBlocker?.coversPrimaryNextAction?.stepId === 'assemble_p848_no_spend_source_import_boundary_after_square_moduli_profile_blocker'
+    && p848NoSpendSourceImportBoundaryAfterSquareModuliProfileBlocker?.coversPrimaryNextAction?.status === 'completed_by_no_spend_source_import_boundary_after_square_moduli_profile_blocker'
+    && p848NoSpendSourceImportBoundaryAfterSquareModuliProfileBlocker?.boundaryAssembly?.madeNewPaidCall === false
+    && p848NoSpendSourceImportBoundaryAfterSquareModuliProfileBlocker?.boundaryAssembly?.currentStepAllowsPaidCall === false
+    && p848NoSpendSourceImportBoundaryAfterSquareModuliProfileBlocker?.boundaryAssembly?.allNProofAvailable === false
+    && p848NoSpendSourceImportBoundaryAfterSquareModuliProfileBlocker?.boundaryAssembly?.sourceImportBoundaryShape === 'p4217_and_square_profile_blocked_mod50_selected_next'
+    && Array.isArray(p848NoSpendSourceImportBoundaryAfterSquareModuliProfileBlocker?.remainingTheoremObjects)
+    && p848NoSpendSourceImportBoundaryAfterSquareModuliProfileBlocker.remainingTheoremObjects.length === 3
+    && p848NoSpendSourceImportBoundaryAfterSquareModuliProfileBlocker?.lanePriorityDecision?.selectedLaneId === 'mod50_all_future_recurrence_or_generator'
+    && p848NoSpendSourceImportBoundaryAfterSquareModuliProfileBlocker?.selectedNextTheoremObject?.objectId === 'mod50_all_future_recurrence_or_generator'
+    && p848NoSpendSourceImportBoundaryAfterSquareModuliProfileBlocker?.claims?.completesSourceImportBoundaryAfterSquareModuliProfileBlocker === true
+    && p848NoSpendSourceImportBoundaryAfterSquareModuliProfileBlocker?.claims?.preservesP4217ProfileAndHardBlocker === true
+    && p848NoSpendSourceImportBoundaryAfterSquareModuliProfileBlocker?.claims?.preservesSquareModuliProfileApprovalBlocker === true
+    && p848NoSpendSourceImportBoundaryAfterSquareModuliProfileBlocker?.claims?.selectsMod50AsNextSourceObject === true
+    && p848NoSpendSourceImportBoundaryAfterSquareModuliProfileBlocker?.claims?.madeNewPaidCall === false
+    && p848NoSpendSourceImportBoundaryAfterSquareModuliProfileBlocker?.claims?.currentStepAllowsPaidCall === false
+    && p848NoSpendSourceImportBoundaryAfterSquareModuliProfileBlocker?.claims?.blocksLiveSpendThisTurn === true
+    && p848NoSpendSourceImportBoundaryAfterSquareModuliProfileBlocker?.claims?.requiresFutureApprovalBeforeSpend === true
+    && p848NoSpendSourceImportBoundaryAfterSquareModuliProfileBlocker?.claims?.blocksQCoverExpansion === true
+    && p848NoSpendSourceImportBoundaryAfterSquareModuliProfileBlocker?.claims?.blocksSingletonQDescent === true
+    && p848NoSpendSourceImportBoundaryAfterSquareModuliProfileBlocker?.claims?.blocksSingleFallbackSelectorLadder === true
+    && p848NoSpendSourceImportBoundaryAfterSquareModuliProfileBlocker?.claims?.blocksNakedRankBoundary === true
+    && p848NoSpendSourceImportBoundaryAfterSquareModuliProfileBlocker?.claims?.provesMod50AllFutureRecurrence === false
+    && p848NoSpendSourceImportBoundaryAfterSquareModuliProfileBlocker?.claims?.importsSquareModuliUnionHittingThreshold === false
+    && p848NoSpendSourceImportBoundaryAfterSquareModuliProfileBlocker?.claims?.provesAllN === false
+    && p848NoSpendSourceImportBoundaryAfterSquareModuliProfileBlocker?.claims?.decidesProblem848 === false
+  );
+  const p848Mod50GeneratorSourceImportProfileNoSpendBlockerReady = Boolean(
+    p848NoSpendSourceImportBoundaryAfterSquareModuliProfileBlockerReady
+    && p848Mod50GeneratorSourceImportProfileNoSpendBlocker?.status === 'mod50_generator_source_import_profile_no_spend_blocker_emitted'
+    && p848Mod50GeneratorSourceImportProfileNoSpendBlocker?.target === 'prepare_p848_mod50_generator_source_import_profile_or_no_spend_blocker_after_source_boundary'
+    && p848Mod50GeneratorSourceImportProfileNoSpendBlocker?.recommendedNextAction === 'assemble_p848_no_spend_source_import_boundary_after_mod50_profile_blocker'
+    && p848Mod50GeneratorSourceImportProfileNoSpendBlocker?.coversPrimaryNextAction?.stepId === 'prepare_p848_mod50_generator_source_import_profile_or_no_spend_blocker_after_source_boundary'
+    && p848Mod50GeneratorSourceImportProfileNoSpendBlocker?.coversPrimaryNextAction?.status === 'completed_by_mod50_generator_source_import_profile_no_spend_blocker'
+    && p848Mod50GeneratorSourceImportProfileNoSpendBlocker?.abstractBeforeExpandGate?.status === 'satisfied_by_source_profile_blocker_not_expansion'
+    && p848Mod50GeneratorSourceImportProfileNoSpendBlocker?.abstractBeforeExpandGate?.selectedRoute === 'emit_no_spend_profile_blocker'
+    && p848Mod50GeneratorSourceImportProfileNoSpendBlocker?.selectedLane?.laneId === 'mod50_all_future_recurrence_or_generator_source'
+    && p848Mod50GeneratorSourceImportProfileNoSpendBlocker?.repairedSourceImportProfile?.profileId === 'p848-mod50-generator-source-import-single'
+    && p848Mod50GeneratorSourceImportProfileNoSpendBlocker?.repairedSourceImportProfile?.laneCount === 1
+    && p848Mod50GeneratorSourceImportProfileNoSpendBlocker?.approvalDecision?.profileExecutionApproved === false
+    && p848Mod50GeneratorSourceImportProfileNoSpendBlocker?.approvalDecision?.profileExecutionBlockedThisTurn === true
+    && p848Mod50GeneratorSourceImportProfileNoSpendBlocker?.approvalDecision?.madeNewPaidCall === false
+    && p848Mod50GeneratorSourceImportProfileNoSpendBlocker?.approvalDecision?.currentStepAllowsPaidCall === false
+    && p848Mod50GeneratorSourceImportProfileNoSpendBlocker?.paidCallPolicy?.currentStepMadePaidCall === false
+    && p848Mod50GeneratorSourceImportProfileNoSpendBlocker?.paidCallPolicy?.currentStepAllowsPaidCall === false
+    && p848Mod50GeneratorSourceImportProfileNoSpendBlocker?.claims?.completesMod50GeneratorSourceImportProfileBlocker === true
+    && p848Mod50GeneratorSourceImportProfileNoSpendBlocker?.claims?.writesFutureUseProfile === true
+    && p848Mod50GeneratorSourceImportProfileNoSpendBlocker?.claims?.selectedLaneIsMod50 === true
+    && p848Mod50GeneratorSourceImportProfileNoSpendBlocker?.claims?.keepsProfileSingleLane === true
+    && p848Mod50GeneratorSourceImportProfileNoSpendBlocker?.claims?.blocksFiniteReplayAsAllFuture === true
+    && p848Mod50GeneratorSourceImportProfileNoSpendBlocker?.claims?.blocksLiveSpendThisTurn === true
+    && p848Mod50GeneratorSourceImportProfileNoSpendBlocker?.claims?.madeNewPaidCall === false
+    && p848Mod50GeneratorSourceImportProfileNoSpendBlocker?.claims?.currentStepAllowsPaidCall === false
+    && p848Mod50GeneratorSourceImportProfileNoSpendBlocker?.claims?.requiresFutureApprovalBeforeSpend === true
+    && p848Mod50GeneratorSourceImportProfileNoSpendBlocker?.claims?.blocksQCoverExpansion === true
+    && p848Mod50GeneratorSourceImportProfileNoSpendBlocker?.claims?.blocksSingletonQDescent === true
+    && p848Mod50GeneratorSourceImportProfileNoSpendBlocker?.claims?.blocksSingleFallbackSelectorLadder === true
+    && p848Mod50GeneratorSourceImportProfileNoSpendBlocker?.claims?.blocksNakedRankBoundary === true
+    && p848Mod50GeneratorSourceImportProfileNoSpendBlocker?.claims?.provesMod50AllFutureRecurrence === false
+    && p848Mod50GeneratorSourceImportProfileNoSpendBlocker?.claims?.restoresOriginalGenerator === false
+    && p848Mod50GeneratorSourceImportProfileNoSpendBlocker?.claims?.provesFiniteQPartition === false
+    && p848Mod50GeneratorSourceImportProfileNoSpendBlocker?.claims?.provesAllN === false
+    && p848Mod50GeneratorSourceImportProfileNoSpendBlocker?.claims?.decidesProblem848 === false
+  );
+  const p848NoSpendSourceImportBoundaryAfterMod50ProfileBlockerReady = Boolean(
+    p848Mod50GeneratorSourceImportProfileNoSpendBlockerReady
+    && p848NoSpendSourceImportBoundaryAfterMod50ProfileBlocker?.status === 'no_spend_source_import_boundary_assembled_after_mod50_profile_blocker'
+    && p848NoSpendSourceImportBoundaryAfterMod50ProfileBlocker?.target === 'assemble_p848_no_spend_source_import_boundary_after_mod50_profile_blocker'
+    && p848NoSpendSourceImportBoundaryAfterMod50ProfileBlocker?.recommendedNextAction === 'decide_p848_three_profile_source_import_with_budget_guard_or_emit_no_spend_blocker'
+    && p848NoSpendSourceImportBoundaryAfterMod50ProfileBlocker?.coversPrimaryNextAction?.stepId === 'assemble_p848_no_spend_source_import_boundary_after_mod50_profile_blocker'
+    && p848NoSpendSourceImportBoundaryAfterMod50ProfileBlocker?.coversPrimaryNextAction?.status === 'completed_by_no_spend_source_import_boundary_after_mod50_profile_blocker'
+    && p848NoSpendSourceImportBoundaryAfterMod50ProfileBlocker?.boundaryAssembly?.sourceImportBoundaryShape === 'p4217_square_moduli_mod50_all_profile_or_hard_blocker_represented'
+    && p848NoSpendSourceImportBoundaryAfterMod50ProfileBlocker?.boundaryAssembly?.assembledProfileOrBlockerCount === 3
+    && p848NoSpendSourceImportBoundaryAfterMod50ProfileBlocker?.boundaryAssembly?.madeNewPaidCall === false
+    && p848NoSpendSourceImportBoundaryAfterMod50ProfileBlocker?.boundaryAssembly?.currentStepAllowsPaidCall === false
+    && p848NoSpendSourceImportBoundaryAfterMod50ProfileBlocker?.boundaryAssembly?.usageCheckRun === false
+    && p848NoSpendSourceImportBoundaryAfterMod50ProfileBlocker?.selectedNextDecision?.stepId === 'decide_p848_three_profile_source_import_with_budget_guard_or_emit_no_spend_blocker'
+    && p848NoSpendSourceImportBoundaryAfterMod50ProfileBlocker?.selectedNextDecision?.selectedLaneId === 'mod50_generator_source_import'
+    && Array.isArray(p848NoSpendSourceImportBoundaryAfterMod50ProfileBlocker?.sourceImportDecisionQueue)
+    && p848NoSpendSourceImportBoundaryAfterMod50ProfileBlocker.sourceImportDecisionQueue.length === 3
+    && p848NoSpendSourceImportBoundaryAfterMod50ProfileBlocker?.claims?.completesSourceImportBoundaryAfterMod50ProfileBlocker === true
+    && p848NoSpendSourceImportBoundaryAfterMod50ProfileBlocker?.claims?.allThreeSourceLanesRepresentedByProfileOrHardBlocker === true
+    && p848NoSpendSourceImportBoundaryAfterMod50ProfileBlocker?.claims?.selectsMod50AsFirstFutureBudgetGuardedCandidate === true
+    && p848NoSpendSourceImportBoundaryAfterMod50ProfileBlocker?.claims?.preservesNoSpendFallback === true
+    && p848NoSpendSourceImportBoundaryAfterMod50ProfileBlocker?.claims?.madeNewPaidCall === false
+    && p848NoSpendSourceImportBoundaryAfterMod50ProfileBlocker?.claims?.currentStepAllowsPaidCall === false
+    && p848NoSpendSourceImportBoundaryAfterMod50ProfileBlocker?.claims?.usageCheckRun === false
+    && p848NoSpendSourceImportBoundaryAfterMod50ProfileBlocker?.claims?.blocksLiveSpendThisTurn === true
+    && p848NoSpendSourceImportBoundaryAfterMod50ProfileBlocker?.claims?.requiresFutureUsageCheckBeforeSpend === true
+    && p848NoSpendSourceImportBoundaryAfterMod50ProfileBlocker?.claims?.blocksQCoverExpansion === true
+    && p848NoSpendSourceImportBoundaryAfterMod50ProfileBlocker?.claims?.blocksSingletonQDescent === true
+    && p848NoSpendSourceImportBoundaryAfterMod50ProfileBlocker?.claims?.blocksSingleFallbackSelectorLadder === true
+    && p848NoSpendSourceImportBoundaryAfterMod50ProfileBlocker?.claims?.blocksNakedRankBoundary === true
+    && p848NoSpendSourceImportBoundaryAfterMod50ProfileBlocker?.claims?.provesP4217ResidualSourceTheorem === false
+    && p848NoSpendSourceImportBoundaryAfterMod50ProfileBlocker?.claims?.provesSquareModuliUnionHittingUpperBound === false
+    && p848NoSpendSourceImportBoundaryAfterMod50ProfileBlocker?.claims?.provesMod50AllFutureRecurrence === false
+    && p848NoSpendSourceImportBoundaryAfterMod50ProfileBlocker?.claims?.provesAllN === false
+    && p848NoSpendSourceImportBoundaryAfterMod50ProfileBlocker?.claims?.decidesProblem848 === false
+  );
+  const p848ThreeProfileSourceImportNoSpendDecisionBlockerReady = Boolean(
+    p848NoSpendSourceImportBoundaryAfterMod50ProfileBlockerReady
+    && p848ThreeProfileSourceImportNoSpendDecisionBlocker?.status === 'three_profile_source_import_no_spend_decision_blocker_emitted'
+    && p848ThreeProfileSourceImportNoSpendDecisionBlocker?.target === 'decide_p848_three_profile_source_import_with_budget_guard_or_emit_no_spend_blocker'
+    && p848ThreeProfileSourceImportNoSpendDecisionBlocker?.recommendedNextAction === 'assemble_p848_no_spend_all_n_recombination_blocker_after_three_profile_decision'
+    && p848ThreeProfileSourceImportNoSpendDecisionBlocker?.coversPrimaryNextAction?.stepId === 'decide_p848_three_profile_source_import_with_budget_guard_or_emit_no_spend_blocker'
+    && p848ThreeProfileSourceImportNoSpendDecisionBlocker?.coversPrimaryNextAction?.status === 'completed_by_no_spend_decision_blocker_after_usage_check'
+    && p848ThreeProfileSourceImportNoSpendDecisionBlocker?.decision?.selectedLaneId === 'mod50_generator_source_import'
+    && p848ThreeProfileSourceImportNoSpendDecisionBlocker?.decision?.liveExecutionApproved === false
+    && p848ThreeProfileSourceImportNoSpendDecisionBlocker?.decision?.profileExecutionReleased === false
+    && p848ThreeProfileSourceImportNoSpendDecisionBlocker?.decision?.madeNewPaidCall === false
+    && p848ThreeProfileSourceImportNoSpendDecisionBlocker?.decision?.usageCheckRun === true
+    && p848ThreeProfileSourceImportNoSpendDecisionBlocker?.decision?.currentStepAllowsPaidCall === false
+    && p848ThreeProfileSourceImportNoSpendDecisionBlocker?.usageGuardSnapshot?.usageCheckRun === true
+    && Array.isArray(p848ThreeProfileSourceImportNoSpendDecisionBlocker?.preservedSourceImportLanes)
+    && p848ThreeProfileSourceImportNoSpendDecisionBlocker.preservedSourceImportLanes.length === 3
+    && p848ThreeProfileSourceImportNoSpendDecisionBlocker?.claims?.completesThreeProfileSourceImportDecision === true
+    && p848ThreeProfileSourceImportNoSpendDecisionBlocker?.claims?.usageCheckRun === true
+    && p848ThreeProfileSourceImportNoSpendDecisionBlocker?.claims?.emitsNoSpendBlocker === true
+    && p848ThreeProfileSourceImportNoSpendDecisionBlocker?.claims?.liveExecutionApproved === false
+    && p848ThreeProfileSourceImportNoSpendDecisionBlocker?.claims?.profileExecutionReleased === false
+    && p848ThreeProfileSourceImportNoSpendDecisionBlocker?.claims?.madeNewPaidCall === false
+    && p848ThreeProfileSourceImportNoSpendDecisionBlocker?.claims?.currentStepAllowsPaidCall === false
+    && p848ThreeProfileSourceImportNoSpendDecisionBlocker?.claims?.selectedLaneIsMod50 === true
+    && p848ThreeProfileSourceImportNoSpendDecisionBlocker?.claims?.keepsAllThreeLanesProfileBound === true
+    && p848ThreeProfileSourceImportNoSpendDecisionBlocker?.claims?.blocksQCoverExpansion === true
+    && p848ThreeProfileSourceImportNoSpendDecisionBlocker?.claims?.blocksSingletonQDescent === true
+    && p848ThreeProfileSourceImportNoSpendDecisionBlocker?.claims?.blocksSingleFallbackSelectorLadder === true
+    && p848ThreeProfileSourceImportNoSpendDecisionBlocker?.claims?.blocksNakedRankBoundary === true
+    && p848ThreeProfileSourceImportNoSpendDecisionBlocker?.claims?.provesP4217ResidualSourceTheorem === false
+    && p848ThreeProfileSourceImportNoSpendDecisionBlocker?.claims?.provesSquareModuliUnionHittingUpperBound === false
+    && p848ThreeProfileSourceImportNoSpendDecisionBlocker?.claims?.provesMod50AllFutureRecurrence === false
+    && p848ThreeProfileSourceImportNoSpendDecisionBlocker?.claims?.provesAllN === false
+    && p848ThreeProfileSourceImportNoSpendDecisionBlocker?.claims?.decidesProblem848 === false
+  );
+  const p848NoSpendAllNRecombinationBlockerAfterThreeProfileDecisionReady = Boolean(
+    p848ThreeProfileSourceImportNoSpendDecisionBlockerReady
+    && p848NoSpendAllNRecombinationBlockerAfterThreeProfileDecision?.status === 'no_spend_all_n_recombination_blocker_after_three_profile_decision_emitted'
+    && p848NoSpendAllNRecombinationBlockerAfterThreeProfileDecision?.target === 'assemble_p848_no_spend_all_n_recombination_blocker_after_three_profile_decision'
+    && p848NoSpendAllNRecombinationBlockerAfterThreeProfileDecision?.recommendedNextAction === 'prepare_p848_no_spend_local_source_theorem_statement_backlog_after_all_n_recombination_blocker'
+    && p848NoSpendAllNRecombinationBlockerAfterThreeProfileDecision?.coversPrimaryNextAction?.stepId === 'assemble_p848_no_spend_all_n_recombination_blocker_after_three_profile_decision'
+    && p848NoSpendAllNRecombinationBlockerAfterThreeProfileDecision?.coversPrimaryNextAction?.status === 'completed_by_no_spend_all_n_recombination_blocker_after_three_profile_decision'
+    && p848NoSpendAllNRecombinationBlockerAfterThreeProfileDecision?.recombinationBlocker?.status === 'all_n_recombination_blocked_by_three_profile_bound_source_import_theorem_gaps'
+    && p848NoSpendAllNRecombinationBlockerAfterThreeProfileDecision?.recombinationBlocker?.allSourceImportLanesProfileBound === true
+    && p848NoSpendAllNRecombinationBlockerAfterThreeProfileDecision?.recombinationBlocker?.providerExecutionReleased === false
+    && p848NoSpendAllNRecombinationBlockerAfterThreeProfileDecision?.recombinationBlocker?.madeNewPaidCall === false
+    && p848NoSpendAllNRecombinationBlockerAfterThreeProfileDecision?.recombinationBlocker?.missingTheoremObjectCount === 3
+    && Array.isArray(p848NoSpendAllNRecombinationBlockerAfterThreeProfileDecision?.sourceImportLanes)
+    && p848NoSpendAllNRecombinationBlockerAfterThreeProfileDecision.sourceImportLanes.length === 3
+    && p848NoSpendAllNRecombinationBlockerAfterThreeProfileDecision?.localTheoremStatementBacklogSeed?.stepId === 'prepare_p848_no_spend_local_source_theorem_statement_backlog_after_all_n_recombination_blocker'
+    && p848NoSpendAllNRecombinationBlockerAfterThreeProfileDecision?.claims?.completesNoSpendAllNRecombinationBlocker === true
+    && p848NoSpendAllNRecombinationBlockerAfterThreeProfileDecision?.claims?.allThreeSourceImportLanesProfileBound === true
+    && p848NoSpendAllNRecombinationBlockerAfterThreeProfileDecision?.claims?.emitsAllNRecombinationBlocker === true
+    && p848NoSpendAllNRecombinationBlockerAfterThreeProfileDecision?.claims?.preservesNoSpendProviderGating === true
+    && p848NoSpendAllNRecombinationBlockerAfterThreeProfileDecision?.claims?.liveExecutionApproved === false
+    && p848NoSpendAllNRecombinationBlockerAfterThreeProfileDecision?.claims?.profileExecutionReleased === false
+    && p848NoSpendAllNRecombinationBlockerAfterThreeProfileDecision?.claims?.madeNewPaidCall === false
+    && p848NoSpendAllNRecombinationBlockerAfterThreeProfileDecision?.claims?.currentStepAllowsPaidCall === false
+    && p848NoSpendAllNRecombinationBlockerAfterThreeProfileDecision?.claims?.selectsLocalTheoremStatementBacklog === true
+    && p848NoSpendAllNRecombinationBlockerAfterThreeProfileDecision?.claims?.blocksQCoverExpansion === true
+    && p848NoSpendAllNRecombinationBlockerAfterThreeProfileDecision?.claims?.blocksSingletonQDescent === true
+    && p848NoSpendAllNRecombinationBlockerAfterThreeProfileDecision?.claims?.blocksSingleFallbackSelectorLadder === true
+    && p848NoSpendAllNRecombinationBlockerAfterThreeProfileDecision?.claims?.blocksNakedRankBoundary === true
+    && p848NoSpendAllNRecombinationBlockerAfterThreeProfileDecision?.claims?.provesP4217ResidualSourceTheorem === false
+    && p848NoSpendAllNRecombinationBlockerAfterThreeProfileDecision?.claims?.provesSquareModuliUnionHittingUpperBound === false
+    && p848NoSpendAllNRecombinationBlockerAfterThreeProfileDecision?.claims?.provesMod50AllFutureRecurrence === false
+    && p848NoSpendAllNRecombinationBlockerAfterThreeProfileDecision?.claims?.provesAllN === false
+    && p848NoSpendAllNRecombinationBlockerAfterThreeProfileDecision?.claims?.decidesProblem848 === false
+  );
+  const p848NoSpendLocalSourceTheoremStatementBacklogAfterAllNRecombinationBlockerReady = Boolean(
+    p848NoSpendAllNRecombinationBlockerAfterThreeProfileDecisionReady
+    && p848NoSpendLocalSourceTheoremStatementBacklogAfterAllNRecombinationBlocker?.status === 'no_spend_local_source_theorem_statement_backlog_after_all_n_recombination_blocker_prepared'
+    && p848NoSpendLocalSourceTheoremStatementBacklogAfterAllNRecombinationBlocker?.target === 'prepare_p848_no_spend_local_source_theorem_statement_backlog_after_all_n_recombination_blocker'
+    && p848NoSpendLocalSourceTheoremStatementBacklogAfterAllNRecombinationBlocker?.recommendedNextAction === 'attempt_p848_mod50_generator_theorem_statement_local_proof_or_emit_gap_after_all_n_recombination_blocker'
+    && p848NoSpendLocalSourceTheoremStatementBacklogAfterAllNRecombinationBlocker?.coversPrimaryNextAction?.stepId === 'prepare_p848_no_spend_local_source_theorem_statement_backlog_after_all_n_recombination_blocker'
+    && p848NoSpendLocalSourceTheoremStatementBacklogAfterAllNRecombinationBlocker?.coversPrimaryNextAction?.status === 'completed_by_no_spend_local_source_theorem_statement_backlog_after_all_n_recombination_blocker'
+    && p848NoSpendLocalSourceTheoremStatementBacklogAfterAllNRecombinationBlocker?.backlogDecision?.status === 'three_source_import_theorem_statements_ranked_one_local_probe_selected'
+    && p848NoSpendLocalSourceTheoremStatementBacklogAfterAllNRecombinationBlocker?.backlogDecision?.selectedLaneId === 'mod50_generator_source_import'
+    && p848NoSpendLocalSourceTheoremStatementBacklogAfterAllNRecombinationBlocker?.backlogDecision?.selectedNextAction === 'attempt_p848_mod50_generator_theorem_statement_local_proof_or_emit_gap_after_all_n_recombination_blocker'
+    && p848NoSpendLocalSourceTheoremStatementBacklogAfterAllNRecombinationBlocker?.backlogDecision?.providerExecutionReleased === false
+    && p848NoSpendLocalSourceTheoremStatementBacklogAfterAllNRecombinationBlocker?.backlogDecision?.madeNewPaidCall === false
+    && Array.isArray(p848NoSpendLocalSourceTheoremStatementBacklogAfterAllNRecombinationBlocker?.theoremStatements)
+    && p848NoSpendLocalSourceTheoremStatementBacklogAfterAllNRecombinationBlocker.theoremStatements.length === 3
+    && p848NoSpendLocalSourceTheoremStatementBacklogAfterAllNRecombinationBlocker?.selectedLocalProbe?.probeId === 'mod50_generator_statement_source_denominator_audit'
+    && p848NoSpendLocalSourceTheoremStatementBacklogAfterAllNRecombinationBlocker?.abstractionGateRecord?.status === 'satisfied_by_backlog_not_expansion'
+    && p848NoSpendLocalSourceTheoremStatementBacklogAfterAllNRecombinationBlocker?.claims?.completesNoSpendLocalSourceTheoremStatementBacklog === true
+    && p848NoSpendLocalSourceTheoremStatementBacklogAfterAllNRecombinationBlocker?.claims?.statesThreeSourceImportTheoremObjects === true
+    && p848NoSpendLocalSourceTheoremStatementBacklogAfterAllNRecombinationBlocker?.claims?.ranksThreeSourceImportTheoremObjects === true
+    && p848NoSpendLocalSourceTheoremStatementBacklogAfterAllNRecombinationBlocker?.claims?.selectsMod50AsCheapestLocalProbe === true
+    && p848NoSpendLocalSourceTheoremStatementBacklogAfterAllNRecombinationBlocker?.claims?.selectedProbeIsNoSpendLocal === true
+    && p848NoSpendLocalSourceTheoremStatementBacklogAfterAllNRecombinationBlocker?.claims?.preservesNoSpendProviderGating === true
+    && p848NoSpendLocalSourceTheoremStatementBacklogAfterAllNRecombinationBlocker?.claims?.liveExecutionApproved === false
+    && p848NoSpendLocalSourceTheoremStatementBacklogAfterAllNRecombinationBlocker?.claims?.profileExecutionReleased === false
+    && p848NoSpendLocalSourceTheoremStatementBacklogAfterAllNRecombinationBlocker?.claims?.madeNewPaidCall === false
+    && p848NoSpendLocalSourceTheoremStatementBacklogAfterAllNRecombinationBlocker?.claims?.currentStepAllowsPaidCall === false
+    && p848NoSpendLocalSourceTheoremStatementBacklogAfterAllNRecombinationBlocker?.claims?.blocksQCoverExpansion === true
+    && p848NoSpendLocalSourceTheoremStatementBacklogAfterAllNRecombinationBlocker?.claims?.blocksSingletonQDescent === true
+    && p848NoSpendLocalSourceTheoremStatementBacklogAfterAllNRecombinationBlocker?.claims?.blocksSingleFallbackSelectorLadder === true
+    && p848NoSpendLocalSourceTheoremStatementBacklogAfterAllNRecombinationBlocker?.claims?.blocksNakedRankBoundary === true
+    && p848NoSpendLocalSourceTheoremStatementBacklogAfterAllNRecombinationBlocker?.claims?.blocksFiniteReplayAsAllFuture === true
+    && p848NoSpendLocalSourceTheoremStatementBacklogAfterAllNRecombinationBlocker?.claims?.provesP4217ResidualSourceTheorem === false
+    && p848NoSpendLocalSourceTheoremStatementBacklogAfterAllNRecombinationBlocker?.claims?.provesSquareModuliUnionHittingUpperBound === false
+    && p848NoSpendLocalSourceTheoremStatementBacklogAfterAllNRecombinationBlocker?.claims?.provesMod50AllFutureRecurrence === false
+    && p848NoSpendLocalSourceTheoremStatementBacklogAfterAllNRecombinationBlocker?.claims?.restoresOriginalGenerator === false
+    && p848NoSpendLocalSourceTheoremStatementBacklogAfterAllNRecombinationBlocker?.claims?.provesFiniteQPartition === false
+    && p848NoSpendLocalSourceTheoremStatementBacklogAfterAllNRecombinationBlocker?.claims?.provesAllN === false
+    && p848NoSpendLocalSourceTheoremStatementBacklogAfterAllNRecombinationBlocker?.claims?.decidesProblem848 === false
+  );
+  const p848Mod50GeneratorTheoremStatementLocalProofGapAfterAllNRecombinationBlockerReady = Boolean(
+    p848NoSpendLocalSourceTheoremStatementBacklogAfterAllNRecombinationBlockerReady
+    && p848Mod50GeneratorTheoremStatementLocalProofGapAfterAllNRecombinationBlocker?.status === 'mod50_generator_theorem_statement_local_proof_gap_after_all_n_recombination_blocker_emitted'
+    && p848Mod50GeneratorTheoremStatementLocalProofGapAfterAllNRecombinationBlocker?.target === 'attempt_p848_mod50_generator_theorem_statement_local_proof_or_emit_gap_after_all_n_recombination_blocker'
+    && p848Mod50GeneratorTheoremStatementLocalProofGapAfterAllNRecombinationBlocker?.recommendedNextAction === 'assemble_p848_no_spend_source_import_boundary_after_mod50_local_statement_gap'
+    && p848Mod50GeneratorTheoremStatementLocalProofGapAfterAllNRecombinationBlocker?.coversPrimaryNextAction?.stepId === 'attempt_p848_mod50_generator_theorem_statement_local_proof_or_emit_gap_after_all_n_recombination_blocker'
+    && p848Mod50GeneratorTheoremStatementLocalProofGapAfterAllNRecombinationBlocker?.coversPrimaryNextAction?.status === 'completed_by_mod50_generator_theorem_statement_local_gap_after_denominator_audit'
+    && p848Mod50GeneratorTheoremStatementLocalProofGapAfterAllNRecombinationBlocker?.localProofAttempt?.selectedProbeId === 'mod50_generator_statement_source_denominator_audit'
+    && p848Mod50GeneratorTheoremStatementLocalProofGapAfterAllNRecombinationBlocker?.localProofAttempt?.madeNewPaidCall === false
+    && p848Mod50GeneratorTheoremStatementLocalProofGapAfterAllNRecombinationBlocker?.localProofAttempt?.providerExecutionReleased === false
+    && p848Mod50GeneratorTheoremStatementLocalProofGapAfterAllNRecombinationBlocker?.theoremForkVerdict?.restoredOriginalGeneratorTheorem?.found === false
+    && p848Mod50GeneratorTheoremStatementLocalProofGapAfterAllNRecombinationBlocker?.theoremForkVerdict?.symbolicAllFutureRelevantPairRecurrence?.found === false
+    && p848Mod50GeneratorTheoremStatementLocalProofGapAfterAllNRecombinationBlocker?.theoremForkVerdict?.finiteQPartition?.found === false
+    && p848Mod50GeneratorTheoremStatementLocalProofGapAfterAllNRecombinationBlocker?.claims?.completesMod50GeneratorTheoremStatementLocalProofAttempt === true
+    && p848Mod50GeneratorTheoremStatementLocalProofGapAfterAllNRecombinationBlocker?.claims?.emitsMod50GeneratorLocalStatementGap === true
+    && p848Mod50GeneratorTheoremStatementLocalProofGapAfterAllNRecombinationBlocker?.claims?.auditsSelectedMod50Statement === true
+    && p848Mod50GeneratorTheoremStatementLocalProofGapAfterAllNRecombinationBlocker?.claims?.madeNewPaidCall === false
+    && p848Mod50GeneratorTheoremStatementLocalProofGapAfterAllNRecombinationBlocker?.claims?.currentStepAllowsPaidCall === false
+    && p848Mod50GeneratorTheoremStatementLocalProofGapAfterAllNRecombinationBlocker?.claims?.providerExecutionReleased === false
+    && p848Mod50GeneratorTheoremStatementLocalProofGapAfterAllNRecombinationBlocker?.claims?.foundLocalAllFutureRecurrence === false
+    && p848Mod50GeneratorTheoremStatementLocalProofGapAfterAllNRecombinationBlocker?.claims?.foundFiniteQPartition === false
+    && p848Mod50GeneratorTheoremStatementLocalProofGapAfterAllNRecombinationBlocker?.claims?.foundRestoredOriginalGeneratorTheorem === false
+    && p848Mod50GeneratorTheoremStatementLocalProofGapAfterAllNRecombinationBlocker?.claims?.provesMod50AllFutureRecurrence === false
+    && p848Mod50GeneratorTheoremStatementLocalProofGapAfterAllNRecombinationBlocker?.claims?.restoresOriginalGenerator === false
+    && p848Mod50GeneratorTheoremStatementLocalProofGapAfterAllNRecombinationBlocker?.claims?.provesFiniteQPartition === false
+    && p848Mod50GeneratorTheoremStatementLocalProofGapAfterAllNRecombinationBlocker?.claims?.blocksFiniteReplayAsAllFuture === true
+    && p848Mod50GeneratorTheoremStatementLocalProofGapAfterAllNRecombinationBlocker?.claims?.blocksQCoverExpansion === true
+    && p848Mod50GeneratorTheoremStatementLocalProofGapAfterAllNRecombinationBlocker?.claims?.blocksSingletonQDescent === true
+    && p848Mod50GeneratorTheoremStatementLocalProofGapAfterAllNRecombinationBlocker?.claims?.blocksSingleFallbackSelectorLadder === true
+    && p848Mod50GeneratorTheoremStatementLocalProofGapAfterAllNRecombinationBlocker?.claims?.blocksNakedRankBoundary === true
+    && p848Mod50GeneratorTheoremStatementLocalProofGapAfterAllNRecombinationBlocker?.claims?.provesAllN === false
+    && p848Mod50GeneratorTheoremStatementLocalProofGapAfterAllNRecombinationBlocker?.claims?.decidesProblem848 === false
+  );
+  const p848NoSpendSourceImportBoundaryAfterMod50LocalStatementGapReady = Boolean(
+    p848Mod50GeneratorTheoremStatementLocalProofGapAfterAllNRecombinationBlockerReady
+    && p848NoSpendSourceImportBoundaryAfterMod50LocalStatementGap?.status === 'no_spend_source_import_boundary_assembled_after_mod50_local_statement_gap'
+    && p848NoSpendSourceImportBoundaryAfterMod50LocalStatementGap?.target === 'assemble_p848_no_spend_source_import_boundary_after_mod50_local_statement_gap'
+    && p848NoSpendSourceImportBoundaryAfterMod50LocalStatementGap?.recommendedNextAction === 'emit_p848_no_spend_source_import_hard_blocker_after_mod50_local_statement_gap'
+    && p848NoSpendSourceImportBoundaryAfterMod50LocalStatementGap?.coversPrimaryNextAction?.stepId === 'assemble_p848_no_spend_source_import_boundary_after_mod50_local_statement_gap'
+    && p848NoSpendSourceImportBoundaryAfterMod50LocalStatementGap?.coversPrimaryNextAction?.status === 'completed_by_no_spend_source_import_boundary_after_mod50_local_statement_gap'
+    && p848NoSpendSourceImportBoundaryAfterMod50LocalStatementGap?.boundaryAssembly?.status === 'assembled_after_mod50_local_statement_gap'
+    && p848NoSpendSourceImportBoundaryAfterMod50LocalStatementGap?.boundaryAssembly?.madeNewPaidCall === false
+    && p848NoSpendSourceImportBoundaryAfterMod50LocalStatementGap?.boundaryAssembly?.providerExecutionReleased === false
+    && p848NoSpendSourceImportBoundaryAfterMod50LocalStatementGap?.boundaryAssembly?.missingTheoremObjectCount === 3
+    && Array.isArray(p848NoSpendSourceImportBoundaryAfterMod50LocalStatementGap?.remainingSourceImportLanes)
+    && p848NoSpendSourceImportBoundaryAfterMod50LocalStatementGap.remainingSourceImportLanes.length === 3
+    && p848NoSpendSourceImportBoundaryAfterMod50LocalStatementGap?.remainingSourceImportLanes?.[0]?.laneId === 'mod50_generator_source_import'
+    && p848NoSpendSourceImportBoundaryAfterMod50LocalStatementGap?.remainingSourceImportLanes?.[0]?.status === 'profile_preserved_local_statement_gap_emitted'
+    && p848NoSpendSourceImportBoundaryAfterMod50LocalStatementGap?.selectedNextBoundary?.stepId === 'emit_p848_no_spend_source_import_hard_blocker_after_mod50_local_statement_gap'
+    && p848NoSpendSourceImportBoundaryAfterMod50LocalStatementGap?.selectedNextBoundary?.status === 'ready_under_current_no_spend_instruction'
+    && p848NoSpendSourceImportBoundaryAfterMod50LocalStatementGap?.claims?.completesNoSpendSourceImportBoundaryAfterMod50LocalStatementGap === true
+    && p848NoSpendSourceImportBoundaryAfterMod50LocalStatementGap?.claims?.upgradesMod50LaneToLocalStatementGap === true
+    && p848NoSpendSourceImportBoundaryAfterMod50LocalStatementGap?.claims?.allThreeSourceImportLanesRemainBlocked === true
+    && p848NoSpendSourceImportBoundaryAfterMod50LocalStatementGap?.claims?.preservesNoSpendProviderGating === true
+    && p848NoSpendSourceImportBoundaryAfterMod50LocalStatementGap?.claims?.selectsNoSpendSourceImportHardBlockerNext === true
+    && p848NoSpendSourceImportBoundaryAfterMod50LocalStatementGap?.claims?.madeNewPaidCall === false
+    && p848NoSpendSourceImportBoundaryAfterMod50LocalStatementGap?.claims?.usageCheckRun === false
+    && p848NoSpendSourceImportBoundaryAfterMod50LocalStatementGap?.claims?.currentStepAllowsPaidCall === false
+    && p848NoSpendSourceImportBoundaryAfterMod50LocalStatementGap?.claims?.providerExecutionReleased === false
+    && p848NoSpendSourceImportBoundaryAfterMod50LocalStatementGap?.claims?.blocksQCoverExpansion === true
+    && p848NoSpendSourceImportBoundaryAfterMod50LocalStatementGap?.claims?.blocksSingletonQDescent === true
+    && p848NoSpendSourceImportBoundaryAfterMod50LocalStatementGap?.claims?.blocksSingleFallbackSelectorLadder === true
+    && p848NoSpendSourceImportBoundaryAfterMod50LocalStatementGap?.claims?.blocksNakedRankBoundary === true
+    && p848NoSpendSourceImportBoundaryAfterMod50LocalStatementGap?.claims?.blocksFiniteReplayAsAllFuture === true
+    && p848NoSpendSourceImportBoundaryAfterMod50LocalStatementGap?.claims?.provesP4217ResidualSourceTheorem === false
+    && p848NoSpendSourceImportBoundaryAfterMod50LocalStatementGap?.claims?.provesSquareModuliUnionHittingUpperBound === false
+    && p848NoSpendSourceImportBoundaryAfterMod50LocalStatementGap?.claims?.provesMod50AllFutureRecurrence === false
+    && p848NoSpendSourceImportBoundaryAfterMod50LocalStatementGap?.claims?.restoresOriginalGenerator === false
+    && p848NoSpendSourceImportBoundaryAfterMod50LocalStatementGap?.claims?.provesFiniteQPartition === false
+    && p848NoSpendSourceImportBoundaryAfterMod50LocalStatementGap?.claims?.provesAllN === false
+    && p848NoSpendSourceImportBoundaryAfterMod50LocalStatementGap?.claims?.decidesProblem848 === false
+  );
+  const p848NoSpendSourceImportHardBlockerAfterMod50LocalStatementGapReady = Boolean(
+    p848NoSpendSourceImportBoundaryAfterMod50LocalStatementGapReady
+    && p848NoSpendSourceImportHardBlockerAfterMod50LocalStatementGap?.status === 'no_spend_source_import_hard_blocker_after_mod50_local_statement_gap_emitted'
+    && p848NoSpendSourceImportHardBlockerAfterMod50LocalStatementGap?.target === 'emit_p848_no_spend_source_import_hard_blocker_after_mod50_local_statement_gap'
+    && p848NoSpendSourceImportHardBlockerAfterMod50LocalStatementGap?.recommendedNextAction === 'await_p848_new_local_source_theorem_or_explicit_guarded_source_audit_release_after_no_spend_hard_blocker'
+    && p848NoSpendSourceImportHardBlockerAfterMod50LocalStatementGap?.coversPrimaryNextAction?.stepId === 'emit_p848_no_spend_source_import_hard_blocker_after_mod50_local_statement_gap'
+    && p848NoSpendSourceImportHardBlockerAfterMod50LocalStatementGap?.coversPrimaryNextAction?.status === 'completed_by_no_spend_source_import_hard_blocker_after_mod50_local_statement_gap'
+    && p848NoSpendSourceImportHardBlockerAfterMod50LocalStatementGap?.hardBlocker?.status === 'no_current_no_spend_source_import_lane_closes_all_n'
+    && p848NoSpendSourceImportHardBlockerAfterMod50LocalStatementGap?.hardBlocker?.noSpendClosureAvailable === false
+    && p848NoSpendSourceImportHardBlockerAfterMod50LocalStatementGap?.hardBlocker?.allNProofAvailable === false
+    && p848NoSpendSourceImportHardBlockerAfterMod50LocalStatementGap?.hardBlocker?.providerExecutionReleased === false
+    && p848NoSpendSourceImportHardBlockerAfterMod50LocalStatementGap?.hardBlocker?.madeNewPaidCall === false
+    && p848NoSpendSourceImportHardBlockerAfterMod50LocalStatementGap?.hardBlocker?.missingTheoremObjectCount === 3
+    && Array.isArray(p848NoSpendSourceImportHardBlockerAfterMod50LocalStatementGap?.blockedSourceImportLanes)
+    && p848NoSpendSourceImportHardBlockerAfterMod50LocalStatementGap.blockedSourceImportLanes.length === 3
+    && Array.isArray(p848NoSpendSourceImportHardBlockerAfterMod50LocalStatementGap?.futureGuardedAuditReleaseConditions)
+    && p848NoSpendSourceImportHardBlockerAfterMod50LocalStatementGap.futureGuardedAuditReleaseConditions.length >= 4
+    && p848NoSpendSourceImportHardBlockerAfterMod50LocalStatementGap?.oneNextAction?.stepId === 'await_p848_new_local_source_theorem_or_explicit_guarded_source_audit_release_after_no_spend_hard_blocker'
+    && p848NoSpendSourceImportHardBlockerAfterMod50LocalStatementGap?.claims?.completesNoSpendSourceImportHardBlockerAfterMod50LocalStatementGap === true
+    && p848NoSpendSourceImportHardBlockerAfterMod50LocalStatementGap?.claims?.noCurrentNoSpendSourceImportLaneClosesAllN === true
+    && p848NoSpendSourceImportHardBlockerAfterMod50LocalStatementGap?.claims?.allThreeSourceImportLanesRemainBlocked === true
+    && p848NoSpendSourceImportHardBlockerAfterMod50LocalStatementGap?.claims?.preservesNoSpendProviderGating === true
+    && p848NoSpendSourceImportHardBlockerAfterMod50LocalStatementGap?.claims?.preservesFutureGuardedAuditReleaseConditions === true
+    && p848NoSpendSourceImportHardBlockerAfterMod50LocalStatementGap?.claims?.madeNewPaidCall === false
+    && p848NoSpendSourceImportHardBlockerAfterMod50LocalStatementGap?.claims?.usageCheckRun === false
+    && p848NoSpendSourceImportHardBlockerAfterMod50LocalStatementGap?.claims?.currentStepAllowsPaidCall === false
+    && p848NoSpendSourceImportHardBlockerAfterMod50LocalStatementGap?.claims?.providerExecutionReleased === false
+    && p848NoSpendSourceImportHardBlockerAfterMod50LocalStatementGap?.claims?.blocksQCoverExpansion === true
+    && p848NoSpendSourceImportHardBlockerAfterMod50LocalStatementGap?.claims?.blocksSingletonQDescent === true
+    && p848NoSpendSourceImportHardBlockerAfterMod50LocalStatementGap?.claims?.blocksSingleFallbackSelectorLadder === true
+    && p848NoSpendSourceImportHardBlockerAfterMod50LocalStatementGap?.claims?.blocksNakedRankBoundary === true
+    && p848NoSpendSourceImportHardBlockerAfterMod50LocalStatementGap?.claims?.blocksFiniteReplayAsAllFuture === true
+    && p848NoSpendSourceImportHardBlockerAfterMod50LocalStatementGap?.claims?.provesP4217ResidualSourceTheorem === false
+    && p848NoSpendSourceImportHardBlockerAfterMod50LocalStatementGap?.claims?.provesSquareModuliUnionHittingUpperBound === false
+    && p848NoSpendSourceImportHardBlockerAfterMod50LocalStatementGap?.claims?.provesMod50AllFutureRecurrence === false
+    && p848NoSpendSourceImportHardBlockerAfterMod50LocalStatementGap?.claims?.restoresOriginalGenerator === false
+    && p848NoSpendSourceImportHardBlockerAfterMod50LocalStatementGap?.claims?.provesFiniteQPartition === false
+    && p848NoSpendSourceImportHardBlockerAfterMod50LocalStatementGap?.claims?.provesAllN === false
+    && p848NoSpendSourceImportHardBlockerAfterMod50LocalStatementGap?.claims?.decidesProblem848 === false
+  );
+  const p848GuardedMod50SourceAuditReleaseNoSpendBlockerAfterHardBlockerReady = Boolean(
+    p848NoSpendSourceImportHardBlockerAfterMod50LocalStatementGapReady
+    && p848GuardedMod50SourceAuditReleaseNoSpendBlockerAfterHardBlocker?.status === 'guarded_mod50_source_audit_release_no_spend_blocker_after_hard_blocker_emitted'
+    && p848GuardedMod50SourceAuditReleaseNoSpendBlockerAfterHardBlocker?.target === 'await_p848_new_local_source_theorem_or_explicit_guarded_source_audit_release_after_no_spend_hard_blocker'
+    && p848GuardedMod50SourceAuditReleaseNoSpendBlockerAfterHardBlocker?.recommendedNextAction === 'await_p848_new_local_source_theorem_or_spend_permission_override_after_guarded_mod50_audit_release_conflict'
+    && p848GuardedMod50SourceAuditReleaseNoSpendBlockerAfterHardBlocker?.coversPrimaryNextAction?.status === 'blocked_by_active_no_spend_instruction_after_usage_preflight'
+    && p848GuardedMod50SourceAuditReleaseNoSpendBlockerAfterHardBlocker?.guardedReleaseRequest?.selectedLaneId === 'mod50_generator_source_import'
+    && p848GuardedMod50SourceAuditReleaseNoSpendBlockerAfterHardBlocker?.guardedReleaseRequest?.selectedProfileId === 'p848-mod50-generator-source-import-single'
+    && p848GuardedMod50SourceAuditReleaseNoSpendBlockerAfterHardBlocker?.decision?.status === 'no_provider_execution_due_to_active_no_spend_instruction'
+    && p848GuardedMod50SourceAuditReleaseNoSpendBlockerAfterHardBlocker?.decision?.usageCheckRun === true
+    && p848GuardedMod50SourceAuditReleaseNoSpendBlockerAfterHardBlocker?.decision?.explicitGuardedReleaseInBrief === true
+    && p848GuardedMod50SourceAuditReleaseNoSpendBlockerAfterHardBlocker?.decision?.activeNoSpendInstruction === true
+    && p848GuardedMod50SourceAuditReleaseNoSpendBlockerAfterHardBlocker?.decision?.providerExecutionReleased === false
+    && p848GuardedMod50SourceAuditReleaseNoSpendBlockerAfterHardBlocker?.decision?.madeNewPaidCall === false
+    && p848GuardedMod50SourceAuditReleaseNoSpendBlockerAfterHardBlocker?.usageGuardSnapshot?.usageCheckRun === true
+    && Array.isArray(p848GuardedMod50SourceAuditReleaseNoSpendBlockerAfterHardBlocker?.stillBlockedSourceImportLanes)
+    && p848GuardedMod50SourceAuditReleaseNoSpendBlockerAfterHardBlocker.stillBlockedSourceImportLanes.length === 3
+    && p848GuardedMod50SourceAuditReleaseNoSpendBlockerAfterHardBlocker?.oneNextAction?.stepId === 'await_p848_new_local_source_theorem_or_spend_permission_override_after_guarded_mod50_audit_release_conflict'
+    && p848GuardedMod50SourceAuditReleaseNoSpendBlockerAfterHardBlocker?.claims?.completesPostHardBlockerGuardedReleaseDecisionUnderNoSpendConflict === true
+    && p848GuardedMod50SourceAuditReleaseNoSpendBlockerAfterHardBlocker?.claims?.usageCheckRun === true
+    && p848GuardedMod50SourceAuditReleaseNoSpendBlockerAfterHardBlocker?.claims?.selectedLaneIsMod50 === true
+    && p848GuardedMod50SourceAuditReleaseNoSpendBlockerAfterHardBlocker?.claims?.exactMod50SourceTheoremTargetNamed === true
+    && p848GuardedMod50SourceAuditReleaseNoSpendBlockerAfterHardBlocker?.claims?.activeNoSpendInstructionBlocksExecution === true
+    && p848GuardedMod50SourceAuditReleaseNoSpendBlockerAfterHardBlocker?.claims?.providerExecutionReleased === false
+    && p848GuardedMod50SourceAuditReleaseNoSpendBlockerAfterHardBlocker?.claims?.madeNewPaidCall === false
+    && p848GuardedMod50SourceAuditReleaseNoSpendBlockerAfterHardBlocker?.claims?.preservesNoSpendProviderGating === true
+    && p848GuardedMod50SourceAuditReleaseNoSpendBlockerAfterHardBlocker?.claims?.blocksQCoverExpansion === true
+    && p848GuardedMod50SourceAuditReleaseNoSpendBlockerAfterHardBlocker?.claims?.blocksSingletonQDescent === true
+    && p848GuardedMod50SourceAuditReleaseNoSpendBlockerAfterHardBlocker?.claims?.blocksSingleFallbackSelectorLadder === true
+    && p848GuardedMod50SourceAuditReleaseNoSpendBlockerAfterHardBlocker?.claims?.blocksNakedRankBoundary === true
+    && p848GuardedMod50SourceAuditReleaseNoSpendBlockerAfterHardBlocker?.claims?.blocksFiniteReplayAsAllFuture === true
+    && p848GuardedMod50SourceAuditReleaseNoSpendBlockerAfterHardBlocker?.claims?.provesAllN === false
+    && p848GuardedMod50SourceAuditReleaseNoSpendBlockerAfterHardBlocker?.claims?.decidesProblem848 === false
+  );
+  const p848GuardedMod50SourceAuditResultElementaryGeneratorCandidateReady = Boolean(
+    p848GuardedMod50SourceAuditReleaseNoSpendBlockerAfterHardBlockerReady
+    && p848GuardedMod50SourceAuditResultElementaryGeneratorCandidate?.status === 'guarded_mod50_source_audit_result_elementary_generator_candidate_packetized'
+    && p848GuardedMod50SourceAuditResultElementaryGeneratorCandidate?.target === 'await_p848_new_local_source_theorem_or_spend_permission_override_after_guarded_mod50_audit_release_conflict'
+    && p848GuardedMod50SourceAuditResultElementaryGeneratorCandidate?.recommendedNextAction === 'verify_p848_mod50_elementary_generator_relevant_pair_admissibility_or_emit_semantics_blocker'
+    && p848GuardedMod50SourceAuditResultElementaryGeneratorCandidate?.coversPrimaryNextAction?.status === 'completed_by_one_guarded_paid_mod50_source_audit_result_packet'
+    && p848GuardedMod50SourceAuditResultElementaryGeneratorCandidate?.guardedAuditResult?.runId === 'research-20260418-144342-080413'
+    && p848GuardedMod50SourceAuditResultElementaryGeneratorCandidate?.guardedAuditResult?.profileId === 'p848-mod50-generator-source-import-single'
+    && p848GuardedMod50SourceAuditResultElementaryGeneratorCandidate?.guardedAuditResult?.execute === true
+    && p848GuardedMod50SourceAuditResultElementaryGeneratorCandidate?.guardedAuditResult?.apiCalledLaneCount === 1
+    && p848GuardedMod50SourceAuditResultElementaryGeneratorCandidate?.verdict?.externalSourceTheoremRecovered === false
+    && p848GuardedMod50SourceAuditResultElementaryGeneratorCandidate?.verdict?.repoRecoverableCandidateFound === true
+    && p848GuardedMod50SourceAuditResultElementaryGeneratorCandidate?.candidateTheorem?.theoremId === 'p848_mod50_elementary_square_generator_family'
+    && p848GuardedMod50SourceAuditResultElementaryGeneratorCandidate?.promotionBoundary?.status === 'candidate_not_promoted_until_semantics_check'
+    && p848GuardedMod50SourceAuditResultElementaryGeneratorCandidate?.oneNextAction?.stepId === 'verify_p848_mod50_elementary_generator_relevant_pair_admissibility_or_emit_semantics_blocker'
+    && p848GuardedMod50SourceAuditResultElementaryGeneratorCandidate?.claims?.completesGuardedMod50SourceAuditReleaseOverride === true
+    && p848GuardedMod50SourceAuditResultElementaryGeneratorCandidate?.claims?.madeExactlyOnePaidCallThisStep === true
+    && p848GuardedMod50SourceAuditResultElementaryGeneratorCandidate?.claims?.noSpendDefaultResumedAfterCall === true
+    && p848GuardedMod50SourceAuditResultElementaryGeneratorCandidate?.claims?.externalSourceTheoremRecovered === false
+    && p848GuardedMod50SourceAuditResultElementaryGeneratorCandidate?.claims?.elementaryGeneratorCandidateFound === true
+    && p848GuardedMod50SourceAuditResultElementaryGeneratorCandidate?.claims?.candidateRequiresRelevantPairAdmissibilityCheck === true
+    && p848GuardedMod50SourceAuditResultElementaryGeneratorCandidate?.claims?.candidatePromotedToProof === false
+    && p848GuardedMod50SourceAuditResultElementaryGeneratorCandidate?.claims?.blocksAdditionalProviderCalls === true
+    && p848GuardedMod50SourceAuditResultElementaryGeneratorCandidate?.claims?.blocksQCoverExpansion === true
+    && p848GuardedMod50SourceAuditResultElementaryGeneratorCandidate?.claims?.blocksSingletonQDescent === true
+    && p848GuardedMod50SourceAuditResultElementaryGeneratorCandidate?.claims?.blocksSingleFallbackSelectorLadder === true
+    && p848GuardedMod50SourceAuditResultElementaryGeneratorCandidate?.claims?.blocksNakedRankBoundary === true
+    && p848GuardedMod50SourceAuditResultElementaryGeneratorCandidate?.claims?.provesAllN === false
+    && p848GuardedMod50SourceAuditResultElementaryGeneratorCandidate?.claims?.decidesProblem848 === false
+  );
+  const p848Mod50ElementaryGeneratorRelevantPairSemanticsBlockerReady = Boolean(
+    p848GuardedMod50SourceAuditResultElementaryGeneratorCandidateReady
+    && p848Mod50ElementaryGeneratorRelevantPairSemanticsBlocker?.status === 'mod50_elementary_generator_relevant_pair_semantics_blocker_emitted'
+    && p848Mod50ElementaryGeneratorRelevantPairSemanticsBlocker?.target === 'verify_p848_mod50_elementary_generator_relevant_pair_admissibility_or_emit_semantics_blocker'
+    && p848Mod50ElementaryGeneratorRelevantPairSemanticsBlocker?.recommendedNextAction === 'restore_p848_mod50_relevant_pair_row_generator_or_finite_q_partition_after_elementary_semantics_blocker'
+    && p848Mod50ElementaryGeneratorRelevantPairSemanticsBlocker?.coversPrimaryNextAction?.status === 'completed_by_mod50_elementary_generator_relevant_pair_semantics_blocker'
+    && p848Mod50ElementaryGeneratorRelevantPairSemanticsBlocker?.candidateIdentityAudit?.identityValidAsArithmetic === true
+    && p848Mod50ElementaryGeneratorRelevantPairSemanticsBlocker?.candidateIdentityAudit?.promotionVerdict === 'not_admissible_as_mod50_all_future_relevant_pair_generator'
+    && p848Mod50ElementaryGeneratorRelevantPairSemanticsBlocker?.observedFiniteRowAudit?.checkedObservedRowCount === 74
+    && p848Mod50ElementaryGeneratorRelevantPairSemanticsBlocker?.observedFiniteRowAudit?.candidateRelationHitCount === 0
+    && p848Mod50ElementaryGeneratorRelevantPairSemanticsBlocker?.semanticMismatch?.status === 'candidate_excluded_from_universal_promotion_by_row_semantics'
+    && p848Mod50ElementaryGeneratorRelevantPairSemanticsBlocker?.oneNextAction?.stepId === 'restore_p848_mod50_relevant_pair_row_generator_or_finite_q_partition_after_elementary_semantics_blocker'
+    && p848Mod50ElementaryGeneratorRelevantPairSemanticsBlocker?.claims?.completesElementaryGeneratorRelevantPairAdmissibilityCheck === true
+    && p848Mod50ElementaryGeneratorRelevantPairSemanticsBlocker?.claims?.arithmeticIdentityValid === true
+    && p848Mod50ElementaryGeneratorRelevantPairSemanticsBlocker?.claims?.candidateAdmissibleAsUniversalMod50RelevantPairGenerator === false
+    && p848Mod50ElementaryGeneratorRelevantPairSemanticsBlocker?.claims?.candidatePromotedToProof === false
+    && p848Mod50ElementaryGeneratorRelevantPairSemanticsBlocker?.claims?.preservesNoSpendDefault === true
+    && p848Mod50ElementaryGeneratorRelevantPairSemanticsBlocker?.claims?.madeNewPaidCall === false
+    && p848Mod50ElementaryGeneratorRelevantPairSemanticsBlocker?.claims?.blocksAdditionalProviderCalls === true
+    && p848Mod50ElementaryGeneratorRelevantPairSemanticsBlocker?.claims?.blocksQCoverExpansion === true
+    && p848Mod50ElementaryGeneratorRelevantPairSemanticsBlocker?.claims?.blocksSingletonQDescent === true
+    && p848Mod50ElementaryGeneratorRelevantPairSemanticsBlocker?.claims?.blocksSingleFallbackSelectorLadder === true
+    && p848Mod50ElementaryGeneratorRelevantPairSemanticsBlocker?.claims?.blocksNakedRankBoundary === true
+    && p848Mod50ElementaryGeneratorRelevantPairSemanticsBlocker?.claims?.provesAllN === false
+    && p848Mod50ElementaryGeneratorRelevantPairSemanticsBlocker?.claims?.decidesProblem848 === false
+  );
+  const p848Mod50RelevantPairRowGeneratorRestorationLocalAuditBlockerReady = Boolean(
+    p848Mod50ElementaryGeneratorRelevantPairSemanticsBlockerReady
+    && p848Mod50RelevantPairRowGeneratorRestorationLocalAuditBlocker?.status === 'mod50_relevant_pair_row_generator_restoration_local_audit_blocker_emitted'
+    && p848Mod50RelevantPairRowGeneratorRestorationLocalAuditBlocker?.target === 'restore_p848_mod50_relevant_pair_row_generator_or_finite_q_partition_after_elementary_semantics_blocker'
+    && p848Mod50RelevantPairRowGeneratorRestorationLocalAuditBlocker?.recommendedNextAction === 'await_p848_new_local_row_generator_theorem_or_explicit_guarded_source_audit_release_after_restoration_blocker'
+    && p848Mod50RelevantPairRowGeneratorRestorationLocalAuditBlocker?.coversPrimaryNextAction?.status === 'blocked_by_no_repo_owned_mod50_row_generator_or_finite_q_partition_after_local_restoration_audit'
+    && p848Mod50RelevantPairRowGeneratorRestorationLocalAuditBlocker?.restorationAudit?.result === 'no_repo_owned_mod50_relevant_pair_row_generator_symbolic_recurrence_or_finite_q_partition_found'
+    && p848Mod50RelevantPairRowGeneratorRestorationLocalAuditBlocker?.requiredTheoremObject?.objectId === 'p848_mod50_relevant_pair_row_generator_or_finite_q_partition'
+    && p848Mod50RelevantPairRowGeneratorRestorationLocalAuditBlocker?.oneNextAction?.stepId === 'await_p848_new_local_row_generator_theorem_or_explicit_guarded_source_audit_release_after_restoration_blocker'
+    && p848Mod50RelevantPairRowGeneratorRestorationLocalAuditBlocker?.claims?.completesMod50RowGeneratorRestorationLocalAudit === true
+    && p848Mod50RelevantPairRowGeneratorRestorationLocalAuditBlocker?.claims?.provesLocalRowGeneratorAbsent === true
+    && p848Mod50RelevantPairRowGeneratorRestorationLocalAuditBlocker?.claims?.confirmsBoundedCrtReplayFiniteOnly === true
+    && p848Mod50RelevantPairRowGeneratorRestorationLocalAuditBlocker?.claims?.confirmsElementaryGeneratorExcluded === true
+    && p848Mod50RelevantPairRowGeneratorRestorationLocalAuditBlocker?.claims?.preservesNoSpendProviderGating === true
+    && p848Mod50RelevantPairRowGeneratorRestorationLocalAuditBlocker?.claims?.madeNewPaidCall === false
+    && p848Mod50RelevantPairRowGeneratorRestorationLocalAuditBlocker?.claims?.blocksAdditionalProviderCalls === true
+    && p848Mod50RelevantPairRowGeneratorRestorationLocalAuditBlocker?.claims?.blocksQCoverExpansion === true
+    && p848Mod50RelevantPairRowGeneratorRestorationLocalAuditBlocker?.claims?.blocksSingletonQDescent === true
+    && p848Mod50RelevantPairRowGeneratorRestorationLocalAuditBlocker?.claims?.blocksSingleFallbackSelectorLadder === true
+    && p848Mod50RelevantPairRowGeneratorRestorationLocalAuditBlocker?.claims?.blocksNakedRankBoundary === true
+    && p848Mod50RelevantPairRowGeneratorRestorationLocalAuditBlocker?.claims?.provesMod50AllFutureRowGenerator === false
+    && p848Mod50RelevantPairRowGeneratorRestorationLocalAuditBlocker?.claims?.provesFiniteQPartition === false
+    && p848Mod50RelevantPairRowGeneratorRestorationLocalAuditBlocker?.claims?.provesAllN === false
+    && p848Mod50RelevantPairRowGeneratorRestorationLocalAuditBlocker?.claims?.decidesProblem848 === false
+  );
+  const p848Mod50SameBoundResidualCounterfamilyBoundaryReady = Boolean(
+    p848Mod50RelevantPairRowGeneratorRestorationLocalAuditBlockerReady
+    && p848Mod50SameBoundResidualCounterfamilyBoundary?.status === 'mod50_same_bound_residual_counterfamily_boundary_emitted'
+    && p848Mod50SameBoundResidualCounterfamilyBoundary?.target === 'mine_p848_mod50_restored_menu_residual_counterfamily_after_restoration_blocker'
+    && p848Mod50SameBoundResidualCounterfamilyBoundary?.recommendedNextAction === 'prove_or_block_p848_mod50_same_bound_residual_handoff_labels_after_counterfamily_boundary'
+    && p848Mod50SameBoundResidualCounterfamilyBoundary?.coversPrimaryNextAction?.stepId === 'await_p848_new_local_row_generator_theorem_or_explicit_guarded_source_audit_release_after_restoration_blocker'
+    && p848Mod50SameBoundResidualCounterfamilyBoundary?.coversPrimaryNextAction?.status === 'recovered_by_no_spend_same_bound_residual_counterfamily_boundary'
+    && Number(p848Mod50SameBoundResidualCounterfamilyBoundary?.residualCounterfamilyBoundary?.residual?.representative) === 1837022639
+    && p848Mod50SameBoundResidualCounterfamilyBoundary?.residualCounterfamilyBoundary?.status === 'finite_residual_handoff_labels_unproved'
+    && p848Mod50SameBoundResidualCounterfamilyBoundary?.claims?.emitsConcreteResidualCounterfamilyBoundary === true
+    && p848Mod50SameBoundResidualCounterfamilyBoundary?.claims?.providesMod50ResidualDenominators === true
+    && p848Mod50SameBoundResidualCounterfamilyBoundary?.claims?.provesResidualHandoffLabels === false
+    && p848Mod50SameBoundResidualCounterfamilyBoundary?.claims?.preservesNoSpendProviderGating === true
+    && p848Mod50SameBoundResidualCounterfamilyBoundary?.claims?.madeNewPaidCall === false
+    && p848Mod50SameBoundResidualCounterfamilyBoundary?.claims?.blocksAdditionalProviderCalls === true
+    && p848Mod50SameBoundResidualCounterfamilyBoundary?.claims?.blocksQCoverExpansion === true
+    && p848Mod50SameBoundResidualCounterfamilyBoundary?.claims?.blocksSingletonQDescent === true
+    && p848Mod50SameBoundResidualCounterfamilyBoundary?.claims?.blocksSingleFallbackSelectorLadder === true
+    && p848Mod50SameBoundResidualCounterfamilyBoundary?.claims?.blocksNakedRankBoundary === true
+    && p848Mod50SameBoundResidualCounterfamilyBoundary?.claims?.provesMod50AllFutureRowGenerator === false
+    && p848Mod50SameBoundResidualCounterfamilyBoundary?.claims?.provesFiniteQPartition === false
+    && p848Mod50SameBoundResidualCounterfamilyBoundary?.claims?.provesAllN === false
+    && p848Mod50SameBoundResidualCounterfamilyBoundary?.claims?.decidesProblem848 === false
+  );
+  const p848Mod50SameBoundResidualHandoffLabelLocalBlockerReady = Boolean(
+    p848Mod50SameBoundResidualCounterfamilyBoundaryReady
+    && p848Mod50SameBoundResidualHandoffLabelLocalBlocker?.status === 'mod50_same_bound_residual_handoff_label_local_blocker_emitted'
+    && p848Mod50SameBoundResidualHandoffLabelLocalBlocker?.target === 'prove_or_block_p848_mod50_same_bound_residual_handoff_labels_after_counterfamily_boundary'
+    && p848Mod50SameBoundResidualHandoffLabelLocalBlocker?.recommendedNextAction === 'await_p848_new_local_row_generator_or_residual_handoff_theorem_or_explicit_guarded_source_audit_release'
+    && p848Mod50SameBoundResidualHandoffLabelLocalBlocker?.coversPrimaryNextAction?.status === 'blocked_by_no_local_residual_handoff_label_theorem'
+    && Number(p848Mod50SameBoundResidualHandoffLabelLocalBlocker?.handoffLabelLocalAudit?.residual?.representative) === 1837022639
+    && p848Mod50SameBoundResidualHandoffLabelLocalBlocker?.handoffLabelLocalAudit?.status === 'local_attempt_complete_no_per_pair_handoff_label_theorem'
+    && p848Mod50SameBoundResidualHandoffLabelLocalBlocker?.handoffLabelLocalAudit?.pairCount === 4
+    && p848Mod50SameBoundResidualHandoffLabelLocalBlocker?.claims?.completesResidualHandoffLabelLocalAttempt === true
+    && p848Mod50SameBoundResidualHandoffLabelLocalBlocker?.claims?.provesFiniteTieExclusionForResidualRow === true
+    && p848Mod50SameBoundResidualHandoffLabelLocalBlocker?.claims?.provesResidualHandoffLabels === false
+    && p848Mod50SameBoundResidualHandoffLabelLocalBlocker?.claims?.preservesNoSpendProviderGating === true
+    && p848Mod50SameBoundResidualHandoffLabelLocalBlocker?.claims?.madeNewPaidCall === false
+    && p848Mod50SameBoundResidualHandoffLabelLocalBlocker?.claims?.blocksAdditionalProviderCalls === true
+    && p848Mod50SameBoundResidualHandoffLabelLocalBlocker?.claims?.blocksQCoverExpansion === true
+    && p848Mod50SameBoundResidualHandoffLabelLocalBlocker?.claims?.blocksSingletonQDescent === true
+    && p848Mod50SameBoundResidualHandoffLabelLocalBlocker?.claims?.blocksSingleFallbackSelectorLadder === true
+    && p848Mod50SameBoundResidualHandoffLabelLocalBlocker?.claims?.blocksNakedRankBoundary === true
+    && p848Mod50SameBoundResidualHandoffLabelLocalBlocker?.claims?.provesMod50AllFutureRowGenerator === false
+    && p848Mod50SameBoundResidualHandoffLabelLocalBlocker?.claims?.provesFiniteQPartition === false
+    && p848Mod50SameBoundResidualHandoffLabelLocalBlocker?.claims?.provesAllN === false
+    && p848Mod50SameBoundResidualHandoffLabelLocalBlocker?.claims?.decidesProblem848 === false
+  );
+  const p848Mod50ResidualHandoffLabelSourceAuditProfileNoSpendBlockerReady = Boolean(
+    p848Mod50SameBoundResidualHandoffLabelLocalBlockerReady
+    && p848Mod50ResidualHandoffLabelSourceAuditProfileNoSpendBlocker?.status === 'mod50_residual_handoff_label_source_audit_profile_no_spend_blocker_emitted'
+    && p848Mod50ResidualHandoffLabelSourceAuditProfileNoSpendBlocker?.target === 'await_p848_new_local_row_generator_or_residual_handoff_theorem_or_explicit_guarded_source_audit_release'
+    && p848Mod50ResidualHandoffLabelSourceAuditProfileNoSpendBlocker?.recommendedNextAction === 'await_p848_new_local_residual_handoff_theorem_or_explicit_guarded_source_audit_release_after_profile'
+    && p848Mod50ResidualHandoffLabelSourceAuditProfileNoSpendBlocker?.coversPrimaryNextAction?.status === 'completed_by_residual_handoff_label_source_audit_profile_no_spend_blocker'
+    && p848Mod50ResidualHandoffLabelSourceAuditProfileNoSpendBlocker?.residualSourceImportQuestion?.status === 'prepared_no_provider_execution_under_no_spend'
+    && p848Mod50ResidualHandoffLabelSourceAuditProfileNoSpendBlocker?.residualSourceImportQuestion?.badClassCount === 4
+    && p848Mod50ResidualHandoffLabelSourceAuditProfileNoSpendBlocker?.approvalDecision?.profilePrepared === true
+    && p848Mod50ResidualHandoffLabelSourceAuditProfileNoSpendBlocker?.approvalDecision?.profileExecutionApproved === false
+    && p848Mod50ResidualHandoffLabelSourceAuditProfileNoSpendBlocker?.approvalDecision?.madeNewPaidCall === false
+    && p848Mod50ResidualHandoffLabelSourceAuditProfileNoSpendBlocker?.approvalDecision?.usageCheckRun === false
+    && p848Mod50ResidualHandoffLabelSourceAuditProfileNoSpendBlocker?.oneNextAction?.stepId === 'await_p848_new_local_residual_handoff_theorem_or_explicit_guarded_source_audit_release_after_profile'
+    && p848Mod50ResidualHandoffLabelSourceAuditProfileNoSpendBlocker?.claims?.preparesFutureResidualHandoffLabelSourceAuditProfile === true
+    && p848Mod50ResidualHandoffLabelSourceAuditProfileNoSpendBlocker?.claims?.madeNewPaidCall === false
+    && p848Mod50ResidualHandoffLabelSourceAuditProfileNoSpendBlocker?.claims?.usageCheckRun === false
+    && p848Mod50ResidualHandoffLabelSourceAuditProfileNoSpendBlocker?.claims?.providerExecutionReleased === false
+    && p848Mod50ResidualHandoffLabelSourceAuditProfileNoSpendBlocker?.claims?.preservesNoSpendProviderGating === true
+    && p848Mod50ResidualHandoffLabelSourceAuditProfileNoSpendBlocker?.claims?.blocksAdditionalProviderCalls === true
+    && p848Mod50ResidualHandoffLabelSourceAuditProfileNoSpendBlocker?.claims?.blocksQCoverExpansion === true
+    && p848Mod50ResidualHandoffLabelSourceAuditProfileNoSpendBlocker?.claims?.blocksSingletonQDescent === true
+    && p848Mod50ResidualHandoffLabelSourceAuditProfileNoSpendBlocker?.claims?.blocksSingleFallbackSelectorLadder === true
+    && p848Mod50ResidualHandoffLabelSourceAuditProfileNoSpendBlocker?.claims?.blocksNakedRankBoundary === true
+    && p848Mod50ResidualHandoffLabelSourceAuditProfileNoSpendBlocker?.claims?.provesResidualHandoffLabels === false
+    && p848Mod50ResidualHandoffLabelSourceAuditProfileNoSpendBlocker?.claims?.provesMod50AllFutureRowGenerator === false
+    && p848Mod50ResidualHandoffLabelSourceAuditProfileNoSpendBlocker?.claims?.provesFiniteQPartition === false
+    && p848Mod50ResidualHandoffLabelSourceAuditProfileNoSpendBlocker?.claims?.provesAllN === false
+    && p848Mod50ResidualHandoffLabelSourceAuditProfileNoSpendBlocker?.claims?.decidesProblem848 === false
+  );
+  const q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17SuccessorReady = Boolean(
+    q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17SubclassRepairReady
+    && q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17Successor?.status === 'successor_atom_emitted'
+    && q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17Successor?.recommendedNextAction === 'attack_p41_q13_p103_q2_p37_q19_p31_q53_p73_q11_p83_q17_successor_atom'
+  );
+		  const firstSideCountFloorMovingTermIsDynamicMarginExactMixedMatchingInjectionSelectedCrossSquarefreeExceptionMenu = String(firstSideCountFloorMovingTermSubatom ?? '')
     .startsWith('D2_p13_dynamic_margin_exact_mixed_matching_injection_selected_cross_squarefree_exception_menu_');
   const firstSideCountFloorMovingTermIsDynamicMarginExactMixedMatchingInjectionDirectDeltaSuccessor = firstSideCountFloorMovingTermIsDynamicMarginExactMixedMatchingInjectionDirectDeltaMinus1089Successor
     || firstSideCountFloorMovingTermIsDynamicMarginExactMixedMatchingInjectionDirectDeltaMinus39Successor;
@@ -20371,19 +23989,25 @@ function buildP848SplitCoreAtomizationPlan(problem, formalizationWork) {
 						      },
 						      {
 						        taskId: 'prove_p13_dynamic_margin_exact_mixed_matching_injection_selected_cross_squarefree_exception_period_shifted_endpoint_menu_q17_residual_window_relaxed_fallback_menu_lift',
-						        status: firstSideCountFloorMovingTermIsDynamicMarginExactMixedMatchingInjectionSelectedCrossSquarefreeExceptionPeriodShiftedEndpointMenuQ17ResidualWindowRelaxedFallbackMenu
+						        status: q17WindowRelaxationSelectorLegal
+						          ? 'done_selector_layer_window_relaxation_supported'
+						          : firstSideCountFloorMovingTermIsDynamicMarginExactMixedMatchingInjectionSelectedCrossSquarefreeExceptionPeriodShiftedEndpointMenuQ17ResidualWindowRelaxedFallbackMenu
 						          ? 'highest'
 						          : firstSideCountFloorMovingTermIsDynamicMarginExactMixedMatchingInjectionSelectedCrossSquarefreeExceptionPeriodShiftedEndpointMenuQ17ResidualP13ExpandedFallbackMenu
 						            ? 'blocked_by_p13_expanded_fallback_menu_check'
 						          : firstSideCountFloorMovingTermIsDynamicMarginExactMixedMatchingInjectionSelectedCrossSquarefreeExceptionPeriodShiftedEndpointMenuQ17ResidualCrossBadFallback
 						            ? 'blocked_by_q17_residual_seed_fallback_check'
 						          : 'blocked_by_q17_residual_cross_bad_lane',
-						        task: firstSideCountFloorMovingTermIsDynamicMarginExactMixedMatchingInjectionSelectedCrossSquarefreeExceptionPeriodShiftedEndpointMenuQ17ResidualWindowRelaxedFallbackMenu
+						        task: q17WindowRelaxationSelectorLegal
+						          ? `The q17 residual window-relaxed selector is supported at endpoint scope by the ${q17WindowLegalityAudit?.windows?.candidateEndpointWindow ?? 28500}-window legality audit; promote the availability residue-cover handoff next.`
+						          : firstSideCountFloorMovingTermIsDynamicMarginExactMixedMatchingInjectionSelectedCrossSquarefreeExceptionPeriodShiftedEndpointMenuQ17ResidualWindowRelaxedFallbackMenu
 						          ? `Prove selected cross-squarefree exception q17 residual window-relaxed fallback menu lift ${firstSideCountFloorMovingTermSubatom}: show the 25000-window endpoint menu supplies a squarefree side18-compatible right endpoint, or emit the first fully window-relaxed blocked row.`
 						          : 'Wait for the q17 residual p13-expanded fallback menu to prove or emit its first 10000-window obstruction.',
-						        completionRule: 'A symbolic window-relaxed fallback selector covers q17 residual cross-bad rows without singleton repairs, or the first fully window-relaxed blocked row becomes the next deterministic packet.',
+						        completionRule: q17WindowRelaxationSelectorLegal
+						          ? 'Endpoint-selector window legality is settled at current packet scope; remaining work is availability residue-cover plus downstream matching handoff.'
+						          : 'A symbolic window-relaxed fallback selector covers q17 residual cross-bad rows without singleton repairs, or the first fully window-relaxed blocked row becomes the next deterministic packet.',
 						        command: null,
-						        packetAtomId: firstSideCountFloorMovingTermIsDynamicMarginExactMixedMatchingInjectionSelectedCrossSquarefreeExceptionPeriodShiftedEndpointMenuQ17ResidualWindowRelaxedFallbackMenu ? firstSideCountFloorMovingTermSubatom : null,
+						        packetAtomId: firstSideCountFloorMovingTermIsDynamicMarginExactMixedMatchingInjectionSelectedCrossSquarefreeExceptionPeriodShiftedEndpointMenuQ17ResidualWindowRelaxedFallbackMenu && !q17WindowRelaxationSelectorLegal ? firstSideCountFloorMovingTermSubatom : null,
 						        packetId: firstSideCountFloorPacket?.packetId ?? null,
 						        packetJsonPath: firstSideCountFloorPacket?.jsonPath ?? null,
 						        packetMarkdownPath: firstSideCountFloorPacket?.markdownPath ?? null,
@@ -20391,7 +24015,4731 @@ function buildP848SplitCoreAtomizationPlan(problem, formalizationWork) {
 						        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
 						      },
 		      {
-		        taskId: 'start_singleton_p13_profile',
+		        taskId: 'promote_q17_window_relaxed_fallback_menu_availability_residue_cover',
+		        status: q17AvailabilityResidueCoverReady
+		          ? 'done_bounded_residue_cover_packet_emitted'
+		          : q17WindowRelaxationSelectorLegal
+		          ? 'highest'
+		          : firstSideCountFloorMovingTermIsDynamicMarginExactMixedMatchingInjectionSelectedCrossSquarefreeExceptionPeriodShiftedEndpointMenuQ17ResidualWindowRelaxedFallbackMenu
+		            ? 'blocked_by_q17_window_legality_audit'
+		            : 'blocked_by_q17_window_relaxed_selector_lane',
+		        task: q17AvailabilityResidueCoverReady
+		          ? `The q17 window-relaxed fallback menu has a bounded availability residue-cover packet assigning ${q17AvailabilityResidueCover?.coverage?.assignedRows ?? '(unknown)'}/${q17AvailabilityResidueCover?.target?.rowCount ?? '(unknown)'} rows; prove the symbolic squarefree-hitting cover next.`
+		          : q17WindowRelaxationSelectorLegal
+		          ? `Promote the q17 window-relaxed fallback menu into an availability residue-cover packet: use the p67 stratum seed k <= ${q17WindowLegalityAudit?.windows?.candidateMaxK ?? 1139} at window ${q17WindowLegalityAudit?.windows?.candidateEndpointWindow ?? 28500}, then assign fallback endpoint primes/window strata or emit the first unassigned residue class.`
+		          : 'Wait for the q17 window-relaxed selector to settle endpoint-window legality before building residue-cover strata.',
+		        completionRule: q17AvailabilityResidueCoverReady
+		          ? 'Bounded residue-cover packet is emitted; remaining work is the symbolic squarefree-hitting lemma for selected strata.'
+		          : 'Every q17 residual endpoint row is assigned to an endpoint prime/window availability stratum with a squarefree-hitting handoff, or the first unassigned residue class becomes the next deterministic packet.',
+		        command: null,
+		        packetAtomId: q17WindowRelaxationSelectorLegal && !q17AvailabilityResidueCoverReady
+		          ? 'D2_p13_q17_window_relaxed_fallback_menu_availability_residue_cover'
+		          : null,
+		        packetId: firstSideCountFloorPacket?.packetId ?? null,
+		        packetJsonPath: q17AvailabilityResidueCoverReady ? q17AvailabilityResidueCoverPath : q17WindowLegalityAuditPath,
+		        packetMarkdownPath: q17AvailabilityResidueCoverReady
+		          ? q17AvailabilityResidueCoverPath?.replace(/\.json$/, '.md') ?? null
+		          : q17WindowLegalityAuditPath ? q17WindowLegalityAuditPath.replace(/\.json$/, '.md') : null,
+		        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+		        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+		      },
+		      {
+		        taskId: 'prove_q17_endpoint_menu_squarefree_hitting_residue_cover',
+		        status: q17SquarefreeHittingObstructionReady
+		          ? 'done_first_square_obstruction_subclass_emitted'
+		          : q17AvailabilityResidueCoverReady
+		          ? 'highest'
+		          : q17WindowRelaxationSelectorLegal
+		            ? 'blocked_by_availability_residue_cover_packet'
+		            : 'blocked_by_q17_window_legality_audit',
+		        task: q17SquarefreeHittingObstructionReady
+		          ? `The q17 squarefree-hitting audit falsified the universal selected-residue-family lemma: p${q17SquarefreeHittingObstruction?.firstObstruction?.obstruction?.endpointPrime ?? '(unknown)'} has a ${q17SquarefreeHittingObstruction?.firstObstruction?.obstruction?.obstructionPrime ?? '(unknown)'}^2 square-obstruction subclass; split that subclass next.`
+		          : q17AvailabilityResidueCoverReady
+		          ? `Prove the symbolic squarefree-hitting lemma for the q17 endpoint menu cover: selected strata cover ${q17AvailabilityResidueCover?.coverage?.assignedRows ?? '(unknown)'} bounded rows at window ${q17AvailabilityResidueCover?.target?.window ?? 28500}; either prove each stratum's cross product is squarefree on its residue family or emit the first square-obstruction residue subclass.`
+		          : 'Wait for the q17 availability residue-cover packet before proving the symbolic squarefree-hitting lemma.',
+		        completionRule: 'Each selected endpoint-prime stratum gets a symbolic squarefree-hitting proof, or the first square-divisor residue subclass becomes the next deterministic packet.',
+		        command: null,
+		        packetAtomId: q17SquarefreeHittingObstructionReady
+		          ? 'D2_p13_q17_endpoint_menu_squarefree_hitting_obstruction'
+		          : q17AvailabilityResidueCoverReady
+		          ? 'D2_p13_q17_endpoint_menu_squarefree_hitting_residue_cover'
+		          : null,
+		        packetId: firstSideCountFloorPacket?.packetId ?? null,
+		        packetJsonPath: q17SquarefreeHittingObstructionReady ? q17SquarefreeHittingObstructionPath : q17AvailabilityResidueCoverPath,
+		        packetMarkdownPath: q17SquarefreeHittingObstructionReady
+		          ? q17SquarefreeHittingObstructionPath?.replace(/\.json$/, '.md') ?? null
+		          : q17AvailabilityResidueCoverPath ? q17AvailabilityResidueCoverPath.replace(/\.json$/, '.md') : null,
+		        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+		        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+		      },
+		      {
+		        taskId: 'split_q17_endpoint_menu_squarefree_obstruction_subclass',
+		        status: q17SquarefreeObstructionSubclassRepairReady
+		          ? 'done_representative_repair_packet_emitted'
+		          : q17SquarefreeHittingObstructionReady
+		          ? 'highest'
+		          : q17AvailabilityResidueCoverReady
+		            ? 'blocked_by_squarefree_hitting_audit'
+		            : 'blocked_by_availability_residue_cover_packet',
+		        task: q17SquarefreeObstructionSubclassRepairReady
+		          ? `The q17 p23/q29 square-obstruction subclass has a representative repair via p${q17SquarefreeObstructionSubclassRepair?.firstRepair?.alternateEndpoint?.prime ?? '(unknown)'}; split by that endpoint's availability next.`
+		          : q17SquarefreeHittingObstructionReady
+		          ? `Split the emitted q17 squarefree-obstruction subclass ${q17SquarefreeHittingObstruction?.firstObstruction?.obstruction?.tCongruence?.expression ?? '(unknown t congruence)'} where ${q17SquarefreeHittingObstruction?.firstObstruction?.obstruction?.obstructionPrime ?? '(unknown)'}^2 divides the selected p${q17SquarefreeHittingObstruction?.firstObstruction?.obstruction?.endpointPrime ?? '(unknown)'} endpoint cross product; either choose an alternate endpoint on that subclass or emit the successor atom.`
+		          : 'Wait for the q17 squarefree-hitting audit to emit a square-obstruction subclass.',
+		        completionRule: q17SquarefreeObstructionSubclassRepairReady
+		          ? 'Representative repair is emitted; remaining work is the alternate endpoint availability/squarefree lift over the subclass.'
+		          : 'The square-obstruction subclass is refined into an alternate endpoint selector, or the exact subclass becomes the next deterministic successor atom.',
+		        command: null,
+		        packetAtomId: q17SquarefreeObstructionSubclassRepairReady
+		          ? `D2_p13_q17_endpoint_menu_squarefree_obstruction_p${q17SquarefreeHittingObstruction?.firstObstruction?.obstruction?.endpointPrime ?? 'unknown'}_q${q17SquarefreeHittingObstruction?.firstObstruction?.obstruction?.obstructionPrime ?? 'unknown'}_p${q17SquarefreeObstructionSubclassRepair?.firstRepair?.alternateEndpoint?.prime ?? 'unknown'}_repair`
+		          : q17SquarefreeHittingObstructionReady
+		          ? `D2_p13_q17_endpoint_menu_squarefree_obstruction_p${q17SquarefreeHittingObstruction?.firstObstruction?.obstruction?.endpointPrime ?? 'unknown'}_q${q17SquarefreeHittingObstruction?.firstObstruction?.obstruction?.obstructionPrime ?? 'unknown'}`
+		          : null,
+		        packetId: firstSideCountFloorPacket?.packetId ?? null,
+		        packetJsonPath: q17SquarefreeObstructionSubclassRepairReady ? q17SquarefreeObstructionSubclassRepairPath : q17SquarefreeHittingObstructionPath,
+		        packetMarkdownPath: q17SquarefreeObstructionSubclassRepairReady
+		          ? q17SquarefreeObstructionSubclassRepairPath?.replace(/\.json$/, '.md') ?? null
+		          : q17SquarefreeHittingObstructionPath ? q17SquarefreeHittingObstructionPath.replace(/\.json$/, '.md') : null,
+		        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+		        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+		      },
+		      {
+		        taskId: 'split_q17_obstruction_subclass_by_p41_availability',
+		        status: q17P41AvailabilitySplitReady
+		          ? 'done_p41_available_square_obstruction_emitted'
+		          : q17SquarefreeObstructionSubclassRepairReady
+		          ? 'highest'
+		          : q17SquarefreeHittingObstructionReady
+		            ? 'blocked_by_obstruction_subclass_repair'
+		            : 'blocked_by_squarefree_hitting_obstruction',
+		        task: q17P41AvailabilitySplitReady
+		          ? `The p41 availability split is emitted: ${q17P41AvailabilitySplit?.availabilitySplit?.availableResidueCount ?? '(unknown)'}/${q17P41AvailabilitySplit?.availabilitySplit?.period ?? '(unknown)'} residues are available, and the first available family has a ${q17P41AvailabilitySplit?.firstAvailableSquareObstruction?.obstructionPrime ?? '(unknown)'}^2 square obstruction.`
+		          : q17SquarefreeObstructionSubclassRepairReady
+		          ? `Split the q17 p23/q29 obstruction subclass by p${q17SquarefreeObstructionSubclassRepair?.firstRepair?.alternateEndpoint?.prime ?? 41} availability: ${q17SquarefreeObstructionSubclassRepair?.firstRepair?.availabilityRule?.kFormulaInT ?? '(unknown formula)'}, available ${q17SquarefreeObstructionSubclassRepair?.firstRepair?.availabilityRule?.availableResidueCount ?? '(unknown)'}/${q17SquarefreeObstructionSubclassRepair?.firstRepair?.availabilityRule?.tPeriod ?? '(unknown)'} residues at window ${q17SquarefreeObstructionSubclassRepair?.target?.window ?? 28500}; then audit squarefree hitting on available subfamilies.`
+		          : 'Wait for the q17 obstruction-subclass representative repair packet.',
+		        completionRule: q17P41AvailabilitySplitReady
+		          ? 'The p41 availability split emitted the next p41-available square-obstruction subclass.'
+		          : 'The p41-available residues get a squarefree-hitting audit or the first p41-unavailable/subsequent obstruction subclass becomes the next deterministic packet.',
+		        command: null,
+		        packetAtomId: q17P41AvailabilitySplitReady
+		          ? 'D2_p13_q17_endpoint_menu_squarefree_obstruction_p23_q29_p41_q13'
+		          : q17SquarefreeObstructionSubclassRepairReady
+		          ? 'D2_p13_q17_endpoint_menu_squarefree_obstruction_p23_q29_p41_availability_split'
+		          : null,
+		        packetId: firstSideCountFloorPacket?.packetId ?? null,
+		        packetJsonPath: q17P41AvailabilitySplitReady ? q17P41AvailabilitySplitPath : q17SquarefreeObstructionSubclassRepairPath,
+		        packetMarkdownPath: q17P41AvailabilitySplitReady
+		          ? q17P41AvailabilitySplitPath?.replace(/\.json$/, '.md') ?? null
+		          : q17SquarefreeObstructionSubclassRepairPath ? q17SquarefreeObstructionSubclassRepairPath.replace(/\.json$/, '.md') : null,
+		        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+		        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+		      },
+		      {
+		        taskId: 'split_q17_p41_available_square_obstruction_subclass',
+		        status: q17P41Q13SubclassRepairReady
+		          ? 'done_representative_p103_repair_packet_emitted'
+		          : q17P41AvailabilitySplitReady
+		          ? 'highest'
+		          : q17SquarefreeObstructionSubclassRepairReady
+		            ? 'blocked_by_p41_availability_split'
+		            : 'blocked_by_obstruction_subclass_repair',
+		        task: q17P41Q13SubclassRepairReady
+		          ? `The p41/q13 obstruction subclass representative is repaired by p${q17P41Q13SubclassRepair?.firstRepair?.alternateEndpoint?.prime ?? '(unknown)'}; split by that endpoint's availability next.`
+		          : q17P41AvailabilitySplitReady
+		          ? `Split the p41-available q17 obstruction subclass ${q17P41AvailabilitySplit?.firstAvailableSquareObstruction?.tCongruence?.expression ?? '(unknown parameter congruence)'} where ${q17P41AvailabilitySplit?.firstAvailableSquareObstruction?.obstructionPrime ?? '(unknown)'}^2 divides the p41 endpoint cross product; test alternate endpoints on that subclass or emit the successor atom.`
+		          : 'Wait for the p41 availability split packet.',
+		        completionRule: q17P41Q13SubclassRepairReady
+		          ? 'Representative p103 repair is emitted; remaining work is the p103 availability/squarefree lift over the p41/q13 subclass.'
+		          : 'The p41/q13 obstruction subclass is repaired by an alternate endpoint, or the exact subclass becomes the next deterministic successor atom.',
+		        command: null,
+		        packetAtomId: q17P41Q13SubclassRepairReady
+		          ? 'D2_p13_q17_endpoint_menu_squarefree_obstruction_p23_q29_p41_q13_p103_repair'
+		          : q17P41AvailabilitySplitReady
+		          ? 'D2_p13_q17_endpoint_menu_squarefree_obstruction_p23_q29_p41_q13_subclass'
+		          : null,
+		        packetId: firstSideCountFloorPacket?.packetId ?? null,
+		        packetJsonPath: q17P41Q13SubclassRepairReady ? q17P41Q13SubclassRepairPath : q17P41AvailabilitySplitPath,
+		        packetMarkdownPath: q17P41Q13SubclassRepairReady
+		          ? q17P41Q13SubclassRepairPath?.replace(/\.json$/, '.md') ?? null
+		          : q17P41AvailabilitySplitPath ? q17P41AvailabilitySplitPath.replace(/\.json$/, '.md') : null,
+		        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+		        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+		      },
+		      {
+		        taskId: 'split_q17_p41_q13_subclass_by_p103_availability',
+		        status: q17P41Q13P103AvailabilitySplitReady
+		          ? 'done_p103_available_square_obstruction_emitted'
+		          : q17P41Q13SubclassRepairReady
+		          ? 'highest'
+		          : q17P41AvailabilitySplitReady
+		            ? 'blocked_by_p41_q13_repair_packet'
+		            : 'blocked_by_p41_availability_split',
+		        task: q17P41Q13P103AvailabilitySplitReady
+		          ? `The p103 availability split is emitted: ${q17P41Q13P103AvailabilitySplit?.availabilitySplit?.availableResidueCount ?? '(unknown)'}/${q17P41Q13P103AvailabilitySplit?.availabilitySplit?.period ?? '(unknown)'} residues are available, and the first available family has a ${q17P41Q13P103AvailabilitySplit?.firstAvailableSquareObstruction?.obstructionPrime ?? '(unknown)'}^2 square obstruction.`
+		          : q17P41Q13SubclassRepairReady
+		          ? `Split the q17 p41/q13 obstruction subclass by p103 availability: ${q17P41Q13SubclassRepair?.firstRepair?.availabilityRule?.kFormulaInT ?? '(unknown formula)'}, available ${q17P41Q13SubclassRepair?.firstRepair?.availabilityRule?.availableResidueCount ?? '(unknown)'}/${q17P41Q13SubclassRepair?.firstRepair?.availabilityRule?.tPeriod ?? '(unknown)'} residues at window ${q17P41Q13SubclassRepair?.target?.window ?? 28500}; then audit squarefree hitting on available subfamilies.`
+		          : 'Wait for the p41/q13 subclass representative repair packet.',
+		        completionRule: q17P41Q13P103AvailabilitySplitReady
+		          ? 'The p103 availability split emitted the next p103-available square-obstruction subclass.'
+		          : 'The p103-available residues get a squarefree-hitting audit, or the first p103-unavailable/subsequent obstruction subclass becomes the next deterministic packet.',
+		        command: null,
+		        packetAtomId: q17P41Q13P103AvailabilitySplitReady
+		          ? 'D2_p13_q17_endpoint_menu_squarefree_obstruction_p23_q29_p41_q13_p103_q2'
+		          : q17P41Q13SubclassRepairReady
+		          ? 'D2_p13_q17_endpoint_menu_squarefree_obstruction_p23_q29_p41_q13_p103_availability_split'
+		          : null,
+		        packetId: firstSideCountFloorPacket?.packetId ?? null,
+		        packetJsonPath: q17P41Q13P103AvailabilitySplitReady ? q17P41Q13P103AvailabilitySplitPath : q17P41Q13SubclassRepairPath,
+		        packetMarkdownPath: q17P41Q13P103AvailabilitySplitReady
+		          ? q17P41Q13P103AvailabilitySplitPath?.replace(/\.json$/, '.md') ?? null
+		          : q17P41Q13SubclassRepairPath ? q17P41Q13SubclassRepairPath.replace(/\.json$/, '.md') : null,
+		        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+		        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+		      },
+		      {
+		        taskId: 'split_q17_p41_q13_p103_available_square_obstruction_subclass',
+		        status: q17P41Q13P103Q2SubclassRepairReady
+		          ? 'done_representative_p37_repair_packet_emitted'
+		          : q17P41Q13P103AvailabilitySplitReady
+		          ? 'highest'
+		          : q17P41Q13SubclassRepairReady
+		            ? 'blocked_by_p103_availability_split'
+		            : 'blocked_by_p41_q13_repair_packet',
+		        task: q17P41Q13P103Q2SubclassRepairReady
+		          ? `The p103/parity obstruction subclass representative is repaired by p${q17P41Q13P103Q2SubclassRepair?.firstRepair?.alternateEndpoint?.prime ?? '(unknown)'}; split by that endpoint's availability next.`
+		          : q17P41Q13P103AvailabilitySplitReady
+		          ? `Split the p103-available q17 p41/q13 obstruction subclass ${q17P41Q13P103AvailabilitySplit?.firstAvailableSquareObstruction?.tCongruence?.expression ?? '(unknown parameter congruence)'} where ${q17P41Q13P103AvailabilitySplit?.firstAvailableSquareObstruction?.obstructionPrime ?? '(unknown)'}^2 divides the p103 endpoint cross product; test alternate endpoints on that subclass or emit the successor atom.`
+		          : 'Wait for the p103 availability split packet.',
+		        completionRule: q17P41Q13P103Q2SubclassRepairReady
+		          ? 'Representative p37 repair is emitted; remaining work is the p37 availability/squarefree lift over the p103/parity subclass.'
+		          : 'The p41/q13/p103 parity obstruction subclass is repaired by an alternate endpoint, or the exact subclass becomes the next deterministic successor atom.',
+		        command: null,
+		        packetAtomId: q17P41Q13P103Q2SubclassRepairReady
+		          ? 'D2_p13_q17_endpoint_menu_squarefree_obstruction_p23_q29_p41_q13_p103_q2_p37_repair'
+		          : q17P41Q13P103AvailabilitySplitReady
+		          ? 'D2_p13_q17_endpoint_menu_squarefree_obstruction_p23_q29_p41_q13_p103_q2_subclass'
+		          : null,
+		        packetId: firstSideCountFloorPacket?.packetId ?? null,
+		        packetJsonPath: q17P41Q13P103Q2SubclassRepairReady ? q17P41Q13P103Q2SubclassRepairPath : q17P41Q13P103AvailabilitySplitPath,
+		        packetMarkdownPath: q17P41Q13P103Q2SubclassRepairReady
+		          ? q17P41Q13P103Q2SubclassRepairPath?.replace(/\.json$/, '.md') ?? null
+		          : q17P41Q13P103AvailabilitySplitPath ? q17P41Q13P103AvailabilitySplitPath.replace(/\.json$/, '.md') : null,
+		        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+		        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+		      },
+		      {
+		        taskId: 'split_q17_p41_q13_p103_q2_subclass_by_p37_availability',
+		        status: q17P41Q13P103Q2P37AvailabilitySplitReady
+		          ? 'done_p37_available_square_obstruction_emitted'
+		          : q17P41Q13P103Q2SubclassRepairReady
+		          ? 'highest'
+		          : q17P41Q13P103AvailabilitySplitReady
+		            ? 'blocked_by_p103_q2_repair_packet'
+		            : 'blocked_by_p103_availability_split',
+		        task: q17P41Q13P103Q2P37AvailabilitySplitReady
+		          ? `The p37 availability split is emitted: ${q17P41Q13P103Q2P37AvailabilitySplit?.availabilitySplit?.availableResidueCount ?? '(unknown)'}/${q17P41Q13P103Q2P37AvailabilitySplit?.availabilitySplit?.period ?? '(unknown)'} residues are available, and the first available family has a ${q17P41Q13P103Q2P37AvailabilitySplit?.firstAvailableSquareObstruction?.obstructionPrime ?? '(unknown)'}^2 square obstruction.`
+		          : q17P41Q13P103Q2SubclassRepairReady
+		          ? `Split the q17 p103/parity obstruction subclass by p37 availability: ${q17P41Q13P103Q2SubclassRepair?.firstRepair?.availabilityRule?.kFormulaInT ?? '(unknown formula)'}, available ${q17P41Q13P103Q2SubclassRepair?.firstRepair?.availabilityRule?.availableResidueCount ?? '(unknown)'}/${q17P41Q13P103Q2SubclassRepair?.firstRepair?.availabilityRule?.tPeriod ?? '(unknown)'} residues at window ${q17P41Q13P103Q2SubclassRepair?.target?.window ?? 28500}; then audit squarefree hitting on available subfamilies.`
+		          : 'Wait for the p103/parity subclass representative repair packet.',
+		        completionRule: q17P41Q13P103Q2P37AvailabilitySplitReady
+		          ? 'The p37 availability split emitted the next p37-available square-obstruction subclass.'
+		          : 'The p37-available residues get a squarefree-hitting audit, or the first p37-unavailable/subsequent obstruction subclass becomes the next deterministic packet.',
+		        command: null,
+		        packetAtomId: q17P41Q13P103Q2P37AvailabilitySplitReady
+		          ? 'D2_p13_q17_endpoint_menu_squarefree_obstruction_p23_q29_p41_q13_p103_q2_p37_q19'
+		          : q17P41Q13P103Q2SubclassRepairReady
+		          ? 'D2_p13_q17_endpoint_menu_squarefree_obstruction_p23_q29_p41_q13_p103_q2_p37_availability_split'
+		          : null,
+		        packetId: firstSideCountFloorPacket?.packetId ?? null,
+		        packetJsonPath: q17P41Q13P103Q2P37AvailabilitySplitReady ? q17P41Q13P103Q2P37AvailabilitySplitPath : q17P41Q13P103Q2SubclassRepairPath,
+		        packetMarkdownPath: q17P41Q13P103Q2P37AvailabilitySplitReady
+		          ? q17P41Q13P103Q2P37AvailabilitySplitPath?.replace(/\.json$/, '.md') ?? null
+		          : q17P41Q13P103Q2SubclassRepairPath ? q17P41Q13P103Q2SubclassRepairPath.replace(/\.json$/, '.md') : null,
+		        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+		        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+		      },
+		      {
+		        taskId: 'split_q17_p41_q13_p103_q2_p37_available_square_obstruction_subclass',
+		        status: q17P41Q13P103Q2P37Q19SubclassRepairReady
+		          ? 'done_representative_p31_universal_window_repair_packet_emitted'
+		          : q17P41Q13P103Q2P37AvailabilitySplitReady
+		          ? 'highest'
+		          : q17P41Q13P103Q2SubclassRepairReady
+		            ? 'blocked_by_p37_availability_split'
+		            : 'blocked_by_p103_q2_repair_packet',
+		        task: q17P41Q13P103Q2P37Q19SubclassRepairReady
+		          ? `The p37/q19 subclass representative is repaired by p${q17P41Q13P103Q2P37Q19SubclassRepair?.firstRepair?.alternateEndpoint?.prime ?? '(unknown)'} with universal window availability; remaining work is the symbolic squarefree lift.`
+		          : q17P41Q13P103Q2P37AvailabilitySplitReady
+		          ? `Split the p37-available q17 p103/parity obstruction subclass ${q17P41Q13P103Q2P37AvailabilitySplit?.firstAvailableSquareObstruction?.tCongruence?.expression ?? '(unknown parameter congruence)'} where ${q17P41Q13P103Q2P37AvailabilitySplit?.firstAvailableSquareObstruction?.obstructionPrime ?? '(unknown)'}^2 divides the p37 endpoint cross product; test alternate endpoints on that subclass or emit the successor atom.`
+		          : 'Wait for the p37 availability split packet.',
+		        completionRule: q17P41Q13P103Q2P37Q19SubclassRepairReady
+		          ? 'The p37/q19 obstruction subclass has a representative p31 repair and universal window availability.'
+		          : 'The p37/q19 obstruction subclass is repaired by an alternate endpoint, or the exact subclass becomes the next deterministic successor atom.',
+		        command: null,
+		        packetAtomId: q17P41Q13P103Q2P37Q19SubclassRepairReady
+		          ? 'D2_p13_q17_endpoint_menu_squarefree_obstruction_p23_q29_p41_q13_p103_q2_p37_q19_p31_repair'
+		          : q17P41Q13P103Q2P37AvailabilitySplitReady
+		          ? 'D2_p13_q17_endpoint_menu_squarefree_obstruction_p23_q29_p41_q13_p103_q2_p37_q19_subclass'
+		          : null,
+		        packetId: firstSideCountFloorPacket?.packetId ?? null,
+		        packetJsonPath: q17P41Q13P103Q2P37Q19SubclassRepairReady
+		          ? q17P41Q13P103Q2P37Q19SubclassRepairPath
+		          : q17P41Q13P103Q2P37AvailabilitySplitPath,
+		        packetMarkdownPath: q17P41Q13P103Q2P37Q19SubclassRepairReady
+		          ? q17P41Q13P103Q2P37Q19SubclassRepairPath?.replace(/\.json$/, '.md') ?? null
+		          : q17P41Q13P103Q2P37AvailabilitySplitPath ? q17P41Q13P103Q2P37AvailabilitySplitPath.replace(/\.json$/, '.md') : null,
+		        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+		        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+		      },
+		      {
+		        taskId: 'prove_q17_p41_q13_p103_q2_p37_q19_p31_symbolic_squarefree_lift',
+		        status: q17P41Q13P103Q2P37Q19P31SymbolicLiftReady
+		          ? 'done_p31_square_obstruction_subclass_emitted'
+		          : q17P41Q13P103Q2P37Q19SubclassRepairReady
+		          ? 'highest'
+		          : q17P41Q13P103Q2P37AvailabilitySplitReady
+		            ? 'blocked_by_p37_q19_repair_packet'
+		            : 'blocked_by_p37_availability_split',
+		        task: q17P41Q13P103Q2P37Q19P31SymbolicLiftReady
+		          ? `The p31 symbolic squarefree lift emits a ${q17P41Q13P103Q2P37Q19P31SymbolicLift?.firstAvailableSquareObstruction?.obstructionPrime ?? '(unknown)'}^2 obstruction subclass.`
+		          : q17P41Q13P103Q2P37Q19SubclassRepairReady
+		          ? `Prove the p31 endpoint squarefree lift on the p37/q19 subclass, or emit the first square-divisor subprogression for p31. Formula: ${q17P41Q13P103Q2P37Q19SubclassRepair?.firstRepair?.availabilityRule?.kFormulaInT ?? '(unknown formula)'}.`
+		          : 'Wait for the p37/q19 representative repair packet.',
+		        completionRule: q17P41Q13P103Q2P37Q19P31SymbolicLiftReady
+		          ? 'The first exact p31 square-divisor subprogression is emitted.'
+		          : 'The p31 endpoint is proved squarefree on the p37/q19 subclass, or its first exact square-divisor subprogression becomes the next deterministic successor atom.',
+		        command: null,
+		        packetAtomId: q17P41Q13P103Q2P37Q19P31SymbolicLiftReady
+		          ? 'D2_p13_q17_endpoint_menu_squarefree_obstruction_p23_q29_p41_q13_p103_q2_p37_q19_p31_q53'
+		          : q17P41Q13P103Q2P37Q19SubclassRepairReady
+		          ? 'D2_p13_q17_endpoint_menu_squarefree_obstruction_p23_q29_p41_q13_p103_q2_p37_q19_p31_symbolic_squarefree_lift'
+		          : null,
+		        packetId: firstSideCountFloorPacket?.packetId ?? null,
+		        packetJsonPath: q17P41Q13P103Q2P37Q19P31SymbolicLiftReady
+		          ? q17P41Q13P103Q2P37Q19P31SymbolicLiftPath
+		          : q17P41Q13P103Q2P37Q19SubclassRepairPath,
+		        packetMarkdownPath: q17P41Q13P103Q2P37Q19P31SymbolicLiftReady
+		          ? q17P41Q13P103Q2P37Q19P31SymbolicLiftPath?.replace(/\.json$/, '.md') ?? null
+		          : q17P41Q13P103Q2P37Q19SubclassRepairPath ? q17P41Q13P103Q2P37Q19SubclassRepairPath.replace(/\.json$/, '.md') : null,
+		        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+		        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+		      },
+		      {
+		        taskId: 'split_q17_p41_q13_p103_q2_p37_q19_p31_square_obstruction_subclass',
+		        status: q17P41Q13P103Q2P37Q19P31Q53SubclassRepairReady
+		          ? 'done_representative_p73_repair_packet_emitted'
+		          : q17P41Q13P103Q2P37Q19P31SymbolicLiftReady
+		          ? 'highest'
+		          : q17P41Q13P103Q2P37Q19SubclassRepairReady
+		            ? 'blocked_by_p31_symbolic_squarefree_lift'
+		            : 'blocked_by_p37_q19_repair_packet',
+		        task: q17P41Q13P103Q2P37Q19P31Q53SubclassRepairReady
+		          ? `The p31/q53 subclass representative is repaired by p${q17P41Q13P103Q2P37Q19P31Q53SubclassRepair?.firstRepair?.alternateEndpoint?.prime ?? '(unknown)'}; remaining work is its availability/squarefree lift.`
+		          : q17P41Q13P103Q2P37Q19P31SymbolicLiftReady
+		          ? `Split the p31 square-obstruction subclass ${q17P41Q13P103Q2P37Q19P31SymbolicLift?.firstAvailableSquareObstruction?.tCongruence?.expression ?? '(unknown parameter congruence)'} where ${q17P41Q13P103Q2P37Q19P31SymbolicLift?.firstAvailableSquareObstruction?.obstructionPrime ?? '(unknown)'}^2 divides the p31 endpoint cross product; test alternate endpoints or emit the successor atom.`
+		          : 'Wait for the p31 symbolic squarefree lift packet.',
+		        completionRule: q17P41Q13P103Q2P37Q19P31Q53SubclassRepairReady
+		          ? 'The p31/q53 obstruction subclass has a representative p73 repair and an availability-split handoff.'
+		          : 'The p31/q53 obstruction subclass is repaired by an alternate endpoint, or the exact subclass becomes the next deterministic successor atom.',
+		        command: null,
+		        packetAtomId: q17P41Q13P103Q2P37Q19P31Q53SubclassRepairReady
+		          ? 'D2_p13_q17_endpoint_menu_squarefree_obstruction_p23_q29_p41_q13_p103_q2_p37_q19_p31_q53_p73_repair'
+		          : q17P41Q13P103Q2P37Q19P31SymbolicLiftReady
+		          ? 'D2_p13_q17_endpoint_menu_squarefree_obstruction_p23_q29_p41_q13_p103_q2_p37_q19_p31_q53_subclass'
+		          : null,
+		        packetId: firstSideCountFloorPacket?.packetId ?? null,
+		        packetJsonPath: q17P41Q13P103Q2P37Q19P31Q53SubclassRepairReady
+		          ? q17P41Q13P103Q2P37Q19P31Q53SubclassRepairPath
+		          : q17P41Q13P103Q2P37Q19P31SymbolicLiftPath,
+		        packetMarkdownPath: q17P41Q13P103Q2P37Q19P31Q53SubclassRepairReady
+		          ? q17P41Q13P103Q2P37Q19P31Q53SubclassRepairPath?.replace(/\.json$/, '.md') ?? null
+		          : q17P41Q13P103Q2P37Q19P31SymbolicLiftPath ? q17P41Q13P103Q2P37Q19P31SymbolicLiftPath.replace(/\.json$/, '.md') : null,
+		        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+		        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+		      },
+		      {
+		        taskId: 'split_q17_p41_q13_p103_q2_p37_q19_p31_q53_subclass_by_p73_availability',
+		        status: q17P41Q13P103Q2P37Q19P31Q53P73AvailabilitySplitReady
+		          ? 'done_p73_available_square_obstruction_emitted'
+		          : q17P41Q13P103Q2P37Q19P31Q53SubclassRepairReady
+		          ? 'highest'
+		          : q17P41Q13P103Q2P37Q19P31SymbolicLiftReady
+		            ? 'blocked_by_p31_q53_repair_packet'
+		            : 'blocked_by_p31_symbolic_squarefree_lift',
+		        task: q17P41Q13P103Q2P37Q19P31Q53P73AvailabilitySplitReady
+		          ? `The p73 availability split is emitted: ${q17P41Q13P103Q2P37Q19P31Q53P73AvailabilitySplit?.availabilitySplit?.availableResidueCount ?? '(unknown)'}/${q17P41Q13P103Q2P37Q19P31Q53P73AvailabilitySplit?.availabilitySplit?.period ?? '(unknown)'} residues are available, and the first available family has a ${q17P41Q13P103Q2P37Q19P31Q53P73AvailabilitySplit?.firstAvailableSquareObstruction?.obstructionPrime ?? '(unknown)'}^2 square obstruction.`
+		          : q17P41Q13P103Q2P37Q19P31Q53SubclassRepairReady
+		          ? `Split the p31/q53 obstruction subclass by p73 availability: ${q17P41Q13P103Q2P37Q19P31Q53SubclassRepair?.firstRepair?.availabilityRule?.kFormulaInT ?? '(unknown formula)'}, available ${q17P41Q13P103Q2P37Q19P31Q53SubclassRepair?.firstRepair?.availabilityRule?.availableResidueCount ?? '(unknown)'}/${q17P41Q13P103Q2P37Q19P31Q53SubclassRepair?.firstRepair?.availabilityRule?.tPeriod ?? '(unknown)'} residues at window ${q17P41Q13P103Q2P37Q19P31Q53SubclassRepair?.target?.window ?? 28500}; then audit squarefree hitting on available subfamilies.`
+		          : 'Wait for the p31/q53 representative repair packet.',
+		        completionRule: q17P41Q13P103Q2P37Q19P31Q53P73AvailabilitySplitReady
+		          ? 'The p73 availability split emitted the next p73-available square-obstruction subclass.'
+		          : 'The p73-available residues get a squarefree-hitting audit, or the first p73-unavailable/subsequent obstruction subclass becomes the next deterministic packet.',
+		        command: null,
+		        packetAtomId: q17P41Q13P103Q2P37Q19P31Q53P73AvailabilitySplitReady
+		          ? 'D2_p13_q17_endpoint_menu_squarefree_obstruction_p23_q29_p41_q13_p103_q2_p37_q19_p31_q53_p73_q11'
+		          : q17P41Q13P103Q2P37Q19P31Q53SubclassRepairReady
+		          ? 'D2_p13_q17_endpoint_menu_squarefree_obstruction_p23_q29_p41_q13_p103_q2_p37_q19_p31_q53_p73_availability_split'
+		          : null,
+		        packetId: firstSideCountFloorPacket?.packetId ?? null,
+		        packetJsonPath: q17P41Q13P103Q2P37Q19P31Q53P73AvailabilitySplitReady
+		          ? q17P41Q13P103Q2P37Q19P31Q53P73AvailabilitySplitPath
+		          : q17P41Q13P103Q2P37Q19P31Q53SubclassRepairPath,
+		        packetMarkdownPath: q17P41Q13P103Q2P37Q19P31Q53P73AvailabilitySplitReady
+		          ? q17P41Q13P103Q2P37Q19P31Q53P73AvailabilitySplitPath?.replace(/\.json$/, '.md') ?? null
+		          : q17P41Q13P103Q2P37Q19P31Q53SubclassRepairPath ? q17P41Q13P103Q2P37Q19P31Q53SubclassRepairPath.replace(/\.json$/, '.md') : null,
+		        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+		        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+		      },
+			      {
+			        taskId: 'split_q17_p41_q13_p103_q2_p37_q19_p31_q53_p73_available_square_obstruction_subclass',
+			        status: q17P41Q13P103Q2P37Q19P31Q53P73Q11SubclassRepairReady
+			          ? 'done_representative_p83_repair_packet_emitted'
+			          : q17P41Q13P103Q2P37Q19P31Q53P73AvailabilitySplitReady
+			          ? 'highest'
+			          : q17P41Q13P103Q2P37Q19P31Q53SubclassRepairReady
+			            ? 'blocked_by_p73_availability_split'
+			            : 'blocked_by_p31_q53_repair_packet',
+			        task: q17P41Q13P103Q2P37Q19P31Q53P73Q11SubclassRepairReady
+			          ? `The p73/q11 subclass representative is repaired by p${q17P41Q13P103Q2P37Q19P31Q53P73Q11SubclassRepair?.firstRepair?.alternateEndpoint?.prime ?? '(unknown)'}; remaining work is its availability/squarefree lift.`
+			          : q17P41Q13P103Q2P37Q19P31Q53P73AvailabilitySplitReady
+			          ? `Split the p73-available p31/q53 obstruction subclass ${q17P41Q13P103Q2P37Q19P31Q53P73AvailabilitySplit?.firstAvailableSquareObstruction?.tCongruence?.expression ?? '(unknown parameter congruence)'} where ${q17P41Q13P103Q2P37Q19P31Q53P73AvailabilitySplit?.firstAvailableSquareObstruction?.obstructionPrime ?? '(unknown)'}^2 divides the p73 endpoint cross product; test alternate endpoints or emit the successor atom.`
+			          : 'Wait for the p73 availability split packet.',
+			        completionRule: q17P41Q13P103Q2P37Q19P31Q53P73Q11SubclassRepairReady
+			          ? 'The p73/q11 obstruction subclass has a representative p83 repair and an availability-split handoff.'
+			          : 'The p73/q11 obstruction subclass is repaired by an alternate endpoint, or the exact subclass becomes the next deterministic successor atom.',
+			        command: null,
+			        packetAtomId: q17P41Q13P103Q2P37Q19P31Q53P73Q11SubclassRepairReady
+			          ? 'D2_p13_q17_endpoint_menu_squarefree_obstruction_p23_q29_p41_q13_p103_q2_p37_q19_p31_q53_p73_q11_p83_repair'
+			          : q17P41Q13P103Q2P37Q19P31Q53P73AvailabilitySplitReady
+			          ? 'D2_p13_q17_endpoint_menu_squarefree_obstruction_p23_q29_p41_q13_p103_q2_p37_q19_p31_q53_p73_q11_subclass'
+			          : null,
+			        packetId: firstSideCountFloorPacket?.packetId ?? null,
+			        packetJsonPath: q17P41Q13P103Q2P37Q19P31Q53P73Q11SubclassRepairReady
+			          ? q17P41Q13P103Q2P37Q19P31Q53P73Q11SubclassRepairPath
+			          : q17P41Q13P103Q2P37Q19P31Q53P73AvailabilitySplitPath,
+			        packetMarkdownPath: q17P41Q13P103Q2P37Q19P31Q53P73Q11SubclassRepairReady
+			          ? q17P41Q13P103Q2P37Q19P31Q53P73Q11SubclassRepairPath?.replace(/\.json$/, '.md') ?? null
+			          : q17P41Q13P103Q2P37Q19P31Q53P73AvailabilitySplitPath ? q17P41Q13P103Q2P37Q19P31Q53P73AvailabilitySplitPath.replace(/\.json$/, '.md') : null,
+			        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+			        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+			      },
+				      {
+				        taskId: 'split_q17_p41_q13_p103_q2_p37_q19_p31_q53_p73_q11_subclass_by_p83_availability',
+				        status: q17P41Q13P103Q2P37Q19P31Q53P73Q11P83AvailabilitySplitReady
+				          ? 'done_p83_available_square_obstruction_emitted'
+				          : q17P41Q13P103Q2P37Q19P31Q53P73Q11SubclassRepairReady
+				          ? 'highest'
+				          : q17P41Q13P103Q2P37Q19P31Q53P73AvailabilitySplitReady
+				            ? 'blocked_by_p73_q11_repair_packet'
+				            : 'blocked_by_p73_availability_split',
+				        task: q17P41Q13P103Q2P37Q19P31Q53P73Q11P83AvailabilitySplitReady
+				          ? `The p83 availability split is emitted: ${q17P41Q13P103Q2P37Q19P31Q53P73Q11P83AvailabilitySplit?.availabilitySplit?.availableResidueCount ?? '(unknown)'}/${q17P41Q13P103Q2P37Q19P31Q53P73Q11P83AvailabilitySplit?.availabilitySplit?.period ?? '(unknown)'} residues are available, and the first available family has a ${q17P41Q13P103Q2P37Q19P31Q53P73Q11P83AvailabilitySplit?.firstAvailableSquareObstruction?.obstructionPrime ?? '(unknown)'}^2 square obstruction.`
+				          : q17P41Q13P103Q2P37Q19P31Q53P73Q11SubclassRepairReady
+				          ? `Split the p73/q11 obstruction subclass by p83 availability: ${q17P41Q13P103Q2P37Q19P31Q53P73Q11SubclassRepair?.firstRepair?.availabilityRule?.kFormulaInT ?? '(unknown formula)'}, available ${q17P41Q13P103Q2P37Q19P31Q53P73Q11SubclassRepair?.firstRepair?.availabilityRule?.availableResidueCount ?? '(unknown)'}/${q17P41Q13P103Q2P37Q19P31Q53P73Q11SubclassRepair?.firstRepair?.availabilityRule?.tPeriod ?? '(unknown)'} residues at window ${q17P41Q13P103Q2P37Q19P31Q53P73Q11SubclassRepair?.target?.window ?? 28500}; then audit squarefree hitting on available subfamilies.`
+				          : 'Wait for the p73/q11 representative repair packet.',
+				        completionRule: q17P41Q13P103Q2P37Q19P31Q53P73Q11P83AvailabilitySplitReady
+				          ? 'The p83 availability split emitted the next p83-available square-obstruction subclass.'
+				          : 'The p83-available residues get a squarefree-hitting audit, or the first p83-unavailable/subsequent obstruction subclass becomes the next deterministic packet.',
+				        command: null,
+				        packetAtomId: q17P41Q13P103Q2P37Q19P31Q53P73Q11P83AvailabilitySplitReady
+				          ? 'D2_p13_q17_endpoint_menu_squarefree_obstruction_p23_q29_p41_q13_p103_q2_p37_q19_p31_q53_p73_q11_p83_q17'
+				          : q17P41Q13P103Q2P37Q19P31Q53P73Q11SubclassRepairReady
+				          ? 'D2_p13_q17_endpoint_menu_squarefree_obstruction_p23_q29_p41_q13_p103_q2_p37_q19_p31_q53_p73_q11_p83_availability_split'
+				          : null,
+				        packetId: firstSideCountFloorPacket?.packetId ?? null,
+				        packetJsonPath: q17P41Q13P103Q2P37Q19P31Q53P73Q11P83AvailabilitySplitReady
+				          ? q17P41Q13P103Q2P37Q19P31Q53P73Q11P83AvailabilitySplitPath
+				          : q17P41Q13P103Q2P37Q19P31Q53P73Q11SubclassRepairPath,
+				        packetMarkdownPath: q17P41Q13P103Q2P37Q19P31Q53P73Q11P83AvailabilitySplitReady
+				          ? q17P41Q13P103Q2P37Q19P31Q53P73Q11P83AvailabilitySplitPath?.replace(/\.json$/, '.md') ?? null
+				          : q17P41Q13P103Q2P37Q19P31Q53P73Q11SubclassRepairPath ? q17P41Q13P103Q2P37Q19P31Q53P73Q11SubclassRepairPath.replace(/\.json$/, '.md') : null,
+				        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+				        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+				      },
+					      {
+					        taskId: 'split_q17_p41_q13_p103_q2_p37_q19_p31_q53_p73_q11_p83_available_square_obstruction_subclass',
+					        status: q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509RepairReady
+					          ? 'done_representative_repair_found_p509_split_needed'
+					          : q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17SubclassRepairReady
+					          ? 'done_no_representative_repair_successor_needed'
+					          : q17P41Q13P103Q2P37Q19P31Q53P73Q11P83AvailabilitySplitReady
+					          ? 'highest'
+					          : q17P41Q13P103Q2P37Q19P31Q53P73Q11SubclassRepairReady
+					            ? 'blocked_by_p83_availability_split'
+					            : 'blocked_by_p73_q11_repair_packet',
+					        task: q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509RepairReady
+					          ? `The p83/q17 obstruction representative is repaired by p509: ${q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17SubclassRepair?.firstRepair?.availabilityRule?.kFormulaInT ?? '(unknown formula)'}, available ${q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17SubclassRepair?.firstRepair?.availabilityRule?.availableResidueCount ?? '(unknown)'}/${q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17SubclassRepair?.firstRepair?.availabilityRule?.tPeriod ?? '(unknown)'} residues at window ${q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17SubclassRepair?.target?.window ?? 28500}.`
+					          : q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17SubclassRepairReady
+					          ? 'No finite-menu representative repair was found for the p83/q17 obstruction subclass; emit this exact subclass as the next deterministic successor atom.'
+					          : q17P41Q13P103Q2P37Q19P31Q53P73Q11P83AvailabilitySplitReady
+					          ? `Split the p83-available p73/q11 obstruction subclass ${q17P41Q13P103Q2P37Q19P31Q53P73Q11P83AvailabilitySplit?.firstAvailableSquareObstruction?.tCongruence?.expression ?? '(unknown parameter congruence)'} where ${q17P41Q13P103Q2P37Q19P31Q53P73Q11P83AvailabilitySplit?.firstAvailableSquareObstruction?.obstructionPrime ?? '(unknown)'}^2 divides the p83 endpoint cross product; test alternate endpoints or emit the successor atom.`
+					          : 'Wait for the p83 availability split packet.',
+					        completionRule: q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509RepairReady
+					          ? 'The p509 representative repair is ready for an availability split and squarefree-hitting audit.'
+					          : q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17SubclassRepairReady
+					          ? 'The p83/q17 obstruction subclass is ready to emit as a deterministic successor atom.'
+					          : 'The p83/q17 obstruction subclass is repaired by an alternate endpoint, or the exact subclass becomes the next deterministic successor atom.',
+					        command: null,
+					        packetAtomId: q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509RepairReady
+					          ? 'D2_p13_q17_endpoint_menu_squarefree_obstruction_p23_q29_p41_q13_p103_q2_p37_q19_p31_q53_p73_q11_p83_q17_p509_split_needed'
+					          : q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17SubclassRepairReady
+					          ? 'D2_p13_q17_endpoint_menu_squarefree_obstruction_p23_q29_p41_q13_p103_q2_p37_q19_p31_q53_p73_q11_p83_q17_successor_needed'
+					          : q17P41Q13P103Q2P37Q19P31Q53P73Q11P83AvailabilitySplitReady
+					          ? 'D2_p13_q17_endpoint_menu_squarefree_obstruction_p23_q29_p41_q13_p103_q2_p37_q19_p31_q53_p73_q11_p83_q17_subclass'
+					          : null,
+					        packetId: firstSideCountFloorPacket?.packetId ?? null,
+					        packetJsonPath: q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17SubclassRepairReady
+					          ? q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17SubclassRepairPath
+					          : q17P41Q13P103Q2P37Q19P31Q53P73Q11P83AvailabilitySplitPath,
+					        packetMarkdownPath: q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17SubclassRepairReady
+					          ? q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17SubclassRepairPath?.replace(/\.json$/, '.md') ?? null
+					          : q17P41Q13P103Q2P37Q19P31Q53P73Q11P83AvailabilitySplitPath ? q17P41Q13P103Q2P37Q19P31Q53P73Q11P83AvailabilitySplitPath.replace(/\.json$/, '.md') : null,
+					        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+					        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+					      },
+					      {
+					        taskId: 'split_q17_p41_q13_p103_q2_p37_q19_p31_q53_p73_q11_p83_q17_subclass_by_p509_availability',
+					        status: q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509AvailabilitySplitReady
+					          ? 'done_p509_available_square_obstruction_emitted'
+					          : q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509RepairReady
+					          ? 'highest'
+					          : q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17SubclassRepairReady
+					            ? 'blocked_by_p83_q17_no_repair_successor'
+					            : q17P41Q13P103Q2P37Q19P31Q53P73Q11P83AvailabilitySplitReady
+					              ? 'blocked_by_p83_q17_repair_probe'
+					              : 'blocked_by_p83_availability_split',
+					        task: q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509AvailabilitySplitReady
+					          ? `The p509 availability split is emitted: ${q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509AvailabilitySplit?.availabilitySplit?.availableResidueCount ?? '(unknown)'}/${q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509AvailabilitySplit?.availabilitySplit?.period ?? '(unknown)'} residues are available, and the first available family has a ${q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509AvailabilitySplit?.firstAvailableSquareObstruction?.obstructionPrime ?? '(unknown)'}^2 square obstruction.`
+					          : q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509RepairReady
+					          ? `Split the p83/q17 obstruction subclass by p509 availability: ${q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17SubclassRepair?.firstRepair?.availabilityRule?.kFormulaInT ?? '(unknown formula)'}, available ${q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17SubclassRepair?.firstRepair?.availabilityRule?.availableResidueCount ?? '(unknown)'}/${q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17SubclassRepair?.firstRepair?.availabilityRule?.tPeriod ?? '(unknown)'} residues at window ${q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17SubclassRepair?.target?.window ?? 28500}; then audit squarefree hitting on the first p509-available subfamily.`
+					          : 'Wait for the p83/q17 representative repair packet to identify a p509 handoff.',
+					        completionRule: q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509AvailabilitySplitReady
+					          ? 'The p509 availability split emitted the next p509-available square-obstruction subclass.'
+					          : 'The p509 availability split emits the first p509-available square-obstruction subclass, or proves the p509 lift on the available families.',
+					        command: null,
+					        packetAtomId: q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509RepairReady
+					          ? 'D2_p13_q17_endpoint_menu_squarefree_obstruction_p23_q29_p41_q13_p103_q2_p37_q19_p31_q53_p73_q11_p83_q17_p509_availability_split'
+					          : null,
+					        packetId: firstSideCountFloorPacket?.packetId ?? null,
+					        packetJsonPath: q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509AvailabilitySplitReady
+					          ? q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509AvailabilitySplitPath
+					          : q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17SubclassRepairPath,
+					        packetMarkdownPath: q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509AvailabilitySplitReady
+					          ? q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509AvailabilitySplitPath?.replace(/\.json$/, '.md') ?? null
+					          : q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17SubclassRepairPath ? q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17SubclassRepairPath.replace(/\.json$/, '.md') : null,
+					        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+					        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+					      },
+					      {
+					        taskId: 'split_q17_p41_q13_p103_q2_p37_q19_p31_q53_p73_q11_p83_q17_p509_available_square_obstruction_subclass',
+					        status: q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29SubclassRepairReady
+					          ? 'done_representative_repair_found_universal_p29_lift_needed'
+					          : q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509AvailabilitySplitReady
+					          ? 'highest'
+					          : q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509RepairReady
+					            ? 'blocked_by_p509_availability_split'
+					            : 'blocked_by_p509_repair',
+					        task: q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29SubclassRepairReady
+					          ? `The p509/q43 obstruction representative is repaired by p29: ${q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29SubclassRepair?.firstRepair?.availabilityRule?.kFormulaInT ?? '(unknown formula)'}, universally inside the ${q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29SubclassRepair?.target?.window ?? 28500} window.`
+					          : q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509AvailabilitySplitReady
+					          ? `Split the p509-available p83/q17 obstruction subclass ${q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509AvailabilitySplit?.firstAvailableSquareObstruction?.tCongruence?.expression ?? '(unknown parameter congruence)'} where ${q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509AvailabilitySplit?.firstAvailableSquareObstruction?.obstructionPrime ?? '(unknown)'}^2 divides the p509 endpoint cross product; test alternate endpoints or emit the successor atom.`
+					          : 'Wait for the p509 availability split packet.',
+					        completionRule: q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29SubclassRepairReady
+					          ? 'The p29 representative repair is ready for a symbolic squarefree lift.'
+					          : 'The p509/q43 obstruction subclass is repaired by an alternate endpoint, or the exact subclass becomes the next deterministic successor atom.',
+					        command: null,
+					        packetAtomId: q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509AvailabilitySplitReady
+					          ? 'D2_p13_q17_endpoint_menu_squarefree_obstruction_p23_q29_p41_q13_p103_q2_p37_q19_p31_q53_p73_q11_p83_q17_p509_q43_subclass'
+					          : null,
+					        packetId: firstSideCountFloorPacket?.packetId ?? null,
+					        packetJsonPath: q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29SubclassRepairReady
+					          ? q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29SubclassRepairPath
+					          : q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509AvailabilitySplitPath,
+					        packetMarkdownPath: q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29SubclassRepairReady
+					          ? q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29SubclassRepairPath?.replace(/\.json$/, '.md') ?? null
+					          : q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509AvailabilitySplitPath ? q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509AvailabilitySplitPath.replace(/\.json$/, '.md') : null,
+					        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+					        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+					      },
+					      {
+					        taskId: 'prove_q17_p41_q13_p103_q2_p37_q19_p31_q53_p73_q11_p83_q17_p509_q43_p29_symbolic_squarefree_lift',
+					        status: q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29SymbolicLiftReady
+					          ? 'done_p29_symbolic_squarefree_obstruction_emitted'
+					          : q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29SubclassRepairReady
+					          ? 'highest'
+					          : q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509AvailabilitySplitReady
+					            ? 'blocked_by_p509_q43_repair_packet'
+					            : 'blocked_by_p509_availability_split',
+					        task: q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29SymbolicLiftReady
+					          ? `The p29 symbolic squarefree lift is falsified by ${q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29SymbolicLift?.firstAvailableSquareObstruction?.obstructionPrime ?? '(unknown)'}^2 on ${q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29SymbolicLift?.firstAvailableSquareObstruction?.tCongruence?.expression ?? '(unknown parameter congruence)'}.`
+					          : q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29SubclassRepairReady
+					          ? `Prove the p29 endpoint is squarefree across the p509/q43 subclass, or emit the first exact p29 square-divisor subprogression.`
+					          : 'Wait for the p509/q43 representative repair packet.',
+					        completionRule: q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29SymbolicLiftReady
+					          ? 'The first exact p29 square-divisor subprogression has been emitted.'
+					          : 'The p29 endpoint is proved squarefree on the p509/q43 subclass, or its first exact square-divisor subprogression becomes the next deterministic atom.',
+					        command: null,
+					        packetAtomId: q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29SubclassRepairReady
+					          ? 'D2_p13_q17_endpoint_menu_squarefree_obstruction_p23_q29_p41_q13_p103_q2_p37_q19_p31_q53_p73_q11_p83_q17_p509_q43_p29_symbolic_squarefree_lift'
+					          : null,
+					        packetId: firstSideCountFloorPacket?.packetId ?? null,
+					        packetJsonPath: q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29SymbolicLiftReady
+					          ? q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29SymbolicLiftPath
+					          : q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29SubclassRepairPath,
+					        packetMarkdownPath: q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29SymbolicLiftReady
+					          ? q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29SymbolicLiftPath?.replace(/\.json$/, '.md') ?? null
+					          : q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29SubclassRepairPath ? q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29SubclassRepairPath.replace(/\.json$/, '.md') : null,
+					        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+					        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+					      },
+					      {
+					        taskId: 'split_q17_p41_q13_p103_q2_p37_q19_p31_q53_p73_q11_p83_q17_p509_q43_p29_square_obstruction_subclass',
+					        status: q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29Q59P47SubclassRepairReady
+					          ? 'done_representative_repair_found_p47_split_needed'
+					          : q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29SymbolicLiftReady
+					          ? 'highest'
+					          : q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29SubclassRepairReady
+					            ? 'blocked_by_p29_symbolic_squarefree_lift'
+					            : 'blocked_by_p509_q43_repair_packet',
+					        task: q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29Q59P47SubclassRepairReady
+					          ? `The p29/q59 obstruction representative is repaired by p47: ${q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29Q59P47SubclassRepair?.firstRepair?.availabilityRule?.kFormulaInT ?? '(unknown formula)'}.`
+					          : q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29SymbolicLiftReady
+					          ? `Split the p29 square-obstruction subclass ${q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29SymbolicLift?.firstAvailableSquareObstruction?.tCongruence?.expression ?? '(unknown parameter congruence)'} where ${q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29SymbolicLift?.firstAvailableSquareObstruction?.obstructionPrime ?? '(unknown)'}^2 divides the p29 endpoint cross product; test alternate endpoints or emit the successor atom.`
+					          : 'Wait for the p29 symbolic squarefree lift packet.',
+					        completionRule: q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29Q59P47SubclassRepairReady
+					          ? 'The p47 representative repair is ready for an availability split.'
+					          : 'The p29/q59 obstruction subclass is repaired by an alternate endpoint, or the exact subclass becomes the next deterministic successor atom.',
+					        command: null,
+					        packetAtomId: q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29SymbolicLiftReady
+					          ? 'D2_p13_q17_endpoint_menu_squarefree_obstruction_p23_q29_p41_q13_p103_q2_p37_q19_p31_q53_p73_q11_p83_q17_p509_q43_p29_q59_subclass'
+					          : null,
+					        packetId: firstSideCountFloorPacket?.packetId ?? null,
+					        packetJsonPath: q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29Q59P47SubclassRepairReady
+					          ? q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29Q59P47SubclassRepairPath
+					          : q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29SymbolicLiftPath,
+					        packetMarkdownPath: q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29Q59P47SubclassRepairReady
+					          ? q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29Q59P47SubclassRepairPath?.replace(/\.json$/, '.md') ?? null
+					          : q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29SymbolicLiftPath ? q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29SymbolicLiftPath.replace(/\.json$/, '.md') : null,
+					        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+					        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+					      },
+					      {
+					        taskId: 'split_q17_p41_q13_p103_q2_p37_q19_p31_q53_p73_q11_p83_q17_p509_q43_p29_q59_subclass_by_p47_availability',
+					        status: q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29Q59P47AvailabilitySplitReady
+					          ? 'done_p47_available_square_obstruction_emitted'
+					          : q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29Q59P47SubclassRepairReady
+					          ? 'highest'
+					          : q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29SymbolicLiftReady
+					            ? 'blocked_by_p29_q59_repair_probe'
+					            : 'blocked_by_p29_symbolic_squarefree_lift',
+					        task: q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29Q59P47AvailabilitySplitReady
+					          ? `The p47 availability split is emitted: ${q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29Q59P47AvailabilitySplit?.availabilitySplit?.availableResidueCount ?? '(unknown)'}/${q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29Q59P47AvailabilitySplit?.availabilitySplit?.period ?? '(unknown)'} residues are available, and the first available family has a ${q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29Q59P47AvailabilitySplit?.firstAvailableSquareObstruction?.obstructionPrime ?? '(unknown)'}^2 square obstruction.`
+					          : q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29Q59P47SubclassRepairReady
+					          ? `Split the p29/q59 obstruction subclass by p47 availability ${q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29Q59P47SubclassRepair?.firstRepair?.availabilityRule?.kFormulaInT ?? '(unknown formula)'}, then audit squarefree hitting on the first p47-available subfamily.`
+					          : 'Wait for the p29/q59 representative repair packet.',
+					        completionRule: q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29Q59P47AvailabilitySplitReady
+					          ? 'The p47 availability split emitted the next p47-available square-obstruction subclass.'
+					          : 'The p47 availability split is emitted, or the p29/q59/p47 path is replaced by a sharper deterministic obstruction atom.',
+					        command: null,
+					        packetAtomId: q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29Q59P47SubclassRepairReady
+					          ? 'D2_p13_q17_endpoint_menu_squarefree_obstruction_p23_q29_p41_q13_p103_q2_p37_q19_p31_q53_p73_q11_p83_q17_p509_q43_p29_q59_p47_availability_split'
+					          : null,
+					        packetId: firstSideCountFloorPacket?.packetId ?? null,
+					        packetJsonPath: q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29Q59P47AvailabilitySplitReady
+					          ? q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29Q59P47AvailabilitySplitPath
+					          : q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29Q59P47SubclassRepairPath,
+					        packetMarkdownPath: q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29Q59P47AvailabilitySplitReady
+					          ? q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29Q59P47AvailabilitySplitPath?.replace(/\.json$/, '.md') ?? null
+					          : q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29Q59P47SubclassRepairPath ? q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29Q59P47SubclassRepairPath.replace(/\.json$/, '.md') : null,
+					        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+					        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+					      },
+					      {
+					        taskId: 'split_q17_p41_q13_p103_q2_p37_q19_p31_q53_p73_q11_p83_q17_p509_q43_p29_q59_p47_available_square_obstruction_subclass',
+					        status: q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29Q59P47Q67P79SubclassRepairReady
+					          ? 'done_representative_repair_found_p79_split_needed'
+					          : q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29Q59P47AvailabilitySplitReady
+					          ? 'highest'
+					          : q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29Q59P47SubclassRepairReady
+					            ? 'blocked_by_p47_availability_split'
+					            : 'blocked_by_p29_q59_repair_probe',
+					        task: q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29Q59P47Q67P79SubclassRepairReady
+					          ? `The p47/q67 obstruction representative is repaired by p79: ${q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29Q59P47Q67P79SubclassRepair?.firstRepair?.availabilityRule?.kFormulaInT ?? '(unknown formula)'}.`
+					          : q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29Q59P47AvailabilitySplitReady
+					          ? `Split the p47-available square-obstruction subclass ${q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29Q59P47AvailabilitySplit?.firstAvailableSquareObstruction?.tCongruence?.expression ?? '(unknown parameter congruence)'} where ${q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29Q59P47AvailabilitySplit?.firstAvailableSquareObstruction?.obstructionPrime ?? '(unknown)'}^2 divides the p47 endpoint cross product; test alternate endpoints or emit the successor atom.`
+					          : 'Wait for the p47 availability split packet.',
+					        completionRule: q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29Q59P47Q67P79SubclassRepairReady
+					          ? 'The p79 representative repair is ready for an availability split.'
+					          : 'The p47/q67 obstruction subclass is repaired by an alternate endpoint, or the exact subclass becomes the next deterministic successor atom.',
+					        command: null,
+					        packetAtomId: q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29Q59P47AvailabilitySplitReady
+					          ? 'D2_p13_q17_endpoint_menu_squarefree_obstruction_p23_q29_p41_q13_p103_q2_p37_q19_p31_q53_p73_q11_p83_q17_p509_q43_p29_q59_p47_q67_subclass'
+					          : null,
+					        packetId: firstSideCountFloorPacket?.packetId ?? null,
+					        packetJsonPath: q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29Q59P47Q67P79SubclassRepairReady
+					          ? q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29Q59P47Q67P79SubclassRepairPath
+					          : q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29Q59P47AvailabilitySplitPath,
+					        packetMarkdownPath: q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29Q59P47Q67P79SubclassRepairReady
+					          ? q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29Q59P47Q67P79SubclassRepairPath?.replace(/\.json$/, '.md') ?? null
+					          : q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29Q59P47AvailabilitySplitPath ? q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29Q59P47AvailabilitySplitPath.replace(/\.json$/, '.md') : null,
+					        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+					        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+					      },
+					      {
+					        taskId: 'split_q17_p41_q13_p103_q2_p37_q19_p31_q53_p73_q11_p83_q17_p509_q43_p29_q59_p47_q67_subclass_by_p79_availability',
+					        status: q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29Q59P47Q67P79AvailabilitySplitReady
+					          ? 'done_p79_available_square_obstruction_emitted'
+					          : q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29Q59P47Q67P79SubclassRepairReady
+					          ? 'highest'
+					          : q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29Q59P47AvailabilitySplitReady
+					            ? 'blocked_by_p47_q67_repair_probe'
+					            : 'blocked_by_p47_availability_split',
+					        task: q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29Q59P47Q67P79AvailabilitySplitReady
+					          ? `The p79 availability split is emitted: ${q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29Q59P47Q67P79AvailabilitySplit?.availabilitySplit?.availableResidueCount ?? '(unknown)'}/${q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29Q59P47Q67P79AvailabilitySplit?.availabilitySplit?.period ?? '(unknown)'} residues are available, and the first available family has a ${q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29Q59P47Q67P79AvailabilitySplit?.firstAvailableSquareObstruction?.obstructionPrime ?? '(unknown)'}^2 square obstruction.`
+					          : q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29Q59P47Q67P79SubclassRepairReady
+					          ? `Split the p47/q67 obstruction subclass by p79 availability ${q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29Q59P47Q67P79SubclassRepair?.firstRepair?.availabilityRule?.kFormulaInT ?? '(unknown formula)'}, then audit squarefree hitting on the first p79-available subfamily.`
+					          : 'Wait for the p47/q67 representative repair packet.',
+					        completionRule: q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29Q59P47Q67P79AvailabilitySplitReady
+					          ? 'The p79 availability split emitted the next p79-available square-obstruction subclass.'
+					          : 'The p79 availability split is emitted, or the p47/q67/p79 path is replaced by a sharper deterministic obstruction atom.',
+					        command: null,
+					        packetAtomId: q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29Q59P47Q67P79SubclassRepairReady
+					          ? 'D2_p13_q17_endpoint_menu_squarefree_obstruction_p23_q29_p41_q13_p103_q2_p37_q19_p31_q53_p73_q11_p83_q17_p509_q43_p29_q59_p47_q67_p79_availability_split'
+					          : null,
+					        packetId: firstSideCountFloorPacket?.packetId ?? null,
+					        packetJsonPath: q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29Q59P47Q67P79AvailabilitySplitReady
+					          ? q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29Q59P47Q67P79AvailabilitySplitPath
+					          : q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29Q59P47Q67P79SubclassRepairPath,
+					        packetMarkdownPath: q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29Q59P47Q67P79AvailabilitySplitReady
+					          ? q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29Q59P47Q67P79AvailabilitySplitPath?.replace(/\.json$/, '.md') ?? null
+					          : q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29Q59P47Q67P79SubclassRepairPath ? q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29Q59P47Q67P79SubclassRepairPath.replace(/\.json$/, '.md') : null,
+					        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+					        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+					      },
+					      {
+					        taskId: 'split_q17_p41_q13_p103_q2_p37_q19_p31_q53_p73_q11_p83_q17_p509_q43_p29_q59_p47_q67_p79_available_square_obstruction_subclass',
+					        status: q17P79Q71P107SubclassRepairReady
+					          ? 'done_representative_repair_found_p107_split_needed'
+					          : q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29Q59P47Q67P79AvailabilitySplitReady
+					          ? 'highest'
+					          : q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29Q59P47Q67P79SubclassRepairReady
+					            ? 'blocked_by_p79_availability_split'
+					            : 'blocked_by_p47_q67_repair_probe',
+					        task: q17P79Q71P107SubclassRepairReady
+					          ? `The p79/q71 obstruction representative is repaired by p107: ${q17P79Q71P107SubclassRepair?.firstRepair?.availabilityRule?.kFormulaInT ?? '(unknown formula)'}.`
+					          : q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29Q59P47Q67P79AvailabilitySplitReady
+					          ? `Split the p79-available square-obstruction subclass ${q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29Q59P47Q67P79AvailabilitySplit?.firstAvailableSquareObstruction?.tCongruence?.expression ?? '(unknown parameter congruence)'} where ${q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29Q59P47Q67P79AvailabilitySplit?.firstAvailableSquareObstruction?.obstructionPrime ?? '(unknown)'}^2 divides the p79 endpoint cross product; test alternate endpoints or emit the successor atom.`
+					          : 'Wait for the p79 availability split packet.',
+					        completionRule: q17P79Q71P107SubclassRepairReady
+					          ? 'The p107 representative repair is ready for an availability split.'
+					          : 'The p79/q71 obstruction subclass is repaired by an alternate endpoint, or the exact subclass becomes the next deterministic successor atom.',
+					        command: null,
+					        packetAtomId: q17P79Q71P107SubclassRepairReady
+					          ? 'D2_p13_q17_endpoint_menu_squarefree_obstruction_p23_q29_p41_q13_p103_q2_p37_q19_p31_q53_p73_q11_p83_q17_p509_q43_p29_q59_p47_q67_p79_q71_subclass'
+					          : q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29Q59P47Q67P79AvailabilitySplitReady
+					          ? 'D2_p13_q17_endpoint_menu_squarefree_obstruction_p23_q29_p41_q13_p103_q2_p37_q19_p31_q53_p73_q11_p83_q17_p509_q43_p29_q59_p47_q67_p79_q71_subclass'
+					          : null,
+					        packetId: firstSideCountFloorPacket?.packetId ?? null,
+					        packetJsonPath: q17P79Q71P107SubclassRepairReady
+					          ? q17P79Q71P107SubclassRepairPath
+					          : q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29Q59P47Q67P79AvailabilitySplitPath,
+					        packetMarkdownPath: q17P79Q71P107SubclassRepairReady
+					          ? q17P79Q71P107SubclassRepairPath?.replace(/\.json$/, '.md') ?? null
+					          : q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29Q59P47Q67P79AvailabilitySplitPath ? q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29Q59P47Q67P79AvailabilitySplitPath.replace(/\.json$/, '.md') : null,
+					        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+					        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+					      },
+					      {
+					        taskId: 'split_q17_p41_q13_p103_q2_p37_q19_p31_q53_p73_q11_p83_q17_p509_q43_p29_q59_p47_q67_p79_q71_subclass_by_p107_availability',
+					        status: q17P79Q71P107AvailabilitySplitReady
+					          ? 'done_p107_available_square_obstruction_emitted'
+					          : q17P79Q71P107SubclassRepairReady
+					          ? 'highest'
+					          : q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509Q43P29Q59P47Q67P79AvailabilitySplitReady
+					            ? 'blocked_by_p79_q71_repair_probe'
+					            : 'blocked_by_p79_availability_split',
+					        task: q17P79Q71P107AvailabilitySplitReady
+					          ? `The p107 availability split is emitted: ${q17P79Q71P107AvailabilitySplit?.availabilitySplit?.availableResidueCount ?? '(unknown)'}/${q17P79Q71P107AvailabilitySplit?.availabilitySplit?.period ?? '(unknown)'} residues are available, and the first available family has a ${q17P79Q71P107AvailabilitySplit?.firstAvailableSquareObstruction?.obstructionPrime ?? '(unknown)'}^2 square obstruction.`
+					          : q17P79Q71P107SubclassRepairReady
+					          ? `Split the p79/q71 obstruction subclass by p107 availability ${q17P79Q71P107SubclassRepair?.firstRepair?.availabilityRule?.kFormulaInT ?? '(unknown formula)'}, then audit squarefree hitting on the first p107-available subfamily.`
+					          : 'Wait for the p79/q71 representative repair packet.',
+					        completionRule: q17P79Q71P107AvailabilitySplitReady
+					          ? 'The p107 availability split emitted the next p107-available square-obstruction subclass.'
+					          : 'The p107 availability split is emitted, or the p79/q71/p107 path is replaced by a sharper deterministic obstruction atom.',
+					        command: null,
+					        packetAtomId: q17P79Q71P107AvailabilitySplitReady
+					          ? 'D2_p13_q17_endpoint_menu_squarefree_obstruction_p23_q29_p41_q13_p103_q2_p37_q19_p31_q53_p73_q11_p83_q17_p509_q43_p29_q59_p47_q67_p79_q71_p107_availability_split'
+					          : q17P79Q71P107SubclassRepairReady
+					          ? 'D2_p13_q17_endpoint_menu_squarefree_obstruction_p23_q29_p41_q13_p103_q2_p37_q19_p31_q53_p73_q11_p83_q17_p509_q43_p29_q59_p47_q67_p79_q71_p107_availability_split'
+					          : null,
+					        packetId: firstSideCountFloorPacket?.packetId ?? null,
+					        packetJsonPath: q17P79Q71P107AvailabilitySplitReady
+					          ? q17P79Q71P107AvailabilitySplitPath
+					          : q17P79Q71P107SubclassRepairPath,
+					        packetMarkdownPath: q17P79Q71P107AvailabilitySplitReady
+					          ? q17P79Q71P107AvailabilitySplitPath?.replace(/\.json$/, '.md') ?? null
+					          : q17P79Q71P107SubclassRepairPath ? q17P79Q71P107SubclassRepairPath.replace(/\.json$/, '.md') : null,
+					        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+					        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+					      },
+					      {
+					        taskId: 'split_q17_p41_q13_p103_q2_p37_q19_p31_q53_p73_q11_p83_q17_p509_q43_p29_q59_p47_q67_p79_q71_p107_available_square_obstruction_subclass',
+					        status: q17P107Q89P4217SubclassRepairReady
+					          ? 'done_p107_q89_repaired_by_p4217'
+					          : q17P79Q71P107AvailabilitySplitReady
+					          ? 'highest'
+					          : q17P79Q71P107SubclassRepairReady
+					            ? 'blocked_by_p107_availability_split'
+					            : 'blocked_by_p79_q71_repair_probe',
+					        task: q17P107Q89P4217SubclassRepairReady
+					          ? `The p107/q89 obstruction representative is repaired by exact p4217 with ${q17P107Q89P4217SubclassRepair?.firstRepair?.availabilityRule?.kFormulaInT ?? '(unknown formula)'}; split p4217 availability next.`
+					          : q17P79Q71P107AvailabilitySplitReady
+					          ? `Split the p107-available square-obstruction subclass ${q17P79Q71P107AvailabilitySplit?.firstAvailableSquareObstruction?.tCongruence?.expression ?? '(unknown parameter congruence)'} where ${q17P79Q71P107AvailabilitySplit?.firstAvailableSquareObstruction?.obstructionPrime ?? '(unknown)'}^2 divides the p107 endpoint cross product; test alternate endpoints or emit the successor atom.`
+					          : 'Wait for the p107 availability split packet.',
+					        completionRule: q17P107Q89P4217SubclassRepairReady
+					          ? 'The p107/q89 representative repair handoff is exact-certified by p4217.'
+					          : 'The p107/q89 obstruction subclass is repaired by an alternate endpoint, recombined into the endpoint-staircase lemma, or emitted as the next deterministic successor atom.',
+					        command: null,
+					        packetAtomId: q17P79Q71P107AvailabilitySplitReady
+					          ? 'D2_p13_q17_endpoint_menu_squarefree_obstruction_p23_q29_p41_q13_p103_q2_p37_q19_p31_q53_p73_q11_p83_q17_p509_q43_p29_q59_p47_q67_p79_q71_p107_q89_subclass'
+					          : null,
+					        packetId: firstSideCountFloorPacket?.packetId ?? null,
+					        packetJsonPath: q17P107Q89P4217SubclassRepairReady
+					          ? q17P107Q89P4217SubclassRepairPath
+					          : q17P79Q71P107AvailabilitySplitPath,
+					        packetMarkdownPath: q17P107Q89P4217SubclassRepairReady
+					          ? q17P107Q89P4217SubclassRepairPath?.replace(/\.json$/, '.md') ?? null
+					          : q17P79Q71P107AvailabilitySplitPath ? q17P79Q71P107AvailabilitySplitPath.replace(/\.json$/, '.md') : null,
+					        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+					        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+					      },
+					      {
+					        taskId: 'split_q17_p41_q13_p103_q2_p37_q19_p31_q53_p73_q11_p83_q17_p509_q43_p29_q59_p47_q67_p79_q71_p107_q89_subclass_by_p4217_availability',
+					        status: q17P107Q89P4217AvailabilitySplitReady
+					          ? 'done_p4217_available_square_obstruction_emitted'
+					          : q17P107Q89P4217SubclassRepairReady
+					          ? 'highest'
+					          : q17P79Q71P107AvailabilitySplitReady
+					            ? 'blocked_by_p107_q89_repair_probe'
+					            : 'blocked_by_p107_availability_split',
+					        task: q17P107Q89P4217AvailabilitySplitReady
+					          ? `The p4217 availability split is emitted: ${q17P107Q89P4217AvailabilitySplit?.availabilitySplit?.availableResidueCount ?? '(unknown)'}/${q17P107Q89P4217AvailabilitySplit?.availabilitySplit?.period ?? '(unknown)'} residues are available, and the first available family has a ${q17P107Q89P4217AvailabilitySplit?.firstAvailableSquareObstruction?.obstructionPrime ?? '(unknown)'}^2 square obstruction.`
+					          : q17P107Q89P4217SubclassRepairReady
+					          ? `Split the p107/q89 obstruction subclass by p4217 availability ${q17P107Q89P4217SubclassRepair?.firstRepair?.availabilityRule?.kFormulaInT ?? '(unknown formula)'}, then audit squarefree hitting on the first p4217-available subfamily.`
+					          : 'Wait for the p107/q89 representative repair packet.',
+					        completionRule: q17P107Q89P4217AvailabilitySplitReady
+					          ? 'The p4217 availability split emitted the next p4217-available square-obstruction subclass.'
+					          : 'The p4217 availability split is emitted, or the p107/q89/p4217 path is replaced by a sharper deterministic obstruction atom.',
+					        command: null,
+					        packetAtomId: q17P107Q89P4217SubclassRepairReady
+					          ? 'D2_p13_q17_endpoint_menu_squarefree_obstruction_p23_q29_p41_q13_p103_q2_p37_q19_p31_q53_p73_q11_p83_q17_p509_q43_p29_q59_p47_q67_p79_q71_p107_q89_p4217_availability_split'
+					          : null,
+					        packetId: firstSideCountFloorPacket?.packetId ?? null,
+					        packetJsonPath: q17P107Q89P4217AvailabilitySplitReady
+					          ? q17P107Q89P4217AvailabilitySplitPath
+					          : q17P107Q89P4217SubclassRepairPath,
+					        packetMarkdownPath: q17P107Q89P4217AvailabilitySplitReady
+					          ? q17P107Q89P4217AvailabilitySplitPath?.replace(/\.json$/, '.md') ?? null
+					          : q17P107Q89P4217SubclassRepairPath ? q17P107Q89P4217SubclassRepairPath.replace(/\.json$/, '.md') : null,
+					        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+					        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+					      },
+					      {
+					        taskId: 'split_q17_p41_q13_p103_q2_p37_q19_p31_q53_p73_q11_p83_q17_p509_q43_p29_q59_p47_q67_p79_q71_p107_q89_p4217_available_square_obstruction_subclass',
+					        status: q17P4217Q61RepairBoundaryReady
+					          ? 'done_factorization_boundary_emitted'
+					          : q17P107Q89P4217AvailabilitySplitReady
+					          ? 'highest'
+					          : q17P107Q89P4217SubclassRepairReady
+					            ? 'blocked_by_p4217_availability_split'
+					            : 'blocked_by_p107_q89_repair_probe',
+					        task: q17P4217Q61RepairBoundaryReady
+					          ? `The p4217/q61 repair probe is bounded by exact factorization: trial-squarefree candidates ${q17P4217Q61RepairBoundary?.boundedScan?.trialSquarefreeWithinWindowCandidates?.join(', ') ?? '(unknown)'} remain uncertified.`
+					          : q17P107Q89P4217AvailabilitySplitReady
+					          ? `Split the p4217-available square-obstruction subclass ${q17P107Q89P4217AvailabilitySplit?.firstAvailableSquareObstruction?.tCongruence?.expression ?? '(unknown parameter congruence)'} where ${q17P107Q89P4217AvailabilitySplit?.firstAvailableSquareObstruction?.obstructionPrime ?? '(unknown)'}^2 divides the p4217 endpoint cross product; test alternate endpoints or emit the successor atom.`
+					          : 'Wait for the p4217 availability split packet.',
+					        completionRule: q17P4217Q61RepairBoundaryReady
+					          ? 'The p4217/q61 repair candidates are captured as an exact-factor boundary and must be certified before any repair handoff.'
+					          : 'The p4217/q61 obstruction subclass is repaired by an alternate endpoint, recombined into the endpoint-staircase lemma, or emitted as the next deterministic successor atom.',
+					        command: null,
+					        packetAtomId: q17P4217Q61RepairBoundaryReady
+					          ? q17P4217Q61RepairBoundary?.activeAtom ?? null
+					          : q17P107Q89P4217AvailabilitySplitReady
+					          ? 'D2_p13_q17_endpoint_menu_squarefree_obstruction_p23_q29_p41_q13_p103_q2_p37_q19_p31_q53_p73_q11_p83_q17_p509_q43_p29_q59_p47_q67_p79_q71_p107_q89_p4217_q61_subclass'
+					          : null,
+					        packetId: firstSideCountFloorPacket?.packetId ?? null,
+					        packetJsonPath: q17P4217Q61RepairBoundaryReady
+					          ? q17P4217Q61RepairBoundaryPath
+					          : q17P107Q89P4217AvailabilitySplitPath,
+					        packetMarkdownPath: q17P4217Q61RepairBoundaryReady
+					          ? q17P4217Q61RepairBoundaryPath?.replace(/\.json$/, '.md') ?? null
+					          : q17P107Q89P4217AvailabilitySplitPath ? q17P107Q89P4217AvailabilitySplitPath.replace(/\.json$/, '.md') : null,
+					        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+					        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+					      },
+					      {
+					        taskId: 'exact_certify_q17_p4217_q61_repair_candidate',
+					        status: q17P4217Q61FactorizationBlockerReady
+					          ? 'done_blocker_open_leaf_ledgered'
+					          : q17P4217Q61RepairBoundaryReady
+					          ? 'highest'
+					          : q17P107Q89P4217AvailabilitySplitReady
+					            ? 'blocked_by_p4217_q61_repair_probe'
+					            : 'blocked_by_p4217_availability_split',
+					        task: q17P4217Q61FactorizationBlockerReady
+					          ? 'The p4217/q61 repair candidates are routed to an explicit factorization blocker/open-leaf ledger; no repair handoff is claimed.'
+					          : q17P4217Q61RepairBoundaryReady
+					          ? 'Exact-certify one p4217/q61 repair candidate, prioritizing p97 then p227, or emit a factorization blocker/theorem-ledger handoff without claiming a representative repair.'
+					          : 'Wait for the p4217/q61 repair-candidate boundary packet.',
+					        completionRule: 'An exact p97 or p227 factor certificate plus repair packet is emitted, or the branch is routed to an explicit factorization blocker/theorem ledger.',
+					        command: null,
+					        packetAtomId: q17P4217Q61RepairBoundaryReady
+					          ? q17P4217Q61RepairBoundary?.activeAtom ?? null
+					          : null,
+					        packetId: firstSideCountFloorPacket?.packetId ?? null,
+					        packetJsonPath: q17P4217Q61RepairBoundaryPath,
+					        packetMarkdownPath: q17P4217Q61RepairBoundaryPath ? q17P4217Q61RepairBoundaryPath.replace(/\.json$/, '.md') : null,
+					        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+					        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+					      },
+					      {
+					        taskId: 'define_p848_frontier_ledger_format_from_p4217_q61_open_leaf',
+					        status: p848FrontierLedgerFormatReady
+					          ? 'done_ledger_format_packet_emitted'
+					          : q17P4217Q61FactorizationBlockerReady
+					          ? 'highest'
+					          : q17P4217Q61RepairBoundaryReady
+					            ? 'blocked_by_exact_certification_or_blocker_packet'
+					            : 'blocked_by_p4217_q61_repair_probe',
+					        task: p848FrontierLedgerFormatReady
+					          ? 'The finite frontier ledger format packet is emitted; prove the first transition rule or refine its rank next.'
+					          : q17P4217Q61FactorizationBlockerReady
+					          ? 'Define the finite frontier ledger format from the p4217/q61 blocker/open leaf: typed open leaves, unavailable complements, closed repair handoffs, deterministic square-obstruction children, and blocker states.'
+					          : 'Wait for the p4217/q61 blocker/open-leaf packet or an exact p97/p227 repair certificate.',
+					        completionRule: 'The finite frontier ledger records the p4217/q61 blocker/open leaf and gives typed states for repair handoffs, square-obstruction children, unavailable complements, and blockers without making an all-N claim.',
+					        command: null,
+					        packetAtomId: q17P4217Q61FactorizationBlockerReady
+					          ? q17P4217Q61FactorizationBlocker?.activeAtom ?? null
+					          : null,
+					        packetId: firstSideCountFloorPacket?.packetId ?? null,
+					        packetJsonPath: p848FrontierLedgerFormatReady
+					          ? p848FrontierLedgerFormatPath
+					          : q17P4217Q61FactorizationBlockerPath,
+					        packetMarkdownPath: p848FrontierLedgerFormatReady
+					          ? p848FrontierLedgerFormatPath?.replace(/\.json$/, '.md') ?? null
+					          : q17P4217Q61FactorizationBlockerPath ? q17P4217Q61FactorizationBlockerPath.replace(/\.json$/, '.md') : null,
+					        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+					        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+					      },
+					      {
+					        taskId: 'prove_p848_frontier_transition_rule_v0_or_refine_rank',
+					        status: p848FrontierTransitionRuleReady
+					          ? 'done_transition_rule_packet_emitted'
+					          : p848FrontierLedgerFormatReady
+					          ? 'highest'
+					          : q17P4217Q61FactorizationBlockerReady
+					            ? 'blocked_by_frontier_ledger_format_packet'
+					            : 'blocked_by_p4217_q61_open_leaf',
+					        task: p848FrontierTransitionRuleReady
+					          ? 'The p848_frontier_transition_rule_v0 rank packet is emitted; prove the endpoint availability staircase theorem or unavailable-complement cover next.'
+					          : p848FrontierLedgerFormatReady
+					          ? 'Prove p848_frontier_transition_rule_v0 or refine its rank so each ledger transition closes, decreases, or becomes an explicit blocker/open leaf without claiming all-N closure.'
+					          : 'Wait for the frontier ledger format packet.',
+					        completionRule: 'A theorem-facing transition rule packet proves or refines the ledger rank for availability partitions, repair handoffs, square-obstruction children, factorization blockers, and unavailable complements.',
+					        command: null,
+					        packetAtomId: p848FrontierLedgerFormatReady
+					          ? q17P4217Q61FactorizationBlocker?.activeAtom ?? null
+					          : null,
+					        packetId: firstSideCountFloorPacket?.packetId ?? null,
+					        packetJsonPath: p848FrontierTransitionRuleReady
+					          ? p848FrontierTransitionRulePath
+					          : p848FrontierLedgerFormatPath,
+					        packetMarkdownPath: p848FrontierTransitionRuleReady
+					          ? p848FrontierTransitionRulePath?.replace(/\.json$/, '.md') ?? null
+					          : p848FrontierLedgerFormatPath ? p848FrontierLedgerFormatPath.replace(/\.json$/, '.md') : null,
+					        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+					        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+					      },
+					      {
+					        taskId: 'prove_p848_endpoint_availability_staircase_theorem_or_unavailable_complement_cover',
+					        status: p848EndpointAvailabilityStaircaseTheoremReady
+					          ? 'done_staircase_theorem_packet_emitted'
+					          : p848FrontierTransitionRuleReady
+					          ? 'highest'
+					          : p848FrontierLedgerFormatReady
+					            ? 'blocked_by_frontier_transition_rule_packet'
+					            : 'blocked_by_frontier_ledger_format_packet',
+					        task: p848EndpointAvailabilityStaircaseTheoremReady
+					          ? 'The endpoint availability staircase theorem v0 is emitted; cover or refine the p4217 unavailable complement next.'
+					          : p848FrontierTransitionRuleReady
+					          ? 'Prove the endpoint availability staircase theorem or an unavailable-complement cover theorem using the p848_frontier_transition_rule_v0 rank discipline.'
+					          : 'Wait for the p848_frontier_transition_rule_v0 packet.',
+					        completionRule: 'A theorem-facing packet turns the repeated endpoint availability splits, available children, and unavailable complements into a finite or parametric cover mechanism without using bounded-only repair evidence as closure.',
+					        command: null,
+					        packetAtomId: p848FrontierTransitionRuleReady
+					          ? q17P4217Q61FactorizationBlocker?.activeAtom ?? null
+					          : null,
+					        packetId: firstSideCountFloorPacket?.packetId ?? null,
+					        packetJsonPath: p848EndpointAvailabilityStaircaseTheoremReady
+					          ? p848EndpointAvailabilityStaircaseTheoremPath
+					          : p848FrontierTransitionRuleReady
+					          ? p848FrontierTransitionRulePath
+					          : p848FrontierLedgerFormatPath,
+					        packetMarkdownPath: p848EndpointAvailabilityStaircaseTheoremReady
+					          ? p848EndpointAvailabilityStaircaseTheoremPath?.replace(/\.json$/, '.md') ?? null
+					          : p848FrontierTransitionRuleReady
+					          ? p848FrontierTransitionRulePath?.replace(/\.json$/, '.md') ?? null
+					          : p848FrontierLedgerFormatPath ? p848FrontierLedgerFormatPath.replace(/\.json$/, '.md') : null,
+					        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+					        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+					      },
+					      {
+					        taskId: 'prove_p848_p4217_unavailable_complement_cover_or_ledger_refinement',
+					        status: p848P4217UnavailableComplementRefinementReady
+					          ? 'done_complement_refinement_packet_emitted'
+					          : p848EndpointAvailabilityStaircaseTheoremReady
+					          ? 'highest'
+					          : p848FrontierTransitionRuleReady
+					            ? 'blocked_by_endpoint_availability_staircase_theorem'
+					            : 'blocked_by_frontier_transition_rule_packet',
+					        task: p848P4217UnavailableComplementRefinementReady
+					          ? 'The p4217 unavailable complement is parameterized exactly; prove a fallback selector or finite cover for that interval family next.'
+					          : p848EndpointAvailabilityStaircaseTheoremReady
+					          ? 'Prove the p4217 unavailable-complement cover or refine the frontier ledger so the complement becomes a smaller deterministic theorem obligation.'
+					          : 'Wait for the endpoint availability staircase theorem packet.',
+					        completionRule: 'The p4217 unavailable complement is covered, proved impossible, split into smaller deterministic obligations, or ledgered with a sharper theorem boundary without hiding it behind the first available child.',
+					        command: null,
+					        packetAtomId: p848EndpointAvailabilityStaircaseTheoremReady
+					          ? q17P4217Q61FactorizationBlocker?.activeAtom ?? null
+					          : null,
+					        packetId: firstSideCountFloorPacket?.packetId ?? null,
+					        packetJsonPath: p848P4217UnavailableComplementRefinementReady
+					          ? p848P4217UnavailableComplementRefinementPath
+					          : p848EndpointAvailabilityStaircaseTheoremReady
+					          ? p848EndpointAvailabilityStaircaseTheoremPath
+					          : p848FrontierTransitionRulePath,
+					        packetMarkdownPath: p848P4217UnavailableComplementRefinementReady
+					          ? p848P4217UnavailableComplementRefinementPath?.replace(/\.json$/, '.md') ?? null
+					          : p848EndpointAvailabilityStaircaseTheoremReady
+					          ? p848EndpointAvailabilityStaircaseTheoremPath?.replace(/\.json$/, '.md') ?? null
+					          : p848FrontierTransitionRulePath ? p848FrontierTransitionRulePath.replace(/\.json$/, '.md') : null,
+					        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+					        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+					      },
+					      {
+					        taskId: 'prove_p848_p4217_complement_fallback_selector_or_cover',
+					        status: p848P4217ComplementP43FallbackSelectorReady
+					          ? 'done_p43_fallback_selector_proved_squarefree_open'
+					          : p848P4217UnavailableComplementRefinementReady
+					          ? 'highest'
+					          : p848EndpointAvailabilityStaircaseTheoremReady
+					            ? 'blocked_by_p4217_unavailable_complement_refinement'
+					            : 'blocked_by_endpoint_availability_staircase_theorem',
+					        task: p848P4217ComplementP43FallbackSelectorReady
+					          ? 'The p4217 complement has a universal p43 fallback selector at endpoint-availability scope; prove p43 squarefree hitting or emit the first deterministic square-obstruction subfamily next.'
+					          : p848P4217UnavailableComplementRefinementReady
+					          ? 'Prove a fallback selector, finite subcover, impossibility mechanism, or further deterministic refinement for the p4217 complement interval t(s) = 4749600*(s + 937) mod 17783089.'
+					          : 'Wait for the p4217 unavailable-complement refinement packet.',
+					        completionRule: 'The p4217 complement interval is covered, proved impossible, split into smaller deterministic intervals, or routed to a sharper blocker/open theorem boundary.',
+					        command: null,
+					        packetAtomId: p848P4217ComplementP43FallbackSelectorReady
+					          ? p848P4217ComplementP43FallbackSelector?.activeAtom ?? null
+					          : p848P4217UnavailableComplementRefinementReady
+					          ? q17P4217Q61FactorizationBlocker?.activeAtom ?? null
+					          : null,
+					        packetId: firstSideCountFloorPacket?.packetId ?? null,
+					        packetJsonPath: p848P4217ComplementP43FallbackSelectorReady
+					          ? p848P4217ComplementP43FallbackSelectorPath
+					          : p848P4217UnavailableComplementRefinementReady
+					          ? p848P4217UnavailableComplementRefinementPath
+					          : p848EndpointAvailabilityStaircaseTheoremPath,
+					        packetMarkdownPath: p848P4217ComplementP43FallbackSelectorReady
+					          ? p848P4217ComplementP43FallbackSelectorPath?.replace(/\.json$/, '.md') ?? null
+					          : p848P4217UnavailableComplementRefinementReady
+					          ? p848P4217UnavailableComplementRefinementPath?.replace(/\.json$/, '.md') ?? null
+					          : p848EndpointAvailabilityStaircaseTheoremPath ? p848EndpointAvailabilityStaircaseTheoremPath.replace(/\.json$/, '.md') : null,
+					        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+					        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+					      },
+					      {
+					        taskId: 'prove_p848_p4217_complement_p43_squarefree_hitting_or_obstruction',
+					        status: p848P4217ComplementP43SquareObstructionReady
+					          ? 'done_p43_globally_square_blocked_by_2'
+					          : p848P4217ComplementP43FallbackSelectorReady
+					          ? 'highest'
+					          : p848P4217UnavailableComplementRefinementReady
+					          ? 'blocked_by_p4217_complement_fallback_selector'
+					          : p848EndpointAvailabilityStaircaseTheoremReady
+					            ? 'blocked_by_p4217_unavailable_complement_refinement'
+					            : 'blocked_by_endpoint_availability_staircase_theorem',
+					        task: p848P4217ComplementP43SquareObstructionReady
+					          ? 'The p43 fallback selector is uniformly square-blocked by 2^2 across the p4217 complement; find the next fallback selector or cover with p43 excluded.'
+					          : p848P4217ComplementP43FallbackSelectorReady
+					          ? 'Prove squarefree hitting for the p43 fallback selector on the p4217 complement family left*(left - 5014)+1, or emit the first deterministic square-obstruction subfamily.'
+					          : 'Wait for a p4217 complement fallback selector packet.',
+					        completionRule: 'The p43 fallback selector is proved squarefree on the p4217 complement, or the first exact square-divisor subfamily becomes the next deterministic theorem atom.',
+					        command: null,
+					        packetAtomId: p848P4217ComplementP43SquareObstructionReady
+					          ? p848P4217ComplementP43SquareObstruction?.activeAtom ?? null
+					          : p848P4217ComplementP43FallbackSelectorReady
+					          ? p848P4217ComplementP43FallbackSelector?.activeAtom ?? null
+					          : null,
+					        packetId: firstSideCountFloorPacket?.packetId ?? null,
+					        packetJsonPath: p848P4217ComplementP43SquareObstructionReady
+					          ? p848P4217ComplementP43SquareObstructionPath
+					          : p848P4217ComplementP43FallbackSelectorReady
+					          ? p848P4217ComplementP43FallbackSelectorPath
+					          : p848P4217UnavailableComplementRefinementPath,
+					        packetMarkdownPath: p848P4217ComplementP43SquareObstructionReady
+					          ? p848P4217ComplementP43SquareObstructionPath?.replace(/\.json$/, '.md') ?? null
+					          : p848P4217ComplementP43FallbackSelectorReady
+					          ? p848P4217ComplementP43FallbackSelectorPath?.replace(/\.json$/, '.md') ?? null
+					          : p848P4217UnavailableComplementRefinementPath ? p848P4217UnavailableComplementRefinementPath.replace(/\.json$/, '.md') : null,
+					        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+					        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+					      },
+					      {
+					        taskId: 'prove_p848_p4217_complement_next_fallback_selector_or_cover',
+					        status: p848P4217ComplementP61AvailabilityRefinementReady
+					          ? 'done_p61_availability_refinement_emitted'
+					          : p848P4217ComplementP43SquareObstructionReady
+					          ? 'highest'
+					          : p848P4217ComplementP43FallbackSelectorReady
+					          ? 'blocked_by_p43_squarefree_hitting_audit'
+					          : p848P4217UnavailableComplementRefinementReady
+					          ? 'blocked_by_p4217_complement_fallback_selector'
+					          : 'blocked_by_p4217_unavailable_complement_refinement',
+					        task: p848P4217ComplementP61AvailabilityRefinementReady
+					          ? 'The p43-dead p4217 complement is exactly refined by the p61 selector; audit the p61-available CRT classes for squarefree hitting or a deterministic square obstruction next.'
+					          : p848P4217ComplementP43SquareObstructionReady
+					          ? 'Find a different fallback selector, finite cover, impossibility theorem, or deterministic refinement for the p4217 complement, with p43 excluded by the uniform 2^2 obstruction.'
+					          : 'Wait for the p43 squarefree-hitting audit.',
+					        completionRule: 'The p4217 complement is covered by another squarefree selector, proved impossible, split into smaller deterministic obligations, or routed to a sharper blocker/open theorem boundary.',
+					        command: null,
+					        packetAtomId: p848P4217ComplementP61AvailabilityRefinementReady
+					          ? p848P4217ComplementP61AvailabilityRefinement?.activeAtom ?? null
+					          : p848P4217ComplementP43SquareObstructionReady
+					          ? p848P4217ComplementP43SquareObstruction?.activeAtom ?? null
+					          : null,
+					        packetId: firstSideCountFloorPacket?.packetId ?? null,
+					        packetJsonPath: p848P4217ComplementP61AvailabilityRefinementReady
+					          ? p848P4217ComplementP61AvailabilityRefinementPath
+					          : p848P4217ComplementP43SquareObstructionReady
+					          ? p848P4217ComplementP43SquareObstructionPath
+					          : p848P4217ComplementP43FallbackSelectorPath,
+					        packetMarkdownPath: p848P4217ComplementP61AvailabilityRefinementReady
+					          ? p848P4217ComplementP61AvailabilityRefinementPath?.replace(/\.json$/, '.md') ?? null
+					          : p848P4217ComplementP43SquareObstructionReady
+					          ? p848P4217ComplementP43SquareObstructionPath?.replace(/\.json$/, '.md') ?? null
+					          : p848P4217ComplementP43FallbackSelectorPath ? p848P4217ComplementP43FallbackSelectorPath.replace(/\.json$/, '.md') : null,
+					        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+					        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+					      },
+					      {
+					        taskId: 'prove_p848_p4217_complement_p61_available_squarefree_or_obstruction',
+					        status: p848P4217ComplementP61Q101SquareObstructionReady
+					          ? 'done_p61_q101_square_obstruction_child_emitted'
+					          : p848P4217ComplementP61AvailabilityRefinementReady
+					          ? 'highest'
+					          : p848P4217ComplementP43SquareObstructionReady
+					          ? 'blocked_by_p61_availability_refinement'
+					          : 'blocked_by_p43_squarefree_hitting_audit',
+					        task: p848P4217ComplementP61Q101SquareObstructionReady
+					          ? 'The first p61-available CRT child has an exact q101 square-obstruction subfamily; resolve that obstruction child next.'
+					          : p848P4217ComplementP61AvailabilityRefinementReady
+					          ? 'Prove squarefree hitting for the p61-available CRT branch of the p4217 complement, or emit the first deterministic p61 square-obstruction child. Start from the recorded first child t == 48783616077 mod 66170874169 and its q101 roots.'
+					          : 'Wait for the p61 availability refinement packet.',
+					        completionRule: 'The p61-available CRT classes are proved squarefree, split by an exact square-obstruction subclass, or routed to a sharper theorem boundary without treating bounded evidence as closure.',
+					        command: null,
+					        packetAtomId: p848P4217ComplementP61Q101SquareObstructionReady
+					          ? p848P4217ComplementP61Q101SquareObstruction?.activeAtom ?? null
+					          : p848P4217ComplementP61AvailabilityRefinementReady
+					          ? p848P4217ComplementP61AvailabilityRefinement?.activeAtom ?? null
+					          : null,
+					        packetId: firstSideCountFloorPacket?.packetId ?? null,
+					        packetJsonPath: p848P4217ComplementP61Q101SquareObstructionReady
+					          ? p848P4217ComplementP61Q101SquareObstructionPath
+					          : p848P4217ComplementP61AvailabilityRefinementReady
+					          ? p848P4217ComplementP61AvailabilityRefinementPath
+					          : p848P4217ComplementP43SquareObstructionPath,
+					        packetMarkdownPath: p848P4217ComplementP61Q101SquareObstructionReady
+					          ? p848P4217ComplementP61Q101SquareObstructionPath?.replace(/\.json$/, '.md') ?? null
+					          : p848P4217ComplementP61AvailabilityRefinementReady
+					          ? p848P4217ComplementP61AvailabilityRefinementPath?.replace(/\.json$/, '.md') ?? null
+					          : p848P4217ComplementP43SquareObstructionPath ? p848P4217ComplementP43SquareObstructionPath.replace(/\.json$/, '.md') : null,
+					        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+					        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+					      },
+						      {
+						        taskId: 'resolve_p848_p4217_complement_p61_q101_square_obstruction_child',
+						        status: p848P4217ComplementP61Q101RepairBoundaryReady
+						          ? 'done_repair_candidate_boundary_emitted'
+						          : p848P4217ComplementP61Q101SquareObstructionReady
+						          ? 'highest'
+						          : p848P4217ComplementP61AvailabilityRefinementReady
+						          ? 'blocked_by_p61_q101_square_obstruction_packet'
+						          : 'blocked_by_p61_availability_refinement',
+						        task: p848P4217ComplementP61Q101RepairBoundaryReady
+						          ? 'The p61/q101 obstruction child is reduced to a bounded p443 repair-candidate boundary; exact certification is next.'
+						          : p848P4217ComplementP61Q101SquareObstructionReady
+						          ? 'Resolve the p61/q101 square-obstruction child t == 121075312471178 mod 675009087397969 by repair selector, finite cover, successor atom, or sharper blocker without treating the q101 root as closure.'
+						          : 'Wait for the p61/q101 square-obstruction packet.',
+						        completionRule: 'The p61/q101 obstruction child is repaired with an exact squarefree certificate, split by a next availability selector, emitted as a successor/open leaf, or routed to a sharper deterministic theorem boundary.',
+						        command: null,
+						        packetAtomId: p848P4217ComplementP61Q101RepairBoundaryReady
+						          ? p848P4217ComplementP61Q101RepairBoundary?.activeAtom ?? null
+						          : p848P4217ComplementP61Q101SquareObstructionReady
+						          ? p848P4217ComplementP61Q101SquareObstruction?.activeAtom ?? null
+						          : null,
+						        packetId: firstSideCountFloorPacket?.packetId ?? null,
+						        packetJsonPath: p848P4217ComplementP61Q101RepairBoundaryReady
+						          ? p848P4217ComplementP61Q101RepairBoundaryPath
+						          : p848P4217ComplementP61Q101SquareObstructionReady
+						          ? p848P4217ComplementP61Q101SquareObstructionPath
+						          : p848P4217ComplementP61AvailabilityRefinementPath,
+						        packetMarkdownPath: p848P4217ComplementP61Q101RepairBoundaryReady
+						          ? p848P4217ComplementP61Q101RepairBoundaryPath?.replace(/\.json$/, '.md') ?? null
+						          : p848P4217ComplementP61Q101SquareObstructionReady
+						          ? p848P4217ComplementP61Q101SquareObstructionPath?.replace(/\.json$/, '.md') ?? null
+						          : p848P4217ComplementP61AvailabilityRefinementPath ? p848P4217ComplementP61AvailabilityRefinementPath.replace(/\.json$/, '.md') : null,
+						        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+						        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+						      },
+						      {
+						        taskId: 'exact_certify_p848_p4217_complement_p61_q101_p443_repair_candidate',
+						        status: p848P4217ComplementP61Q101P443RepairReady
+						          ? 'done_p443_repair_exact_certified'
+						          : p848P4217ComplementP61Q101RepairBoundaryReady
+						          ? 'highest'
+						          : p848P4217ComplementP61Q101SquareObstructionReady
+						          ? 'blocked_by_p61_q101_repair_candidate_boundary'
+						          : 'blocked_by_p61_q101_square_obstruction_packet',
+						        task: p848P4217ComplementP61Q101P443RepairReady
+						          ? 'The p443 repair candidate is exact-certified for the p61/q101 representative; split by p443 availability next.'
+						          : p848P4217ComplementP61Q101RepairBoundaryReady
+						          ? 'Exact-certify the p443 repair candidate for the p61/q101 child, or emit the first deterministic factorization blocker/successor boundary.'
+						          : 'Wait for the p61/q101 repair-candidate boundary packet.',
+						        completionRule: 'The p443 cross product is exactly factored squarefree and emitted as a repair handoff, or the candidate is blocked/replaced by a sharper deterministic child.',
+						        command: null,
+						        packetAtomId: p848P4217ComplementP61Q101P443RepairReady
+						          ? p848P4217ComplementP61Q101P443RepairHandoff?.activeAtom ?? null
+						          : p848P4217ComplementP61Q101RepairBoundaryReady
+						          ? p848P4217ComplementP61Q101RepairBoundary?.activeAtom ?? null
+						          : null,
+						        packetId: firstSideCountFloorPacket?.packetId ?? null,
+						        packetJsonPath: p848P4217ComplementP61Q101P443RepairReady
+						          ? p848P4217ComplementP61Q101P443RepairHandoffPath
+						          : p848P4217ComplementP61Q101RepairBoundaryReady
+						          ? p848P4217ComplementP61Q101RepairBoundaryPath
+						          : p848P4217ComplementP61Q101SquareObstructionPath,
+						        packetMarkdownPath: p848P4217ComplementP61Q101P443RepairReady
+						          ? p848P4217ComplementP61Q101P443RepairHandoffPath?.replace(/\.json$/, '.md') ?? null
+						          : p848P4217ComplementP61Q101RepairBoundaryReady
+						          ? p848P4217ComplementP61Q101RepairBoundaryPath?.replace(/\.json$/, '.md') ?? null
+						          : p848P4217ComplementP61Q101SquareObstructionPath ? p848P4217ComplementP61Q101SquareObstructionPath.replace(/\.json$/, '.md') : null,
+						        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+						        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+						      },
+						      {
+						        taskId: 'split_p848_p4217_complement_p61_q101_child_by_p443_availability',
+						        status: p848P4217ComplementP61Q101P443AvailabilitySplitReady
+						          ? 'done_p443_available_q97_square_obstruction_child_emitted'
+						          : p848P4217ComplementP61Q101P443RepairReady
+						          ? 'highest'
+						          : p848P4217ComplementP61Q101RepairBoundaryReady
+						          ? 'blocked_by_p443_exact_certificate'
+						          : 'blocked_by_p61_q101_repair_candidate_boundary',
+						        task: p848P4217ComplementP61Q101P443AvailabilitySplitReady
+						          ? 'The p443 availability split emitted a q97 square-obstruction child; resolve that child next.'
+						          : p848P4217ComplementP61Q101P443RepairReady
+						          ? 'Split the p61/q101 child by the p443 availability rule k_443(v) = (159890*v + 1029) mod 196249, then audit the first p443-available family.'
+						          : 'Wait for exact p443 repair certification.',
+						        completionRule: 'The p443 availability split is emitted with exact available/unavailable counts and the first available child is audited or routed to a sharper boundary.',
+						        command: null,
+						        packetAtomId: p848P4217ComplementP61Q101P443AvailabilitySplitReady
+						          ? p848P4217ComplementP61Q101P443AvailabilitySplit?.activeAtom ?? null
+						          : p848P4217ComplementP61Q101P443RepairReady
+						          ? p848P4217ComplementP61Q101P443RepairHandoff?.activeAtom ?? null
+						          : null,
+						        packetId: firstSideCountFloorPacket?.packetId ?? null,
+						        packetJsonPath: p848P4217ComplementP61Q101P443AvailabilitySplitReady
+						          ? p848P4217ComplementP61Q101P443AvailabilitySplitPath
+						          : p848P4217ComplementP61Q101P443RepairReady
+						          ? p848P4217ComplementP61Q101P443RepairHandoffPath
+						          : p848P4217ComplementP61Q101RepairBoundaryPath,
+						        packetMarkdownPath: p848P4217ComplementP61Q101P443AvailabilitySplitReady
+						          ? p848P4217ComplementP61Q101P443AvailabilitySplitPath?.replace(/\.json$/, '.md') ?? null
+						          : p848P4217ComplementP61Q101P443RepairReady
+						          ? p848P4217ComplementP61Q101P443RepairHandoffPath?.replace(/\.json$/, '.md') ?? null
+						          : p848P4217ComplementP61Q101RepairBoundaryPath ? p848P4217ComplementP61Q101RepairBoundaryPath.replace(/\.json$/, '.md') : null,
+						        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+						        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+						      },
+						      {
+						        taskId: 'resolve_p848_p4217_complement_p61_q101_p443_q97_square_obstruction_child',
+						        status: p848P4217ComplementP61Q101P443Q97RepairBoundaryReady
+						          ? 'done_q97_p151_repair_candidate_boundary_emitted'
+						          : p848P4217ComplementP61Q101P443AvailabilitySplitReady
+						          ? 'highest'
+						          : p848P4217ComplementP61Q101P443RepairReady
+						          ? 'blocked_by_p443_availability_split'
+						          : 'blocked_by_p443_repair_handoff',
+						        task: p848P4217ComplementP61Q101P443Q97RepairBoundaryReady
+						          ? 'The q97 child is reduced to a bounded p151 repair-candidate boundary; exact certification is next.'
+						          : p848P4217ComplementP61Q101P443AvailabilitySplitReady
+						          ? 'Resolve the q97 square-obstruction child emitted by the first p443-available family, using a repair selector, deterministic split, terminal blocker, or recombination packet.'
+						          : 'Wait for the p443 availability split packet.',
+						        completionRule: 'The q97 square-obstruction child is repaired with exact certification, split by a deterministic successor, ledgered as a terminal/blocker leaf, or recombined into a theorem-facing complement packet.',
+						        command: null,
+						        packetAtomId: p848P4217ComplementP61Q101P443Q97RepairBoundaryReady
+						          ? p848P4217ComplementP61Q101P443Q97RepairBoundary?.activeAtom ?? null
+						          : p848P4217ComplementP61Q101P443AvailabilitySplitReady
+						          ? p848P4217ComplementP61Q101P443AvailabilitySplit?.activeAtom ?? null
+						          : null,
+						        packetId: firstSideCountFloorPacket?.packetId ?? null,
+						        packetJsonPath: p848P4217ComplementP61Q101P443Q97RepairBoundaryReady
+						          ? p848P4217ComplementP61Q101P443Q97RepairBoundaryPath
+						          : p848P4217ComplementP61Q101P443AvailabilitySplitReady
+						          ? p848P4217ComplementP61Q101P443AvailabilitySplitPath
+						          : p848P4217ComplementP61Q101P443RepairHandoffPath,
+						        packetMarkdownPath: p848P4217ComplementP61Q101P443Q97RepairBoundaryReady
+						          ? p848P4217ComplementP61Q101P443Q97RepairBoundaryPath?.replace(/\.json$/, '.md') ?? null
+						          : p848P4217ComplementP61Q101P443AvailabilitySplitReady
+						          ? p848P4217ComplementP61Q101P443AvailabilitySplitPath?.replace(/\.json$/, '.md') ?? null
+						          : p848P4217ComplementP61Q101P443RepairHandoffPath ? p848P4217ComplementP61Q101P443RepairHandoffPath.replace(/\.json$/, '.md') : null,
+						        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+						        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+						      },
+						      {
+						        taskId: 'exact_certify_p848_p4217_complement_p61_q101_p443_q97_p151_repair_candidate',
+						        status: p848P4217ComplementP61Q101P443Q97P151BlockerReady
+						          ? 'done_p151_blocker_open_leaf_emitted'
+						          : p848P4217ComplementP61Q101P443Q97RepairBoundaryReady
+						          ? 'highest'
+						          : p848P4217ComplementP61Q101P443AvailabilitySplitReady
+						          ? 'blocked_by_q97_repair_candidate_boundary'
+						          : 'blocked_by_p443_availability_split',
+						        task: p848P4217ComplementP61Q101P443Q97P151BlockerReady
+						          ? 'p151 is ledgered as a blocker/open leaf; continue with the p479 reserve inside the same q97 finite screen.'
+						          : p848P4217ComplementP61Q101P443Q97RepairBoundaryReady
+						          ? 'Exact-certify the p151 repair candidate for the q97 child, or emit a deterministic blocker/successor boundary.'
+						          : 'Wait for the q97 repair-candidate boundary packet.',
+						        completionRule: 'The p151 cross product is exactly factored squarefree and emitted as a repair handoff, or p151 is blocked/replaced by a sharper deterministic child.',
+						        command: null,
+						        packetAtomId: p848P4217ComplementP61Q101P443Q97P151BlockerReady
+						          ? p848P4217ComplementP61Q101P443Q97P151Blocker?.activeAtom ?? null
+						          : p848P4217ComplementP61Q101P443Q97RepairBoundaryReady
+						          ? p848P4217ComplementP61Q101P443Q97RepairBoundary?.activeAtom ?? null
+						          : null,
+						        packetId: firstSideCountFloorPacket?.packetId ?? null,
+						        packetJsonPath: p848P4217ComplementP61Q101P443Q97P151BlockerReady
+						          ? p848P4217ComplementP61Q101P443Q97P151BlockerPath
+						          : p848P4217ComplementP61Q101P443Q97RepairBoundaryReady
+						          ? p848P4217ComplementP61Q101P443Q97RepairBoundaryPath
+						          : p848P4217ComplementP61Q101P443AvailabilitySplitPath,
+						        packetMarkdownPath: p848P4217ComplementP61Q101P443Q97P151BlockerReady
+						          ? p848P4217ComplementP61Q101P443Q97P151BlockerPath?.replace(/\.json$/, '.md') ?? null
+						          : p848P4217ComplementP61Q101P443Q97RepairBoundaryReady
+						          ? p848P4217ComplementP61Q101P443Q97RepairBoundaryPath?.replace(/\.json$/, '.md') ?? null
+						          : p848P4217ComplementP61Q101P443AvailabilitySplitPath ? p848P4217ComplementP61Q101P443AvailabilitySplitPath.replace(/\.json$/, '.md') : null,
+						        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+						        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+						      },
+						      {
+						        taskId: 'exact_certify_p848_p4217_complement_p61_q101_p443_q97_p479_reserve_repair_candidate',
+						        status: p848P4217ComplementP61Q101P443Q97P479RepairReady
+						          ? 'done_p479_exact_repair_handoff_emitted'
+						          : p848P4217ComplementP61Q101P443Q97P151BlockerReady
+						          ? 'highest'
+						          : p848P4217ComplementP61Q101P443Q97RepairBoundaryReady
+						          ? 'blocked_by_p151_resolution'
+						          : 'blocked_by_q97_repair_candidate_boundary',
+						        task: p848P4217ComplementP61Q101P443Q97P479RepairReady
+						          ? 'p479 is exact-certified as a squarefree representative repair; run convergence assembly before any fresh selector child.'
+						          : p848P4217ComplementP61Q101P443Q97P151BlockerReady
+						          ? 'Exact-certify the p479 reserve candidate inside the same q97 repair screen, or ledger p479 as a blocker/open leaf.'
+						          : 'Wait for p151 to be exact-certified or ledgered as a blocker before using the p479 reserve.',
+						        completionRule: 'The p479 cross product is exactly factored squarefree and emitted as a repair handoff, or p479 is ledgered as a blocker/open leaf; after p151/p479 close or block, run convergence assembly before any fresh selector child.',
+						        command: null,
+						        packetAtomId: p848P4217ComplementP61Q101P443Q97P479RepairReady
+						          ? p848P4217ComplementP61Q101P443Q97P479RepairHandoff?.activeAtom ?? null
+						          : p848P4217ComplementP61Q101P443Q97P151BlockerReady
+						          ? p848P4217ComplementP61Q101P443Q97P151Blocker?.activeAtom ?? null
+						          : null,
+						        packetId: firstSideCountFloorPacket?.packetId ?? null,
+						        packetJsonPath: p848P4217ComplementP61Q101P443Q97P479RepairReady
+						          ? p848P4217ComplementP61Q101P443Q97P479RepairHandoffPath
+						          : p848P4217ComplementP61Q101P443Q97P151BlockerReady
+						          ? p848P4217ComplementP61Q101P443Q97P151BlockerPath
+						          : p848P4217ComplementP61Q101P443Q97RepairBoundaryPath,
+						        packetMarkdownPath: p848P4217ComplementP61Q101P443Q97P479RepairReady
+						          ? p848P4217ComplementP61Q101P443Q97P479RepairHandoffPath?.replace(/\.json$/, '.md') ?? null
+						          : p848P4217ComplementP61Q101P443Q97P151BlockerReady
+						          ? p848P4217ComplementP61Q101P443Q97P151BlockerPath?.replace(/\.json$/, '.md') ?? null
+						          : p848P4217ComplementP61Q101P443Q97RepairBoundaryPath ? p848P4217ComplementP61Q101P443Q97RepairBoundaryPath.replace(/\.json$/, '.md') : null,
+						        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+						        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+						      },
+						      {
+						        taskId: 'run_p848_convergence_assembly_after_q97_p151_p479_leaf_resolution',
+						        status: p848P4217PostP479ConvergenceAssemblyReady
+						          ? 'done_post_p479_convergence_assembly_recorded'
+						          : p848P4217ComplementP61Q101P443Q97P479RepairReady
+						          ? 'highest'
+						          : p848P4217ComplementP61Q101P443Q97P151BlockerReady
+						          ? 'blocked_by_p479_resolution'
+						          : 'blocked_by_q97_repair_candidate_boundary',
+						        task: p848P4217ComplementP61Q101P443Q97P479RepairReady
+						          ? 'Run convergence assembly after the p151 blocker and p479 exact representative repair, compare the frontier ledger, and choose the next bulk/structural/ranked handoff.'
+						          : 'Wait until the p151/p479 q97 repair screen is certified or ledgered.',
+						        completionRule: 'A convergence assembly packet names the exact next non-ladder move: bulk selector cover, impossibility theorem, structural complement decomposition, ranked ledger transition, live-family binding, or an explicitly ledgered p479 availability split.',
+						        command: 'orp mode breakdown granular-breakdown --topic "problem 848 | convergence assembly | Explain the 282 First-Failure Mechanism" --json',
+						        packetAtomId: p848P4217ComplementP61Q101P443Q97P479RepairReady
+						          ? p848P4217ComplementP61Q101P443Q97P479RepairHandoff?.activeAtom ?? null
+						          : null,
+						        packetId: firstSideCountFloorPacket?.packetId ?? null,
+						        packetJsonPath: p848P4217PostP479ConvergenceAssemblyReady
+						          ? p848P4217PostP479ConvergenceAssemblyPath
+						          : p848P4217ComplementP61Q101P443Q97P479RepairReady
+						          ? p848P4217ComplementP61Q101P443Q97P479RepairHandoffPath
+						          : p848P4217ComplementP61Q101P443Q97P151BlockerPath,
+						        packetMarkdownPath: p848P4217PostP479ConvergenceAssemblyReady
+						          ? p848P4217PostP479ConvergenceAssemblyPath?.replace(/\.json$/, '.md') ?? null
+						          : p848P4217ComplementP61Q101P443Q97P479RepairReady
+						          ? p848P4217ComplementP61Q101P443Q97P479RepairHandoffPath?.replace(/\.json$/, '.md') ?? null
+						          : p848P4217ComplementP61Q101P443Q97P151BlockerPath ? p848P4217ComplementP61Q101P443Q97P151BlockerPath.replace(/\.json$/, '.md') : null,
+						        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+						        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+						      },
+						      {
+						        taskId: 'split_p848_p4217_complement_p61_q101_p443_q97_child_by_p479_availability_with_ledger_token',
+						        status: p848P4217ComplementP61Q101P443Q97P479AvailabilitySplitReady
+						          ? 'done_p479_availability_split_q127_child_emitted'
+						          : p848P4217PostP479ConvergenceAssemblyReady
+						          ? 'highest'
+						          : p848P4217ComplementP61Q101P443Q97P479RepairReady
+						          ? 'blocked_by_post_p479_convergence_assembly'
+						          : 'blocked_by_p479_resolution',
+						        task: p848P4217ComplementP61Q101P443Q97P479AvailabilitySplitReady
+						          ? 'The p479 availability split consumed the finite token and emitted the first q127 square-obstruction child.'
+						          : p848P4217PostP479ConvergenceAssemblyReady
+						          ? 'Derive and emit the p479 availability split for the selected p443/q97 child with denominator 479^2, or emit a deterministic formula/source blocker.'
+						          : 'Wait for post-p479 convergence assembly to choose a guard-approved handoff.',
+						        completionRule: 'A p479 availability split packet partitions the q97 child into ledgered available/unavailable residues, or a blocker records why the p479 availability formula cannot be derived locally.',
+						        command: null,
+						        packetAtomId: p848P4217ComplementP61Q101P443Q97P479AvailabilitySplitReady
+						          ? p848P4217ComplementP61Q101P443Q97P479AvailabilitySplit?.activeAtom ?? null
+						          : p848P4217PostP479ConvergenceAssemblyReady
+						          ? p848P4217PostP479ConvergenceAssembly?.selectedHandoff?.recommendedNextAction ?? null
+						          : null,
+						        packetId: firstSideCountFloorPacket?.packetId ?? null,
+						        packetJsonPath: p848P4217ComplementP61Q101P443Q97P479AvailabilitySplitReady
+						          ? p848P4217ComplementP61Q101P443Q97P479AvailabilitySplitPath
+						          : p848P4217PostP479ConvergenceAssemblyReady
+						          ? p848P4217PostP479ConvergenceAssemblyPath
+						          : p848P4217ComplementP61Q101P443Q97P479RepairHandoffPath,
+						        packetMarkdownPath: p848P4217ComplementP61Q101P443Q97P479AvailabilitySplitReady
+						          ? p848P4217ComplementP61Q101P443Q97P479AvailabilitySplitPath?.replace(/\.json$/, '.md') ?? null
+						          : p848P4217PostP479ConvergenceAssemblyReady
+						          ? p848P4217PostP479ConvergenceAssemblyPath?.replace(/\.json$/, '.md') ?? null
+						          : p848P4217ComplementP61Q101P443Q97P479RepairHandoffPath ? p848P4217ComplementP61Q101P443Q97P479RepairHandoffPath.replace(/\.json$/, '.md') : null,
+						        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+						        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+						      },
+						      {
+						        taskId: 'run_p848_convergence_assembly_after_p479_availability_split_and_q127_child_emission',
+						        status: p848P4217PostP479AvailabilitySplitConvergenceAssemblyReady
+						          ? 'done_post_p479_availability_split_convergence_assembly_recorded'
+						          : p848P4217ComplementP61Q101P443Q97P479AvailabilitySplitReady
+						          ? 'highest'
+						          : p848P4217PostP479ConvergenceAssemblyReady
+						          ? 'blocked_by_p479_availability_split'
+						          : 'blocked_by_post_p479_convergence_assembly',
+						        task: p848P4217PostP479AvailabilitySplitConvergenceAssemblyReady
+						          ? 'The post-p479 availability split convergence assembly selected the 1140-residue p479-available bulk square-obstruction cover.'
+						          : p848P4217ComplementP61Q101P443Q97P479AvailabilitySplitReady
+						          ? 'Run convergence assembly after the p479 availability split, compare the frontier ledger, and choose the next bulk/structural/ranked handoff before any q127 repair descent.'
+						          : 'Wait for the p479 availability split to consume the finite token and ledger its children.',
+						        completionRule: 'A convergence assembly packet records the post-p479 split frontier: q127 child, q127-avoiding available families, p479-unavailable complement, and the single next guard-approved move.',
+						        command: 'orp mode breakdown granular-breakdown --topic "problem 848 | convergence assembly | Explain the 282 First-Failure Mechanism" --json',
+						        packetAtomId: p848P4217PostP479AvailabilitySplitConvergenceAssemblyReady
+						          ? p848P4217PostP479AvailabilitySplitConvergenceAssembly?.recommendedNextAction ?? null
+						          : p848P4217ComplementP61Q101P443Q97P479AvailabilitySplitReady
+						          ? p848P4217ComplementP61Q101P443Q97P479AvailabilitySplit?.activeAtom ?? null
+						          : null,
+						        packetId: firstSideCountFloorPacket?.packetId ?? null,
+						        packetJsonPath: p848P4217PostP479AvailabilitySplitConvergenceAssemblyReady
+						          ? p848P4217PostP479AvailabilitySplitConvergenceAssemblyPath
+						          : p848P4217ComplementP61Q101P443Q97P479AvailabilitySplitReady
+						          ? p848P4217ComplementP61Q101P443Q97P479AvailabilitySplitPath
+						          : p848P4217PostP479ConvergenceAssemblyPath,
+						        packetMarkdownPath: p848P4217PostP479AvailabilitySplitConvergenceAssemblyReady
+						          ? p848P4217PostP479AvailabilitySplitConvergenceAssemblyPath?.replace(/\.json$/, '.md') ?? null
+						          : p848P4217ComplementP61Q101P443Q97P479AvailabilitySplitReady
+						          ? p848P4217ComplementP61Q101P443Q97P479AvailabilitySplitPath?.replace(/\.json$/, '.md') ?? null
+						          : p848P4217PostP479ConvergenceAssemblyPath ? p848P4217PostP479ConvergenceAssemblyPath.replace(/\.json$/, '.md') : null,
+						        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+						        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+						      },
+						      {
+						        taskId: 'bulk_cover_p848_p4217_p443_q97_p479_available_residue_square_obstructions_or_emit_survivor_boundary',
+						        status: p848P4217P443Q97P479AvailableResidueBulkCoverReady
+						          ? 'done_p479_available_residue_bulk_cover_no_survivors'
+						          : p848P4217PostP479AvailabilitySplitConvergenceAssemblyReady
+						          ? 'highest'
+						          : p848P4217ComplementP61Q101P443Q97P479AvailabilitySplitReady
+						          ? 'blocked_by_post_p479_availability_split_convergence_assembly'
+						          : 'blocked_by_p479_availability_split',
+						        task: p848P4217P443Q97P479AvailableResidueBulkCoverReady
+						          ? 'The p479-available residue bulk screen classified all 1140 residues with no survivor residues.'
+						          : p848P4217PostP479AvailabilitySplitConvergenceAssemblyReady
+						          ? 'Run a finite bulk square-obstruction screen over all 1140 p479-available residue classes, or emit an exact survivor boundary before any q127 repair descent.'
+						          : 'Wait for convergence assembly to select the p479-available bulk cover handoff.',
+						        completionRule: 'A bulk-cover packet closes or classifies all 1140 p479-available residues, or a survivor-boundary packet records the exact uncovered finite set and next structural handoff.',
+						        command: null,
+						        packetAtomId: p848P4217P443Q97P479AvailableResidueBulkCoverReady
+						          ? p848P4217P443Q97P479AvailableResidueBulkCover?.screen?.coveredFamily ?? null
+						          : p848P4217PostP479AvailabilitySplitConvergenceAssemblyReady
+						          ? p848P4217PostP479AvailabilitySplitConvergenceAssembly?.finiteMeasureOrNoMeasureYet?.nextFiniteToken?.tokenId ?? null
+						          : null,
+						        packetId: firstSideCountFloorPacket?.packetId ?? null,
+						        packetJsonPath: p848P4217P443Q97P479AvailableResidueBulkCoverReady
+						          ? p848P4217P443Q97P479AvailableResidueBulkCoverPath
+						          : p848P4217PostP479AvailabilitySplitConvergenceAssemblyReady
+						          ? p848P4217PostP479AvailabilitySplitConvergenceAssemblyPath
+						          : p848P4217ComplementP61Q101P443Q97P479AvailabilitySplitPath,
+						        packetMarkdownPath: p848P4217P443Q97P479AvailableResidueBulkCoverReady
+						          ? p848P4217P443Q97P479AvailableResidueBulkCoverPath?.replace(/\.json$/, '.md') ?? null
+						          : p848P4217PostP479AvailabilitySplitConvergenceAssemblyReady
+						          ? p848P4217PostP479AvailabilitySplitConvergenceAssemblyPath?.replace(/\.json$/, '.md') ?? null
+						          : p848P4217ComplementP61Q101P443Q97P479AvailabilitySplitPath ? p848P4217ComplementP61Q101P443Q97P479AvailabilitySplitPath.replace(/\.json$/, '.md') : null,
+						        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+						        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+						      },
+						      {
+						        taskId: 'compress_p848_p4217_p443_q97_p479_available_obstruction_buckets_or_emit_bucket_boundaries',
+						        status: p848P4217P443Q97P479ObstructionBucketBoundaryReady
+						          ? 'done_p479_available_obstruction_bucket_boundaries_emitted'
+						          : p848P4217P443Q97P479AvailableResidueBulkCoverReady
+						          ? 'highest'
+						          : p848P4217PostP479AvailabilitySplitConvergenceAssemblyReady
+						          ? 'blocked_by_p479_available_bulk_cover'
+						          : 'blocked_by_post_p479_availability_split_convergence_assembly',
+						        task: p848P4217P443Q97P479ObstructionBucketBoundaryReady
+						          ? 'The p479-available obstruction-prime buckets are compressed into terminal, partial, and nonuniform boundary tokens; run convergence assembly next.'
+						          : p848P4217P443Q97P479AvailableResidueBulkCoverReady
+						          ? 'Compress the 30 p479-available obstruction-prime buckets into theorem-facing families, or emit exact bucket-boundary packets without q127 singleton descent.'
+						          : 'Wait for the p479-available bulk cover packet.',
+						        completionRule: 'A bucket-compression packet proves a shared theorem over the obstruction buckets, or emits exact per-bucket boundaries that consume a finite bucket-rank token.',
+						        command: null,
+						        packetAtomId: p848P4217P443Q97P479ObstructionBucketBoundaryReady
+						          ? 'p443_q97_p479_obstruction_bucket_boundaries'
+						          : p848P4217P443Q97P479AvailableResidueBulkCoverReady
+						          ? 'p443_q97_p479_available_obstruction_prime_buckets'
+						          : null,
+						        packetId: firstSideCountFloorPacket?.packetId ?? null,
+						        packetJsonPath: p848P4217P443Q97P479ObstructionBucketBoundaryReady
+						          ? p848P4217P443Q97P479ObstructionBucketBoundaryPath
+						          : p848P4217P443Q97P479AvailableResidueBulkCoverReady
+						          ? p848P4217P443Q97P479AvailableResidueBulkCoverPath
+						          : p848P4217PostP479AvailabilitySplitConvergenceAssemblyPath,
+						        packetMarkdownPath: p848P4217P443Q97P479ObstructionBucketBoundaryReady
+						          ? p848P4217P443Q97P479ObstructionBucketBoundaryPath?.replace(/\.json$/, '.md') ?? null
+						          : p848P4217P443Q97P479AvailableResidueBulkCoverReady
+						          ? p848P4217P443Q97P479AvailableResidueBulkCoverPath?.replace(/\.json$/, '.md') ?? null
+						          : p848P4217PostP479AvailabilitySplitConvergenceAssemblyPath ? p848P4217PostP479AvailabilitySplitConvergenceAssemblyPath.replace(/\.json$/, '.md') : null,
+						        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+						        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+						      },
+						      {
+						        taskId: 'run_p848_convergence_assembly_after_p479_obstruction_bucket_boundaries',
+						        status: p848P4217PostP479ObstructionBucketBoundaryConvergenceAssemblyReady
+						          ? 'done_post_bucket_boundary_convergence_assembly_recorded'
+						          : p848P4217P443Q97P479ObstructionBucketBoundaryReady
+						          ? 'highest'
+						          : p848P4217P443Q97P479AvailableResidueBulkCoverReady
+						          ? 'blocked_by_bucket_boundary_compression'
+						          : 'blocked_by_p479_available_bulk_cover',
+						        task: p848P4217PostP479ObstructionBucketBoundaryConvergenceAssemblyReady
+						          ? 'Post-bucket-boundary convergence assembly selected whole-bucket q109 structural classification before any q-child descent.'
+						          : p848P4217P443Q97P479ObstructionBucketBoundaryReady
+						          ? 'Run convergence assembly after bucket-boundary compression; choose a bulk, structural, or ranked handoff before q109 or q127 descent.'
+						          : 'Wait for bucket-boundary compression over the p479-available obstruction-prime buckets.',
+						        completionRule: 'Assembly records the terminal closures, q109 nonuniform boundary, 10 partial buckets, and one next non-selector action.',
+						        command: 'orp mode breakdown granular-breakdown --topic "problem 848 | convergence assembly | Explain the 282 First-Failure Mechanism" --json',
+						        packetAtomId: p848P4217PostP479ObstructionBucketBoundaryConvergenceAssemblyReady
+						          ? p848P4217PostP479ObstructionBucketBoundaryConvergenceAssembly?.recommendedNextAction ?? null
+						          : p848P4217P443Q97P479ObstructionBucketBoundaryReady
+						          ? 'p443_q97_p479_post_bucket_boundary_convergence'
+						          : null,
+						        packetId: firstSideCountFloorPacket?.packetId ?? null,
+						        packetJsonPath: p848P4217PostP479ObstructionBucketBoundaryConvergenceAssemblyReady
+						          ? p848P4217PostP479ObstructionBucketBoundaryConvergenceAssemblyPath
+						          : p848P4217P443Q97P479ObstructionBucketBoundaryReady
+						          ? p848P4217P443Q97P479ObstructionBucketBoundaryPath
+						          : p848P4217P443Q97P479AvailableResidueBulkCoverPath,
+						        packetMarkdownPath: p848P4217PostP479ObstructionBucketBoundaryConvergenceAssemblyReady
+						          ? p848P4217PostP479ObstructionBucketBoundaryConvergenceAssemblyPath?.replace(/\.json$/, '.md') ?? null
+						          : p848P4217P443Q97P479ObstructionBucketBoundaryReady
+						          ? p848P4217P443Q97P479ObstructionBucketBoundaryPath?.replace(/\.json$/, '.md') ?? null
+						          : p848P4217P443Q97P479AvailableResidueBulkCoverPath ? p848P4217P443Q97P479AvailableResidueBulkCoverPath.replace(/\.json$/, '.md') : null,
+						        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+						        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+						      },
+						      {
+						        taskId: 'derive_p848_p4217_p443_q97_p479_q109_nonuniform_bucket_structure_or_emit_subbucket_boundaries',
+						        status: p848P4217P443Q97P479Q109NonuniformBucketStructureReady
+						          ? 'done_q109_nonuniform_bucket_subbucket_boundaries_emitted'
+						          : p848P4217PostP479ObstructionBucketBoundaryConvergenceAssemblyReady
+						          ? 'highest'
+						          : p848P4217P443Q97P479ObstructionBucketBoundaryReady
+						          ? 'blocked_by_post_bucket_boundary_convergence_assembly'
+						          : 'blocked_by_bucket_boundary_compression',
+						        task: p848P4217P443Q97P479Q109NonuniformBucketStructureReady
+						          ? 'The whole q109 nonuniform bucket is split into exact regular and singular subbucket boundaries; run convergence assembly before attacking q-avoiding descendants.'
+						          : p848P4217PostP479ObstructionBucketBoundaryConvergenceAssemblyReady
+						          ? 'Classify the whole q109 nonuniform bucket by row-shape invariants, or emit exact q109 subbucket boundaries without q109/q127 singleton descent.'
+						          : 'Wait for post-bucket-boundary convergence assembly to select the next finite structural handoff.',
+						        completionRule: 'A q109 structure packet consumes the nonuniform bucket token by proving a shared bucket theorem or by emitting exact subbucket boundaries with deterministic successor/blocker data.',
+						        command: null,
+						        packetAtomId: p848P4217P443Q97P479Q109NonuniformBucketStructureReady
+						          ? 'p443_q97_p479_q109_regular_and_singular_subbucket_boundaries'
+						          : p848P4217PostP479ObstructionBucketBoundaryConvergenceAssemblyReady
+						          ? 'p443_q97_p479_nonuniform_obstruction_bucket_q109'
+						          : null,
+						        packetId: firstSideCountFloorPacket?.packetId ?? null,
+						        packetJsonPath: p848P4217P443Q97P479Q109NonuniformBucketStructureReady
+						          ? p848P4217P443Q97P479Q109NonuniformBucketStructurePath
+						          : p848P4217PostP479ObstructionBucketBoundaryConvergenceAssemblyReady
+						          ? p848P4217PostP479ObstructionBucketBoundaryConvergenceAssemblyPath
+						          : p848P4217P443Q97P479ObstructionBucketBoundaryPath,
+						        packetMarkdownPath: p848P4217P443Q97P479Q109NonuniformBucketStructureReady
+						          ? p848P4217P443Q97P479Q109NonuniformBucketStructurePath?.replace(/\.json$/, '.md') ?? null
+						          : p848P4217PostP479ObstructionBucketBoundaryConvergenceAssemblyReady
+						          ? p848P4217PostP479ObstructionBucketBoundaryConvergenceAssemblyPath?.replace(/\.json$/, '.md') ?? null
+						          : p848P4217P443Q97P479ObstructionBucketBoundaryPath ? p848P4217P443Q97P479ObstructionBucketBoundaryPath.replace(/\.json$/, '.md') : null,
+						        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+						        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+						      },
+						      {
+						        taskId: 'run_p848_convergence_assembly_after_q109_subbucket_boundaries',
+						        status: p848P4217PostQ109SubbucketConvergenceAssemblyReady
+						          ? 'done_post_q109_subbucket_convergence_assembly_recorded'
+						          : p848P4217P443Q97P479Q109NonuniformBucketStructureReady
+						          ? 'highest'
+						          : p848P4217PostP479ObstructionBucketBoundaryConvergenceAssemblyReady
+						          ? 'blocked_by_q109_nonuniform_bucket_structure'
+						          : 'blocked_by_post_bucket_boundary_convergence_assembly',
+						        task: p848P4217PostQ109SubbucketConvergenceAssemblyReady
+						          ? 'Post-q109 convergence assembly selected the combined 12-family q-avoiding batch cover before any singleton q-child descent.'
+						          : p848P4217P443Q97P479Q109NonuniformBucketStructureReady
+						          ? 'Run convergence assembly after q109 regular/singular subbucket boundaries and choose a batch q-avoiding cover, structural decomposition, or ranked transition before any singleton q-child descent.'
+						          : 'Wait for the q109 nonuniform bucket structure packet.',
+						        completionRule: 'Assembly records the q109 regular/singular boundaries, combines them with the 10 partial buckets, and selects one non-selector next action.',
+						        command: 'orp mode breakdown granular-breakdown --topic "problem 848 | convergence assembly | Explain the 282 First-Failure Mechanism" --json',
+						        packetAtomId: p848P4217PostQ109SubbucketConvergenceAssemblyReady
+						          ? p848P4217PostQ109SubbucketConvergenceAssembly?.recommendedNextAction ?? null
+						          : p848P4217P443Q97P479Q109NonuniformBucketStructureReady
+						          ? 'p443_q97_p479_q109_post_subbucket_convergence'
+						          : null,
+						        packetId: firstSideCountFloorPacket?.packetId ?? null,
+						        packetJsonPath: p848P4217PostQ109SubbucketConvergenceAssemblyReady
+						          ? p848P4217PostQ109SubbucketConvergenceAssemblyPath
+						          : p848P4217P443Q97P479Q109NonuniformBucketStructureReady
+						          ? p848P4217P443Q97P479Q109NonuniformBucketStructurePath
+						          : p848P4217PostP479ObstructionBucketBoundaryConvergenceAssemblyPath,
+						        packetMarkdownPath: p848P4217PostQ109SubbucketConvergenceAssemblyReady
+						          ? p848P4217PostQ109SubbucketConvergenceAssemblyPath?.replace(/\.json$/, '.md') ?? null
+						          : p848P4217P443Q97P479Q109NonuniformBucketStructureReady
+						          ? p848P4217P443Q97P479Q109NonuniformBucketStructurePath?.replace(/\.json$/, '.md') ?? null
+						          : p848P4217PostP479ObstructionBucketBoundaryConvergenceAssemblyPath ? p848P4217PostP479ObstructionBucketBoundaryConvergenceAssemblyPath.replace(/\.json$/, '.md') : null,
+						        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+						        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+						      },
+						      {
+						        taskId: 'derive_p848_p4217_p443_q97_p479_partial_and_q109_q_avoiding_batch_cover_or_emit_ranked_boundary',
+						        status: p848P4217P443Q97P479QAvoidingBatchCoverReady
+						          ? 'done_q_avoiding_batch_cover_no_survivors'
+						          : p848P4217PostQ109SubbucketConvergenceAssemblyReady
+						          ? 'highest'
+						          : p848P4217P443Q97P479Q109NonuniformBucketStructureReady
+						          ? 'blocked_by_post_q109_subbucket_convergence_assembly'
+						          : 'blocked_by_q109_nonuniform_bucket_structure',
+						        task: p848P4217P443Q97P479QAvoidingBatchCoverReady
+						          ? 'The 12-family q-avoiding batch cover classified all recorded q-avoiding classes with no source-row survivors and emitted the next rank boundary.'
+						          : p848P4217PostQ109SubbucketConvergenceAssemblyReady
+						          ? 'Batch the 12 q-avoiding boundary families from the 10 partial buckets plus q109 regular/singular subbuckets and either prove a shared q-avoiding cover, emit a structural decomposition, or write an exact ranked boundary packet.'
+						          : 'Wait for post-q109 convergence assembly to select the q-avoiding batch handoff.',
+						        completionRule: 'A batch q-avoiding cover, structural decomposition, or ranked boundary packet accounts for all 12 boundary families without q109/q127 singleton descent.',
+						        command: null,
+						        packetAtomId: p848P4217P443Q97P479QAvoidingBatchCoverReady
+						          ? p848P4217P443Q97P479QAvoidingBatchCover?.finiteTokenTransition?.producedFiniteTokens?.find?.((token) => token.tokenId === 'p443_q97_p479_q_avoiding_next_rank_boundary')?.tokenId ?? 'p443_q97_p479_q_avoiding_next_rank_boundary'
+						          : p848P4217PostQ109SubbucketConvergenceAssemblyReady
+						          ? p848P4217PostQ109SubbucketConvergenceAssembly?.finiteMeasureOrNoMeasureYet?.nextFiniteToken?.tokenId ?? 'p443_q97_p479_partial_and_q109_q_avoiding_boundary_families'
+						          : null,
+						        packetId: firstSideCountFloorPacket?.packetId ?? null,
+						        packetJsonPath: p848P4217P443Q97P479QAvoidingBatchCoverReady
+						          ? p848P4217P443Q97P479QAvoidingBatchCoverPath
+						          : p848P4217PostQ109SubbucketConvergenceAssemblyReady
+						          ? p848P4217PostQ109SubbucketConvergenceAssemblyPath
+						          : p848P4217P443Q97P479Q109NonuniformBucketStructurePath,
+						        packetMarkdownPath: p848P4217P443Q97P479QAvoidingBatchCoverReady
+						          ? p848P4217P443Q97P479QAvoidingBatchCoverPath?.replace(/\.json$/, '.md') ?? null
+						          : p848P4217PostQ109SubbucketConvergenceAssemblyReady
+						          ? p848P4217PostQ109SubbucketConvergenceAssemblyPath?.replace(/\.json$/, '.md') ?? null
+						          : p848P4217P443Q97P479Q109NonuniformBucketStructurePath ? p848P4217P443Q97P479Q109NonuniformBucketStructurePath.replace(/\.json$/, '.md') : null,
+						        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+						        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+						      },
+						      {
+						        taskId: 'run_p848_convergence_assembly_after_partial_and_q109_q_avoiding_batch_cover',
+						        status: p848P4217PostQAvoidingBatchCoverConvergenceAssemblyReady
+						          ? 'done_post_q_avoiding_batch_cover_convergence_assembly_recorded'
+						          : p848P4217P443Q97P479QAvoidingBatchCoverReady
+						          ? 'highest'
+						          : p848P4217PostQ109SubbucketConvergenceAssemblyReady
+						          ? 'blocked_by_q_avoiding_batch_cover'
+						          : 'blocked_by_post_q109_subbucket_convergence_assembly',
+						        task: p848P4217PostQAvoidingBatchCoverConvergenceAssemblyReady
+						          ? 'Post-q-avoiding-batch-cover convergence assembly selected 13-bucket rank compression before any singleton q-child descent.'
+						          : p848P4217P443Q97P479QAvoidingBatchCoverReady
+						          ? 'Run convergence assembly after the 12-family q-avoiding batch cover, then choose compression of the 13 next-prime buckets, a structural rank decrease, or a deterministic blocker before singleton descent.'
+						          : 'Wait for the 12-family q-avoiding batch cover or ranked boundary packet.',
+						        completionRule: 'Assembly records that the 9,733,599 q-avoiding classes have no source-row survivors, names the 13 emitted next-prime buckets and next q-avoiding rank boundary, and selects one non-singleton next theorem action.',
+						        command: 'orp mode breakdown granular-breakdown --topic "problem 848 | convergence assembly | Explain the 282 First-Failure Mechanism" --json',
+						        packetAtomId: p848P4217PostQAvoidingBatchCoverConvergenceAssemblyReady
+						          ? p848P4217PostQAvoidingBatchCoverConvergenceAssembly?.recommendedNextAction ?? null
+						          : p848P4217P443Q97P479QAvoidingBatchCoverReady
+						          ? p848P4217P443Q97P479QAvoidingBatchCover?.recommendedNextAction ?? null
+						          : null,
+						        packetId: firstSideCountFloorPacket?.packetId ?? null,
+						        packetJsonPath: p848P4217PostQAvoidingBatchCoverConvergenceAssemblyReady
+						          ? p848P4217PostQAvoidingBatchCoverConvergenceAssemblyPath
+						          : p848P4217P443Q97P479QAvoidingBatchCoverReady
+						          ? p848P4217P443Q97P479QAvoidingBatchCoverPath
+						          : p848P4217PostQ109SubbucketConvergenceAssemblyPath,
+						        packetMarkdownPath: p848P4217PostQAvoidingBatchCoverConvergenceAssemblyReady
+						          ? p848P4217PostQAvoidingBatchCoverConvergenceAssemblyPath?.replace(/\.json$/, '.md') ?? null
+						          : p848P4217P443Q97P479QAvoidingBatchCoverReady
+						          ? p848P4217P443Q97P479QAvoidingBatchCoverPath?.replace(/\.json$/, '.md') ?? null
+						          : p848P4217PostQ109SubbucketConvergenceAssemblyPath ? p848P4217PostQ109SubbucketConvergenceAssemblyPath.replace(/\.json$/, '.md') : null,
+						        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+						        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+						      },
+						      {
+						        taskId: 'compress_p848_p4217_p443_q97_p479_q_avoiding_next_prime_buckets_or_emit_rank_boundary',
+						        status: p848P4217P443Q97P479QAvoidingNextBucketRankBoundaryReady
+						          ? 'done_13_bucket_rank_boundary_emitted'
+						          : p848P4217PostQAvoidingBatchCoverConvergenceAssemblyReady
+						          ? 'highest'
+						          : p848P4217P443Q97P479QAvoidingBatchCoverReady
+						          ? 'blocked_by_post_q_avoiding_batch_cover_convergence_assembly'
+						          : 'blocked_by_q_avoiding_batch_cover',
+						        task: p848P4217P443Q97P479QAvoidingNextBucketRankBoundaryReady
+						          ? 'The deterministic 13-bucket next-prime rank boundary accounts for all rows and records the two-root law without singleton q-child descent.'
+						          : p848P4217PostQAvoidingBatchCoverConvergenceAssemblyReady
+						          ? 'Compress the 13 next-prime buckets into theorem-facing families or a structural rank-decrease packet, or emit the exact deterministic 13-bucket rank boundary before singleton descent.'
+						          : 'Wait for post-q-avoiding-batch-cover convergence assembly to select the next rank-compression token.',
+						        completionRule: 'A compression theorem, structural rank-decrease packet, or exact deterministic rank-boundary packet accounts for all 13 emitted next-prime buckets and states the next finite token.',
+						        command: null,
+						        packetAtomId: p848P4217P443Q97P479QAvoidingNextBucketRankBoundaryReady
+						          ? p848P4217P443Q97P479QAvoidingNextBucketRankBoundary?.deterministicRankBoundary?.consumedFiniteToken ?? 'p443_q97_p479_q_avoiding_next_prime_bucket_rank_boundary'
+						          : p848P4217PostQAvoidingBatchCoverConvergenceAssemblyReady
+						          ? p848P4217PostQAvoidingBatchCoverConvergenceAssembly?.finiteMeasureOrNoMeasureYet?.nextFiniteToken?.tokenId ?? 'p443_q97_p479_q_avoiding_next_prime_bucket_rank_boundary'
+						          : null,
+						        packetId: firstSideCountFloorPacket?.packetId ?? null,
+						        packetJsonPath: p848P4217P443Q97P479QAvoidingNextBucketRankBoundaryReady
+						          ? p848P4217P443Q97P479QAvoidingNextBucketRankBoundaryPath
+						          : p848P4217PostQAvoidingBatchCoverConvergenceAssemblyReady
+						          ? p848P4217PostQAvoidingBatchCoverConvergenceAssemblyPath
+						          : p848P4217P443Q97P479QAvoidingBatchCoverPath,
+						        packetMarkdownPath: p848P4217P443Q97P479QAvoidingNextBucketRankBoundaryReady
+						          ? p848P4217P443Q97P479QAvoidingNextBucketRankBoundaryPath?.replace(/\.json$/, '.md') ?? null
+						          : p848P4217PostQAvoidingBatchCoverConvergenceAssemblyReady
+						          ? p848P4217PostQAvoidingBatchCoverConvergenceAssemblyPath?.replace(/\.json$/, '.md') ?? null
+						          : p848P4217P443Q97P479QAvoidingBatchCoverPath ? p848P4217P443Q97P479QAvoidingBatchCoverPath.replace(/\.json$/, '.md') : null,
+						        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+						        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+						      },
+						      {
+						        taskId: 'run_p848_convergence_assembly_after_13_bucket_rank_boundary',
+						        status: p848P4217Post13BucketRankBoundaryConvergenceAssemblyReady
+						          ? 'done_post_13_bucket_rank_boundary_convergence_assembly_recorded'
+						          : p848P4217P443Q97P479QAvoidingNextBucketRankBoundaryReady
+						          ? 'highest'
+						          : p848P4217PostQAvoidingBatchCoverConvergenceAssemblyReady
+						          ? 'blocked_by_13_bucket_rank_boundary'
+						          : 'blocked_by_post_q_avoiding_batch_cover_convergence_assembly',
+						        task: p848P4217Post13BucketRankBoundaryConvergenceAssemblyReady
+						          ? 'Post-13-bucket rank-boundary convergence assembly selected a whole-family next-rank batch cover before singleton q-child descent.'
+						          : p848P4217P443Q97P479QAvoidingNextBucketRankBoundaryReady
+						          ? 'Run convergence assembly after the deterministic 13-bucket rank boundary and choose a multi-bucket next-rank batch cover, structural theorem, impossibility theorem, or sharper deterministic boundary before singleton descent.'
+						          : 'Wait for the deterministic 13-bucket rank-boundary packet.',
+						        completionRule: 'Assembly records the exact 13 q-bucket tokens and selects one batch, structural, impossibility, or ranked transition over them before any singleton q-child descent.',
+						        command: 'orp mode breakdown granular-breakdown --topic "problem 848 | convergence assembly | Explain the 282 First-Failure Mechanism" --json',
+						        packetAtomId: p848P4217Post13BucketRankBoundaryConvergenceAssemblyReady
+						          ? p848P4217Post13BucketRankBoundaryConvergenceAssembly?.recommendedNextAction ?? null
+						          : p848P4217P443Q97P479QAvoidingNextBucketRankBoundaryReady
+						          ? p848P4217P443Q97P479QAvoidingNextBucketRankBoundary?.recommendedNextAction ?? null
+						          : null,
+						        packetId: firstSideCountFloorPacket?.packetId ?? null,
+						        packetJsonPath: p848P4217Post13BucketRankBoundaryConvergenceAssemblyReady
+						          ? p848P4217Post13BucketRankBoundaryConvergenceAssemblyPath
+						          : p848P4217P443Q97P479QAvoidingNextBucketRankBoundaryReady
+						          ? p848P4217P443Q97P479QAvoidingNextBucketRankBoundaryPath
+						          : p848P4217PostQAvoidingBatchCoverConvergenceAssemblyPath,
+						        packetMarkdownPath: p848P4217Post13BucketRankBoundaryConvergenceAssemblyReady
+						          ? p848P4217Post13BucketRankBoundaryConvergenceAssemblyPath?.replace(/\.json$/, '.md') ?? null
+						          : p848P4217P443Q97P479QAvoidingNextBucketRankBoundaryReady
+						          ? p848P4217P443Q97P479QAvoidingNextBucketRankBoundaryPath?.replace(/\.json$/, '.md') ?? null
+						          : p848P4217PostQAvoidingBatchCoverConvergenceAssemblyPath ? p848P4217PostQAvoidingBatchCoverConvergenceAssemblyPath.replace(/\.json$/, '.md') : null,
+						        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+						        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+						      },
+						      {
+						        taskId: 'derive_p848_p4217_p443_q97_p479_next_rank_13_bucket_batch_cover_or_emit_boundary',
+						        status: p848P4217P443Q97P479NextRank13BucketBatchCoverReady
+						          ? 'done_next_rank_13_bucket_batch_cover_no_survivors'
+						          : p848P4217Post13BucketRankBoundaryConvergenceAssemblyReady
+						          ? 'highest'
+						          : p848P4217P443Q97P479QAvoidingNextBucketRankBoundaryReady
+						          ? 'blocked_by_post_13_bucket_rank_boundary_convergence_assembly'
+						          : 'blocked_by_13_bucket_rank_boundary',
+						        task: p848P4217P443Q97P479NextRank13BucketBatchCoverReady
+						          ? 'The next-rank 13-bucket batch cover classified all 170,308,883,793 source next q-avoiding classes with later two-root square obstructions by prime 199 and emitted the 15-bucket later rank boundary.'
+						          : p848P4217Post13BucketRankBoundaryConvergenceAssemblyReady
+						          ? 'Derive a next-rank batch cover, structural rank theorem, or impossibility theorem over all 13 q-bucket tokens; if no common theorem is available, emit an exact deterministic per-bucket or subbucket boundary packet.'
+						          : 'Wait for post-13-bucket rank-boundary convergence assembly to choose the next whole-family rank action.',
+						        completionRule: 'The next packet accounts for every q in {113,127,131,137,139,149,151,157,163,167,173,181,191} by batch cover, structural theorem, impossibility theorem, or exact deterministic subboundary; no singleton q-child descent is opened first.',
+						        command: null,
+						        packetAtomId: p848P4217P443Q97P479NextRank13BucketBatchCoverReady
+						          ? p848P4217P443Q97P479NextRank13BucketBatchCover?.finiteTokenTransition?.producedFiniteTokens?.find?.((token) => token.tokenId === 'p443_q97_p479_next_rank_later_q_avoiding_boundary')?.tokenId ?? 'p443_q97_p479_next_rank_later_q_avoiding_boundary'
+						          : p848P4217Post13BucketRankBoundaryConvergenceAssemblyReady
+						          ? p848P4217Post13BucketRankBoundaryConvergenceAssembly?.finiteMeasureOrNoMeasureYet?.nextFiniteToken?.tokenId ?? 'p443_q97_p479_q_avoiding_13_bucket_next_rank_batch_cover'
+						          : null,
+						        packetId: firstSideCountFloorPacket?.packetId ?? null,
+						        packetJsonPath: p848P4217P443Q97P479NextRank13BucketBatchCoverReady
+						          ? p848P4217P443Q97P479NextRank13BucketBatchCoverPath
+						          : p848P4217Post13BucketRankBoundaryConvergenceAssemblyReady
+						          ? p848P4217Post13BucketRankBoundaryConvergenceAssemblyPath
+						          : p848P4217P443Q97P479QAvoidingNextBucketRankBoundaryPath,
+						        packetMarkdownPath: p848P4217P443Q97P479NextRank13BucketBatchCoverReady
+						          ? p848P4217P443Q97P479NextRank13BucketBatchCoverPath?.replace(/\.json$/, '.md') ?? null
+						          : p848P4217Post13BucketRankBoundaryConvergenceAssemblyReady
+						          ? p848P4217Post13BucketRankBoundaryConvergenceAssemblyPath?.replace(/\.json$/, '.md') ?? null
+						          : p848P4217P443Q97P479QAvoidingNextBucketRankBoundaryPath ? p848P4217P443Q97P479QAvoidingNextBucketRankBoundaryPath.replace(/\.json$/, '.md') : null,
+						        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+						        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+						      },
+						      {
+						        taskId: 'run_p848_convergence_assembly_after_next_rank_13_bucket_batch_cover',
+						        status: p848P4217PostNextRank13BucketBatchCoverConvergenceAssemblyReady
+						          ? 'done_post_next_rank_13_bucket_batch_cover_convergence_assembly_recorded'
+						          : p848P4217P443Q97P479NextRank13BucketBatchCoverReady
+						          ? 'highest'
+						          : p848P4217Post13BucketRankBoundaryConvergenceAssemblyReady
+						          ? 'blocked_by_next_rank_13_bucket_batch_cover'
+						          : 'blocked_by_post_13_bucket_rank_boundary_convergence_assembly',
+						        task: p848P4217PostNextRank13BucketBatchCoverConvergenceAssemblyReady
+						          ? 'Post-next-rank convergence assembly selected compression or exact ranked boundary over all 15 later-prime buckets before singleton q-child descent.'
+						          : p848P4217P443Q97P479NextRank13BucketBatchCoverReady
+						          ? 'Run convergence assembly after the next-rank 13-bucket batch cover and choose bucket compression, structural decomposition, impossibility, or a ranked boundary over the 15 later-prime buckets before any singleton q-child descent.'
+						          : 'Wait for the next-rank 13-bucket batch cover or deterministic boundary packet.',
+						        completionRule: 'Assembly records the 15 later-prime buckets, 340,617,767,586 later root children, and 3,652,250,197,976,151 later q-avoiding classes, then selects one non-singleton next theorem action.',
+						        command: 'orp mode breakdown granular-breakdown --topic "problem 848 | convergence assembly | Explain the 282 First-Failure Mechanism" --json',
+						        packetAtomId: p848P4217PostNextRank13BucketBatchCoverConvergenceAssemblyReady
+						          ? p848P4217PostNextRank13BucketBatchCoverConvergenceAssembly?.recommendedNextAction ?? null
+						          : p848P4217P443Q97P479NextRank13BucketBatchCoverReady
+						          ? p848P4217P443Q97P479NextRank13BucketBatchCover?.recommendedNextAction ?? null
+						          : null,
+						        packetId: firstSideCountFloorPacket?.packetId ?? null,
+						        packetJsonPath: p848P4217PostNextRank13BucketBatchCoverConvergenceAssemblyReady
+						          ? p848P4217PostNextRank13BucketBatchCoverConvergenceAssemblyPath
+						          : p848P4217P443Q97P479NextRank13BucketBatchCoverReady
+						          ? p848P4217P443Q97P479NextRank13BucketBatchCoverPath
+						          : p848P4217Post13BucketRankBoundaryConvergenceAssemblyPath,
+						        packetMarkdownPath: p848P4217PostNextRank13BucketBatchCoverConvergenceAssemblyReady
+						          ? p848P4217PostNextRank13BucketBatchCoverConvergenceAssemblyPath?.replace(/\.json$/, '.md') ?? null
+						          : p848P4217P443Q97P479NextRank13BucketBatchCoverReady
+						          ? p848P4217P443Q97P479NextRank13BucketBatchCoverPath?.replace(/\.json$/, '.md') ?? null
+						          : p848P4217Post13BucketRankBoundaryConvergenceAssemblyPath ? p848P4217Post13BucketRankBoundaryConvergenceAssemblyPath.replace(/\.json$/, '.md') : null,
+						        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+						        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+						      },
+						      {
+						        taskId: 'compress_p848_p4217_p443_q97_p479_next_rank_later_prime_buckets_or_emit_rank_boundary',
+						        status: p848P4217P443Q97P479NextRankLaterPrime15BucketRankBoundaryReady
+						          ? 'done_15_bucket_rank_boundary_emitted'
+						          : p848P4217PostNextRank13BucketBatchCoverConvergenceAssemblyReady
+						          ? 'highest'
+						          : p848P4217P443Q97P479NextRank13BucketBatchCoverReady
+						          ? 'blocked_by_post_next_rank_13_bucket_batch_cover_convergence_assembly'
+						          : 'blocked_by_next_rank_13_bucket_batch_cover',
+						        task: p848P4217P443Q97P479NextRankLaterPrime15BucketRankBoundaryReady
+						          ? 'The 15 later-prime buckets are accounted for by an exact deterministic ranked boundary; the next move is a whole 15-bucket q-avoiding batch cover or exact survivor boundary.'
+						          : p848P4217PostNextRank13BucketBatchCoverConvergenceAssemblyReady
+						          ? 'Compress the 15 later-prime buckets into theorem-facing families, prove a structural rank decrease or impossibility theorem, or emit an exact deterministic 15-bucket ranked boundary before singleton q-child descent.'
+						          : 'Wait for post-next-rank 13-bucket batch-cover convergence assembly to select the 15-bucket later-prime rank token.',
+						        completionRule: 'A compression theorem, structural decomposition, impossibility theorem, or exact deterministic ranked-boundary packet accounts for all 15 later-prime buckets q in {127,131,137,139,149,151,157,163,167,173,179,191,193,197,199}; no singleton q-child descent is opened first.',
+						        command: null,
+						        packetAtomId: p848P4217P443Q97P479NextRankLaterPrime15BucketRankBoundaryReady
+						          ? p848P4217P443Q97P479NextRankLaterPrime15BucketRankBoundary?.finiteTokenTransition?.nextFiniteToken?.tokenId ?? 'p443_q97_p479_later_prime_15_bucket_q_avoiding_batch_cover'
+						          : p848P4217PostNextRank13BucketBatchCoverConvergenceAssemblyReady
+						          ? p848P4217PostNextRank13BucketBatchCoverConvergenceAssembly?.finiteMeasureOrNoMeasureYet?.nextFiniteToken?.tokenId ?? 'p443_q97_p479_next_rank_later_prime_15_bucket_rank_boundary'
+						          : null,
+						        packetId: firstSideCountFloorPacket?.packetId ?? null,
+						        packetJsonPath: p848P4217P443Q97P479NextRankLaterPrime15BucketRankBoundaryReady
+						          ? p848P4217P443Q97P479NextRankLaterPrime15BucketRankBoundaryPath
+						          : p848P4217PostNextRank13BucketBatchCoverConvergenceAssemblyReady
+						          ? p848P4217PostNextRank13BucketBatchCoverConvergenceAssemblyPath
+						          : p848P4217P443Q97P479NextRank13BucketBatchCoverPath,
+						        packetMarkdownPath: p848P4217P443Q97P479NextRankLaterPrime15BucketRankBoundaryReady
+						          ? p848P4217P443Q97P479NextRankLaterPrime15BucketRankBoundaryPath?.replace(/\.json$/, '.md') ?? null
+						          : p848P4217PostNextRank13BucketBatchCoverConvergenceAssemblyReady
+						          ? p848P4217PostNextRank13BucketBatchCoverConvergenceAssemblyPath?.replace(/\.json$/, '.md') ?? null
+						          : p848P4217P443Q97P479NextRank13BucketBatchCoverPath ? p848P4217P443Q97P479NextRank13BucketBatchCoverPath.replace(/\.json$/, '.md') : null,
+						        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+						        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+						      },
+						      {
+						        taskId: 'derive_p848_p4217_p443_q97_p479_later_prime_15_bucket_q_avoiding_batch_cover_or_emit_boundary',
+						        status: p848P4217P443Q97P479LaterPrime15BucketQAvoidingBatchCoverReady
+						          ? 'done_later_prime_15_bucket_q_avoiding_batch_cover_recorded'
+						          : p848P4217P443Q97P479NextRankLaterPrime15BucketRankBoundaryReady
+						          ? 'highest'
+						          : p848P4217PostNextRank13BucketBatchCoverConvergenceAssemblyReady
+						          ? 'blocked_by_15_bucket_rank_boundary'
+						          : 'blocked_by_post_next_rank_13_bucket_batch_cover_convergence_assembly',
+						        task: p848P4217P443Q97P479LaterPrime15BucketQAvoidingBatchCoverReady
+						          ? 'The whole 15-bucket later-prime q-avoiding boundary is batch-classified with no survivors; convergence assembly must now choose the next non-singleton 17-bucket rank move.'
+						          : p848P4217P443Q97P479NextRankLaterPrime15BucketRankBoundaryReady
+						          ? 'Run a whole-boundary q-avoiding batch cover over all 15 later-prime buckets, or emit an exact survivor/rank boundary if the batch cover does not close.'
+						          : 'Wait for the deterministic 15-bucket later-prime rank boundary before touching the later q-avoiding surface.',
+						        completionRule: 'Every one of the 15 later-prime q-avoiding buckets is covered, structurally decomposed, or listed in a deterministic exact survivor boundary before singleton descent.',
+						        command: null,
+						        packetAtomId: p848P4217P443Q97P479LaterPrime15BucketQAvoidingBatchCoverReady
+						          ? p848P4217P443Q97P479LaterPrime15BucketQAvoidingBatchCover?.finiteTokenTransition?.producedFiniteTokens?.find?.((token) => token.tokenId === 'p443_q97_p479_later_prime_15_bucket_next_q_avoiding_boundary')?.tokenId ?? 'p443_q97_p479_later_prime_15_bucket_next_q_avoiding_boundary'
+						          : p848P4217P443Q97P479NextRankLaterPrime15BucketRankBoundaryReady
+						          ? p848P4217P443Q97P479NextRankLaterPrime15BucketRankBoundary?.finiteTokenTransition?.nextFiniteToken?.tokenId ?? 'p443_q97_p479_later_prime_15_bucket_q_avoiding_batch_cover'
+						          : null,
+						        packetId: firstSideCountFloorPacket?.packetId ?? null,
+						        packetJsonPath: p848P4217P443Q97P479LaterPrime15BucketQAvoidingBatchCoverReady
+						          ? p848P4217P443Q97P479LaterPrime15BucketQAvoidingBatchCoverPath
+						          : p848P4217P443Q97P479NextRankLaterPrime15BucketRankBoundaryReady
+						          ? p848P4217P443Q97P479NextRankLaterPrime15BucketRankBoundaryPath
+						          : p848P4217PostNextRank13BucketBatchCoverConvergenceAssemblyPath,
+						        packetMarkdownPath: p848P4217P443Q97P479LaterPrime15BucketQAvoidingBatchCoverReady
+						          ? p848P4217P443Q97P479LaterPrime15BucketQAvoidingBatchCoverPath?.replace(/\.json$/, '.md') ?? null
+						          : p848P4217P443Q97P479NextRankLaterPrime15BucketRankBoundaryReady
+						          ? p848P4217P443Q97P479NextRankLaterPrime15BucketRankBoundaryPath?.replace(/\.json$/, '.md') ?? null
+						          : p848P4217PostNextRank13BucketBatchCoverConvergenceAssemblyPath ? p848P4217PostNextRank13BucketBatchCoverConvergenceAssemblyPath.replace(/\.json$/, '.md') : null,
+						        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+						        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+						      },
+						      {
+						        taskId: 'run_p848_convergence_assembly_after_later_prime_15_bucket_q_avoiding_batch_cover',
+						        status: p848P4217PostLaterPrime15BucketQAvoidingBatchCoverConvergenceAssemblyReady
+						          ? 'done_post_later_prime_15_bucket_q_avoiding_batch_cover_convergence_assembly_recorded'
+						          : p848P4217P443Q97P479LaterPrime15BucketQAvoidingBatchCoverReady
+						          ? 'highest'
+						          : p848P4217P443Q97P479NextRankLaterPrime15BucketRankBoundaryReady
+						          ? 'blocked_by_later_prime_15_bucket_q_avoiding_batch_cover'
+						          : 'blocked_by_15_bucket_rank_boundary',
+						        task: p848P4217PostLaterPrime15BucketQAvoidingBatchCoverConvergenceAssemblyReady
+						          ? 'Post-later-prime 15-bucket q-avoiding convergence assembly selected compression or exact ranked boundary over all 17 next-prime buckets before singleton q-child descent.'
+						          : p848P4217P443Q97P479LaterPrime15BucketQAvoidingBatchCoverReady
+						          ? 'Run convergence assembly after the 15-bucket q-avoiding batch cover and choose bucket compression, structural decomposition, impossibility, or a ranked boundary over the 17 next-prime buckets before singleton q-child descent.'
+						          : 'Wait for the whole 15-bucket later-prime q-avoiding batch cover or survivor boundary.',
+						        completionRule: 'Assembly records the 17 next-prime buckets, 7,304,500,395,952,302 next root children, and 94,524,741,190,958,970,657 next q-avoiding classes, then selects one non-singleton next theorem action.',
+						        command: 'orp mode breakdown granular-breakdown --topic "problem 848 | convergence assembly | Explain the 282 First-Failure Mechanism" --json',
+						        packetAtomId: p848P4217PostLaterPrime15BucketQAvoidingBatchCoverConvergenceAssemblyReady
+						          ? p848P4217PostLaterPrime15BucketQAvoidingBatchCoverConvergenceAssembly?.recommendedNextAction ?? null
+						          : p848P4217P443Q97P479LaterPrime15BucketQAvoidingBatchCoverReady
+						          ? p848P4217P443Q97P479LaterPrime15BucketQAvoidingBatchCover?.recommendedNextAction ?? null
+						          : null,
+						        packetId: firstSideCountFloorPacket?.packetId ?? null,
+						        packetJsonPath: p848P4217PostLaterPrime15BucketQAvoidingBatchCoverConvergenceAssemblyReady
+						          ? p848P4217PostLaterPrime15BucketQAvoidingBatchCoverConvergenceAssemblyPath
+						          : p848P4217P443Q97P479LaterPrime15BucketQAvoidingBatchCoverReady
+						          ? p848P4217P443Q97P479LaterPrime15BucketQAvoidingBatchCoverPath
+						          : p848P4217P443Q97P479NextRankLaterPrime15BucketRankBoundaryPath,
+						        packetMarkdownPath: p848P4217PostLaterPrime15BucketQAvoidingBatchCoverConvergenceAssemblyReady
+						          ? p848P4217PostLaterPrime15BucketQAvoidingBatchCoverConvergenceAssemblyPath?.replace(/\.json$/, '.md') ?? null
+						          : p848P4217P443Q97P479LaterPrime15BucketQAvoidingBatchCoverReady
+						          ? p848P4217P443Q97P479LaterPrime15BucketQAvoidingBatchCoverPath?.replace(/\.json$/, '.md') ?? null
+						          : p848P4217P443Q97P479NextRankLaterPrime15BucketRankBoundaryPath ? p848P4217P443Q97P479NextRankLaterPrime15BucketRankBoundaryPath.replace(/\.json$/, '.md') : null,
+						        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+						        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+						      },
+						      {
+						        taskId: 'compress_p848_p4217_p443_q97_p479_later_prime_15_bucket_next_prime_buckets_or_emit_rank_boundary',
+						        status: p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketRankBoundaryReady
+						          ? 'done_17_bucket_rank_boundary_emitted'
+						          : p848P4217PostLaterPrime15BucketQAvoidingBatchCoverConvergenceAssemblyReady
+						          ? 'highest'
+						          : p848P4217P443Q97P479LaterPrime15BucketQAvoidingBatchCoverReady
+						          ? 'blocked_by_post_later_prime_15_bucket_q_avoiding_batch_cover_convergence_assembly'
+						          : 'blocked_by_later_prime_15_bucket_q_avoiding_batch_cover',
+						        task: p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketRankBoundaryReady
+						          ? 'The 17 next-prime buckets are accounted for by an exact deterministic ranked boundary; the next move is a whole 17-bucket q-avoiding batch cover or exact survivor boundary.'
+						          : p848P4217PostLaterPrime15BucketQAvoidingBatchCoverConvergenceAssemblyReady
+						          ? 'Compress the 17 next-prime buckets into theorem-facing families, prove a structural rank decrease or impossibility theorem, or emit an exact deterministic 17-bucket ranked boundary before singleton q-child descent.'
+						          : 'Wait for post-later-prime 15-bucket q-avoiding batch-cover convergence assembly to select the 17-bucket next-prime rank token.',
+						        completionRule: 'A compression theorem, structural decomposition, impossibility theorem, or exact deterministic ranked-boundary packet accounts for all 17 next-prime buckets q in {131,137,139,149,151,157,163,167,173,179,181,191,193,197,199,211,223}; no singleton q-child descent is opened first.',
+						        command: null,
+						        packetAtomId: p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketRankBoundaryReady
+						          ? p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketRankBoundary?.finiteTokenTransition?.nextFiniteToken?.tokenId ?? 'p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_q_avoiding_batch_cover'
+						          : p848P4217PostLaterPrime15BucketQAvoidingBatchCoverConvergenceAssemblyReady
+						          ? p848P4217PostLaterPrime15BucketQAvoidingBatchCoverConvergenceAssembly?.finiteMeasureOrNoMeasureYet?.nextFiniteToken?.tokenId ?? 'p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_rank_boundary'
+						          : null,
+						        packetId: firstSideCountFloorPacket?.packetId ?? null,
+						        packetJsonPath: p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketRankBoundaryReady
+						          ? p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketRankBoundaryPath
+						          : p848P4217PostLaterPrime15BucketQAvoidingBatchCoverConvergenceAssemblyReady
+						          ? p848P4217PostLaterPrime15BucketQAvoidingBatchCoverConvergenceAssemblyPath
+						          : p848P4217P443Q97P479LaterPrime15BucketQAvoidingBatchCoverPath,
+						        packetMarkdownPath: p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketRankBoundaryReady
+						          ? p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketRankBoundaryPath?.replace(/\.json$/, '.md') ?? null
+						          : p848P4217PostLaterPrime15BucketQAvoidingBatchCoverConvergenceAssemblyReady
+						          ? p848P4217PostLaterPrime15BucketQAvoidingBatchCoverConvergenceAssemblyPath?.replace(/\.json$/, '.md') ?? null
+						          : p848P4217P443Q97P479LaterPrime15BucketQAvoidingBatchCoverPath ? p848P4217P443Q97P479LaterPrime15BucketQAvoidingBatchCoverPath.replace(/\.json$/, '.md') : null,
+						        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+						        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+						      },
+						      {
+						        taskId: 'derive_p848_p4217_p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_q_avoiding_batch_cover_or_emit_boundary',
+						        status: p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketQAvoidingBatchCoverReady
+						          ? 'done_17_bucket_next_prime_q_avoiding_batch_cover_recorded'
+						          : p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketRankBoundaryReady
+						          ? 'highest'
+						          : p848P4217PostLaterPrime15BucketQAvoidingBatchCoverConvergenceAssemblyReady
+						          ? 'blocked_by_17_bucket_rank_boundary'
+						          : 'blocked_by_post_later_prime_15_bucket_q_avoiding_batch_cover_convergence_assembly',
+						        task: p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketQAvoidingBatchCoverReady
+						          ? 'The 17-bucket next-prime q-avoiding boundary is batch-covered with no survivors; the next move is convergence assembly over the emitted 20 post-next buckets.'
+						          : p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketRankBoundaryReady
+						          ? 'Run a whole-boundary q-avoiding batch cover over all 17 next-prime buckets, or emit an exact survivor/rank boundary if the batch cover does not close.'
+						          : 'Wait for the deterministic 17-bucket next-prime rank boundary before touching the next q-avoiding surface.',
+						        completionRule: 'Every one of the 17 next-prime q-avoiding buckets is covered, structurally decomposed, or listed in a deterministic exact survivor boundary before singleton descent.',
+						        command: null,
+						        packetAtomId: p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketQAvoidingBatchCoverReady
+						          ? p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketQAvoidingBatchCover?.finiteTokenTransition?.producedFiniteTokens?.find?.((token) => token.tokenId === 'p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_q_avoiding_boundary')?.tokenId ?? 'p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_q_avoiding_boundary'
+						          : p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketRankBoundaryReady
+						          ? p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketRankBoundary?.finiteTokenTransition?.nextFiniteToken?.tokenId ?? 'p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_q_avoiding_batch_cover'
+						          : null,
+						        packetId: firstSideCountFloorPacket?.packetId ?? null,
+						        packetJsonPath: p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketQAvoidingBatchCoverReady
+						          ? p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketQAvoidingBatchCoverPath
+						          : p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketRankBoundaryReady
+						          ? p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketRankBoundaryPath
+						          : p848P4217PostLaterPrime15BucketQAvoidingBatchCoverConvergenceAssemblyPath,
+						        packetMarkdownPath: p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketQAvoidingBatchCoverReady
+						          ? p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketQAvoidingBatchCoverPath?.replace(/\.json$/, '.md') ?? null
+						          : p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketRankBoundaryReady
+						          ? p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketRankBoundaryPath?.replace(/\.json$/, '.md') ?? null
+						          : p848P4217PostLaterPrime15BucketQAvoidingBatchCoverConvergenceAssemblyPath ? p848P4217PostLaterPrime15BucketQAvoidingBatchCoverConvergenceAssemblyPath.replace(/\.json$/, '.md') : null,
+						        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+						        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+						      },
+						      {
+						        taskId: 'run_p848_convergence_assembly_after_later_prime_15_bucket_next_prime_17_bucket_q_avoiding_batch_cover',
+						        status: p848P4217PostLaterPrime15BucketNextPrime17BucketQAvoidingBatchCoverConvergenceAssemblyReady
+						          ? 'done_post_later_prime_15_bucket_next_prime_17_bucket_q_avoiding_batch_cover_convergence_assembly_recorded'
+						          : p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketQAvoidingBatchCoverReady
+						          ? 'highest'
+						          : p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketRankBoundaryReady
+						          ? 'blocked_by_17_bucket_next_prime_q_avoiding_batch_cover'
+						          : 'blocked_by_17_bucket_rank_boundary',
+						        task: p848P4217PostLaterPrime15BucketNextPrime17BucketQAvoidingBatchCoverConvergenceAssemblyReady
+						          ? 'Post-17-bucket q-avoiding convergence assembly selected compression or exact ranked boundary over all 20 post-next buckets before singleton q-child descent.'
+						          : p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketQAvoidingBatchCoverReady
+						          ? 'Run convergence assembly after the 17-bucket q-avoiding batch cover and choose bucket compression, structural decomposition, impossibility, or a ranked boundary over the 20 post-next buckets before singleton q-child descent.'
+						          : 'Wait for the whole 17-bucket next-prime q-avoiding batch cover or survivor boundary.',
+						        completionRule: 'Assembly records the 20 post-next buckets, 189,049,482,381,917,941,314 later root children, and 2,946,810,455,708,641,575,397,311 later q-avoiding classes, then selects one non-singleton next theorem action.',
+						        command: 'orp mode breakdown granular-breakdown --topic "problem 848 | convergence assembly | Explain the 282 First-Failure Mechanism" --json',
+						        packetAtomId: p848P4217PostLaterPrime15BucketNextPrime17BucketQAvoidingBatchCoverConvergenceAssemblyReady
+						          ? p848P4217PostLaterPrime15BucketNextPrime17BucketQAvoidingBatchCoverConvergenceAssembly?.recommendedNextAction ?? null
+						          : p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketQAvoidingBatchCoverReady
+						          ? p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketQAvoidingBatchCover?.recommendedNextAction ?? null
+						          : null,
+						        packetId: firstSideCountFloorPacket?.packetId ?? null,
+						        packetJsonPath: p848P4217PostLaterPrime15BucketNextPrime17BucketQAvoidingBatchCoverConvergenceAssemblyReady
+						          ? p848P4217PostLaterPrime15BucketNextPrime17BucketQAvoidingBatchCoverConvergenceAssemblyPath
+						          : p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketQAvoidingBatchCoverReady
+						          ? p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketQAvoidingBatchCoverPath
+						          : p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketRankBoundaryPath,
+						        packetMarkdownPath: p848P4217PostLaterPrime15BucketNextPrime17BucketQAvoidingBatchCoverConvergenceAssemblyReady
+						          ? p848P4217PostLaterPrime15BucketNextPrime17BucketQAvoidingBatchCoverConvergenceAssemblyPath?.replace(/\.json$/, '.md') ?? null
+						          : p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketQAvoidingBatchCoverReady
+						          ? p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketQAvoidingBatchCoverPath?.replace(/\.json$/, '.md') ?? null
+						          : p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketRankBoundaryPath ? p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketRankBoundaryPath.replace(/\.json$/, '.md') : null,
+						        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+						        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+						      },
+						      {
+						        taskId: 'compress_p848_p4217_p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_buckets_or_emit_rank_boundary',
+						        status: p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketRankBoundaryReady
+						          ? 'done_20_bucket_post_next_rank_boundary_emitted'
+						          : p848P4217PostLaterPrime15BucketNextPrime17BucketQAvoidingBatchCoverConvergenceAssemblyReady
+						          ? 'highest'
+						          : p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketQAvoidingBatchCoverReady
+						          ? 'blocked_by_post_later_prime_15_bucket_next_prime_17_bucket_q_avoiding_batch_cover_convergence_assembly'
+						          : 'blocked_by_17_bucket_next_prime_q_avoiding_batch_cover',
+						        task: p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketRankBoundaryReady
+						          ? 'The 20 post-next buckets are accounted for by an exact deterministic ranked boundary; the next move is a whole 20-bucket q-avoiding batch cover or exact survivor boundary.'
+						          : p848P4217PostLaterPrime15BucketNextPrime17BucketQAvoidingBatchCoverConvergenceAssemblyReady
+						          ? 'Compress the 20 post-next obstruction-prime buckets into theorem-facing families, prove a structural rank decrease or impossibility theorem, or emit an exact deterministic 20-bucket ranked boundary before singleton q-child descent.'
+						          : 'Wait for post-17-bucket q-avoiding convergence assembly to select the 20-bucket post-next rank token.',
+						        completionRule: 'A compression theorem, structural decomposition, impossibility theorem, or exact deterministic ranked-boundary packet accounts for all 20 post-next buckets q in {137,139,149,151,157,163,167,173,179,181,191,193,197,199,211,223,227,229,233,239}; no singleton q-child descent is opened first.',
+						        command: null,
+						        packetAtomId: p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketRankBoundaryReady
+						          ? p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketRankBoundary?.finiteTokenTransition?.nextFiniteToken?.tokenId ?? 'p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_q_avoiding_batch_cover'
+						          : p848P4217PostLaterPrime15BucketNextPrime17BucketQAvoidingBatchCoverConvergenceAssemblyReady
+						          ? p848P4217PostLaterPrime15BucketNextPrime17BucketQAvoidingBatchCoverConvergenceAssembly?.finiteMeasureOrNoMeasureYet?.nextFiniteToken?.tokenId ?? 'p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_rank_boundary'
+						          : null,
+						        packetId: firstSideCountFloorPacket?.packetId ?? null,
+						        packetJsonPath: p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketRankBoundaryReady
+						          ? p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketRankBoundaryPath
+						          : p848P4217PostLaterPrime15BucketNextPrime17BucketQAvoidingBatchCoverConvergenceAssemblyReady
+						          ? p848P4217PostLaterPrime15BucketNextPrime17BucketQAvoidingBatchCoverConvergenceAssemblyPath
+						          : p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketQAvoidingBatchCoverPath,
+						        packetMarkdownPath: p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketRankBoundaryReady
+						          ? p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketRankBoundaryPath?.replace(/\.json$/, '.md') ?? null
+						          : p848P4217PostLaterPrime15BucketNextPrime17BucketQAvoidingBatchCoverConvergenceAssemblyReady
+						          ? p848P4217PostLaterPrime15BucketNextPrime17BucketQAvoidingBatchCoverConvergenceAssemblyPath?.replace(/\.json$/, '.md') ?? null
+						          : p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketQAvoidingBatchCoverPath ? p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketQAvoidingBatchCoverPath.replace(/\.json$/, '.md') : null,
+						        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+						        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+						      },
+						      {
+						        taskId: 'derive_p848_p4217_p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_q_avoiding_batch_cover_or_emit_boundary',
+						        status: p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketQAvoidingBatchCoverReady
+						          ? 'done_20_bucket_post_next_q_avoiding_batch_cover_recorded'
+						          : p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketRankBoundaryReady
+						          ? 'highest'
+						          : p848P4217PostLaterPrime15BucketNextPrime17BucketQAvoidingBatchCoverConvergenceAssemblyReady
+						          ? 'blocked_by_20_bucket_rank_boundary'
+						          : 'blocked_by_post_17_bucket_q_avoiding_convergence_assembly',
+						        task: p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketQAvoidingBatchCoverReady
+						          ? 'The 20-bucket post-next q-avoiding boundary is batch-covered with no survivors; the next move is convergence assembly over the emitted 22 successor buckets.'
+						          : p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketRankBoundaryReady
+						          ? 'Run a whole-boundary q-avoiding batch cover over all 20 post-next buckets, or emit an exact survivor/rank boundary if the batch cover does not close.'
+						          : 'Wait for the deterministic 20-bucket post-next rank boundary before touching the post-next q-avoiding surface.',
+						        completionRule: 'Every one of the 20 post-next q-avoiding buckets is covered, structurally decomposed, or listed in a deterministic exact survivor boundary before singleton descent.',
+						        command: null,
+						        packetAtomId: p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketQAvoidingBatchCoverReady
+						          ? p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketQAvoidingBatchCover?.finiteTokenTransition?.producedFiniteTokens?.find?.((token) => token.tokenId === 'p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_q_avoiding_boundary')?.tokenId ?? 'p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_q_avoiding_boundary'
+						          : p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketRankBoundaryReady
+						          ? p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketRankBoundary?.finiteTokenTransition?.nextFiniteToken?.tokenId ?? 'p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_q_avoiding_batch_cover'
+						          : null,
+						        packetId: firstSideCountFloorPacket?.packetId ?? null,
+						        packetJsonPath: p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketQAvoidingBatchCoverReady
+						          ? p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketQAvoidingBatchCoverPath
+						          : p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketRankBoundaryReady
+						          ? p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketRankBoundaryPath
+						          : p848P4217PostLaterPrime15BucketNextPrime17BucketQAvoidingBatchCoverConvergenceAssemblyPath,
+						        packetMarkdownPath: p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketQAvoidingBatchCoverReady
+						          ? p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketQAvoidingBatchCoverPath?.replace(/\.json$/, '.md') ?? null
+						          : p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketRankBoundaryReady
+						          ? p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketRankBoundaryPath?.replace(/\.json$/, '.md') ?? null
+						          : p848P4217PostLaterPrime15BucketNextPrime17BucketQAvoidingBatchCoverConvergenceAssemblyPath ? p848P4217PostLaterPrime15BucketNextPrime17BucketQAvoidingBatchCoverConvergenceAssemblyPath.replace(/\.json$/, '.md') : null,
+						        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+						        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+						      },
+						      {
+						        taskId: 'run_p848_convergence_assembly_after_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_q_avoiding_batch_cover',
+						        status: p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketQAvoidingBatchCoverConvergenceAssemblyReady
+						          ? 'done_post_next_20_bucket_q_avoiding_batch_cover_convergence_assembly_recorded'
+						          : p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketQAvoidingBatchCoverReady
+						          ? 'highest'
+						          : p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketRankBoundaryReady
+						          ? 'blocked_by_20_bucket_post_next_q_avoiding_batch_cover'
+						          : 'blocked_by_20_bucket_post_next_rank_boundary',
+						        task: p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketQAvoidingBatchCoverConvergenceAssemblyReady
+						          ? 'Post-20-bucket q-avoiding convergence assembly selected compression or exact ranked boundary over all 22 successor buckets before singleton q-child descent.'
+						          : p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketQAvoidingBatchCoverReady
+						          ? 'Run convergence assembly after the 20-bucket post-next q-avoiding batch cover and choose bucket compression, structural decomposition, impossibility, or a ranked boundary over the 22 successor buckets before singleton q-child descent.'
+						          : 'Wait for the whole 20-bucket post-next q-avoiding batch cover or survivor boundary.',
+						        completionRule: 'Assembly records the 22 successor buckets, 5,893,620,911,417,283,150,794,622 successor root children, and 111,172,518,226,866,898,571,161,320,153 successor q-avoiding classes, then selects one non-singleton next theorem action.',
+						        command: 'orp mode breakdown granular-breakdown --topic "problem 848 | convergence assembly | Explain the 282 First-Failure Mechanism" --json',
+						        packetAtomId: p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketQAvoidingBatchCoverConvergenceAssemblyReady
+						          ? p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketQAvoidingBatchCoverConvergenceAssembly?.finiteMeasureOrNoMeasureYet?.nextFiniteToken?.tokenId ?? 'p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_rank_boundary'
+						          : p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketQAvoidingBatchCoverReady
+						          ? p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketQAvoidingBatchCover?.recommendedNextAction ?? null
+						          : null,
+						        packetId: firstSideCountFloorPacket?.packetId ?? null,
+						        packetJsonPath: p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketQAvoidingBatchCoverConvergenceAssemblyReady
+						          ? p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketQAvoidingBatchCoverConvergenceAssemblyPath
+						          : p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketQAvoidingBatchCoverReady
+						          ? p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketQAvoidingBatchCoverPath
+						          : p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketRankBoundaryPath,
+						        packetMarkdownPath: p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketQAvoidingBatchCoverConvergenceAssemblyReady
+						          ? p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketQAvoidingBatchCoverConvergenceAssemblyPath?.replace(/\.json$/, '.md') ?? null
+						          : p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketQAvoidingBatchCoverReady
+						          ? p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketQAvoidingBatchCoverPath?.replace(/\.json$/, '.md') ?? null
+						          : p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketRankBoundaryPath ? p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketRankBoundaryPath.replace(/\.json$/, '.md') : null,
+						        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+						        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+						      },
+						      {
+						        taskId: 'compress_p848_p4217_p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_buckets_or_emit_rank_boundary',
+						        status: p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketRankBoundaryReady
+						          ? 'done_22_bucket_successor_rank_boundary_emitted'
+						          : p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketQAvoidingBatchCoverConvergenceAssemblyReady
+						          ? 'highest'
+						          : p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketQAvoidingBatchCoverReady
+						          ? 'blocked_by_post_next_20_bucket_q_avoiding_convergence_assembly'
+						          : p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketRankBoundaryReady
+						          ? 'blocked_by_20_bucket_post_next_q_avoiding_batch_cover'
+						          : 'blocked_by_20_bucket_post_next_rank_boundary',
+						        task: p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketRankBoundaryReady
+						          ? 'The 22 successor obstruction-prime buckets are accounted for by an exact deterministic ranked boundary; the next move is a whole 22-bucket successor q-avoiding batch cover or exact survivor boundary.'
+						          : p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketQAvoidingBatchCoverConvergenceAssemblyReady
+						          ? 'Compress the 22 successor obstruction-prime buckets into theorem-facing families, prove a structural rank decrease or impossibility theorem, or emit an exact deterministic 22-bucket ranked boundary before singleton q-child descent.'
+						          : 'Wait for post-20-bucket q-avoiding convergence assembly to select the 22-bucket successor rank token.',
+						        completionRule: 'A compression theorem, structural decomposition, impossibility theorem, or exact deterministic ranked-boundary packet accounts for all 22 successor buckets q in {139,149,151,157,163,167,173,179,181,191,193,197,199,211,223,227,229,233,239,241,251,263}; no singleton q-child descent is opened first.',
+						        command: null,
+						        packetAtomId: p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketRankBoundaryReady
+						          ? p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketRankBoundary?.finiteTokenTransition?.nextFiniteToken?.tokenId ?? 'p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_q_avoiding_batch_cover'
+						          : p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketQAvoidingBatchCoverConvergenceAssemblyReady
+						          ? p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketQAvoidingBatchCoverConvergenceAssembly?.finiteMeasureOrNoMeasureYet?.nextFiniteToken?.tokenId ?? 'p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_rank_boundary'
+						          : null,
+						        packetId: firstSideCountFloorPacket?.packetId ?? null,
+						        packetJsonPath: p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketRankBoundaryReady
+						          ? p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketRankBoundaryPath
+						          : p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketQAvoidingBatchCoverConvergenceAssemblyReady
+						          ? p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketQAvoidingBatchCoverConvergenceAssemblyPath
+						          : p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketQAvoidingBatchCoverPath,
+						        packetMarkdownPath: p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketRankBoundaryReady
+						          ? p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketRankBoundaryPath?.replace(/\.json$/, '.md') ?? null
+						          : p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketQAvoidingBatchCoverConvergenceAssemblyReady
+						          ? p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketQAvoidingBatchCoverConvergenceAssemblyPath?.replace(/\.json$/, '.md') ?? null
+						          : p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketQAvoidingBatchCoverPath ? p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketQAvoidingBatchCoverPath.replace(/\.json$/, '.md') : null,
+						        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+						        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+						      },
+						      {
+						        taskId: 'derive_p848_p4217_p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_q_avoiding_batch_cover_or_emit_boundary',
+						        status: p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketQAvoidingBatchCoverReady
+						          ? 'done_22_bucket_successor_q_avoiding_batch_cover_recorded'
+						          : p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketRankBoundaryReady
+						          ? 'highest'
+						          : p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketQAvoidingBatchCoverConvergenceAssemblyReady
+						          ? 'blocked_by_22_bucket_successor_rank_boundary'
+						          : p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketQAvoidingBatchCoverReady
+						          ? 'blocked_by_post_next_20_bucket_q_avoiding_convergence_assembly'
+						          : 'blocked_by_20_bucket_post_next_q_avoiding_batch_cover',
+						        task: p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketQAvoidingBatchCoverReady
+						          ? 'The 22-bucket successor q-avoiding boundary is batch-covered with no survivors; the next move is convergence assembly over the emitted 24 post-successor buckets.'
+						          : p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketRankBoundaryReady
+						          ? 'Run a whole-boundary q-avoiding batch cover over all 22 successor buckets, prove a structural decomposition or impossibility theorem, or emit an exact deterministic survivor/rank boundary; do not descend into q139/q149 singleton children first.'
+						          : 'Wait for the exact 22-bucket successor rank boundary before touching the successor q-avoiding surface.',
+						        completionRule: 'Every one of the 22 successor q-avoiding buckets is covered, structurally decomposed, or listed in a deterministic exact survivor boundary before singleton descent.',
+						        command: null,
+						        packetAtomId: p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketQAvoidingBatchCoverReady
+						          ? p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketQAvoidingBatchCover?.finiteTokenTransition?.producedFiniteTokens?.find?.((token) => token.tokenId === 'p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_q_avoiding_boundary')?.tokenId ?? 'p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_q_avoiding_boundary'
+						          : p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketRankBoundaryReady
+						          ? p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketRankBoundary?.finiteTokenTransition?.nextFiniteToken?.tokenId ?? 'p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_q_avoiding_batch_cover'
+						          : p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketQAvoidingBatchCoverConvergenceAssemblyReady
+						          ? p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketQAvoidingBatchCoverConvergenceAssembly?.finiteMeasureOrNoMeasureYet?.nextFiniteToken?.tokenId ?? 'p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_rank_boundary'
+						          : null,
+						        packetId: firstSideCountFloorPacket?.packetId ?? null,
+						        packetJsonPath: p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketQAvoidingBatchCoverReady
+						          ? p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketQAvoidingBatchCoverPath
+						          : p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketRankBoundaryReady
+						          ? p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketRankBoundaryPath
+						          : p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketQAvoidingBatchCoverConvergenceAssemblyReady
+						          ? p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketQAvoidingBatchCoverConvergenceAssemblyPath
+						          : p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketQAvoidingBatchCoverPath,
+						        packetMarkdownPath: p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketQAvoidingBatchCoverReady
+						          ? p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketQAvoidingBatchCoverPath?.replace(/\.json$/, '.md') ?? null
+						          : p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketRankBoundaryReady
+						          ? p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketRankBoundaryPath?.replace(/\.json$/, '.md') ?? null
+						          : p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketQAvoidingBatchCoverConvergenceAssemblyReady
+						          ? p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketQAvoidingBatchCoverConvergenceAssemblyPath?.replace(/\.json$/, '.md') ?? null
+						          : p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketQAvoidingBatchCoverPath ? p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketQAvoidingBatchCoverPath.replace(/\.json$/, '.md') : null,
+						        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+						        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+						      },
+						      {
+						        taskId: 'run_p848_convergence_assembly_after_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_q_avoiding_batch_cover',
+						        status: p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketQAvoidingBatchCoverConvergenceAssemblyReady
+						          ? 'done_post_22_bucket_successor_q_avoiding_batch_cover_convergence_assembly_recorded'
+						          : p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketQAvoidingBatchCoverReady
+						          ? 'highest'
+						          : p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketRankBoundaryReady
+						          ? 'blocked_by_22_bucket_successor_q_avoiding_batch_cover'
+						          : 'blocked_by_22_bucket_successor_rank_boundary',
+						        task: p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketQAvoidingBatchCoverConvergenceAssemblyReady
+						          ? 'Post-22-bucket successor q-avoiding convergence assembly selected compression or exact ranked boundary over all 24 post-successor buckets before singleton q-child descent.'
+						          : p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketQAvoidingBatchCoverReady
+						          ? 'Run convergence assembly after the 22-bucket successor q-avoiding batch cover and choose bucket compression, structural decomposition, impossibility, or a ranked boundary over the 24 post-successor buckets before singleton q-child descent.'
+						          : 'Wait for the whole 22-bucket successor q-avoiding batch cover or survivor boundary.',
+						        completionRule: 'Assembly records the 24 post-successor buckets, 222,345,036,453,733,797,142,322,640,306 post-successor root children, and 5,058,399,114,142,580,922,880,572,195,875,967 post-successor q-avoiding classes, then selects one non-singleton next theorem action.',
+						        command: 'orp mode breakdown granular-breakdown --topic "problem 848 | convergence assembly | Explain the 282 First-Failure Mechanism" --json',
+						        packetAtomId: p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketQAvoidingBatchCoverConvergenceAssemblyReady
+						          ? p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketQAvoidingBatchCoverConvergenceAssembly?.finiteMeasureOrNoMeasureYet?.nextFiniteToken?.tokenId ?? 'p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_rank_boundary'
+						          : p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketQAvoidingBatchCoverReady
+						          ? p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketQAvoidingBatchCover?.finiteTokenTransition?.producedFiniteTokens?.find?.((token) => token.tokenId === 'p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_q_avoiding_boundary')?.tokenId ?? 'p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_q_avoiding_boundary'
+						          : null,
+						        packetId: firstSideCountFloorPacket?.packetId ?? null,
+						        packetJsonPath: p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketQAvoidingBatchCoverConvergenceAssemblyReady
+						          ? p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketQAvoidingBatchCoverConvergenceAssemblyPath
+						          : p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketQAvoidingBatchCoverReady
+						          ? p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketQAvoidingBatchCoverPath
+						          : p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketRankBoundaryPath,
+						        packetMarkdownPath: p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketQAvoidingBatchCoverConvergenceAssemblyReady
+						          ? p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketQAvoidingBatchCoverConvergenceAssemblyPath?.replace(/\.json$/, '.md') ?? null
+						          : p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketQAvoidingBatchCoverReady
+						          ? p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketQAvoidingBatchCoverPath?.replace(/\.json$/, '.md') ?? null
+						          : p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketRankBoundaryPath ? p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketRankBoundaryPath.replace(/\.json$/, '.md') : null,
+						        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+						        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+						      },
+						      {
+						        taskId: 'compress_p848_p4217_p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_buckets_or_emit_rank_boundary',
+						        status: p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketRankBoundaryReady
+						          ? 'done_24_bucket_post_successor_rank_boundary_emitted'
+						          : p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketQAvoidingBatchCoverConvergenceAssemblyReady
+						          ? 'highest'
+						          : p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketQAvoidingBatchCoverReady
+						          ? 'blocked_by_post_22_bucket_successor_q_avoiding_convergence_assembly'
+						          : 'blocked_by_22_bucket_successor_q_avoiding_batch_cover',
+						        task: p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketRankBoundaryReady
+						          ? 'The 24 post-successor obstruction-prime buckets are accounted for by an exact deterministic ranked boundary; the next move is a whole 24-bucket post-successor q-avoiding batch cover or exact survivor boundary.'
+						          : p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketQAvoidingBatchCoverConvergenceAssemblyReady
+						          ? 'Compress the 24 post-successor obstruction-prime buckets, prove a structural rank decrease or impossibility theorem, or emit an exact deterministic 24-bucket ranked boundary before singleton q-child descent.'
+						          : 'Wait for post-22-bucket successor q-avoiding convergence assembly to select the 24-bucket post-successor rank token.',
+						        completionRule: 'The next packet accounts for every one of the 24 post-successor buckets by compression theorem, structural decomposition, impossibility theorem, or exact deterministic ranked boundary.',
+						        command: null,
+						        packetAtomId: p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketRankBoundaryReady
+						          ? p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketRankBoundary?.finiteTokenTransition?.nextFiniteToken?.tokenId ?? 'p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_q_avoiding_batch_cover'
+						          : p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketQAvoidingBatchCoverConvergenceAssemblyReady
+						          ? p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketQAvoidingBatchCoverConvergenceAssembly?.finiteMeasureOrNoMeasureYet?.nextFiniteToken?.tokenId ?? 'p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_rank_boundary'
+						          : p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketQAvoidingBatchCoverReady
+						          ? p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketQAvoidingBatchCover?.finiteTokenTransition?.producedFiniteTokens?.find?.((token) => token.tokenId === 'p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_q_avoiding_boundary')?.tokenId ?? 'p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_q_avoiding_boundary'
+						          : null,
+						        packetId: firstSideCountFloorPacket?.packetId ?? null,
+						        packetJsonPath: p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketRankBoundaryReady
+						          ? p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketRankBoundaryPath
+						          : p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketQAvoidingBatchCoverConvergenceAssemblyReady
+						          ? p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketQAvoidingBatchCoverConvergenceAssemblyPath
+						          : p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketQAvoidingBatchCoverPath,
+						        packetMarkdownPath: p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketRankBoundaryReady
+						          ? p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketRankBoundaryPath?.replace(/\.json$/, '.md') ?? null
+						          : p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketQAvoidingBatchCoverConvergenceAssemblyReady
+						          ? p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketQAvoidingBatchCoverConvergenceAssemblyPath?.replace(/\.json$/, '.md') ?? null
+						          : p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketQAvoidingBatchCoverPath ? p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketQAvoidingBatchCoverPath.replace(/\.json$/, '.md') : null,
+						        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+						        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+						      },
+							      {
+							        taskId: 'derive_p848_p4217_p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_q_avoiding_batch_cover_or_emit_boundary',
+							        status: p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketQAvoidingBatchCoverReady
+							          ? 'done_24_bucket_post_successor_q_avoiding_batch_cover_no_survivors'
+							          : p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketRankBoundaryReady
+							          ? 'highest'
+							          : p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketQAvoidingBatchCoverConvergenceAssemblyReady
+							          ? 'blocked_by_24_bucket_post_successor_rank_boundary'
+							          : 'blocked_by_post_22_bucket_successor_q_avoiding_convergence_assembly',
+							        task: p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketQAvoidingBatchCoverReady
+							          ? 'The 24-bucket post-successor q-avoiding boundary is batch-covered with no survivors; the next move is convergence assembly over the emitted 24 post-post-successor buckets.'
+							          : p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketRankBoundaryReady
+							          ? 'Run a whole-boundary q-avoiding batch cover over all 24 post-successor buckets, prove a structural decomposition or impossibility theorem, or emit an exact deterministic survivor/rank boundary; do not descend into q149/q151 singleton children first.'
+							          : 'Wait for the exact 24-bucket post-successor rank boundary before touching the post-successor q-avoiding surface.',
+							        completionRule: 'Every one of the 24 post-successor q-avoiding buckets is covered, structurally decomposed, or listed in a deterministic exact survivor boundary before singleton descent.',
+							        command: null,
+							        packetAtomId: p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketQAvoidingBatchCoverReady
+							          ? p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketQAvoidingBatchCover?.finiteTokenTransition?.producedFiniteTokens?.find?.((token) => token.tokenId === 'p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_q_avoiding_boundary')?.tokenId ?? 'p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_q_avoiding_boundary'
+							          : p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketRankBoundaryReady
+							          ? p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketRankBoundary?.finiteTokenTransition?.nextFiniteToken?.tokenId ?? 'p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_q_avoiding_batch_cover'
+							          : p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketQAvoidingBatchCoverConvergenceAssemblyReady
+							          ? p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketQAvoidingBatchCoverConvergenceAssembly?.finiteMeasureOrNoMeasureYet?.nextFiniteToken?.tokenId ?? 'p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_rank_boundary'
+							          : null,
+							        packetId: firstSideCountFloorPacket?.packetId ?? null,
+							        packetJsonPath: p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketQAvoidingBatchCoverReady
+							          ? p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketQAvoidingBatchCoverPath
+							          : p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketRankBoundaryReady
+							          ? p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketRankBoundaryPath
+							          : p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketQAvoidingBatchCoverConvergenceAssemblyPath,
+							        packetMarkdownPath: p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketQAvoidingBatchCoverReady
+							          ? p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketQAvoidingBatchCoverPath?.replace(/\.json$/, '.md') ?? null
+							          : p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketRankBoundaryReady
+							          ? p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketRankBoundaryPath?.replace(/\.json$/, '.md') ?? null
+							          : p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketQAvoidingBatchCoverConvergenceAssemblyPath ? p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketQAvoidingBatchCoverConvergenceAssemblyPath.replace(/\.json$/, '.md') : null,
+							        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+							        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+							      },
+							      {
+							        taskId: 'run_p848_convergence_assembly_after_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_q_avoiding_batch_cover',
+							        status: p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketQAvoidingBatchCoverConvergenceAssemblyReady
+							          ? 'done_post_successor_24_bucket_q_avoiding_convergence_assembly'
+							          : p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketQAvoidingBatchCoverReady
+							          ? 'highest'
+							          : p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketRankBoundaryReady
+							          ? 'blocked_by_24_bucket_post_successor_q_avoiding_batch_cover'
+							          : 'blocked_by_24_bucket_post_successor_rank_boundary',
+							        task: p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketQAvoidingBatchCoverConvergenceAssemblyReady
+							          ? 'Post-24-bucket post-successor q-avoiding convergence assembly selected compression or exact ranked boundary over all 24 post-post-successor buckets before singleton q-child descent.'
+							          : p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketQAvoidingBatchCoverReady
+							          ? 'Run convergence assembly after the 24-bucket post-successor q-avoiding batch cover and choose bucket compression, structural decomposition, impossibility, or a ranked boundary over the 24 post-post-successor buckets before singleton q-child descent.'
+							          : 'Wait for the whole 24-bucket post-successor q-avoiding batch cover or survivor boundary.',
+							        completionRule: 'Assembly records the 24 post-post-successor buckets, 10,116,798,228,285,161,845,761,144,391,751,934 post-post-successor root children, and 272,895,494,027,351,286,884,102,031,165,661,158,393 post-post-successor q-avoiding classes, then selects one non-singleton next theorem action.',
+							        command: 'orp mode breakdown granular-breakdown --topic "problem 848 | convergence assembly | Explain the 282 First-Failure Mechanism" --json',
+							        packetAtomId: p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketQAvoidingBatchCoverReady
+							          ? p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketQAvoidingBatchCover?.finiteTokenTransition?.producedFiniteTokens?.find?.((token) => token.tokenId === 'p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_q_avoiding_boundary')?.tokenId ?? 'p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_q_avoiding_boundary'
+							          : null,
+							        packetId: firstSideCountFloorPacket?.packetId ?? null,
+							        packetJsonPath: p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketQAvoidingBatchCoverPath,
+							        packetMarkdownPath: p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketQAvoidingBatchCoverPath ? p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketQAvoidingBatchCoverPath.replace(/\.json$/, '.md') : null,
+							        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+							        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+							      },
+						      {
+						        taskId: 'compress_p848_p4217_p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_buckets_or_emit_rank_boundary',
+						        status: p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketRankBoundaryReady
+						          ? 'done_24_bucket_post_post_successor_rank_boundary_emitted'
+						          : p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketQAvoidingBatchCoverConvergenceAssemblyReady
+						          ? 'highest'
+						          : p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketQAvoidingBatchCoverReady
+						          ? 'blocked_by_post_successor_24_bucket_q_avoiding_convergence_assembly'
+						          : 'blocked_by_24_bucket_post_successor_q_avoiding_batch_cover',
+						        task: p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketRankBoundaryReady
+						          ? 'The 24 post-post-successor obstruction-prime buckets are accounted for by an exact deterministic ranked boundary; the next move is a whole 24-bucket post-post-successor q-avoiding batch cover or exact survivor boundary.'
+						          : p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketQAvoidingBatchCoverConvergenceAssemblyReady
+						          ? 'Compress the 24 post-post-successor obstruction-prime buckets, prove a structural rank decrease or impossibility theorem, or emit an exact deterministic 24-bucket ranked boundary before singleton q-child descent.'
+						          : 'Wait for post-24-bucket post-successor q-avoiding convergence assembly to select the 24-bucket post-post-successor rank token.',
+						        completionRule: 'The next packet accounts for every one of the 24 post-post-successor buckets by compression theorem, structural decomposition, impossibility theorem, or exact deterministic ranked boundary.',
+						        command: null,
+						        packetAtomId: p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketRankBoundaryReady
+						          ? p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketRankBoundary?.finiteTokenTransition?.nextFiniteToken?.tokenId ?? 'p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_q_avoiding_batch_cover'
+						          : p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketQAvoidingBatchCoverConvergenceAssemblyReady
+						          ? p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketQAvoidingBatchCoverConvergenceAssembly?.finiteMeasureOrNoMeasureYet?.nextFiniteToken?.tokenId ?? 'p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_rank_boundary'
+						          : p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketQAvoidingBatchCover?.finiteTokenTransition?.producedFiniteTokens?.find?.((token) => token.tokenId === 'p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_q_avoiding_boundary')?.tokenId ?? null,
+						        packetId: firstSideCountFloorPacket?.packetId ?? null,
+						        packetJsonPath: p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketRankBoundaryReady
+						          ? p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketRankBoundaryPath
+						          : p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketQAvoidingBatchCoverConvergenceAssemblyReady
+						          ? p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketQAvoidingBatchCoverConvergenceAssemblyPath
+						          : p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketQAvoidingBatchCoverPath,
+						        packetMarkdownPath: p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketRankBoundaryReady
+						          ? p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketRankBoundaryPath?.replace(/\.json$/, '.md') ?? null
+						          : p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketQAvoidingBatchCoverConvergenceAssemblyReady
+						          ? p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketQAvoidingBatchCoverConvergenceAssemblyPath?.replace(/\.json$/, '.md') ?? null
+						          : p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketQAvoidingBatchCoverPath ? p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketQAvoidingBatchCoverPath.replace(/\.json$/, '.md') : null,
+						        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+						        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+						      },
+							      {
+							        taskId: 'derive_p848_p4217_p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_q_avoiding_batch_cover_or_emit_boundary',
+							        status: p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketQAvoidingBatchCoverReady
+							          ? 'done_24_bucket_post_post_successor_q_avoiding_batch_cover_no_survivors'
+							          : p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketRankBoundaryReady
+							          ? 'highest'
+							          : p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketQAvoidingBatchCoverConvergenceAssemblyReady
+							          ? 'blocked_by_24_bucket_post_post_successor_rank_boundary'
+							          : 'blocked_by_post_successor_24_bucket_q_avoiding_convergence_assembly',
+							        task: p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketQAvoidingBatchCoverReady
+							          ? 'The 24-bucket post-post-successor q-avoiding boundary is batch-covered with no survivors; the next move is convergence assembly over the emitted 26 post-post-post-successor buckets.'
+							          : p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketRankBoundaryReady
+							          ? 'Run a whole-boundary q-avoiding batch cover over all 24 post-post-successor buckets, prove a structural decomposition or impossibility theorem, or emit an exact deterministic survivor/rank boundary; do not descend into q151/q157 singleton children first.'
+							          : 'Wait for the exact 24-bucket post-post-successor rank boundary before touching the post-post-successor q-avoiding surface.',
+							        completionRule: 'Every one of the 24 post-post-successor q-avoiding buckets is covered, structurally decomposed, or listed in a deterministic exact survivor boundary before singleton descent.',
+							        command: null,
+							        packetAtomId: p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketQAvoidingBatchCoverReady
+							          ? p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketQAvoidingBatchCover?.finiteTokenTransition?.producedFiniteTokens?.find?.((token) => token.tokenId === 'p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_post_post_post_successor_q_avoiding_boundary')?.tokenId ?? 'p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_post_post_post_successor_q_avoiding_boundary'
+							          : p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketRankBoundaryReady
+							          ? p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketRankBoundary?.finiteTokenTransition?.nextFiniteToken?.tokenId ?? 'p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_q_avoiding_batch_cover'
+							          : p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketQAvoidingBatchCoverConvergenceAssembly?.finiteMeasureOrNoMeasureYet?.nextFiniteToken?.tokenId ?? null,
+							        packetId: firstSideCountFloorPacket?.packetId ?? null,
+							        packetJsonPath: p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketQAvoidingBatchCoverReady
+							          ? p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketQAvoidingBatchCoverPath
+							          : p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketRankBoundaryReady
+							          ? p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketRankBoundaryPath
+							          : p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketQAvoidingBatchCoverConvergenceAssemblyPath,
+							        packetMarkdownPath: p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketQAvoidingBatchCoverReady
+							          ? p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketQAvoidingBatchCoverPath?.replace(/\.json$/, '.md') ?? null
+							          : p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketRankBoundaryReady
+							          ? p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketRankBoundaryPath?.replace(/\.json$/, '.md') ?? null
+							          : p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketQAvoidingBatchCoverConvergenceAssemblyPath ? p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketQAvoidingBatchCoverConvergenceAssemblyPath.replace(/\.json$/, '.md') : null,
+							        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+							        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+							      },
+							      {
+							        taskId: 'run_p848_convergence_assembly_after_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_q_avoiding_batch_cover',
+							        status: p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketQAvoidingBatchCoverConvergenceAssemblyReady
+							          ? 'done_26_bucket_post_post_post_successor_q_avoiding_convergence_assembly'
+							          : p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketQAvoidingBatchCoverReady
+							          ? 'highest'
+							          : p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketRankBoundaryReady
+							          ? 'blocked_by_24_bucket_post_post_successor_q_avoiding_batch_cover'
+							          : 'blocked_by_24_bucket_post_post_successor_rank_boundary',
+							        task: p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketQAvoidingBatchCoverConvergenceAssemblyReady
+							          ? 'Post-24-bucket post-post-successor q-avoiding convergence assembly selected compression or exact ranked boundary over all 26 post-post-post-successor buckets before singleton q-child descent.'
+							          : p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketQAvoidingBatchCoverReady
+							          ? 'Run convergence assembly after the 24-bucket post-post-successor q-avoiding batch cover and choose bucket compression, structural decomposition, impossibility, or a ranked boundary over the 26 post-post-post-successor buckets before singleton q-child descent.'
+							          : 'Wait for the whole 24-bucket post-post-successor q-avoiding batch cover or survivor boundary.',
+							        completionRule: 'Assembly records the 26 post-post-post-successor buckets, 545,790,988,054,702,573,768,204,062,331,322,316,786 post-post-post-successor root children, and 17,122,811,411,360,928,250,603,246,815,478,193,773,776,015 post-post-post-successor q-avoiding classes, then selects one non-singleton next theorem action.',
+							        command: 'orp mode breakdown granular-breakdown --topic "problem 848 | convergence assembly | Explain the 282 First-Failure Mechanism" --json',
+							        packetAtomId: p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketQAvoidingBatchCoverConvergenceAssemblyReady
+							          ? p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketQAvoidingBatchCoverConvergenceAssembly?.finiteMeasureOrNoMeasureYet?.nextFiniteToken?.tokenId ?? 'p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_post_post_post_successor_26_bucket_rank_boundary'
+							          : p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketQAvoidingBatchCoverReady
+							          ? p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketQAvoidingBatchCover?.finiteTokenTransition?.producedFiniteTokens?.find?.((token) => token.tokenId === 'p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_post_post_post_successor_q_avoiding_boundary')?.tokenId ?? 'p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_post_post_post_successor_q_avoiding_boundary'
+							          : null,
+							        packetId: firstSideCountFloorPacket?.packetId ?? null,
+							        packetJsonPath: p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketQAvoidingBatchCoverConvergenceAssemblyReady
+							          ? p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketQAvoidingBatchCoverConvergenceAssemblyPath
+							          : p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketQAvoidingBatchCoverPath,
+							        packetMarkdownPath: p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketQAvoidingBatchCoverConvergenceAssemblyReady
+							          ? p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketQAvoidingBatchCoverConvergenceAssemblyPath?.replace(/\.json$/, '.md') ?? null
+							          : p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketQAvoidingBatchCoverPath ? p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketQAvoidingBatchCoverPath.replace(/\.json$/, '.md') : null,
+							        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+							        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+							      },
+						      {
+						        taskId: 'compress_p848_p4217_p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_post_post_post_successor_buckets_or_emit_rank_boundary',
+						        status: p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketPostPostPostSuccessor26BucketRankBoundaryReady
+						          ? 'done_26_bucket_post_post_post_successor_rank_boundary_emitted'
+						          : p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketQAvoidingBatchCoverConvergenceAssemblyReady
+						          ? 'highest'
+						          : p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketQAvoidingBatchCoverReady
+						          ? 'blocked_by_26_bucket_post_post_post_successor_convergence_assembly'
+						          : 'blocked_by_24_bucket_post_post_successor_q_avoiding_batch_cover',
+						        task: p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketPostPostPostSuccessor26BucketRankBoundaryReady
+						          ? 'The 26 post-post-post-successor obstruction-prime buckets are accounted for by an exact deterministic ranked boundary; the next move is a whole 26-bucket q-avoiding batch cover or exact survivor boundary.'
+						          : p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketQAvoidingBatchCoverConvergenceAssemblyReady
+						          ? 'Compress the 26 post-post-post-successor obstruction-prime buckets, prove a structural rank decrease or impossibility theorem, or emit an exact deterministic 26-bucket ranked boundary before singleton q-child descent.'
+						          : 'Wait for post-24-bucket post-post-successor q-avoiding convergence assembly to select the 26-bucket post-post-post-successor rank token.',
+						        completionRule: 'The next packet accounts for every one of the 26 post-post-post-successor buckets by compression theorem, structural decomposition, impossibility theorem, or exact deterministic ranked boundary.',
+						        command: null,
+						        packetAtomId: p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketPostPostPostSuccessor26BucketRankBoundaryReady
+						          ? p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketPostPostPostSuccessor26BucketRankBoundary?.finiteTokenTransition?.nextFiniteToken?.tokenId ?? 'p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_post_post_post_successor_26_bucket_q_avoiding_batch_cover'
+						          : p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketQAvoidingBatchCoverConvergenceAssemblyReady
+						          ? p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketQAvoidingBatchCoverConvergenceAssembly?.finiteMeasureOrNoMeasureYet?.nextFiniteToken?.tokenId ?? 'p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_post_post_post_successor_26_bucket_rank_boundary'
+						          : null,
+						        packetId: firstSideCountFloorPacket?.packetId ?? null,
+						        packetJsonPath: p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketPostPostPostSuccessor26BucketRankBoundaryReady
+						          ? p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketPostPostPostSuccessor26BucketRankBoundaryPath
+						          : p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketQAvoidingBatchCoverConvergenceAssemblyPath,
+						        packetMarkdownPath: p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketPostPostPostSuccessor26BucketRankBoundaryReady
+						          ? p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketPostPostPostSuccessor26BucketRankBoundaryPath?.replace(/\.json$/, '.md') ?? null
+						          : p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketQAvoidingBatchCoverConvergenceAssemblyPath?.replace(/\.json$/, '.md') ?? null,
+						        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+						        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+						      },
+						      {
+						        taskId: 'run_p848_convergence_assembly_after_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_post_post_post_successor_26_bucket_rank_boundary',
+						        status: p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketPostPostPostSuccessor26BucketRankBoundaryConvergenceAssemblyReady
+						          ? 'done_26_bucket_post_post_post_successor_rank_boundary_convergence_assembly'
+						          : p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketPostPostPostSuccessor26BucketRankBoundaryReady
+						          ? 'highest'
+						          : p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketQAvoidingBatchCoverConvergenceAssemblyReady
+						          ? 'blocked_by_26_bucket_post_post_post_successor_rank_boundary'
+						          : 'blocked_by_26_bucket_post_post_post_successor_convergence_assembly',
+						        task: p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketPostPostPostSuccessor26BucketRankBoundaryConvergenceAssemblyReady
+						          ? 'Post-26-bucket post-post-post-successor rank-boundary convergence assembly selected the whole 26-bucket q-avoiding cover and blocked singleton q-child descent.'
+						          : p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketPostPostPostSuccessor26BucketRankBoundaryReady
+						          ? 'Run convergence assembly after the deterministic 26-bucket post-post-post-successor rank boundary, name the whole q-avoiding cover token, and block q157/q163 singleton descent before another repeated q-cover step.'
+						          : 'Wait for the exact deterministic 26-bucket post-post-post-successor rank boundary.',
+						        completionRule: 'Assembly consumes the 26-bucket rank-boundary token, names the 17,122,811,411,360,928,250,603,246,815,478,193,773,776,015-class q-avoiding cover, and records the single whole-boundary next action.',
+						        command: 'orp mode breakdown granular-breakdown --topic "problem 848 | convergence assembly | Explain the 282 First-Failure Mechanism" --json',
+						        packetAtomId: p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketPostPostPostSuccessor26BucketRankBoundaryConvergenceAssemblyReady
+						          ? p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketPostPostPostSuccessor26BucketRankBoundaryConvergenceAssembly?.finiteMeasureOrNoMeasureYet?.nextFiniteToken?.tokenId ?? 'p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_post_post_post_successor_26_bucket_q_avoiding_batch_cover'
+						          : p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketPostPostPostSuccessor26BucketRankBoundaryReady
+						          ? p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketPostPostPostSuccessor26BucketRankBoundary?.finiteTokenTransition?.nextFiniteToken?.tokenId ?? 'p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_post_post_post_successor_26_bucket_q_avoiding_batch_cover'
+						          : null,
+						        packetId: firstSideCountFloorPacket?.packetId ?? null,
+						        packetJsonPath: p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketPostPostPostSuccessor26BucketRankBoundaryConvergenceAssemblyReady
+						          ? p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketPostPostPostSuccessor26BucketRankBoundaryConvergenceAssemblyPath
+						          : p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketPostPostPostSuccessor26BucketRankBoundaryPath,
+						        packetMarkdownPath: p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketPostPostPostSuccessor26BucketRankBoundaryConvergenceAssemblyReady
+						          ? p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketPostPostPostSuccessor26BucketRankBoundaryConvergenceAssemblyPath?.replace(/\.json$/, '.md') ?? null
+						          : p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketPostPostPostSuccessor26BucketRankBoundaryPath?.replace(/\.json$/, '.md') ?? null,
+						        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+						        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+						      },
+						      {
+						        taskId: 'derive_p848_p4217_p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_post_post_post_successor_26_bucket_q_avoiding_batch_cover_or_emit_boundary',
+						        status: p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketPostPostPostSuccessor26BucketQAvoidingBatchCoverReady
+						          ? 'done_26_bucket_post_post_post_successor_q_avoiding_batch_cover'
+						          : p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketPostPostPostSuccessor26BucketRankBoundaryConvergenceAssemblyReady
+						          ? 'highest'
+						          : p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketPostPostPostSuccessor26BucketRankBoundaryReady
+						          ? 'blocked_by_26_bucket_post_post_post_successor_rank_boundary_convergence_assembly'
+						          : p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketQAvoidingBatchCoverConvergenceAssemblyReady
+						          ? 'blocked_by_26_bucket_post_post_post_successor_rank_boundary'
+						          : 'blocked_by_26_bucket_post_post_post_successor_convergence_assembly',
+						        task: p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketPostPostPostSuccessor26BucketQAvoidingBatchCoverReady
+						          ? 'The whole 26-bucket post-post-post-successor q-avoiding batch cover classified all source classes with no survivors and emitted a 29-bucket post-post-post-post-successor boundary for convergence assembly.'
+						          : p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketPostPostPostSuccessor26BucketRankBoundaryConvergenceAssemblyReady
+						          ? 'Run a whole-boundary q-avoiding batch cover over all 26 post-post-post-successor buckets, prove a structural decomposition or impossibility theorem, or emit an exact deterministic survivor/rank boundary; do not descend into q157/q163 singleton children first.'
+						          : p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketPostPostPostSuccessor26BucketRankBoundaryReady
+						          ? 'Run convergence assembly after the 26-bucket post-post-post-successor rank boundary before touching the post-post-post-successor q-avoiding surface.'
+						          : 'Wait for the exact 26-bucket post-post-post-successor rank boundary before touching the post-post-post-successor q-avoiding surface.',
+						        completionRule: 'Every one of the 26 post-post-post-successor q-avoiding buckets is covered, structurally decomposed, or listed in a deterministic exact survivor boundary before singleton descent.',
+						        command: null,
+						        packetAtomId: p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketPostPostPostSuccessor26BucketQAvoidingBatchCoverReady
+						          ? p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketPostPostPostSuccessor26BucketQAvoidingBatchCover?.finiteTokenTransition?.producedFiniteTokens?.find?.((token) => token.tokenId === 'p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_post_post_post_successor_26_bucket_post_post_post_post_successor_q_avoiding_boundary')?.tokenId ?? 'p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_post_post_post_successor_26_bucket_post_post_post_post_successor_q_avoiding_boundary'
+						          : p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketPostPostPostSuccessor26BucketRankBoundaryConvergenceAssemblyReady
+						          ? p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketPostPostPostSuccessor26BucketRankBoundaryConvergenceAssembly?.finiteMeasureOrNoMeasureYet?.nextFiniteToken?.tokenId ?? 'p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_post_post_post_successor_26_bucket_q_avoiding_batch_cover'
+						          : null,
+						        packetId: firstSideCountFloorPacket?.packetId ?? null,
+						        packetJsonPath: p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketPostPostPostSuccessor26BucketQAvoidingBatchCoverReady
+						          ? p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketPostPostPostSuccessor26BucketQAvoidingBatchCoverPath
+						          : p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketPostPostPostSuccessor26BucketRankBoundaryConvergenceAssemblyReady
+						          ? p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketPostPostPostSuccessor26BucketRankBoundaryConvergenceAssemblyPath
+						          : p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketPostPostPostSuccessor26BucketRankBoundaryPath,
+						        packetMarkdownPath: p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketPostPostPostSuccessor26BucketQAvoidingBatchCoverReady
+						          ? p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketPostPostPostSuccessor26BucketQAvoidingBatchCoverPath?.replace(/\.json$/, '.md') ?? null
+						          : p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketPostPostPostSuccessor26BucketRankBoundaryConvergenceAssemblyReady
+						          ? p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketPostPostPostSuccessor26BucketRankBoundaryConvergenceAssemblyPath?.replace(/\.json$/, '.md') ?? null
+						          : p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketPostPostPostSuccessor26BucketRankBoundaryPath ? p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketPostPostPostSuccessor26BucketRankBoundaryPath.replace(/\.json$/, '.md') : null,
+						        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+						        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+						      },
+						      {
+						        taskId: 'run_p848_convergence_assembly_after_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_post_post_post_successor_26_bucket_q_avoiding_batch_cover',
+						        status: p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketPostPostPostSuccessor26BucketQAvoidingBatchCoverConvergenceAssemblyReady
+						          ? 'done_26_bucket_post_post_post_successor_q_avoiding_cover_convergence_assembly'
+						          : p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketPostPostPostSuccessor26BucketQAvoidingBatchCoverReady
+						          ? 'highest'
+						          : p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketPostPostPostSuccessor26BucketRankBoundaryConvergenceAssemblyReady
+						          ? 'blocked_by_26_bucket_post_post_post_successor_q_avoiding_batch_cover'
+						          : 'blocked_by_26_bucket_post_post_post_successor_rank_boundary_convergence_assembly',
+						        task: p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketPostPostPostSuccessor26BucketQAvoidingBatchCoverConvergenceAssemblyReady
+						          ? 'Post-26-bucket post-post-post-successor q-avoiding convergence assembly selected whole-boundary 29-bucket post-post-post-post-successor compression/rank work before singleton q-child descent.'
+						          : p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketPostPostPostSuccessor26BucketQAvoidingBatchCoverReady
+						          ? 'Run convergence assembly after the 26-bucket post-post-post-successor q-avoiding batch cover and choose bucket compression, structural decomposition, impossibility, or a ranked boundary over the 29 post-post-post-post-successor buckets before singleton q-child descent.'
+						          : 'Wait for the whole 26-bucket post-post-post-successor q-avoiding batch cover or survivor boundary.',
+						        completionRule: 'Assembly records the 29 post-post-post-post-successor buckets, 34,245,622,822,721,856,501,206,493,630,956,387,547,552,030 post-post-post-post-successor root children, and 1,256,125,158,212,428,260,162,381,710,030,390,124,682,911,240,345 post-post-post-post-successor q-avoiding classes, then selects one non-singleton next theorem action.',
+						        command: 'orp mode breakdown granular-breakdown --topic "problem 848 | convergence assembly | Explain the 282 First-Failure Mechanism" --json',
+						        packetAtomId: p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketPostPostPostSuccessor26BucketQAvoidingBatchCoverConvergenceAssemblyReady
+						          ? p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketPostPostPostSuccessor26BucketQAvoidingBatchCoverConvergenceAssembly?.finiteMeasureOrNoMeasureYet?.nextFiniteToken?.tokenId ?? 'p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_post_post_post_successor_26_bucket_post_post_post_post_successor_29_bucket_rank_boundary'
+						          : p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketPostPostPostSuccessor26BucketQAvoidingBatchCoverReady
+						          ? p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostPostSuccessor26BucketQAvoidingBatchCover?.finiteTokenTransition?.producedFiniteTokens?.find?.((token) => token.tokenId === 'p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_post_post_post_successor_26_bucket_post_post_post_post_successor_q_avoiding_boundary')?.tokenId ?? 'p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_post_post_post_successor_26_bucket_post_post_post_post_successor_q_avoiding_boundary'
+						          : null,
+						        packetId: firstSideCountFloorPacket?.packetId ?? null,
+						        packetJsonPath: p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketPostPostPostSuccessor26BucketQAvoidingBatchCoverConvergenceAssemblyReady
+						          ? p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketPostPostPostSuccessor26BucketQAvoidingBatchCoverConvergenceAssemblyPath
+						          : p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketPostPostPostSuccessor26BucketQAvoidingBatchCoverPath,
+						        packetMarkdownPath: p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketPostPostPostSuccessor26BucketQAvoidingBatchCoverConvergenceAssemblyReady
+						          ? p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketPostPostPostSuccessor26BucketQAvoidingBatchCoverConvergenceAssemblyPath?.replace(/\.json$/, '.md') ?? null
+						          : p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketPostPostPostSuccessor26BucketQAvoidingBatchCoverPath?.replace(/\.json$/, '.md') ?? null,
+						        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+						        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+						      },
+						      {
+						        taskId: 'compress_p848_p4217_p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_post_post_post_successor_26_bucket_post_post_post_post_successor_29_buckets_or_emit_rank_boundary',
+						        status: p848P4217Post26QAvoiding29BucketRankBoundaryReady
+						          ? 'done_29_bucket_post_post_post_post_successor_rank_boundary_emitted'
+						          : p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketPostPostPostSuccessor26BucketQAvoidingBatchCoverConvergenceAssemblyReady
+						          ? 'highest'
+						          : p848P4217P443Q97P479LaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketPostPostPostSuccessor26BucketQAvoidingBatchCoverReady
+						          ? 'blocked_by_29_bucket_post_post_post_post_successor_convergence_assembly'
+						          : 'blocked_by_26_bucket_post_post_post_successor_q_avoiding_batch_cover',
+						        task: p848P4217Post26QAvoiding29BucketRankBoundaryReady
+						          ? 'The 29 post-post-post-post-successor obstruction-prime buckets are accounted for by an exact deterministic ranked boundary; the next move is convergence assembly before any q-cover or singleton descent.'
+						          : p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketPostPostPostSuccessor26BucketQAvoidingBatchCoverConvergenceAssemblyReady
+						          ? 'Compress the 29 post-post-post-post-successor obstruction-prime buckets, prove a structural rank decrease or impossibility theorem, or emit an exact deterministic 29-bucket ranked boundary before singleton q-child descent.'
+						          : 'Wait for post-26-bucket q-avoiding convergence assembly to select the 29-bucket post-post-post-post-successor rank token.',
+						        completionRule: 'The next packet accounts for every one of the 29 post-post-post-post-successor buckets by compression theorem, structural decomposition, impossibility theorem, or exact deterministic ranked boundary.',
+						        command: null,
+						        packetAtomId: p848P4217Post26QAvoiding29BucketRankBoundaryReady
+						          ? p848P4217Post26QAvoiding29BucketRankBoundary?.finiteTokenTransition?.nextFiniteToken?.tokenId ?? 'p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_post_post_post_successor_26_bucket_post_post_post_post_successor_29_bucket_q_avoiding_batch_cover'
+						          : p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketPostPostPostSuccessor26BucketQAvoidingBatchCoverConvergenceAssemblyReady
+						          ? p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketPostPostPostSuccessor26BucketQAvoidingBatchCoverConvergenceAssembly?.finiteMeasureOrNoMeasureYet?.nextFiniteToken?.tokenId ?? 'p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_post_post_post_successor_26_bucket_post_post_post_post_successor_29_bucket_rank_boundary'
+						          : null,
+						        packetId: firstSideCountFloorPacket?.packetId ?? null,
+						        packetJsonPath: p848P4217Post26QAvoiding29BucketRankBoundaryReady
+						          ? p848P4217Post26QAvoiding29BucketRankBoundaryPath
+						          : p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketPostPostPostSuccessor26BucketQAvoidingBatchCoverConvergenceAssemblyPath,
+						        packetMarkdownPath: p848P4217Post26QAvoiding29BucketRankBoundaryReady
+						          ? p848P4217Post26QAvoiding29BucketRankBoundaryPath?.replace(/\.json$/, '.md') ?? null
+						          : p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketPostPostPostSuccessor26BucketQAvoidingBatchCoverConvergenceAssemblyPath?.replace(/\.json$/, '.md') ?? null,
+						        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+						        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+						      },
+						      {
+						        taskId: 'run_p848_convergence_assembly_after_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_post_post_post_successor_26_bucket_post_post_post_post_successor_29_bucket_rank_boundary',
+						        status: p848P4217Post29BucketRankBoundaryConvergenceAssemblyReady
+						          ? 'done_29_bucket_post_post_post_post_successor_rank_boundary_convergence_assembly'
+						          : p848P4217Post26QAvoiding29BucketRankBoundaryReady
+						          ? 'highest'
+						          : p848P4217PostLaterPrime15BucketNextPrime17BucketPostNext20BucketSuccessor22BucketPostSuccessor24BucketPostPostSuccessor24BucketPostPostPostSuccessor26BucketQAvoidingBatchCoverConvergenceAssemblyReady
+						          ? 'blocked_by_29_bucket_post_post_post_post_successor_rank_boundary'
+						          : 'blocked_by_29_bucket_post_post_post_post_successor_convergence_assembly',
+						        task: p848P4217Post29BucketRankBoundaryConvergenceAssemblyReady
+						          ? 'Post-29-bucket rank-boundary convergence assembly selected the whole 29-bucket post-post-post-post-successor q-avoiding cover; singleton q-child descent remains blocked.'
+						          : p848P4217Post26QAvoiding29BucketRankBoundaryReady
+						          ? 'Run convergence assembly after the deterministic 29-bucket post-post-post-post-successor rank boundary, name the whole q-avoiding cover token, and block q163/q167 singleton descent before another repeated q-cover step.'
+						          : 'Wait for the exact deterministic 29-bucket post-post-post-post-successor rank boundary.',
+						        completionRule: 'Assembly consumes the 29-bucket rank-boundary token, names the 1,256,125,158,212,428,260,162,381,710,030,390,124,682,911,240,345-class q-avoiding cover, and records the single whole-boundary next action.',
+						        command: 'orp mode breakdown granular-breakdown --topic "problem 848 | convergence assembly | Explain the 282 First-Failure Mechanism" --json',
+						        packetAtomId: p848P4217Post29BucketRankBoundaryConvergenceAssemblyReady
+						          ? p848P4217Post29BucketRankBoundaryConvergenceAssembly?.finiteMeasureOrNoMeasureYet?.nextFiniteToken?.tokenId ?? 'p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_post_post_post_successor_26_bucket_post_post_post_post_successor_29_bucket_q_avoiding_batch_cover'
+						          : p848P4217Post26QAvoiding29BucketRankBoundaryReady
+						          ? p848P4217Post26QAvoiding29BucketRankBoundary?.finiteTokenTransition?.nextFiniteToken?.tokenId ?? 'p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_post_post_post_successor_26_bucket_post_post_post_post_successor_29_bucket_q_avoiding_batch_cover'
+						          : null,
+						        packetId: firstSideCountFloorPacket?.packetId ?? null,
+						        packetJsonPath: p848P4217Post29BucketRankBoundaryConvergenceAssemblyReady
+						          ? p848P4217Post29BucketRankBoundaryConvergenceAssemblyPath
+						          : p848P4217Post26QAvoiding29BucketRankBoundaryPath,
+						        packetMarkdownPath: p848P4217Post29BucketRankBoundaryConvergenceAssemblyReady
+						          ? p848P4217Post29BucketRankBoundaryConvergenceAssemblyPath?.replace(/\.json$/, '.md') ?? null
+						          : p848P4217Post26QAvoiding29BucketRankBoundaryPath?.replace(/\.json$/, '.md') ?? null,
+						        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+						        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+						      },
+						      {
+						        taskId: 'derive_p848_p4217_p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_post_post_post_successor_26_bucket_post_post_post_post_successor_29_bucket_q_avoiding_batch_cover_or_emit_boundary',
+						        status: p848P4217Post29QAvoiding29BucketBatchCoverReady
+						          ? 'done_29_bucket_post_post_post_post_successor_q_avoiding_batch_cover'
+						          : p848P4217Post29BucketRankBoundaryConvergenceAssemblyReady
+						          ? 'highest'
+						          : p848P4217Post26QAvoiding29BucketRankBoundaryReady
+						          ? 'blocked_by_29_bucket_post_post_post_post_successor_rank_boundary_convergence_assembly'
+						          : 'blocked_by_29_bucket_post_post_post_post_successor_rank_boundary',
+						        task: p848P4217Post29QAvoiding29BucketBatchCoverReady
+						          ? 'The whole 29-bucket post-post-post-post-successor q-avoiding batch cover classified all source classes with no survivors and emitted a 29-bucket post-post-post-post-post-successor boundary for convergence assembly.'
+						          : p848P4217Post29BucketRankBoundaryConvergenceAssemblyReady
+						          ? 'Run the whole 29-bucket post-post-post-post-successor q-avoiding batch cover, structural decomposition, impossibility theorem, or exact survivor/rank boundary before any q163/q167 singleton descent.'
+						          : 'Wait for the post-29-bucket rank-boundary convergence assembly to select the whole q-avoiding cover token.',
+						        completionRule: 'Classify all 1,256,125,158,212,428,260,162,381,710,030,390,124,682,911,240,345 post-post-post-post-successor q-avoiding classes across all 29 buckets, or emit an exact deterministic survivor/rank boundary for the whole token.',
+						        command: 'node packs/number-theory/problems/848/compute/problem848_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_post_post_post_successor_26_bucket_post_post_post_post_successor_29_bucket_q_avoiding_batch_cover.mjs --write-defaults --pretty',
+						        packetAtomId: p848P4217Post29QAvoiding29BucketBatchCoverReady
+						          ? p848P4217Post29QAvoiding29BucketBatchCover?.inputRankToken?.tokenId ?? 'p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_post_post_post_successor_26_bucket_post_post_post_post_successor_29_bucket_q_avoiding_batch_cover'
+						          : p848P4217Post29BucketRankBoundaryConvergenceAssemblyReady
+						          ? p848P4217Post29BucketRankBoundaryConvergenceAssembly?.finiteMeasureOrNoMeasureYet?.nextFiniteToken?.tokenId ?? 'p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_post_post_post_successor_26_bucket_post_post_post_post_successor_29_bucket_q_avoiding_batch_cover'
+						          : null,
+						        packetId: firstSideCountFloorPacket?.packetId ?? null,
+						        packetJsonPath: p848P4217Post29QAvoiding29BucketBatchCoverReady
+						          ? p848P4217Post29QAvoiding29BucketBatchCoverPath
+						          : p848P4217Post29BucketRankBoundaryConvergenceAssemblyPath,
+						        packetMarkdownPath: p848P4217Post29QAvoiding29BucketBatchCoverReady
+						          ? p848P4217Post29QAvoiding29BucketBatchCoverPath?.replace(/\.json$/, '.md') ?? null
+						          : p848P4217Post29BucketRankBoundaryConvergenceAssemblyPath?.replace(/\.json$/, '.md') ?? null,
+						        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+						        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+						      },
+						      {
+						        taskId: 'run_p848_convergence_assembly_after_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_post_post_post_successor_26_bucket_post_post_post_post_successor_29_bucket_q_avoiding_batch_cover',
+						        status: p848P4217Post29QAvoiding29BucketConvergenceAssemblyReady
+						          ? 'done_29_bucket_post_post_post_post_post_successor_convergence_assembly'
+						          : p848P4217Post29QAvoiding29BucketBatchCoverReady
+						          ? 'highest'
+						          : p848P4217Post29BucketRankBoundaryConvergenceAssemblyReady
+						          ? 'blocked_by_29_bucket_post_post_post_post_successor_q_avoiding_batch_cover'
+						          : 'blocked_by_29_bucket_post_post_post_post_successor_q_cover_selection',
+						        task: p848P4217Post29QAvoiding29BucketConvergenceAssemblyReady
+						          ? 'Post-29 q-avoiding convergence assembly selected whole-boundary rank/compression work over all 29 post-post-post-post-post-successor buckets q167..q347; singleton q-child descent remains blocked.'
+						          : p848P4217Post29QAvoiding29BucketBatchCoverReady
+						          ? 'Run convergence assembly over the 29 post-post-post-post-post-successor buckets emitted by the no-survivor 29-bucket q-avoiding cover; choose compression, structural decomposition, impossibility, or exact rank-boundary work before q167/q179 singleton descent.'
+						          : 'Wait for the whole 29-bucket post-post-post-post-successor q-avoiding cover to close or emit a survivor boundary.',
+						        completionRule: 'Assembly consumes the 29-bucket q-avoiding decision token, records the q167..q347 post-post-post-post-post-successor surface, and selects one whole-boundary next action.',
+						        command: 'orp mode breakdown granular-breakdown --topic "problem 848 | convergence assembly | Explain the 282 First-Failure Mechanism" --json',
+						        packetAtomId: p848P4217Post29QAvoiding29BucketConvergenceAssemblyReady
+						          ? p848P4217Post29QAvoiding29BucketConvergenceAssembly?.finiteMeasureOrNoMeasureYet?.nextFiniteToken?.tokenId ?? 'p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_post_post_post_successor_26_bucket_post_post_post_post_successor_29_bucket_post_post_post_post_post_successor_29_bucket_rank_boundary'
+						          : p848P4217Post29QAvoiding29BucketBatchCoverReady
+						          ? p848P4217Post29QAvoiding29BucketBatchCover?.finiteTokenTransition?.producedFiniteTokens?.find?.((token) => token.status === 'ranked_boundary_open_for_convergence_assembly')?.tokenId ?? 'p443_q97_p479_post_29_q_avoiding_post_post_post_post_post_successor_boundary'
+						          : null,
+						        packetId: firstSideCountFloorPacket?.packetId ?? null,
+						        packetJsonPath: p848P4217Post29QAvoiding29BucketConvergenceAssemblyReady
+						          ? p848P4217Post29QAvoiding29BucketConvergenceAssemblyPath
+						          : p848P4217Post29QAvoiding29BucketBatchCoverPath,
+						        packetMarkdownPath: p848P4217Post29QAvoiding29BucketConvergenceAssemblyReady
+						          ? p848P4217Post29QAvoiding29BucketConvergenceAssemblyPath?.replace(/\.json$/, '.md') ?? null
+						          : p848P4217Post29QAvoiding29BucketBatchCoverPath?.replace(/\.json$/, '.md') ?? null,
+						        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+						        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+						      },
+						      {
+						        taskId: 'compress_p848_p4217_p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_post_post_post_successor_26_bucket_post_post_post_post_successor_29_bucket_post_post_post_post_post_successor_29_buckets_or_emit_rank_boundary',
+						        status: p848P4217Post29QAvoidingPost5Successor29BucketRankBoundaryReady
+						          ? 'done_29_bucket_post_post_post_post_post_successor_rank_boundary_emitted'
+						          : p848P4217Post29QAvoiding29BucketConvergenceAssemblyReady
+						          ? 'highest'
+						          : p848P4217Post29QAvoiding29BucketBatchCoverReady
+						          ? 'blocked_by_29_bucket_post_post_post_post_post_successor_convergence_assembly'
+						          : 'blocked_by_29_bucket_post_post_post_post_successor_q_avoiding_batch_cover',
+						        task: p848P4217Post29QAvoidingPost5Successor29BucketRankBoundaryReady
+						          ? 'The 29 post-post-post-post-post-successor obstruction-prime buckets are accounted for by an exact deterministic ranked boundary; the next move is convergence assembly before any q-cover or singleton descent.'
+						          : p848P4217Post29QAvoiding29BucketConvergenceAssemblyReady
+						          ? 'Compress the 29 post-post-post-post-post-successor obstruction-prime buckets, prove a structural rank decrease or impossibility theorem, or emit an exact deterministic 29-bucket boundary before q167/q179 singleton descent.'
+						          : 'Wait for convergence assembly to consume the no-survivor post-29 q-avoiding cover and select the post-post-post-post-post-successor rank token.',
+						        completionRule: 'The next packet accounts for every one of the 29 post-post-post-post-post-successor buckets by compression theorem, structural decomposition, impossibility theorem, or exact deterministic rank boundary.',
+						        command: p848P4217Post29QAvoidingPost5Successor29BucketRankBoundaryReady
+						          ? 'node packs/number-theory/problems/848/compute/problem848_post29_q_avoiding_post5_successor_29_bucket_rank_boundary.mjs --write-defaults --pretty'
+						          : null,
+						        packetAtomId: p848P4217Post29QAvoidingPost5Successor29BucketRankBoundaryReady
+						          ? p848P4217Post29QAvoidingPost5Successor29BucketRankBoundary?.finiteTokenTransition?.nextFiniteToken?.tokenId ?? 'p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_post_post_post_successor_26_bucket_post_post_post_post_successor_29_bucket_post_post_post_post_post_successor_29_bucket_q_avoiding_batch_cover'
+						          : p848P4217Post29QAvoiding29BucketConvergenceAssemblyReady
+						          ? p848P4217Post29QAvoiding29BucketConvergenceAssembly?.finiteMeasureOrNoMeasureYet?.nextFiniteToken?.tokenId ?? 'p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_post_post_post_successor_26_bucket_post_post_post_post_successor_29_bucket_post_post_post_post_post_successor_29_bucket_rank_boundary'
+						          : null,
+						        packetId: firstSideCountFloorPacket?.packetId ?? null,
+						        packetJsonPath: p848P4217Post29QAvoidingPost5Successor29BucketRankBoundaryReady
+						          ? p848P4217Post29QAvoidingPost5Successor29BucketRankBoundaryPath
+						          : p848P4217Post29QAvoiding29BucketConvergenceAssemblyReady
+						          ? p848P4217Post29QAvoiding29BucketConvergenceAssemblyPath
+						          : p848P4217Post29QAvoiding29BucketBatchCoverPath,
+						        packetMarkdownPath: p848P4217Post29QAvoidingPost5Successor29BucketRankBoundaryReady
+						          ? p848P4217Post29QAvoidingPost5Successor29BucketRankBoundaryPath?.replace(/\.json$/, '.md') ?? null
+						          : p848P4217Post29QAvoiding29BucketConvergenceAssemblyReady
+						          ? p848P4217Post29QAvoiding29BucketConvergenceAssemblyPath?.replace(/\.json$/, '.md') ?? null
+						          : p848P4217Post29QAvoiding29BucketBatchCoverPath?.replace(/\.json$/, '.md') ?? null,
+						        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+						        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+						      },
+						      {
+						        taskId: 'run_p848_convergence_assembly_after_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_post_post_post_successor_26_bucket_post_post_post_post_successor_29_bucket_post_post_post_post_post_successor_29_bucket_rank_boundary',
+						        status: p848P4217Post29QAvoidingPost5Successor29BucketRankBoundaryConvergenceAssemblyReady
+						          ? 'done_29_bucket_post_post_post_post_post_successor_rank_boundary_convergence_assembly'
+						          : p848P4217Post29QAvoidingPost5Successor29BucketRankBoundaryReady
+						          ? 'highest'
+						          : p848P4217Post29QAvoiding29BucketConvergenceAssemblyReady
+						          ? 'blocked_by_29_bucket_post_post_post_post_post_successor_rank_boundary'
+						          : 'blocked_by_29_bucket_post_post_post_post_post_successor_convergence_assembly',
+						        task: p848P4217Post29QAvoidingPost5Successor29BucketRankBoundaryConvergenceAssemblyReady
+						          ? 'Convergence assembly consumed the deterministic 29-bucket post-post-post-post-post-successor rank boundary and selected the whole q-avoiding cover over q167..q347; singleton q descent remains blocked.'
+						          : p848P4217Post29QAvoidingPost5Successor29BucketRankBoundaryReady
+						          ? 'Run convergence assembly after the deterministic 29-bucket post-post-post-post-post-successor rank boundary, name the whole q-avoiding cover token, and block q167/q179 singleton descent before another repeated q-cover step.'
+						          : 'Wait for the exact deterministic 29-bucket post-post-post-post-post-successor rank boundary.',
+						        completionRule: 'Assembly consumes the 29-bucket post-post-post-post-post-successor rank-boundary token, names the 104,979,512,685,900,231,199,199,420,715,793,219,898,475,067,029,855,159-class q-avoiding cover, and records the single whole-boundary next action.',
+						        command: 'orp mode breakdown granular-breakdown --topic "problem 848 | convergence assembly | Explain the 282 First-Failure Mechanism" --json',
+						        packetAtomId: p848P4217Post29QAvoidingPost5Successor29BucketRankBoundaryConvergenceAssemblyReady
+						          ? p848P4217Post29QAvoidingPost5Successor29BucketRankBoundaryConvergenceAssembly?.finiteMeasureOrNoMeasureYet?.nextFiniteToken?.tokenId ?? 'p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_post_post_post_successor_26_bucket_post_post_post_post_successor_29_bucket_post_post_post_post_post_successor_29_bucket_q_avoiding_batch_cover'
+						          : p848P4217Post29QAvoidingPost5Successor29BucketRankBoundaryReady
+						          ? p848P4217Post29QAvoidingPost5Successor29BucketRankBoundary?.finiteTokenTransition?.nextFiniteToken?.tokenId ?? 'p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_post_post_post_successor_26_bucket_post_post_post_post_successor_29_bucket_post_post_post_post_post_successor_29_bucket_q_avoiding_batch_cover'
+						          : null,
+						        packetId: firstSideCountFloorPacket?.packetId ?? null,
+						        packetJsonPath: p848P4217Post29QAvoidingPost5Successor29BucketRankBoundaryConvergenceAssemblyReady
+						          ? p848P4217Post29QAvoidingPost5Successor29BucketRankBoundaryConvergenceAssemblyPath
+						          : p848P4217Post29QAvoidingPost5Successor29BucketRankBoundaryReady
+						          ? p848P4217Post29QAvoidingPost5Successor29BucketRankBoundaryPath
+						          : p848P4217Post29QAvoiding29BucketConvergenceAssemblyPath,
+						        packetMarkdownPath: p848P4217Post29QAvoidingPost5Successor29BucketRankBoundaryConvergenceAssemblyReady
+						          ? p848P4217Post29QAvoidingPost5Successor29BucketRankBoundaryConvergenceAssemblyPath?.replace(/\.json$/, '.md') ?? null
+						          : p848P4217Post29QAvoidingPost5Successor29BucketRankBoundaryReady
+						          ? p848P4217Post29QAvoidingPost5Successor29BucketRankBoundaryPath?.replace(/\.json$/, '.md') ?? null
+						          : p848P4217Post29QAvoiding29BucketConvergenceAssemblyPath?.replace(/\.json$/, '.md') ?? null,
+						        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+						        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+						      },
+						      {
+						        taskId: 'derive_p848_p4217_p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_post_post_post_successor_26_bucket_post_post_post_post_successor_29_bucket_post_post_post_post_post_successor_29_bucket_q_avoiding_batch_cover_or_emit_boundary',
+						        status: p848P4217Post29QAvoidingPost5Successor29BucketQAvoidingBatchCoverReady
+						          ? 'done_29_bucket_post_post_post_post_post_successor_q_avoiding_batch_cover'
+						          : p848P4217Post29QAvoidingPost5Successor29BucketRankBoundaryConvergenceAssemblyReady
+						          ? 'highest'
+						          : p848P4217Post29QAvoidingPost5Successor29BucketRankBoundaryReady
+						          ? 'blocked_by_29_bucket_post_post_post_post_post_successor_rank_boundary_convergence_assembly'
+						          : 'blocked_by_29_bucket_post_post_post_post_post_successor_rank_boundary',
+						        task: p848P4217Post29QAvoidingPost5Successor29BucketQAvoidingBatchCoverReady
+						          ? 'The whole 29-bucket post-post-post-post-post-successor q-avoiding batch cover classified every source class with no survivors and emitted a 30-bucket post-post-post-post-post-post-successor boundary for convergence assembly.'
+						          : p848P4217Post29QAvoidingPost5Successor29BucketRankBoundaryConvergenceAssemblyReady
+						          ? 'Run the whole 29-bucket post-post-post-post-post-successor q-avoiding batch cover over q167..q347, prove a structural decomposition or impossibility theorem, or emit an exact whole-boundary survivor/rank boundary.'
+						          : 'Wait for convergence assembly to select the whole post-post-post-post-post-successor q-avoiding cover token.',
+						        completionRule: 'Either all 104,979,512,685,900,231,199,199,420,715,793,219,898,475,067,029,855,159 q-avoiding classes are covered, or an exact survivor/rank boundary for the whole 29-bucket token is emitted.',
+						        command: 'node packs/number-theory/problems/848/compute/problem848_post29_q_avoiding_post5_successor_29_bucket_q_avoiding_batch_cover.mjs --write-defaults --pretty',
+						        packetAtomId: p848P4217Post29QAvoidingPost5Successor29BucketQAvoidingBatchCoverReady
+						          ? p848P4217Post29QAvoidingPost5Successor29BucketQAvoidingBatchCover?.inputRankToken?.tokenId ?? 'p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_post_post_post_successor_26_bucket_post_post_post_post_successor_29_bucket_post_post_post_post_post_successor_29_bucket_q_avoiding_batch_cover'
+						          : p848P4217Post29QAvoidingPost5Successor29BucketRankBoundaryConvergenceAssemblyReady
+						          ? p848P4217Post29QAvoidingPost5Successor29BucketRankBoundaryConvergenceAssembly?.finiteMeasureOrNoMeasureYet?.nextFiniteToken?.tokenId ?? 'p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_post_post_post_successor_26_bucket_post_post_post_post_successor_29_bucket_post_post_post_post_post_successor_29_bucket_q_avoiding_batch_cover'
+						          : null,
+						        packetId: firstSideCountFloorPacket?.packetId ?? null,
+						        packetJsonPath: p848P4217Post29QAvoidingPost5Successor29BucketQAvoidingBatchCoverReady
+						          ? p848P4217Post29QAvoidingPost5Successor29BucketQAvoidingBatchCoverPath
+						          : p848P4217Post29QAvoidingPost5Successor29BucketRankBoundaryConvergenceAssemblyReady
+						          ? p848P4217Post29QAvoidingPost5Successor29BucketRankBoundaryConvergenceAssemblyPath
+						          : p848P4217Post29QAvoidingPost5Successor29BucketRankBoundaryPath,
+						        packetMarkdownPath: p848P4217Post29QAvoidingPost5Successor29BucketQAvoidingBatchCoverReady
+						          ? p848P4217Post29QAvoidingPost5Successor29BucketQAvoidingBatchCoverPath?.replace(/\.json$/, '.md') ?? null
+						          : p848P4217Post29QAvoidingPost5Successor29BucketRankBoundaryConvergenceAssemblyReady
+						          ? p848P4217Post29QAvoidingPost5Successor29BucketRankBoundaryConvergenceAssemblyPath?.replace(/\.json$/, '.md') ?? null
+						          : p848P4217Post29QAvoidingPost5Successor29BucketRankBoundaryPath?.replace(/\.json$/, '.md') ?? null,
+						        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+						        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+						      },
+						      {
+						        taskId: 'run_p848_convergence_assembly_after_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_post_post_post_successor_26_bucket_post_post_post_post_successor_29_bucket_post_post_post_post_post_successor_29_bucket_q_avoiding_batch_cover',
+						        status: p848P4217Post29QAvoidingPost5Successor29BucketQAvoidingBatchCoverConvergenceAssemblyReady
+						          ? 'done_30_bucket_post_post_post_post_post_post_successor_convergence_assembly'
+						          : p848P4217Post29QAvoidingPost5Successor29BucketQAvoidingBatchCoverReady
+						          ? 'highest'
+						          : p848P4217Post29QAvoidingPost5Successor29BucketRankBoundaryConvergenceAssemblyReady
+						          ? 'blocked_by_29_bucket_post_post_post_post_post_successor_q_avoiding_batch_cover'
+						          : 'blocked_by_29_bucket_post_post_post_post_post_successor_q_cover_selection',
+						        task: p848P4217Post29QAvoidingPost5Successor29BucketQAvoidingBatchCoverConvergenceAssemblyReady
+						          ? 'Post-29 q-avoiding post-post-post-post-post-successor q-cover convergence assembly selected whole-boundary 30-bucket post-post-post-post-post-post-successor compression/rank work before singleton q-child descent.'
+						          : p848P4217Post29QAvoidingPost5Successor29BucketQAvoidingBatchCoverReady
+						          ? 'Run convergence assembly over the 30 post-post-post-post-post-post-successor buckets emitted by the no-survivor 29-bucket post-post-post-post-post-successor q-cover; choose compression, structural decomposition, impossibility, or exact rank-boundary work before q179/q181 singleton descent.'
+						          : 'Wait for the whole 29-bucket post-post-post-post-post-successor q-avoiding cover to close or emit a survivor boundary.',
+						        completionRule: 'Assembly consumes the post-post-post-post-post-successor q-cover decision token, records the q179..q353 post-post-post-post-post-post-successor surface, and selects one whole-boundary next action.',
+						        command: 'orp mode breakdown granular-breakdown --topic "problem 848 | convergence assembly | Explain the 282 First-Failure Mechanism" --json',
+						        packetAtomId: p848P4217Post29QAvoidingPost5Successor29BucketQAvoidingBatchCoverConvergenceAssemblyReady
+						          ? p848P4217Post29QAvoidingPost5Successor29BucketQAvoidingBatchCoverConvergenceAssembly?.finiteMeasureOrNoMeasureYet?.nextFiniteToken?.tokenId ?? 'p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_post_post_post_successor_26_bucket_post_post_post_post_successor_29_bucket_post_post_post_post_post_successor_29_bucket_post_post_post_post_post_post_successor_30_bucket_rank_boundary'
+						          : p848P4217Post29QAvoidingPost5Successor29BucketQAvoidingBatchCoverReady
+						          ? p848P4217Post29QAvoidingPost5Successor29BucketQAvoidingBatchCover?.finiteTokenTransition?.producedFiniteTokens?.find?.((token) => token.status === 'ranked_boundary_open_for_convergence_assembly')?.tokenId ?? 'p443_q97_p479_post_29_q_avoiding_post_post_post_post_post_post_successor_boundary'
+						          : null,
+						        packetId: firstSideCountFloorPacket?.packetId ?? null,
+						        packetJsonPath: p848P4217Post29QAvoidingPost5Successor29BucketQAvoidingBatchCoverConvergenceAssemblyReady
+						          ? p848P4217Post29QAvoidingPost5Successor29BucketQAvoidingBatchCoverConvergenceAssemblyPath
+						          : p848P4217Post29QAvoidingPost5Successor29BucketQAvoidingBatchCoverPath,
+						        packetMarkdownPath: p848P4217Post29QAvoidingPost5Successor29BucketQAvoidingBatchCoverConvergenceAssemblyReady
+						          ? p848P4217Post29QAvoidingPost5Successor29BucketQAvoidingBatchCoverConvergenceAssemblyPath?.replace(/\.json$/, '.md') ?? null
+						          : p848P4217Post29QAvoidingPost5Successor29BucketQAvoidingBatchCoverPath?.replace(/\.json$/, '.md') ?? null,
+						        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+						        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+						      },
+						      {
+						        taskId: 'compress_p848_p4217_p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_post_post_post_successor_26_bucket_post_post_post_post_successor_29_bucket_post_post_post_post_post_successor_29_bucket_post_post_post_post_post_post_successor_30_buckets_or_emit_rank_boundary',
+						        status: p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketRankBoundaryReady
+						          ? 'done_30_bucket_post_post_post_post_post_post_successor_rank_boundary_emitted'
+						          : p848P4217Post29QAvoidingPost5Successor29BucketQAvoidingBatchCoverConvergenceAssemblyReady
+						          ? 'highest'
+						          : p848P4217Post29QAvoidingPost5Successor29BucketQAvoidingBatchCoverReady
+						          ? 'blocked_by_30_bucket_post_post_post_post_post_post_successor_convergence_assembly'
+						          : 'blocked_by_29_bucket_post_post_post_post_post_successor_q_avoiding_batch_cover',
+						        task: p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketRankBoundaryReady
+						          ? 'The deterministic 30-bucket post-post-post-post-post-post-successor rank boundary is emitted; convergence assembly must choose the whole q-avoiding cover before singleton q descent.'
+						          : p848P4217Post29QAvoidingPost5Successor29BucketQAvoidingBatchCoverConvergenceAssemblyReady
+						          ? 'Compress the 30 post-post-post-post-post-post-successor obstruction-prime buckets, prove a structural rank decrease or impossibility theorem, or emit an exact deterministic 30-bucket boundary before q179/q181 singleton descent.'
+						          : 'Wait for convergence assembly to consume the no-survivor 29-bucket post-post-post-post-post-successor q-cover and select the post-post-post-post-post-post-successor rank token.',
+						        completionRule: 'The next packet accounts for every one of the 30 post-post-post-post-post-post-successor buckets by compression theorem, structural decomposition, impossibility theorem, or exact deterministic rank boundary.',
+						        command: 'node packs/number-theory/problems/848/compute/problem848_post29_q_avoiding_post5_successor_29_bucket_post6_successor_30_bucket_rank_boundary.mjs --write-defaults --pretty',
+						        packetAtomId: p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketRankBoundaryReady
+						          ? p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketRankBoundary?.finiteTokenTransition?.nextFiniteToken?.tokenId ?? 'p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_post_post_post_successor_26_bucket_post_post_post_post_successor_29_bucket_post_post_post_post_post_successor_29_bucket_post_post_post_post_post_post_successor_30_bucket_q_avoiding_batch_cover'
+						          : p848P4217Post29QAvoidingPost5Successor29BucketQAvoidingBatchCoverConvergenceAssemblyReady
+						          ? p848P4217Post29QAvoidingPost5Successor29BucketQAvoidingBatchCoverConvergenceAssembly?.finiteMeasureOrNoMeasureYet?.nextFiniteToken?.tokenId ?? 'p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_post_post_post_successor_26_bucket_post_post_post_post_successor_29_bucket_post_post_post_post_post_successor_29_bucket_post_post_post_post_post_post_successor_30_bucket_rank_boundary'
+						          : null,
+						        packetId: firstSideCountFloorPacket?.packetId ?? null,
+						        packetJsonPath: p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketRankBoundaryReady
+						          ? p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketRankBoundaryPath
+						          : p848P4217Post29QAvoidingPost5Successor29BucketQAvoidingBatchCoverConvergenceAssemblyPath,
+						        packetMarkdownPath: p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketRankBoundaryReady
+						          ? p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketRankBoundaryPath?.replace(/\.json$/, '.md') ?? null
+						          : p848P4217Post29QAvoidingPost5Successor29BucketQAvoidingBatchCoverConvergenceAssemblyPath?.replace(/\.json$/, '.md') ?? null,
+						        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+						        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+						      },
+						      {
+						        taskId: 'run_p848_convergence_assembly_after_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_post_post_post_successor_26_bucket_post_post_post_post_successor_29_bucket_post_post_post_post_post_successor_29_bucket_post_post_post_post_post_post_successor_30_bucket_rank_boundary',
+						        status: p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketRankBoundaryConvergenceAssemblyReady
+						          ? 'done_30_bucket_post_post_post_post_post_post_successor_q_avoiding_cover_selected'
+						          : p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketRankBoundaryReady
+						          ? 'highest'
+						          : p848P4217Post29QAvoidingPost5Successor29BucketQAvoidingBatchCoverConvergenceAssemblyReady
+						          ? 'blocked_by_30_bucket_post_post_post_post_post_post_successor_rank_boundary'
+						          : 'blocked_by_30_bucket_post_post_post_post_post_post_successor_convergence_assembly',
+						        task: p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketRankBoundaryConvergenceAssemblyReady
+						          ? 'The deterministic 30-bucket rank-boundary convergence assembly selected the whole q-avoiding cover; singleton q179/q181 descent remains blocked.'
+						          : p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketRankBoundaryReady
+						          ? 'Run convergence assembly after the deterministic 30-bucket post-post-post-post-post-post-successor rank boundary, name the whole q-avoiding cover token, and block q179/q181 singleton descent before another repeated q-cover step.'
+						          : 'Wait for the exact deterministic 30-bucket post-post-post-post-post-post-successor rank boundary.',
+						        completionRule: 'Assembly consumes the 30-bucket post-post-post-post-post-post-successor rank-boundary token, names the 9,963,724,410,351,871,391,088,180,714,463,609,317,652,043,690,749,610,411,985-class q-avoiding cover, and records the single whole-boundary next action.',
+						        command: 'orp mode breakdown granular-breakdown --topic "problem 848 | convergence assembly | Explain the 282 First-Failure Mechanism" --json',
+						        packetAtomId: p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketRankBoundaryConvergenceAssemblyReady
+						          ? p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketRankBoundaryConvergenceAssembly?.finiteMeasureOrNoMeasureYet?.nextFiniteToken?.tokenId ?? 'p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_post_post_post_successor_26_bucket_post_post_post_post_successor_29_bucket_post_post_post_post_post_successor_29_bucket_post_post_post_post_post_post_successor_30_bucket_q_avoiding_batch_cover'
+						          : p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketRankBoundaryReady
+						          ? p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketRankBoundary?.finiteTokenTransition?.nextFiniteToken?.tokenId ?? 'p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_post_post_post_successor_26_bucket_post_post_post_post_successor_29_bucket_post_post_post_post_post_successor_29_bucket_post_post_post_post_post_post_successor_30_bucket_q_avoiding_batch_cover'
+						          : null,
+						        packetId: firstSideCountFloorPacket?.packetId ?? null,
+						        packetJsonPath: p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketRankBoundaryConvergenceAssemblyReady
+						          ? p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketRankBoundaryConvergenceAssemblyPath
+						          : p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketRankBoundaryReady
+						          ? p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketRankBoundaryPath
+						          : p848P4217Post29QAvoidingPost5Successor29BucketQAvoidingBatchCoverConvergenceAssemblyPath,
+						        packetMarkdownPath: p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketRankBoundaryConvergenceAssemblyReady
+						          ? p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketRankBoundaryConvergenceAssemblyPath?.replace(/\.json$/, '.md') ?? null
+						          : p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketRankBoundaryReady
+						          ? p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketRankBoundaryPath?.replace(/\.json$/, '.md') ?? null
+						          : p848P4217Post29QAvoidingPost5Successor29BucketQAvoidingBatchCoverConvergenceAssemblyPath?.replace(/\.json$/, '.md') ?? null,
+						        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+						        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+						      },
+						      {
+						        taskId: 'derive_p848_p4217_p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_post_post_post_successor_26_bucket_post_post_post_post_successor_29_bucket_post_post_post_post_post_successor_29_bucket_post_post_post_post_post_post_successor_30_bucket_q_avoiding_batch_cover_or_emit_boundary',
+						        status: p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketQAvoidingBatchCoverReady
+						          ? 'done_30_bucket_post_post_post_post_post_post_successor_q_avoiding_batch_cover'
+						          : p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketRankBoundaryConvergenceAssemblyReady
+						          ? 'highest'
+						          : p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketRankBoundaryReady
+						          ? 'blocked_by_30_bucket_post_post_post_post_post_post_successor_rank_boundary_convergence_assembly'
+						          : 'blocked_by_30_bucket_post_post_post_post_post_post_successor_rank_boundary',
+						        task: p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketQAvoidingBatchCoverReady
+						          ? 'The whole 30-bucket post-post-post-post-post-post-successor q-avoiding batch cover classified every source class with no survivors and emitted a 31-bucket post-post-post-post-post-post-post-successor boundary for convergence assembly.'
+						          : p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketRankBoundaryConvergenceAssemblyReady
+						          ? 'Run the whole 30-bucket post-post-post-post-post-post-successor q-avoiding batch cover over q179..q353, or emit a structural decomposition, impossibility theorem, or exact survivor/rank boundary for the entire token.'
+						          : 'Wait for convergence assembly to select the whole 30-bucket post-post-post-post-post-post-successor q-avoiding cover token.',
+						        completionRule: 'Either all 9,963,724,410,351,871,391,088,180,714,463,609,317,652,043,690,749,610,411,985 q-avoiding classes are covered, or an exact structural/impossibility/survivor boundary for the whole 30-bucket token is emitted.',
+						        command: 'node packs/number-theory/problems/848/compute/problem848_post29_q_avoiding_post5_successor_29_bucket_post6_successor_30_bucket_q_avoiding_batch_cover.mjs --write-defaults --pretty',
+						        packetAtomId: p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketQAvoidingBatchCoverReady
+						          ? p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketQAvoidingBatchCover?.inputRankToken?.tokenId ?? 'p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_post_post_post_successor_26_bucket_post_post_post_post_successor_29_bucket_post_post_post_post_post_successor_29_bucket_post_post_post_post_post_post_successor_30_bucket_q_avoiding_batch_cover'
+						          : p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketRankBoundaryConvergenceAssemblyReady
+						          ? p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketRankBoundaryConvergenceAssembly?.finiteMeasureOrNoMeasureYet?.nextFiniteToken?.tokenId ?? 'p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_post_post_post_successor_26_bucket_post_post_post_post_successor_29_bucket_post_post_post_post_post_successor_29_bucket_post_post_post_post_post_post_successor_30_bucket_q_avoiding_batch_cover'
+						          : null,
+						        packetId: firstSideCountFloorPacket?.packetId ?? null,
+						        packetJsonPath: p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketQAvoidingBatchCoverReady
+						          ? p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketQAvoidingBatchCoverPath
+						          : p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketRankBoundaryConvergenceAssemblyReady
+						          ? p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketRankBoundaryConvergenceAssemblyPath
+						          : p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketRankBoundaryPath,
+						        packetMarkdownPath: p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketQAvoidingBatchCoverReady
+						          ? p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketQAvoidingBatchCoverPath?.replace(/\.json$/, '.md') ?? null
+						          : p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketRankBoundaryConvergenceAssemblyReady
+						          ? p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketRankBoundaryConvergenceAssemblyPath?.replace(/\.json$/, '.md') ?? null
+						          : p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketRankBoundaryPath?.replace(/\.json$/, '.md') ?? null,
+						        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+						        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+						      },
+						      {
+						        taskId: 'run_p848_convergence_assembly_after_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_post_post_post_successor_26_bucket_post_post_post_post_successor_29_bucket_post_post_post_post_post_successor_29_bucket_post_post_post_post_post_post_successor_30_bucket_q_avoiding_batch_cover',
+						        status: p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketQAvoidingBatchCoverConvergenceAssemblyReady
+						          ? 'done_31_bucket_post_post_post_post_post_post_post_successor_convergence_assembly'
+						          : p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketQAvoidingBatchCoverReady
+						          ? 'highest'
+						          : p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketRankBoundaryConvergenceAssemblyReady
+						          ? 'blocked_by_30_bucket_post_post_post_post_post_post_successor_q_avoiding_batch_cover'
+						          : 'blocked_by_30_bucket_post_post_post_post_post_post_successor_q_cover_selection',
+						        task: p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketQAvoidingBatchCoverConvergenceAssemblyReady
+						          ? 'The 30-bucket post-post-post-post-post-post-successor q-cover convergence assembly selected whole-boundary 31-bucket post-post-post-post-post-post-post-successor compression/rank work before singleton q-child descent.'
+						          : p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketQAvoidingBatchCoverReady
+						          ? 'Run convergence assembly over the 31 post-post-post-post-post-post-post-successor buckets emitted by the no-survivor 30-bucket post-post-post-post-post-post-successor q-cover; choose compression, structural decomposition, impossibility, or exact rank-boundary work before q181/q193 singleton descent.'
+						          : 'Wait for the whole 30-bucket post-post-post-post-post-post-successor q-avoiding cover to close or emit a survivor boundary.',
+						        completionRule: 'Assembly consumes the post-post-post-post-post-post-successor q-cover decision token, records the q181..q379 post-post-post-post-post-post-post-successor surface, and selects one whole-boundary next action.',
+						        command: 'orp mode breakdown granular-breakdown --topic "problem 848 | convergence assembly | Explain the 282 First-Failure Mechanism" --json',
+						        packetAtomId: p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketQAvoidingBatchCoverConvergenceAssemblyReady
+						          ? p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketQAvoidingBatchCoverConvergenceAssembly?.finiteMeasureOrNoMeasureYet?.nextFiniteToken?.tokenId ?? 'p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_post_post_post_successor_26_bucket_post_post_post_post_successor_29_bucket_post_post_post_post_post_successor_29_bucket_post_post_post_post_post_post_successor_30_bucket_post_post_post_post_post_post_post_successor_31_bucket_rank_boundary'
+						          : p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketQAvoidingBatchCoverReady
+						          ? p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketQAvoidingBatchCover?.finiteTokenTransition?.producedFiniteTokens?.find?.((token) => token.status === 'ranked_boundary_open_for_convergence_assembly')?.tokenId ?? 'p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_post_post_post_successor_26_bucket_post_post_post_post_successor_29_bucket_post_post_post_post_post_successor_29_bucket_post_post_post_post_post_post_successor_30_bucket_post_post_post_post_post_post_post_successor_q_avoiding_boundary'
+						          : null,
+						        packetId: firstSideCountFloorPacket?.packetId ?? null,
+						        packetJsonPath: p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketQAvoidingBatchCoverConvergenceAssemblyReady
+						          ? p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketQAvoidingBatchCoverConvergenceAssemblyPath
+						          : p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketQAvoidingBatchCoverPath,
+						        packetMarkdownPath: p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketQAvoidingBatchCoverConvergenceAssemblyReady
+						          ? p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketQAvoidingBatchCoverConvergenceAssemblyPath?.replace(/\.json$/, '.md') ?? null
+						          : p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketQAvoidingBatchCoverPath?.replace(/\.json$/, '.md') ?? null,
+						        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+						        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+						      },
+						      {
+						        taskId: 'compress_p848_p4217_p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_post_post_post_successor_26_bucket_post_post_post_post_successor_29_bucket_post_post_post_post_post_successor_29_bucket_post_post_post_post_post_post_successor_30_bucket_post_post_post_post_post_post_post_successor_31_buckets_or_emit_rank_boundary',
+						        status: p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketPost7Successor31BucketRankBoundaryReady
+						          ? 'done_31_bucket_post_post_post_post_post_post_post_successor_rank_boundary_emitted'
+						          : p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketQAvoidingBatchCoverConvergenceAssemblyReady
+						          ? 'highest'
+						          : p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketQAvoidingBatchCoverReady
+						          ? 'blocked_by_31_bucket_post_post_post_post_post_post_post_successor_convergence_assembly'
+						          : 'blocked_by_30_bucket_post_post_post_post_post_post_successor_q_cover',
+						        task: p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketPost7Successor31BucketRankBoundaryReady
+						          ? 'The deterministic 31-bucket post-post-post-post-post-post-post-successor rank boundary has been emitted; run convergence assembly before the whole q-avoiding batch cover.'
+						          : p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketQAvoidingBatchCoverConvergenceAssemblyReady
+						          ? 'Compress all 31 post-post-post-post-post-post-post-successor buckets q181..q379, prove a structural decomposition/impossibility theorem over the whole surface, or emit an exact deterministic rank boundary before q181/q193 singleton descent.'
+						          : 'Wait for convergence assembly over the 31 post-post-post-post-post-post-post-successor buckets emitted by the 30-bucket q-cover.',
+						        completionRule: 'The whole q181..q379 31-bucket successor boundary is consumed by compression, structural theorem, impossibility theorem, or exact deterministic rank-boundary emission; no singleton q-child descent is opened first.',
+						        command: 'node packs/number-theory/problems/848/compute/problem848_post29_q_avoiding_post5_successor_29_bucket_post6_successor_30_bucket_post7_successor_31_bucket_rank_boundary.mjs --write-defaults --pretty',
+						        packetAtomId: p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketPost7Successor31BucketRankBoundaryReady
+						          ? p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketPost7Successor31BucketRankBoundary?.finiteTokenTransition?.consumedFiniteToken?.tokenId ?? 'p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_post_post_post_successor_26_bucket_post_post_post_post_successor_29_bucket_post_post_post_post_post_successor_29_bucket_post_post_post_post_post_post_successor_30_bucket_post_post_post_post_post_post_post_successor_31_bucket_rank_boundary'
+						          : p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketQAvoidingBatchCoverConvergenceAssemblyReady
+						          ? p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketQAvoidingBatchCoverConvergenceAssembly?.finiteMeasureOrNoMeasureYet?.nextFiniteToken?.tokenId ?? 'p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_post_post_post_successor_26_bucket_post_post_post_post_successor_29_bucket_post_post_post_post_post_successor_29_bucket_post_post_post_post_post_post_successor_30_bucket_post_post_post_post_post_post_post_successor_31_bucket_rank_boundary'
+						          : null,
+						        packetId: firstSideCountFloorPacket?.packetId ?? null,
+						        packetJsonPath: p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketPost7Successor31BucketRankBoundaryReady
+						          ? p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketPost7Successor31BucketRankBoundaryPath
+						          : p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketQAvoidingBatchCoverConvergenceAssemblyReady
+						          ? p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketQAvoidingBatchCoverConvergenceAssemblyPath
+						          : p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketQAvoidingBatchCoverPath,
+						        packetMarkdownPath: p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketPost7Successor31BucketRankBoundaryReady
+						          ? p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketPost7Successor31BucketRankBoundaryPath?.replace(/\.json$/, '.md') ?? null
+						          : p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketQAvoidingBatchCoverConvergenceAssemblyReady
+						          ? p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketQAvoidingBatchCoverConvergenceAssemblyPath?.replace(/\.json$/, '.md') ?? null
+						          : p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketQAvoidingBatchCoverPath?.replace(/\.json$/, '.md') ?? null,
+						        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+						        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+						      },
+						      {
+						        taskId: 'run_p848_convergence_assembly_after_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_post_post_post_successor_26_bucket_post_post_post_post_successor_29_bucket_post_post_post_post_post_successor_29_bucket_post_post_post_post_post_post_successor_30_bucket_post_post_post_post_post_post_post_successor_31_bucket_rank_boundary',
+						        status: p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketPost7Successor31BucketRankBoundaryConvergenceAssemblyReady
+						          ? 'done_31_bucket_post_post_post_post_post_post_post_successor_q_avoiding_cover_selected'
+						          : p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketPost7Successor31BucketRankBoundaryReady
+						          ? 'highest'
+						          : p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketQAvoidingBatchCoverConvergenceAssemblyReady
+						          ? 'blocked_by_31_bucket_post_post_post_post_post_post_post_successor_rank_boundary'
+						          : 'blocked_by_31_bucket_post_post_post_post_post_post_post_successor_compression_selection',
+						        task: p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketPost7Successor31BucketRankBoundaryConvergenceAssemblyReady
+						          ? 'The deterministic 31-bucket rank-boundary convergence assembly selected the whole q181..q379 q-avoiding cover; singleton q181/q193 descent remains blocked.'
+						          : p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketPost7Successor31BucketRankBoundaryReady
+						          ? 'Run convergence assembly after the deterministic 31-bucket q181..q379 rank boundary; select the whole-boundary q-avoiding batch cover, a structural theorem, an impossibility theorem, or a sharper deterministic boundary before q181/q193 singleton descent.'
+						          : 'Wait for the deterministic 31-bucket post-post-post-post-post-post-post-successor rank boundary.',
+						        completionRule: 'Assembly consumes the deterministic 31-bucket rank-boundary token, names the whole q-avoiding token, and records singleton q181/q193 descent as disallowed unless a smaller finite rank token is proved.',
+						        command: 'orp mode breakdown granular-breakdown --topic "problem 848 | convergence assembly | Explain the 282 First-Failure Mechanism" --json',
+						        packetAtomId: p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketPost7Successor31BucketRankBoundaryConvergenceAssemblyReady
+						          ? p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketPost7Successor31BucketRankBoundaryConvergenceAssembly?.finiteMeasureOrNoMeasureYet?.nextFiniteToken?.tokenId ?? 'p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_post_post_post_successor_26_bucket_post_post_post_post_successor_29_bucket_post_post_post_post_post_successor_29_bucket_post_post_post_post_post_post_successor_30_bucket_post_post_post_post_post_post_post_successor_31_bucket_q_avoiding_batch_cover'
+						          : p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketPost7Successor31BucketRankBoundaryReady
+						          ? p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketPost7Successor31BucketRankBoundary?.finiteTokenTransition?.nextFiniteToken?.tokenId ?? 'p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_post_post_post_successor_26_bucket_post_post_post_post_successor_29_bucket_post_post_post_post_post_successor_29_bucket_post_post_post_post_post_post_successor_30_bucket_post_post_post_post_post_post_post_successor_31_bucket_q_avoiding_batch_cover'
+						          : null,
+						        packetId: firstSideCountFloorPacket?.packetId ?? null,
+						        packetJsonPath: p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketPost7Successor31BucketRankBoundaryConvergenceAssemblyReady
+						          ? p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketPost7Successor31BucketRankBoundaryConvergenceAssemblyPath
+						          : p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketPost7Successor31BucketRankBoundaryReady
+						          ? p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketPost7Successor31BucketRankBoundaryPath
+						          : p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketQAvoidingBatchCoverConvergenceAssemblyPath,
+						        packetMarkdownPath: p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketPost7Successor31BucketRankBoundaryConvergenceAssemblyReady
+						          ? p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketPost7Successor31BucketRankBoundaryConvergenceAssemblyPath?.replace(/\.json$/, '.md') ?? null
+						          : p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketPost7Successor31BucketRankBoundaryReady
+						          ? p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketPost7Successor31BucketRankBoundaryPath?.replace(/\.json$/, '.md') ?? null
+						          : p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketQAvoidingBatchCoverConvergenceAssemblyPath?.replace(/\.json$/, '.md') ?? null,
+						        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+						        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+						      },
+						      {
+						        taskId: 'derive_p848_p4217_p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_post_post_post_successor_26_bucket_post_post_post_post_successor_29_bucket_post_post_post_post_post_successor_29_bucket_post_post_post_post_post_post_successor_30_bucket_post_post_post_post_post_post_post_successor_31_bucket_q_avoiding_batch_cover_or_emit_boundary',
+						        status: p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketPost7Successor31BucketQAvoidingBatchCoverReady
+						          ? 'done_q_avoiding_batch_cover_closed'
+						          : p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketPost7Successor31BucketRankBoundaryConvergenceAssemblyReady
+						          ? 'highest'
+						          : p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketPost7Successor31BucketRankBoundaryReady
+						          ? 'blocked_by_31_bucket_rank_boundary_convergence_assembly'
+						          : 'blocked_by_31_bucket_rank_boundary',
+						        task: p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketPost7Successor31BucketQAvoidingBatchCoverReady
+						          ? 'The whole 31-bucket q181..q379 q-avoiding cover is closed with zero survivors; run convergence assembly over the emitted q191..q383 boundary.'
+						          : p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketPost7Successor31BucketRankBoundaryConvergenceAssemblyReady
+						          ? 'Run the whole 31-bucket post-post-post-post-post-post-post-successor q-avoiding cover over q181..q379, or emit a structural decomposition, impossibility theorem, or exact survivor/rank boundary for the entire token before q181/q193 singleton descent.'
+						          : 'Wait for the deterministic 31-bucket rank-boundary convergence assembly to select the whole q-avoiding cover.',
+						        completionRule: 'The whole q181..q379 31-bucket q-avoiding boundary is covered, structurally decomposed, proved impossible, or replaced by an exact survivor/rank boundary; no singleton q-child descent is opened first.',
+						        command: 'node packs/number-theory/problems/848/compute/problem848_post29_q_avoiding_post5_successor_29_bucket_post6_successor_30_bucket_post7_successor_31_bucket_q_avoiding_batch_cover.mjs --write-defaults --pretty',
+						        packetAtomId: p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketPost7Successor31BucketQAvoidingBatchCoverReady
+						          ? p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketPost7Successor31BucketQAvoidingBatchCover?.finiteTokenTransition?.consumedFiniteToken?.tokenId ?? 'p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_post_post_post_successor_26_bucket_post_post_post_post_successor_29_bucket_post_post_post_post_post_successor_29_bucket_post_post_post_post_post_post_successor_30_bucket_post_post_post_post_post_post_successor_31_bucket_q_avoiding_batch_cover'
+						          : p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketPost7Successor31BucketRankBoundaryConvergenceAssemblyReady
+						          ? p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketPost7Successor31BucketRankBoundaryConvergenceAssembly?.finiteMeasureOrNoMeasureYet?.nextFiniteToken?.tokenId ?? 'p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_post_post_post_successor_26_bucket_post_post_post_post_successor_29_bucket_post_post_post_post_post_successor_29_bucket_post_post_post_post_post_post_successor_30_bucket_post_post_post_post_post_post_post_successor_31_bucket_q_avoiding_batch_cover'
+						          : null,
+						        packetId: firstSideCountFloorPacket?.packetId ?? null,
+						        packetJsonPath: p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketPost7Successor31BucketQAvoidingBatchCoverReady
+						          ? p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketPost7Successor31BucketQAvoidingBatchCoverPath
+						          : p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketPost7Successor31BucketRankBoundaryConvergenceAssemblyPath,
+						        packetMarkdownPath: p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketPost7Successor31BucketQAvoidingBatchCoverReady
+						          ? p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketPost7Successor31BucketQAvoidingBatchCoverPath?.replace(/\.json$/, '.md') ?? null
+						          : p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketPost7Successor31BucketRankBoundaryConvergenceAssemblyPath?.replace(/\.json$/, '.md') ?? null,
+						        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+						        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+						      },
+						      {
+						        taskId: 'run_p848_convergence_assembly_after_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_post_post_post_successor_26_bucket_post_post_post_post_successor_29_bucket_post_post_post_post_post_successor_29_bucket_post_post_post_post_post_post_successor_30_bucket_post_post_post_post_post_post_successor_31_bucket_q_avoiding_batch_cover',
+							        status: p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketPost7Successor31BucketQAvoidingBatchCoverConvergenceAssemblyReady
+							          ? 'done_31_bucket_post_post_post_post_post_post_post_post_successor_convergence_assembly'
+							          : p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketPost7Successor31BucketQAvoidingBatchCoverReady
+							          ? 'highest'
+							          : 'blocked_by_31_bucket_q_avoiding_batch_cover',
+							        task: p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketPost7Successor31BucketQAvoidingBatchCoverConvergenceAssemblyReady
+							          ? 'The 31-bucket q-cover convergence assembly selected whole-boundary q191..q383 compression/rank work before singleton q-child descent.'
+							          : p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketPost7Successor31BucketQAvoidingBatchCoverReady
+							          ? 'Run convergence assembly after the closed 31-bucket q-cover and route the whole q191..q383 successor boundary before any singleton descent.'
+							          : 'Wait for the whole 31-bucket q-avoiding cover packet.',
+						        completionRule: 'Assembly consumes the no-survivor 31-bucket q-cover, records the emitted q191..q383 successor boundary, and selects a compression theorem, structural decomposition, impossibility theorem, or deterministic rank boundary.',
+						        command: 'orp mode breakdown granular-breakdown --topic "problem 848 | convergence assembly | Explain the 282 First-Failure Mechanism" --json',
+							        packetAtomId: p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketPost7Successor31BucketQAvoidingBatchCoverConvergenceAssemblyReady
+							          ? p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketPost7Successor31BucketQAvoidingBatchCoverConvergenceAssembly?.finiteMeasureOrNoMeasureYet?.nextFiniteToken?.tokenId ?? null
+							          : p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketPost7Successor31BucketQAvoidingBatchCoverReady
+							          ? p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketPost7Successor31BucketQAvoidingBatchCover?.finiteTokenTransition?.producedFiniteTokens?.[1]?.tokenId ?? null
+							          : null,
+							        packetId: firstSideCountFloorPacket?.packetId ?? null,
+							        packetJsonPath: p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketPost7Successor31BucketQAvoidingBatchCoverConvergenceAssemblyReady
+							          ? p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketPost7Successor31BucketQAvoidingBatchCoverConvergenceAssemblyPath
+							          : p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketPost7Successor31BucketQAvoidingBatchCoverPath,
+							        packetMarkdownPath: p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketPost7Successor31BucketQAvoidingBatchCoverConvergenceAssemblyReady
+							          ? p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketPost7Successor31BucketQAvoidingBatchCoverConvergenceAssemblyPath?.replace(/\.json$/, '.md') ?? null
+							          : p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketPost7Successor31BucketQAvoidingBatchCoverPath?.replace(/\.json$/, '.md') ?? null,
+							        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+							        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+							      },
+							      {
+							        taskId: 'compress_p848_p4217_p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_post_post_post_successor_26_bucket_post_post_post_post_successor_29_bucket_post_post_post_post_post_successor_29_bucket_post_post_post_post_post_post_successor_30_bucket_post_post_post_post_post_post_post_successor_31_bucket_post_post_post_post_post_post_post_post_successor_31_buckets_or_emit_rank_boundary',
+							        status: p848P4217Post31QAvoidingPost8Successor31BucketRankBoundaryReady
+							          ? 'done_31_bucket_post_post_post_post_post_post_post_post_successor_rank_boundary_emitted'
+							          : p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketPost7Successor31BucketQAvoidingBatchCoverConvergenceAssemblyReady
+							          ? 'highest'
+							          : p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketPost7Successor31BucketQAvoidingBatchCoverReady
+							          ? 'blocked_by_31_bucket_q_avoiding_convergence_assembly'
+							          : 'blocked_by_31_bucket_q_avoiding_batch_cover',
+							        task: p848P4217Post31QAvoidingPost8Successor31BucketRankBoundaryReady
+							          ? 'The deterministic q191..q383 31-bucket post-post-post-post-post-post-post-post-successor rank boundary is emitted; run convergence assembly before any q191/q193 singleton descent.'
+							          : p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketPost7Successor31BucketQAvoidingBatchCoverConvergenceAssemblyReady
+							          ? 'Compress all 31 post-post-post-post-post-post-post-post-successor buckets q191..q383, prove a structural decomposition/impossibility theorem over the whole surface, or emit an exact deterministic rank boundary before singleton q-child descent.'
+							          : 'Wait for convergence assembly over the 31 q191..q383 successor buckets emitted by the 31-bucket q-cover.',
+							        completionRule: 'The whole q191..q383 31-bucket successor boundary is consumed by compression, structural theorem, impossibility theorem, or exact deterministic rank-boundary emission; no singleton q-child descent is opened first.',
+							        command: 'node packs/number-theory/problems/848/compute/problem848_post29_q_avoiding_post5_successor_29_bucket_post6_successor_30_bucket_post7_successor_31_bucket_post8_successor_31_bucket_rank_boundary.mjs --write-defaults --pretty',
+							        packetAtomId: p848P4217Post31QAvoidingPost8Successor31BucketRankBoundaryReady
+							          ? p848P4217Post31QAvoidingPost8Successor31BucketRankBoundary?.finiteTokenTransition?.consumedFiniteToken?.tokenId ?? 'p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_post_post_post_successor_26_bucket_post_post_post_post_successor_29_bucket_post_post_post_post_post_successor_29_bucket_post_post_post_post_post_post_successor_30_bucket_post_post_post_post_post_post_successor_31_bucket_post_post_post_post_post_post_post_post_successor_rank_boundary'
+							          : p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketPost7Successor31BucketQAvoidingBatchCoverConvergenceAssemblyReady
+							          ? p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketPost7Successor31BucketQAvoidingBatchCoverConvergenceAssembly?.finiteMeasureOrNoMeasureYet?.nextFiniteToken?.tokenId ?? 'p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_post_post_post_successor_26_bucket_post_post_post_post_successor_29_bucket_post_post_post_post_post_successor_29_bucket_post_post_post_post_post_post_successor_30_bucket_post_post_post_post_post_post_post_successor_31_bucket_post_post_post_post_post_post_post_post_successor_rank_boundary'
+							          : null,
+							        packetId: firstSideCountFloorPacket?.packetId ?? null,
+							        packetJsonPath: p848P4217Post31QAvoidingPost8Successor31BucketRankBoundaryReady
+							          ? p848P4217Post31QAvoidingPost8Successor31BucketRankBoundaryPath
+							          : p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketPost7Successor31BucketQAvoidingBatchCoverConvergenceAssemblyReady
+							          ? p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketPost7Successor31BucketQAvoidingBatchCoverConvergenceAssemblyPath
+							          : p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketPost7Successor31BucketQAvoidingBatchCoverPath,
+							        packetMarkdownPath: p848P4217Post31QAvoidingPost8Successor31BucketRankBoundaryReady
+							          ? p848P4217Post31QAvoidingPost8Successor31BucketRankBoundaryPath?.replace(/\.json$/, '.md') ?? null
+							          : p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketPost7Successor31BucketQAvoidingBatchCoverConvergenceAssemblyReady
+							          ? p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketPost7Successor31BucketQAvoidingBatchCoverConvergenceAssemblyPath?.replace(/\.json$/, '.md') ?? null
+							          : p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketPost7Successor31BucketQAvoidingBatchCoverPath?.replace(/\.json$/, '.md') ?? null,
+							        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+							        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+							      },
+							      {
+							        taskId: 'run_p848_convergence_assembly_after_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_post_post_post_successor_26_bucket_post_post_post_post_successor_29_bucket_post_post_post_post_post_successor_29_bucket_post_post_post_post_post_post_successor_30_bucket_post_post_post_post_post_post_post_successor_31_bucket_post_post_post_post_post_post_post_post_successor_31_bucket_rank_boundary',
+							        status: p848P4217Post31QAvoidingPost8Successor31BucketRankBoundaryConvergenceAssemblyReady
+							          ? 'done_31_bucket_q191_q383_rank_boundary_convergence_assembly'
+							          : p848P4217Post31QAvoidingPost8Successor31BucketRankBoundaryReady
+							          ? 'highest'
+							          : p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketPost7Successor31BucketQAvoidingBatchCoverConvergenceAssemblyReady
+							          ? 'blocked_by_31_bucket_post_post_post_post_post_post_post_post_successor_rank_boundary'
+							          : 'blocked_by_31_bucket_q_avoiding_convergence_assembly',
+							        task: p848P4217Post31QAvoidingPost8Successor31BucketRankBoundaryConvergenceAssemblyReady
+							          ? 'The q191..q383 rank-boundary convergence assembly selected the whole 31-bucket q-avoiding cover and kept singleton q descent blocked.'
+							          : p848P4217Post31QAvoidingPost8Successor31BucketRankBoundaryReady
+							          ? 'Run convergence assembly after the deterministic q191..q383 31-bucket rank boundary; select the whole-boundary q-avoiding cover, a structural theorem, an impossibility theorem, or a sharper deterministic boundary before q191/q193 singleton descent.'
+							          : 'Wait for the deterministic q191..q383 rank-boundary packet.',
+							        completionRule: 'Assembly consumes the deterministic q191..q383 rank-boundary token, names one whole-boundary next action, and records singleton q191/q193 descent as disallowed unless a smaller finite rank token is proved.',
+							        command: 'orp mode breakdown granular-breakdown --topic "problem 848 | convergence assembly | Explain the 282 First-Failure Mechanism" --json',
+							        packetAtomId: p848P4217Post31QAvoidingPost8Successor31BucketRankBoundaryConvergenceAssemblyReady
+							          ? p848P4217Post31QAvoidingPost8Successor31BucketRankBoundaryConvergenceAssembly?.finiteMeasureOrNoMeasureYet?.nextFiniteToken?.tokenId ?? null
+							          : p848P4217Post31QAvoidingPost8Successor31BucketRankBoundaryReady
+							          ? p848P4217Post31QAvoidingPost8Successor31BucketRankBoundary?.finiteTokenTransition?.nextFiniteToken?.tokenId ?? 'p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_post_post_post_successor_26_bucket_post_post_post_post_successor_29_bucket_post_post_post_post_post_successor_29_bucket_post_post_post_post_post_post_successor_30_bucket_post_post_post_post_post_post_post_successor_31_bucket_post_post_post_post_post_post_post_post_successor_q_avoiding_batch_cover'
+							          : null,
+							        packetId: firstSideCountFloorPacket?.packetId ?? null,
+							        packetJsonPath: p848P4217Post31QAvoidingPost8Successor31BucketRankBoundaryConvergenceAssemblyReady
+							          ? p848P4217Post31QAvoidingPost8Successor31BucketRankBoundaryConvergenceAssemblyPath
+							          : p848P4217Post31QAvoidingPost8Successor31BucketRankBoundaryReady
+							          ? p848P4217Post31QAvoidingPost8Successor31BucketRankBoundaryPath
+							          : p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketPost7Successor31BucketQAvoidingBatchCoverConvergenceAssemblyPath,
+							        packetMarkdownPath: p848P4217Post31QAvoidingPost8Successor31BucketRankBoundaryConvergenceAssemblyReady
+							          ? p848P4217Post31QAvoidingPost8Successor31BucketRankBoundaryConvergenceAssemblyPath?.replace(/\.json$/, '.md') ?? null
+							          : p848P4217Post31QAvoidingPost8Successor31BucketRankBoundaryReady
+							          ? p848P4217Post31QAvoidingPost8Successor31BucketRankBoundaryPath?.replace(/\.json$/, '.md') ?? null
+							          : p848P4217Post29QAvoidingPost5Successor29BucketPost6Successor30BucketPost7Successor31BucketQAvoidingBatchCoverConvergenceAssemblyPath?.replace(/\.json$/, '.md') ?? null,
+							        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+							        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+							      },
+							      {
+							        taskId: 'derive_p848_p4217_p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_post_post_post_successor_26_bucket_post_post_post_post_successor_29_bucket_post_post_post_post_post_successor_29_bucket_post_post_post_post_post_post_successor_30_bucket_post_post_post_post_post_post_post_successor_31_bucket_post_post_post_post_post_post_post_post_successor_31_bucket_q_avoiding_batch_cover_or_emit_boundary',
+							        status: p848P4217Post31QAvoidingPost8Successor31BucketQAvoidingBatchCoverReady
+							          ? 'done_q191_q383_q_avoiding_batch_cover_closed'
+							          : p848P4217Post31QAvoidingPost8Successor31BucketRankBoundaryConvergenceAssemblyReady
+							          ? 'highest'
+							          : p848P4217Post31QAvoidingPost8Successor31BucketRankBoundaryReady
+							          ? 'blocked_by_q191_q383_rank_boundary_convergence_assembly'
+							          : 'blocked_by_q191_q383_rank_boundary',
+							        task: p848P4217Post31QAvoidingPost8Successor31BucketQAvoidingBatchCoverReady
+							          ? 'The whole q191..q383 31-bucket q-avoiding cover is closed with zero survivors; run convergence assembly over the emitted q193..q389 boundary.'
+							          : p848P4217Post31QAvoidingPost8Successor31BucketRankBoundaryConvergenceAssemblyReady
+							          ? 'Run the whole 31-bucket q191..q383 q-avoiding batch cover, structural decomposition, impossibility theorem, or deterministic exact survivor/rank boundary before any singleton q-child descent.'
+							          : 'Wait for convergence assembly after the q191..q383 rank boundary.',
+							        completionRule: 'Every q191..q383 post-post-post-post-post-post-post-post-successor q bucket is covered, structurally decomposed, proved impossible, or accounted for by one exact whole-boundary survivor/rank packet; no singleton q-child descent is opened first.',
+							        command: 'node packs/number-theory/problems/848/compute/problem848_post31_q_avoiding_post8_successor_31_bucket_q_avoiding_batch_cover.mjs --write-defaults --pretty',
+							        packetAtomId: p848P4217Post31QAvoidingPost8Successor31BucketQAvoidingBatchCoverReady
+							          ? p848P4217Post31QAvoidingPost8Successor31BucketQAvoidingBatchCover?.finiteTokenTransition?.consumedFiniteToken?.tokenId ?? 'p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_post_post_post_successor_26_bucket_post_post_post_post_successor_29_bucket_post_post_post_post_post_successor_29_bucket_post_post_post_post_post_post_successor_30_bucket_post_post_post_post_post_post_successor_31_bucket_post_post_post_post_post_post_post_post_successor_q_avoiding_batch_cover'
+							          : p848P4217Post31QAvoidingPost8Successor31BucketRankBoundaryConvergenceAssemblyReady
+							          ? p848P4217Post31QAvoidingPost8Successor31BucketRankBoundaryConvergenceAssembly?.finiteMeasureOrNoMeasureYet?.nextFiniteToken?.tokenId ?? 'p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_post_post_post_successor_26_bucket_post_post_post_post_successor_29_bucket_post_post_post_post_post_successor_29_bucket_post_post_post_post_post_post_successor_30_bucket_post_post_post_post_post_post_post_successor_31_bucket_post_post_post_post_post_post_post_post_successor_q_avoiding_batch_cover'
+							          : null,
+							        packetId: firstSideCountFloorPacket?.packetId ?? null,
+							        packetJsonPath: p848P4217Post31QAvoidingPost8Successor31BucketQAvoidingBatchCoverReady
+							          ? p848P4217Post31QAvoidingPost8Successor31BucketQAvoidingBatchCoverPath
+							          : p848P4217Post31QAvoidingPost8Successor31BucketRankBoundaryConvergenceAssemblyReady
+							          ? p848P4217Post31QAvoidingPost8Successor31BucketRankBoundaryConvergenceAssemblyPath
+							          : p848P4217Post31QAvoidingPost8Successor31BucketRankBoundaryPath,
+							        packetMarkdownPath: p848P4217Post31QAvoidingPost8Successor31BucketQAvoidingBatchCoverReady
+							          ? p848P4217Post31QAvoidingPost8Successor31BucketQAvoidingBatchCoverPath?.replace(/\.json$/, '.md') ?? null
+							          : p848P4217Post31QAvoidingPost8Successor31BucketRankBoundaryConvergenceAssemblyReady
+							          ? p848P4217Post31QAvoidingPost8Successor31BucketRankBoundaryConvergenceAssemblyPath?.replace(/\.json$/, '.md') ?? null
+							          : p848P4217Post31QAvoidingPost8Successor31BucketRankBoundaryPath?.replace(/\.json$/, '.md') ?? null,
+							        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+							        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+							      },
+							      {
+							        taskId: 'run_p848_convergence_assembly_after_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_post_post_post_successor_26_bucket_post_post_post_post_successor_29_bucket_post_post_post_post_post_successor_29_bucket_post_post_post_post_post_post_successor_30_bucket_post_post_post_post_post_post_post_successor_31_bucket_post_post_post_post_post_post_post_post_successor_31_bucket_q_avoiding_batch_cover',
+							        status: p848P4217Post31QAvoidingPost8Successor31BucketQAvoidingBatchCoverConvergenceAssemblyReady
+							          ? 'done_33_bucket_post9_successor_convergence_assembly'
+							          : p848P4217Post31QAvoidingPost8Successor31BucketQAvoidingBatchCoverReady
+							          ? 'highest'
+							          : 'blocked_by_q191_q383_q_avoiding_batch_cover',
+							        task: p848P4217Post31QAvoidingPost8Successor31BucketQAvoidingBatchCoverConvergenceAssemblyReady
+							          ? 'The q191..q383 q-cover convergence assembly selected whole-boundary q193..q389 compression/rank work before singleton q-child descent.'
+							          : p848P4217Post31QAvoidingPost8Successor31BucketQAvoidingBatchCoverReady
+							          ? 'Run convergence assembly after the closed q191..q383 q-avoiding cover and route all 33 emitted q193..q389 post-post-post-post-post-post-post-post-post-successor buckets before any singleton descent.'
+							          : 'Wait for the whole q191..q383 q-avoiding cover packet.',
+							        completionRule: 'Assembly consumes the no-survivor q191..q383 q-cover, records the emitted q193..q389 successor boundary, and selects compression, structural decomposition, impossibility, or a deterministic rank boundary.',
+							        command: 'orp mode breakdown granular-breakdown --topic "problem 848 | convergence assembly | Explain the 282 First-Failure Mechanism" --json',
+							        packetAtomId: p848P4217Post31QAvoidingPost8Successor31BucketQAvoidingBatchCoverConvergenceAssemblyReady
+							          ? p848P4217Post31QAvoidingPost8Successor31BucketQAvoidingBatchCoverConvergenceAssembly?.oneNextAction?.finiteDenominatorOrRankToken
+							            ?? p848P4217Post31QAvoidingPost8Successor31BucketQAvoidingBatchCoverConvergenceAssembly?.finiteMeasureOrNoMeasureYet?.staircaseBreakerToken?.tokenId
+							            ?? p848P4217Post31QAvoidingPost8Successor31BucketQAvoidingBatchCoverConvergenceAssembly?.finiteMeasureOrNoMeasureYet?.nextFiniteToken?.tokenId
+							            ?? null
+							          : p848P4217Post31QAvoidingPost8Successor31BucketQAvoidingBatchCoverReady
+							          ? p848P4217Post31QAvoidingPost8Successor31BucketQAvoidingBatchCover?.finiteTokenTransition?.producedFiniteTokens?.[1]?.tokenId ?? null
+							          : null,
+							        packetId: firstSideCountFloorPacket?.packetId ?? null,
+							        packetJsonPath: p848P4217Post31QAvoidingPost8Successor31BucketQAvoidingBatchCoverConvergenceAssemblyReady
+							          ? p848P4217Post31QAvoidingPost8Successor31BucketQAvoidingBatchCoverConvergenceAssemblyPath
+							          : p848P4217Post31QAvoidingPost8Successor31BucketQAvoidingBatchCoverReady
+							          ? p848P4217Post31QAvoidingPost8Successor31BucketQAvoidingBatchCoverPath
+							          : p848P4217Post31QAvoidingPost8Successor31BucketRankBoundaryConvergenceAssemblyPath,
+							        packetMarkdownPath: p848P4217Post31QAvoidingPost8Successor31BucketQAvoidingBatchCoverConvergenceAssemblyReady
+							          ? p848P4217Post31QAvoidingPost8Successor31BucketQAvoidingBatchCoverConvergenceAssemblyPath?.replace(/\.json$/, '.md') ?? null
+							          : p848P4217Post31QAvoidingPost8Successor31BucketQAvoidingBatchCoverReady
+							          ? p848P4217Post31QAvoidingPost8Successor31BucketQAvoidingBatchCoverPath?.replace(/\.json$/, '.md') ?? null
+							          : p848P4217Post31QAvoidingPost8Successor31BucketRankBoundaryConvergenceAssemblyPath?.replace(/\.json$/, '.md') ?? null,
+							        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+							        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+							      },
+							      {
+							        taskId: 'prove_p848_p4217_q_cover_staircase_breaker_for_q193_q389_successor_surface_or_emit_nonconvergence_blocker',
+							        status: p848P4217QCoverStaircaseBreakerNonconvergenceReady
+							          ? 'done_nonconvergence_blocker_emitted'
+							          : p848P4217Post31QAvoidingPost8Successor31BucketQAvoidingBatchCoverConvergenceAssemblyReady
+							          ? 'highest'
+							          : p848P4217Post31QAvoidingPost8Successor31BucketQAvoidingBatchCoverReady
+							          ? 'blocked_by_q191_q383_q_avoiding_convergence_assembly'
+							          : 'blocked_by_q191_q383_q_avoiding_batch_cover',
+							        task: p848P4217QCoverStaircaseBreakerNonconvergenceReady
+							          ? 'The q-cover staircase breaker emitted a nonconvergence blocker; no further finite q-cover/rank-boundary expansion is allowed without a new theorem packet.'
+							          : p848P4217Post31QAvoidingPost8Successor31BucketQAvoidingBatchCoverConvergenceAssemblyReady
+							          ? 'Prove the q-cover staircase breaker over all 33 q193..q389 successor buckets: close/decompose the surface, prove bulk cover/impossibility, prove a well-founded decreasing rank, or emit a nonconvergence blocker before any next q-cover.'
+							          : 'Wait for convergence assembly over the 33 q193..q389 successor buckets emitted by the q191..q383 q-cover.',
+							        completionRule: 'A completion must prove structural closure, bulk impossibility/cover, a decreasing well-founded measure, or a nonconvergence blocker. A deterministic rank boundary alone is disallowed if it merely selects another larger q-cover.',
+							        command: null,
+							        packetAtomId: p848P4217QCoverStaircaseBreakerNonconvergenceReady
+							          ? p848P4217QCoverStaircaseBreakerNonconvergence?.coversPrimaryNextAction?.tokenId ?? null
+							          : p848P4217Post31QAvoidingPost8Successor31BucketQAvoidingBatchCoverConvergenceAssemblyReady
+							          ? p848P4217Post31QAvoidingPost8Successor31BucketQAvoidingBatchCoverConvergenceAssembly?.finiteMeasureOrNoMeasureYet?.nextFiniteToken?.tokenId ?? null
+							          : p848P4217Post31QAvoidingPost8Successor31BucketQAvoidingBatchCover?.finiteTokenTransition?.producedFiniteTokens?.[1]?.tokenId ?? null,
+							        packetId: firstSideCountFloorPacket?.packetId ?? null,
+							        packetJsonPath: p848P4217QCoverStaircaseBreakerNonconvergenceReady
+							          ? p848P4217QCoverStaircaseBreakerNonconvergencePath
+							          : p848P4217Post31QAvoidingPost8Successor31BucketQAvoidingBatchCoverConvergenceAssemblyReady
+							          ? p848P4217Post31QAvoidingPost8Successor31BucketQAvoidingBatchCoverConvergenceAssemblyPath
+							          : p848P4217Post31QAvoidingPost8Successor31BucketQAvoidingBatchCoverPath,
+							        packetMarkdownPath: p848P4217QCoverStaircaseBreakerNonconvergenceReady
+							          ? p848P4217QCoverStaircaseBreakerNonconvergencePath?.replace(/\.json$/, '.md') ?? null
+							          : p848P4217Post31QAvoidingPost8Successor31BucketQAvoidingBatchCoverConvergenceAssemblyReady
+							          ? p848P4217Post31QAvoidingPost8Successor31BucketQAvoidingBatchCoverConvergenceAssemblyPath?.replace(/\.json$/, '.md') ?? null
+							          : p848P4217Post31QAvoidingPost8Successor31BucketQAvoidingBatchCoverPath?.replace(/\.json$/, '.md') ?? null,
+							        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+							        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+							      },
+							      {
+							        taskId: 'derive_p848_q_cover_parametric_transition_theorem_or_route_to_independent_282_841_binding',
+							        status: p848QCoverParametricTransitionRouteReady
+							          ? 'done_parametric_transition_route_emitted'
+							          : p848P4217QCoverStaircaseBreakerNonconvergenceReady
+							          ? 'highest'
+							          : p848P4217Post31QAvoidingPost8Successor31BucketQAvoidingBatchCoverConvergenceAssemblyReady
+							          ? 'blocked_by_q_cover_staircase_breaker'
+							          : 'blocked_by_q191_q383_q_avoiding_convergence_assembly',
+							        task: p848QCoverParametricTransitionRouteReady
+							          ? 'The q-cover parametric transition route is emitted; it blocks local decreasing-measure extraction and routes away from finite q-cover expansion.'
+							          : p848P4217QCoverStaircaseBreakerNonconvergenceReady
+							          ? 'Derive a parametric q-cover transition theorem from the row-uniform two-root law, or route work to the independent 282/841 live-family binding lane while the finite q-cover staircase remains blocked.'
+							          : 'Wait for the q-cover staircase breaker/nonconvergence packet.',
+							        completionRule: 'No more q-cover/rank-boundary finite expansion until a decreasing measure, finite partition, structural cover, independent 282/841 handoff, or audited theorem-wedge packet exists.',
+							        command: null,
+							        packetAtomId: p848QCoverParametricTransitionRouteReady
+							          ? p848QCoverParametricTransitionRoute?.coversPrimaryNextAction?.tokenId ?? null
+							          : p848P4217QCoverStaircaseBreakerNonconvergence?.coversPrimaryNextAction?.tokenId ?? null,
+							        packetId: p848QCoverParametricTransitionRouteReady
+							          ? p848QCoverParametricTransitionRoute?.packetId ?? null
+							          : p848P4217QCoverStaircaseBreakerNonconvergence?.packetId ?? null,
+							        packetJsonPath: p848QCoverParametricTransitionRouteReady
+							          ? p848QCoverParametricTransitionRoutePath
+							          : p848P4217QCoverStaircaseBreakerNonconvergenceReady
+							          ? p848P4217QCoverStaircaseBreakerNonconvergencePath
+							          : p848P4217Post31QAvoidingPost8Successor31BucketQAvoidingBatchCoverConvergenceAssemblyPath,
+							        packetMarkdownPath: p848QCoverParametricTransitionRouteReady
+							          ? p848QCoverParametricTransitionRoutePath?.replace(/\.json$/, '.md') ?? null
+							          : p848P4217QCoverStaircaseBreakerNonconvergenceReady
+							          ? p848P4217QCoverStaircaseBreakerNonconvergencePath?.replace(/\.json$/, '.md') ?? null
+							          : p848P4217Post31QAvoidingPost8Successor31BucketQAvoidingBatchCoverConvergenceAssemblyPath?.replace(/\.json$/, '.md') ?? null,
+							        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+							        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+							      },
+								      {
+								        taskId: 'derive_p848_p4217_structural_complement_decomposition_or_emit_invariant_blocker',
+								        status: p848P4217StructuralComplementInvariantBlockerReady
+								          ? 'done_invariant_blocker_emitted'
+								          : p848QCoverParametricTransitionRouteReady
+								          ? 'highest'
+								          : p848P4217QCoverStaircaseBreakerNonconvergenceReady
+								          ? 'blocked_by_parametric_transition_route'
+								          : 'blocked_by_q_cover_staircase_breaker',
+								        task: p848P4217StructuralComplementInvariantBlockerReady
+								          ? 'The structural p4217 complement invariant blocker is emitted; it routes away from q-cover and selector-ladder expansion.'
+								          : p848QCoverParametricTransitionRouteReady
+								          ? 'Derive a structural p4217 complement decomposition from square-obstruction/CRT families, or emit an exact invariant blocker that names why the complement cannot currently be compressed.'
+								          : 'Wait for the q-cover parametric transition route packet.',
+								        completionRule: 'No q-cover/rank-boundary finite expansion is allowed until a structural complement theorem, decreasing invariant, finite partition, or audited theorem-wedge packet exists.',
+								        command: null,
+								        packetAtomId: p848P4217StructuralComplementInvariantBlockerReady
+								          ? p848P4217StructuralComplementInvariantBlocker?.oneNextAction?.finiteDenominatorOrRankToken ?? null
+								          : p848QCoverParametricTransitionRoute?.oneNextAction?.finiteDenominatorOrRankToken ?? null,
+								        packetId: p848P4217StructuralComplementInvariantBlockerReady
+								          ? p848P4217StructuralComplementInvariantBlocker?.packetId ?? null
+								          : p848QCoverParametricTransitionRoute?.packetId ?? null,
+								        packetJsonPath: p848P4217StructuralComplementInvariantBlockerReady
+								          ? p848P4217StructuralComplementInvariantBlockerPath
+								          : p848QCoverParametricTransitionRouteReady
+								          ? p848QCoverParametricTransitionRoutePath
+								          : p848P4217QCoverStaircaseBreakerNonconvergencePath,
+								        packetMarkdownPath: p848P4217StructuralComplementInvariantBlockerReady
+								          ? p848P4217StructuralComplementInvariantBlockerPath?.replace(/\.json$/, '.md') ?? null
+								          : p848QCoverParametricTransitionRouteReady
+								          ? p848QCoverParametricTransitionRoutePath?.replace(/\.json$/, '.md') ?? null
+								          : p848P4217QCoverStaircaseBreakerNonconvergencePath?.replace(/\.json$/, '.md') ?? null,
+								        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+								        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+								      },
+								      {
+								        taskId: 'derive_p848_mod50_all_future_recurrence_or_emit_source_theorem_blocker',
+								        status: p848Mod50AllFutureRecurrenceSourceTheoremBlockerReady
+								          ? 'done_source_theorem_blocker_emitted'
+								          : p848P4217StructuralComplementInvariantBlockerReady
+								          ? 'highest'
+								          : p848QCoverParametricTransitionRouteReady
+								          ? 'blocked_by_p4217_structural_complement_invariant_blocker'
+								          : 'blocked_by_q_cover_parametric_transition_route',
+								        task: p848Mod50AllFutureRecurrenceSourceTheoremBlockerReady
+								          ? 'The mod-50 all-future recurrence source-theorem blocker is emitted; finite replay is blocked from becoming an all-future recurrence.'
+								          : p848P4217StructuralComplementInvariantBlockerReady
+								          ? 'Prove the mod-50 all-future relevant-pair recurrence or finite Q partition, or emit the exact source-theorem blocker at that universal boundary.'
+								          : 'Wait for the structural p4217 complement invariant blocker or decomposition packet.',
+								        completionRule: 'A symbolic all-future recurrence, finite Q partition, or exact source-theorem blocker is recorded before any final recombination or resumed q-cover expansion.',
+								        command: null,
+								        packetAtomId: p848Mod50AllFutureRecurrenceSourceTheoremBlockerReady
+								          ? p848Mod50AllFutureRecurrenceSourceTheoremBlocker?.oneNextAction?.finiteDenominatorOrRankToken ?? null
+								          : p848P4217StructuralComplementInvariantBlocker?.oneNextAction?.finiteDenominatorOrRankToken ?? null,
+								        packetId: p848Mod50AllFutureRecurrenceSourceTheoremBlockerReady
+								          ? p848Mod50AllFutureRecurrenceSourceTheoremBlocker?.packetId ?? null
+								          : p848P4217StructuralComplementInvariantBlocker?.packetId ?? null,
+								        packetJsonPath: p848Mod50AllFutureRecurrenceSourceTheoremBlockerReady
+								          ? p848Mod50AllFutureRecurrenceSourceTheoremBlockerPath
+								          : p848P4217StructuralComplementInvariantBlockerReady
+								          ? p848P4217StructuralComplementInvariantBlockerPath
+								          : p848QCoverParametricTransitionRoutePath,
+								        packetMarkdownPath: p848Mod50AllFutureRecurrenceSourceTheoremBlockerReady
+								          ? p848Mod50AllFutureRecurrenceSourceTheoremBlockerPath?.replace(/\.json$/, '.md') ?? null
+								          : p848P4217StructuralComplementInvariantBlockerReady
+								          ? p848P4217StructuralComplementInvariantBlockerPath?.replace(/\.json$/, '.md') ?? null
+								          : p848QCoverParametricTransitionRoutePath?.replace(/\.json$/, '.md') ?? null,
+								        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+								        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+								      },
+								      {
+								        taskId: 'prepare_p848_mod50_all_future_recurrence_theorem_wedge_or_restore_source_generator',
+								        status: p848Mod50SourceArchaeologyTheoremWedgeReady
+								          ? 'done_source_archaeology_theorem_wedge_prepared'
+								          : p848Mod50AllFutureRecurrenceSourceTheoremBlockerReady
+								          ? 'highest'
+								          : p848P4217StructuralComplementInvariantBlockerReady
+								          ? 'blocked_by_mod50_all_future_recurrence_source_theorem_blocker'
+								          : 'blocked_by_p4217_structural_complement_boundary',
+								        task: p848Mod50SourceArchaeologyTheoremWedgeReady
+								          ? 'Local mod-50 source archaeology is complete and a budget-guarded theorem-wedge question is prepared; no live call was made.'
+								          : p848Mod50AllFutureRecurrenceSourceTheoremBlockerReady
+								          ? 'Run local source archaeology for the original mod-50 family-menu generator; if no free source is recoverable, prepare a budget-guarded theorem-wedge question without spending by default.'
+								          : 'Wait for the exact mod-50 source-theorem blocker before preparing the source archaeology/theorem-wedge handoff.',
+								        completionRule: 'The next handoff either restores a repo-owned source theorem/generator, proves a symbolic recurrence/finite-Q partition, or records a budget-guarded theorem-wedge approval packet.',
+								        command: p848Mod50SourceArchaeologyTheoremWedgeReady
+								          ? null
+								          : p848Mod50AllFutureRecurrenceSourceTheoremBlockerReady
+								          ? p848Mod50AllFutureRecurrenceSourceTheoremBlocker?.oneNextAction?.command ?? null
+								          : null,
+								        packetAtomId: p848Mod50SourceArchaeologyTheoremWedgeReady
+								          ? p848Mod50SourceArchaeologyTheoremWedge?.oneNextAction?.finiteDenominatorOrRankToken ?? null
+								          : p848Mod50AllFutureRecurrenceSourceTheoremBlocker?.oneNextAction?.finiteDenominatorOrRankToken ?? null,
+								        packetId: p848Mod50SourceArchaeologyTheoremWedgeReady
+								          ? p848Mod50SourceArchaeologyTheoremWedge?.packetId ?? null
+								          : p848Mod50AllFutureRecurrenceSourceTheoremBlocker?.packetId ?? null,
+								        packetJsonPath: p848Mod50SourceArchaeologyTheoremWedgeReady
+								          ? p848Mod50SourceArchaeologyTheoremWedgePath
+								          : p848Mod50AllFutureRecurrenceSourceTheoremBlockerReady
+								          ? p848Mod50AllFutureRecurrenceSourceTheoremBlockerPath
+								          : p848P4217StructuralComplementInvariantBlockerPath,
+								        packetMarkdownPath: p848Mod50SourceArchaeologyTheoremWedgeReady
+								          ? p848Mod50SourceArchaeologyTheoremWedgePath?.replace(/\.json$/, '.md') ?? null
+								          : p848Mod50AllFutureRecurrenceSourceTheoremBlockerReady
+								          ? p848Mod50AllFutureRecurrenceSourceTheoremBlockerPath?.replace(/\.json$/, '.md') ?? null
+								          : p848P4217StructuralComplementInvariantBlockerPath?.replace(/\.json$/, '.md') ?? null,
+								        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+								        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+								      },
+								      {
+								        taskId: 'decide_p848_mod50_recurrence_wedge_with_budget_guard_or_local_symbolic_proof',
+								        status: p848Mod50TheoremWedgeDecisionBlockerReady
+								          ? 'done_theorem_wedge_decision_blocker_emitted'
+								          : p848Mod50SourceArchaeologyTheoremWedgeReady
+								          ? 'highest'
+								          : p848Mod50AllFutureRecurrenceSourceTheoremBlockerReady
+								          ? 'blocked_by_source_archaeology_theorem_wedge_packet'
+								          : 'blocked_by_mod50_source_theorem_blocker',
+								        task: p848Mod50TheoremWedgeDecisionBlockerReady
+								          ? 'The guarded theorem-wedge decision emitted a local/planning-only blocker: no symbolic recurrence, finite-Q partition, or restored source generator is available without a new theorem object.'
+								          : p848Mod50SourceArchaeologyTheoremWedgeReady
+								          ? 'Use the prepared theorem wedge locally first; before any live ORP/OpenAI call, run the local usage guard and confirm the call remains high leverage.'
+								          : 'Wait for the local source archaeology theorem-wedge packet.',
+								        completionRule: 'Either a local symbolic recurrence/finite-Q partition/source-generator theorem is produced, or one budget-guarded theorem-wedge result/blocker is recorded without resuming finite q-cover expansion.',
+								        command: p848Mod50TheoremWedgeDecisionBlockerReady
+								          ? null
+								          : p848Mod50SourceArchaeologyTheoremWedgeReady
+								          ? p848Mod50SourceArchaeologyTheoremWedge?.oneNextAction?.command ?? 'erdos orp research usage --json'
+								          : null,
+								        packetAtomId: p848Mod50TheoremWedgeDecisionBlockerReady
+								          ? p848Mod50TheoremWedgeDecisionBlocker?.oneNextAction?.finiteDenominatorOrRankToken ?? null
+								          : p848Mod50SourceArchaeologyTheoremWedge?.oneNextAction?.finiteDenominatorOrRankToken ?? null,
+								        packetId: p848Mod50TheoremWedgeDecisionBlockerReady
+								          ? p848Mod50TheoremWedgeDecisionBlocker?.packetId ?? null
+								          : p848Mod50SourceArchaeologyTheoremWedge?.packetId ?? null,
+								        packetJsonPath: p848Mod50TheoremWedgeDecisionBlockerReady
+								          ? p848Mod50TheoremWedgeDecisionBlockerPath
+								          : p848Mod50SourceArchaeologyTheoremWedgeReady
+								          ? p848Mod50SourceArchaeologyTheoremWedgePath
+								          : p848Mod50AllFutureRecurrenceSourceTheoremBlockerPath,
+								        packetMarkdownPath: p848Mod50TheoremWedgeDecisionBlockerReady
+								          ? p848Mod50TheoremWedgeDecisionBlockerPath?.replace(/\.json$/, '.md') ?? null
+								          : p848Mod50SourceArchaeologyTheoremWedgeReady
+								          ? p848Mod50SourceArchaeologyTheoremWedgePath?.replace(/\.json$/, '.md') ?? null
+								          : p848Mod50AllFutureRecurrenceSourceTheoremBlockerPath?.replace(/\.json$/, '.md') ?? null,
+								        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+								        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+								      },
+								      {
+								        taskId: 'assemble_p848_all_n_recombination_residual_after_mod50_wedge_blocker',
+								        status: p848AllNRecombinationResidualAfterMod50WedgeBlockerReady
+								          ? 'done_all_n_residual_assembly_emitted'
+								          : p848Mod50TheoremWedgeDecisionBlockerReady
+								          ? 'highest'
+								          : p848Mod50SourceArchaeologyTheoremWedgeReady
+								          ? 'blocked_by_mod50_theorem_wedge_decision'
+								          : 'blocked_by_source_archaeology_theorem_wedge_packet',
+								        task: p848AllNRecombinationResidualAfterMod50WedgeBlockerReady
+								          ? 'The all-N residual is assembled after the mod-50 theorem-wedge blocker; q-cover expansion remains blocked and the next theorem-facing atom is selected.'
+								          : p848Mod50TheoremWedgeDecisionBlockerReady
+								          ? 'Assemble the all-N residual after the mod-50 theorem-wedge blocker: name the exact theorem atoms still outside the proof and keep q-cover expansion blocked.'
+								          : 'Wait for the guarded mod-50 theorem-wedge decision blocker or theorem result.',
+								        completionRule: 'A recombination residual packet records exactly which theorem atoms remain before any all-N claim or resumed finite q-cover work.',
+								        command: p848AllNRecombinationResidualAfterMod50WedgeBlockerReady
+								          ? null
+								          : p848Mod50TheoremWedgeDecisionBlockerReady
+								          ? p848Mod50TheoremWedgeDecisionBlocker?.oneNextAction?.command ?? './bin/erdos problem progress 848 --json'
+								          : null,
+								        packetAtomId: p848AllNRecombinationResidualAfterMod50WedgeBlockerReady
+								          ? p848AllNRecombinationResidualAfterMod50WedgeBlocker?.oneNextAction?.finiteDenominatorOrRankToken ?? null
+								          : p848Mod50TheoremWedgeDecisionBlocker?.oneNextAction?.finiteDenominatorOrRankToken ?? null,
+								        packetId: p848AllNRecombinationResidualAfterMod50WedgeBlockerReady
+								          ? p848AllNRecombinationResidualAfterMod50WedgeBlocker?.packetId ?? null
+								          : p848Mod50TheoremWedgeDecisionBlocker?.packetId ?? null,
+								        packetJsonPath: p848AllNRecombinationResidualAfterMod50WedgeBlockerReady
+								          ? p848AllNRecombinationResidualAfterMod50WedgeBlockerPath
+								          : p848Mod50TheoremWedgeDecisionBlockerReady
+								          ? p848Mod50TheoremWedgeDecisionBlockerPath
+								          : p848Mod50SourceArchaeologyTheoremWedgePath,
+								        packetMarkdownPath: p848AllNRecombinationResidualAfterMod50WedgeBlockerReady
+								          ? p848AllNRecombinationResidualAfterMod50WedgeBlockerPath?.replace(/\.json$/, '.md') ?? null
+								          : p848Mod50TheoremWedgeDecisionBlockerReady
+								          ? p848Mod50TheoremWedgeDecisionBlockerPath?.replace(/\.json$/, '.md') ?? null
+								          : p848Mod50SourceArchaeologyTheoremWedgePath?.replace(/\.json$/, '.md') ?? null,
+								        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+								        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+								      },
+								      {
+								        taskId: 'derive_p848_p4217_complement_cover_or_impossibility_from_all_n_residual',
+								        status: p848P4217ComplementCoverImpossibilityBlockerReady
+								          ? 'done_p4217_cover_impossibility_blocker_emitted'
+								          : p848AllNRecombinationResidualAfterMod50WedgeBlockerReady
+								          ? 'highest'
+								          : 'blocked_by_all_n_residual_assembly',
+								        task: p848P4217ComplementCoverImpossibilityBlockerReady
+								          ? 'The post-residual p4217 complement cover/impossibility blocker is emitted; no repo-owned local cover theorem is available and q-cover/selector descent remains blocked.'
+								          : p848AllNRecombinationResidualAfterMod50WedgeBlockerReady
+								          ? 'Derive a theorem-facing p4217 unavailable-complement cover or impossibility theorem from the assembled all-N residual, using a bulk/structural/ranked argument rather than singleton fallback selectors.'
+								          : 'Wait for the all-N residual assembly packet.',
+								        completionRule: 'A p4217 complement cover, impossibility theorem, structural decomposition, or sharper formal blocker is recorded without resuming q-cover or singleton selector descent.',
+								        command: p848P4217ComplementCoverImpossibilityBlockerReady
+								          ? null
+								          : p848AllNRecombinationResidualAfterMod50WedgeBlockerReady
+								          ? p848AllNRecombinationResidualAfterMod50WedgeBlocker?.oneNextAction?.command ?? './bin/erdos problem progress 848 --json'
+								          : null,
+								        packetAtomId: p848P4217ComplementCoverImpossibilityBlockerReady
+								          ? p848P4217ComplementCoverImpossibilityBlocker?.oneNextAction?.finiteDenominatorOrRankToken ?? null
+								          : p848AllNRecombinationResidualAfterMod50WedgeBlocker?.oneNextAction?.finiteDenominatorOrRankToken ?? null,
+								        packetId: p848P4217ComplementCoverImpossibilityBlockerReady
+								          ? p848P4217ComplementCoverImpossibilityBlocker?.packetId ?? null
+								          : p848AllNRecombinationResidualAfterMod50WedgeBlocker?.packetId ?? null,
+								        packetJsonPath: p848P4217ComplementCoverImpossibilityBlockerReady
+								          ? p848P4217ComplementCoverImpossibilityBlockerPath
+								          : p848AllNRecombinationResidualAfterMod50WedgeBlockerReady
+								          ? p848AllNRecombinationResidualAfterMod50WedgeBlockerPath
+								          : p848Mod50TheoremWedgeDecisionBlockerPath,
+								        packetMarkdownPath: p848P4217ComplementCoverImpossibilityBlockerReady
+								          ? p848P4217ComplementCoverImpossibilityBlockerPath?.replace(/\.json$/, '.md') ?? null
+								          : p848AllNRecombinationResidualAfterMod50WedgeBlockerReady
+								          ? p848AllNRecombinationResidualAfterMod50WedgeBlockerPath?.replace(/\.json$/, '.md') ?? null
+								          : p848Mod50TheoremWedgeDecisionBlockerPath?.replace(/\.json$/, '.md') ?? null,
+								        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+								        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+								      },
+								      {
+								        taskId: 'evaluate_p848_tao_van_doorn_threshold_collapse_claim_before_resuming_frontier',
+								        status: p848TaoVanDoornThresholdPivotReconciliationReady
+								          ? 'done_tvd_threshold_pivot_reconciled_direct_route_blocked'
+								          : p848P4217ComplementCoverImpossibilityBlockerReady
+								          ? 'highest'
+								          : 'blocked_by_p4217_cover_impossibility_blocker',
+								        task: p848TaoVanDoornThresholdPivotReconciliationReady
+								          ? 'The Tao-van Doorn threshold-pivot claim is reconciled: direct threshold collapse is blocked by direction and denominator checks, and corrected dual/union-hitting sieve work is now the analytic gate.'
+								          : p848P4217ComplementCoverImpossibilityBlockerReady
+								          ? 'Pause before more q-frontier compute and reconcile the Tao-van Doorn threshold-collapse claim against the repo direction audit, Lemma 2.1 bottleneck, and current frontier growth pressure.'
+								          : 'Wait for the p4217 complement cover/impossibility blocker before evaluating whether an analytic threshold pivot should interrupt the frontier lane.',
+								        completionRule: 'A reproducible reconciliation packet either validates a corrected analytic shortcut or blocks the direct Tao-van-Doorn threshold-collapse reading and names the exact corrected analytic next action.',
+								        command: p848TaoVanDoornThresholdPivotReconciliationReady
+								          ? null
+								          : p848P4217ComplementCoverImpossibilityBlockerReady
+								          ? 'node packs/number-theory/problems/848/compute/problem848_tao_van_doorn_threshold_pivot_reconciliation.mjs --write-defaults --pretty'
+								          : null,
+								        packetAtomId: p848TaoVanDoornThresholdPivotReconciliationReady
+								          ? p848TaoVanDoornThresholdPivotReconciliation?.oneNextAction?.finiteDenominatorOrRankToken ?? null
+								          : p848P4217ComplementCoverImpossibilityBlocker?.oneNextAction?.finiteDenominatorOrRankToken ?? null,
+								        packetId: p848TaoVanDoornThresholdPivotReconciliationReady
+								          ? p848TaoVanDoornThresholdPivotReconciliation?.packetId ?? null
+								          : p848P4217ComplementCoverImpossibilityBlocker?.packetId ?? null,
+								        packetJsonPath: p848TaoVanDoornThresholdPivotReconciliationReady
+								          ? p848TaoVanDoornThresholdPivotReconciliationPath
+								          : p848P4217ComplementCoverImpossibilityBlockerPath,
+								        packetMarkdownPath: p848TaoVanDoornThresholdPivotReconciliationReady
+								          ? p848TaoVanDoornThresholdPivotReconciliationPath?.replace(/\.json$/, '.md') ?? null
+								          : p848P4217ComplementCoverImpossibilityBlockerPath?.replace(/\.json$/, '.md') ?? null,
+								        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+								        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+								      },
+								      {
+								        taskId: 'derive_p848_corrected_square_moduli_dual_sieve_or_union_hitting_threshold_packet',
+								        status: p848CorrectedSquareModuliDualSieveOrUnionHittingThresholdReady
+								          ? 'done_corrected_square_moduli_no_go_handoff_to_p4217'
+								          : p848TaoVanDoornThresholdPivotReconciliationReady
+								          ? 'highest'
+								          : 'blocked_by_tvd_threshold_pivot_reconciliation',
+								        task: p848CorrectedSquareModuliDualSieveOrUnionHittingThresholdReady
+								          ? 'The corrected square-moduli analytic shortcut is closed for current repo sources: Tao-van-Doorn/complement duality does not supply the required union-hitting upper bound, so the p4217 theorem-wedge fallback is released.'
+								          : p848TaoVanDoornThresholdPivotReconciliationReady
+								          ? 'Derive a corrected square-moduli dual/union-hitting threshold packet: either prove a valid explicit threshold route with hypotheses/constants, or emit a no-go blocker that returns the loop to the p4217 theorem wedge with the analytic shortcut closed.'
+								          : 'Wait for the Tao-van Doorn threshold-pivot reconciliation packet.',
+								        completionRule: 'A corrected analytic threshold packet proves a usable explicit N0 route, or a no-go blocker explicitly closes the analytic shortcut and releases the p4217 theorem-wedge lane.',
+								        command: p848CorrectedSquareModuliDualSieveOrUnionHittingThresholdReady
+								          ? null
+								          : p848TaoVanDoornThresholdPivotReconciliationReady
+								          ? 'node packs/number-theory/problems/848/compute/problem848_corrected_square_moduli_dual_sieve_or_union_hitting_threshold_packet.mjs --write-defaults --pretty'
+								          : null,
+								        packetAtomId: p848CorrectedSquareModuliDualSieveOrUnionHittingThresholdReady
+								          ? p848CorrectedSquareModuliDualSieveOrUnionHittingThreshold?.oneNextAction?.finiteDenominatorOrRankToken ?? null
+								          : p848TaoVanDoornThresholdPivotReconciliation?.oneNextAction?.finiteDenominatorOrRankToken ?? null,
+								        packetId: p848CorrectedSquareModuliDualSieveOrUnionHittingThresholdReady
+								          ? p848CorrectedSquareModuliDualSieveOrUnionHittingThreshold?.packetId ?? null
+								          : p848TaoVanDoornThresholdPivotReconciliation?.packetId ?? null,
+								        packetJsonPath: p848CorrectedSquareModuliDualSieveOrUnionHittingThresholdReady
+								          ? p848CorrectedSquareModuliDualSieveOrUnionHittingThresholdPath
+								          : p848TaoVanDoornThresholdPivotReconciliationReady
+								          ? p848TaoVanDoornThresholdPivotReconciliationPath
+								          : p848P4217ComplementCoverImpossibilityBlockerPath,
+								        packetMarkdownPath: p848CorrectedSquareModuliDualSieveOrUnionHittingThresholdReady
+								          ? p848CorrectedSquareModuliDualSieveOrUnionHittingThresholdPath?.replace(/\.json$/, '.md') ?? null
+								          : p848TaoVanDoornThresholdPivotReconciliationReady
+								          ? p848TaoVanDoornThresholdPivotReconciliationPath?.replace(/\.json$/, '.md') ?? null
+								          : p848P4217ComplementCoverImpossibilityBlockerPath?.replace(/\.json$/, '.md') ?? null,
+								        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+								        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+								      },
+								      {
+								        taskId: 'prepare_p848_p4217_complement_theorem_wedge_or_import_source_cover',
+								        status: p848P4217ComplementTheoremWedgeSourceImportAuditReady
+								          ? 'done_p4217_theorem_wedge_source_import_audit_planning_only'
+								          : p848CorrectedSquareModuliDualSieveOrUnionHittingThresholdReady
+								          ? 'highest'
+								          : p848TaoVanDoornThresholdPivotReconciliationReady
+								          ? 'blocked_by_corrected_square_moduli_sieve_pivot'
+								          : p848P4217ComplementCoverImpossibilityBlockerReady
+								          ? 'blocked_by_tvd_threshold_pivot_reconciliation'
+								          : 'blocked_by_p4217_cover_impossibility_blocker',
+								        task: p848P4217ComplementTheoremWedgeSourceImportAuditReady
+								          ? 'The p4217 theorem-wedge/source-import audit is recorded as a no-spend planning-only artifact; no current repo-owned whole-complement theorem source was found.'
+								          : p848CorrectedSquareModuliDualSieveOrUnionHittingThresholdReady
+								          ? 'Prepare a p4217-specific theorem wedge or source/import audit for the missing complement cover/impossibility theorem; the corrected square-moduli analytic shortcut is closed under current repo sources.'
+								          : p848TaoVanDoornThresholdPivotReconciliationReady
+								          ? 'The p4217 theorem wedge is paused behind the corrected square-moduli sieve/no-go gate, because a valid analytic threshold route could make the growing q-frontier unnecessary.'
+								          : p848P4217ComplementCoverImpossibilityBlockerReady
+								          ? 'Prepare a p4217-specific theorem wedge or source/import audit for the missing complement cover/impossibility theorem, with no live paid execution by default.'
+								          : 'Wait for the p4217 complement cover/impossibility blocker.',
+								        completionRule: 'A p4217 source theorem, local symbolic proof, planning-only theorem wedge, or exact source/import blocker is recorded before any resumed q-cover or singleton selector work.',
+								        command: p848P4217ComplementTheoremWedgeSourceImportAuditReady
+								          ? null
+								          : p848CorrectedSquareModuliDualSieveOrUnionHittingThresholdReady
+								          ? p848CorrectedSquareModuliDualSieveOrUnionHittingThreshold?.oneNextAction?.command ?? p848P4217ComplementCoverImpossibilityBlocker?.oneNextAction?.command ?? './bin/erdos problem progress 848 --json'
+								          : p848TaoVanDoornThresholdPivotReconciliationReady
+								          ? null
+								          : p848P4217ComplementCoverImpossibilityBlockerReady
+								          ? p848P4217ComplementCoverImpossibilityBlocker?.oneNextAction?.command ?? './bin/erdos problem progress 848 --json'
+								          : null,
+								        packetAtomId: p848P4217ComplementTheoremWedgeSourceImportAuditReady
+								          ? p848P4217ComplementTheoremWedgeSourceImportAudit?.oneNextAction?.finiteDenominatorOrRankToken ?? null
+								          : p848CorrectedSquareModuliDualSieveOrUnionHittingThresholdReady
+								          ? p848CorrectedSquareModuliDualSieveOrUnionHittingThreshold?.oneNextAction?.finiteDenominatorOrRankToken ?? null
+								          : p848P4217ComplementCoverImpossibilityBlocker?.oneNextAction?.finiteDenominatorOrRankToken ?? null,
+								        packetId: p848P4217ComplementTheoremWedgeSourceImportAuditReady
+								          ? p848P4217ComplementTheoremWedgeSourceImportAudit?.packetId ?? null
+								          : p848CorrectedSquareModuliDualSieveOrUnionHittingThresholdReady
+								          ? p848CorrectedSquareModuliDualSieveOrUnionHittingThreshold?.packetId ?? null
+								          : p848P4217ComplementCoverImpossibilityBlocker?.packetId ?? null,
+								        packetJsonPath: p848P4217ComplementTheoremWedgeSourceImportAuditReady
+								          ? p848P4217ComplementTheoremWedgeSourceImportAuditPath
+								          : p848CorrectedSquareModuliDualSieveOrUnionHittingThresholdReady
+								          ? p848CorrectedSquareModuliDualSieveOrUnionHittingThresholdPath
+								          : p848P4217ComplementCoverImpossibilityBlockerReady
+								          ? p848P4217ComplementCoverImpossibilityBlockerPath
+								          : p848AllNRecombinationResidualAfterMod50WedgeBlockerPath,
+								        packetMarkdownPath: p848P4217ComplementTheoremWedgeSourceImportAuditReady
+								          ? p848P4217ComplementTheoremWedgeSourceImportAuditPath?.replace(/\.json$/, '.md') ?? null
+								          : p848CorrectedSquareModuliDualSieveOrUnionHittingThresholdReady
+								          ? p848CorrectedSquareModuliDualSieveOrUnionHittingThresholdPath?.replace(/\.json$/, '.md') ?? null
+								          : p848P4217ComplementCoverImpossibilityBlockerReady
+								          ? p848P4217ComplementCoverImpossibilityBlockerPath?.replace(/\.json$/, '.md') ?? null
+								          : p848AllNRecombinationResidualAfterMod50WedgeBlockerPath?.replace(/\.json$/, '.md') ?? null,
+								        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+								        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+								      },
+								      {
+								        taskId: 'decide_p848_p4217_complement_wedge_with_budget_guard_or_local_symbolic_proof',
+								        status: p848P4217ComplementTheoremWedgeDecisionBlockerReady
+								          ? 'done_p4217_theorem_wedge_decision_blocker_emitted'
+								          : p848P4217ComplementTheoremWedgeSourceImportAuditReady
+								          ? 'highest'
+								          : 'blocked_by_p4217_theorem_wedge_source_import_audit',
+								        task: p848P4217ComplementTheoremWedgeDecisionBlockerReady
+								          ? 'The budget-guarded p4217 theorem wedge found no promotable whole-complement theorem and emitted a decision blocker; reduce the residual to the selected verification fork next.'
+								          : p848P4217ComplementTheoremWedgeSourceImportAuditReady
+								          ? 'Decide the p4217 complement theorem wedge with a budget-guarded live call or a local symbolic proof attempt; if neither yields theorem text, emit a p4217 wedge decision blocker and keep q-cover/singleton descent blocked.'
+								          : 'Wait for the p4217 theorem-wedge/source-import audit packet.',
+								        completionRule: 'A p4217 theorem result, budget-guarded incomplete-result blocker, local symbolic proof blocker, or imported-source theorem packet is recorded before any resumed q-cover or singleton selector work.',
+								        command: p848P4217ComplementTheoremWedgeDecisionBlockerReady
+								          ? null
+								          : p848P4217ComplementTheoremWedgeSourceImportAuditReady
+								          ? p848P4217ComplementTheoremWedgeSourceImportAudit?.oneNextAction?.command ?? 'erdos orp research usage --json'
+								          : null,
+								        packetAtomId: p848P4217ComplementTheoremWedgeDecisionBlockerReady
+								          ? p848P4217ComplementTheoremWedgeDecisionBlocker?.oneNextAction?.finiteDenominatorOrRankToken ?? null
+								          : p848P4217ComplementTheoremWedgeSourceImportAudit?.oneNextAction?.finiteDenominatorOrRankToken ?? null,
+								        packetId: p848P4217ComplementTheoremWedgeDecisionBlockerReady
+								          ? p848P4217ComplementTheoremWedgeDecisionBlocker?.packetId ?? null
+								          : p848P4217ComplementTheoremWedgeSourceImportAudit?.packetId ?? null,
+								        packetJsonPath: p848P4217ComplementTheoremWedgeDecisionBlockerReady
+								          ? p848P4217ComplementTheoremWedgeDecisionBlockerPath
+								          : p848P4217ComplementTheoremWedgeSourceImportAuditReady
+								          ? p848P4217ComplementTheoremWedgeSourceImportAuditPath
+								          : p848CorrectedSquareModuliDualSieveOrUnionHittingThresholdPath,
+								        packetMarkdownPath: p848P4217ComplementTheoremWedgeDecisionBlockerReady
+								          ? p848P4217ComplementTheoremWedgeDecisionBlockerPath?.replace(/\.json$/, '.md') ?? null
+								          : p848P4217ComplementTheoremWedgeSourceImportAuditReady
+								          ? p848P4217ComplementTheoremWedgeSourceImportAuditPath?.replace(/\.json$/, '.md') ?? null
+								          : p848CorrectedSquareModuliDualSieveOrUnionHittingThresholdPath?.replace(/\.json$/, '.md') ?? null,
+								        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+								        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+								      },
+								      {
+								        taskId: 'reduce_p848_p4217_residual_to_squarefree_realization_source_theorem_or_emit_gap',
+								        status: p848P4217ResidualSquarefreeRealizationSourceTheoremGapReady
+								          ? 'done_p4217_residual_source_theorem_gap_emitted'
+								          : p848P4217ComplementTheoremWedgeDecisionBlockerReady
+								          ? 'highest'
+								          : 'blocked_by_p4217_theorem_wedge_decision_blocker',
+								        task: p848P4217ResidualSquarefreeRealizationSourceTheoremGapReady
+								          ? 'The p4217 residual fork reduction is recorded as an exact source-theorem gap: no current finite CRT partition, decreasing rank, or squarefree-realization source theorem is available in the audited local packets.'
+								          : p848P4217ComplementTheoremWedgeDecisionBlockerReady
+								          ? 'Reduce the p4217 all-N residual packet to one of three theorem forks: finite CRT partition, decreasing rank, or locally admissible squarefree-realization source theorem; if none is available, emit the exact source-theorem gap.'
+								          : 'Wait for the p4217 theorem-wedge decision blocker.',
+								        completionRule: 'A finite CRT partition theorem, decreasing-rank theorem, squarefree-realization source theorem, or exact source-theorem gap packet is recorded before any q-cover/singleton descent resumes.',
+								        command: p848P4217ResidualSquarefreeRealizationSourceTheoremGapReady
+								          ? null
+								          : p848P4217ComplementTheoremWedgeDecisionBlockerReady
+								          ? 'node packs/number-theory/problems/848/compute/problem848_p4217_residual_squarefree_realization_source_theorem_gap.mjs --write-defaults --pretty'
+								          : null,
+								        packetAtomId: p848P4217ResidualSquarefreeRealizationSourceTheoremGapReady
+								          ? p848P4217ResidualSquarefreeRealizationSourceTheoremGap?.oneNextAction?.finiteDenominatorOrRankToken ?? null
+								          : p848P4217ComplementTheoremWedgeDecisionBlocker?.oneNextAction?.finiteDenominatorOrRankToken ?? null,
+								        packetId: p848P4217ResidualSquarefreeRealizationSourceTheoremGapReady
+								          ? p848P4217ResidualSquarefreeRealizationSourceTheoremGap?.packetId ?? null
+								          : p848P4217ComplementTheoremWedgeDecisionBlocker?.packetId ?? null,
+								        packetJsonPath: p848P4217ResidualSquarefreeRealizationSourceTheoremGapReady
+								          ? p848P4217ResidualSquarefreeRealizationSourceTheoremGapPath
+								          : p848P4217ComplementTheoremWedgeDecisionBlockerReady
+								          ? p848P4217ComplementTheoremWedgeDecisionBlockerPath
+								          : p848P4217ComplementTheoremWedgeSourceImportAuditPath,
+								        packetMarkdownPath: p848P4217ResidualSquarefreeRealizationSourceTheoremGapReady
+								          ? p848P4217ResidualSquarefreeRealizationSourceTheoremGapPath?.replace(/\.json$/, '.md') ?? null
+								          : p848P4217ComplementTheoremWedgeDecisionBlockerReady
+								          ? p848P4217ComplementTheoremWedgeDecisionBlockerPath?.replace(/\.json$/, '.md') ?? null
+								          : p848P4217ComplementTheoremWedgeSourceImportAuditPath?.replace(/\.json$/, '.md') ?? null,
+								        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+								        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+								      },
+								      {
+								        taskId: 'assemble_p848_all_n_residual_after_p4217_source_theorem_gap_or_import_source',
+								        status: p848AllNRecombinationResidualAfterP4217SourceTheoremGapReady
+								          ? 'done_post_p4217_gap_all_n_residual_assembled'
+								          : p848P4217ResidualSquarefreeRealizationSourceTheoremGapReady
+								          ? 'highest'
+								          : 'blocked_by_p4217_residual_source_theorem_gap',
+								        task: p848AllNRecombinationResidualAfterP4217SourceTheoremGapReady
+								          ? 'The post-p4217 source-gap all-N residual boundary is assembled; prepare the no-spend source/import recovery plan for the remaining p4217 and mod-50 source theorem gaps.'
+								          : p848P4217ResidualSquarefreeRealizationSourceTheoremGapReady
+								          ? 'Assemble the post-p4217 residual proof boundary after the source-theorem gap, or recover/import a source theorem that closes finite CRT partition, decreasing rank, or squarefree realization.'
+								          : 'Wait for the p4217 residual source-theorem gap packet.',
+								        completionRule: 'A post-gap all-N recombination boundary, source/import recovery packet, or theorem packet states exactly what remains outside the proof.',
+								        command: p848AllNRecombinationResidualAfterP4217SourceTheoremGapReady
+								          ? null
+								          : p848P4217ResidualSquarefreeRealizationSourceTheoremGapReady
+								          ? 'node packs/number-theory/problems/848/compute/problem848_all_n_recombination_residual_after_p4217_source_theorem_gap.mjs --write-defaults --pretty'
+								          : null,
+								        packetAtomId: p848AllNRecombinationResidualAfterP4217SourceTheoremGapReady
+								          ? p848AllNRecombinationResidualAfterP4217SourceTheoremGap?.oneNextAction?.finiteDenominatorOrRankToken ?? null
+								          : p848P4217ResidualSquarefreeRealizationSourceTheoremGap?.oneNextAction?.finiteDenominatorOrRankToken ?? null,
+								        packetId: p848AllNRecombinationResidualAfterP4217SourceTheoremGapReady
+								          ? p848AllNRecombinationResidualAfterP4217SourceTheoremGap?.packetId ?? null
+								          : p848P4217ResidualSquarefreeRealizationSourceTheoremGap?.packetId ?? null,
+								        packetJsonPath: p848AllNRecombinationResidualAfterP4217SourceTheoremGapReady
+								          ? p848AllNRecombinationResidualAfterP4217SourceTheoremGapPath
+								          : p848P4217ResidualSquarefreeRealizationSourceTheoremGapReady
+								          ? p848P4217ResidualSquarefreeRealizationSourceTheoremGapPath
+								          : p848P4217ComplementTheoremWedgeDecisionBlockerPath,
+								        packetMarkdownPath: p848AllNRecombinationResidualAfterP4217SourceTheoremGapReady
+								          ? p848AllNRecombinationResidualAfterP4217SourceTheoremGapPath?.replace(/\.json$/, '.md') ?? null
+								          : p848P4217ResidualSquarefreeRealizationSourceTheoremGapReady
+								          ? p848P4217ResidualSquarefreeRealizationSourceTheoremGapPath?.replace(/\.json$/, '.md') ?? null
+								          : p848P4217ComplementTheoremWedgeDecisionBlockerPath?.replace(/\.json$/, '.md') ?? null,
+								        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+								        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+								      },
+								      {
+								        taskId: 'prepare_p848_source_import_recovery_plan_after_p4217_and_mod50_source_gaps',
+								        status: p848SourceImportRecoveryPlanAfterP4217AndMod50SourceGapsReady
+								          ? 'done_source_import_recovery_plan_prepared'
+								          : p848AllNRecombinationResidualAfterP4217SourceTheoremGapReady
+								          ? 'highest'
+								          : 'blocked_by_post_p4217_gap_residual_assembly',
+								        task: p848SourceImportRecoveryPlanAfterP4217AndMod50SourceGapsReady
+								          ? 'The no-spend source/import recovery plan is prepared for the p4217, mod-50, and square-moduli union/hitting source gaps; execute the local recovery search next.'
+								          : p848AllNRecombinationResidualAfterP4217SourceTheoremGapReady
+								          ? 'Prepare a no-spend source/import recovery plan for the p4217 squarefree-realization/finite-partition/rank source gap and the mod-50 all-future recurrence/finite-Q source gap before any future live call.'
+								          : 'Wait for the post-p4217 source-gap all-N residual assembly packet.',
+								        completionRule: 'A source/import recovery plan packet names exact candidate theorem shapes, local probes, and verification boundaries before any future paid/live research lane.',
+								        command: p848SourceImportRecoveryPlanAfterP4217AndMod50SourceGapsReady
+								          ? null
+								          : p848AllNRecombinationResidualAfterP4217SourceTheoremGapReady
+								          ? 'node packs/number-theory/problems/848/compute/problem848_source_import_recovery_plan_after_p4217_and_mod50_source_gaps.mjs --write-defaults --pretty'
+								          : null,
+								        packetAtomId: p848SourceImportRecoveryPlanAfterP4217AndMod50SourceGapsReady
+								          ? p848SourceImportRecoveryPlanAfterP4217AndMod50SourceGaps?.oneNextAction?.finiteDenominatorOrRankToken ?? null
+								          : p848AllNRecombinationResidualAfterP4217SourceTheoremGap?.oneNextAction?.finiteDenominatorOrRankToken ?? null,
+								        packetId: p848SourceImportRecoveryPlanAfterP4217AndMod50SourceGapsReady
+								          ? p848SourceImportRecoveryPlanAfterP4217AndMod50SourceGaps?.packetId ?? null
+								          : p848AllNRecombinationResidualAfterP4217SourceTheoremGap?.packetId ?? null,
+								        packetJsonPath: p848SourceImportRecoveryPlanAfterP4217AndMod50SourceGapsReady
+								          ? p848SourceImportRecoveryPlanAfterP4217AndMod50SourceGapsPath
+								          : p848AllNRecombinationResidualAfterP4217SourceTheoremGapReady
+								          ? p848AllNRecombinationResidualAfterP4217SourceTheoremGapPath
+								          : p848P4217ResidualSquarefreeRealizationSourceTheoremGapPath,
+								        packetMarkdownPath: p848SourceImportRecoveryPlanAfterP4217AndMod50SourceGapsReady
+								          ? p848SourceImportRecoveryPlanAfterP4217AndMod50SourceGapsPath?.replace(/\.json$/, '.md') ?? null
+								          : p848AllNRecombinationResidualAfterP4217SourceTheoremGapReady
+								          ? p848AllNRecombinationResidualAfterP4217SourceTheoremGapPath?.replace(/\.json$/, '.md') ?? null
+								          : p848P4217ResidualSquarefreeRealizationSourceTheoremGapPath?.replace(/\.json$/, '.md') ?? null,
+								        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+								        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+								      },
+								      {
+								        taskId: 'execute_p848_no_spend_source_recovery_search_for_p4217_mod50_union_hitting',
+								        status: p848NoSpendSourceRecoverySearchForP4217Mod50UnionHittingReady
+								          ? 'done_no_spend_source_search_gap_emitted'
+								          : p848SourceImportRecoveryPlanAfterP4217AndMod50SourceGapsReady
+								          ? 'highest'
+								          : 'blocked_by_source_import_recovery_plan',
+								        task: p848NoSpendSourceRecoverySearchForP4217Mod50UnionHittingReady
+								          ? 'The no-spend local source recovery search is complete; no promotable p4217, mod-50, or square-moduli union/hitting source theorem was found, and the exact source-import gap is packetized.'
+								          : p848SourceImportRecoveryPlanAfterP4217AndMod50SourceGapsReady
+								          ? 'Execute the no-spend local source recovery search across the p4217 residual, mod-50 all-future recurrence/generator, and square-moduli union/hitting lanes; packetize any recovered theorem source or emit the exact residual-source import gap.'
+								          : 'Wait for the source/import recovery plan packet.',
+								        completionRule: 'The local source search either restores a promotable theorem/generator/import source for one recovery lane or emits a formal source-import gap packet with exact missing theorem objects.',
+								        command: p848NoSpendSourceRecoverySearchForP4217Mod50UnionHittingReady
+								          ? null
+								          : p848SourceImportRecoveryPlanAfterP4217AndMod50SourceGapsReady
+								          ? 'node packs/number-theory/problems/848/compute/problem848_no_spend_source_recovery_search_for_p4217_mod50_union_hitting.mjs --write-defaults --pretty'
+								          : null,
+								        packetAtomId: p848NoSpendSourceRecoverySearchForP4217Mod50UnionHittingReady
+								          ? p848NoSpendSourceRecoverySearchForP4217Mod50UnionHitting?.oneNextAction?.finiteDenominatorOrRankToken ?? null
+								          : p848SourceImportRecoveryPlanAfterP4217AndMod50SourceGaps?.oneNextAction?.finiteDenominatorOrRankToken ?? null,
+								        packetId: p848NoSpendSourceRecoverySearchForP4217Mod50UnionHittingReady
+								          ? p848NoSpendSourceRecoverySearchForP4217Mod50UnionHitting?.packetId ?? null
+								          : p848SourceImportRecoveryPlanAfterP4217AndMod50SourceGaps?.packetId ?? null,
+								        packetJsonPath: p848NoSpendSourceRecoverySearchForP4217Mod50UnionHittingReady
+								          ? p848NoSpendSourceRecoverySearchForP4217Mod50UnionHittingPath
+								          : p848SourceImportRecoveryPlanAfterP4217AndMod50SourceGapsPath,
+								        packetMarkdownPath: p848NoSpendSourceRecoverySearchForP4217Mod50UnionHittingReady
+								          ? p848NoSpendSourceRecoverySearchForP4217Mod50UnionHittingPath?.replace(/\.json$/, '.md') ?? null
+								          : p848SourceImportRecoveryPlanAfterP4217AndMod50SourceGapsPath?.replace(/\.json$/, '.md') ?? null,
+								        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+								        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+								      },
+								      {
+								        taskId: 'assemble_p848_all_n_residual_after_source_import_search_gap',
+								        status: p848AllNRecombinationResidualAfterSourceImportSearchGapReady
+								          ? 'done_post_source_import_search_gap_all_n_residual_assembled'
+								          : p848NoSpendSourceRecoverySearchForP4217Mod50UnionHittingReady
+								          ? 'highest'
+								          : 'blocked_by_no_spend_source_recovery_search',
+								        task: p848AllNRecombinationResidualAfterSourceImportSearchGapReady
+								          ? 'The post-source-search all-N residual is assembled; the proof remains blocked by exactly three source/import theorem objects and now routes to a repaired single-lane profile prep.'
+								          : p848NoSpendSourceRecoverySearchForP4217Mod50UnionHittingReady
+								          ? 'Assemble the all-N residual after the no-spend source search gap, preserving the three exact source/import theorem objects and selecting the next theorem-facing recovery or blocker.'
+								          : 'Wait for the no-spend source recovery search packet.',
+								        completionRule: 'A post-search all-N residual assembly either routes to one repaired source/import profile or emits the next exact blocker without reopening q-cover descent or repeating the paid p4217 wedge.',
+								        command: p848AllNRecombinationResidualAfterSourceImportSearchGapReady
+								          ? null
+								          : p848NoSpendSourceRecoverySearchForP4217Mod50UnionHittingReady
+								          ? 'node packs/number-theory/problems/848/compute/problem848_all_n_recombination_residual_after_source_import_search_gap.mjs --write-defaults --pretty'
+								          : null,
+								        packetAtomId: p848AllNRecombinationResidualAfterSourceImportSearchGapReady
+								          ? p848AllNRecombinationResidualAfterSourceImportSearchGap?.oneNextAction?.finiteDenominatorOrRankToken ?? null
+								          : p848NoSpendSourceRecoverySearchForP4217Mod50UnionHitting?.oneNextAction?.finiteDenominatorOrRankToken ?? null,
+								        packetId: p848AllNRecombinationResidualAfterSourceImportSearchGapReady
+								          ? p848AllNRecombinationResidualAfterSourceImportSearchGap?.packetId ?? null
+								          : p848NoSpendSourceRecoverySearchForP4217Mod50UnionHitting?.packetId ?? null,
+								        packetJsonPath: p848AllNRecombinationResidualAfterSourceImportSearchGapReady
+								          ? p848AllNRecombinationResidualAfterSourceImportSearchGapPath
+								          : p848NoSpendSourceRecoverySearchForP4217Mod50UnionHittingPath,
+								        packetMarkdownPath: p848AllNRecombinationResidualAfterSourceImportSearchGapReady
+								          ? p848AllNRecombinationResidualAfterSourceImportSearchGapPath?.replace(/\.json$/, '.md') ?? null
+								          : p848NoSpendSourceRecoverySearchForP4217Mod50UnionHittingPath?.replace(/\.json$/, '.md') ?? null,
+								        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+								        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+								      },
+								      {
+								        taskId: 'prepare_p848_repaired_single_lane_source_import_profile_after_no_spend_gap',
+								        status: p848RepairedSingleLaneSourceImportProfileAfterNoSpendGapReady
+								          ? 'done_repaired_p4217_residual_single_lane_profile_prepared'
+								          : p848AllNRecombinationResidualAfterSourceImportSearchGapReady
+								          ? 'highest'
+								          : 'blocked_by_post_source_import_search_gap_residual_assembly',
+								        task: p848RepairedSingleLaneSourceImportProfileAfterNoSpendGapReady
+								          ? 'The repaired single-lane source/import profile is prepared; it selects the p4217 residual squarefree-realization source theorem lane and writes a future-use profile without making a paid call.'
+								          : p848AllNRecombinationResidualAfterSourceImportSearchGapReady
+								          ? 'Prepare one repaired no-spend source/import profile that selects exactly one residual theorem object, explains why that lane is sharper than the failed broad wedges and no-spend search, and emits an approval blocker if no lane is sharp enough.'
+								          : 'Wait for the post-source-search all-N residual assembly packet.',
+								        completionRule: 'One repaired single-lane profile is written before any future live spend, or an exact blocker/approval packet explains why no lane is sharp enough.',
+								        command: p848RepairedSingleLaneSourceImportProfileAfterNoSpendGapReady
+								          ? null
+								          : p848AllNRecombinationResidualAfterSourceImportSearchGapReady
+								          ? 'node packs/number-theory/problems/848/compute/problem848_repaired_single_lane_source_import_profile_after_no_spend_gap.mjs --write-defaults --pretty'
+								          : null,
+								        packetAtomId: p848RepairedSingleLaneSourceImportProfileAfterNoSpendGapReady
+								          ? p848RepairedSingleLaneSourceImportProfileAfterNoSpendGap?.oneNextAction?.finiteDenominatorOrRankToken ?? null
+								          : p848AllNRecombinationResidualAfterSourceImportSearchGap?.oneNextAction?.finiteDenominatorOrRankToken ?? null,
+								        packetId: p848RepairedSingleLaneSourceImportProfileAfterNoSpendGapReady
+								          ? p848RepairedSingleLaneSourceImportProfileAfterNoSpendGap?.packetId ?? null
+								          : p848AllNRecombinationResidualAfterSourceImportSearchGap?.packetId ?? null,
+								        packetJsonPath: p848RepairedSingleLaneSourceImportProfileAfterNoSpendGapReady
+								          ? p848RepairedSingleLaneSourceImportProfileAfterNoSpendGapPath
+								          : p848AllNRecombinationResidualAfterSourceImportSearchGapPath,
+								        packetMarkdownPath: p848RepairedSingleLaneSourceImportProfileAfterNoSpendGapReady
+								          ? p848RepairedSingleLaneSourceImportProfileAfterNoSpendGapPath?.replace(/\.json$/, '.md') ?? null
+								          : p848AllNRecombinationResidualAfterSourceImportSearchGapPath?.replace(/\.json$/, '.md') ?? null,
+								        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+								        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+								      },
+								      {
+								        taskId: 'emit_p848_p4217_residual_source_import_profile_approval_blocker_before_any_live_spend',
+								        status: p848P4217ResidualSourceImportProfileApprovalBlockerReady
+								          ? 'done_no_spend_approval_blocker_emitted'
+								          : p848RepairedSingleLaneSourceImportProfileAfterNoSpendGapReady
+								          ? 'highest'
+								          : 'blocked_by_repaired_single_lane_profile_prep',
+								        task: p848P4217ResidualSourceImportProfileApprovalBlockerReady
+								          ? 'The approval/budget blocker is emitted; the repaired p4217 residual profile is preserved but not approved for live execution under the no-spend instruction.'
+								          : p848RepairedSingleLaneSourceImportProfileAfterNoSpendGapReady
+								          ? 'Emit the approval/budget blocker for the repaired p4217 residual source-import profile before any live provider call; only a future explicit guarded release may execute the prepared profile.'
+								          : 'Wait for the repaired p4217 residual single-lane profile packet.',
+								        completionRule: 'A local approval/budget blocker is emitted before any future live provider call, preserving the no-spend default and the single-lane p4217 residual source-import profile boundary.',
+								        command: p848P4217ResidualSourceImportProfileApprovalBlockerReady
+								          ? null
+								          : p848RepairedSingleLaneSourceImportProfileAfterNoSpendGapReady
+								          ? 'node packs/number-theory/problems/848/compute/problem848_p4217_residual_source_import_profile_approval_blocker.mjs --write-defaults --pretty'
+								          : null,
+								        packetAtomId: p848P4217ResidualSourceImportProfileApprovalBlockerReady
+								          ? p848P4217ResidualSourceImportProfileApprovalBlocker?.oneNextAction?.finiteDenominatorOrRankToken ?? null
+								          : p848RepairedSingleLaneSourceImportProfileAfterNoSpendGap?.oneNextAction?.finiteDenominatorOrRankToken ?? null,
+								        packetId: p848P4217ResidualSourceImportProfileApprovalBlockerReady
+								          ? p848P4217ResidualSourceImportProfileApprovalBlocker?.packetId ?? null
+								          : p848RepairedSingleLaneSourceImportProfileAfterNoSpendGap?.packetId ?? null,
+								        packetJsonPath: p848P4217ResidualSourceImportProfileApprovalBlockerReady
+								          ? p848P4217ResidualSourceImportProfileApprovalBlockerPath
+								          : p848RepairedSingleLaneSourceImportProfileAfterNoSpendGapPath,
+								        packetMarkdownPath: p848P4217ResidualSourceImportProfileApprovalBlockerReady
+								          ? p848P4217ResidualSourceImportProfileApprovalBlockerPath?.replace(/\.json$/, '.md') ?? null
+								          : p848RepairedSingleLaneSourceImportProfileAfterNoSpendGapPath?.replace(/\.json$/, '.md') ?? null,
+								        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+								        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+								      },
+									      {
+									        taskId: 'prepare_p848_local_p4217_residual_source_theorem_proof_attempt_or_emit_hard_blocker',
+									        status: p848LocalP4217ResidualSourceTheoremProofAttemptHardBlockerReady
+									          ? 'done_local_p4217_residual_source_theorem_hard_blocker_emitted'
+									          : p848P4217ResidualSourceImportProfileApprovalBlockerReady
+									          ? 'highest'
+									          : 'blocked_by_profile_approval_blocker',
+									        task: p848LocalP4217ResidualSourceTheoremProofAttemptHardBlockerReady
+									          ? 'The local p4217 residual source-theorem proof attempt is hard-blocked: no finite CRT partition, decreasing rank, or squarefree-realization theorem is currently derivable without a future guarded source import.'
+									          : p848P4217ResidualSourceImportProfileApprovalBlockerReady
+									          ? 'Attempt a local p4217 residual source theorem proof from the prepared profile inputs and packetized gaps; if no finite CRT partition, decreasing rank, or squarefree-realization theorem is locally derivable, emit the hard no-spend blocker.'
+									          : 'Wait for the no-spend profile approval blocker before attempting local p4217 residual source-theorem proof work.',
+									        completionRule: 'A local proof packet derives one of the three p4217 residual theorem forks, or a hard blocker records that only future guarded source-import execution could advance this lane.',
+									        command: p848LocalP4217ResidualSourceTheoremProofAttemptHardBlockerReady
+									          ? null
+									          : p848P4217ResidualSourceImportProfileApprovalBlockerReady
+									          ? 'node packs/number-theory/problems/848/compute/problem848_local_p4217_residual_source_theorem_proof_attempt_hard_blocker.mjs --write-defaults --pretty'
+									          : null,
+									        packetAtomId: p848LocalP4217ResidualSourceTheoremProofAttemptHardBlockerReady
+									          ? p848LocalP4217ResidualSourceTheoremProofAttemptHardBlocker?.oneNextAction?.finiteDenominatorOrRankToken ?? null
+									          : p848P4217ResidualSourceImportProfileApprovalBlocker?.oneNextAction?.finiteDenominatorOrRankToken ?? null,
+									        packetId: p848LocalP4217ResidualSourceTheoremProofAttemptHardBlockerReady
+									          ? p848LocalP4217ResidualSourceTheoremProofAttemptHardBlocker?.packetId ?? null
+									          : p848P4217ResidualSourceImportProfileApprovalBlocker?.packetId ?? null,
+									        packetJsonPath: p848LocalP4217ResidualSourceTheoremProofAttemptHardBlockerReady
+									          ? p848LocalP4217ResidualSourceTheoremProofAttemptHardBlockerPath
+									          : p848P4217ResidualSourceImportProfileApprovalBlockerPath,
+									        packetMarkdownPath: p848LocalP4217ResidualSourceTheoremProofAttemptHardBlockerReady
+									          ? p848LocalP4217ResidualSourceTheoremProofAttemptHardBlockerPath?.replace(/\.json$/, '.md') ?? null
+									          : p848P4217ResidualSourceImportProfileApprovalBlockerPath?.replace(/\.json$/, '.md') ?? null,
+									        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+									        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+									      },
+									      {
+									        taskId: 'assemble_p848_no_spend_source_import_boundary_after_local_p4217_hard_blocker',
+									        status: p848NoSpendSourceImportBoundaryAfterLocalP4217HardBlockerReady
+									          ? 'done_no_spend_source_import_boundary_assembled'
+									          : p848LocalP4217ResidualSourceTheoremProofAttemptHardBlockerReady
+									          ? 'highest'
+									          : 'blocked_by_local_p4217_residual_source_theorem_hard_blocker',
+									        task: p848NoSpendSourceImportBoundaryAfterLocalP4217HardBlockerReady
+									          ? 'The no-spend source/import boundary is assembled after the local p4217 hard blocker; the three remaining theorem objects and release conditions are explicit.'
+									          : p848LocalP4217ResidualSourceTheoremProofAttemptHardBlockerReady
+									          ? 'Assemble the no-spend source/import boundary after the local p4217 hard blocker so the remaining theorem objects are explicit before any future approval or local theorem attempt.'
+									          : 'Wait for the local p4217 residual source-theorem hard blocker.',
+									        completionRule: 'The post-hard-blocker source/import boundary preserves the exact missing theorem objects and the future release conditions without spending or reopening q-cover descent.',
+									        command: p848NoSpendSourceImportBoundaryAfterLocalP4217HardBlockerReady
+									          ? null
+									          : p848LocalP4217ResidualSourceTheoremProofAttemptHardBlockerReady
+									          ? 'node packs/number-theory/problems/848/compute/problem848_no_spend_source_import_boundary_after_local_p4217_hard_blocker.mjs --write-defaults --pretty'
+									          : null,
+									        packetAtomId: p848NoSpendSourceImportBoundaryAfterLocalP4217HardBlockerReady
+									          ? p848NoSpendSourceImportBoundaryAfterLocalP4217HardBlocker?.oneNextAction?.finiteDenominatorOrRankToken ?? null
+									          : p848LocalP4217ResidualSourceTheoremProofAttemptHardBlocker?.oneNextAction?.finiteDenominatorOrRankToken ?? null,
+									        packetId: p848NoSpendSourceImportBoundaryAfterLocalP4217HardBlockerReady
+									          ? p848NoSpendSourceImportBoundaryAfterLocalP4217HardBlocker?.packetId ?? null
+									          : p848LocalP4217ResidualSourceTheoremProofAttemptHardBlocker?.packetId ?? null,
+									        packetJsonPath: p848NoSpendSourceImportBoundaryAfterLocalP4217HardBlockerReady
+									          ? p848NoSpendSourceImportBoundaryAfterLocalP4217HardBlockerPath
+									          : p848LocalP4217ResidualSourceTheoremProofAttemptHardBlockerPath,
+									        packetMarkdownPath: p848NoSpendSourceImportBoundaryAfterLocalP4217HardBlockerReady
+									          ? p848NoSpendSourceImportBoundaryAfterLocalP4217HardBlockerPath?.replace(/\.json$/, '.md') ?? null
+									          : p848LocalP4217ResidualSourceTheoremProofAttemptHardBlockerPath?.replace(/\.json$/, '.md') ?? null,
+									        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+									        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+									      },
+									      {
+									        taskId: 'prepare_p848_no_spend_local_theorem_backlog_after_source_import_boundary',
+									        status: p848NoSpendLocalTheoremBacklogAfterSourceImportBoundaryReady
+									          ? 'done_no_spend_local_theorem_backlog_prepared'
+									          : p848NoSpendSourceImportBoundaryAfterLocalP4217HardBlockerReady
+									          ? 'highest'
+									          : 'blocked_by_no_spend_source_import_boundary_after_local_p4217_hard_blocker',
+									        task: p848NoSpendLocalTheoremBacklogAfterSourceImportBoundaryReady
+									          ? 'The no-spend local theorem backlog is prepared and selects the square-moduli union/hitting source-index audit as the next local-only theorem probe.'
+									          : p848NoSpendSourceImportBoundaryAfterLocalP4217HardBlockerReady
+									          ? 'Prepare a no-spend local theorem backlog after the source/import boundary, selecting only work that can run without provider execution and without q-cover or singleton descent.'
+									          : 'Wait for the no-spend source/import boundary assembly after the local p4217 hard blocker.',
+									        completionRule: 'A local-only theorem backlog chooses the next source/import theorem object or emits a sharper blocker without spending, q-cover expansion, singleton descent, or a fallback-selector ladder.',
+									        command: p848NoSpendLocalTheoremBacklogAfterSourceImportBoundaryReady
+									          ? null
+									          : p848NoSpendSourceImportBoundaryAfterLocalP4217HardBlockerReady
+									          ? 'node packs/number-theory/problems/848/compute/problem848_no_spend_local_theorem_backlog_after_source_import_boundary.mjs --write-defaults --pretty'
+									          : null,
+									        packetAtomId: p848NoSpendLocalTheoremBacklogAfterSourceImportBoundaryReady
+									          ? p848NoSpendLocalTheoremBacklogAfterSourceImportBoundary?.oneNextAction?.finiteDenominatorOrRankToken ?? null
+									          : p848NoSpendSourceImportBoundaryAfterLocalP4217HardBlocker?.oneNextAction?.finiteDenominatorOrRankToken ?? null,
+									        packetId: p848NoSpendLocalTheoremBacklogAfterSourceImportBoundaryReady
+									          ? p848NoSpendLocalTheoremBacklogAfterSourceImportBoundary?.packetId ?? null
+									          : p848NoSpendSourceImportBoundaryAfterLocalP4217HardBlocker?.packetId ?? null,
+									        packetJsonPath: p848NoSpendLocalTheoremBacklogAfterSourceImportBoundaryReady
+									          ? p848NoSpendLocalTheoremBacklogAfterSourceImportBoundaryPath
+									          : p848NoSpendSourceImportBoundaryAfterLocalP4217HardBlockerPath,
+									        packetMarkdownPath: p848NoSpendLocalTheoremBacklogAfterSourceImportBoundaryReady
+									          ? p848NoSpendLocalTheoremBacklogAfterSourceImportBoundaryPath?.replace(/\.json$/, '.md') ?? null
+									          : p848NoSpendSourceImportBoundaryAfterLocalP4217HardBlockerPath?.replace(/\.json$/, '.md') ?? null,
+									        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+									        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+									      },
+									      {
+									        taskId: 'execute_p848_square_moduli_union_hitting_source_index_no_spend_audit',
+									        status: p848SquareModuliUnionHittingSourceIndexNoSpendAuditReady
+									          ? 'done_square_moduli_union_hitting_source_index_audit_no_source'
+									          : p848NoSpendLocalTheoremBacklogAfterSourceImportBoundaryReady
+									          ? 'highest'
+									          : 'blocked_by_no_spend_local_theorem_backlog',
+									        task: p848SquareModuliUnionHittingSourceIndexNoSpendAuditReady
+									          ? 'The no-spend square-moduli union/hitting source-index audit is packetized; no promotable Sawhney-compatible union/hitting upper-bound source was found locally.'
+									          : p848NoSpendLocalTheoremBacklogAfterSourceImportBoundaryReady
+									          ? 'Execute a local/free source-index audit for a square-moduli union/hitting upper-bound theorem with Sawhney-compatible direction, hypotheses, constants, and threshold relevance.'
+									          : 'Wait for the no-spend local theorem backlog selection.',
+									        completionRule: 'The audit either packetizes a valid square-moduli union/hitting source theorem with usable direction/constants or emits a sharper no-source blocker; it must not spend, lower N0, or decide 848 from avoiding-side evidence.',
+									        command: p848SquareModuliUnionHittingSourceIndexNoSpendAuditReady
+									          ? null
+									          : p848NoSpendLocalTheoremBacklogAfterSourceImportBoundaryReady
+									          ? 'node packs/number-theory/problems/848/compute/problem848_square_moduli_union_hitting_source_index_no_spend_audit.mjs --write-defaults --pretty'
+									          : null,
+									        packetAtomId: p848SquareModuliUnionHittingSourceIndexNoSpendAuditReady
+									          ? p848SquareModuliUnionHittingSourceIndexNoSpendAudit?.oneNextAction?.finiteDenominatorOrRankToken ?? null
+									          : p848NoSpendLocalTheoremBacklogAfterSourceImportBoundary?.oneNextAction?.finiteDenominatorOrRankToken ?? null,
+									        packetId: p848SquareModuliUnionHittingSourceIndexNoSpendAuditReady
+									          ? p848SquareModuliUnionHittingSourceIndexNoSpendAudit?.packetId ?? null
+									          : p848NoSpendLocalTheoremBacklogAfterSourceImportBoundary?.packetId ?? null,
+									        packetJsonPath: p848SquareModuliUnionHittingSourceIndexNoSpendAuditReady
+									          ? p848SquareModuliUnionHittingSourceIndexNoSpendAuditPath
+									          : p848NoSpendLocalTheoremBacklogAfterSourceImportBoundaryPath,
+									        packetMarkdownPath: p848SquareModuliUnionHittingSourceIndexNoSpendAuditReady
+									          ? p848SquareModuliUnionHittingSourceIndexNoSpendAuditPath?.replace(/\.json$/, '.md') ?? null
+									          : p848NoSpendLocalTheoremBacklogAfterSourceImportBoundaryPath?.replace(/\.json$/, '.md') ?? null,
+									        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+									        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+									      },
+									      {
+									        taskId: 'prepare_p848_square_moduli_union_hitting_source_import_profile_or_approval_blocker',
+									        status: p848SquareModuliUnionHittingSourceImportProfileApprovalBlockerReady
+									          ? 'done_square_moduli_union_hitting_profile_approval_blocker_no_spend'
+									          : p848SquareModuliUnionHittingSourceIndexNoSpendAuditReady
+									          ? 'highest'
+									          : 'blocked_by_square_moduli_union_hitting_source_index_audit',
+									        task: p848SquareModuliUnionHittingSourceImportProfileApprovalBlockerReady
+									          ? 'The square-moduli union/hitting source-import profile/approval blocker is packetized; no live provider execution was released under the no-spend instruction.'
+									          : p848SquareModuliUnionHittingSourceIndexNoSpendAuditReady
+									          ? 'Prepare a single-lane square-moduli union/hitting source-import profile or approval blocker before any future provider execution; preserve the no-spend boundary for this run.'
+									          : 'Wait for the square-moduli union/hitting source-index audit packet.',
+									        completionRule: 'A repaired source/import profile or approval blocker names only the missing square-moduli union/hitting upper-bound theorem, the unacceptable avoiding-side/threshold overclaims, and the future release conditions before any live provider execution.',
+									        command: p848SquareModuliUnionHittingSourceImportProfileApprovalBlockerReady
+									          ? null
+									          : p848SquareModuliUnionHittingSourceIndexNoSpendAuditReady
+									          ? 'node packs/number-theory/problems/848/compute/problem848_square_moduli_union_hitting_source_import_profile_or_approval_blocker.mjs --write-defaults --pretty'
+									          : null,
+									        packetAtomId: p848SquareModuliUnionHittingSourceImportProfileApprovalBlockerReady
+									          ? p848SquareModuliUnionHittingSourceImportProfileApprovalBlocker?.oneNextAction?.finiteDenominatorOrRankToken ?? null
+									          : p848SquareModuliUnionHittingSourceIndexNoSpendAudit?.oneNextAction?.finiteDenominatorOrRankToken ?? null,
+									        packetId: p848SquareModuliUnionHittingSourceImportProfileApprovalBlockerReady
+									          ? p848SquareModuliUnionHittingSourceImportProfileApprovalBlocker?.packetId ?? null
+									          : p848SquareModuliUnionHittingSourceIndexNoSpendAudit?.packetId ?? null,
+									        packetJsonPath: p848SquareModuliUnionHittingSourceImportProfileApprovalBlockerReady
+									          ? p848SquareModuliUnionHittingSourceImportProfileApprovalBlockerPath
+									          : p848SquareModuliUnionHittingSourceIndexNoSpendAuditPath,
+									        packetMarkdownPath: p848SquareModuliUnionHittingSourceImportProfileApprovalBlockerReady
+									          ? p848SquareModuliUnionHittingSourceImportProfileApprovalBlockerPath?.replace(/\.json$/, '.md') ?? null
+									          : p848SquareModuliUnionHittingSourceIndexNoSpendAuditPath?.replace(/\.json$/, '.md') ?? null,
+									        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+									        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+									      },
+									      {
+									        taskId: 'assemble_p848_no_spend_source_import_boundary_after_square_moduli_profile_blocker',
+									        status: p848NoSpendSourceImportBoundaryAfterSquareModuliProfileBlockerReady
+									          ? 'done_no_spend_source_import_boundary_after_square_profile_blocker'
+									          : p848SquareModuliUnionHittingSourceImportProfileApprovalBlockerReady
+									          ? 'highest'
+									          : 'blocked_by_square_moduli_union_hitting_profile_approval_blocker',
+									        task: p848NoSpendSourceImportBoundaryAfterSquareModuliProfileBlockerReady
+									          ? 'The no-spend source/import boundary after the square-moduli profile blocker is assembled and selects the mod-50 recurrence/generator lane next.'
+									          : p848SquareModuliUnionHittingSourceImportProfileApprovalBlockerReady
+									          ? 'Assemble the no-spend source/import boundary after the square-moduli profile blocker, recombining p4217, mod-50, and square-moduli source gaps into one theorem-facing decision surface.'
+									          : 'Wait for the square-moduli union/hitting source-import profile/approval blocker packet.',
+									        completionRule: 'The boundary assembly names the remaining theorem/import objects and the next legal unblock condition without provider execution, q-cover expansion, singleton descent, or threshold overclaim.',
+									        command: p848NoSpendSourceImportBoundaryAfterSquareModuliProfileBlockerReady
+									          ? null
+									          : p848SquareModuliUnionHittingSourceImportProfileApprovalBlockerReady
+									          ? 'node packs/number-theory/problems/848/compute/problem848_no_spend_source_import_boundary_after_square_moduli_profile_blocker.mjs --write-defaults --pretty'
+									          : null,
+									        packetAtomId: p848NoSpendSourceImportBoundaryAfterSquareModuliProfileBlockerReady
+									          ? p848NoSpendSourceImportBoundaryAfterSquareModuliProfileBlocker?.oneNextAction?.finiteDenominatorOrRankToken ?? null
+									          : p848SquareModuliUnionHittingSourceImportProfileApprovalBlocker?.oneNextAction?.finiteDenominatorOrRankToken ?? null,
+									        packetId: p848NoSpendSourceImportBoundaryAfterSquareModuliProfileBlockerReady
+									          ? p848NoSpendSourceImportBoundaryAfterSquareModuliProfileBlocker?.packetId ?? null
+									          : p848SquareModuliUnionHittingSourceImportProfileApprovalBlocker?.packetId ?? null,
+									        packetJsonPath: p848NoSpendSourceImportBoundaryAfterSquareModuliProfileBlockerReady
+									          ? p848NoSpendSourceImportBoundaryAfterSquareModuliProfileBlockerPath
+									          : p848SquareModuliUnionHittingSourceImportProfileApprovalBlockerPath,
+									        packetMarkdownPath: p848NoSpendSourceImportBoundaryAfterSquareModuliProfileBlockerReady
+									          ? p848NoSpendSourceImportBoundaryAfterSquareModuliProfileBlockerPath?.replace(/\.json$/, '.md') ?? null
+									          : p848SquareModuliUnionHittingSourceImportProfileApprovalBlockerPath?.replace(/\.json$/, '.md') ?? null,
+									        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+									        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+									      },
+									      {
+									        taskId: 'prepare_p848_mod50_generator_source_import_profile_or_no_spend_blocker_after_source_boundary',
+									        status: p848Mod50GeneratorSourceImportProfileNoSpendBlockerReady
+									          ? 'done_mod50_generator_source_import_profile_no_spend_blocker_emitted'
+									          : p848NoSpendSourceImportBoundaryAfterSquareModuliProfileBlockerReady
+									          ? 'highest'
+									          : 'blocked_by_no_spend_source_import_boundary_after_square_moduli_profile_blocker',
+									        task: p848Mod50GeneratorSourceImportProfileNoSpendBlockerReady
+									          ? 'The mod-50 generator/source-import profile no-spend blocker is emitted and preserves provider gating.'
+									          : p848NoSpendSourceImportBoundaryAfterSquareModuliProfileBlockerReady
+									          ? 'Prepare a no-spend repaired source/import profile or blocker for the mod-50 all-future recurrence/generator theorem, without rerunning the broad wedge or finite q-cover work.'
+									          : 'Wait for the no-spend source/import boundary after the square-moduli profile blocker.',
+									        completionRule: 'The mod-50 source/profile blocker names the exact all-future recurrence, finite-Q partition, or generator theorem target and preserves no-spend provider gating.',
+									        command: p848Mod50GeneratorSourceImportProfileNoSpendBlockerReady
+									          ? null
+									          : p848NoSpendSourceImportBoundaryAfterSquareModuliProfileBlockerReady
+									          ? 'node packs/number-theory/problems/848/compute/problem848_mod50_generator_source_import_profile_no_spend_blocker.mjs --write-defaults --pretty'
+									          : null,
+									        packetAtomId: p848Mod50GeneratorSourceImportProfileNoSpendBlockerReady
+									          ? p848Mod50GeneratorSourceImportProfileNoSpendBlocker?.oneNextAction?.finiteDenominatorOrRankToken ?? null
+									          : p848NoSpendSourceImportBoundaryAfterSquareModuliProfileBlocker?.oneNextAction?.finiteDenominatorOrRankToken ?? null,
+									        packetId: p848Mod50GeneratorSourceImportProfileNoSpendBlockerReady
+									          ? p848Mod50GeneratorSourceImportProfileNoSpendBlocker?.packetId ?? null
+									          : p848NoSpendSourceImportBoundaryAfterSquareModuliProfileBlocker?.packetId ?? null,
+									        packetJsonPath: p848Mod50GeneratorSourceImportProfileNoSpendBlockerReady
+									          ? p848Mod50GeneratorSourceImportProfileNoSpendBlockerPath
+									          : p848NoSpendSourceImportBoundaryAfterSquareModuliProfileBlockerPath,
+									        packetMarkdownPath: p848Mod50GeneratorSourceImportProfileNoSpendBlockerReady
+									          ? p848Mod50GeneratorSourceImportProfileNoSpendBlockerPath?.replace(/\.json$/, '.md') ?? null
+									          : p848NoSpendSourceImportBoundaryAfterSquareModuliProfileBlockerPath?.replace(/\.json$/, '.md') ?? null,
+									        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+									        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+									      },
+										      {
+										        taskId: 'assemble_p848_no_spend_source_import_boundary_after_mod50_profile_blocker',
+										        status: p848NoSpendSourceImportBoundaryAfterMod50ProfileBlockerReady
+										          ? 'done_no_spend_source_import_boundary_after_mod50_profile_blocker'
+										          : p848Mod50GeneratorSourceImportProfileNoSpendBlockerReady
+										          ? 'highest'
+										          : 'blocked_by_mod50_generator_source_import_profile_no_spend_blocker',
+										        task: p848Mod50GeneratorSourceImportProfileNoSpendBlockerReady
+										          ? p848NoSpendSourceImportBoundaryAfterMod50ProfileBlockerReady
+										            ? 'The post-mod-50 source/import boundary is assembled; all three source lanes are profile or hard-blocked.'
+										            : 'Assemble the no-spend source/import boundary after the mod-50 profile blocker, with all three source objects now represented by explicit blockers/profiles.'
+										          : 'Wait for the mod-50 generator/source-import profile no-spend blocker.',
+										        completionRule: 'The post-mod-50 source/import boundary either routes to a legal budget-guarded source-audit decision or emits the exact no-spend blocker/recombination boundary without provider execution.',
+										        command: p848NoSpendSourceImportBoundaryAfterMod50ProfileBlockerReady
+										          ? null
+										          : p848Mod50GeneratorSourceImportProfileNoSpendBlockerReady
+										          ? 'node packs/number-theory/problems/848/compute/problem848_no_spend_source_import_boundary_after_mod50_profile_blocker.mjs --write-defaults --pretty'
+										          : null,
+										        packetAtomId: p848NoSpendSourceImportBoundaryAfterMod50ProfileBlockerReady
+										          ? p848NoSpendSourceImportBoundaryAfterMod50ProfileBlocker?.oneNextAction?.finiteDenominatorOrRankToken ?? null
+										          : p848Mod50GeneratorSourceImportProfileNoSpendBlocker?.oneNextAction?.finiteDenominatorOrRankToken ?? null,
+										        packetId: p848NoSpendSourceImportBoundaryAfterMod50ProfileBlockerReady
+										          ? p848NoSpendSourceImportBoundaryAfterMod50ProfileBlocker?.packetId ?? null
+										          : p848Mod50GeneratorSourceImportProfileNoSpendBlocker?.packetId ?? null,
+										        packetJsonPath: p848NoSpendSourceImportBoundaryAfterMod50ProfileBlockerReady
+										          ? p848NoSpendSourceImportBoundaryAfterMod50ProfileBlockerPath
+										          : p848Mod50GeneratorSourceImportProfileNoSpendBlockerPath,
+										        packetMarkdownPath: p848NoSpendSourceImportBoundaryAfterMod50ProfileBlockerReady
+										          ? p848NoSpendSourceImportBoundaryAfterMod50ProfileBlockerPath?.replace(/\.json$/, '.md') ?? null
+										          : p848Mod50GeneratorSourceImportProfileNoSpendBlockerPath?.replace(/\.json$/, '.md') ?? null,
+										        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+										        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+										      },
+										      {
+										        taskId: 'decide_p848_three_profile_source_import_with_budget_guard_or_emit_no_spend_blocker',
+										        status: p848ThreeProfileSourceImportNoSpendDecisionBlockerReady
+										          ? 'done_three_profile_source_import_no_spend_decision_blocker_emitted'
+										          : p848NoSpendSourceImportBoundaryAfterMod50ProfileBlockerReady
+										          ? 'highest'
+										          : 'blocked_by_no_spend_source_import_boundary_after_mod50_profile_blocker',
+										        task: p848ThreeProfileSourceImportNoSpendDecisionBlockerReady
+										          ? 'The three-profile source/import decision is blocked under the current no-spend instruction after usage was checked.'
+										          : p848NoSpendSourceImportBoundaryAfterMod50ProfileBlockerReady
+										          ? 'Decide whether to release exactly one prepared source/import profile under the local budget guard, or emit a no-spend recombination blocker if live execution remains disallowed.'
+										          : 'Wait for the post-mod-50 source/import boundary assembly.',
+										        completionRule: 'The decision step must either run usage and release one high-leverage profile under the approved local budget guard, or emit a no-spend blocker that keeps all source/import lanes profile-bound without provider execution.',
+										        command: p848ThreeProfileSourceImportNoSpendDecisionBlockerReady
+										          ? null
+										          : p848NoSpendSourceImportBoundaryAfterMod50ProfileBlockerReady
+										          ? 'node packs/number-theory/problems/848/compute/problem848_three_profile_source_import_no_spend_decision_blocker.mjs --write-defaults --pretty'
+										          : null,
+										        packetAtomId: p848ThreeProfileSourceImportNoSpendDecisionBlockerReady
+										          ? p848ThreeProfileSourceImportNoSpendDecisionBlocker?.oneNextAction?.finiteDenominatorOrRankToken ?? null
+										          : p848NoSpendSourceImportBoundaryAfterMod50ProfileBlocker?.oneNextAction?.finiteDenominatorOrRankToken ?? null,
+										        packetId: p848ThreeProfileSourceImportNoSpendDecisionBlockerReady
+										          ? p848ThreeProfileSourceImportNoSpendDecisionBlocker?.packetId ?? null
+										          : p848NoSpendSourceImportBoundaryAfterMod50ProfileBlocker?.packetId ?? null,
+										        packetJsonPath: p848ThreeProfileSourceImportNoSpendDecisionBlockerReady
+										          ? p848ThreeProfileSourceImportNoSpendDecisionBlockerPath
+										          : p848NoSpendSourceImportBoundaryAfterMod50ProfileBlockerPath,
+										        packetMarkdownPath: p848ThreeProfileSourceImportNoSpendDecisionBlockerReady
+										          ? p848ThreeProfileSourceImportNoSpendDecisionBlockerPath?.replace(/\.json$/, '.md') ?? null
+										          : p848NoSpendSourceImportBoundaryAfterMod50ProfileBlockerPath?.replace(/\.json$/, '.md') ?? null,
+										        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+										        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+										      },
+										      {
+										        taskId: 'assemble_p848_no_spend_all_n_recombination_blocker_after_three_profile_decision',
+										        status: p848NoSpendAllNRecombinationBlockerAfterThreeProfileDecisionReady
+										          ? 'done_no_spend_all_n_recombination_blocker_after_three_profile_decision'
+										          : p848ThreeProfileSourceImportNoSpendDecisionBlockerReady
+										          ? 'highest'
+										          : 'blocked_by_three_profile_source_import_decision',
+										        task: p848NoSpendAllNRecombinationBlockerAfterThreeProfileDecisionReady
+										          ? 'The no-spend all-N recombination blocker is emitted after the three-profile source/import decision.'
+										          : p848ThreeProfileSourceImportNoSpendDecisionBlockerReady
+										          ? 'Assemble the all-N recombination blocker after all three source/import lanes are profile-bound and no provider execution was released.'
+										          : 'Wait for the three-profile source/import decision blocker.',
+										        completionRule: 'The recombination blocker must state that all-N remains blocked by the three missing source/import theorem objects unless a future budget-guarded source audit or local theorem closes at least one lane.',
+										        command: p848NoSpendAllNRecombinationBlockerAfterThreeProfileDecisionReady
+										          ? null
+										          : p848ThreeProfileSourceImportNoSpendDecisionBlockerReady
+										          ? 'node packs/number-theory/problems/848/compute/problem848_no_spend_all_n_recombination_blocker_after_three_profile_decision.mjs --write-defaults --pretty'
+										          : null,
+										        packetAtomId: p848NoSpendAllNRecombinationBlockerAfterThreeProfileDecisionReady
+										          ? p848NoSpendAllNRecombinationBlockerAfterThreeProfileDecision?.oneNextAction?.finiteDenominatorOrRankToken ?? null
+										          : p848ThreeProfileSourceImportNoSpendDecisionBlocker?.oneNextAction?.finiteDenominatorOrRankToken ?? null,
+										        packetId: p848NoSpendAllNRecombinationBlockerAfterThreeProfileDecisionReady
+										          ? p848NoSpendAllNRecombinationBlockerAfterThreeProfileDecision?.packetId ?? null
+										          : p848ThreeProfileSourceImportNoSpendDecisionBlocker?.packetId ?? null,
+										        packetJsonPath: p848NoSpendAllNRecombinationBlockerAfterThreeProfileDecisionReady
+										          ? p848NoSpendAllNRecombinationBlockerAfterThreeProfileDecisionPath
+										          : p848ThreeProfileSourceImportNoSpendDecisionBlockerPath,
+										        packetMarkdownPath: p848NoSpendAllNRecombinationBlockerAfterThreeProfileDecisionReady
+										          ? p848NoSpendAllNRecombinationBlockerAfterThreeProfileDecisionPath?.replace(/\.json$/, '.md') ?? null
+										          : p848ThreeProfileSourceImportNoSpendDecisionBlockerPath?.replace(/\.json$/, '.md') ?? null,
+										        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+										        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+										      },
+										      {
+										        taskId: 'prepare_p848_no_spend_local_source_theorem_statement_backlog_after_all_n_recombination_blocker',
+										        status: p848NoSpendLocalSourceTheoremStatementBacklogAfterAllNRecombinationBlockerReady
+										          ? 'done_no_spend_local_source_theorem_statement_backlog_after_all_n_recombination_blocker'
+										          : p848NoSpendAllNRecombinationBlockerAfterThreeProfileDecisionReady
+										          ? 'highest'
+										          : 'blocked_by_no_spend_all_n_recombination_blocker_after_three_profile_decision',
+										        task: p848NoSpendLocalSourceTheoremStatementBacklogAfterAllNRecombinationBlockerReady
+										          ? 'The no-spend local theorem-statement backlog is prepared and selects the mod-50 generator/source theorem as the next local probe.'
+										          : p848NoSpendAllNRecombinationBlockerAfterThreeProfileDecisionReady
+										          ? 'Prepare a no-spend local theorem-statement backlog that sharpens the three missing source/import theorem objects into one cheapest deterministic local proof probe.'
+										          : 'Wait for the no-spend all-N recombination blocker after the three-profile decision.',
+										        completionRule: 'The backlog must state the three remaining source/import theorem statements, rank them by cheapest local proof/source archaeology, and select one no-spend proof probe or precise blocker.',
+										        command: p848NoSpendLocalSourceTheoremStatementBacklogAfterAllNRecombinationBlockerReady
+										          ? null
+										          : p848NoSpendAllNRecombinationBlockerAfterThreeProfileDecisionReady
+										          ? 'node packs/number-theory/problems/848/compute/problem848_no_spend_local_source_theorem_statement_backlog_after_all_n_recombination_blocker.mjs --write-defaults --pretty'
+										          : null,
+										        packetAtomId: p848NoSpendLocalSourceTheoremStatementBacklogAfterAllNRecombinationBlockerReady
+										          ? p848NoSpendLocalSourceTheoremStatementBacklogAfterAllNRecombinationBlocker?.oneNextAction?.finiteDenominatorOrRankToken ?? null
+										          : p848NoSpendAllNRecombinationBlockerAfterThreeProfileDecision?.oneNextAction?.finiteDenominatorOrRankToken ?? null,
+										        packetId: p848NoSpendLocalSourceTheoremStatementBacklogAfterAllNRecombinationBlockerReady
+										          ? p848NoSpendLocalSourceTheoremStatementBacklogAfterAllNRecombinationBlocker?.packetId ?? null
+										          : p848NoSpendAllNRecombinationBlockerAfterThreeProfileDecision?.packetId ?? null,
+										        packetJsonPath: p848NoSpendLocalSourceTheoremStatementBacklogAfterAllNRecombinationBlockerReady
+										          ? p848NoSpendLocalSourceTheoremStatementBacklogAfterAllNRecombinationBlockerPath
+										          : p848NoSpendAllNRecombinationBlockerAfterThreeProfileDecisionPath,
+										        packetMarkdownPath: p848NoSpendLocalSourceTheoremStatementBacklogAfterAllNRecombinationBlockerReady
+										          ? p848NoSpendLocalSourceTheoremStatementBacklogAfterAllNRecombinationBlockerPath?.replace(/\.json$/, '.md') ?? null
+										          : p848NoSpendAllNRecombinationBlockerAfterThreeProfileDecisionPath?.replace(/\.json$/, '.md') ?? null,
+										        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+										        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+										      },
+										      {
+										        taskId: 'attempt_p848_mod50_generator_theorem_statement_local_proof_or_emit_gap_after_all_n_recombination_blocker',
+										        status: p848Mod50GeneratorTheoremStatementLocalProofGapAfterAllNRecombinationBlockerReady
+										          ? 'done_mod50_generator_theorem_statement_local_gap_after_denominator_audit'
+										          : p848NoSpendLocalSourceTheoremStatementBacklogAfterAllNRecombinationBlockerReady
+										          ? 'highest'
+										          : 'blocked_by_no_spend_local_source_theorem_statement_backlog_after_all_n_recombination_blocker',
+										        task: p848Mod50GeneratorTheoremStatementLocalProofGapAfterAllNRecombinationBlockerReady
+										          ? 'The selected mod-50 generator/source theorem statement local probe emitted the exact recurrence/finite-Q/generator-source gap.'
+										          : p848NoSpendLocalSourceTheoremStatementBacklogAfterAllNRecombinationBlockerReady
+										          ? 'Attempt the selected mod-50 generator/source theorem statement locally, or emit the exact recurrence/finite-Q/generator-source gap.'
+										          : 'Wait for the local theorem-statement backlog after the all-N recombination blocker.',
+										        completionRule: 'The local probe must either prove a mod-50 all-future recurrence, finite-Q partition, or restored generator theorem with audited denominator objects, or emit a precise no-spend gap packet; it must not spend, reopen q-cover expansion, or promote finite replay to all-future coverage.',
+										        command: p848Mod50GeneratorTheoremStatementLocalProofGapAfterAllNRecombinationBlockerReady
+										          ? null
+										          : p848NoSpendLocalSourceTheoremStatementBacklogAfterAllNRecombinationBlockerReady
+										          ? 'node packs/number-theory/problems/848/compute/problem848_mod50_generator_theorem_statement_local_proof_gap_after_all_n_recombination_blocker.mjs --write-defaults --pretty'
+										          : null,
+										        packetAtomId: p848Mod50GeneratorTheoremStatementLocalProofGapAfterAllNRecombinationBlockerReady
+										          ? p848Mod50GeneratorTheoremStatementLocalProofGapAfterAllNRecombinationBlocker?.oneNextAction?.finiteDenominatorOrRankToken ?? null
+										          : p848NoSpendLocalSourceTheoremStatementBacklogAfterAllNRecombinationBlocker?.oneNextAction?.finiteDenominatorOrRankToken ?? null,
+										        packetId: p848Mod50GeneratorTheoremStatementLocalProofGapAfterAllNRecombinationBlockerReady
+										          ? p848Mod50GeneratorTheoremStatementLocalProofGapAfterAllNRecombinationBlocker?.packetId ?? null
+										          : p848NoSpendLocalSourceTheoremStatementBacklogAfterAllNRecombinationBlocker?.packetId ?? null,
+										        packetJsonPath: p848Mod50GeneratorTheoremStatementLocalProofGapAfterAllNRecombinationBlockerReady
+										          ? p848Mod50GeneratorTheoremStatementLocalProofGapAfterAllNRecombinationBlockerPath
+										          : p848NoSpendLocalSourceTheoremStatementBacklogAfterAllNRecombinationBlockerPath,
+										        packetMarkdownPath: p848Mod50GeneratorTheoremStatementLocalProofGapAfterAllNRecombinationBlockerReady
+										          ? p848Mod50GeneratorTheoremStatementLocalProofGapAfterAllNRecombinationBlockerPath?.replace(/\.json$/, '.md') ?? null
+										          : p848NoSpendLocalSourceTheoremStatementBacklogAfterAllNRecombinationBlockerPath?.replace(/\.json$/, '.md') ?? null,
+										        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+										        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+										      },
+										      {
+										        taskId: 'assemble_p848_no_spend_source_import_boundary_after_mod50_local_statement_gap',
+										        status: p848NoSpendSourceImportBoundaryAfterMod50LocalStatementGapReady
+										          ? 'done_no_spend_source_import_boundary_after_mod50_local_statement_gap'
+										          : p848Mod50GeneratorTheoremStatementLocalProofGapAfterAllNRecombinationBlockerReady
+										          ? 'highest'
+										          : 'blocked_by_mod50_generator_theorem_statement_local_gap',
+										        task: p848NoSpendSourceImportBoundaryAfterMod50LocalStatementGapReady
+										          ? 'The no-spend source/import boundary after the mod-50 local statement gap is assembled and routes to a no-spend hard blocker.'
+										          : p848Mod50GeneratorTheoremStatementLocalProofGapAfterAllNRecombinationBlockerReady
+										          ? 'Assemble the no-spend source/import boundary after the mod-50 local statement gap, keeping all three theorem lanes explicit.'
+										          : 'Wait for the selected mod-50 local theorem statement gap packet.',
+										        completionRule: 'The boundary must record that the mod-50 local proof probe found no recurrence, finite-Q partition, or restored generator theorem, and must route only to a no-spend source/import decision or future guarded audit.',
+										        command: p848NoSpendSourceImportBoundaryAfterMod50LocalStatementGapReady
+										          ? null
+										          : p848Mod50GeneratorTheoremStatementLocalProofGapAfterAllNRecombinationBlockerReady
+										          ? 'node packs/number-theory/problems/848/compute/problem848_no_spend_source_import_boundary_after_mod50_local_statement_gap.mjs --write-defaults --pretty'
+										          : null,
+										        packetAtomId: p848NoSpendSourceImportBoundaryAfterMod50LocalStatementGapReady
+										          ? p848NoSpendSourceImportBoundaryAfterMod50LocalStatementGap?.oneNextAction?.finiteDenominatorOrRankToken ?? null
+										          : p848Mod50GeneratorTheoremStatementLocalProofGapAfterAllNRecombinationBlocker?.oneNextAction?.finiteDenominatorOrRankToken ?? null,
+										        packetId: p848NoSpendSourceImportBoundaryAfterMod50LocalStatementGapReady
+										          ? p848NoSpendSourceImportBoundaryAfterMod50LocalStatementGap?.packetId ?? null
+										          : p848Mod50GeneratorTheoremStatementLocalProofGapAfterAllNRecombinationBlocker?.packetId ?? null,
+										        packetJsonPath: p848NoSpendSourceImportBoundaryAfterMod50LocalStatementGapReady
+										          ? p848NoSpendSourceImportBoundaryAfterMod50LocalStatementGapPath
+										          : p848Mod50GeneratorTheoremStatementLocalProofGapAfterAllNRecombinationBlockerPath,
+										        packetMarkdownPath: p848NoSpendSourceImportBoundaryAfterMod50LocalStatementGapReady
+										          ? p848NoSpendSourceImportBoundaryAfterMod50LocalStatementGapPath?.replace(/\.json$/, '.md') ?? null
+										          : p848Mod50GeneratorTheoremStatementLocalProofGapAfterAllNRecombinationBlockerPath?.replace(/\.json$/, '.md') ?? null,
+										        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+										        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+										      },
+										      {
+										        taskId: 'emit_p848_no_spend_source_import_hard_blocker_after_mod50_local_statement_gap',
+										        status: p848NoSpendSourceImportHardBlockerAfterMod50LocalStatementGapReady
+										          ? 'done_no_spend_source_import_hard_blocker_after_mod50_local_statement_gap'
+										          : p848NoSpendSourceImportBoundaryAfterMod50LocalStatementGapReady
+										          ? 'highest'
+										          : 'blocked_by_no_spend_source_import_boundary_after_mod50_local_statement_gap',
+										        task: p848NoSpendSourceImportHardBlockerAfterMod50LocalStatementGapReady
+										          ? 'The no-spend source/import hard blocker after the mod-50 local statement gap is emitted.'
+										          : p848NoSpendSourceImportBoundaryAfterMod50LocalStatementGapReady
+										          ? 'Emit the no-spend source/import hard blocker after the mod-50 local statement gap, unless a new local theorem appears first.'
+										          : 'Wait for the source/import boundary after the mod-50 local statement gap.',
+										        completionRule: 'The blocker must say no current no-spend source/import lane closes all-N, preserve the future guarded audit release conditions, and keep q-cover/singleton/rank-boundary expansion paused.',
+										        command: p848NoSpendSourceImportHardBlockerAfterMod50LocalStatementGapReady
+										          ? null
+										          : p848NoSpendSourceImportBoundaryAfterMod50LocalStatementGapReady
+										          ? 'node packs/number-theory/problems/848/compute/problem848_no_spend_source_import_hard_blocker_after_mod50_local_statement_gap.mjs --write-defaults --pretty'
+										          : null,
+										        packetAtomId: p848NoSpendSourceImportHardBlockerAfterMod50LocalStatementGapReady
+										          ? p848NoSpendSourceImportHardBlockerAfterMod50LocalStatementGap?.oneNextAction?.finiteDenominatorOrRankToken ?? null
+										          : p848NoSpendSourceImportBoundaryAfterMod50LocalStatementGap?.oneNextAction?.finiteDenominatorOrRankToken ?? null,
+										        packetId: p848NoSpendSourceImportHardBlockerAfterMod50LocalStatementGapReady
+										          ? p848NoSpendSourceImportHardBlockerAfterMod50LocalStatementGap?.packetId ?? null
+										          : p848NoSpendSourceImportBoundaryAfterMod50LocalStatementGap?.packetId ?? null,
+										        packetJsonPath: p848NoSpendSourceImportHardBlockerAfterMod50LocalStatementGapReady
+										          ? p848NoSpendSourceImportHardBlockerAfterMod50LocalStatementGapPath
+										          : p848NoSpendSourceImportBoundaryAfterMod50LocalStatementGapPath,
+										        packetMarkdownPath: p848NoSpendSourceImportHardBlockerAfterMod50LocalStatementGapReady
+										          ? p848NoSpendSourceImportHardBlockerAfterMod50LocalStatementGapPath?.replace(/\.json$/, '.md') ?? null
+										          : p848NoSpendSourceImportBoundaryAfterMod50LocalStatementGapPath?.replace(/\.json$/, '.md') ?? null,
+										        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+										        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+										      },
+										      {
+										        taskId: 'await_p848_new_local_source_theorem_or_explicit_guarded_source_audit_release_after_no_spend_hard_blocker',
+										        status: p848GuardedMod50SourceAuditReleaseNoSpendBlockerAfterHardBlockerReady
+										          ? 'done_guarded_mod50_source_audit_release_conflict_blocked'
+										          : p848NoSpendSourceImportHardBlockerAfterMod50LocalStatementGapReady
+										          ? 'highest'
+										          : 'blocked_by_no_spend_source_import_hard_blocker_after_mod50_local_statement_gap',
+										        task: p848GuardedMod50SourceAuditReleaseNoSpendBlockerAfterHardBlockerReady
+										          ? 'The guarded mod-50 source-audit release was preflighted, but active no-spend instructions blocked provider execution.'
+										          : p848NoSpendSourceImportHardBlockerAfterMod50LocalStatementGapReady
+										          ? 'Wait for a new local source theorem or an explicit future guarded source-audit release; keep no-spend finite-frontier expansion paused.'
+										          : 'Wait for the no-spend source/import hard blocker after the mod-50 local statement gap.',
+										        completionRule: 'No provider execution, q-cover expansion, singleton descent, fallback ladder, or naked rank-boundary expansion is allowed until a new local theorem is added or a future instruction explicitly releases one guarded source audit after usage clearance.',
+										        command: p848GuardedMod50SourceAuditReleaseNoSpendBlockerAfterHardBlockerReady
+										          ? null
+										          : p848NoSpendSourceImportHardBlockerAfterMod50LocalStatementGapReady
+										          ? 'node packs/number-theory/problems/848/compute/problem848_guarded_mod50_source_audit_release_no_spend_blocker_after_hard_blocker.mjs --write-defaults --pretty'
+										          : null,
+										        packetAtomId: p848GuardedMod50SourceAuditReleaseNoSpendBlockerAfterHardBlockerReady
+										          ? p848GuardedMod50SourceAuditReleaseNoSpendBlockerAfterHardBlocker?.oneNextAction?.finiteDenominatorOrRankToken ?? null
+										          : p848NoSpendSourceImportHardBlockerAfterMod50LocalStatementGap?.oneNextAction?.finiteDenominatorOrRankToken ?? null,
+										        packetId: p848GuardedMod50SourceAuditReleaseNoSpendBlockerAfterHardBlockerReady
+										          ? p848GuardedMod50SourceAuditReleaseNoSpendBlockerAfterHardBlocker?.packetId ?? null
+										          : p848NoSpendSourceImportHardBlockerAfterMod50LocalStatementGap?.packetId ?? null,
+										        packetJsonPath: p848GuardedMod50SourceAuditReleaseNoSpendBlockerAfterHardBlockerReady
+										          ? p848GuardedMod50SourceAuditReleaseNoSpendBlockerAfterHardBlockerPath
+										          : p848NoSpendSourceImportHardBlockerAfterMod50LocalStatementGapPath,
+										        packetMarkdownPath: p848GuardedMod50SourceAuditReleaseNoSpendBlockerAfterHardBlockerReady
+										          ? p848GuardedMod50SourceAuditReleaseNoSpendBlockerAfterHardBlockerPath?.replace(/\.json$/, '.md') ?? null
+										          : p848NoSpendSourceImportHardBlockerAfterMod50LocalStatementGapPath?.replace(/\.json$/, '.md') ?? null,
+										        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+										        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+										      },
+										      {
+										        taskId: 'await_p848_new_local_source_theorem_or_spend_permission_override_after_guarded_mod50_audit_release_conflict',
+										        status: p848GuardedMod50SourceAuditResultElementaryGeneratorCandidateReady
+										          ? 'done_guarded_mod50_source_audit_result_packetized'
+										          : p848GuardedMod50SourceAuditReleaseNoSpendBlockerAfterHardBlockerReady
+										          ? 'highest'
+										          : 'blocked_by_guarded_mod50_source_audit_release_conflict_packet',
+										        task: p848GuardedMod50SourceAuditResultElementaryGeneratorCandidateReady
+										          ? 'The one guarded mod-50 source audit result is packetized; no-spend defaults resumed.'
+										          : p848GuardedMod50SourceAuditReleaseNoSpendBlockerAfterHardBlockerReady
+										          ? 'Wait for a new local source theorem or an explicit no-spend override for exactly one guarded mod-50 source-audit call; keep finite-frontier expansion paused.'
+										          : 'Wait for the guarded mod-50 source-audit release conflict packet.',
+										        completionRule: 'The next move must add a repo-owned local source theorem or remove/override no-spend for exactly one mod-50 source audit after a fresh usage check; no provider execution, q-cover expansion, singleton descent, fallback ladder, or naked rank-boundary work is allowed meanwhile.',
+										        command: null,
+										        packetAtomId: p848GuardedMod50SourceAuditResultElementaryGeneratorCandidateReady
+										          ? p848GuardedMod50SourceAuditResultElementaryGeneratorCandidate?.oneNextAction?.finiteDenominatorOrRankToken ?? null
+										          : p848GuardedMod50SourceAuditReleaseNoSpendBlockerAfterHardBlocker?.oneNextAction?.finiteDenominatorOrRankToken ?? null,
+										        packetId: p848GuardedMod50SourceAuditResultElementaryGeneratorCandidateReady
+										          ? p848GuardedMod50SourceAuditResultElementaryGeneratorCandidate?.packetId ?? null
+										          : p848GuardedMod50SourceAuditReleaseNoSpendBlockerAfterHardBlocker?.packetId ?? null,
+										        packetJsonPath: p848GuardedMod50SourceAuditResultElementaryGeneratorCandidateReady
+										          ? p848GuardedMod50SourceAuditResultElementaryGeneratorCandidatePath
+										          : p848GuardedMod50SourceAuditReleaseNoSpendBlockerAfterHardBlockerPath,
+										        packetMarkdownPath: p848GuardedMod50SourceAuditResultElementaryGeneratorCandidateReady
+										          ? p848GuardedMod50SourceAuditResultElementaryGeneratorCandidatePath?.replace(/\.json$/, '.md') ?? null
+										          : p848GuardedMod50SourceAuditReleaseNoSpendBlockerAfterHardBlockerPath?.replace(/\.json$/, '.md') ?? null,
+										        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+										        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+										      },
+										      {
+										        taskId: 'verify_p848_mod50_elementary_generator_relevant_pair_admissibility_or_emit_semantics_blocker',
+										        status: p848Mod50ElementaryGeneratorRelevantPairSemanticsBlockerReady
+										          ? 'done_mod50_elementary_generator_semantics_blocker_emitted'
+										          : p848GuardedMod50SourceAuditResultElementaryGeneratorCandidateReady
+										          ? 'highest'
+										          : 'blocked_by_guarded_mod50_source_audit_result_candidate_packet',
+										        task: p848Mod50ElementaryGeneratorRelevantPairSemanticsBlockerReady
+										          ? 'The elementary square-generator candidate was checked against repo row/relevant-pair semantics and blocked from universal promotion.'
+										          : p848GuardedMod50SourceAuditResultElementaryGeneratorCandidateReady
+										          ? 'Verify whether the elementary square-generator family from the guarded audit is admissible under the repo row/relevant-pair semantics, or emit the exact semantics blocker.'
+										          : 'Wait for the guarded mod-50 source-audit result candidate packet.',
+										        completionRule: 'The local check must either promote the elementary generator only after row/relevant-pair admissibility is proved, or name the exact semantic constraint excluding it; no additional provider call, q-cover expansion, singleton descent, fallback ladder, or naked rank-boundary work is allowed.',
+										        command: null,
+										        packetAtomId: p848Mod50ElementaryGeneratorRelevantPairSemanticsBlockerReady
+										          ? p848Mod50ElementaryGeneratorRelevantPairSemanticsBlocker?.oneNextAction?.finiteDenominatorOrRankToken ?? null
+										          : p848GuardedMod50SourceAuditResultElementaryGeneratorCandidate?.oneNextAction?.finiteDenominatorOrRankToken ?? null,
+										        packetId: p848Mod50ElementaryGeneratorRelevantPairSemanticsBlockerReady
+										          ? p848Mod50ElementaryGeneratorRelevantPairSemanticsBlocker?.packetId ?? null
+										          : p848GuardedMod50SourceAuditResultElementaryGeneratorCandidate?.packetId ?? null,
+										        packetJsonPath: p848Mod50ElementaryGeneratorRelevantPairSemanticsBlockerReady
+										          ? p848Mod50ElementaryGeneratorRelevantPairSemanticsBlockerPath
+										          : p848GuardedMod50SourceAuditResultElementaryGeneratorCandidatePath,
+										        packetMarkdownPath: p848Mod50ElementaryGeneratorRelevantPairSemanticsBlockerReady
+										          ? p848Mod50ElementaryGeneratorRelevantPairSemanticsBlockerPath?.replace(/\.json$/, '.md') ?? null
+										          : p848GuardedMod50SourceAuditResultElementaryGeneratorCandidatePath?.replace(/\.json$/, '.md') ?? null,
+										        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+										        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+										      },
+											      {
+											        taskId: 'restore_p848_mod50_relevant_pair_row_generator_or_finite_q_partition_after_elementary_semantics_blocker',
+											        status: p848Mod50RelevantPairRowGeneratorRestorationLocalAuditBlockerReady
+											          ? 'blocked_by_no_repo_owned_mod50_row_generator_or_finite_q_partition_after_local_restoration_audit'
+											          : p848Mod50ElementaryGeneratorRelevantPairSemanticsBlockerReady
+											          ? 'highest'
+											          : 'blocked_by_mod50_elementary_generator_semantics_check',
+											        task: p848Mod50RelevantPairRowGeneratorRestorationLocalAuditBlockerReady
+											          ? 'The local restoration audit found no repo-owned mod-50 relevant-pair row generator, symbolic recurrence, or finite-Q partition after the elementary generator semantics blocker.'
+											          : p848Mod50ElementaryGeneratorRelevantPairSemanticsBlockerReady
+											          ? 'Restore or prove the actual mod-50 relevant-pair row generator or finite-Q partition after excluding the elementary arbitrary-pair generator as a universal candidate.'
+											          : 'Wait for the elementary generator relevant-pair semantics blocker.',
+											        completionRule: 'A repo-owned row-menu representative generator, symbolic recurrence, or finite-Q partition with denominator and handoff labels must be added before the mod-50 lane can feed all-N recombination; no additional provider call, q-cover expansion, singleton descent, fallback ladder, or naked rank-boundary work is allowed.',
+											        command: null,
+											        packetAtomId: p848Mod50RelevantPairRowGeneratorRestorationLocalAuditBlockerReady
+											          ? p848Mod50RelevantPairRowGeneratorRestorationLocalAuditBlocker?.oneNextAction?.finiteDenominatorOrRankToken ?? null
+											          : p848Mod50ElementaryGeneratorRelevantPairSemanticsBlocker?.oneNextAction?.finiteDenominatorOrRankToken ?? null,
+											        packetId: p848Mod50RelevantPairRowGeneratorRestorationLocalAuditBlockerReady
+											          ? p848Mod50RelevantPairRowGeneratorRestorationLocalAuditBlocker?.packetId ?? null
+											          : p848Mod50ElementaryGeneratorRelevantPairSemanticsBlocker?.packetId ?? null,
+											        packetJsonPath: p848Mod50RelevantPairRowGeneratorRestorationLocalAuditBlockerReady
+											          ? p848Mod50RelevantPairRowGeneratorRestorationLocalAuditBlockerPath
+											          : p848Mod50ElementaryGeneratorRelevantPairSemanticsBlockerPath,
+											        packetMarkdownPath: p848Mod50RelevantPairRowGeneratorRestorationLocalAuditBlockerReady
+											          ? p848Mod50RelevantPairRowGeneratorRestorationLocalAuditBlockerPath?.replace(/\.json$/, '.md') ?? null
+											          : p848Mod50ElementaryGeneratorRelevantPairSemanticsBlockerPath?.replace(/\.json$/, '.md') ?? null,
+											        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+											        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+											      },
+											      {
+											        taskId: 'await_p848_new_local_row_generator_theorem_or_explicit_guarded_source_audit_release_after_restoration_blocker',
+											        status: p848Mod50SameBoundResidualCounterfamilyBoundaryReady
+                                  ? 'done_recovered_by_no_spend_same_bound_residual_counterfamily_boundary'
+                                  : p848Mod50RelevantPairRowGeneratorRestorationLocalAuditBlockerReady
+											          ? 'highest'
+											          : 'blocked_by_mod50_row_generator_restoration_audit',
+											        task: p848Mod50SameBoundResidualCounterfamilyBoundaryReady
+                                  ? 'The no-spend block was challenged with a local same-bound residual counterfamily boundary; finite-frontier expansion remains paused.'
+                                  : p848Mod50RelevantPairRowGeneratorRestorationLocalAuditBlockerReady
+											          ? 'Wait for a new local mod-50 row-generator/finite-Q theorem or a future explicit guarded source-audit release; keep finite-frontier expansion paused.'
+											          : 'Wait for the mod-50 row-generator restoration local audit blocker.',
+											        completionRule: 'No provider execution, q-cover expansion, singleton descent, fallback ladder, or naked rank-boundary expansion is allowed until a local row-generator/finite-Q theorem is added or a future instruction explicitly releases exactly one guarded source audit after usage clearance.',
+											        command: null,
+											        packetAtomId: p848Mod50SameBoundResidualCounterfamilyBoundaryReady
+                                  ? p848Mod50SameBoundResidualCounterfamilyBoundary?.oneNextAction?.finiteDenominatorOrRankToken ?? null
+                                  : p848Mod50RelevantPairRowGeneratorRestorationLocalAuditBlocker?.oneNextAction?.finiteDenominatorOrRankToken ?? null,
+											        packetId: p848Mod50SameBoundResidualCounterfamilyBoundaryReady
+                                  ? p848Mod50SameBoundResidualCounterfamilyBoundary?.packetId ?? null
+                                  : p848Mod50RelevantPairRowGeneratorRestorationLocalAuditBlocker?.packetId ?? null,
+											        packetJsonPath: p848Mod50SameBoundResidualCounterfamilyBoundaryReady
+                                  ? p848Mod50SameBoundResidualCounterfamilyBoundaryPath
+                                  : p848Mod50RelevantPairRowGeneratorRestorationLocalAuditBlockerPath,
+											        packetMarkdownPath: p848Mod50SameBoundResidualCounterfamilyBoundaryReady
+                                  ? p848Mod50SameBoundResidualCounterfamilyBoundaryPath?.replace(/\.json$/, '.md') ?? null
+                                  : p848Mod50RelevantPairRowGeneratorRestorationLocalAuditBlockerPath?.replace(/\.json$/, '.md') ?? null,
+											        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+											        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+											      },
+                            {
+                              taskId: 'prove_or_block_p848_mod50_same_bound_residual_handoff_labels_after_counterfamily_boundary',
+                              status: p848Mod50SameBoundResidualHandoffLabelLocalBlockerReady
+                                ? 'done_blocked_by_no_local_residual_handoff_label_theorem'
+                                : p848Mod50SameBoundResidualCounterfamilyBoundaryReady
+                                ? 'highest'
+                                : 'blocked_by_same_bound_residual_counterfamily_boundary',
+                              task: p848Mod50SameBoundResidualHandoffLabelLocalBlockerReady
+                                ? 'The local residual handoff-label attempt is complete: finite tie exclusion is proved for the row, but no per-bad-class handoff theorem is present.'
+                                : p848Mod50SameBoundResidualCounterfamilyBoundaryReady
+                                ? 'Prove or block, locally and only for the recorded same-bound residual, whether each mod-50 bad m-class has a valid handoff label.'
+                                : 'Wait for the mod-50 same-bound residual counterfamily boundary.',
+                              completionRule: 'The local proof must either label each recorded residual mod-50 bad m-class as avoided, top-tie repaired, contrast-only repaired, or terminally blocked, or emit the exact handoff-label blocker; do not execute a provider call, q-cover expansion, singleton descent, fallback ladder, or naked rank-boundary work.',
+                              command: null,
+                              packetAtomId: p848Mod50SameBoundResidualHandoffLabelLocalBlockerReady
+                                ? p848Mod50SameBoundResidualHandoffLabelLocalBlocker?.oneNextAction?.finiteDenominatorOrRankToken ?? null
+                                : p848Mod50SameBoundResidualCounterfamilyBoundary?.oneNextAction?.finiteDenominatorOrRankToken ?? null,
+                              packetId: p848Mod50SameBoundResidualHandoffLabelLocalBlockerReady
+                                ? p848Mod50SameBoundResidualHandoffLabelLocalBlocker?.packetId ?? null
+                                : p848Mod50SameBoundResidualCounterfamilyBoundary?.packetId ?? null,
+                              packetJsonPath: p848Mod50SameBoundResidualHandoffLabelLocalBlockerReady
+                                ? p848Mod50SameBoundResidualHandoffLabelLocalBlockerPath
+                                : p848Mod50SameBoundResidualCounterfamilyBoundaryPath,
+                              packetMarkdownPath: p848Mod50SameBoundResidualHandoffLabelLocalBlockerReady
+                                ? p848Mod50SameBoundResidualHandoffLabelLocalBlockerPath?.replace(/\.json$/, '.md') ?? null
+                                : p848Mod50SameBoundResidualCounterfamilyBoundaryPath?.replace(/\.json$/, '.md') ?? null,
+                              manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+                              manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+                            },
+                            {
+                              taskId: 'await_p848_new_local_row_generator_or_residual_handoff_theorem_or_explicit_guarded_source_audit_release',
+                              status: p848Mod50ResidualHandoffLabelSourceAuditProfileNoSpendBlockerReady
+                                ? 'done_profile_prepared_no_provider_execution_under_no_spend'
+                                : p848Mod50SameBoundResidualHandoffLabelLocalBlockerReady
+                                ? 'highest'
+                                : 'blocked_by_residual_handoff_label_local_attempt',
+                              task: p848Mod50ResidualHandoffLabelSourceAuditProfileNoSpendBlockerReady
+                                ? 'The residual handoff-label source-audit profile is prepared locally; no provider was executed and finite-frontier expansion remains paused.'
+                                : p848Mod50SameBoundResidualHandoffLabelLocalBlockerReady
+                                ? 'Wait for a new local residual handoff-label theorem, row-generator/finite-Q theorem, or future explicit guarded source-audit release; finite-frontier expansion remains paused.'
+                                : 'Wait for the residual handoff-label local blocker.',
+                              completionRule: 'No provider execution, q-cover expansion, singleton descent, fallback ladder, or naked rank-boundary expansion is allowed until a local residual handoff-label theorem, row-generator/finite-Q theorem, or future explicit guarded source-audit release is present.',
+                              command: null,
+                              packetAtomId: p848Mod50ResidualHandoffLabelSourceAuditProfileNoSpendBlockerReady
+                                ? p848Mod50ResidualHandoffLabelSourceAuditProfileNoSpendBlocker?.oneNextAction?.finiteDenominatorOrRankToken ?? null
+                                : p848Mod50SameBoundResidualHandoffLabelLocalBlocker?.oneNextAction?.finiteDenominatorOrRankToken ?? null,
+                              packetId: p848Mod50ResidualHandoffLabelSourceAuditProfileNoSpendBlockerReady
+                                ? p848Mod50ResidualHandoffLabelSourceAuditProfileNoSpendBlocker?.packetId ?? null
+                                : p848Mod50SameBoundResidualHandoffLabelLocalBlocker?.packetId ?? null,
+                              packetJsonPath: p848Mod50ResidualHandoffLabelSourceAuditProfileNoSpendBlockerReady
+                                ? p848Mod50ResidualHandoffLabelSourceAuditProfileNoSpendBlockerPath
+                                : p848Mod50SameBoundResidualHandoffLabelLocalBlockerPath,
+                              packetMarkdownPath: p848Mod50ResidualHandoffLabelSourceAuditProfileNoSpendBlockerReady
+                                ? p848Mod50ResidualHandoffLabelSourceAuditProfileNoSpendBlockerPath?.replace(/\.json$/, '.md') ?? null
+                                : p848Mod50SameBoundResidualHandoffLabelLocalBlockerPath?.replace(/\.json$/, '.md') ?? null,
+                              manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+                              manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+                            },
+                            {
+                              taskId: 'await_p848_new_local_residual_handoff_theorem_or_explicit_guarded_source_audit_release_after_profile',
+                              status: p848Mod50ResidualHandoffLabelSourceAuditProfileNoSpendBlockerReady
+                                ? 'highest'
+                                : 'blocked_by_residual_handoff_profile_preparation',
+                              task: p848Mod50ResidualHandoffLabelSourceAuditProfileNoSpendBlockerReady
+                                ? 'Wait for a new local residual handoff-label theorem, row-generator/finite-Q theorem, or future explicit guarded source-audit release for the prepared profile; finite-frontier expansion remains paused.'
+                                : 'Wait for the residual handoff-label source-audit profile blocker.',
+                              completionRule: 'No provider execution, q-cover expansion, singleton descent, fallback ladder, or naked rank-boundary expansion is allowed until a local residual handoff-label theorem, row-generator/finite-Q theorem, or future explicit guarded source-audit release closes the prepared profile.',
+                              command: null,
+                              packetAtomId: p848Mod50ResidualHandoffLabelSourceAuditProfileNoSpendBlocker?.oneNextAction?.finiteDenominatorOrRankToken ?? null,
+                              packetId: p848Mod50ResidualHandoffLabelSourceAuditProfileNoSpendBlocker?.packetId ?? null,
+                              packetJsonPath: p848Mod50ResidualHandoffLabelSourceAuditProfileNoSpendBlockerPath,
+                              packetMarkdownPath: p848Mod50ResidualHandoffLabelSourceAuditProfileNoSpendBlockerPath?.replace(/\.json$/, '.md') ?? null,
+                              manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+                              manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+                            },
+			{
+							        taskId: 'emit_p41_q13_p103_q2_p37_q19_p31_q53_p73_q11_p83_q17_square_obstruction_successor',
+						        status: q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17SuccessorReady
+						          ? 'done_successor_atom_emitted'
+						          : q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509RepairReady
+						          ? 'superseded_by_p509_repair'
+						          : q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17SubclassRepairReady
+						          ? 'highest'
+						          : q17P41Q13P103Q2P37Q19P31Q53P73Q11P83AvailabilitySplitReady
+						            ? 'blocked_by_p83_q17_repair_probe'
+						            : 'blocked_by_p83_availability_split',
+						        task: q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17SuccessorReady
+						          ? 'The p83/q17 square-obstruction successor atom is emitted; attack or refine it next.'
+						          : q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17SubclassRepairReady
+						          ? 'Emit the p83/q17 square-obstruction class as the next deterministic successor atom, preserving the tested finite-menu no-repair witness.'
+						          : 'Wait for the p83/q17 repair probe packet.',
+						        completionRule: q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17SuccessorReady
+						          ? 'The exact p83/q17 successor atom is emitted.'
+						          : 'The exact p83/q17 successor atom is emitted, or a sharper deterministic obstruction packet replaces it.',
+						        command: null,
+						        packetAtomId: q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17SuccessorReady
+						          ? 'D2_p13_q17_endpoint_menu_squarefree_obstruction_p23_q29_p41_q13_p103_q2_p37_q19_p31_q53_p73_q11_p83_q17_successor'
+						          : q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17SubclassRepairReady
+						          ? 'D2_p13_q17_endpoint_menu_squarefree_obstruction_p23_q29_p41_q13_p103_q2_p37_q19_p31_q53_p73_q11_p83_q17_successor_needed'
+						          : null,
+						        packetId: firstSideCountFloorPacket?.packetId ?? null,
+						        packetJsonPath: q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17SuccessorReady
+						          ? q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17SuccessorPath
+						          : q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17SubclassRepairPath,
+						        packetMarkdownPath: q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17SuccessorReady
+						          ? q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17SuccessorPath?.replace(/\.json$/, '.md') ?? null
+						          : q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17SubclassRepairPath ? q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17SubclassRepairPath.replace(/\.json$/, '.md') : null,
+						        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+						        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+						      },
+						      {
+						        taskId: 'attack_p41_q13_p103_q2_p37_q19_p31_q53_p73_q11_p83_q17_successor_atom',
+						        status: q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17SuccessorReady
+						          ? 'highest'
+						          : q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17P509RepairReady
+						            ? 'superseded_by_p509_repair'
+						          : q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17SubclassRepairReady
+						            ? 'blocked_by_successor_emission'
+						            : 'blocked_by_p83_q17_repair_probe',
+						        task: q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17SuccessorReady
+						          ? 'Attack the emitted p83/q17 successor atom with a symbolic obstruction proof, sharper endpoint menu, or smaller deterministic refinement.'
+						          : 'Wait for the p83/q17 successor atom packet.',
+						        completionRule: 'The emitted p83/q17 successor is proved, repaired by a sharper symbolic selector, or split into a smaller deterministic atom.',
+						        command: null,
+						        packetAtomId: q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17SuccessorReady
+						          ? 'D2_p13_q17_endpoint_menu_squarefree_obstruction_p23_q29_p41_q13_p103_q2_p37_q19_p31_q53_p73_q11_p83_q17_successor'
+						          : null,
+						        packetId: firstSideCountFloorPacket?.packetId ?? null,
+						        packetJsonPath: q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17SuccessorPath,
+						        packetMarkdownPath: q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17SuccessorPath ? q17P41Q13P103Q2P37Q19P31Q53P73Q11P83Q17SuccessorPath.replace(/\.json$/, '.md') : null,
+						        manifestJsonPath: packetRootPaths?.manifestJsonPath ?? null,
+						        manifestMarkdownPath: packetRootPaths?.manifestMarkdownPath ?? null,
+						      },
+						      {
+						        taskId: 'start_singleton_p13_profile',
         status: firstSuccessorPacket ? 'done_successor_packets_emitted' : 'highest',
         task: 'Attack the singleton p13 split outP2=99|out25=14|smaller=side7 first to determine whether it is a real symbolic class or an under-split boundary artifact.',
         completionRule: 'The singleton split either gets a persistence atom or emits a sharper split key.',
@@ -20575,15 +28923,103 @@ function buildProblemNextNeededSteps(problem, claimPass, formalizationWork) {
   return steps;
 }
 
+function isHistoricalProblemTaskStatus(status) {
+  const value = String(status ?? '');
+  return value === 'done' || value.startsWith('done_') || value.startsWith('superseded');
+}
+
+function compactProblemTaskHistory(items, {
+  idKey,
+  historyLimit = 16,
+  summaryId = 'compacted_completed_history',
+  summaryLabel = 'completed or superseded historical tasks',
+} = {}) {
+  if (!Array.isArray(items)) {
+    return items;
+  }
+  const active = [];
+  const historical = [];
+  for (const item of items) {
+    if (isHistoricalProblemTaskStatus(item?.status)) {
+      historical.push(item);
+    } else {
+      active.push(item);
+    }
+  }
+  const retainedHistory = historical.slice(-historyLimit);
+  const compactedCount = historical.length - retainedHistory.length;
+  if (compactedCount <= 0) {
+    return [...active, ...retainedHistory];
+  }
+  return [
+    ...active,
+    {
+      [idKey]: summaryId,
+      status: 'compacted_history',
+      task: `${compactedCount} ${summaryLabel} omitted from generated task-list JSON; source packets remain under packs/number-theory/problems/848.`,
+      compactedCount,
+      retainedRecentHistoryCount: retainedHistory.length,
+    },
+    ...retainedHistory,
+  ];
+}
+
+function compactP848SplitCoreAtomizationPlan(plan) {
+  if (!plan) {
+    return plan;
+  }
+  return {
+    ...plan,
+    splitAtoms: Array.isArray(plan.splitAtoms)
+      ? plan.splitAtoms.map((atom) => {
+        const {
+          commonMatchingPairs,
+          ...rest
+        } = atom;
+        return {
+          ...rest,
+          commonMatchingPairSample: Array.isArray(commonMatchingPairs)
+            ? commonMatchingPairs.slice(0, 3)
+            : [],
+          commonMatchingPairsOmitted: Array.isArray(commonMatchingPairs)
+            ? Math.max(0, commonMatchingPairs.length - 3)
+            : 0,
+          fullCommonMatchingPairsLocation: atom.packetArtifact?.jsonPath ?? null,
+        };
+      })
+      : plan.splitAtoms,
+    recommendedImmediateTasks: compactProblemTaskHistory(plan.recommendedImmediateTasks, {
+      idKey: 'taskId',
+      historyLimit: 16,
+      summaryId: 'compacted_split_core_history',
+      summaryLabel: 'completed or superseded split-core tasks',
+    }),
+  };
+}
+
 function pickProblemAgentPrimaryAction(currentTasks, nextNeededSteps) {
   const priorityRank = {
     highest: 0,
     next: 1,
     high: 2,
   };
+  const activeFrontierRank = (step) => {
+    const text = [
+      step?.stepId,
+      step?.task,
+      step?.packetAtomId,
+      step?.packetId,
+    ].filter(Boolean).join(' ');
+    return /p4217[_\s-]*complement|p61[_/\s-]*q101|p443|fallback[_\s-]*selector|unavailable[_\s-]*complement/u.test(text)
+      ? -1
+      : 0;
+  };
   const candidate = [...(nextNeededSteps ?? [])]
     .filter((step) => Object.hasOwn(priorityRank, step.status))
-    .sort((left, right) => priorityRank[left.status] - priorityRank[right.status])[0]
+    .sort((left, right) => (
+      priorityRank[left.status] - priorityRank[right.status]
+      || activeFrontierRank(left) - activeFrontierRank(right)
+    ))[0]
     ?? null;
   if (candidate) {
     return {
@@ -20624,14 +29060,60 @@ function buildProblemAgentFlow(problem, {
   currentTasks,
   nextNeededSteps,
   granularBreakdownMode,
+  convergenceAssemblyMode,
+  abstractBeforeExpandGate,
+  convergenceAssemblyPacket,
   orpModeOverlays,
   commands,
 }) {
-  const primaryNextAction = pickProblemAgentPrimaryAction(currentTasks, nextNeededSteps);
+  const pickedPrimaryNextAction = pickProblemAgentPrimaryAction(currentTasks, nextNeededSteps);
+  const assemblyPacketCoversStep = (step) => Boolean(
+    step?.stepId
+    && (
+      (
+        convergenceAssemblyPacket?.status === 'assembly_recorded_for_current_primary_action'
+        && convergenceAssemblyPacket?.coversPrimaryNextAction?.stepId === step.stepId
+      )
+      || convergenceAssemblyPacket?.target === step.stepId
+      || convergenceAssemblyPacket?.oneNextAction?.stepId === step.stepId
+      || convergenceAssemblyPacket?.recommendedNextAction === step.stepId
+    )
+  );
+  const convergenceAssemblyCoversPickedPrimary = Boolean(
+    assemblyPacketCoversStep(pickedPrimaryNextAction)
+    && convergenceAssemblyPacket?.oneNextAction?.stepId
+    && convergenceAssemblyPacket.oneNextAction.stepId !== pickedPrimaryNextAction?.stepId
+  );
+  const assembledNextAction = convergenceAssemblyCoversPickedPrimary
+    && convergenceAssemblyPacket?.oneNextAction?.stepId
+    && convergenceAssemblyPacket.oneNextAction.stepId !== pickedPrimaryNextAction?.stepId
+    ? {
+        source: 'convergence_assembly_packet',
+        stepId: convergenceAssemblyPacket.oneNextAction.stepId,
+        status: 'highest',
+        task: convergenceAssemblyPacket.oneNextAction.action
+          ?? convergenceAssemblyPacket.oneNextAction.task
+          ?? 'Execute the convergence assembly oneNextAction.',
+        command: convergenceAssemblyPacket.oneNextAction.command ?? null,
+        completionRule: convergenceAssemblyPacket.oneNextAction.completionRule
+          ?? 'Complete the oneNextAction named by the current convergence assembly packet.',
+        packetJsonPath: convergenceAssemblyPacket.packetPath ?? null,
+      }
+    : null;
+  const primaryNextAction = assembledNextAction ?? pickedPrimaryNextAction;
+  const convergenceAssemblyCoversPrimary = convergenceAssemblyCoversPickedPrimary || assemblyPacketCoversStep(primaryNextAction);
+  const convergenceRisk = isConvergenceRiskAction(primaryNextAction) && !convergenceAssemblyCoversPrimary;
+  const expansionRisk = isExpansionRiskAction(primaryNextAction);
+  const abstractionSatisfiedByPrimaryAction = isAbstractionSatisfyingAction(primaryNextAction);
+  const abstractBeforeExpandTrigger = expansionRisk && !abstractionSatisfiedByPrimaryAction;
+  const complementGuardApplies = problem.problemId === '848' && isP848ComplementLaneAction(primaryNextAction);
   const situationalOverlays = (orpModeOverlays?.overlays ?? [])
     .filter((overlay) => overlay.modeId !== granularBreakdownMode?.modeId)
+    .filter((overlay) => overlay.modeId !== convergenceAssemblyMode?.overlayId)
+    .filter((overlay) => overlay.modeId !== abstractBeforeExpandGate?.gateId)
     .map((overlay) => ({
       modeId: overlay.modeId,
+      backingModeId: overlay.backingModeId ?? null,
       role: overlay.role,
       useWhen: overlay.useWhen,
       command: overlay.command,
@@ -20651,6 +29133,29 @@ function buildProblemAgentFlow(problem, {
       defaultAction: 'execute_primary_next_action',
       doNotRunEveryMode: true,
       selectionRule: orpModeOverlays?.selectionRule ?? 'Use an ORP mode only when it reduces ambiguity or friction.',
+      worktreeHygiene: {
+        status: 'required_for_autonomous_delegation',
+        useWhen: 'Run before long delegation, after material artifact generation, before paid/API/remote compute, and whenever dirty worktree size grows unexpectedly.',
+        command: 'erdos workspace hygiene --json',
+        quickCommand: 'git status --short',
+        selfHealingRule: 'Classify every dirty path, refresh canonical generated surfaces, convert useful scratch into canonical artifacts, and never destructively clean without approval.',
+        stopCondition: 'If dirty paths are unclassified, unexpectedly large, or unrelated to the active step, pause expansion and write a hygiene/blocker note instead of continuing blindly.',
+      },
+      abstractBeforeExpand: abstractBeforeExpandGate
+        ? {
+          gateId: abstractBeforeExpandGate.gateId,
+          backingModeId: abstractBeforeExpandGate.backingModeId,
+          triggerNow: abstractBeforeExpandTrigger,
+          expansionRisk,
+          satisfiedByPrimaryAction: abstractionSatisfiedByPrimaryAction,
+          useWhen: abstractBeforeExpandGate.invocationRule,
+          fullGateCommand: abstractBeforeExpandGate.commands.fullGate,
+          nudgeCommand: abstractBeforeExpandGate.commands.nudge,
+          requiredQuestions: abstractBeforeExpandGate.requiredQuestions,
+          allowedOutcomes: abstractBeforeExpandGate.allowedOutcomes,
+          compressionRule: 'Expansion is allowed only after the gate names the represented family, collapse theorem object or missing theorem, tool route, and writeback target.',
+        }
+        : null,
       granularBreakdown: granularBreakdownMode
         ? {
           modeId: granularBreakdownMode.modeId,
@@ -20660,31 +29165,105 @@ function buildProblemAgentFlow(problem, {
           compressionRule: 'After any breakdown, compress back to one active target and one verification command.',
         }
         : null,
+      convergenceAssembly: convergenceAssemblyMode
+        ? {
+          overlayId: convergenceAssemblyMode.overlayId,
+          backingModeId: convergenceAssemblyMode.modeId,
+          triggerNow: convergenceRisk,
+          latestAssembly: convergenceAssemblyPacket
+            ? {
+              status: convergenceAssemblyPacket.status ?? null,
+              packetPath: convergenceAssemblyPacket.packetPath ?? null,
+              coversPrimaryNextAction: convergenceAssemblyPacket.coversPrimaryNextAction ?? null,
+              oneNextAction: convergenceAssemblyPacket.oneNextAction ?? null,
+              oneVerificationCommand: convergenceAssemblyPacket.oneVerificationCommand ?? null,
+            }
+            : null,
+          useWhen: convergenceAssemblyMode.invocationRule,
+          fullAssemblyCommand: convergenceAssemblyMode.commands.fullAssembly,
+          quickNudgeCommand: convergenceAssemblyMode.commands.quickNudge,
+          compressionRule: 'After convergence assembly, continue with exactly one next action and one verification command.',
+        }
+        : null,
+      globalTheoremLift: problem.problemId === '848'
+        ? {
+          status: 'required_before_global_decision_claim',
+          useWhen: 'Use whenever local endpoint-staircase progress is being interpreted as convergence, before any global/all-N claim.',
+          progressCommand: commands.progress,
+          refreshCommand: commands.progressRefresh,
+          artifact: 'packs/number-theory/problems/848/GLOBAL_CONVERGENCE_LIFT.md',
+          frontierLedgerArtifact: 'packs/number-theory/problems/848/FRONTIER_LEDGER.md',
+          requiredObligations: [
+            'Resolve or ledger the current open leaf.',
+            'Use the finite frontier ledger format before extending repeated endpoint staircase work.',
+            'Prove the endpoint availability staircase compression theorem.',
+            'Prove a finite measure decrease or terminal-leaf accounting rule.',
+            'Account for unavailable complements.',
+            'Bind the 282/841 synthetic alignment to a live family-menu row.',
+            'Recombine the lift into the all-N decision surface.',
+          ],
+        }
+        : null,
+      p4217ComplementStrategyGuard: problem.problemId === '848'
+        ? {
+          status: 'active_when_primary_action_enters_p4217_complement_lane',
+          triggerNow: complementGuardApplies,
+          useWhen: 'Use before extending p4217 complement, fallback-selector, unavailable-complement, p61/q101, or p443 handoff work.',
+          artifact: 'packs/number-theory/problems/848/P4217_COMPLEMENT_STRATEGY_GUARD.md',
+          progressCommand: commands.progress,
+          refreshCommand: commands.progressRefresh,
+          antiSiblingLadderRule: 'Do not try fallback selectors one by one unless the step is part of a batch cover/impossibility theorem, structural split, or explicit frontier-ledger rank decrease.',
+          allowedCurrentLeafWork: 'Finish the current finite leaf named by agentFlow.primaryNextAction. If the current leaf is the q97/p151 boundary, p151 and the p479 reserve are allowed only inside that same finite q97 repair screen.',
+          postCurrentLeafBulkHandoff: 'After the current finite leaf is exact-certified, blocked, or split into explicit open leaves, run convergence assembly and prefer bulk cover, impossibility theorem, structural decomposition, or ranked ledger transition before opening another deeper selector child.',
+          preferredAfterCurrentLeaf: [
+            'Batch selector cover or impossibility theorem.',
+            'Structural complement decomposition by square-obstruction or CRT family.',
+            'Ranked ledger transition that proves the next selector consumes a finite token.',
+            'Parallel live-family binding for the 282/841 row.',
+          ],
+        }
+        : null,
       situationalOverlays,
     },
     executionLoop: [
       'Load agentFlow.primaryNextAction.',
+      'Run the worktree hygiene checkpoint for autonomous delegation: classify dirty paths, refresh canonical generated surfaces after material work, and stop before unclassified dirt accumulates.',
+      'Load the measured progress surface before long work: use progressCommand to check global-decision percent, task-board percent, exact-lane coverage, and open frontier denominators.',
+      'Apply agentFlow.modePolicy.abstractBeforeExpand before branch/search/compute/API/paid expansion: name the represented family, collapse theorem object, route decision, and writeback target before making another piece.',
+      'For problem 848, read p848Frontier.globalTheoremLift before interpreting local staircase convergence as global progress.',
+      'For problem 848 p4217-complement work, read P4217_COMPLEMENT_STRATEGY_GUARD before launching another selector; prefer bulk cover, impossibility, structural split, or ranked ledger transition over a naked next-prime step.',
       'If the action is clear, execute its command or implement the named task directly.',
       'If the action is fuzzy, run the granular nudge or full breakdown, then compress to one target and one command.',
+      'If the action repeats a theorem/search ladder shape, run convergence assembly first: assemble current pieces, name the finite measure or missing measure, and choose recombination/generalization/formalization unless the next sibling is clearly finite and cheapest.',
       'Use at most one additional ORP overlay when it clearly reduces friction for the current decision.',
-      'Refresh the canonical task list after material progress and continue from the regenerated agentFlow.',
+      'Refresh the canonical task list and measured progress after material progress, then continue from the regenerated agentFlow.',
     ],
     guardrails: [
       'Do not run paid or remote compute unless the frontier configuration explicitly enables that paid rung.',
       'Prefer local/free compute before opt-in paid compute.',
+      'Do not leave a large or unclassified dirty worktree behind an autonomous step; classify, write back, or block non-destructively.',
+      'Do not expand branch/search/compute/API work until Abstract Before Expanding has either collapsed the family, routed a named unlock, or recorded why finite expansion is cheapest.',
       'Do not treat bounded search evidence as an all-N proof without a theorem-facing handoff.',
+      'Do not keep making sibling puzzle pieces without regularly assembling the puzzle and recording what remains.',
+      'Do not extend the p4217 complement by one fallback selector at a time unless a batch theorem or ledger-rank decrease is written back.',
       'Do not run every ORP mode by default.',
       'Persist operationally important changes into canonical artifacts rather than chat-only state.',
     ],
     writeback: {
       refreshCommand: commands.taskListRefresh,
       taskListCommand: commands.taskList,
-      durableArtifactRule: granularBreakdownMode?.durableArtifactRule ?? 'Refresh the canonical task list when the next action changes.',
+      progressCommand: commands.progress,
+      progressRefreshCommand: commands.progressRefresh,
+      worktreeHygieneCommand: 'erdos workspace hygiene --json',
+      durableArtifactRule: abstractBeforeExpandGate?.durableArtifactRule
+        ?? convergenceAssemblyMode?.durableArtifactRule
+        ?? granularBreakdownMode?.durableArtifactRule
+        ?? 'Refresh the canonical task list when the next action changes.',
     },
   };
 }
 
-export function buildProblemTaskList(problem) {
+export function buildProblemTaskList(problem, options = {}) {
   const theoremLoop = buildProblemTheoremLoop(problem);
   const claimPass = buildProblemClaimPass(problem);
   const formalization = buildProblemFormalization(problem);
@@ -20708,7 +29287,218 @@ export function buildProblemTaskList(problem) {
   const finiteGapStrategy = buildP848FiniteGapStrategy(problem, latestVerifiedInterval, intervalQueue, breakpointCertificate);
   const splitCoreAtomizationPlan = buildP848SplitCoreAtomizationPlan(problem, formalizationWork);
   const granularBreakdownMode = buildProblemGranularBreakdownMode(problem, formalizationWork);
-  const orpModeOverlays = buildProblemOrpModeOverlays(problem, granularBreakdownMode);
+  const convergenceAssemblyMode = buildProblemConvergenceAssemblyMode(problem, formalizationWork, granularBreakdownMode);
+  const abstractBeforeExpandGate = buildProblemAbstractBeforeExpandGate(problem, formalizationWork, granularBreakdownMode, convergenceAssemblyMode);
+	  const convergenceAssemblyPacketPaths = theoremLoop.sources?.packProblemDir
+		      ? [
+        path.join(
+          theoremLoop.sources.packProblemDir,
+          'SPLIT_ATOM_PACKETS',
+          'FRONTIER_BRIDGE',
+          'P848_MOD50_SOURCE_ARCHAEOLOGY_THEOREM_WEDGE_PACKET.json',
+        ),
+        path.join(
+          theoremLoop.sources.packProblemDir,
+          'SPLIT_ATOM_PACKETS',
+          'FRONTIER_BRIDGE',
+          'P848_MOD50_ALL_FUTURE_RECURRENCE_SOURCE_THEOREM_BLOCKER_PACKET.json',
+        ),
+        path.join(
+          theoremLoop.sources.packProblemDir,
+          'SPLIT_ATOM_PACKETS',
+          'FRONTIER_BRIDGE',
+          'P848_P4217_STRUCTURAL_COMPLEMENT_INVARIANT_BLOCKER_PACKET.json',
+        ),
+	        path.join(
+	          theoremLoop.sources.packProblemDir,
+	          'SPLIT_ATOM_PACKETS',
+          'FRONTIER_BRIDGE',
+          'P848_Q_COVER_PARAMETRIC_TRANSITION_ROUTE_PACKET.json',
+        ),
+        path.join(
+          theoremLoop.sources.packProblemDir,
+          'SPLIT_ATOM_PACKETS',
+          'FRONTIER_BRIDGE',
+          'P848_P4217_Q_COVER_STAIRCASE_BREAKER_NONCONVERGENCE_PACKET.json',
+        ),
+        path.join(
+          theoremLoop.sources.packProblemDir,
+          'SPLIT_ATOM_PACKETS',
+          'FRONTIER_BRIDGE',
+          'P848_P4217_POST31_Q_AVOIDING_POST8_31_BUCKET_Q_AVOIDING_BATCH_COVER_CONVERGENCE_ASSEMBLY_PACKET.json',
+        ),
+        path.join(
+          theoremLoop.sources.packProblemDir,
+          'SPLIT_ATOM_PACKETS',
+          'FRONTIER_BRIDGE',
+          'P848_P4217_POST31_Q_AVOIDING_POST8_31_BUCKET_RANK_BOUNDARY_CONVERGENCE_ASSEMBLY_PACKET.json',
+        ),
+        path.join(
+          theoremLoop.sources.packProblemDir,
+          'SPLIT_ATOM_PACKETS',
+          'FRONTIER_BRIDGE',
+          'P848_P4217_POST_29_Q_AVOIDING_POST_POST_POST_POST_POST_SUCCESSOR_29_BUCKET_POST_POST_POST_POST_POST_POST_SUCCESSOR_30_BUCKET_POST_POST_POST_POST_POST_POST_POST_SUCCESSOR_31_BUCKET_Q_AVOIDING_BATCH_COVER_CONVERGENCE_ASSEMBLY_PACKET.json',
+        ),
+        path.join(
+          theoremLoop.sources.packProblemDir,
+          'SPLIT_ATOM_PACKETS',
+          'FRONTIER_BRIDGE',
+          'P848_P4217_POST_29_Q_AVOIDING_POST_POST_POST_POST_POST_SUCCESSOR_29_BUCKET_POST_POST_POST_POST_POST_POST_SUCCESSOR_30_BUCKET_POST_POST_POST_POST_POST_POST_POST_SUCCESSOR_31_BUCKET_RANK_BOUNDARY_CONVERGENCE_ASSEMBLY_PACKET.json',
+        ),
+        path.join(
+          theoremLoop.sources.packProblemDir,
+          'SPLIT_ATOM_PACKETS',
+          'FRONTIER_BRIDGE',
+          'P848_P4217_POST_29_Q_AVOIDING_POST_POST_POST_POST_POST_SUCCESSOR_29_BUCKET_POST_POST_POST_POST_POST_POST_SUCCESSOR_30_BUCKET_Q_AVOIDING_BATCH_COVER_CONVERGENCE_ASSEMBLY_PACKET.json',
+        ),
+        path.join(
+          theoremLoop.sources.packProblemDir,
+          'SPLIT_ATOM_PACKETS',
+          'FRONTIER_BRIDGE',
+          'P848_P4217_POST_29_Q_AVOIDING_POST_POST_POST_POST_POST_SUCCESSOR_29_BUCKET_POST_POST_POST_POST_POST_POST_SUCCESSOR_30_BUCKET_RANK_BOUNDARY_CONVERGENCE_ASSEMBLY_PACKET.json',
+        ),
+        path.join(
+          theoremLoop.sources.packProblemDir,
+          'SPLIT_ATOM_PACKETS',
+          'FRONTIER_BRIDGE',
+          'P848_P4217_POST_29_Q_AVOIDING_POST_POST_POST_POST_POST_SUCCESSOR_29_BUCKET_Q_AVOIDING_BATCH_COVER_CONVERGENCE_ASSEMBLY_PACKET.json',
+        ),
+        path.join(
+          theoremLoop.sources.packProblemDir,
+          'SPLIT_ATOM_PACKETS',
+          'FRONTIER_BRIDGE',
+          'P848_P4217_POST_29_Q_AVOIDING_POST_POST_POST_POST_POST_SUCCESSOR_29_BUCKET_RANK_BOUNDARY_CONVERGENCE_ASSEMBLY_PACKET.json',
+        ),
+        path.join(
+          theoremLoop.sources.packProblemDir,
+          'SPLIT_ATOM_PACKETS',
+          'FRONTIER_BRIDGE',
+          'P848_P4217_POST_29_Q_AVOIDING_29_BUCKET_CONVERGENCE_ASSEMBLY_PACKET.json',
+        ),
+        path.join(
+          theoremLoop.sources.packProblemDir,
+          'SPLIT_ATOM_PACKETS',
+          'FRONTIER_BRIDGE',
+          'P848_P4217_POST_29_BUCKET_RANK_BOUNDARY_CONVERGENCE_ASSEMBLY_PACKET.json',
+        ),
+        path.join(
+          theoremLoop.sources.packProblemDir,
+          'SPLIT_ATOM_PACKETS',
+          'FRONTIER_BRIDGE',
+          'P848_P4217_POST_LATER_PRIME_15_BUCKET_NEXT_PRIME_17_BUCKET_POST_NEXT_20_BUCKET_SUCCESSOR_22_BUCKET_POST_SUCCESSOR_24_BUCKET_POST_POST_SUCCESSOR_24_BUCKET_POST_POST_POST_SUCCESSOR_26_BUCKET_Q_AVOIDING_BATCH_COVER_CONVERGENCE_ASSEMBLY_PACKET.json',
+        ),
+        path.join(
+          theoremLoop.sources.packProblemDir,
+          'SPLIT_ATOM_PACKETS',
+          'FRONTIER_BRIDGE',
+          'P848_P4217_POST_LATER_PRIME_15_BUCKET_NEXT_PRIME_17_BUCKET_POST_NEXT_20_BUCKET_SUCCESSOR_22_BUCKET_POST_SUCCESSOR_24_BUCKET_POST_POST_SUCCESSOR_24_BUCKET_POST_POST_POST_SUCCESSOR_26_BUCKET_RANK_BOUNDARY_CONVERGENCE_ASSEMBLY_PACKET.json',
+        ),
+        path.join(
+          theoremLoop.sources.packProblemDir,
+          'SPLIT_ATOM_PACKETS',
+          'FRONTIER_BRIDGE',
+          'P848_P4217_POST_LATER_PRIME_15_BUCKET_NEXT_PRIME_17_BUCKET_POST_NEXT_20_BUCKET_SUCCESSOR_22_BUCKET_POST_SUCCESSOR_24_BUCKET_POST_POST_SUCCESSOR_24_BUCKET_Q_AVOIDING_BATCH_COVER_CONVERGENCE_ASSEMBLY_PACKET.json',
+        ),
+        path.join(
+          theoremLoop.sources.packProblemDir,
+          'SPLIT_ATOM_PACKETS',
+          'FRONTIER_BRIDGE',
+          'P848_P4217_POST_LATER_PRIME_15_BUCKET_NEXT_PRIME_17_BUCKET_POST_NEXT_20_BUCKET_SUCCESSOR_22_BUCKET_POST_SUCCESSOR_24_BUCKET_POST_POST_SUCCESSOR_24_BUCKET_RANK_BOUNDARY_CONVERGENCE_ASSEMBLY_PACKET.json',
+        ),
+        path.join(
+          theoremLoop.sources.packProblemDir,
+          'SPLIT_ATOM_PACKETS',
+          'FRONTIER_BRIDGE',
+          'P848_P4217_POST_LATER_PRIME_15_BUCKET_NEXT_PRIME_17_BUCKET_POST_NEXT_20_BUCKET_SUCCESSOR_22_BUCKET_POST_SUCCESSOR_24_BUCKET_Q_AVOIDING_BATCH_COVER_CONVERGENCE_ASSEMBLY_PACKET.json',
+        ),
+        path.join(
+          theoremLoop.sources.packProblemDir,
+          'SPLIT_ATOM_PACKETS',
+          'FRONTIER_BRIDGE',
+          'P848_P4217_POST_LATER_PRIME_15_BUCKET_NEXT_PRIME_17_BUCKET_POST_NEXT_20_BUCKET_SUCCESSOR_22_BUCKET_POST_SUCCESSOR_24_BUCKET_RANK_BOUNDARY_CONVERGENCE_ASSEMBLY_PACKET.json',
+        ),
+        path.join(
+          theoremLoop.sources.packProblemDir,
+          'SPLIT_ATOM_PACKETS',
+          'FRONTIER_BRIDGE',
+          'P848_P4217_POST_LATER_PRIME_15_BUCKET_NEXT_PRIME_17_BUCKET_POST_NEXT_20_BUCKET_SUCCESSOR_22_BUCKET_Q_AVOIDING_BATCH_COVER_CONVERGENCE_ASSEMBLY_PACKET.json',
+        ),
+        path.join(
+          theoremLoop.sources.packProblemDir,
+          'SPLIT_ATOM_PACKETS',
+          'FRONTIER_BRIDGE',
+          'P848_P4217_POST_LATER_PRIME_15_BUCKET_NEXT_PRIME_17_BUCKET_POST_NEXT_20_BUCKET_Q_AVOIDING_BATCH_COVER_CONVERGENCE_ASSEMBLY_PACKET.json',
+        ),
+        path.join(
+          theoremLoop.sources.packProblemDir,
+          'SPLIT_ATOM_PACKETS',
+          'FRONTIER_BRIDGE',
+          'P848_P4217_POST_LATER_PRIME_15_BUCKET_NEXT_PRIME_17_BUCKET_Q_AVOIDING_BATCH_COVER_CONVERGENCE_ASSEMBLY_PACKET.json',
+        ),
+        path.join(
+          theoremLoop.sources.packProblemDir,
+          'SPLIT_ATOM_PACKETS',
+          'FRONTIER_BRIDGE',
+          'P848_P4217_POST_LATER_PRIME_15_BUCKET_Q_AVOIDING_BATCH_COVER_CONVERGENCE_ASSEMBLY_PACKET.json',
+        ),
+        path.join(
+          theoremLoop.sources.packProblemDir,
+          'SPLIT_ATOM_PACKETS',
+          'FRONTIER_BRIDGE',
+          'P848_P4217_POST_NEXT_RANK_13_BUCKET_BATCH_COVER_CONVERGENCE_ASSEMBLY_PACKET.json',
+        ),
+        path.join(
+          theoremLoop.sources.packProblemDir,
+          'SPLIT_ATOM_PACKETS',
+          'FRONTIER_BRIDGE',
+          'P848_P4217_POST_13_BUCKET_RANK_BOUNDARY_CONVERGENCE_ASSEMBLY_PACKET.json',
+        ),
+        path.join(
+          theoremLoop.sources.packProblemDir,
+          'SPLIT_ATOM_PACKETS',
+          'FRONTIER_BRIDGE',
+          'P848_P4217_POST_Q_AVOIDING_BATCH_COVER_CONVERGENCE_ASSEMBLY_PACKET.json',
+        ),
+        path.join(
+          theoremLoop.sources.packProblemDir,
+          'SPLIT_ATOM_PACKETS',
+          'FRONTIER_BRIDGE',
+          'P848_P4217_POST_Q109_SUBBUCKET_CONVERGENCE_ASSEMBLY_PACKET.json',
+        ),
+        path.join(
+          theoremLoop.sources.packProblemDir,
+          'SPLIT_ATOM_PACKETS',
+          'FRONTIER_BRIDGE',
+          'P848_P4217_POST_P479_OBSTRUCTION_BUCKET_BOUNDARY_CONVERGENCE_ASSEMBLY_PACKET.json',
+        ),
+        path.join(
+          theoremLoop.sources.packProblemDir,
+          'SPLIT_ATOM_PACKETS',
+          'FRONTIER_BRIDGE',
+          'P848_P4217_POST_P479_AVAILABLE_BULK_COVER_CONVERGENCE_ASSEMBLY_PACKET.json',
+        ),
+        path.join(
+          theoremLoop.sources.packProblemDir,
+          'SPLIT_ATOM_PACKETS',
+          'FRONTIER_BRIDGE',
+          'P848_P4217_POST_P479_AVAILABILITY_SPLIT_CONVERGENCE_ASSEMBLY_PACKET.json',
+        ),
+        path.join(
+          theoremLoop.sources.packProblemDir,
+          'SPLIT_ATOM_PACKETS',
+          'FRONTIER_BRIDGE',
+          'P848_CONVERGENCE_ASSEMBLY_282_FIRST_FAILURE_PACKET.json',
+        ),
+      ]
+    : [];
+  const convergenceAssemblyPacketPath = convergenceAssemblyPacketPaths.find((candidatePath) => fs.existsSync(candidatePath)) ?? null;
+  const convergenceAssemblyPacket = convergenceAssemblyPacketPath
+    ? {
+      ...readJsonIfPresent(convergenceAssemblyPacketPath),
+      packetPath: convergenceAssemblyPacketPath,
+    }
+    : null;
+  const orpModeOverlays = buildProblemOrpModeOverlays(problem, granularBreakdownMode, convergenceAssemblyMode, abstractBeforeExpandGate);
   const currentTasks = buildProblemCurrentTasks(problem, theoremLoop, claimPass, formalization, formalizationWork, intervalQueue);
   const completedAnchors = buildProblemCompletedAnchors(formalizationWork);
   const nextNeededSteps = buildProblemNextNeededSteps(problem, claimPass, formalizationWork);
@@ -20718,9 +29508,15 @@ export function buildProblemTaskList(problem) {
     taskList: `erdos problem task-list ${problem.problemId}`,
     taskListRefresh: `erdos problem task-list-refresh ${problem.problemId}`,
     taskListRun: `erdos problem task-list-run ${problem.problemId} --passes 10`,
+    progress: `erdos problem progress ${problem.problemId}`,
+    progressRefresh: `erdos problem progress-refresh ${problem.problemId}`,
     orpModeList: orpModeOverlays.sourceCommand,
     granularBreakdown: granularBreakdownMode.commands.fullBreakdown,
     granularNudge: granularBreakdownMode.commands.nudge,
+    abstractBeforeExpand: abstractBeforeExpandGate.commands.fullGate,
+    abstractBeforeExpandNudge: abstractBeforeExpandGate.commands.nudge,
+    convergenceAssembly: convergenceAssemblyMode.commands.fullAssembly,
+    convergenceNudge: convergenceAssemblyMode.commands.quickNudge,
     theoremLoop: theoremLoop.commands?.theoremLoop ?? null,
     claimPass: claimPass.commands?.claimPass ?? null,
     formalization: formalization.commands?.formalization ?? null,
@@ -20731,9 +29527,14 @@ export function buildProblemTaskList(problem) {
     currentTasks,
     nextNeededSteps,
     granularBreakdownMode,
+    convergenceAssemblyMode,
+    abstractBeforeExpandGate,
+    convergenceAssemblyPacket,
     orpModeOverlays,
     commands,
   });
+
+  const compactForJson = options.compactForJson !== false;
 
   return {
     schema: 'erdos.problem_task_list/1',
@@ -20750,12 +29551,20 @@ export function buildProblemTaskList(problem) {
       routeSummary: theoremLoop.currentState?.routeSummary ?? null,
       nextHonestMove: theoremLoop.currentState?.nextHonestMove ?? null,
       latestVerifiedInterval,
+      ...(finiteGapStrategy?.exactIntervalBookkeeping
+        ? { exactIntervalBookkeeping: finiteGapStrategy.exactIntervalBookkeeping }
+        : {}),
     },
     finiteGapStrategy,
     granularBreakdownMode,
+    abstractBeforeExpandGate,
+    convergenceAssemblyMode,
+    convergenceAssemblyPacket,
     orpModeOverlays,
     agentFlow,
-    splitCoreAtomizationPlan,
+    splitCoreAtomizationPlan: compactForJson
+      ? compactP848SplitCoreAtomizationPlan(splitCoreAtomizationPlan)
+      : splitCoreAtomizationPlan,
     structuralVerifierAudit: structuralVerifierAudit?.audit
       ? {
         status: structuralVerifierAudit.audit.status ?? null,
@@ -20823,8 +29632,17 @@ export function buildProblemTaskList(problem) {
         boundary: structuralLiftChecklist.checklist.boundary ?? null,
       }
       : null,
-    executionRule: buildProblemTaskExecutionRule(problem, granularBreakdownMode),
-    loopTemplate: buildProblemTaskTemplate(problem, theoremLoop, claimPass, formalizationWork, intervalQueue, granularBreakdownMode),
+    executionRule: buildProblemTaskExecutionRule(problem, granularBreakdownMode, convergenceAssemblyMode, abstractBeforeExpandGate),
+    loopTemplate: buildProblemTaskTemplate(
+      problem,
+      theoremLoop,
+      claimPass,
+      formalizationWork,
+      intervalQueue,
+      granularBreakdownMode,
+      convergenceAssemblyMode,
+      abstractBeforeExpandGate,
+    ),
     currentObjective: {
       formalizationId: formalization.currentTarget?.formalizationId ?? null,
       focusId: formalization.currentTarget?.focusId ?? null,
@@ -20835,7 +29653,14 @@ export function buildProblemTaskList(problem) {
     },
     currentTasks,
     completedAnchors,
-    nextNeededSteps,
+    nextNeededSteps: compactForJson
+      ? compactProblemTaskHistory(nextNeededSteps, {
+        idKey: 'stepId',
+        historyLimit: 24,
+        summaryId: 'compacted_next_needed_history',
+        summaryLabel: 'completed or superseded next-needed steps',
+      })
+      : nextNeededSteps,
     commands,
     sources: {
       packProblemDir: paths.packProblemDir,
@@ -20881,12 +29706,18 @@ export function renderProblemTaskListMarkdown(doc) {
     `- Route summary: ${doc.currentState.routeSummary ?? '(none)'}`,
     `- Next honest move: ${doc.currentState.nextHonestMove ?? '(none)'}`,
     `- Latest verified interval: ${doc.currentState.latestVerifiedInterval ? `\`${doc.currentState.latestVerifiedInterval}\`` : '`(none)`'}`,
+  ];
+  if (doc.currentState.exactIntervalBookkeeping) {
+    lines.push(`- Public raw exact packet interval: \`${doc.currentState.exactIntervalBookkeeping.publicRepoRawExactInterval ?? '(unknown)'}\`.`);
+    lines.push(`- Local compact rollout evidence interval: \`${doc.currentState.exactIntervalBookkeeping.localIgnoredRolloutInterval ?? '(unknown)'}\`.`);
+  }
+  lines.push(
     '',
     '## Execution Rule',
     '',
     `- Stance: \`${doc.executionRule?.stance ?? 'concrete_execution'}\``,
     `- Summary: ${doc.executionRule?.summary ?? '(none)'}`,
-  ];
+  );
 
   for (const item of doc.executionRule?.afterEachCompletion ?? []) {
     lines.push(`- After each completed step: ${item}`);
@@ -20911,6 +29742,54 @@ export function renderProblemTaskListMarkdown(doc) {
       lines.push(`- Loop integration: ${item}`);
     }
     lines.push(`- Durable artifact rule: ${doc.granularBreakdownMode.durableArtifactRule}`);
+  }
+
+  if (doc.abstractBeforeExpandGate) {
+    lines.push('', '## Abstract Before Expanding', '');
+    lines.push(`- Status: \`${doc.abstractBeforeExpandGate.status}\``);
+    lines.push(`- Gate id: \`${doc.abstractBeforeExpandGate.gateId}\``);
+    lines.push(`- Backing ORP mode id: \`${doc.abstractBeforeExpandGate.backingModeId}\``);
+    lines.push(`- Topic: ${doc.abstractBeforeExpandGate.topic}`);
+    lines.push(`- Activation phrase: ${doc.abstractBeforeExpandGate.activationPhrase}`);
+    lines.push(`- Invocation rule: ${doc.abstractBeforeExpandGate.invocationRule}`);
+    lines.push(`- Full gate: \`${doc.abstractBeforeExpandGate.commands.fullGate}\``);
+    lines.push(`- Nudge: \`${doc.abstractBeforeExpandGate.commands.nudge}\``);
+    for (const item of doc.abstractBeforeExpandGate.triggerHeuristics ?? []) {
+      lines.push(`- Trigger heuristic: ${item}`);
+    }
+    for (const item of doc.abstractBeforeExpandGate.requiredQuestions ?? []) {
+      lines.push(`- Required question: ${item}`);
+    }
+    for (const item of doc.abstractBeforeExpandGate.allowedOutcomes ?? []) {
+      lines.push(`- Allowed outcome: \`${item}\``);
+    }
+    for (const item of doc.abstractBeforeExpandGate.loopIntegration ?? []) {
+      lines.push(`- Loop integration: ${item}`);
+    }
+    lines.push(`- Durable artifact rule: ${doc.abstractBeforeExpandGate.durableArtifactRule}`);
+  }
+
+  if (doc.convergenceAssemblyMode) {
+    lines.push('', '## Convergence Assembly', '');
+    lines.push(`- Status: \`${doc.convergenceAssemblyMode.status}\``);
+    lines.push(`- Overlay id: \`${doc.convergenceAssemblyMode.overlayId}\``);
+    lines.push(`- Backing ORP mode id: \`${doc.convergenceAssemblyMode.modeId}\``);
+    lines.push(`- Topic: ${doc.convergenceAssemblyMode.topic}`);
+    lines.push(`- Activation phrase: ${doc.convergenceAssemblyMode.activationPhrase}`);
+    lines.push(`- Invocation rule: ${doc.convergenceAssemblyMode.invocationRule}`);
+    lines.push(`- Full assembly: \`${doc.convergenceAssemblyMode.commands.fullAssembly}\``);
+    lines.push(`- Quick nudge: \`${doc.convergenceAssemblyMode.commands.quickNudge}\``);
+    lines.push(`- Simplification nudge: \`${doc.convergenceAssemblyMode.commands.simplificationNudge}\``);
+    for (const item of doc.convergenceAssemblyMode.triggerHeuristics ?? []) {
+      lines.push(`- Trigger heuristic: ${item}`);
+    }
+    for (const item of doc.convergenceAssemblyMode.requiredQuestions ?? []) {
+      lines.push(`- Required question: ${item}`);
+    }
+    for (const item of doc.convergenceAssemblyMode.loopIntegration ?? []) {
+      lines.push(`- Loop integration: ${item}`);
+    }
+    lines.push(`- Durable artifact rule: ${doc.convergenceAssemblyMode.durableArtifactRule}`);
   }
 
   if (doc.orpModeOverlays) {
@@ -20938,8 +29817,31 @@ export function renderProblemTaskListMarkdown(doc) {
     }
     lines.push(`- Default agent action: \`${doc.agentFlow.modePolicy?.defaultAction ?? 'execute_primary_next_action'}\``);
     lines.push(`- Mode selection: ${doc.agentFlow.modePolicy?.selectionRule ?? 'Use ORP modes only when they reduce friction.'}`);
+    if (doc.agentFlow.modePolicy?.worktreeHygiene?.command) {
+      const hygiene = doc.agentFlow.modePolicy.worktreeHygiene;
+      lines.push(`- Worktree hygiene: \`${hygiene.command}\``);
+      lines.push(`- Worktree hygiene rule: ${hygiene.selfHealingRule}`);
+      lines.push(`- Worktree hygiene stop condition: ${hygiene.stopCondition}`);
+    }
     if (doc.agentFlow.modePolicy?.granularBreakdown?.nudgeCommand) {
       lines.push(`- Granular nudge: \`${doc.agentFlow.modePolicy.granularBreakdown.nudgeCommand}\``);
+    }
+    if (doc.agentFlow.modePolicy?.abstractBeforeExpand?.fullGateCommand) {
+      const gate = doc.agentFlow.modePolicy.abstractBeforeExpand;
+      lines.push(`- Abstract-before-expand trigger-now: \`${gate.triggerNow ? 'yes' : 'no'}\``);
+      lines.push(`- Abstract-before-expand satisfied-by-primary: \`${gate.satisfiedByPrimaryAction ? 'yes' : 'no'}\``);
+      lines.push(`- Abstract-before-expand gate: \`${gate.fullGateCommand}\``);
+    }
+    if (doc.agentFlow.modePolicy?.convergenceAssembly?.fullAssemblyCommand) {
+      lines.push(`- Convergence assembly trigger-now: \`${doc.agentFlow.modePolicy.convergenceAssembly.triggerNow ? 'yes' : 'no'}\``);
+      lines.push(`- Convergence assembly: \`${doc.agentFlow.modePolicy.convergenceAssembly.fullAssemblyCommand}\``);
+    }
+    if (doc.agentFlow.modePolicy?.p4217ComplementStrategyGuard) {
+      const guard = doc.agentFlow.modePolicy.p4217ComplementStrategyGuard;
+      lines.push(`- p4217 complement guard trigger-now: \`${guard.triggerNow ? 'yes' : 'no'}\``);
+      lines.push(`- p4217 complement guard artifact: \`${guard.artifact}\``);
+      lines.push(`- p4217 complement guard rule: ${guard.antiSiblingLadderRule}`);
+      lines.push(`- p4217 complement post-leaf handoff: ${guard.postCurrentLeafBulkHandoff}`);
     }
     for (const overlay of doc.agentFlow.modePolicy?.situationalOverlays ?? []) {
       lines.push(`- Situational overlay \`${overlay.modeId}\`: ${overlay.useWhen} | command: \`${overlay.command}\``);
@@ -20959,6 +29861,11 @@ export function renderProblemTaskListMarkdown(doc) {
     lines.push(`- Remaining rows to operational threshold: \`${doc.finiteGapStrategy.remainingRowsToOperationalThresholdLabel}\``);
     lines.push(`- Projected endpoint checks to operational threshold: \`${doc.finiteGapStrategy.projectedEndpointChecksToOperationalThresholdLabel}\``);
     lines.push(`- Recommended mode: \`${doc.finiteGapStrategy.recommendedMode}\``);
+    if (doc.finiteGapStrategy.exactIntervalBookkeeping) {
+      lines.push(`- Public raw exact packet interval: \`${doc.finiteGapStrategy.exactIntervalBookkeeping.publicRepoRawExactInterval ?? '(unknown)'}\``);
+      lines.push(`- Local compact rollout evidence interval: \`${doc.finiteGapStrategy.exactIntervalBookkeeping.localIgnoredRolloutInterval ?? '(unknown)'}\``);
+      lines.push(`- Raw 40500 packet committed: \`${doc.finiteGapStrategy.exactIntervalBookkeeping.raw40500PacketCommitted ? 'yes' : 'no'}\``);
+    }
     for (const item of doc.finiteGapStrategy.guidance ?? []) {
       lines.push(`- Guidance: ${item}`);
     }
@@ -21177,6 +30084,18 @@ export function renderProblemTaskListMarkdown(doc) {
   }
   if (doc.commands.granularNudge) {
     lines.push(`- ORP granular nudge: \`${doc.commands.granularNudge}\``);
+  }
+  if (doc.commands.abstractBeforeExpand) {
+    lines.push(`- Abstract before expanding: \`${doc.commands.abstractBeforeExpand}\``);
+  }
+  if (doc.commands.abstractBeforeExpandNudge) {
+    lines.push(`- Abstract-before-expand nudge: \`${doc.commands.abstractBeforeExpandNudge}\``);
+  }
+  if (doc.commands.convergenceAssembly) {
+    lines.push(`- Convergence assembly: \`${doc.commands.convergenceAssembly}\``);
+  }
+  if (doc.commands.convergenceNudge) {
+    lines.push(`- Convergence nudge: \`${doc.commands.convergenceNudge}\``);
   }
   if (doc.commands.theoremLoop) {
     lines.push(`- Theorem loop: \`${doc.commands.theoremLoop}\``);
@@ -21441,11 +30360,9 @@ export function refreshProblemTaskList(problem) {
     };
   }
 
-  let taskList = buildProblemTaskList(problem);
-  const splitAtomPacketWrite = writeP848SplitAtomPacketsFromTaskList(problem, taskList);
-  if (splitAtomPacketWrite?.ok) {
-    taskList = buildProblemTaskList(problem);
-  }
+  const packetTaskList = buildProblemTaskList(problem, { compactForJson: false });
+  const splitAtomPacketWrite = writeP848SplitAtomPacketsFromTaskList(problem, packetTaskList);
+  const taskList = buildProblemTaskList(problem);
   const paths = getProblemTaskListPaths(problem);
   ensureDir(paths.packProblemDir);
   writeJson(paths.taskListJsonPath, taskList);

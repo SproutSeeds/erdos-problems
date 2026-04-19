@@ -1,0 +1,1198 @@
+{
+  "schema": "erdos.number_theory.p848_mod50_lane_square_witness_domain_census_packet/1",
+  "packetId": "p848_mod50_lane_square_witness_domain_census_packet_v1",
+  "status": "observed_square_witness_domain_decomposed_next_top_risk_group_selected",
+  "generatedAt": "2026-04-17T10:08:10.068Z",
+  "sourceArtifacts": [
+    "FORMALIZATION_WORK.json#currentWork.packetData.mod50LaneSymbolicSchema",
+    "FORMALIZATION_WORK.json#currentWork.packetData.activationDomainClosureAssessment",
+    "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_TOP_REPAIR_CLASS_MECHANISM_PACKET.json",
+    "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_MOD50_LANE_COVERAGE_HYPOTHESES_BLOCKER_PACKET.json"
+  ],
+  "parentBlocker": {
+    "packet": "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_MOD50_LANE_COVERAGE_HYPOTHESES_BLOCKER_PACKET.json",
+    "status": "mod50_lane_coverage_hypotheses_blocked_universal_square_witness_cover_missing",
+    "blockedTheoremId": "p848_mod50_lane_breakpoint_coverage_theorem_candidate_v1",
+    "missingHypothesisIds": [
+      "square_witness_domain_cover",
+      "top_lane_bad_class_avoidance_or_handoff_cover",
+      "finite_menu_to_breakpoint_bridge",
+      "post_40500_breakpoint_sufficiency"
+    ],
+    "inheritedBoundary": "This census decomposes the observed 74 finite witness instances only. It does not prove the universal square-witness domain cover named by the blocker."
+  },
+  "observedDomainCensus": {
+    "checkerId": "p848_mod50_bad_lane_symbolic_schema_checker_v1",
+    "schemaId": "p848_mod50_bad_lane_symbolic_schema_v1",
+    "status": "symbolic_bad_lane_schema_ready",
+    "instanceCount": 74,
+    "passCount": 74,
+    "failCount": 0,
+    "witnessPeriodSet": [
+      9,
+      49,
+      169,
+      289,
+      361,
+      529,
+      1369,
+      1681,
+      4489,
+      66049
+    ],
+    "witnessPeriodCount": 10,
+    "qBadResidueGroupCount": 15,
+    "qBadResidueGroups": [
+      {
+        "witnessSquareModulus": 9,
+        "badLaneResidue": 6,
+        "instanceCount": 15,
+        "exchangeKinds": [
+          "contrast_only_miss",
+          "top_only_miss"
+        ],
+        "topContinuations": [
+          432,
+          782,
+          832
+        ],
+        "contrastContinuations": [
+          332,
+          382,
+          1232
+        ],
+        "familyIndices": [
+          107,
+          161,
+          275
+        ],
+        "representatives": [
+          695323423,
+          1079001739,
+          1820631943
+        ],
+        "repairedLaneIndices": [
+          7,
+          8,
+          16
+        ]
+      },
+      {
+        "witnessSquareModulus": 9,
+        "badLaneResidue": 7,
+        "instanceCount": 4,
+        "exchangeKinds": [
+          "contrast_only_miss",
+          "top_only_miss"
+        ],
+        "topContinuations": [
+          432,
+          782,
+          832
+        ],
+        "contrastContinuations": [
+          332,
+          382,
+          1232
+        ],
+        "familyIndices": [
+          256
+        ],
+        "representatives": [
+          1684455347
+        ],
+        "repairedLaneIndices": [
+          6,
+          8,
+          15,
+          24
+        ]
+      },
+      {
+        "witnessSquareModulus": 49,
+        "badLaneResidue": 6,
+        "instanceCount": 6,
+        "exchangeKinds": [
+          "contrast_only_miss"
+        ],
+        "topContinuations": [
+          432,
+          782,
+          832
+        ],
+        "contrastContinuations": [
+          332
+        ],
+        "familyIndices": [
+          100,
+          194
+        ],
+        "representatives": [
+          657348925,
+          1297708855
+        ],
+        "repairedLaneIndices": [
+          8,
+          15,
+          16
+        ]
+      },
+      {
+        "witnessSquareModulus": 49,
+        "badLaneResidue": 7,
+        "instanceCount": 9,
+        "exchangeKinds": [
+          "contrast_only_miss"
+        ],
+        "topContinuations": [
+          432,
+          782,
+          832
+        ],
+        "contrastContinuations": [
+          382
+        ],
+        "familyIndices": [
+          60,
+          83,
+          130
+        ],
+        "representatives": [
+          342292837,
+          537246638,
+          850856389
+        ],
+        "repairedLaneIndices": [
+          8,
+          15,
+          16
+        ]
+      },
+      {
+        "witnessSquareModulus": 49,
+        "badLaneResidue": 8,
+        "instanceCount": 3,
+        "exchangeKinds": [
+          "top_only_miss"
+        ],
+        "topContinuations": [
+          432
+        ],
+        "contrastContinuations": [
+          332,
+          382,
+          1232
+        ],
+        "familyIndices": [
+          75
+        ],
+        "representatives": [
+          457148843
+        ],
+        "repairedLaneIndices": [
+          6,
+          7,
+          24
+        ]
+      },
+      {
+        "witnessSquareModulus": 169,
+        "badLaneResidue": 15,
+        "instanceCount": 2,
+        "exchangeKinds": [
+          "top_only_miss"
+        ],
+        "topContinuations": [
+          782
+        ],
+        "contrastContinuations": [
+          332,
+          382
+        ],
+        "familyIndices": [
+          234
+        ],
+        "representatives": [
+          1583883827
+        ],
+        "repairedLaneIndices": [
+          6,
+          7
+        ]
+      },
+      {
+        "witnessSquareModulus": 289,
+        "badLaneResidue": 7,
+        "instanceCount": 3,
+        "exchangeKinds": [
+          "contrast_only_miss"
+        ],
+        "topContinuations": [
+          432,
+          782,
+          832
+        ],
+        "contrastContinuations": [
+          382
+        ],
+        "familyIndices": [
+          258
+        ],
+        "representatives": [
+          1705839349
+        ],
+        "repairedLaneIndices": [
+          8,
+          15,
+          16
+        ]
+      },
+      {
+        "witnessSquareModulus": 289,
+        "badLaneResidue": 24,
+        "instanceCount": 3,
+        "exchangeKinds": [
+          "contrast_only_miss"
+        ],
+        "topContinuations": [
+          432,
+          782,
+          832
+        ],
+        "contrastContinuations": [
+          1232
+        ],
+        "familyIndices": [
+          187
+        ],
+        "representatives": [
+          1256825183
+        ],
+        "repairedLaneIndices": [
+          8,
+          15,
+          16
+        ]
+      },
+      {
+        "witnessSquareModulus": 361,
+        "badLaneResidue": 24,
+        "instanceCount": 2,
+        "exchangeKinds": [
+          "contrast_only_miss"
+        ],
+        "topContinuations": [
+          432,
+          832
+        ],
+        "contrastContinuations": [
+          1232
+        ],
+        "familyIndices": [
+          234
+        ],
+        "representatives": [
+          1583883827
+        ],
+        "repairedLaneIndices": [
+          8,
+          16
+        ]
+      },
+      {
+        "witnessSquareModulus": 529,
+        "badLaneResidue": 16,
+        "instanceCount": 9,
+        "exchangeKinds": [
+          "top_only_miss"
+        ],
+        "topContinuations": [
+          832
+        ],
+        "contrastContinuations": [
+          332,
+          382,
+          1232
+        ],
+        "familyIndices": [
+          217,
+          270,
+          271
+        ],
+        "representatives": [
+          1446717451,
+          1797117529
+        ],
+        "repairedLaneIndices": [
+          6,
+          7,
+          24
+        ]
+      },
+      {
+        "witnessSquareModulus": 1369,
+        "badLaneResidue": 24,
+        "instanceCount": 3,
+        "exchangeKinds": [
+          "contrast_only_miss"
+        ],
+        "topContinuations": [
+          432,
+          782,
+          832
+        ],
+        "contrastContinuations": [
+          1232
+        ],
+        "familyIndices": [
+          104
+        ],
+        "representatives": [
+          681558029
+        ],
+        "repairedLaneIndices": [
+          8,
+          15,
+          16
+        ]
+      },
+      {
+        "witnessSquareModulus": 1681,
+        "badLaneResidue": 6,
+        "instanceCount": 3,
+        "exchangeKinds": [
+          "contrast_only_miss"
+        ],
+        "topContinuations": [
+          432,
+          782,
+          832
+        ],
+        "contrastContinuations": [
+          332
+        ],
+        "familyIndices": [
+          133
+        ],
+        "representatives": [
+          885528547
+        ],
+        "repairedLaneIndices": [
+          8,
+          15,
+          16
+        ]
+      },
+      {
+        "witnessSquareModulus": 1681,
+        "badLaneResidue": 8,
+        "instanceCount": 3,
+        "exchangeKinds": [
+          "top_only_miss"
+        ],
+        "topContinuations": [
+          432
+        ],
+        "contrastContinuations": [
+          332,
+          382,
+          1232
+        ],
+        "familyIndices": [
+          118
+        ],
+        "representatives": [
+          770426585
+        ],
+        "repairedLaneIndices": [
+          6,
+          7,
+          24
+        ]
+      },
+      {
+        "witnessSquareModulus": 4489,
+        "badLaneResidue": 8,
+        "instanceCount": 6,
+        "exchangeKinds": [
+          "top_only_miss"
+        ],
+        "topContinuations": [
+          432
+        ],
+        "contrastContinuations": [
+          332,
+          382,
+          1232
+        ],
+        "familyIndices": [
+          236,
+          237
+        ],
+        "representatives": [
+          1585191353
+        ],
+        "repairedLaneIndices": [
+          6,
+          7,
+          24
+        ]
+      },
+      {
+        "witnessSquareModulus": 66049,
+        "badLaneResidue": 7,
+        "instanceCount": 3,
+        "exchangeKinds": [
+          "contrast_only_miss"
+        ],
+        "topContinuations": [
+          432,
+          782,
+          832
+        ],
+        "contrastContinuations": [
+          382
+        ],
+        "familyIndices": [
+          81
+        ],
+        "representatives": [
+          520923103
+        ],
+        "repairedLaneIndices": [
+          8,
+          15,
+          16
+        ]
+      }
+    ],
+    "topOnly": {
+      "instanceCount": 28,
+      "groupCount": 7,
+      "groups": [
+        {
+          "groupId": "top_832_Q529_bad16",
+          "kind": "top_only_bad_lane_group",
+          "topContinuation": 832,
+          "contrastContinuation": null,
+          "witnessSquareModulus": 529,
+          "badLaneResidue": 16,
+          "laneIndexPeriod": 529,
+          "instanceCount": 9,
+          "familyIndices": [
+            217,
+            270,
+            271
+          ],
+          "representatives": [
+            1446717451,
+            1797117529
+          ],
+          "laneEquation": "459*m ≡ 467 (mod 529)",
+          "missedLaneIndices": [
+            16
+          ],
+          "repairedLaneIndices": [
+            6,
+            7,
+            24
+          ],
+          "repairedContinuations": [
+            332,
+            382,
+            1232
+          ],
+          "exchangeKinds": [
+            "top_only_miss"
+          ],
+          "allChecksPassed": true
+        },
+        {
+          "groupId": "top_432_Q4489_bad8",
+          "kind": "top_only_bad_lane_group",
+          "topContinuation": 432,
+          "contrastContinuation": null,
+          "witnessSquareModulus": 4489,
+          "badLaneResidue": 8,
+          "laneIndexPeriod": 4489,
+          "instanceCount": 6,
+          "familyIndices": [
+            236,
+            237
+          ],
+          "representatives": [
+            1585191353
+          ],
+          "laneEquation": "1517*m ≡ 3158 (mod 4489)",
+          "missedLaneIndices": [
+            8
+          ],
+          "repairedLaneIndices": [
+            6,
+            7,
+            24
+          ],
+          "repairedContinuations": [
+            332,
+            382,
+            1232
+          ],
+          "exchangeKinds": [
+            "top_only_miss"
+          ],
+          "allChecksPassed": true
+        },
+        {
+          "groupId": "top_432_Q1681_bad8",
+          "kind": "top_only_bad_lane_group",
+          "topContinuation": 432,
+          "contrastContinuation": null,
+          "witnessSquareModulus": 1681,
+          "badLaneResidue": 8,
+          "laneIndexPeriod": 1681,
+          "instanceCount": 3,
+          "familyIndices": [
+            118
+          ],
+          "representatives": [
+            770426585
+          ],
+          "laneEquation": "568*m ≡ 1182 (mod 1681)",
+          "missedLaneIndices": [
+            8
+          ],
+          "repairedLaneIndices": [
+            6,
+            7,
+            24
+          ],
+          "repairedContinuations": [
+            332,
+            382,
+            1232
+          ],
+          "exchangeKinds": [
+            "top_only_miss"
+          ],
+          "allChecksPassed": true
+        },
+        {
+          "groupId": "top_432_Q49_bad8",
+          "kind": "top_only_bad_lane_group",
+          "topContinuation": 432,
+          "contrastContinuation": null,
+          "witnessSquareModulus": 49,
+          "badLaneResidue": 8,
+          "laneIndexPeriod": 49,
+          "instanceCount": 3,
+          "familyIndices": [
+            75
+          ],
+          "representatives": [
+            457148843
+          ],
+          "laneEquation": "11*m ≡ 39 (mod 49)",
+          "missedLaneIndices": [
+            8
+          ],
+          "repairedLaneIndices": [
+            6,
+            7,
+            24
+          ],
+          "repairedContinuations": [
+            332,
+            382,
+            1232
+          ],
+          "exchangeKinds": [
+            "top_only_miss"
+          ],
+          "allChecksPassed": true
+        },
+        {
+          "groupId": "top_782_Q9_bad6",
+          "kind": "top_only_bad_lane_group",
+          "topContinuation": 782,
+          "contrastContinuation": null,
+          "witnessSquareModulus": 9,
+          "badLaneResidue": 6,
+          "laneIndexPeriod": 9,
+          "instanceCount": 3,
+          "familyIndices": [
+            107,
+            161,
+            275
+          ],
+          "representatives": [
+            695323423,
+            1079001739,
+            1820631943
+          ],
+          "laneEquation": "5*m ≡ 3 (mod 9)",
+          "missedLaneIndices": [
+            15
+          ],
+          "repairedLaneIndices": [
+            7
+          ],
+          "repairedContinuations": [
+            382
+          ],
+          "exchangeKinds": [
+            "top_only_miss"
+          ],
+          "allChecksPassed": true
+        },
+        {
+          "groupId": "top_782_Q169_bad15",
+          "kind": "top_only_bad_lane_group",
+          "topContinuation": 782,
+          "contrastContinuation": null,
+          "witnessSquareModulus": 169,
+          "badLaneResidue": 15,
+          "laneIndexPeriod": 169,
+          "instanceCount": 2,
+          "familyIndices": [
+            234
+          ],
+          "representatives": [
+            1583883827
+          ],
+          "laneEquation": "92*m ≡ 28 (mod 169)",
+          "missedLaneIndices": [
+            15
+          ],
+          "repairedLaneIndices": [
+            6,
+            7
+          ],
+          "repairedContinuations": [
+            332,
+            382
+          ],
+          "exchangeKinds": [
+            "top_only_miss"
+          ],
+          "allChecksPassed": true
+        },
+        {
+          "groupId": "top_832_Q9_bad7",
+          "kind": "top_only_bad_lane_group",
+          "topContinuation": 832,
+          "contrastContinuation": null,
+          "witnessSquareModulus": 9,
+          "badLaneResidue": 7,
+          "laneIndexPeriod": 9,
+          "instanceCount": 2,
+          "familyIndices": [
+            256
+          ],
+          "representatives": [
+            1684455347
+          ],
+          "laneEquation": "1*m ≡ 7 (mod 9)",
+          "missedLaneIndices": [
+            16
+          ],
+          "repairedLaneIndices": [
+            6,
+            24
+          ],
+          "repairedContinuations": [
+            332,
+            1232
+          ],
+          "exchangeKinds": [
+            "top_only_miss"
+          ],
+          "allChecksPassed": true
+        }
+      ]
+    },
+    "contrastOnly": {
+      "instanceCount": 46,
+      "groupCount": 11,
+      "groups": [
+        {
+          "groupId": "contrast_382_Q49_bad7",
+          "kind": "contrast_only_bad_lane_group",
+          "topContinuation": 432,
+          "contrastContinuation": 382,
+          "witnessSquareModulus": 49,
+          "badLaneResidue": 7,
+          "laneIndexPeriod": 49,
+          "instanceCount": 9,
+          "familyIndices": [
+            60,
+            83,
+            130
+          ],
+          "representatives": [
+            342292837,
+            537246638,
+            850856389
+          ],
+          "laneEquation": "5*m ≡ 35 (mod 49)",
+          "missedLaneIndices": [
+            7
+          ],
+          "repairedLaneIndices": [
+            8,
+            15,
+            16
+          ],
+          "repairedContinuations": [
+            432,
+            782,
+            832
+          ],
+          "exchangeKinds": [
+            "contrast_only_miss"
+          ],
+          "allChecksPassed": true
+        },
+        {
+          "groupId": "contrast_332_Q49_bad6",
+          "kind": "contrast_only_bad_lane_group",
+          "topContinuation": 432,
+          "contrastContinuation": 332,
+          "witnessSquareModulus": 49,
+          "badLaneResidue": 6,
+          "laneIndexPeriod": 49,
+          "instanceCount": 6,
+          "familyIndices": [
+            100,
+            194
+          ],
+          "representatives": [
+            657348925,
+            1297708855
+          ],
+          "laneEquation": "9*m ≡ 5 (mod 49)",
+          "missedLaneIndices": [
+            6
+          ],
+          "repairedLaneIndices": [
+            8,
+            15,
+            16
+          ],
+          "repairedContinuations": [
+            432,
+            782,
+            832
+          ],
+          "exchangeKinds": [
+            "contrast_only_miss"
+          ],
+          "allChecksPassed": true
+        },
+        {
+          "groupId": "contrast_332_Q9_bad6",
+          "kind": "contrast_only_bad_lane_group",
+          "topContinuation": 432,
+          "contrastContinuation": 332,
+          "witnessSquareModulus": 9,
+          "badLaneResidue": 6,
+          "laneIndexPeriod": 9,
+          "instanceCount": 6,
+          "familyIndices": [
+            107,
+            161,
+            275
+          ],
+          "representatives": [
+            695323423,
+            1079001739,
+            1820631943
+          ],
+          "laneEquation": "5*m ≡ 3 (mod 9)",
+          "missedLaneIndices": [
+            6
+          ],
+          "repairedLaneIndices": [
+            8,
+            16
+          ],
+          "repairedContinuations": [
+            432,
+            832
+          ],
+          "exchangeKinds": [
+            "contrast_only_miss"
+          ],
+          "allChecksPassed": true
+        },
+        {
+          "groupId": "contrast_1232_Q9_bad6",
+          "kind": "contrast_only_bad_lane_group",
+          "topContinuation": 432,
+          "contrastContinuation": 1232,
+          "witnessSquareModulus": 9,
+          "badLaneResidue": 6,
+          "laneIndexPeriod": 9,
+          "instanceCount": 6,
+          "familyIndices": [
+            107,
+            161,
+            275
+          ],
+          "representatives": [
+            695323423,
+            1079001739,
+            1820631943
+          ],
+          "laneEquation": "5*m ≡ 3 (mod 9)",
+          "missedLaneIndices": [
+            24
+          ],
+          "repairedLaneIndices": [
+            8,
+            16
+          ],
+          "repairedContinuations": [
+            432,
+            832
+          ],
+          "exchangeKinds": [
+            "contrast_only_miss"
+          ],
+          "allChecksPassed": true
+        },
+        {
+          "groupId": "contrast_382_Q66049_bad7",
+          "kind": "contrast_only_bad_lane_group",
+          "topContinuation": 432,
+          "contrastContinuation": 382,
+          "witnessSquareModulus": 66049,
+          "badLaneResidue": 7,
+          "laneIndexPeriod": 66049,
+          "instanceCount": 3,
+          "familyIndices": [
+            81
+          ],
+          "representatives": [
+            520923103
+          ],
+          "laneEquation": "62245*m ≡ 39421 (mod 66049)",
+          "missedLaneIndices": [
+            7
+          ],
+          "repairedLaneIndices": [
+            8,
+            15,
+            16
+          ],
+          "repairedContinuations": [
+            432,
+            782,
+            832
+          ],
+          "exchangeKinds": [
+            "contrast_only_miss"
+          ],
+          "allChecksPassed": true
+        },
+        {
+          "groupId": "contrast_332_Q1681_bad6",
+          "kind": "contrast_only_bad_lane_group",
+          "topContinuation": 432,
+          "contrastContinuation": 332,
+          "witnessSquareModulus": 1681,
+          "badLaneResidue": 6,
+          "laneIndexPeriod": 1681,
+          "instanceCount": 3,
+          "familyIndices": [
+            133
+          ],
+          "representatives": [
+            885528547
+          ],
+          "laneEquation": "172*m ≡ 1032 (mod 1681)",
+          "missedLaneIndices": [
+            6
+          ],
+          "repairedLaneIndices": [
+            8,
+            15,
+            16
+          ],
+          "repairedContinuations": [
+            432,
+            782,
+            832
+          ],
+          "exchangeKinds": [
+            "contrast_only_miss"
+          ],
+          "allChecksPassed": true
+        },
+        {
+          "groupId": "contrast_1232_Q1369_bad24",
+          "kind": "contrast_only_bad_lane_group",
+          "topContinuation": 432,
+          "contrastContinuation": 1232,
+          "witnessSquareModulus": 1369,
+          "badLaneResidue": 24,
+          "laneIndexPeriod": 1369,
+          "instanceCount": 3,
+          "familyIndices": [
+            104
+          ],
+          "representatives": [
+            681558029
+          ],
+          "laneEquation": "500*m ≡ 1048 (mod 1369)",
+          "missedLaneIndices": [
+            24
+          ],
+          "repairedLaneIndices": [
+            8,
+            15,
+            16
+          ],
+          "repairedContinuations": [
+            432,
+            782,
+            832
+          ],
+          "exchangeKinds": [
+            "contrast_only_miss"
+          ],
+          "allChecksPassed": true
+        },
+        {
+          "groupId": "contrast_382_Q289_bad7",
+          "kind": "contrast_only_bad_lane_group",
+          "topContinuation": 432,
+          "contrastContinuation": 382,
+          "witnessSquareModulus": 289,
+          "badLaneResidue": 7,
+          "laneIndexPeriod": 289,
+          "instanceCount": 3,
+          "familyIndices": [
+            258
+          ],
+          "representatives": [
+            1705839349
+          ],
+          "laneEquation": "15*m ≡ 105 (mod 289)",
+          "missedLaneIndices": [
+            7
+          ],
+          "repairedLaneIndices": [
+            8,
+            15,
+            16
+          ],
+          "repairedContinuations": [
+            432,
+            782,
+            832
+          ],
+          "exchangeKinds": [
+            "contrast_only_miss"
+          ],
+          "allChecksPassed": true
+        },
+        {
+          "groupId": "contrast_1232_Q289_bad24",
+          "kind": "contrast_only_bad_lane_group",
+          "topContinuation": 432,
+          "contrastContinuation": 1232,
+          "witnessSquareModulus": 289,
+          "badLaneResidue": 24,
+          "laneIndexPeriod": 289,
+          "instanceCount": 3,
+          "familyIndices": [
+            187
+          ],
+          "representatives": [
+            1256825183
+          ],
+          "laneEquation": "83*m ≡ 258 (mod 289)",
+          "missedLaneIndices": [
+            24
+          ],
+          "repairedLaneIndices": [
+            8,
+            15,
+            16
+          ],
+          "repairedContinuations": [
+            432,
+            782,
+            832
+          ],
+          "exchangeKinds": [
+            "contrast_only_miss"
+          ],
+          "allChecksPassed": true
+        },
+        {
+          "groupId": "contrast_1232_Q361_bad24",
+          "kind": "contrast_only_bad_lane_group",
+          "topContinuation": 432,
+          "contrastContinuation": 1232,
+          "witnessSquareModulus": 361,
+          "badLaneResidue": 24,
+          "laneIndexPeriod": 361,
+          "instanceCount": 2,
+          "familyIndices": [
+            234
+          ],
+          "representatives": [
+            1583883827
+          ],
+          "laneEquation": "99*m ≡ 210 (mod 361)",
+          "missedLaneIndices": [
+            24
+          ],
+          "repairedLaneIndices": [
+            8,
+            16
+          ],
+          "repairedContinuations": [
+            432,
+            832
+          ],
+          "exchangeKinds": [
+            "contrast_only_miss"
+          ],
+          "allChecksPassed": true
+        },
+        {
+          "groupId": "contrast_382_Q9_bad7",
+          "kind": "contrast_only_bad_lane_group",
+          "topContinuation": 432,
+          "contrastContinuation": 382,
+          "witnessSquareModulus": 9,
+          "badLaneResidue": 7,
+          "laneIndexPeriod": 9,
+          "instanceCount": 2,
+          "familyIndices": [
+            256
+          ],
+          "representatives": [
+            1684455347
+          ],
+          "laneEquation": "1*m ≡ 7 (mod 9)",
+          "missedLaneIndices": [
+            7
+          ],
+          "repairedLaneIndices": [
+            8,
+            15
+          ],
+          "repairedContinuations": [
+            432,
+            782
+          ],
+          "exchangeKinds": [
+            "contrast_only_miss"
+          ],
+          "allChecksPassed": true
+        }
+      ]
+    }
+  },
+  "alreadyClosedObservedSubdomains": [
+    {
+      "groupId": "anchor_832_witness_529",
+      "failingAnchor": 832,
+      "witnessSquareModulus": 529,
+      "status": "finite_group_closure_certified_symbolic_domain_split",
+      "checkedRowCount": 3,
+      "sourcePacket": "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_TOP_REPAIR_CLASS_MECHANISM_PACKET.json#anchor832Witness529Domain",
+      "profileSublaneStatus": "finite_profile_sublane_resolved_as_zero_lift_duplicate",
+      "profileSublanePacketId": "p848_832_529_pre132_profile_sublane_packet_v1",
+      "conclusion": "Rows 270, 271 are a finite duplicate final-anchor variant over the same CRT prefix through anchor 132, not evidence for a separate broad symbolic family."
+    }
+  ],
+  "rankingRule": {
+    "ruleId": "p848_mod50_observed_domain_next_subprobe_rank_v1",
+    "criteria": [
+      "Prefer top-only bad-lane groups over contrast-only groups because the top repair-class theorem must explain when a top candidate is itself square-blocked.",
+      "Skip groups already closed by a finite domain/profile packet.",
+      "Among unresolved top-only groups, prefer repeated activation-domain groups with multiple raw family rows and a shared representative.",
+      "Use the finite-domain subprobe to decide duplicate-final-anchor behavior before widening exact compute."
+    ]
+  },
+  "selectedNextSubprobe": {
+    "stepId": "prove_p848_mod50_anchor432_witness4489_domain_or_emit_profile_split",
+    "status": "selected_unresolved_finite_domain_subprobe",
+    "groupId": "anchor_432_witness_4489",
+    "failingAnchor": 432,
+    "witnessSquareModulus": 4489,
+    "rowCount": 2,
+    "familyIndices": [
+      236,
+      237
+    ],
+    "representatives": [
+      1585191353
+    ],
+    "tupleKeys": [
+      "4, 19^2, 13^2, 7^2, 23^2, 11^2",
+      "9, 19^2, 13^2, 7^2, 23^2, 11^2"
+    ],
+    "observedTopOnlyGroup": {
+      "groupId": "top_432_Q4489_bad8",
+      "kind": "top_only_bad_lane_group",
+      "topContinuation": 432,
+      "contrastContinuation": null,
+      "witnessSquareModulus": 4489,
+      "badLaneResidue": 8,
+      "laneIndexPeriod": 4489,
+      "instanceCount": 6,
+      "familyIndices": [
+        236,
+        237
+      ],
+      "representatives": [
+        1585191353
+      ],
+      "laneEquation": "1517*m ≡ 3158 (mod 4489)",
+      "missedLaneIndices": [
+        8
+      ],
+      "repairedLaneIndices": [
+        6,
+        7,
+        24
+      ],
+      "repairedContinuations": [
+        332,
+        382,
+        1232
+      ],
+      "exchangeKinds": [
+        "top_only_miss"
+      ],
+      "allChecksPassed": true
+    },
+    "whySelected": "After anchor_832_witness_529 is already resolved as a finite zero-lift duplicate, anchor_432_witness_4489 is the largest unresolved repeated top-only risk group in the observed mod-50 witness domain: two raw family rows, one shared representative, and six pairwise top-only bad-lane instances.",
+    "deterministicSuccessorBoundary": [
+      "If rows 236 and 237 replay as the same CRT prefix with only zero-lift final-anchor variation, emit a finite duplicate/profile-sublane closure packet.",
+      "If they split into genuinely different pre-132 or activation profiles, emit a profile split packet naming the uncovered symbolic family.",
+      "If a row fails replay or the witness relation is not recoverable from FORMALIZATION_WORK, emit a counterfamily/source blocker before any 40501+ rollout."
+    ]
+  },
+  "nextTheoremMove": "Replay rows 236 and 237 for anchor_432_witness_4489 from raw tuple rows, decide finite duplicate versus symbolic profile family, and emit either a finite closure/profile split packet or an exact counterfamily/source blocker.",
+  "recommendedNextAction": "prove_p848_mod50_anchor432_witness4489_domain_or_emit_profile_split",
+  "verification": {
+    "localAuditCommand": "jq '.selectedNextSubprobe, .observedDomainCensus.topOnly.groupCount, .observedDomainCensus.contrastOnly.groupCount' packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_MOD50_LANE_SQUARE_WITNESS_DOMAIN_CENSUS_PACKET.json",
+    "regressionCommand": "node --test test/p848-282-alignment-obstruction-packet.test.js"
+  },
+  "claims": {
+    "decomposesObservedSquareWitnessDomain": true,
+    "ranksObservedFiniteDomainSubprobes": true,
+    "selectsFiniteNextDomainSubprobe": true,
+    "closesAnchor832Witness529AsAlreadyResolved": true,
+    "provesUniversalSquareWitnessDomainCover": false,
+    "justifies40501PlusRollout": false,
+    "provesP4217ComplementCoverage": false,
+    "provesAllN": false
+  }
+}

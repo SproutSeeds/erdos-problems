@@ -1,8 +1,8 @@
 {
   "schema": "erdos.p848_split_atom_packet_manifest/1",
-  "generatedAt": "2026-04-14T11:46:10.338Z",
+  "generatedAt": "2026-04-19T04:10:18.816Z",
   "problemId": "848",
-  "sourceTaskListGeneratedAt": "2026-04-14T11:46:09.617Z",
+  "sourceTaskListGeneratedAt": "2026-04-19T04:10:18.685Z",
   "sourcePlanId": "p848_split_core_atomization_master_plan_v1",
   "directoryPath": "/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS",
   "successorDirectoryPath": "/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/SUCCESSORS",

@@ -1,0 +1,195 @@
+{
+  "schema": "erdos.number_theory.p848_endpoint_availability_obstruction_repair/1",
+  "generatedAt": "2026-04-17T01:14:35.041Z",
+  "problemId": "848",
+  "status": "representative_repair_found_universal_window_squarefree_lift_needed",
+  "activeAtom": "D2_p13_q17_endpoint_menu_squarefree_obstruction_p23_q29_p41_q13_p103_q2_p37_q19_subclass",
+  "sourceAvailabilitySplit": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DYNAMIC_MARGIN_PROOFS/D2_p13_dynamic_margin_exact_mixed_matching_injection_selected_cross_squarefree_exception_period_shifted_endpoint_menu_q17_residual_window_relaxed_fallback_menu_squarefree_obstruction_p41_q13_p103_q2_p37_availability_split.json",
+  "target": {
+    "description": "q17 p41/q13/p103 parity/p37/q19 square-obstruction subclass alternate-endpoint repair probe",
+    "outsider": 6323,
+    "residualClass": {
+      "residue": "3238057429332580340521457",
+      "modulus": "29223334878926083912844100"
+    },
+    "start": "3238057429332580340521457",
+    "end": "3238057429332580340521457",
+    "visitedRowCount": 1,
+    "window": 28500,
+    "blockedEndpointPrime": 37,
+    "blockedSquareDivisor": 361,
+    "squareCheck": {
+      "mode": "factor",
+      "checkedPrimeLimit": null
+    }
+  },
+  "obstructionSummary": {
+    "tCongruence": {
+      "residue": 54760,
+      "modulus": 494209,
+      "expression": "t == 54760 mod 494209"
+    },
+    "leftCongruence": {
+      "residue": "3238057429332580340521457",
+      "modulus": "29223334878926083912844100",
+      "expression": "left == 3238057429332580340521457 mod 29223334878926083912844100"
+    },
+    "squareDivisibilityWitness": {
+      "expression": "19^2 | left*right+1",
+      "crossProductPlusOneAtResidue": "10485015915655918525803276689475338906467452456227",
+      "residueModuloObstructionSquare": 0
+    }
+  },
+  "firstRepair": {
+    "left": "3238057429332580340521457",
+    "alternateEndpoint": {
+      "prime": 31,
+      "k": 727,
+      "delta": -18189,
+      "right": "3238057429332580340503268",
+      "withinWindow": true,
+      "squarefreeStatus": "exact_squarefree",
+      "squareDivisorPrime": null,
+      "squareDivisor": null,
+      "checkedSquarePrimeLimit": null
+    },
+    "blockedEndpoint": null,
+    "availabilityRule": {
+      "window": 28500,
+      "maxK": 1139,
+      "minimalWindowForMaxK": 28489,
+      "criterion": "within window 28500 iff k_31(left) <= 1139",
+      "leftParameterization": "left = 3238057429332580340521457 + 29223334878926083912844100*t",
+      "kFormulaInT": "k_31(t) = (506*t + 727) mod 961",
+      "tPeriod": 961,
+      "stepGcdWithPrimeSquare": 1,
+      "availableResidueCount": 961,
+      "unavailableResidueCount": 0,
+      "density": 1,
+      "universallyWithinWindow": true,
+      "firstAvailableTResidues": [
+        {
+          "tResidue": 0,
+          "k": 727
+        },
+        {
+          "tResidue": 1,
+          "k": 272
+        },
+        {
+          "tResidue": 2,
+          "k": 778
+        },
+        {
+          "tResidue": 3,
+          "k": 323
+        },
+        {
+          "tResidue": 4,
+          "k": 829
+        },
+        {
+          "tResidue": 5,
+          "k": 374
+        },
+        {
+          "tResidue": 6,
+          "k": 880
+        },
+        {
+          "tResidue": 7,
+          "k": 425
+        },
+        {
+          "tResidue": 8,
+          "k": 931
+        },
+        {
+          "tResidue": 9,
+          "k": 476
+        },
+        {
+          "tResidue": 10,
+          "k": 21
+        },
+        {
+          "tResidue": 11,
+          "k": 527
+        },
+        {
+          "tResidue": 12,
+          "k": 72
+        },
+        {
+          "tResidue": 13,
+          "k": 578
+        },
+        {
+          "tResidue": 14,
+          "k": 123
+        },
+        {
+          "tResidue": 15,
+          "k": 629
+        }
+      ],
+      "firstUnavailableTResidue": null
+    }
+  },
+  "firstUnrepairedRow": null,
+  "rowSamples": [
+    {
+      "left": "3238057429332580340521457",
+      "leftModResidualClass": "3238057429332580340521457",
+      "blockedEndpoint": null,
+      "alternateEndpoint": {
+        "prime": 31,
+        "k": 727,
+        "delta": -18189,
+        "right": "3238057429332580340503268",
+        "withinWindow": true,
+        "squarefreeStatus": "exact_squarefree",
+        "squareDivisorPrime": null,
+        "squareDivisor": null,
+        "checkedSquarePrimeLimit": null
+      },
+      "withinWindowUsableEndpoints": [
+        {
+          "prime": 31,
+          "k": 727,
+          "delta": -18189,
+          "right": "3238057429332580340503268",
+          "withinWindow": true,
+          "squarefreeStatus": "exact_squarefree",
+          "squareDivisorPrime": null,
+          "squareDivisor": null,
+          "checkedSquarePrimeLimit": null
+        }
+      ],
+      "blockedWithinWindowEndpoints": [],
+      "nearestUsableOutsideWindow": []
+    }
+  ],
+  "claims": {
+    "provesEndpointFormulas": true,
+    "provesRepresentativeRepair": true,
+    "provesSubclassCoverage": false,
+    "provesSymbolicSquarefreeHitting": false,
+    "provesAllN": false,
+    "provesCollisionFreeMatching": false
+  },
+  "proofBoundary": "This packet repairs the emitted p41/q13/p103 parity/p37/q19 square-obstruction representative with an alternate endpoint. Because the alternate endpoint is not yet proved across the full subclass, this is a split/availability handoff rather than a subclass proof.",
+  "nextTheoremOptions": [
+    {
+      "id": "prove_q17_p41_q13_p103_q2_p37_q19_p31_symbolic_squarefree_lift",
+      "status": "next",
+      "statement": "The p31 endpoint is universally inside the window on the p41/q13/p103 parity/p37/q19 subclass; prove the symbolic squarefree lift for that endpoint or emit its first square-divisor subprogression."
+    },
+    {
+      "id": "emit_p41_q13_p103_q2_p37_q19_square_obstruction_successor",
+      "status": "fallback",
+      "statement": "If the alternate endpoint cannot be lifted, emit the p41/q13/p103 parity/p37/q19 obstruction subclass as the next deterministic successor atom."
+    }
+  ],
+  "recommendedNextAction": "prove_q17_p41_q13_p103_q2_p37_q19_p31_symbolic_squarefree_lift"
+}

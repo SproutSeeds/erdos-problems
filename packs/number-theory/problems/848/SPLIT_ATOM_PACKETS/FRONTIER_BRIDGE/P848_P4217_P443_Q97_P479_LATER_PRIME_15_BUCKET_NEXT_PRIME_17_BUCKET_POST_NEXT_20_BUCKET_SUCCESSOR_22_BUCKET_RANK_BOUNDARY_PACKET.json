@@ -1,0 +1,4234 @@
+{
+  "schema": "erdos.number_theory.p848_p4217_p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_rank_boundary/1",
+  "generatedAt": "2026-04-17T17:44:55.547Z",
+  "problemId": 848,
+  "status": "p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_deterministic_rank_boundary_emitted",
+  "target": "compress_p848_p4217_p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_buckets_or_emit_rank_boundary",
+  "sourceAudit": {
+    "postNext20BucketQAvoidingBatchCoverPacket": {
+      "path": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_P443_Q97_P479_LATER_PRIME_15_BUCKET_NEXT_PRIME_17_BUCKET_POST_NEXT_20_BUCKET_Q_AVOIDING_BATCH_COVER_PACKET.json",
+      "sha256": "66b962013f98fedfc62662a3caa8ab98d869166efb7c176a2a057e49ab34e733",
+      "status": "all_20_bucket_post_next_q_avoiding_classes_have_later_square_obstruction_child"
+    },
+    "postNext20BucketQAvoidingBatchCoverAssemblyPacket": {
+      "path": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_POST_LATER_PRIME_15_BUCKET_NEXT_PRIME_17_BUCKET_POST_NEXT_20_BUCKET_Q_AVOIDING_BATCH_COVER_CONVERGENCE_ASSEMBLY_PACKET.json",
+      "sha256": "ff9bdad42af184060d8495fd024d3fc9aa520da2f8c9b5bb449785e5deda9aea",
+      "status": "post_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_q_avoiding_batch_cover_convergence_assembly_selects_22_bucket_successor_rank_compression"
+    }
+  },
+  "boundarySummary": {
+    "sourcePostNextBucketCount": 20,
+    "sourceRowCount": 718,
+    "sourcePostNextQAvoidingClassCount": "2946810455708641575397311",
+    "successorObstructionPrimeBucketCount": 22,
+    "successorObstructionPrimes": [
+      139,
+      149,
+      151,
+      157,
+      163,
+      167,
+      173,
+      179,
+      181,
+      191,
+      193,
+      197,
+      199,
+      211,
+      223,
+      227,
+      229,
+      233,
+      239,
+      241,
+      251,
+      263
+    ],
+    "minSuccessorObstructionPrime": 139,
+    "maxSuccessorObstructionPrime": 263,
+    "rootResidueCountsPerClass": [
+      2
+    ],
+    "totalSuccessorRootChildCount": "5893620911417283150794622",
+    "totalSuccessorQAvoidingClassCount": "111172518226866898571161320153",
+    "survivorSourceRowCount": 0,
+    "survivorPostNextQAvoidingClassCount": "0"
+  },
+  "deterministicRankBoundary": {
+    "consumedFiniteToken": "p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_rank_boundary",
+    "producedFiniteTokenCount": 22,
+    "producedFiniteTokens": [
+      {
+        "tokenId": "p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_q139_rank_boundary",
+        "successorObstructionPrime": 139,
+        "successorObstructionSquare": 19321,
+        "sourceRowCount": 6,
+        "sourcePostNextQAvoidingClassCount": "4725637512006611363898",
+        "rootResidueCountsPerClass": [
+          2
+        ],
+        "successorRootChildCount": "9451275024013222727796",
+        "successorQAvoidingClassCount": "91294591094455724939145462",
+        "previousPostNextPrimeBuckets": [
+          {
+            "previousPostNextObstructionPrime": 137,
+            "sourceRowCount": 6,
+            "sourcePostNextQAvoidingClassCount": "4725637512006611363898"
+          }
+        ],
+        "previousNextPrimeBuckets": [
+          {
+            "previousNextObstructionPrime": 131,
+            "sourceRowCount": 6,
+            "sourcePostNextQAvoidingClassCount": "4725637512006611363898"
+          }
+        ],
+        "previousLaterPrimeBuckets": [
+          {
+            "previousLaterObstructionPrime": 127,
+            "sourceRowCount": 6,
+            "sourcePostNextQAvoidingClassCount": "4725637512006611363898"
+          }
+        ],
+        "status": "open_exact_two_root_successor_rank_boundary",
+        "proofObligation": "Cover this bucket as part of the whole 22-bucket successor q-avoiding batch/rank action, or emit a sharper exact subboundary. This token does not authorize singleton q-child descent by itself."
+      },
+      {
+        "tokenId": "p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_q149_rank_boundary",
+        "successorObstructionPrime": 149,
+        "successorObstructionSquare": 22201,
+        "sourceRowCount": 37,
+        "sourcePostNextQAvoidingClassCount": "35217541143700389825659",
+        "rootResidueCountsPerClass": [
+          2
+        ],
+        "successorRootChildCount": "70435082287400779651318",
+        "successorQAvoidingClassCount": "781794195849004953739804141",
+        "previousPostNextPrimeBuckets": [
+          {
+            "previousPostNextObstructionPrime": 137,
+            "sourceRowCount": 7,
+            "sourcePostNextQAvoidingClassCount": "5513243764007713257881"
+          },
+          {
+            "previousPostNextObstructionPrime": 139,
+            "sourceRowCount": 30,
+            "sourcePostNextQAvoidingClassCount": "29704297379692676567778"
+          }
+        ],
+        "previousNextPrimeBuckets": [
+          {
+            "previousNextObstructionPrime": 131,
+            "sourceRowCount": 15,
+            "sourcePostNextQAvoidingClassCount": "11999422772867642917329"
+          },
+          {
+            "previousNextObstructionPrime": 137,
+            "sourceRowCount": 22,
+            "sourcePostNextQAvoidingClassCount": "23218118370832746908330"
+          }
+        ],
+        "previousLaterPrimeBuckets": [
+          {
+            "previousLaterObstructionPrime": 127,
+            "sourceRowCount": 22,
+            "sourcePostNextQAvoidingClassCount": "18206681720176053222650"
+          },
+          {
+            "previousLaterObstructionPrime": 131,
+            "sourceRowCount": 15,
+            "sourcePostNextQAvoidingClassCount": "17010859423524336603009"
+          }
+        ],
+        "status": "open_exact_two_root_successor_rank_boundary",
+        "proofObligation": "Cover this bucket as part of the whole 22-bucket successor q-avoiding batch/rank action, or emit a sharper exact subboundary. This token does not authorize singleton q-child descent by itself."
+      },
+      {
+        "tokenId": "p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_q151_rank_boundary",
+        "successorObstructionPrime": 151,
+        "successorObstructionSquare": 22801,
+        "sourceRowCount": 46,
+        "sourcePostNextQAvoidingClassCount": "55017652384272146351727",
+        "rootResidueCountsPerClass": [
+          2
+        ],
+        "successorRootChildCount": "110035304768544292703454",
+        "successorQAvoidingClassCount": "1254347456709020664673023873",
+        "previousPostNextPrimeBuckets": [
+          {
+            "previousPostNextObstructionPrime": 137,
+            "sourceRowCount": 3,
+            "sourcePostNextQAvoidingClassCount": "2362818756003305681949"
+          },
+          {
+            "previousPostNextObstructionPrime": 139,
+            "sourceRowCount": 10,
+            "sourcePostNextQAvoidingClassCount": "10227440771941623313958"
+          },
+          {
+            "previousPostNextObstructionPrime": 149,
+            "sourceRowCount": 33,
+            "sourcePostNextQAvoidingClassCount": "42427392856327217355820"
+          }
+        ],
+        "previousNextPrimeBuckets": [
+          {
+            "previousNextObstructionPrime": 131,
+            "sourceRowCount": 7,
+            "sourcePostNextQAvoidingClassCount": "5847641729369506825913"
+          },
+          {
+            "previousNextObstructionPrime": 137,
+            "sourceRowCount": 19,
+            "sourcePostNextQAvoidingClassCount": "21257056014986579440842"
+          },
+          {
+            "previousNextObstructionPrime": 139,
+            "sourceRowCount": 20,
+            "sourcePostNextQAvoidingClassCount": "27912954639916060084972"
+          }
+        ],
+        "previousLaterPrimeBuckets": [
+          {
+            "previousLaterObstructionPrime": 127,
+            "sourceRowCount": 19,
+            "sourcePostNextQAvoidingClassCount": "17951265399551350499010"
+          },
+          {
+            "previousLaterObstructionPrime": 131,
+            "sourceRowCount": 17,
+            "sourcePostNextQAvoidingClassCount": "21446780970385476202735"
+          },
+          {
+            "previousLaterObstructionPrime": 137,
+            "sourceRowCount": 10,
+            "sourcePostNextQAvoidingClassCount": "15619606014335319649982"
+          }
+        ],
+        "status": "open_exact_two_root_successor_rank_boundary",
+        "proofObligation": "Cover this bucket as part of the whole 22-bucket successor q-avoiding batch/rank action, or emit a sharper exact subboundary. This token does not authorize singleton q-child descent by itself."
+      },
+      {
+        "tokenId": "p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_q157_rank_boundary",
+        "successorObstructionPrime": 157,
+        "successorObstructionSquare": 24649,
+        "sourceRowCount": 78,
+        "sourcePostNextQAvoidingClassCount": "128113813555682804177370",
+        "rootResidueCountsPerClass": [
+          2
+        ],
+        "successorRootChildCount": "256227627111365608354740",
+        "successorQAvoidingClassCount": "3157621162706914074559638390",
+        "previousPostNextPrimeBuckets": [
+          {
+            "previousPostNextObstructionPrime": 137,
+            "sourceRowCount": 1,
+            "sourcePostNextQAvoidingClassCount": "787606252001101893983"
+          },
+          {
+            "previousPostNextObstructionPrime": 139,
+            "sourceRowCount": 7,
+            "sourcePostNextQAvoidingClassCount": "7173042081010229083289"
+          },
+          {
+            "previousPostNextObstructionPrime": 149,
+            "sourceRowCount": 19,
+            "sourcePostNextQAvoidingClassCount": "26450458150622418236261"
+          },
+          {
+            "previousPostNextObstructionPrime": 151,
+            "sourceRowCount": 51,
+            "sourcePostNextQAvoidingClassCount": "93702707072049054963837"
+          }
+        ],
+        "previousNextPrimeBuckets": [
+          {
+            "previousNextObstructionPrime": 131,
+            "sourceRowCount": 8,
+            "sourcePostNextQAvoidingClassCount": "7142888266136704979800"
+          },
+          {
+            "previousNextObstructionPrime": 137,
+            "sourceRowCount": 15,
+            "sourcePostNextQAvoidingClassCount": "17962228985929398969393"
+          },
+          {
+            "previousNextObstructionPrime": 139,
+            "sourceRowCount": 24,
+            "sourcePostNextQAvoidingClassCount": "38361871392476388750672"
+          },
+          {
+            "previousNextObstructionPrime": 149,
+            "sourceRowCount": 31,
+            "sourcePostNextQAvoidingClassCount": "64646824911140311477505"
+          }
+        ],
+        "previousLaterPrimeBuckets": [
+          {
+            "previousLaterObstructionPrime": 127,
+            "sourceRowCount": 15,
+            "sourcePostNextQAvoidingClassCount": "14887484167677109445121"
+          },
+          {
+            "previousLaterObstructionPrime": 131,
+            "sourceRowCount": 25,
+            "sourcePostNextQAvoidingClassCount": "33011076198412433729279"
+          },
+          {
+            "previousLaterObstructionPrime": 137,
+            "sourceRowCount": 22,
+            "sourcePostNextQAvoidingClassCount": "41893816260919295492666"
+          },
+          {
+            "previousLaterObstructionPrime": 139,
+            "sourceRowCount": 16,
+            "sourcePostNextQAvoidingClassCount": "38321436928673965510304"
+          }
+        ],
+        "status": "open_exact_two_root_successor_rank_boundary",
+        "proofObligation": "Cover this bucket as part of the whole 22-bucket successor q-avoiding batch/rank action, or emit a sharper exact subboundary. This token does not authorize singleton q-child descent by itself."
+      },
+      {
+        "tokenId": "p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_q163_rank_boundary",
+        "successorObstructionPrime": 163,
+        "successorObstructionSquare": 26569,
+        "sourceRowCount": 85,
+        "sourcePostNextQAvoidingClassCount": "170954053841343132395315",
+        "rootResidueCountsPerClass": [
+          2
+        ],
+        "successorRootChildCount": "341908107682686264790630",
+        "successorQAvoidingClassCount": "4541736348402962998346333605",
+        "previousPostNextPrimeBuckets": [
+          {
+            "previousPostNextObstructionPrime": 137,
+            "sourceRowCount": 3,
+            "sourcePostNextQAvoidingClassCount": "2362818756003305681949"
+          },
+          {
+            "previousPostNextObstructionPrime": 139,
+            "sourceRowCount": 5,
+            "sourcePostNextQAvoidingClassCount": "4789433530464401952427"
+          },
+          {
+            "previousPostNextObstructionPrime": 149,
+            "sourceRowCount": 7,
+            "sourcePostNextQAvoidingClassCount": "12006647912669384014649"
+          },
+          {
+            "previousPostNextObstructionPrime": 151,
+            "sourceRowCount": 25,
+            "sourcePostNextQAvoidingClassCount": "43412936709631951522991"
+          },
+          {
+            "previousPostNextObstructionPrime": 157,
+            "sourceRowCount": 45,
+            "sourcePostNextQAvoidingClassCount": "108382216932574089223299"
+          }
+        ],
+        "previousNextPrimeBuckets": [
+          {
+            "previousNextObstructionPrime": 131,
+            "sourceRowCount": 6,
+            "sourcePostNextQAvoidingClassCount": "5018739343091797894914"
+          },
+          {
+            "previousNextObstructionPrime": 137,
+            "sourceRowCount": 9,
+            "sourcePostNextQAvoidingClassCount": "11217296457643094117439"
+          },
+          {
+            "previousNextObstructionPrime": 139,
+            "sourceRowCount": 21,
+            "sourcePostNextQAvoidingClassCount": "35022258375217398152091"
+          },
+          {
+            "previousNextObstructionPrime": 149,
+            "sourceRowCount": 26,
+            "sourcePostNextQAvoidingClassCount": "56026817491200420982558"
+          },
+          {
+            "previousNextObstructionPrime": 151,
+            "sourceRowCount": 23,
+            "sourcePostNextQAvoidingClassCount": "63668942174190421248313"
+          }
+        ],
+        "previousLaterPrimeBuckets": [
+          {
+            "previousLaterObstructionPrime": 127,
+            "sourceRowCount": 9,
+            "sourcePostNextQAvoidingClassCount": "8480686047480448639551"
+          },
+          {
+            "previousLaterObstructionPrime": 131,
+            "sourceRowCount": 17,
+            "sourcePostNextQAvoidingClassCount": "24893642615960112580495"
+          },
+          {
+            "previousLaterObstructionPrime": 137,
+            "sourceRowCount": 27,
+            "sourcePostNextQAvoidingClassCount": "52349955307478782134405"
+          },
+          {
+            "previousLaterObstructionPrime": 139,
+            "sourceRowCount": 21,
+            "sourcePostNextQAvoidingClassCount": "51555202948528369926843"
+          },
+          {
+            "previousLaterObstructionPrime": 149,
+            "sourceRowCount": 11,
+            "sourcePostNextQAvoidingClassCount": "33674566921895419114021"
+          }
+        ],
+        "status": "open_exact_two_root_successor_rank_boundary",
+        "proofObligation": "Cover this bucket as part of the whole 22-bucket successor q-avoiding batch/rank action, or emit a sharper exact subboundary. This token does not authorize singleton q-child descent by itself."
+      },
+      {
+        "tokenId": "p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_q167_rank_boundary",
+        "successorObstructionPrime": 167,
+        "successorObstructionSquare": 27889,
+        "sourceRowCount": 85,
+        "sourcePostNextQAvoidingClassCount": "212136562976080552654139",
+        "rootResidueCountsPerClass": [
+          2
+        ],
+        "successorRootChildCount": "424273125952161105308278",
+        "successorQAvoidingClassCount": "5915852331713958371865974293",
+        "previousPostNextPrimeBuckets": [
+          {
+            "previousPostNextObstructionPrime": 139,
+            "sourceRowCount": 3,
+            "sourcePostNextQAvoidingClassCount": "3448543547302041187629"
+          },
+          {
+            "previousPostNextObstructionPrime": 149,
+            "sourceRowCount": 5,
+            "sourcePostNextQAvoidingClassCount": "7001579494768162418107"
+          },
+          {
+            "previousPostNextObstructionPrime": 151,
+            "sourceRowCount": 14,
+            "sourcePostNextQAvoidingClassCount": "27083926252980011675722"
+          },
+          {
+            "previousPostNextObstructionPrime": 157,
+            "sourceRowCount": 21,
+            "sourcePostNextQAvoidingClassCount": "51726680944174812808995"
+          },
+          {
+            "previousPostNextObstructionPrime": 163,
+            "sourceRowCount": 42,
+            "sourcePostNextQAvoidingClassCount": "122875832736855524563686"
+          }
+        ],
+        "previousNextPrimeBuckets": [
+          {
+            "previousNextObstructionPrime": 131,
+            "sourceRowCount": 1,
+            "sourcePostNextQAvoidingClassCount": "956819680256467313951"
+          },
+          {
+            "previousNextObstructionPrime": 137,
+            "sourceRowCount": 6,
+            "sourcePostNextQAvoidingClassCount": "8088334766815538766762"
+          },
+          {
+            "previousNextObstructionPrime": 139,
+            "sourceRowCount": 8,
+            "sourcePostNextQAvoidingClassCount": "12732057986269072539088"
+          },
+          {
+            "previousNextObstructionPrime": 149,
+            "sourceRowCount": 28,
+            "sourcePostNextQAvoidingClassCount": "64089938481033902500148"
+          },
+          {
+            "previousNextObstructionPrime": 151,
+            "sourceRowCount": 23,
+            "sourcePostNextQAvoidingClassCount": "56558463404484396870025"
+          },
+          {
+            "previousNextObstructionPrime": 157,
+            "sourceRowCount": 19,
+            "sourcePostNextQAvoidingClassCount": "69710948657221174664165"
+          }
+        ],
+        "previousLaterPrimeBuckets": [
+          {
+            "previousLaterObstructionPrime": 127,
+            "sourceRowCount": 3,
+            "sourcePostNextQAvoidingClassCount": "3324999272760858864717"
+          },
+          {
+            "previousLaterObstructionPrime": 131,
+            "sourceRowCount": 16,
+            "sourcePostNextQAvoidingClassCount": "26444886108343143655040"
+          },
+          {
+            "previousLaterObstructionPrime": 137,
+            "sourceRowCount": 22,
+            "sourcePostNextQAvoidingClassCount": "46913490018907162489874"
+          },
+          {
+            "previousLaterObstructionPrime": 139,
+            "sourceRowCount": 24,
+            "sourcePostNextQAvoidingClassCount": "61064810933924691099192"
+          },
+          {
+            "previousLaterObstructionPrime": 149,
+            "sourceRowCount": 11,
+            "sourcePostNextQAvoidingClassCount": "33687761766768932824309"
+          },
+          {
+            "previousLaterObstructionPrime": 151,
+            "sourceRowCount": 9,
+            "sourcePostNextQAvoidingClassCount": "40700614875375763721007"
+          }
+        ],
+        "status": "open_exact_two_root_successor_rank_boundary",
+        "proofObligation": "Cover this bucket as part of the whole 22-bucket successor q-avoiding batch/rank action, or emit a sharper exact subboundary. This token does not authorize singleton q-child descent by itself."
+      },
+      {
+        "tokenId": "p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_q173_rank_boundary",
+        "successorObstructionPrime": 173,
+        "successorObstructionSquare": 29929,
+        "sourceRowCount": 74,
+        "sourcePostNextQAvoidingClassCount": "224177175878283393674110",
+        "rootResidueCountsPerClass": [
+          2
+        ],
+        "successorRootChildCount": "448354351756566787348220",
+        "successorQAvoidingClassCount": "6708950342509387122485089970",
+        "previousPostNextPrimeBuckets": [
+          {
+            "previousPostNextObstructionPrime": 139,
+            "sourceRowCount": 1,
+            "sourcePostNextQAvoidingClassCount": "1191804275272913565431"
+          },
+          {
+            "previousPostNextObstructionPrime": 149,
+            "sourceRowCount": 2,
+            "sourcePostNextQAvoidingClassCount": "2779228257647267036758"
+          },
+          {
+            "previousPostNextObstructionPrime": 151,
+            "sourceRowCount": 6,
+            "sourcePostNextQAvoidingClassCount": "10544236262685953045442"
+          },
+          {
+            "previousPostNextObstructionPrime": 157,
+            "sourceRowCount": 8,
+            "sourcePostNextQAvoidingClassCount": "14595904509339963914608"
+          },
+          {
+            "previousPostNextObstructionPrime": 163,
+            "sourceRowCount": 22,
+            "sourcePostNextQAvoidingClassCount": "68300798816031796941650"
+          },
+          {
+            "previousPostNextObstructionPrime": 167,
+            "sourceRowCount": 35,
+            "sourcePostNextQAvoidingClassCount": "126765203757305499170221"
+          }
+        ],
+        "previousNextPrimeBuckets": [
+          {
+            "previousNextObstructionPrime": 137,
+            "sourceRowCount": 8,
+            "sourcePostNextQAvoidingClassCount": "11748846267211829222104"
+          },
+          {
+            "previousNextObstructionPrime": 139,
+            "sourceRowCount": 6,
+            "sourcePostNextQAvoidingClassCount": "11027142535264722335490"
+          },
+          {
+            "previousNextObstructionPrime": 149,
+            "sourceRowCount": 13,
+            "sourcePostNextQAvoidingClassCount": "28307413330543811442947"
+          },
+          {
+            "previousNextObstructionPrime": 151,
+            "sourceRowCount": 13,
+            "sourcePostNextQAvoidingClassCount": "39740993760887735867579"
+          },
+          {
+            "previousNextObstructionPrime": 157,
+            "sourceRowCount": 21,
+            "sourcePostNextQAvoidingClassCount": "78186852313601364309291"
+          },
+          {
+            "previousNextObstructionPrime": 163,
+            "sourceRowCount": 13,
+            "sourcePostNextQAvoidingClassCount": "55165927670773930496699"
+          }
+        ],
+        "previousLaterPrimeBuckets": [
+          {
+            "previousLaterObstructionPrime": 127,
+            "sourceRowCount": 2,
+            "sourcePostNextQAvoidingClassCount": "2469505242230211690022"
+          },
+          {
+            "previousLaterObstructionPrime": 131,
+            "sourceRowCount": 16,
+            "sourcePostNextQAvoidingClassCount": "26026770012291179942216"
+          },
+          {
+            "previousLaterObstructionPrime": 137,
+            "sourceRowCount": 10,
+            "sourcePostNextQAvoidingClassCount": "21931780725865554763814"
+          },
+          {
+            "previousLaterObstructionPrime": 139,
+            "sourceRowCount": 13,
+            "sourcePostNextQAvoidingClassCount": "38471513785484177078411"
+          },
+          {
+            "previousLaterObstructionPrime": 149,
+            "sourceRowCount": 17,
+            "sourcePostNextQAvoidingClassCount": "61177375919809112532943"
+          },
+          {
+            "previousLaterObstructionPrime": 151,
+            "sourceRowCount": 13,
+            "sourcePostNextQAvoidingClassCount": "59119368441009053881403"
+          },
+          {
+            "previousLaterObstructionPrime": 157,
+            "sourceRowCount": 3,
+            "sourcePostNextQAvoidingClassCount": "14980861751594103785301"
+          }
+        ],
+        "status": "open_exact_two_root_successor_rank_boundary",
+        "proofObligation": "Cover this bucket as part of the whole 22-bucket successor q-avoiding batch/rank action, or emit a sharper exact subboundary. This token does not authorize singleton q-child descent by itself."
+      },
+      {
+        "tokenId": "p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_q179_rank_boundary",
+        "successorObstructionPrime": 179,
+        "successorObstructionSquare": 32041,
+        "sourceRowCount": 77,
+        "sourcePostNextQAvoidingClassCount": "307798971075882376935283",
+        "rootResidueCountsPerClass": [
+          2
+        ],
+        "successorRootChildCount": "615597942151764753870566",
+        "successorQAvoidingClassCount": "9861571234300195474629532037",
+        "previousPostNextPrimeBuckets": [
+          {
+            "previousPostNextObstructionPrime": 139,
+            "sourceRowCount": 2,
+            "sourcePostNextQAvoidingClassCount": "2472700409830476280294"
+          },
+          {
+            "previousPostNextObstructionPrime": 149,
+            "sourceRowCount": 2,
+            "sourcePostNextQAvoidingClassCount": "3066879837234169964350"
+          },
+          {
+            "previousPostNextObstructionPrime": 157,
+            "sourceRowCount": 5,
+            "sourcePostNextQAvoidingClassCount": "12496782214513131393019"
+          },
+          {
+            "previousPostNextObstructionPrime": 163,
+            "sourceRowCount": 11,
+            "sourcePostNextQAvoidingClassCount": "27461384666519068171669"
+          },
+          {
+            "previousPostNextObstructionPrime": 167,
+            "sourceRowCount": 18,
+            "sourcePostNextQAvoidingClassCount": "64614134754662788136166"
+          },
+          {
+            "previousPostNextObstructionPrime": 173,
+            "sourceRowCount": 39,
+            "sourcePostNextQAvoidingClassCount": "197687089193122742989785"
+          }
+        ],
+        "previousNextPrimeBuckets": [
+          {
+            "previousNextObstructionPrime": 137,
+            "sourceRowCount": 4,
+            "sourcePostNextQAvoidingClassCount": "5214294038832061212596"
+          },
+          {
+            "previousNextObstructionPrime": 139,
+            "sourceRowCount": 5,
+            "sourcePostNextQAvoidingClassCount": "9728404649809122040099"
+          },
+          {
+            "previousNextObstructionPrime": 149,
+            "sourceRowCount": 6,
+            "sourcePostNextQAvoidingClassCount": "11404695915435433068570"
+          },
+          {
+            "previousNextObstructionPrime": 151,
+            "sourceRowCount": 10,
+            "sourcePostNextQAvoidingClassCount": "30962222895023816246774"
+          },
+          {
+            "previousNextObstructionPrime": 157,
+            "sourceRowCount": 16,
+            "sourcePostNextQAvoidingClassCount": "52080685537742019429824"
+          },
+          {
+            "previousNextObstructionPrime": 163,
+            "sourceRowCount": 19,
+            "sourcePostNextQAvoidingClassCount": "99160493557981136434541"
+          },
+          {
+            "previousNextObstructionPrime": 167,
+            "sourceRowCount": 17,
+            "sourcePostNextQAvoidingClassCount": "99248174481058788502879"
+          }
+        ],
+        "previousLaterPrimeBuckets": [
+          {
+            "previousLaterObstructionPrime": 127,
+            "sourceRowCount": 4,
+            "sourcePostNextQAvoidingClassCount": "5925482686076462038460"
+          },
+          {
+            "previousLaterObstructionPrime": 131,
+            "sourceRowCount": 9,
+            "sourcePostNextQAvoidingClassCount": "15803131500642183412575"
+          },
+          {
+            "previousLaterObstructionPrime": 137,
+            "sourceRowCount": 10,
+            "sourcePostNextQAvoidingClassCount": "23590791505609844257238"
+          },
+          {
+            "previousLaterObstructionPrime": 139,
+            "sourceRowCount": 11,
+            "sourcePostNextQAvoidingClassCount": "30782555424695688841405"
+          },
+          {
+            "previousLaterObstructionPrime": 149,
+            "sourceRowCount": 13,
+            "sourcePostNextQAvoidingClassCount": "48965639057221478814203"
+          },
+          {
+            "previousLaterObstructionPrime": 151,
+            "sourceRowCount": 14,
+            "sourcePostNextQAvoidingClassCount": "68399547796568323080466"
+          },
+          {
+            "previousLaterObstructionPrime": 157,
+            "sourceRowCount": 11,
+            "sourcePostNextQAvoidingClassCount": "71203746244713210190405"
+          },
+          {
+            "previousLaterObstructionPrime": 163,
+            "sourceRowCount": 5,
+            "sourcePostNextQAvoidingClassCount": "43128076860355186300531"
+          }
+        ],
+        "status": "open_exact_two_root_successor_rank_boundary",
+        "proofObligation": "Cover this bucket as part of the whole 22-bucket successor q-avoiding batch/rank action, or emit a sharper exact subboundary. This token does not authorize singleton q-child descent by itself."
+      },
+      {
+        "tokenId": "p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_q181_rank_boundary",
+        "successorObstructionPrime": 181,
+        "successorObstructionSquare": 32761,
+        "sourceRowCount": 55,
+        "sourcePostNextQAvoidingClassCount": "246375734372590544224577",
+        "rootResidueCountsPerClass": [
+          2
+        ],
+        "successorRootChildCount": "492751468745181088449154",
+        "successorQAvoidingClassCount": "8071022682311693638252917943",
+        "previousPostNextPrimeBuckets": [
+          {
+            "previousPostNextObstructionPrime": 157,
+            "sourceRowCount": 4,
+            "sourcePostNextQAvoidingClassCount": "10491607262092387289180"
+          },
+          {
+            "previousPostNextObstructionPrime": 163,
+            "sourceRowCount": 1,
+            "sourcePostNextQAvoidingClassCount": "2784668231878898823983"
+          },
+          {
+            "previousPostNextObstructionPrime": 167,
+            "sourceRowCount": 9,
+            "sourcePostNextQAvoidingClassCount": "31932251291227121457375"
+          },
+          {
+            "previousPostNextObstructionPrime": 173,
+            "sourceRowCount": 17,
+            "sourcePostNextQAvoidingClassCount": "63037364355141572291959"
+          },
+          {
+            "previousPostNextObstructionPrime": 179,
+            "sourceRowCount": 24,
+            "sourcePostNextQAvoidingClassCount": "138129843232250564362080"
+          }
+        ],
+        "previousNextPrimeBuckets": [
+          {
+            "previousNextObstructionPrime": 139,
+            "sourceRowCount": 1,
+            "sourcePostNextQAvoidingClassCount": "1504556637922049318831"
+          },
+          {
+            "previousNextObstructionPrime": 149,
+            "sourceRowCount": 4,
+            "sourcePostNextQAvoidingClassCount": "9474541217783910678116"
+          },
+          {
+            "previousNextObstructionPrime": 151,
+            "sourceRowCount": 12,
+            "sourcePostNextQAvoidingClassCount": "36918353944629552126564"
+          },
+          {
+            "previousNextObstructionPrime": 157,
+            "sourceRowCount": 11,
+            "sourcePostNextQAvoidingClassCount": "42352484550714879982021"
+          },
+          {
+            "previousNextObstructionPrime": 163,
+            "sourceRowCount": 12,
+            "sourcePostNextQAvoidingClassCount": "63647956346941948149564"
+          },
+          {
+            "previousNextObstructionPrime": 167,
+            "sourceRowCount": 9,
+            "sourcePostNextQAvoidingClassCount": "52472139975649232147799"
+          },
+          {
+            "previousNextObstructionPrime": 173,
+            "sourceRowCount": 6,
+            "sourcePostNextQAvoidingClassCount": "40005701698948971821682"
+          }
+        ],
+        "previousLaterPrimeBuckets": [
+          {
+            "previousLaterObstructionPrime": 127,
+            "sourceRowCount": 1,
+            "sourcePostNextQAvoidingClassCount": "1624871126650519345703"
+          },
+          {
+            "previousLaterObstructionPrime": 131,
+            "sourceRowCount": 2,
+            "sourcePostNextQAvoidingClassCount": "4122008667261711055630"
+          },
+          {
+            "previousLaterObstructionPrime": 137,
+            "sourceRowCount": 5,
+            "sourcePostNextQAvoidingClassCount": "12166364858680171055035"
+          },
+          {
+            "previousLaterObstructionPrime": 139,
+            "sourceRowCount": 22,
+            "sourcePostNextQAvoidingClassCount": "80390124672659178960170"
+          },
+          {
+            "previousLaterObstructionPrime": 149,
+            "sourceRowCount": 10,
+            "sourcePostNextQAvoidingClassCount": "39234712739050211451902"
+          },
+          {
+            "previousLaterObstructionPrime": 151,
+            "sourceRowCount": 4,
+            "sourcePostNextQAvoidingClassCount": "21821885661542573204612"
+          },
+          {
+            "previousLaterObstructionPrime": 157,
+            "sourceRowCount": 9,
+            "sourcePostNextQAvoidingClassCount": "65766606378237287267871"
+          },
+          {
+            "previousLaterObstructionPrime": 163,
+            "sourceRowCount": 2,
+            "sourcePostNextQAvoidingClassCount": "21249160268508891883654"
+          }
+        ],
+        "status": "open_exact_two_root_successor_rank_boundary",
+        "proofObligation": "Cover this bucket as part of the whole 22-bucket successor q-avoiding batch/rank action, or emit a sharper exact subboundary. This token does not authorize singleton q-child descent by itself."
+      },
+      {
+        "tokenId": "p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_q191_rank_boundary",
+        "successorObstructionPrime": 191,
+        "successorObstructionSquare": 36481,
+        "sourceRowCount": 44,
+        "sourcePostNextQAvoidingClassCount": "248553145791906763016644",
+        "rootResidueCountsPerClass": [
+          2
+        ],
+        "successorRootChildCount": "497106291583813526033288",
+        "successorQAvoidingClassCount": "9066970205342966808084156476",
+        "previousPostNextPrimeBuckets": [
+          {
+            "previousPostNextObstructionPrime": 151,
+            "sourceRowCount": 2,
+            "sourcePostNextQAvoidingClassCount": "3037593602798649719902"
+          },
+          {
+            "previousPostNextObstructionPrime": 157,
+            "sourceRowCount": 1,
+            "sourcePostNextQAvoidingClassCount": "2154537092687118183527"
+          },
+          {
+            "previousPostNextObstructionPrime": 163,
+            "sourceRowCount": 2,
+            "sourcePostNextQAvoidingClassCount": "6143173097921585206414"
+          },
+          {
+            "previousPostNextObstructionPrime": 167,
+            "sourceRowCount": 7,
+            "sourcePostNextQAvoidingClassCount": "26521419565428775276481"
+          },
+          {
+            "previousPostNextObstructionPrime": 173,
+            "sourceRowCount": 8,
+            "sourcePostNextQAvoidingClassCount": "42253180091744780285680"
+          },
+          {
+            "previousPostNextObstructionPrime": 179,
+            "sourceRowCount": 10,
+            "sourcePostNextQAvoidingClassCount": "61400216520165609665222"
+          },
+          {
+            "previousPostNextObstructionPrime": 181,
+            "sourceRowCount": 14,
+            "sourcePostNextQAvoidingClassCount": "107043025821160244679418"
+          }
+        ],
+        "previousNextPrimeBuckets": [
+          {
+            "previousNextObstructionPrime": 131,
+            "sourceRowCount": 1,
+            "sourcePostNextQAvoidingClassCount": "956819680256467313951"
+          },
+          {
+            "previousNextObstructionPrime": 139,
+            "sourceRowCount": 4,
+            "sourcePostNextQAvoidingClassCount": "7983740907974244545564"
+          },
+          {
+            "previousNextObstructionPrime": 149,
+            "sourceRowCount": 4,
+            "sourcePostNextQAvoidingClassCount": "9018501777250156199372"
+          },
+          {
+            "previousNextObstructionPrime": 151,
+            "sourceRowCount": 3,
+            "sourcePostNextQAvoidingClassCount": "11024345155561574521293"
+          },
+          {
+            "previousNextObstructionPrime": 157,
+            "sourceRowCount": 2,
+            "sourcePostNextQAvoidingClassCount": "6340145997538661797174"
+          },
+          {
+            "previousNextObstructionPrime": 163,
+            "sourceRowCount": 11,
+            "sourcePostNextQAvoidingClassCount": "50602817207320976394637"
+          },
+          {
+            "previousNextObstructionPrime": 167,
+            "sourceRowCount": 7,
+            "sourcePostNextQAvoidingClassCount": "44163213246946242502865"
+          },
+          {
+            "previousNextObstructionPrime": 173,
+            "sourceRowCount": 5,
+            "sourcePostNextQAvoidingClassCount": "49333369806157528733707"
+          },
+          {
+            "previousNextObstructionPrime": 179,
+            "sourceRowCount": 7,
+            "sourcePostNextQAvoidingClassCount": "69130192012900911008081"
+          }
+        ],
+        "previousLaterPrimeBuckets": [
+          {
+            "previousLaterObstructionPrime": 127,
+            "sourceRowCount": 1,
+            "sourcePostNextQAvoidingClassCount": "956819680256467313951"
+          },
+          {
+            "previousLaterObstructionPrime": 131,
+            "sourceRowCount": 5,
+            "sourcePostNextQAvoidingClassCount": "10018723274749682655475"
+          },
+          {
+            "previousLaterObstructionPrime": 137,
+            "sourceRowCount": 3,
+            "sourcePostNextQAvoidingClassCount": "10279653740210993402565"
+          },
+          {
+            "previousLaterObstructionPrime": 139,
+            "sourceRowCount": 4,
+            "sourcePostNextQAvoidingClassCount": "15456750933375010575260"
+          },
+          {
+            "previousLaterObstructionPrime": 149,
+            "sourceRowCount": 9,
+            "sourcePostNextQAvoidingClassCount": "34185988183306703747991"
+          },
+          {
+            "previousLaterObstructionPrime": 151,
+            "sourceRowCount": 3,
+            "sourcePostNextQAvoidingClassCount": "16613542666727414285157"
+          },
+          {
+            "previousLaterObstructionPrime": 157,
+            "sourceRowCount": 11,
+            "sourcePostNextQAvoidingClassCount": "76675319366930469748381"
+          },
+          {
+            "previousLaterObstructionPrime": 163,
+            "sourceRowCount": 4,
+            "sourcePostNextQAvoidingClassCount": "37749159230727047748596"
+          },
+          {
+            "previousLaterObstructionPrime": 167,
+            "sourceRowCount": 2,
+            "sourcePostNextQAvoidingClassCount": "17438804338478203938574"
+          },
+          {
+            "previousLaterObstructionPrime": 173,
+            "sourceRowCount": 2,
+            "sourcePostNextQAvoidingClassCount": "29178384377144769600694"
+          }
+        ],
+        "status": "open_exact_two_root_successor_rank_boundary",
+        "proofObligation": "Cover this bucket as part of the whole 22-bucket successor q-avoiding batch/rank action, or emit a sharper exact subboundary. This token does not authorize singleton q-child descent by itself."
+      },
+      {
+        "tokenId": "p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_q193_rank_boundary",
+        "successorObstructionPrime": 193,
+        "successorObstructionSquare": 37249,
+        "sourceRowCount": 32,
+        "sourcePostNextQAvoidingClassCount": "194133894492931695542248",
+        "rootResidueCountsPerClass": [
+          2
+        ],
+        "successorRootChildCount": "388267788985863391084496",
+        "successorQAvoidingClassCount": "7230905168178226863862111256",
+        "previousPostNextPrimeBuckets": [
+          {
+            "previousPostNextObstructionPrime": 157,
+            "sourceRowCount": 1,
+            "sourcePostNextQAvoidingClassCount": "1646391998962849979351"
+          },
+          {
+            "previousPostNextObstructionPrime": 163,
+            "sourceRowCount": 1,
+            "sourcePostNextQAvoidingClassCount": "3328105736804808030743"
+          },
+          {
+            "previousPostNextObstructionPrime": 167,
+            "sourceRowCount": 3,
+            "sourcePostNextQAvoidingClassCount": "9592030655468328273885"
+          },
+          {
+            "previousPostNextObstructionPrime": 173,
+            "sourceRowCount": 5,
+            "sourcePostNextQAvoidingClassCount": "22219516172190885054787"
+          },
+          {
+            "previousPostNextObstructionPrime": 179,
+            "sourceRowCount": 7,
+            "sourcePostNextQAvoidingClassCount": "29351159937115661334977"
+          },
+          {
+            "previousPostNextObstructionPrime": 181,
+            "sourceRowCount": 6,
+            "sourcePostNextQAvoidingClassCount": "37794739749904844395962"
+          },
+          {
+            "previousPostNextObstructionPrime": 191,
+            "sourceRowCount": 9,
+            "sourcePostNextQAvoidingClassCount": "90201950242484318472543"
+          }
+        ],
+        "previousNextPrimeBuckets": [
+          {
+            "previousNextObstructionPrime": 149,
+            "sourceRowCount": 3,
+            "sourcePostNextQAvoidingClassCount": "8656964710997155581357"
+          },
+          {
+            "previousNextObstructionPrime": 151,
+            "sourceRowCount": 6,
+            "sourcePostNextQAvoidingClassCount": "16329593389921065712458"
+          },
+          {
+            "previousNextObstructionPrime": 157,
+            "sourceRowCount": 3,
+            "sourcePostNextQAvoidingClassCount": "8117976010855173161013"
+          },
+          {
+            "previousNextObstructionPrime": 163,
+            "sourceRowCount": 5,
+            "sourcePostNextQAvoidingClassCount": "31777859676048061328347"
+          },
+          {
+            "previousNextObstructionPrime": 167,
+            "sourceRowCount": 6,
+            "sourcePostNextQAvoidingClassCount": "33425882275153157410530"
+          },
+          {
+            "previousNextObstructionPrime": 173,
+            "sourceRowCount": 2,
+            "sourcePostNextQAvoidingClassCount": "12706325765235786609982"
+          },
+          {
+            "previousNextObstructionPrime": 179,
+            "sourceRowCount": 4,
+            "sourcePostNextQAvoidingClassCount": "40756857552168850736756"
+          },
+          {
+            "previousNextObstructionPrime": 181,
+            "sourceRowCount": 3,
+            "sourcePostNextQAvoidingClassCount": "42362435112552445001805"
+          }
+        ],
+        "previousLaterPrimeBuckets": [
+          {
+            "previousLaterObstructionPrime": 127,
+            "sourceRowCount": 2,
+            "sourcePostNextQAvoidingClassCount": "3507785699203868551630"
+          },
+          {
+            "previousLaterObstructionPrime": 131,
+            "sourceRowCount": 1,
+            "sourcePostNextQAvoidingClassCount": "2743408139577842980103"
+          },
+          {
+            "previousLaterObstructionPrime": 137,
+            "sourceRowCount": 5,
+            "sourcePostNextQAvoidingClassCount": "15536890184039539936243"
+          },
+          {
+            "previousLaterObstructionPrime": 139,
+            "sourceRowCount": 5,
+            "sourcePostNextQAvoidingClassCount": "16872091786424617472107"
+          },
+          {
+            "previousLaterObstructionPrime": 149,
+            "sourceRowCount": 1,
+            "sourcePostNextQAvoidingClassCount": "3934720127821579896863"
+          },
+          {
+            "previousLaterObstructionPrime": 151,
+            "sourceRowCount": 4,
+            "sourcePostNextQAvoidingClassCount": "22060994574938857195532"
+          },
+          {
+            "previousLaterObstructionPrime": 157,
+            "sourceRowCount": 5,
+            "sourcePostNextQAvoidingClassCount": "33711812289094336747483"
+          },
+          {
+            "previousLaterObstructionPrime": 163,
+            "sourceRowCount": 6,
+            "sourcePostNextQAvoidingClassCount": "40314940616590887029538"
+          },
+          {
+            "previousLaterObstructionPrime": 173,
+            "sourceRowCount": 2,
+            "sourcePostNextQAvoidingClassCount": "42767894799173183156182"
+          },
+          {
+            "previousLaterObstructionPrime": 179,
+            "sourceRowCount": 1,
+            "sourcePostNextQAvoidingClassCount": "12683356276066982576567"
+          }
+        ],
+        "status": "open_exact_two_root_successor_rank_boundary",
+        "proofObligation": "Cover this bucket as part of the whole 22-bucket successor q-avoiding batch/rank action, or emit a sharper exact subboundary. This token does not authorize singleton q-child descent by itself."
+      },
+      {
+        "tokenId": "p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_q197_rank_boundary",
+        "successorObstructionPrime": 197,
+        "successorObstructionSquare": 38809,
+        "sourceRowCount": 31,
+        "sourcePostNextQAvoidingClassCount": "210369056368096055548121",
+        "rootResidueCountsPerClass": [
+          2
+        ],
+        "successorRootChildCount": "420738112736192111096242",
+        "successorQAvoidingClassCount": "8163791970476703627655931647",
+        "previousPostNextPrimeBuckets": [
+          {
+            "previousPostNextObstructionPrime": 167,
+            "sourceRowCount": 1,
+            "sourcePostNextQAvoidingClassCount": "3765605740344694346303"
+          },
+          {
+            "previousPostNextObstructionPrime": 173,
+            "sourceRowCount": 6,
+            "sourcePostNextQAvoidingClassCount": "25180660140552556459050"
+          },
+          {
+            "previousPostNextObstructionPrime": 179,
+            "sourceRowCount": 3,
+            "sourcePostNextQAvoidingClassCount": "21419157090908438682429"
+          },
+          {
+            "previousPostNextObstructionPrime": 181,
+            "sourceRowCount": 7,
+            "sourcePostNextQAvoidingClassCount": "44957670385022521349177"
+          },
+          {
+            "previousPostNextObstructionPrime": 191,
+            "sourceRowCount": 6,
+            "sourcePostNextQAvoidingClassCount": "47651842022855384140722"
+          },
+          {
+            "previousPostNextObstructionPrime": 193,
+            "sourceRowCount": 8,
+            "sourcePostNextQAvoidingClassCount": "67394120988412460570440"
+          }
+        ],
+        "previousNextPrimeBuckets": [
+          {
+            "previousNextObstructionPrime": 157,
+            "sourceRowCount": 5,
+            "sourcePostNextQAvoidingClassCount": "19849223319017246891779"
+          },
+          {
+            "previousNextObstructionPrime": 163,
+            "sourceRowCount": 4,
+            "sourcePostNextQAvoidingClassCount": "22195568661784276389428"
+          },
+          {
+            "previousNextObstructionPrime": 167,
+            "sourceRowCount": 6,
+            "sourcePostNextQAvoidingClassCount": "25534240194523998149754"
+          },
+          {
+            "previousNextObstructionPrime": 173,
+            "sourceRowCount": 7,
+            "sourcePostNextQAvoidingClassCount": "51010651547431243722761"
+          },
+          {
+            "previousNextObstructionPrime": 179,
+            "sourceRowCount": 5,
+            "sourcePostNextQAvoidingClassCount": "48329340603645543160411"
+          },
+          {
+            "previousNextObstructionPrime": 181,
+            "sourceRowCount": 2,
+            "sourcePostNextQAvoidingClassCount": "20724452691489129028390"
+          },
+          {
+            "previousNextObstructionPrime": 191,
+            "sourceRowCount": 2,
+            "sourcePostNextQAvoidingClassCount": "22725579350204618205598"
+          }
+        ],
+        "previousLaterPrimeBuckets": [
+          {
+            "previousLaterObstructionPrime": 127,
+            "sourceRowCount": 1,
+            "sourcePostNextQAvoidingClassCount": "2488095511850693890103"
+          },
+          {
+            "previousLaterObstructionPrime": 131,
+            "sourceRowCount": 2,
+            "sourcePostNextQAvoidingClassCount": "4622547652872133304446"
+          },
+          {
+            "previousLaterObstructionPrime": 137,
+            "sourceRowCount": 2,
+            "sourcePostNextQAvoidingClassCount": "7292021207867962060222"
+          },
+          {
+            "previousLaterObstructionPrime": 139,
+            "sourceRowCount": 1,
+            "sourcePostNextQAvoidingClassCount": "3805155986326587724391"
+          },
+          {
+            "previousLaterObstructionPrime": 149,
+            "sourceRowCount": 7,
+            "sourcePostNextQAvoidingClassCount": "43034228050903056704681"
+          },
+          {
+            "previousLaterObstructionPrime": 151,
+            "sourceRowCount": 6,
+            "sourcePostNextQAvoidingClassCount": "39190087767657250820298"
+          },
+          {
+            "previousLaterObstructionPrime": 157,
+            "sourceRowCount": 6,
+            "sourcePostNextQAvoidingClassCount": "40441486621877344544898"
+          },
+          {
+            "previousLaterObstructionPrime": 163,
+            "sourceRowCount": 2,
+            "sourcePostNextQAvoidingClassCount": "16244552536142152621486"
+          },
+          {
+            "previousLaterObstructionPrime": 167,
+            "sourceRowCount": 2,
+            "sourcePostNextQAvoidingClassCount": "26159672853095317405030"
+          },
+          {
+            "previousLaterObstructionPrime": 173,
+            "sourceRowCount": 1,
+            "sourcePostNextQAvoidingClassCount": "15301342512945086388119"
+          },
+          {
+            "previousLaterObstructionPrime": 179,
+            "sourceRowCount": 1,
+            "sourcePostNextQAvoidingClassCount": "11789865666558470084447"
+          }
+        ],
+        "status": "open_exact_two_root_successor_rank_boundary",
+        "proofObligation": "Cover this bucket as part of the whole 22-bucket successor q-avoiding batch/rank action, or emit a sharper exact subboundary. This token does not authorize singleton q-child descent by itself."
+      },
+      {
+        "tokenId": "p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_q199_rank_boundary",
+        "successorObstructionPrime": 199,
+        "successorObstructionSquare": 39601,
+        "sourceRowCount": 18,
+        "sourcePostNextQAvoidingClassCount": "135137273852783154266286",
+        "rootResidueCountsPerClass": [
+          2
+        ],
+        "successorRootChildCount": "270274547705566308532572",
+        "successorQAvoidingClassCount": "5351300907296360125790659314",
+        "previousPostNextPrimeBuckets": [
+          {
+            "previousPostNextObstructionPrime": 151,
+            "sourceRowCount": 1,
+            "sourcePostNextQAvoidingClassCount": "1819606719986213368511"
+          },
+          {
+            "previousPostNextObstructionPrime": 167,
+            "sourceRowCount": 2,
+            "sourcePostNextQAvoidingClassCount": "6846620796706795083574"
+          },
+          {
+            "previousPostNextObstructionPrime": 181,
+            "sourceRowCount": 4,
+            "sourcePostNextQAvoidingClassCount": "24694973558204644260860"
+          },
+          {
+            "previousPostNextObstructionPrime": 191,
+            "sourceRowCount": 2,
+            "sourcePostNextQAvoidingClassCount": "13193767433645070731158"
+          },
+          {
+            "previousPostNextObstructionPrime": 193,
+            "sourceRowCount": 6,
+            "sourcePostNextQAvoidingClassCount": "52908671280286056503562"
+          },
+          {
+            "previousPostNextObstructionPrime": 197,
+            "sourceRowCount": 3,
+            "sourcePostNextQAvoidingClassCount": "35673634063954374318621"
+          }
+        ],
+        "previousNextPrimeBuckets": [
+          {
+            "previousNextObstructionPrime": 149,
+            "sourceRowCount": 1,
+            "sourcePostNextQAvoidingClassCount": "1819606719986213368511"
+          },
+          {
+            "previousNextObstructionPrime": 151,
+            "sourceRowCount": 1,
+            "sourcePostNextQAvoidingClassCount": "7120963781627481995111"
+          },
+          {
+            "previousNextObstructionPrime": 157,
+            "sourceRowCount": 4,
+            "sourcePostNextQAvoidingClassCount": "17582382996927074541908"
+          },
+          {
+            "previousNextObstructionPrime": 163,
+            "sourceRowCount": 1,
+            "sourcePostNextQAvoidingClassCount": "6267439528262013018239"
+          },
+          {
+            "previousNextObstructionPrime": 167,
+            "sourceRowCount": 3,
+            "sourcePostNextQAvoidingClassCount": "18259750533877058682357"
+          },
+          {
+            "previousNextObstructionPrime": 173,
+            "sourceRowCount": 2,
+            "sourcePostNextQAvoidingClassCount": "15772348899429724709758"
+          },
+          {
+            "previousNextObstructionPrime": 179,
+            "sourceRowCount": 2,
+            "sourcePostNextQAvoidingClassCount": "22007278868442749721574"
+          },
+          {
+            "previousNextObstructionPrime": 181,
+            "sourceRowCount": 2,
+            "sourcePostNextQAvoidingClassCount": "29362908952097704430062"
+          },
+          {
+            "previousNextObstructionPrime": 191,
+            "sourceRowCount": 2,
+            "sourcePostNextQAvoidingClassCount": "16944593572133133798766"
+          }
+        ],
+        "previousLaterPrimeBuckets": [
+          {
+            "previousLaterObstructionPrime": 131,
+            "sourceRowCount": 1,
+            "sourcePostNextQAvoidingClassCount": "1788654982769118108743"
+          },
+          {
+            "previousLaterObstructionPrime": 137,
+            "sourceRowCount": 1,
+            "sourcePostNextQAvoidingClassCount": "1819606719986213368511"
+          },
+          {
+            "previousLaterObstructionPrime": 139,
+            "sourceRowCount": 1,
+            "sourcePostNextQAvoidingClassCount": "6461964478122941130623"
+          },
+          {
+            "previousLaterObstructionPrime": 149,
+            "sourceRowCount": 3,
+            "sourcePostNextQAvoidingClassCount": "16174721371033894699653"
+          },
+          {
+            "previousLaterObstructionPrime": 151,
+            "sourceRowCount": 4,
+            "sourcePostNextQAvoidingClassCount": "22912382019011529850988"
+          },
+          {
+            "previousLaterObstructionPrime": 157,
+            "sourceRowCount": 2,
+            "sourcePostNextQAvoidingClassCount": "16910298952350181033390"
+          },
+          {
+            "previousLaterObstructionPrime": 163,
+            "sourceRowCount": 3,
+            "sourcePostNextQAvoidingClassCount": "19674661993481796938301"
+          },
+          {
+            "previousLaterObstructionPrime": 167,
+            "sourceRowCount": 1,
+            "sourcePostNextQAvoidingClassCount": "17080445985136565900183"
+          },
+          {
+            "previousLaterObstructionPrime": 173,
+            "sourceRowCount": 1,
+            "sourcePostNextQAvoidingClassCount": "10029306596826033930623"
+          },
+          {
+            "previousLaterObstructionPrime": 179,
+            "sourceRowCount": 1,
+            "sourcePostNextQAvoidingClassCount": "22285230754064879305271"
+          }
+        ],
+        "status": "open_exact_two_root_successor_rank_boundary",
+        "proofObligation": "Cover this bucket as part of the whole 22-bucket successor q-avoiding batch/rank action, or emit a sharper exact subboundary. This token does not authorize singleton q-child descent by itself."
+      },
+      {
+        "tokenId": "p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_q211_rank_boundary",
+        "successorObstructionPrime": 211,
+        "successorObstructionSquare": 44521,
+        "sourceRowCount": 15,
+        "sourcePostNextQAvoidingClassCount": "148854773366620573587681",
+        "rootResidueCountsPerClass": [
+          2
+        ],
+        "successorRootChildCount": "297709546733241147175362",
+        "successorQAvoidingClassCount": "6626865655508581315549970439",
+        "previousPostNextPrimeBuckets": [
+          {
+            "previousPostNextObstructionPrime": 167,
+            "sourceRowCount": 1,
+            "sourcePostNextQAvoidingClassCount": "6528447643555111038863"
+          },
+          {
+            "previousPostNextObstructionPrime": 173,
+            "sourceRowCount": 1,
+            "sourcePostNextQAvoidingClassCount": "3776332689929220333311"
+          },
+          {
+            "previousPostNextObstructionPrime": 179,
+            "sourceRowCount": 1,
+            "sourcePostNextQAvoidingClassCount": "11467321441892445826991"
+          },
+          {
+            "previousPostNextObstructionPrime": 181,
+            "sourceRowCount": 1,
+            "sourcePostNextQAvoidingClassCount": "4652681827919308681151"
+          },
+          {
+            "previousPostNextObstructionPrime": 191,
+            "sourceRowCount": 4,
+            "sourcePostNextQAvoidingClassCount": "33971808817819060849724"
+          },
+          {
+            "previousPostNextObstructionPrime": 197,
+            "sourceRowCount": 4,
+            "sourcePostNextQAvoidingClassCount": "18710517411162281433092"
+          },
+          {
+            "previousPostNextObstructionPrime": 199,
+            "sourceRowCount": 3,
+            "sourcePostNextQAvoidingClassCount": "69747663534343145424549"
+          }
+        ],
+        "previousNextPrimeBuckets": [
+          {
+            "previousNextObstructionPrime": 149,
+            "sourceRowCount": 1,
+            "sourcePostNextQAvoidingClassCount": "3328746939489026402879"
+          },
+          {
+            "previousNextObstructionPrime": 157,
+            "sourceRowCount": 1,
+            "sourcePostNextQAvoidingClassCount": "6528447643555111038863"
+          },
+          {
+            "previousNextObstructionPrime": 163,
+            "sourceRowCount": 1,
+            "sourcePostNextQAvoidingClassCount": "4652681827919308681151"
+          },
+          {
+            "previousNextObstructionPrime": 167,
+            "sourceRowCount": 3,
+            "sourcePostNextQAvoidingClassCount": "13029757283669630007357"
+          },
+          {
+            "previousNextObstructionPrime": 173,
+            "sourceRowCount": 4,
+            "sourcePostNextQAvoidingClassCount": "26140771238719894084412"
+          },
+          {
+            "previousNextObstructionPrime": 179,
+            "sourceRowCount": 2,
+            "sourcePostNextQAvoidingClassCount": "23738489745029486166838"
+          },
+          {
+            "previousNextObstructionPrime": 181,
+            "sourceRowCount": 2,
+            "sourcePostNextQAvoidingClassCount": "15964235784902559925078"
+          },
+          {
+            "previousNextObstructionPrime": 197,
+            "sourceRowCount": 1,
+            "sourcePostNextQAvoidingClassCount": "55471642903335557281103"
+          }
+        ],
+        "previousLaterPrimeBuckets": [
+          {
+            "previousLaterObstructionPrime": 137,
+            "sourceRowCount": 3,
+            "sourcePostNextQAvoidingClassCount": "11434990193735192581077"
+          },
+          {
+            "previousLaterObstructionPrime": 139,
+            "sourceRowCount": 1,
+            "sourcePostNextQAvoidingClassCount": "4652681827919308681151"
+          },
+          {
+            "previousLaterObstructionPrime": 149,
+            "sourceRowCount": 2,
+            "sourcePostNextQAvoidingClassCount": "11570005016659334385238"
+          },
+          {
+            "previousLaterObstructionPrime": 151,
+            "sourceRowCount": 4,
+            "sourcePostNextQAvoidingClassCount": "24640297281378607761380"
+          },
+          {
+            "previousLaterObstructionPrime": 157,
+            "sourceRowCount": 1,
+            "sourcePostNextQAvoidingClassCount": "7190668979123280864311"
+          },
+          {
+            "previousLaterObstructionPrime": 163,
+            "sourceRowCount": 1,
+            "sourcePostNextQAvoidingClassCount": "6482348304277474091519"
+          },
+          {
+            "previousLaterObstructionPrime": 167,
+            "sourceRowCount": 1,
+            "sourcePostNextQAvoidingClassCount": "11467321441892445826991"
+          },
+          {
+            "previousLaterObstructionPrime": 173,
+            "sourceRowCount": 1,
+            "sourcePostNextQAvoidingClassCount": "15944817418299372114911"
+          },
+          {
+            "previousLaterObstructionPrime": 193,
+            "sourceRowCount": 1,
+            "sourcePostNextQAvoidingClassCount": "55471642903335557281103"
+          }
+        ],
+        "status": "open_exact_two_root_successor_rank_boundary",
+        "proofObligation": "Cover this bucket as part of the whole 22-bucket successor q-avoiding batch/rank action, or emit a sharper exact subboundary. This token does not authorize singleton q-child descent by itself."
+      },
+      {
+        "tokenId": "p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_q223_rank_boundary",
+        "successorObstructionPrime": 223,
+        "successorObstructionSquare": 49729,
+        "sourceRowCount": 15,
+        "sourcePostNextQAvoidingClassCount": "180046784240798558112153",
+        "rootResidueCountsPerClass": [
+          2
+        ],
+        "successorRootChildCount": "360093568481597116224306",
+        "successorQAvoidingClassCount": "8953186439942189899243032231",
+        "previousPostNextPrimeBuckets": [
+          {
+            "previousPostNextObstructionPrime": 181,
+            "sourceRowCount": 2,
+            "sourcePostNextQAvoidingClassCount": "15460744839678936495862"
+          },
+          {
+            "previousPostNextObstructionPrime": 191,
+            "sourceRowCount": 2,
+            "sourcePostNextQAvoidingClassCount": "8957841424374685262926"
+          },
+          {
+            "previousPostNextObstructionPrime": 193,
+            "sourceRowCount": 1,
+            "sourcePostNextQAvoidingClassCount": "2612876956334561506079"
+          },
+          {
+            "previousPostNextObstructionPrime": 197,
+            "sourceRowCount": 1,
+            "sourcePostNextQAvoidingClassCount": "6119240310454862371991"
+          },
+          {
+            "previousPostNextObstructionPrime": 199,
+            "sourceRowCount": 1,
+            "sourcePostNextQAvoidingClassCount": "7584866429765551620911"
+          },
+          {
+            "previousPostNextObstructionPrime": 211,
+            "sourceRowCount": 8,
+            "sourcePostNextQAvoidingClassCount": "139311214280189960854384"
+          }
+        ],
+        "previousNextPrimeBuckets": [
+          {
+            "previousNextObstructionPrime": 151,
+            "sourceRowCount": 1,
+            "sourcePostNextQAvoidingClassCount": "6119240310454862371991"
+          },
+          {
+            "previousNextObstructionPrime": 157,
+            "sourceRowCount": 2,
+            "sourcePostNextQAvoidingClassCount": "7524290466453538774822"
+          },
+          {
+            "previousNextObstructionPrime": 163,
+            "sourceRowCount": 1,
+            "sourcePostNextQAvoidingClassCount": "4765188267849742625231"
+          },
+          {
+            "previousNextObstructionPrime": 167,
+            "sourceRowCount": 1,
+            "sourcePostNextQAvoidingClassCount": "4046427914255707994183"
+          },
+          {
+            "previousNextObstructionPrime": 173,
+            "sourceRowCount": 1,
+            "sourcePostNextQAvoidingClassCount": "10695556571829193870631"
+          },
+          {
+            "previousNextObstructionPrime": 179,
+            "sourceRowCount": 2,
+            "sourcePostNextQAvoidingClassCount": "33332045656487879119294"
+          },
+          {
+            "previousNextObstructionPrime": 181,
+            "sourceRowCount": 2,
+            "sourcePostNextQAvoidingClassCount": "15482380510087930282438"
+          },
+          {
+            "previousNextObstructionPrime": 193,
+            "sourceRowCount": 1,
+            "sourcePostNextQAvoidingClassCount": "8447625169017970478207"
+          },
+          {
+            "previousNextObstructionPrime": 197,
+            "sourceRowCount": 2,
+            "sourcePostNextQAvoidingClassCount": "61977171071731435314886"
+          },
+          {
+            "previousNextObstructionPrime": 199,
+            "sourceRowCount": 2,
+            "sourcePostNextQAvoidingClassCount": "27656858302630297280470"
+          }
+        ],
+        "previousLaterPrimeBuckets": [
+          {
+            "previousLaterObstructionPrime": 137,
+            "sourceRowCount": 1,
+            "sourcePostNextQAvoidingClassCount": "2612876956334561506079"
+          },
+          {
+            "previousLaterObstructionPrime": 139,
+            "sourceRowCount": 2,
+            "sourcePostNextQAvoidingClassCount": "11631294344021259615094"
+          },
+          {
+            "previousLaterObstructionPrime": 149,
+            "sourceRowCount": 3,
+            "sourcePostNextQAvoidingClassCount": "19332053747322575475429"
+          },
+          {
+            "previousLaterObstructionPrime": 151,
+            "sourceRowCount": 1,
+            "sourcePostNextQAvoidingClassCount": "4911413510118977268743"
+          },
+          {
+            "previousLaterObstructionPrime": 157,
+            "sourceRowCount": 1,
+            "sourcePostNextQAvoidingClassCount": "8946149031281072340863"
+          },
+          {
+            "previousLaterObstructionPrime": 163,
+            "sourceRowCount": 2,
+            "sourcePostNextQAvoidingClassCount": "29190998407398785250118"
+          },
+          {
+            "previousLaterObstructionPrime": 167,
+            "sourceRowCount": 2,
+            "sourcePostNextQAvoidingClassCount": "22734117901240666401334"
+          },
+          {
+            "previousLaterObstructionPrime": 179,
+            "sourceRowCount": 3,
+            "sourcePostNextQAvoidingClassCount": "80687880343080660254493"
+          }
+        ],
+        "status": "open_exact_two_root_successor_rank_boundary",
+        "proofObligation": "Cover this bucket as part of the whole 22-bucket successor q-avoiding batch/rank action, or emit a sharper exact subboundary. This token does not authorize singleton q-child descent by itself."
+      },
+      {
+        "tokenId": "p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_q227_rank_boundary",
+        "successorObstructionPrime": 227,
+        "successorObstructionSquare": 51529,
+        "sourceRowCount": 8,
+        "sourcePostNextQAvoidingClassCount": "140208788287293497341768",
+        "rootResidueCountsPerClass": [
+          2
+        ],
+        "successorRootChildCount": "280417576574586994683536",
+        "successorQAvoidingClassCount": "7224538234079372037529279736",
+        "previousPostNextPrimeBuckets": [
+          {
+            "previousPostNextObstructionPrime": 179,
+            "sourceRowCount": 1,
+            "sourcePostNextQAvoidingClassCount": "4100940155330424601223"
+          },
+          {
+            "previousPostNextObstructionPrime": 181,
+            "sourceRowCount": 2,
+            "sourcePostNextQAvoidingClassCount": "8912839853851711540126"
+          },
+          {
+            "previousPostNextObstructionPrime": 197,
+            "sourceRowCount": 1,
+            "sourcePostNextQAvoidingClassCount": "18797647416216434098823"
+          },
+          {
+            "previousPostNextObstructionPrime": 199,
+            "sourceRowCount": 2,
+            "sourcePostNextQAvoidingClassCount": "72677520980908505861542"
+          },
+          {
+            "previousPostNextObstructionPrime": 223,
+            "sourceRowCount": 2,
+            "sourcePostNextQAvoidingClassCount": "35719839880986421240054"
+          }
+        ],
+        "previousNextPrimeBuckets": [
+          {
+            "previousNextObstructionPrime": 157,
+            "sourceRowCount": 1,
+            "sourcePostNextQAvoidingClassCount": "4100940155330424601223"
+          },
+          {
+            "previousNextObstructionPrime": 167,
+            "sourceRowCount": 1,
+            "sourcePostNextQAvoidingClassCount": "4779833361140441458967"
+          },
+          {
+            "previousNextObstructionPrime": 179,
+            "sourceRowCount": 1,
+            "sourcePostNextQAvoidingClassCount": "4133006492711270081159"
+          },
+          {
+            "previousNextObstructionPrime": 191,
+            "sourceRowCount": 1,
+            "sourcePostNextQAvoidingClassCount": "18797647416216434098823"
+          },
+          {
+            "previousNextObstructionPrime": 193,
+            "sourceRowCount": 1,
+            "sourcePostNextQAvoidingClassCount": "52748760851928615747791"
+          },
+          {
+            "previousNextObstructionPrime": 197,
+            "sourceRowCount": 2,
+            "sourcePostNextQAvoidingClassCount": "37768180661149264037854"
+          },
+          {
+            "previousNextObstructionPrime": 199,
+            "sourceRowCount": 1,
+            "sourcePostNextQAvoidingClassCount": "17880419348817047315951"
+          }
+        ],
+        "previousLaterPrimeBuckets": [
+          {
+            "previousLaterObstructionPrime": 137,
+            "sourceRowCount": 1,
+            "sourcePostNextQAvoidingClassCount": "4100940155330424601223"
+          },
+          {
+            "previousLaterObstructionPrime": 139,
+            "sourceRowCount": 1,
+            "sourcePostNextQAvoidingClassCount": "4133006492711270081159"
+          },
+          {
+            "previousLaterObstructionPrime": 151,
+            "sourceRowCount": 1,
+            "sourcePostNextQAvoidingClassCount": "4779833361140441458967"
+          },
+          {
+            "previousLaterObstructionPrime": 167,
+            "sourceRowCount": 2,
+            "sourcePostNextQAvoidingClassCount": "36637067948385808022926"
+          },
+          {
+            "previousLaterObstructionPrime": 179,
+            "sourceRowCount": 1,
+            "sourcePostNextQAvoidingClassCount": "17880419348817047315951"
+          },
+          {
+            "previousLaterObstructionPrime": 191,
+            "sourceRowCount": 2,
+            "sourcePostNextQAvoidingClassCount": "72677520980908505861542"
+          }
+        ],
+        "status": "open_exact_two_root_successor_rank_boundary",
+        "proofObligation": "Cover this bucket as part of the whole 22-bucket successor q-avoiding batch/rank action, or emit a sharper exact subboundary. This token does not authorize singleton q-child descent by itself."
+      },
+      {
+        "tokenId": "p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_q229_rank_boundary",
+        "successorObstructionPrime": 229,
+        "successorObstructionSquare": 52441,
+        "sourceRowCount": 2,
+        "sourcePostNextQAvoidingClassCount": "51416015243809534649782",
+        "rootResidueCountsPerClass": [
+          2
+        ],
+        "successorRootChildCount": "102832030487619069299564",
+        "successorQAvoidingClassCount": "2696204423370128187499918298",
+        "previousPostNextPrimeBuckets": [
+          {
+            "previousPostNextObstructionPrime": 199,
+            "sourceRowCount": 1,
+            "sourcePostNextQAvoidingClassCount": "9967617910095519898511"
+          },
+          {
+            "previousPostNextObstructionPrime": 223,
+            "sourceRowCount": 1,
+            "sourcePostNextQAvoidingClassCount": "41448397333714014751271"
+          }
+        ],
+        "previousNextPrimeBuckets": [
+          {
+            "previousNextObstructionPrime": 191,
+            "sourceRowCount": 1,
+            "sourcePostNextQAvoidingClassCount": "9967617910095519898511"
+          },
+          {
+            "previousNextObstructionPrime": 211,
+            "sourceRowCount": 1,
+            "sourcePostNextQAvoidingClassCount": "41448397333714014751271"
+          }
+        ],
+        "previousLaterPrimeBuckets": [
+          {
+            "previousLaterObstructionPrime": 151,
+            "sourceRowCount": 1,
+            "sourcePostNextQAvoidingClassCount": "9967617910095519898511"
+          },
+          {
+            "previousLaterObstructionPrime": 191,
+            "sourceRowCount": 1,
+            "sourcePostNextQAvoidingClassCount": "41448397333714014751271"
+          }
+        ],
+        "status": "open_exact_two_root_successor_rank_boundary",
+        "proofObligation": "Cover this bucket as part of the whole 22-bucket successor q-avoiding batch/rank action, or emit a sharper exact subboundary. This token does not authorize singleton q-child descent by itself."
+      },
+      {
+        "tokenId": "p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_q233_rank_boundary",
+        "successorObstructionPrime": 233,
+        "successorObstructionSquare": 54289,
+        "sourceRowCount": 2,
+        "sourcePostNextQAvoidingClassCount": "26575880826932951069542",
+        "rootResidueCountsPerClass": [
+          2
+        ],
+        "successorRootChildCount": "53151761653865902139084",
+        "successorQAvoidingClassCount": "1442724842451709114712226554",
+        "previousPostNextPrimeBuckets": [
+          {
+            "previousPostNextObstructionPrime": 227,
+            "sourceRowCount": 1,
+            "sourcePostNextQAvoidingClassCount": "12413109429350072674511"
+          },
+          {
+            "previousPostNextObstructionPrime": 229,
+            "sourceRowCount": 1,
+            "sourcePostNextQAvoidingClassCount": "14162771397582878395031"
+          }
+        ],
+        "previousNextPrimeBuckets": [
+          {
+            "previousNextObstructionPrime": 181,
+            "sourceRowCount": 1,
+            "sourcePostNextQAvoidingClassCount": "12413109429350072674511"
+          },
+          {
+            "previousNextObstructionPrime": 199,
+            "sourceRowCount": 1,
+            "sourcePostNextQAvoidingClassCount": "14162771397582878395031"
+          }
+        ],
+        "previousLaterPrimeBuckets": [
+          {
+            "previousLaterObstructionPrime": 157,
+            "sourceRowCount": 1,
+            "sourcePostNextQAvoidingClassCount": "14162771397582878395031"
+          },
+          {
+            "previousLaterObstructionPrime": 167,
+            "sourceRowCount": 1,
+            "sourcePostNextQAvoidingClassCount": "12413109429350072674511"
+          }
+        ],
+        "status": "open_exact_two_root_successor_rank_boundary",
+        "proofObligation": "Cover this bucket as part of the whole 22-bucket successor q-avoiding batch/rank action, or emit a sharper exact subboundary. This token does not authorize singleton q-child descent by itself."
+      },
+      {
+        "tokenId": "p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_q239_rank_boundary",
+        "successorObstructionPrime": 239,
+        "successorObstructionSquare": 57121,
+        "sourceRowCount": 4,
+        "sourcePostNextQAvoidingClassCount": "88704517384377733995068",
+        "rootResidueCountsPerClass": [
+          2
+        ],
+        "successorRootChildCount": "177409034768755467990136",
+        "successorQAvoidingClassCount": "5066713328478271788064289092",
+        "previousPostNextPrimeBuckets": [
+          {
+            "previousPostNextObstructionPrime": 211,
+            "sourceRowCount": 1,
+            "sourcePostNextQAvoidingClassCount": "10933679259487692547871"
+          },
+          {
+            "previousPostNextObstructionPrime": 223,
+            "sourceRowCount": 1,
+            "sourcePostNextQAvoidingClassCount": "8328120788947610434343"
+          },
+          {
+            "previousPostNextObstructionPrime": 227,
+            "sourceRowCount": 1,
+            "sourcePostNextQAvoidingClassCount": "34312467777122558154551"
+          },
+          {
+            "previousPostNextObstructionPrime": 233,
+            "sourceRowCount": 1,
+            "sourcePostNextQAvoidingClassCount": "35130249558819872858303"
+          }
+        ],
+        "previousNextPrimeBuckets": [
+          {
+            "previousNextObstructionPrime": 167,
+            "sourceRowCount": 1,
+            "sourcePostNextQAvoidingClassCount": "10933679259487692547871"
+          },
+          {
+            "previousNextObstructionPrime": 199,
+            "sourceRowCount": 2,
+            "sourcePostNextQAvoidingClassCount": "42640588566070168588894"
+          },
+          {
+            "previousNextObstructionPrime": 211,
+            "sourceRowCount": 1,
+            "sourcePostNextQAvoidingClassCount": "35130249558819872858303"
+          }
+        ],
+        "previousLaterPrimeBuckets": [
+          {
+            "previousLaterObstructionPrime": 163,
+            "sourceRowCount": 2,
+            "sourcePostNextQAvoidingClassCount": "46063928818307565406174"
+          },
+          {
+            "previousLaterObstructionPrime": 167,
+            "sourceRowCount": 1,
+            "sourcePostNextQAvoidingClassCount": "8328120788947610434343"
+          },
+          {
+            "previousLaterObstructionPrime": 197,
+            "sourceRowCount": 1,
+            "sourcePostNextQAvoidingClassCount": "34312467777122558154551"
+          }
+        ],
+        "status": "open_exact_two_root_successor_rank_boundary",
+        "proofObligation": "Cover this bucket as part of the whole 22-bucket successor q-avoiding batch/rank action, or emit a sharper exact subboundary. This token does not authorize singleton q-child descent by itself."
+      },
+      {
+        "tokenId": "p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_q241_rank_boundary",
+        "successorObstructionPrime": 241,
+        "successorObstructionSquare": 58081,
+        "sourceRowCount": 1,
+        "sourcePostNextQAvoidingClassCount": "15629825591859901233287",
+        "rootResidueCountsPerClass": [
+          2
+        ],
+        "successorRootChildCount": "31259651183719802466574",
+        "successorQAvoidingClassCount": "907764640549631203728075673",
+        "previousPostNextPrimeBuckets": [
+          {
+            "previousPostNextObstructionPrime": 211,
+            "sourceRowCount": 1,
+            "sourcePostNextQAvoidingClassCount": "15629825591859901233287"
+          }
+        ],
+        "previousNextPrimeBuckets": [
+          {
+            "previousNextObstructionPrime": 199,
+            "sourceRowCount": 1,
+            "sourcePostNextQAvoidingClassCount": "15629825591859901233287"
+          }
+        ],
+        "previousLaterPrimeBuckets": [
+          {
+            "previousLaterObstructionPrime": 179,
+            "sourceRowCount": 1,
+            "sourcePostNextQAvoidingClassCount": "15629825591859901233287"
+          }
+        ],
+        "status": "open_exact_two_root_successor_rank_boundary",
+        "proofObligation": "Cover this bucket as part of the whole 22-bucket successor q-avoiding batch/rank action, or emit a sharper exact subboundary. This token does not authorize singleton q-child descent by itself."
+      },
+      {
+        "tokenId": "p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_q251_rank_boundary",
+        "successorObstructionPrime": 251,
+        "successorObstructionSquare": 63001,
+        "sourceRowCount": 1,
+        "sourcePostNextQAvoidingClassCount": "69211151765039331421871",
+        "rootResidueCountsPerClass": [
+          2
+        ],
+        "successorRootChildCount": "138422303530078662843742",
+        "successorQAvoidingClassCount": "4360233350045712840246451129",
+        "previousPostNextPrimeBuckets": [
+          {
+            "previousPostNextObstructionPrime": 239,
+            "sourceRowCount": 1,
+            "sourcePostNextQAvoidingClassCount": "69211151765039331421871"
+          }
+        ],
+        "previousNextPrimeBuckets": [
+          {
+            "previousNextObstructionPrime": 211,
+            "sourceRowCount": 1,
+            "sourcePostNextQAvoidingClassCount": "69211151765039331421871"
+          }
+        ],
+        "previousLaterPrimeBuckets": [
+          {
+            "previousLaterObstructionPrime": 199,
+            "sourceRowCount": 1,
+            "sourcePostNextQAvoidingClassCount": "69211151765039331421871"
+          }
+        ],
+        "status": "open_exact_two_root_successor_rank_boundary",
+        "proofObligation": "Cover this bucket as part of the whole 22-bucket successor q-avoiding batch/rank action, or emit a sharper exact subboundary. This token does not authorize singleton q-child descent by itself."
+      },
+      {
+        "tokenId": "p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_q263_rank_boundary",
+        "successorObstructionPrime": 263,
+        "successorObstructionSquare": 69169,
+        "sourceRowCount": 2,
+        "sourcePostNextQAvoidingClassCount": "53452205756349874010782",
+        "rootResidueCountsPerClass": [
+          2
+        ],
+        "successorRootChildCount": "106904411512699748021564",
+        "successorQAvoidingClassCount": "3697128715549451735703758594",
+        "previousPostNextPrimeBuckets": [
+          {
+            "previousPostNextObstructionPrime": 227,
+            "sourceRowCount": 1,
+            "sourcePostNextQAvoidingClassCount": "15392714783237749450703"
+          },
+          {
+            "previousPostNextObstructionPrime": 233,
+            "sourceRowCount": 1,
+            "sourcePostNextQAvoidingClassCount": "38059490973112124560079"
+          }
+        ],
+        "previousNextPrimeBuckets": [
+          {
+            "previousNextObstructionPrime": 179,
+            "sourceRowCount": 1,
+            "sourcePostNextQAvoidingClassCount": "15392714783237749450703"
+          },
+          {
+            "previousNextObstructionPrime": 223,
+            "sourceRowCount": 1,
+            "sourcePostNextQAvoidingClassCount": "38059490973112124560079"
+          }
+        ],
+        "previousLaterPrimeBuckets": [
+          {
+            "previousLaterObstructionPrime": 173,
+            "sourceRowCount": 1,
+            "sourcePostNextQAvoidingClassCount": "15392714783237749450703"
+          },
+          {
+            "previousLaterObstructionPrime": 199,
+            "sourceRowCount": 1,
+            "sourcePostNextQAvoidingClassCount": "38059490973112124560079"
+          }
+        ],
+        "status": "open_exact_two_root_successor_rank_boundary",
+        "proofObligation": "Cover this bucket as part of the whole 22-bucket successor q-avoiding batch/rank action, or emit a sharper exact subboundary. This token does not authorize singleton q-child descent by itself."
+      }
+    ],
+    "measureStatus": "finite_rank_token_partitioned_not_decreased",
+    "exactPartition": "The single 22-bucket successor rank token is partitioned by q in {139,149,151,157,163,167,173,179,181,191,193,197,199,211,223,227,229,233,239,241,251,263}."
+  },
+  "compressionAudit": {
+    "verdict": "exact_boundary_packet_is_the_honest_current_compression",
+    "sharedInvariant": "Every stored row in the 22-bucket successor boundary has exactly two roots at its first successor obstruction prime.",
+    "nonTerminalReason": "The shared two-root law emits rank children and a still larger q-avoiding boundary; it does not prove terminal closure of those children.",
+    "noStrongerUniformTheoremThisTurn": "The buckets mix previous post-next, next-prime, and later-prime supports unevenly, so this packet records the exact finite partition and hands off a whole-boundary q-avoiding batch cover instead of claiming one closed terminal family."
+  },
+  "finiteTokenTransition": {
+    "consumedFiniteToken": {
+      "tokenId": "p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_rank_boundary",
+      "bucketCount": 22,
+      "successorRootChildCount": "5893620911417283150794622",
+      "successorQAvoidingClassCount": "111172518226866898571161320153",
+      "status": "consumed_by_deterministic_22_bucket_successor_rank_boundary"
+    },
+    "emittedRankBoundaryTokenCount": 22,
+    "producedFiniteTokens": [
+      {
+        "tokenId": "p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_root_children",
+        "successorObstructionPrimeBucketCount": 22,
+        "rootChildCount": "5893620911417283150794622",
+        "status": "root_children_open_not_descended"
+      },
+      {
+        "tokenId": "p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_q_avoiding_batch_cover",
+        "successorObstructionPrimeBucketCount": 22,
+        "qAvoidingClassCount": "111172518226866898571161320153",
+        "status": "selected_for_whole_boundary_batch_cover"
+      }
+    ],
+    "nextFiniteToken": {
+      "tokenId": "p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_q_avoiding_batch_cover",
+      "bucketCount": 22,
+      "qAvoidingClassCount": "111172518226866898571161320153",
+      "status": "selected"
+    }
+  },
+  "successorPrimeBuckets": [
+    {
+      "tokenId": "p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_q139_rank_boundary",
+      "successorObstructionPrime": 139,
+      "successorObstructionSquare": 19321,
+      "sourceRowCount": 6,
+      "sourcePostNextQAvoidingClassCount": "4725637512006611363898",
+      "rootResidueCountsPerClass": [
+        2
+      ],
+      "successorRootChildCount": "9451275024013222727796",
+      "successorQAvoidingClassCount": "91294591094455724939145462",
+      "previousPostNextPrimeBuckets": [
+        {
+          "previousPostNextObstructionPrime": 137,
+          "sourceRowCount": 6,
+          "sourcePostNextQAvoidingClassCount": "4725637512006611363898"
+        }
+      ],
+      "previousNextPrimeBuckets": [
+        {
+          "previousNextObstructionPrime": 131,
+          "sourceRowCount": 6,
+          "sourcePostNextQAvoidingClassCount": "4725637512006611363898"
+        }
+      ],
+      "previousLaterPrimeBuckets": [
+        {
+          "previousLaterObstructionPrime": 127,
+          "sourceRowCount": 6,
+          "sourcePostNextQAvoidingClassCount": "4725637512006611363898"
+        }
+      ],
+      "status": "open_exact_two_root_successor_rank_boundary",
+      "proofObligation": "Cover this bucket as part of the whole 22-bucket successor q-avoiding batch/rank action, or emit a sharper exact subboundary. This token does not authorize singleton q-child descent by itself."
+    },
+    {
+      "tokenId": "p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_q149_rank_boundary",
+      "successorObstructionPrime": 149,
+      "successorObstructionSquare": 22201,
+      "sourceRowCount": 37,
+      "sourcePostNextQAvoidingClassCount": "35217541143700389825659",
+      "rootResidueCountsPerClass": [
+        2
+      ],
+      "successorRootChildCount": "70435082287400779651318",
+      "successorQAvoidingClassCount": "781794195849004953739804141",
+      "previousPostNextPrimeBuckets": [
+        {
+          "previousPostNextObstructionPrime": 137,
+          "sourceRowCount": 7,
+          "sourcePostNextQAvoidingClassCount": "5513243764007713257881"
+        },
+        {
+          "previousPostNextObstructionPrime": 139,
+          "sourceRowCount": 30,
+          "sourcePostNextQAvoidingClassCount": "29704297379692676567778"
+        }
+      ],
+      "previousNextPrimeBuckets": [
+        {
+          "previousNextObstructionPrime": 131,
+          "sourceRowCount": 15,
+          "sourcePostNextQAvoidingClassCount": "11999422772867642917329"
+        },
+        {
+          "previousNextObstructionPrime": 137,
+          "sourceRowCount": 22,
+          "sourcePostNextQAvoidingClassCount": "23218118370832746908330"
+        }
+      ],
+      "previousLaterPrimeBuckets": [
+        {
+          "previousLaterObstructionPrime": 127,
+          "sourceRowCount": 22,
+          "sourcePostNextQAvoidingClassCount": "18206681720176053222650"
+        },
+        {
+          "previousLaterObstructionPrime": 131,
+          "sourceRowCount": 15,
+          "sourcePostNextQAvoidingClassCount": "17010859423524336603009"
+        }
+      ],
+      "status": "open_exact_two_root_successor_rank_boundary",
+      "proofObligation": "Cover this bucket as part of the whole 22-bucket successor q-avoiding batch/rank action, or emit a sharper exact subboundary. This token does not authorize singleton q-child descent by itself."
+    },
+    {
+      "tokenId": "p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_q151_rank_boundary",
+      "successorObstructionPrime": 151,
+      "successorObstructionSquare": 22801,
+      "sourceRowCount": 46,
+      "sourcePostNextQAvoidingClassCount": "55017652384272146351727",
+      "rootResidueCountsPerClass": [
+        2
+      ],
+      "successorRootChildCount": "110035304768544292703454",
+      "successorQAvoidingClassCount": "1254347456709020664673023873",
+      "previousPostNextPrimeBuckets": [
+        {
+          "previousPostNextObstructionPrime": 137,
+          "sourceRowCount": 3,
+          "sourcePostNextQAvoidingClassCount": "2362818756003305681949"
+        },
+        {
+          "previousPostNextObstructionPrime": 139,
+          "sourceRowCount": 10,
+          "sourcePostNextQAvoidingClassCount": "10227440771941623313958"
+        },
+        {
+          "previousPostNextObstructionPrime": 149,
+          "sourceRowCount": 33,
+          "sourcePostNextQAvoidingClassCount": "42427392856327217355820"
+        }
+      ],
+      "previousNextPrimeBuckets": [
+        {
+          "previousNextObstructionPrime": 131,
+          "sourceRowCount": 7,
+          "sourcePostNextQAvoidingClassCount": "5847641729369506825913"
+        },
+        {
+          "previousNextObstructionPrime": 137,
+          "sourceRowCount": 19,
+          "sourcePostNextQAvoidingClassCount": "21257056014986579440842"
+        },
+        {
+          "previousNextObstructionPrime": 139,
+          "sourceRowCount": 20,
+          "sourcePostNextQAvoidingClassCount": "27912954639916060084972"
+        }
+      ],
+      "previousLaterPrimeBuckets": [
+        {
+          "previousLaterObstructionPrime": 127,
+          "sourceRowCount": 19,
+          "sourcePostNextQAvoidingClassCount": "17951265399551350499010"
+        },
+        {
+          "previousLaterObstructionPrime": 131,
+          "sourceRowCount": 17,
+          "sourcePostNextQAvoidingClassCount": "21446780970385476202735"
+        },
+        {
+          "previousLaterObstructionPrime": 137,
+          "sourceRowCount": 10,
+          "sourcePostNextQAvoidingClassCount": "15619606014335319649982"
+        }
+      ],
+      "status": "open_exact_two_root_successor_rank_boundary",
+      "proofObligation": "Cover this bucket as part of the whole 22-bucket successor q-avoiding batch/rank action, or emit a sharper exact subboundary. This token does not authorize singleton q-child descent by itself."
+    },
+    {
+      "tokenId": "p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_q157_rank_boundary",
+      "successorObstructionPrime": 157,
+      "successorObstructionSquare": 24649,
+      "sourceRowCount": 78,
+      "sourcePostNextQAvoidingClassCount": "128113813555682804177370",
+      "rootResidueCountsPerClass": [
+        2
+      ],
+      "successorRootChildCount": "256227627111365608354740",
+      "successorQAvoidingClassCount": "3157621162706914074559638390",
+      "previousPostNextPrimeBuckets": [
+        {
+          "previousPostNextObstructionPrime": 137,
+          "sourceRowCount": 1,
+          "sourcePostNextQAvoidingClassCount": "787606252001101893983"
+        },
+        {
+          "previousPostNextObstructionPrime": 139,
+          "sourceRowCount": 7,
+          "sourcePostNextQAvoidingClassCount": "7173042081010229083289"
+        },
+        {
+          "previousPostNextObstructionPrime": 149,
+          "sourceRowCount": 19,
+          "sourcePostNextQAvoidingClassCount": "26450458150622418236261"
+        },
+        {
+          "previousPostNextObstructionPrime": 151,
+          "sourceRowCount": 51,
+          "sourcePostNextQAvoidingClassCount": "93702707072049054963837"
+        }
+      ],
+      "previousNextPrimeBuckets": [
+        {
+          "previousNextObstructionPrime": 131,
+          "sourceRowCount": 8,
+          "sourcePostNextQAvoidingClassCount": "7142888266136704979800"
+        },
+        {
+          "previousNextObstructionPrime": 137,
+          "sourceRowCount": 15,
+          "sourcePostNextQAvoidingClassCount": "17962228985929398969393"
+        },
+        {
+          "previousNextObstructionPrime": 139,
+          "sourceRowCount": 24,
+          "sourcePostNextQAvoidingClassCount": "38361871392476388750672"
+        },
+        {
+          "previousNextObstructionPrime": 149,
+          "sourceRowCount": 31,
+          "sourcePostNextQAvoidingClassCount": "64646824911140311477505"
+        }
+      ],
+      "previousLaterPrimeBuckets": [
+        {
+          "previousLaterObstructionPrime": 127,
+          "sourceRowCount": 15,
+          "sourcePostNextQAvoidingClassCount": "14887484167677109445121"
+        },
+        {
+          "previousLaterObstructionPrime": 131,
+          "sourceRowCount": 25,
+          "sourcePostNextQAvoidingClassCount": "33011076198412433729279"
+        },
+        {
+          "previousLaterObstructionPrime": 137,
+          "sourceRowCount": 22,
+          "sourcePostNextQAvoidingClassCount": "41893816260919295492666"
+        },
+        {
+          "previousLaterObstructionPrime": 139,
+          "sourceRowCount": 16,
+          "sourcePostNextQAvoidingClassCount": "38321436928673965510304"
+        }
+      ],
+      "status": "open_exact_two_root_successor_rank_boundary",
+      "proofObligation": "Cover this bucket as part of the whole 22-bucket successor q-avoiding batch/rank action, or emit a sharper exact subboundary. This token does not authorize singleton q-child descent by itself."
+    },
+    {
+      "tokenId": "p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_q163_rank_boundary",
+      "successorObstructionPrime": 163,
+      "successorObstructionSquare": 26569,
+      "sourceRowCount": 85,
+      "sourcePostNextQAvoidingClassCount": "170954053841343132395315",
+      "rootResidueCountsPerClass": [
+        2
+      ],
+      "successorRootChildCount": "341908107682686264790630",
+      "successorQAvoidingClassCount": "4541736348402962998346333605",
+      "previousPostNextPrimeBuckets": [
+        {
+          "previousPostNextObstructionPrime": 137,
+          "sourceRowCount": 3,
+          "sourcePostNextQAvoidingClassCount": "2362818756003305681949"
+        },
+        {
+          "previousPostNextObstructionPrime": 139,
+          "sourceRowCount": 5,
+          "sourcePostNextQAvoidingClassCount": "4789433530464401952427"
+        },
+        {
+          "previousPostNextObstructionPrime": 149,
+          "sourceRowCount": 7,
+          "sourcePostNextQAvoidingClassCount": "12006647912669384014649"
+        },
+        {
+          "previousPostNextObstructionPrime": 151,
+          "sourceRowCount": 25,
+          "sourcePostNextQAvoidingClassCount": "43412936709631951522991"
+        },
+        {
+          "previousPostNextObstructionPrime": 157,
+          "sourceRowCount": 45,
+          "sourcePostNextQAvoidingClassCount": "108382216932574089223299"
+        }
+      ],
+      "previousNextPrimeBuckets": [
+        {
+          "previousNextObstructionPrime": 131,
+          "sourceRowCount": 6,
+          "sourcePostNextQAvoidingClassCount": "5018739343091797894914"
+        },
+        {
+          "previousNextObstructionPrime": 137,
+          "sourceRowCount": 9,
+          "sourcePostNextQAvoidingClassCount": "11217296457643094117439"
+        },
+        {
+          "previousNextObstructionPrime": 139,
+          "sourceRowCount": 21,
+          "sourcePostNextQAvoidingClassCount": "35022258375217398152091"
+        },
+        {
+          "previousNextObstructionPrime": 149,
+          "sourceRowCount": 26,
+          "sourcePostNextQAvoidingClassCount": "56026817491200420982558"
+        },
+        {
+          "previousNextObstructionPrime": 151,
+          "sourceRowCount": 23,
+          "sourcePostNextQAvoidingClassCount": "63668942174190421248313"
+        }
+      ],
+      "previousLaterPrimeBuckets": [
+        {
+          "previousLaterObstructionPrime": 127,
+          "sourceRowCount": 9,
+          "sourcePostNextQAvoidingClassCount": "8480686047480448639551"
+        },
+        {
+          "previousLaterObstructionPrime": 131,
+          "sourceRowCount": 17,
+          "sourcePostNextQAvoidingClassCount": "24893642615960112580495"
+        },
+        {
+          "previousLaterObstructionPrime": 137,
+          "sourceRowCount": 27,
+          "sourcePostNextQAvoidingClassCount": "52349955307478782134405"
+        },
+        {
+          "previousLaterObstructionPrime": 139,
+          "sourceRowCount": 21,
+          "sourcePostNextQAvoidingClassCount": "51555202948528369926843"
+        },
+        {
+          "previousLaterObstructionPrime": 149,
+          "sourceRowCount": 11,
+          "sourcePostNextQAvoidingClassCount": "33674566921895419114021"
+        }
+      ],
+      "status": "open_exact_two_root_successor_rank_boundary",
+      "proofObligation": "Cover this bucket as part of the whole 22-bucket successor q-avoiding batch/rank action, or emit a sharper exact subboundary. This token does not authorize singleton q-child descent by itself."
+    },
+    {
+      "tokenId": "p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_q167_rank_boundary",
+      "successorObstructionPrime": 167,
+      "successorObstructionSquare": 27889,
+      "sourceRowCount": 85,
+      "sourcePostNextQAvoidingClassCount": "212136562976080552654139",
+      "rootResidueCountsPerClass": [
+        2
+      ],
+      "successorRootChildCount": "424273125952161105308278",
+      "successorQAvoidingClassCount": "5915852331713958371865974293",
+      "previousPostNextPrimeBuckets": [
+        {
+          "previousPostNextObstructionPrime": 139,
+          "sourceRowCount": 3,
+          "sourcePostNextQAvoidingClassCount": "3448543547302041187629"
+        },
+        {
+          "previousPostNextObstructionPrime": 149,
+          "sourceRowCount": 5,
+          "sourcePostNextQAvoidingClassCount": "7001579494768162418107"
+        },
+        {
+          "previousPostNextObstructionPrime": 151,
+          "sourceRowCount": 14,
+          "sourcePostNextQAvoidingClassCount": "27083926252980011675722"
+        },
+        {
+          "previousPostNextObstructionPrime": 157,
+          "sourceRowCount": 21,
+          "sourcePostNextQAvoidingClassCount": "51726680944174812808995"
+        },
+        {
+          "previousPostNextObstructionPrime": 163,
+          "sourceRowCount": 42,
+          "sourcePostNextQAvoidingClassCount": "122875832736855524563686"
+        }
+      ],
+      "previousNextPrimeBuckets": [
+        {
+          "previousNextObstructionPrime": 131,
+          "sourceRowCount": 1,
+          "sourcePostNextQAvoidingClassCount": "956819680256467313951"
+        },
+        {
+          "previousNextObstructionPrime": 137,
+          "sourceRowCount": 6,
+          "sourcePostNextQAvoidingClassCount": "8088334766815538766762"
+        },
+        {
+          "previousNextObstructionPrime": 139,
+          "sourceRowCount": 8,
+          "sourcePostNextQAvoidingClassCount": "12732057986269072539088"
+        },
+        {
+          "previousNextObstructionPrime": 149,
+          "sourceRowCount": 28,
+          "sourcePostNextQAvoidingClassCount": "64089938481033902500148"
+        },
+        {
+          "previousNextObstructionPrime": 151,
+          "sourceRowCount": 23,
+          "sourcePostNextQAvoidingClassCount": "56558463404484396870025"
+        },
+        {
+          "previousNextObstructionPrime": 157,
+          "sourceRowCount": 19,
+          "sourcePostNextQAvoidingClassCount": "69710948657221174664165"
+        }
+      ],
+      "previousLaterPrimeBuckets": [
+        {
+          "previousLaterObstructionPrime": 127,
+          "sourceRowCount": 3,
+          "sourcePostNextQAvoidingClassCount": "3324999272760858864717"
+        },
+        {
+          "previousLaterObstructionPrime": 131,
+          "sourceRowCount": 16,
+          "sourcePostNextQAvoidingClassCount": "26444886108343143655040"
+        },
+        {
+          "previousLaterObstructionPrime": 137,
+          "sourceRowCount": 22,
+          "sourcePostNextQAvoidingClassCount": "46913490018907162489874"
+        },
+        {
+          "previousLaterObstructionPrime": 139,
+          "sourceRowCount": 24,
+          "sourcePostNextQAvoidingClassCount": "61064810933924691099192"
+        },
+        {
+          "previousLaterObstructionPrime": 149,
+          "sourceRowCount": 11,
+          "sourcePostNextQAvoidingClassCount": "33687761766768932824309"
+        },
+        {
+          "previousLaterObstructionPrime": 151,
+          "sourceRowCount": 9,
+          "sourcePostNextQAvoidingClassCount": "40700614875375763721007"
+        }
+      ],
+      "status": "open_exact_two_root_successor_rank_boundary",
+      "proofObligation": "Cover this bucket as part of the whole 22-bucket successor q-avoiding batch/rank action, or emit a sharper exact subboundary. This token does not authorize singleton q-child descent by itself."
+    },
+    {
+      "tokenId": "p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_q173_rank_boundary",
+      "successorObstructionPrime": 173,
+      "successorObstructionSquare": 29929,
+      "sourceRowCount": 74,
+      "sourcePostNextQAvoidingClassCount": "224177175878283393674110",
+      "rootResidueCountsPerClass": [
+        2
+      ],
+      "successorRootChildCount": "448354351756566787348220",
+      "successorQAvoidingClassCount": "6708950342509387122485089970",
+      "previousPostNextPrimeBuckets": [
+        {
+          "previousPostNextObstructionPrime": 139,
+          "sourceRowCount": 1,
+          "sourcePostNextQAvoidingClassCount": "1191804275272913565431"
+        },
+        {
+          "previousPostNextObstructionPrime": 149,
+          "sourceRowCount": 2,
+          "sourcePostNextQAvoidingClassCount": "2779228257647267036758"
+        },
+        {
+          "previousPostNextObstructionPrime": 151,
+          "sourceRowCount": 6,
+          "sourcePostNextQAvoidingClassCount": "10544236262685953045442"
+        },
+        {
+          "previousPostNextObstructionPrime": 157,
+          "sourceRowCount": 8,
+          "sourcePostNextQAvoidingClassCount": "14595904509339963914608"
+        },
+        {
+          "previousPostNextObstructionPrime": 163,
+          "sourceRowCount": 22,
+          "sourcePostNextQAvoidingClassCount": "68300798816031796941650"
+        },
+        {
+          "previousPostNextObstructionPrime": 167,
+          "sourceRowCount": 35,
+          "sourcePostNextQAvoidingClassCount": "126765203757305499170221"
+        }
+      ],
+      "previousNextPrimeBuckets": [
+        {
+          "previousNextObstructionPrime": 137,
+          "sourceRowCount": 8,
+          "sourcePostNextQAvoidingClassCount": "11748846267211829222104"
+        },
+        {
+          "previousNextObstructionPrime": 139,
+          "sourceRowCount": 6,
+          "sourcePostNextQAvoidingClassCount": "11027142535264722335490"
+        },
+        {
+          "previousNextObstructionPrime": 149,
+          "sourceRowCount": 13,
+          "sourcePostNextQAvoidingClassCount": "28307413330543811442947"
+        },
+        {
+          "previousNextObstructionPrime": 151,
+          "sourceRowCount": 13,
+          "sourcePostNextQAvoidingClassCount": "39740993760887735867579"
+        },
+        {
+          "previousNextObstructionPrime": 157,
+          "sourceRowCount": 21,
+          "sourcePostNextQAvoidingClassCount": "78186852313601364309291"
+        },
+        {
+          "previousNextObstructionPrime": 163,
+          "sourceRowCount": 13,
+          "sourcePostNextQAvoidingClassCount": "55165927670773930496699"
+        }
+      ],
+      "previousLaterPrimeBuckets": [
+        {
+          "previousLaterObstructionPrime": 127,
+          "sourceRowCount": 2,
+          "sourcePostNextQAvoidingClassCount": "2469505242230211690022"
+        },
+        {
+          "previousLaterObstructionPrime": 131,
+          "sourceRowCount": 16,
+          "sourcePostNextQAvoidingClassCount": "26026770012291179942216"
+        },
+        {
+          "previousLaterObstructionPrime": 137,
+          "sourceRowCount": 10,
+          "sourcePostNextQAvoidingClassCount": "21931780725865554763814"
+        },
+        {
+          "previousLaterObstructionPrime": 139,
+          "sourceRowCount": 13,
+          "sourcePostNextQAvoidingClassCount": "38471513785484177078411"
+        },
+        {
+          "previousLaterObstructionPrime": 149,
+          "sourceRowCount": 17,
+          "sourcePostNextQAvoidingClassCount": "61177375919809112532943"
+        },
+        {
+          "previousLaterObstructionPrime": 151,
+          "sourceRowCount": 13,
+          "sourcePostNextQAvoidingClassCount": "59119368441009053881403"
+        },
+        {
+          "previousLaterObstructionPrime": 157,
+          "sourceRowCount": 3,
+          "sourcePostNextQAvoidingClassCount": "14980861751594103785301"
+        }
+      ],
+      "status": "open_exact_two_root_successor_rank_boundary",
+      "proofObligation": "Cover this bucket as part of the whole 22-bucket successor q-avoiding batch/rank action, or emit a sharper exact subboundary. This token does not authorize singleton q-child descent by itself."
+    },
+    {
+      "tokenId": "p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_q179_rank_boundary",
+      "successorObstructionPrime": 179,
+      "successorObstructionSquare": 32041,
+      "sourceRowCount": 77,
+      "sourcePostNextQAvoidingClassCount": "307798971075882376935283",
+      "rootResidueCountsPerClass": [
+        2
+      ],
+      "successorRootChildCount": "615597942151764753870566",
+      "successorQAvoidingClassCount": "9861571234300195474629532037",
+      "previousPostNextPrimeBuckets": [
+        {
+          "previousPostNextObstructionPrime": 139,
+          "sourceRowCount": 2,
+          "sourcePostNextQAvoidingClassCount": "2472700409830476280294"
+        },
+        {
+          "previousPostNextObstructionPrime": 149,
+          "sourceRowCount": 2,
+          "sourcePostNextQAvoidingClassCount": "3066879837234169964350"
+        },
+        {
+          "previousPostNextObstructionPrime": 157,
+          "sourceRowCount": 5,
+          "sourcePostNextQAvoidingClassCount": "12496782214513131393019"
+        },
+        {
+          "previousPostNextObstructionPrime": 163,
+          "sourceRowCount": 11,
+          "sourcePostNextQAvoidingClassCount": "27461384666519068171669"
+        },
+        {
+          "previousPostNextObstructionPrime": 167,
+          "sourceRowCount": 18,
+          "sourcePostNextQAvoidingClassCount": "64614134754662788136166"
+        },
+        {
+          "previousPostNextObstructionPrime": 173,
+          "sourceRowCount": 39,
+          "sourcePostNextQAvoidingClassCount": "197687089193122742989785"
+        }
+      ],
+      "previousNextPrimeBuckets": [
+        {
+          "previousNextObstructionPrime": 137,
+          "sourceRowCount": 4,
+          "sourcePostNextQAvoidingClassCount": "5214294038832061212596"
+        },
+        {
+          "previousNextObstructionPrime": 139,
+          "sourceRowCount": 5,
+          "sourcePostNextQAvoidingClassCount": "9728404649809122040099"
+        },
+        {
+          "previousNextObstructionPrime": 149,
+          "sourceRowCount": 6,
+          "sourcePostNextQAvoidingClassCount": "11404695915435433068570"
+        },
+        {
+          "previousNextObstructionPrime": 151,
+          "sourceRowCount": 10,
+          "sourcePostNextQAvoidingClassCount": "30962222895023816246774"
+        },
+        {
+          "previousNextObstructionPrime": 157,
+          "sourceRowCount": 16,
+          "sourcePostNextQAvoidingClassCount": "52080685537742019429824"
+        },
+        {
+          "previousNextObstructionPrime": 163,
+          "sourceRowCount": 19,
+          "sourcePostNextQAvoidingClassCount": "99160493557981136434541"
+        },
+        {
+          "previousNextObstructionPrime": 167,
+          "sourceRowCount": 17,
+          "sourcePostNextQAvoidingClassCount": "99248174481058788502879"
+        }
+      ],
+      "previousLaterPrimeBuckets": [
+        {
+          "previousLaterObstructionPrime": 127,
+          "sourceRowCount": 4,
+          "sourcePostNextQAvoidingClassCount": "5925482686076462038460"
+        },
+        {
+          "previousLaterObstructionPrime": 131,
+          "sourceRowCount": 9,
+          "sourcePostNextQAvoidingClassCount": "15803131500642183412575"
+        },
+        {
+          "previousLaterObstructionPrime": 137,
+          "sourceRowCount": 10,
+          "sourcePostNextQAvoidingClassCount": "23590791505609844257238"
+        },
+        {
+          "previousLaterObstructionPrime": 139,
+          "sourceRowCount": 11,
+          "sourcePostNextQAvoidingClassCount": "30782555424695688841405"
+        },
+        {
+          "previousLaterObstructionPrime": 149,
+          "sourceRowCount": 13,
+          "sourcePostNextQAvoidingClassCount": "48965639057221478814203"
+        },
+        {
+          "previousLaterObstructionPrime": 151,
+          "sourceRowCount": 14,
+          "sourcePostNextQAvoidingClassCount": "68399547796568323080466"
+        },
+        {
+          "previousLaterObstructionPrime": 157,
+          "sourceRowCount": 11,
+          "sourcePostNextQAvoidingClassCount": "71203746244713210190405"
+        },
+        {
+          "previousLaterObstructionPrime": 163,
+          "sourceRowCount": 5,
+          "sourcePostNextQAvoidingClassCount": "43128076860355186300531"
+        }
+      ],
+      "status": "open_exact_two_root_successor_rank_boundary",
+      "proofObligation": "Cover this bucket as part of the whole 22-bucket successor q-avoiding batch/rank action, or emit a sharper exact subboundary. This token does not authorize singleton q-child descent by itself."
+    },
+    {
+      "tokenId": "p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_q181_rank_boundary",
+      "successorObstructionPrime": 181,
+      "successorObstructionSquare": 32761,
+      "sourceRowCount": 55,
+      "sourcePostNextQAvoidingClassCount": "246375734372590544224577",
+      "rootResidueCountsPerClass": [
+        2
+      ],
+      "successorRootChildCount": "492751468745181088449154",
+      "successorQAvoidingClassCount": "8071022682311693638252917943",
+      "previousPostNextPrimeBuckets": [
+        {
+          "previousPostNextObstructionPrime": 157,
+          "sourceRowCount": 4,
+          "sourcePostNextQAvoidingClassCount": "10491607262092387289180"
+        },
+        {
+          "previousPostNextObstructionPrime": 163,
+          "sourceRowCount": 1,
+          "sourcePostNextQAvoidingClassCount": "2784668231878898823983"
+        },
+        {
+          "previousPostNextObstructionPrime": 167,
+          "sourceRowCount": 9,
+          "sourcePostNextQAvoidingClassCount": "31932251291227121457375"
+        },
+        {
+          "previousPostNextObstructionPrime": 173,
+          "sourceRowCount": 17,
+          "sourcePostNextQAvoidingClassCount": "63037364355141572291959"
+        },
+        {
+          "previousPostNextObstructionPrime": 179,
+          "sourceRowCount": 24,
+          "sourcePostNextQAvoidingClassCount": "138129843232250564362080"
+        }
+      ],
+      "previousNextPrimeBuckets": [
+        {
+          "previousNextObstructionPrime": 139,
+          "sourceRowCount": 1,
+          "sourcePostNextQAvoidingClassCount": "1504556637922049318831"
+        },
+        {
+          "previousNextObstructionPrime": 149,
+          "sourceRowCount": 4,
+          "sourcePostNextQAvoidingClassCount": "9474541217783910678116"
+        },
+        {
+          "previousNextObstructionPrime": 151,
+          "sourceRowCount": 12,
+          "sourcePostNextQAvoidingClassCount": "36918353944629552126564"
+        },
+        {
+          "previousNextObstructionPrime": 157,
+          "sourceRowCount": 11,
+          "sourcePostNextQAvoidingClassCount": "42352484550714879982021"
+        },
+        {
+          "previousNextObstructionPrime": 163,
+          "sourceRowCount": 12,
+          "sourcePostNextQAvoidingClassCount": "63647956346941948149564"
+        },
+        {
+          "previousNextObstructionPrime": 167,
+          "sourceRowCount": 9,
+          "sourcePostNextQAvoidingClassCount": "52472139975649232147799"
+        },
+        {
+          "previousNextObstructionPrime": 173,
+          "sourceRowCount": 6,
+          "sourcePostNextQAvoidingClassCount": "40005701698948971821682"
+        }
+      ],
+      "previousLaterPrimeBuckets": [
+        {
+          "previousLaterObstructionPrime": 127,
+          "sourceRowCount": 1,
+          "sourcePostNextQAvoidingClassCount": "1624871126650519345703"
+        },
+        {
+          "previousLaterObstructionPrime": 131,
+          "sourceRowCount": 2,
+          "sourcePostNextQAvoidingClassCount": "4122008667261711055630"
+        },
+        {
+          "previousLaterObstructionPrime": 137,
+          "sourceRowCount": 5,
+          "sourcePostNextQAvoidingClassCount": "12166364858680171055035"
+        },
+        {
+          "previousLaterObstructionPrime": 139,
+          "sourceRowCount": 22,
+          "sourcePostNextQAvoidingClassCount": "80390124672659178960170"
+        },
+        {
+          "previousLaterObstructionPrime": 149,
+          "sourceRowCount": 10,
+          "sourcePostNextQAvoidingClassCount": "39234712739050211451902"
+        },
+        {
+          "previousLaterObstructionPrime": 151,
+          "sourceRowCount": 4,
+          "sourcePostNextQAvoidingClassCount": "21821885661542573204612"
+        },
+        {
+          "previousLaterObstructionPrime": 157,
+          "sourceRowCount": 9,
+          "sourcePostNextQAvoidingClassCount": "65766606378237287267871"
+        },
+        {
+          "previousLaterObstructionPrime": 163,
+          "sourceRowCount": 2,
+          "sourcePostNextQAvoidingClassCount": "21249160268508891883654"
+        }
+      ],
+      "status": "open_exact_two_root_successor_rank_boundary",
+      "proofObligation": "Cover this bucket as part of the whole 22-bucket successor q-avoiding batch/rank action, or emit a sharper exact subboundary. This token does not authorize singleton q-child descent by itself."
+    },
+    {
+      "tokenId": "p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_q191_rank_boundary",
+      "successorObstructionPrime": 191,
+      "successorObstructionSquare": 36481,
+      "sourceRowCount": 44,
+      "sourcePostNextQAvoidingClassCount": "248553145791906763016644",
+      "rootResidueCountsPerClass": [
+        2
+      ],
+      "successorRootChildCount": "497106291583813526033288",
+      "successorQAvoidingClassCount": "9066970205342966808084156476",
+      "previousPostNextPrimeBuckets": [
+        {
+          "previousPostNextObstructionPrime": 151,
+          "sourceRowCount": 2,
+          "sourcePostNextQAvoidingClassCount": "3037593602798649719902"
+        },
+        {
+          "previousPostNextObstructionPrime": 157,
+          "sourceRowCount": 1,
+          "sourcePostNextQAvoidingClassCount": "2154537092687118183527"
+        },
+        {
+          "previousPostNextObstructionPrime": 163,
+          "sourceRowCount": 2,
+          "sourcePostNextQAvoidingClassCount": "6143173097921585206414"
+        },
+        {
+          "previousPostNextObstructionPrime": 167,
+          "sourceRowCount": 7,
+          "sourcePostNextQAvoidingClassCount": "26521419565428775276481"
+        },
+        {
+          "previousPostNextObstructionPrime": 173,
+          "sourceRowCount": 8,
+          "sourcePostNextQAvoidingClassCount": "42253180091744780285680"
+        },
+        {
+          "previousPostNextObstructionPrime": 179,
+          "sourceRowCount": 10,
+          "sourcePostNextQAvoidingClassCount": "61400216520165609665222"
+        },
+        {
+          "previousPostNextObstructionPrime": 181,
+          "sourceRowCount": 14,
+          "sourcePostNextQAvoidingClassCount": "107043025821160244679418"
+        }
+      ],
+      "previousNextPrimeBuckets": [
+        {
+          "previousNextObstructionPrime": 131,
+          "sourceRowCount": 1,
+          "sourcePostNextQAvoidingClassCount": "956819680256467313951"
+        },
+        {
+          "previousNextObstructionPrime": 139,
+          "sourceRowCount": 4,
+          "sourcePostNextQAvoidingClassCount": "7983740907974244545564"
+        },
+        {
+          "previousNextObstructionPrime": 149,
+          "sourceRowCount": 4,
+          "sourcePostNextQAvoidingClassCount": "9018501777250156199372"
+        },
+        {
+          "previousNextObstructionPrime": 151,
+          "sourceRowCount": 3,
+          "sourcePostNextQAvoidingClassCount": "11024345155561574521293"
+        },
+        {
+          "previousNextObstructionPrime": 157,
+          "sourceRowCount": 2,
+          "sourcePostNextQAvoidingClassCount": "6340145997538661797174"
+        },
+        {
+          "previousNextObstructionPrime": 163,
+          "sourceRowCount": 11,
+          "sourcePostNextQAvoidingClassCount": "50602817207320976394637"
+        },
+        {
+          "previousNextObstructionPrime": 167,
+          "sourceRowCount": 7,
+          "sourcePostNextQAvoidingClassCount": "44163213246946242502865"
+        },
+        {
+          "previousNextObstructionPrime": 173,
+          "sourceRowCount": 5,
+          "sourcePostNextQAvoidingClassCount": "49333369806157528733707"
+        },
+        {
+          "previousNextObstructionPrime": 179,
+          "sourceRowCount": 7,
+          "sourcePostNextQAvoidingClassCount": "69130192012900911008081"
+        }
+      ],
+      "previousLaterPrimeBuckets": [
+        {
+          "previousLaterObstructionPrime": 127,
+          "sourceRowCount": 1,
+          "sourcePostNextQAvoidingClassCount": "956819680256467313951"
+        },
+        {
+          "previousLaterObstructionPrime": 131,
+          "sourceRowCount": 5,
+          "sourcePostNextQAvoidingClassCount": "10018723274749682655475"
+        },
+        {
+          "previousLaterObstructionPrime": 137,
+          "sourceRowCount": 3,
+          "sourcePostNextQAvoidingClassCount": "10279653740210993402565"
+        },
+        {
+          "previousLaterObstructionPrime": 139,
+          "sourceRowCount": 4,
+          "sourcePostNextQAvoidingClassCount": "15456750933375010575260"
+        },
+        {
+          "previousLaterObstructionPrime": 149,
+          "sourceRowCount": 9,
+          "sourcePostNextQAvoidingClassCount": "34185988183306703747991"
+        },
+        {
+          "previousLaterObstructionPrime": 151,
+          "sourceRowCount": 3,
+          "sourcePostNextQAvoidingClassCount": "16613542666727414285157"
+        },
+        {
+          "previousLaterObstructionPrime": 157,
+          "sourceRowCount": 11,
+          "sourcePostNextQAvoidingClassCount": "76675319366930469748381"
+        },
+        {
+          "previousLaterObstructionPrime": 163,
+          "sourceRowCount": 4,
+          "sourcePostNextQAvoidingClassCount": "37749159230727047748596"
+        },
+        {
+          "previousLaterObstructionPrime": 167,
+          "sourceRowCount": 2,
+          "sourcePostNextQAvoidingClassCount": "17438804338478203938574"
+        },
+        {
+          "previousLaterObstructionPrime": 173,
+          "sourceRowCount": 2,
+          "sourcePostNextQAvoidingClassCount": "29178384377144769600694"
+        }
+      ],
+      "status": "open_exact_two_root_successor_rank_boundary",
+      "proofObligation": "Cover this bucket as part of the whole 22-bucket successor q-avoiding batch/rank action, or emit a sharper exact subboundary. This token does not authorize singleton q-child descent by itself."
+    },
+    {
+      "tokenId": "p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_q193_rank_boundary",
+      "successorObstructionPrime": 193,
+      "successorObstructionSquare": 37249,
+      "sourceRowCount": 32,
+      "sourcePostNextQAvoidingClassCount": "194133894492931695542248",
+      "rootResidueCountsPerClass": [
+        2
+      ],
+      "successorRootChildCount": "388267788985863391084496",
+      "successorQAvoidingClassCount": "7230905168178226863862111256",
+      "previousPostNextPrimeBuckets": [
+        {
+          "previousPostNextObstructionPrime": 157,
+          "sourceRowCount": 1,
+          "sourcePostNextQAvoidingClassCount": "1646391998962849979351"
+        },
+        {
+          "previousPostNextObstructionPrime": 163,
+          "sourceRowCount": 1,
+          "sourcePostNextQAvoidingClassCount": "3328105736804808030743"
+        },
+        {
+          "previousPostNextObstructionPrime": 167,
+          "sourceRowCount": 3,
+          "sourcePostNextQAvoidingClassCount": "9592030655468328273885"
+        },
+        {
+          "previousPostNextObstructionPrime": 173,
+          "sourceRowCount": 5,
+          "sourcePostNextQAvoidingClassCount": "22219516172190885054787"
+        },
+        {
+          "previousPostNextObstructionPrime": 179,
+          "sourceRowCount": 7,
+          "sourcePostNextQAvoidingClassCount": "29351159937115661334977"
+        },
+        {
+          "previousPostNextObstructionPrime": 181,
+          "sourceRowCount": 6,
+          "sourcePostNextQAvoidingClassCount": "37794739749904844395962"
+        },
+        {
+          "previousPostNextObstructionPrime": 191,
+          "sourceRowCount": 9,
+          "sourcePostNextQAvoidingClassCount": "90201950242484318472543"
+        }
+      ],
+      "previousNextPrimeBuckets": [
+        {
+          "previousNextObstructionPrime": 149,
+          "sourceRowCount": 3,
+          "sourcePostNextQAvoidingClassCount": "8656964710997155581357"
+        },
+        {
+          "previousNextObstructionPrime": 151,
+          "sourceRowCount": 6,
+          "sourcePostNextQAvoidingClassCount": "16329593389921065712458"
+        },
+        {
+          "previousNextObstructionPrime": 157,
+          "sourceRowCount": 3,
+          "sourcePostNextQAvoidingClassCount": "8117976010855173161013"
+        },
+        {
+          "previousNextObstructionPrime": 163,
+          "sourceRowCount": 5,
+          "sourcePostNextQAvoidingClassCount": "31777859676048061328347"
+        },
+        {
+          "previousNextObstructionPrime": 167,
+          "sourceRowCount": 6,
+          "sourcePostNextQAvoidingClassCount": "33425882275153157410530"
+        },
+        {
+          "previousNextObstructionPrime": 173,
+          "sourceRowCount": 2,
+          "sourcePostNextQAvoidingClassCount": "12706325765235786609982"
+        },
+        {
+          "previousNextObstructionPrime": 179,
+          "sourceRowCount": 4,
+          "sourcePostNextQAvoidingClassCount": "40756857552168850736756"
+        },
+        {
+          "previousNextObstructionPrime": 181,
+          "sourceRowCount": 3,
+          "sourcePostNextQAvoidingClassCount": "42362435112552445001805"
+        }
+      ],
+      "previousLaterPrimeBuckets": [
+        {
+          "previousLaterObstructionPrime": 127,
+          "sourceRowCount": 2,
+          "sourcePostNextQAvoidingClassCount": "3507785699203868551630"
+        },
+        {
+          "previousLaterObstructionPrime": 131,
+          "sourceRowCount": 1,
+          "sourcePostNextQAvoidingClassCount": "2743408139577842980103"
+        },
+        {
+          "previousLaterObstructionPrime": 137,
+          "sourceRowCount": 5,
+          "sourcePostNextQAvoidingClassCount": "15536890184039539936243"
+        },
+        {
+          "previousLaterObstructionPrime": 139,
+          "sourceRowCount": 5,
+          "sourcePostNextQAvoidingClassCount": "16872091786424617472107"
+        },
+        {
+          "previousLaterObstructionPrime": 149,
+          "sourceRowCount": 1,
+          "sourcePostNextQAvoidingClassCount": "3934720127821579896863"
+        },
+        {
+          "previousLaterObstructionPrime": 151,
+          "sourceRowCount": 4,
+          "sourcePostNextQAvoidingClassCount": "22060994574938857195532"
+        },
+        {
+          "previousLaterObstructionPrime": 157,
+          "sourceRowCount": 5,
+          "sourcePostNextQAvoidingClassCount": "33711812289094336747483"
+        },
+        {
+          "previousLaterObstructionPrime": 163,
+          "sourceRowCount": 6,
+          "sourcePostNextQAvoidingClassCount": "40314940616590887029538"
+        },
+        {
+          "previousLaterObstructionPrime": 173,
+          "sourceRowCount": 2,
+          "sourcePostNextQAvoidingClassCount": "42767894799173183156182"
+        },
+        {
+          "previousLaterObstructionPrime": 179,
+          "sourceRowCount": 1,
+          "sourcePostNextQAvoidingClassCount": "12683356276066982576567"
+        }
+      ],
+      "status": "open_exact_two_root_successor_rank_boundary",
+      "proofObligation": "Cover this bucket as part of the whole 22-bucket successor q-avoiding batch/rank action, or emit a sharper exact subboundary. This token does not authorize singleton q-child descent by itself."
+    },
+    {
+      "tokenId": "p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_q197_rank_boundary",
+      "successorObstructionPrime": 197,
+      "successorObstructionSquare": 38809,
+      "sourceRowCount": 31,
+      "sourcePostNextQAvoidingClassCount": "210369056368096055548121",
+      "rootResidueCountsPerClass": [
+        2
+      ],
+      "successorRootChildCount": "420738112736192111096242",
+      "successorQAvoidingClassCount": "8163791970476703627655931647",
+      "previousPostNextPrimeBuckets": [
+        {
+          "previousPostNextObstructionPrime": 167,
+          "sourceRowCount": 1,
+          "sourcePostNextQAvoidingClassCount": "3765605740344694346303"
+        },
+        {
+          "previousPostNextObstructionPrime": 173,
+          "sourceRowCount": 6,
+          "sourcePostNextQAvoidingClassCount": "25180660140552556459050"
+        },
+        {
+          "previousPostNextObstructionPrime": 179,
+          "sourceRowCount": 3,
+          "sourcePostNextQAvoidingClassCount": "21419157090908438682429"
+        },
+        {
+          "previousPostNextObstructionPrime": 181,
+          "sourceRowCount": 7,
+          "sourcePostNextQAvoidingClassCount": "44957670385022521349177"
+        },
+        {
+          "previousPostNextObstructionPrime": 191,
+          "sourceRowCount": 6,
+          "sourcePostNextQAvoidingClassCount": "47651842022855384140722"
+        },
+        {
+          "previousPostNextObstructionPrime": 193,
+          "sourceRowCount": 8,
+          "sourcePostNextQAvoidingClassCount": "67394120988412460570440"
+        }
+      ],
+      "previousNextPrimeBuckets": [
+        {
+          "previousNextObstructionPrime": 157,
+          "sourceRowCount": 5,
+          "sourcePostNextQAvoidingClassCount": "19849223319017246891779"
+        },
+        {
+          "previousNextObstructionPrime": 163,
+          "sourceRowCount": 4,
+          "sourcePostNextQAvoidingClassCount": "22195568661784276389428"
+        },
+        {
+          "previousNextObstructionPrime": 167,
+          "sourceRowCount": 6,
+          "sourcePostNextQAvoidingClassCount": "25534240194523998149754"
+        },
+        {
+          "previousNextObstructionPrime": 173,
+          "sourceRowCount": 7,
+          "sourcePostNextQAvoidingClassCount": "51010651547431243722761"
+        },
+        {
+          "previousNextObstructionPrime": 179,
+          "sourceRowCount": 5,
+          "sourcePostNextQAvoidingClassCount": "48329340603645543160411"
+        },
+        {
+          "previousNextObstructionPrime": 181,
+          "sourceRowCount": 2,
+          "sourcePostNextQAvoidingClassCount": "20724452691489129028390"
+        },
+        {
+          "previousNextObstructionPrime": 191,
+          "sourceRowCount": 2,
+          "sourcePostNextQAvoidingClassCount": "22725579350204618205598"
+        }
+      ],
+      "previousLaterPrimeBuckets": [
+        {
+          "previousLaterObstructionPrime": 127,
+          "sourceRowCount": 1,
+          "sourcePostNextQAvoidingClassCount": "2488095511850693890103"
+        },
+        {
+          "previousLaterObstructionPrime": 131,
+          "sourceRowCount": 2,
+          "sourcePostNextQAvoidingClassCount": "4622547652872133304446"
+        },
+        {
+          "previousLaterObstructionPrime": 137,
+          "sourceRowCount": 2,
+          "sourcePostNextQAvoidingClassCount": "7292021207867962060222"
+        },
+        {
+          "previousLaterObstructionPrime": 139,
+          "sourceRowCount": 1,
+          "sourcePostNextQAvoidingClassCount": "3805155986326587724391"
+        },
+        {
+          "previousLaterObstructionPrime": 149,
+          "sourceRowCount": 7,
+          "sourcePostNextQAvoidingClassCount": "43034228050903056704681"
+        },
+        {
+          "previousLaterObstructionPrime": 151,
+          "sourceRowCount": 6,
+          "sourcePostNextQAvoidingClassCount": "39190087767657250820298"
+        },
+        {
+          "previousLaterObstructionPrime": 157,
+          "sourceRowCount": 6,
+          "sourcePostNextQAvoidingClassCount": "40441486621877344544898"
+        },
+        {
+          "previousLaterObstructionPrime": 163,
+          "sourceRowCount": 2,
+          "sourcePostNextQAvoidingClassCount": "16244552536142152621486"
+        },
+        {
+          "previousLaterObstructionPrime": 167,
+          "sourceRowCount": 2,
+          "sourcePostNextQAvoidingClassCount": "26159672853095317405030"
+        },
+        {
+          "previousLaterObstructionPrime": 173,
+          "sourceRowCount": 1,
+          "sourcePostNextQAvoidingClassCount": "15301342512945086388119"
+        },
+        {
+          "previousLaterObstructionPrime": 179,
+          "sourceRowCount": 1,
+          "sourcePostNextQAvoidingClassCount": "11789865666558470084447"
+        }
+      ],
+      "status": "open_exact_two_root_successor_rank_boundary",
+      "proofObligation": "Cover this bucket as part of the whole 22-bucket successor q-avoiding batch/rank action, or emit a sharper exact subboundary. This token does not authorize singleton q-child descent by itself."
+    },
+    {
+      "tokenId": "p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_q199_rank_boundary",
+      "successorObstructionPrime": 199,
+      "successorObstructionSquare": 39601,
+      "sourceRowCount": 18,
+      "sourcePostNextQAvoidingClassCount": "135137273852783154266286",
+      "rootResidueCountsPerClass": [
+        2
+      ],
+      "successorRootChildCount": "270274547705566308532572",
+      "successorQAvoidingClassCount": "5351300907296360125790659314",
+      "previousPostNextPrimeBuckets": [
+        {
+          "previousPostNextObstructionPrime": 151,
+          "sourceRowCount": 1,
+          "sourcePostNextQAvoidingClassCount": "1819606719986213368511"
+        },
+        {
+          "previousPostNextObstructionPrime": 167,
+          "sourceRowCount": 2,
+          "sourcePostNextQAvoidingClassCount": "6846620796706795083574"
+        },
+        {
+          "previousPostNextObstructionPrime": 181,
+          "sourceRowCount": 4,
+          "sourcePostNextQAvoidingClassCount": "24694973558204644260860"
+        },
+        {
+          "previousPostNextObstructionPrime": 191,
+          "sourceRowCount": 2,
+          "sourcePostNextQAvoidingClassCount": "13193767433645070731158"
+        },
+        {
+          "previousPostNextObstructionPrime": 193,
+          "sourceRowCount": 6,
+          "sourcePostNextQAvoidingClassCount": "52908671280286056503562"
+        },
+        {
+          "previousPostNextObstructionPrime": 197,
+          "sourceRowCount": 3,
+          "sourcePostNextQAvoidingClassCount": "35673634063954374318621"
+        }
+      ],
+      "previousNextPrimeBuckets": [
+        {
+          "previousNextObstructionPrime": 149,
+          "sourceRowCount": 1,
+          "sourcePostNextQAvoidingClassCount": "1819606719986213368511"
+        },
+        {
+          "previousNextObstructionPrime": 151,
+          "sourceRowCount": 1,
+          "sourcePostNextQAvoidingClassCount": "7120963781627481995111"
+        },
+        {
+          "previousNextObstructionPrime": 157,
+          "sourceRowCount": 4,
+          "sourcePostNextQAvoidingClassCount": "17582382996927074541908"
+        },
+        {
+          "previousNextObstructionPrime": 163,
+          "sourceRowCount": 1,
+          "sourcePostNextQAvoidingClassCount": "6267439528262013018239"
+        },
+        {
+          "previousNextObstructionPrime": 167,
+          "sourceRowCount": 3,
+          "sourcePostNextQAvoidingClassCount": "18259750533877058682357"
+        },
+        {
+          "previousNextObstructionPrime": 173,
+          "sourceRowCount": 2,
+          "sourcePostNextQAvoidingClassCount": "15772348899429724709758"
+        },
+        {
+          "previousNextObstructionPrime": 179,
+          "sourceRowCount": 2,
+          "sourcePostNextQAvoidingClassCount": "22007278868442749721574"
+        },
+        {
+          "previousNextObstructionPrime": 181,
+          "sourceRowCount": 2,
+          "sourcePostNextQAvoidingClassCount": "29362908952097704430062"
+        },
+        {
+          "previousNextObstructionPrime": 191,
+          "sourceRowCount": 2,
+          "sourcePostNextQAvoidingClassCount": "16944593572133133798766"
+        }
+      ],
+      "previousLaterPrimeBuckets": [
+        {
+          "previousLaterObstructionPrime": 131,
+          "sourceRowCount": 1,
+          "sourcePostNextQAvoidingClassCount": "1788654982769118108743"
+        },
+        {
+          "previousLaterObstructionPrime": 137,
+          "sourceRowCount": 1,
+          "sourcePostNextQAvoidingClassCount": "1819606719986213368511"
+        },
+        {
+          "previousLaterObstructionPrime": 139,
+          "sourceRowCount": 1,
+          "sourcePostNextQAvoidingClassCount": "6461964478122941130623"
+        },
+        {
+          "previousLaterObstructionPrime": 149,
+          "sourceRowCount": 3,
+          "sourcePostNextQAvoidingClassCount": "16174721371033894699653"
+        },
+        {
+          "previousLaterObstructionPrime": 151,
+          "sourceRowCount": 4,
+          "sourcePostNextQAvoidingClassCount": "22912382019011529850988"
+        },
+        {
+          "previousLaterObstructionPrime": 157,
+          "sourceRowCount": 2,
+          "sourcePostNextQAvoidingClassCount": "16910298952350181033390"
+        },
+        {
+          "previousLaterObstructionPrime": 163,
+          "sourceRowCount": 3,
+          "sourcePostNextQAvoidingClassCount": "19674661993481796938301"
+        },
+        {
+          "previousLaterObstructionPrime": 167,
+          "sourceRowCount": 1,
+          "sourcePostNextQAvoidingClassCount": "17080445985136565900183"
+        },
+        {
+          "previousLaterObstructionPrime": 173,
+          "sourceRowCount": 1,
+          "sourcePostNextQAvoidingClassCount": "10029306596826033930623"
+        },
+        {
+          "previousLaterObstructionPrime": 179,
+          "sourceRowCount": 1,
+          "sourcePostNextQAvoidingClassCount": "22285230754064879305271"
+        }
+      ],
+      "status": "open_exact_two_root_successor_rank_boundary",
+      "proofObligation": "Cover this bucket as part of the whole 22-bucket successor q-avoiding batch/rank action, or emit a sharper exact subboundary. This token does not authorize singleton q-child descent by itself."
+    },
+    {
+      "tokenId": "p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_q211_rank_boundary",
+      "successorObstructionPrime": 211,
+      "successorObstructionSquare": 44521,
+      "sourceRowCount": 15,
+      "sourcePostNextQAvoidingClassCount": "148854773366620573587681",
+      "rootResidueCountsPerClass": [
+        2
+      ],
+      "successorRootChildCount": "297709546733241147175362",
+      "successorQAvoidingClassCount": "6626865655508581315549970439",
+      "previousPostNextPrimeBuckets": [
+        {
+          "previousPostNextObstructionPrime": 167,
+          "sourceRowCount": 1,
+          "sourcePostNextQAvoidingClassCount": "6528447643555111038863"
+        },
+        {
+          "previousPostNextObstructionPrime": 173,
+          "sourceRowCount": 1,
+          "sourcePostNextQAvoidingClassCount": "3776332689929220333311"
+        },
+        {
+          "previousPostNextObstructionPrime": 179,
+          "sourceRowCount": 1,
+          "sourcePostNextQAvoidingClassCount": "11467321441892445826991"
+        },
+        {
+          "previousPostNextObstructionPrime": 181,
+          "sourceRowCount": 1,
+          "sourcePostNextQAvoidingClassCount": "4652681827919308681151"
+        },
+        {
+          "previousPostNextObstructionPrime": 191,
+          "sourceRowCount": 4,
+          "sourcePostNextQAvoidingClassCount": "33971808817819060849724"
+        },
+        {
+          "previousPostNextObstructionPrime": 197,
+          "sourceRowCount": 4,
+          "sourcePostNextQAvoidingClassCount": "18710517411162281433092"
+        },
+        {
+          "previousPostNextObstructionPrime": 199,
+          "sourceRowCount": 3,
+          "sourcePostNextQAvoidingClassCount": "69747663534343145424549"
+        }
+      ],
+      "previousNextPrimeBuckets": [
+        {
+          "previousNextObstructionPrime": 149,
+          "sourceRowCount": 1,
+          "sourcePostNextQAvoidingClassCount": "3328746939489026402879"
+        },
+        {
+          "previousNextObstructionPrime": 157,
+          "sourceRowCount": 1,
+          "sourcePostNextQAvoidingClassCount": "6528447643555111038863"
+        },
+        {
+          "previousNextObstructionPrime": 163,
+          "sourceRowCount": 1,
+          "sourcePostNextQAvoidingClassCount": "4652681827919308681151"
+        },
+        {
+          "previousNextObstructionPrime": 167,
+          "sourceRowCount": 3,
+          "sourcePostNextQAvoidingClassCount": "13029757283669630007357"
+        },
+        {
+          "previousNextObstructionPrime": 173,
+          "sourceRowCount": 4,
+          "sourcePostNextQAvoidingClassCount": "26140771238719894084412"
+        },
+        {
+          "previousNextObstructionPrime": 179,
+          "sourceRowCount": 2,
+          "sourcePostNextQAvoidingClassCount": "23738489745029486166838"
+        },
+        {
+          "previousNextObstructionPrime": 181,
+          "sourceRowCount": 2,
+          "sourcePostNextQAvoidingClassCount": "15964235784902559925078"
+        },
+        {
+          "previousNextObstructionPrime": 197,
+          "sourceRowCount": 1,
+          "sourcePostNextQAvoidingClassCount": "55471642903335557281103"
+        }
+      ],
+      "previousLaterPrimeBuckets": [
+        {
+          "previousLaterObstructionPrime": 137,
+          "sourceRowCount": 3,
+          "sourcePostNextQAvoidingClassCount": "11434990193735192581077"
+        },
+        {
+          "previousLaterObstructionPrime": 139,
+          "sourceRowCount": 1,
+          "sourcePostNextQAvoidingClassCount": "4652681827919308681151"
+        },
+        {
+          "previousLaterObstructionPrime": 149,
+          "sourceRowCount": 2,
+          "sourcePostNextQAvoidingClassCount": "11570005016659334385238"
+        },
+        {
+          "previousLaterObstructionPrime": 151,
+          "sourceRowCount": 4,
+          "sourcePostNextQAvoidingClassCount": "24640297281378607761380"
+        },
+        {
+          "previousLaterObstructionPrime": 157,
+          "sourceRowCount": 1,
+          "sourcePostNextQAvoidingClassCount": "7190668979123280864311"
+        },
+        {
+          "previousLaterObstructionPrime": 163,
+          "sourceRowCount": 1,
+          "sourcePostNextQAvoidingClassCount": "6482348304277474091519"
+        },
+        {
+          "previousLaterObstructionPrime": 167,
+          "sourceRowCount": 1,
+          "sourcePostNextQAvoidingClassCount": "11467321441892445826991"
+        },
+        {
+          "previousLaterObstructionPrime": 173,
+          "sourceRowCount": 1,
+          "sourcePostNextQAvoidingClassCount": "15944817418299372114911"
+        },
+        {
+          "previousLaterObstructionPrime": 193,
+          "sourceRowCount": 1,
+          "sourcePostNextQAvoidingClassCount": "55471642903335557281103"
+        }
+      ],
+      "status": "open_exact_two_root_successor_rank_boundary",
+      "proofObligation": "Cover this bucket as part of the whole 22-bucket successor q-avoiding batch/rank action, or emit a sharper exact subboundary. This token does not authorize singleton q-child descent by itself."
+    },
+    {
+      "tokenId": "p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_q223_rank_boundary",
+      "successorObstructionPrime": 223,
+      "successorObstructionSquare": 49729,
+      "sourceRowCount": 15,
+      "sourcePostNextQAvoidingClassCount": "180046784240798558112153",
+      "rootResidueCountsPerClass": [
+        2
+      ],
+      "successorRootChildCount": "360093568481597116224306",
+      "successorQAvoidingClassCount": "8953186439942189899243032231",
+      "previousPostNextPrimeBuckets": [
+        {
+          "previousPostNextObstructionPrime": 181,
+          "sourceRowCount": 2,
+          "sourcePostNextQAvoidingClassCount": "15460744839678936495862"
+        },
+        {
+          "previousPostNextObstructionPrime": 191,
+          "sourceRowCount": 2,
+          "sourcePostNextQAvoidingClassCount": "8957841424374685262926"
+        },
+        {
+          "previousPostNextObstructionPrime": 193,
+          "sourceRowCount": 1,
+          "sourcePostNextQAvoidingClassCount": "2612876956334561506079"
+        },
+        {
+          "previousPostNextObstructionPrime": 197,
+          "sourceRowCount": 1,
+          "sourcePostNextQAvoidingClassCount": "6119240310454862371991"
+        },
+        {
+          "previousPostNextObstructionPrime": 199,
+          "sourceRowCount": 1,
+          "sourcePostNextQAvoidingClassCount": "7584866429765551620911"
+        },
+        {
+          "previousPostNextObstructionPrime": 211,
+          "sourceRowCount": 8,
+          "sourcePostNextQAvoidingClassCount": "139311214280189960854384"
+        }
+      ],
+      "previousNextPrimeBuckets": [
+        {
+          "previousNextObstructionPrime": 151,
+          "sourceRowCount": 1,
+          "sourcePostNextQAvoidingClassCount": "6119240310454862371991"
+        },
+        {
+          "previousNextObstructionPrime": 157,
+          "sourceRowCount": 2,
+          "sourcePostNextQAvoidingClassCount": "7524290466453538774822"
+        },
+        {
+          "previousNextObstructionPrime": 163,
+          "sourceRowCount": 1,
+          "sourcePostNextQAvoidingClassCount": "4765188267849742625231"
+        },
+        {
+          "previousNextObstructionPrime": 167,
+          "sourceRowCount": 1,
+          "sourcePostNextQAvoidingClassCount": "4046427914255707994183"
+        },
+        {
+          "previousNextObstructionPrime": 173,
+          "sourceRowCount": 1,
+          "sourcePostNextQAvoidingClassCount": "10695556571829193870631"
+        },
+        {
+          "previousNextObstructionPrime": 179,
+          "sourceRowCount": 2,
+          "sourcePostNextQAvoidingClassCount": "33332045656487879119294"
+        },
+        {
+          "previousNextObstructionPrime": 181,
+          "sourceRowCount": 2,
+          "sourcePostNextQAvoidingClassCount": "15482380510087930282438"
+        },
+        {
+          "previousNextObstructionPrime": 193,
+          "sourceRowCount": 1,
+          "sourcePostNextQAvoidingClassCount": "8447625169017970478207"
+        },
+        {
+          "previousNextObstructionPrime": 197,
+          "sourceRowCount": 2,
+          "sourcePostNextQAvoidingClassCount": "61977171071731435314886"
+        },
+        {
+          "previousNextObstructionPrime": 199,
+          "sourceRowCount": 2,
+          "sourcePostNextQAvoidingClassCount": "27656858302630297280470"
+        }
+      ],
+      "previousLaterPrimeBuckets": [
+        {
+          "previousLaterObstructionPrime": 137,
+          "sourceRowCount": 1,
+          "sourcePostNextQAvoidingClassCount": "2612876956334561506079"
+        },
+        {
+          "previousLaterObstructionPrime": 139,
+          "sourceRowCount": 2,
+          "sourcePostNextQAvoidingClassCount": "11631294344021259615094"
+        },
+        {
+          "previousLaterObstructionPrime": 149,
+          "sourceRowCount": 3,
+          "sourcePostNextQAvoidingClassCount": "19332053747322575475429"
+        },
+        {
+          "previousLaterObstructionPrime": 151,
+          "sourceRowCount": 1,
+          "sourcePostNextQAvoidingClassCount": "4911413510118977268743"
+        },
+        {
+          "previousLaterObstructionPrime": 157,
+          "sourceRowCount": 1,
+          "sourcePostNextQAvoidingClassCount": "8946149031281072340863"
+        },
+        {
+          "previousLaterObstructionPrime": 163,
+          "sourceRowCount": 2,
+          "sourcePostNextQAvoidingClassCount": "29190998407398785250118"
+        },
+        {
+          "previousLaterObstructionPrime": 167,
+          "sourceRowCount": 2,
+          "sourcePostNextQAvoidingClassCount": "22734117901240666401334"
+        },
+        {
+          "previousLaterObstructionPrime": 179,
+          "sourceRowCount": 3,
+          "sourcePostNextQAvoidingClassCount": "80687880343080660254493"
+        }
+      ],
+      "status": "open_exact_two_root_successor_rank_boundary",
+      "proofObligation": "Cover this bucket as part of the whole 22-bucket successor q-avoiding batch/rank action, or emit a sharper exact subboundary. This token does not authorize singleton q-child descent by itself."
+    },
+    {
+      "tokenId": "p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_q227_rank_boundary",
+      "successorObstructionPrime": 227,
+      "successorObstructionSquare": 51529,
+      "sourceRowCount": 8,
+      "sourcePostNextQAvoidingClassCount": "140208788287293497341768",
+      "rootResidueCountsPerClass": [
+        2
+      ],
+      "successorRootChildCount": "280417576574586994683536",
+      "successorQAvoidingClassCount": "7224538234079372037529279736",
+      "previousPostNextPrimeBuckets": [
+        {
+          "previousPostNextObstructionPrime": 179,
+          "sourceRowCount": 1,
+          "sourcePostNextQAvoidingClassCount": "4100940155330424601223"
+        },
+        {
+          "previousPostNextObstructionPrime": 181,
+          "sourceRowCount": 2,
+          "sourcePostNextQAvoidingClassCount": "8912839853851711540126"
+        },
+        {
+          "previousPostNextObstructionPrime": 197,
+          "sourceRowCount": 1,
+          "sourcePostNextQAvoidingClassCount": "18797647416216434098823"
+        },
+        {
+          "previousPostNextObstructionPrime": 199,
+          "sourceRowCount": 2,
+          "sourcePostNextQAvoidingClassCount": "72677520980908505861542"
+        },
+        {
+          "previousPostNextObstructionPrime": 223,
+          "sourceRowCount": 2,
+          "sourcePostNextQAvoidingClassCount": "35719839880986421240054"
+        }
+      ],
+      "previousNextPrimeBuckets": [
+        {
+          "previousNextObstructionPrime": 157,
+          "sourceRowCount": 1,
+          "sourcePostNextQAvoidingClassCount": "4100940155330424601223"
+        },
+        {
+          "previousNextObstructionPrime": 167,
+          "sourceRowCount": 1,
+          "sourcePostNextQAvoidingClassCount": "4779833361140441458967"
+        },
+        {
+          "previousNextObstructionPrime": 179,
+          "sourceRowCount": 1,
+          "sourcePostNextQAvoidingClassCount": "4133006492711270081159"
+        },
+        {
+          "previousNextObstructionPrime": 191,
+          "sourceRowCount": 1,
+          "sourcePostNextQAvoidingClassCount": "18797647416216434098823"
+        },
+        {
+          "previousNextObstructionPrime": 193,
+          "sourceRowCount": 1,
+          "sourcePostNextQAvoidingClassCount": "52748760851928615747791"
+        },
+        {
+          "previousNextObstructionPrime": 197,
+          "sourceRowCount": 2,
+          "sourcePostNextQAvoidingClassCount": "37768180661149264037854"
+        },
+        {
+          "previousNextObstructionPrime": 199,
+          "sourceRowCount": 1,
+          "sourcePostNextQAvoidingClassCount": "17880419348817047315951"
+        }
+      ],
+      "previousLaterPrimeBuckets": [
+        {
+          "previousLaterObstructionPrime": 137,
+          "sourceRowCount": 1,
+          "sourcePostNextQAvoidingClassCount": "4100940155330424601223"
+        },
+        {
+          "previousLaterObstructionPrime": 139,
+          "sourceRowCount": 1,
+          "sourcePostNextQAvoidingClassCount": "4133006492711270081159"
+        },
+        {
+          "previousLaterObstructionPrime": 151,
+          "sourceRowCount": 1,
+          "sourcePostNextQAvoidingClassCount": "4779833361140441458967"
+        },
+        {
+          "previousLaterObstructionPrime": 167,
+          "sourceRowCount": 2,
+          "sourcePostNextQAvoidingClassCount": "36637067948385808022926"
+        },
+        {
+          "previousLaterObstructionPrime": 179,
+          "sourceRowCount": 1,
+          "sourcePostNextQAvoidingClassCount": "17880419348817047315951"
+        },
+        {
+          "previousLaterObstructionPrime": 191,
+          "sourceRowCount": 2,
+          "sourcePostNextQAvoidingClassCount": "72677520980908505861542"
+        }
+      ],
+      "status": "open_exact_two_root_successor_rank_boundary",
+      "proofObligation": "Cover this bucket as part of the whole 22-bucket successor q-avoiding batch/rank action, or emit a sharper exact subboundary. This token does not authorize singleton q-child descent by itself."
+    },
+    {
+      "tokenId": "p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_q229_rank_boundary",
+      "successorObstructionPrime": 229,
+      "successorObstructionSquare": 52441,
+      "sourceRowCount": 2,
+      "sourcePostNextQAvoidingClassCount": "51416015243809534649782",
+      "rootResidueCountsPerClass": [
+        2
+      ],
+      "successorRootChildCount": "102832030487619069299564",
+      "successorQAvoidingClassCount": "2696204423370128187499918298",
+      "previousPostNextPrimeBuckets": [
+        {
+          "previousPostNextObstructionPrime": 199,
+          "sourceRowCount": 1,
+          "sourcePostNextQAvoidingClassCount": "9967617910095519898511"
+        },
+        {
+          "previousPostNextObstructionPrime": 223,
+          "sourceRowCount": 1,
+          "sourcePostNextQAvoidingClassCount": "41448397333714014751271"
+        }
+      ],
+      "previousNextPrimeBuckets": [
+        {
+          "previousNextObstructionPrime": 191,
+          "sourceRowCount": 1,
+          "sourcePostNextQAvoidingClassCount": "9967617910095519898511"
+        },
+        {
+          "previousNextObstructionPrime": 211,
+          "sourceRowCount": 1,
+          "sourcePostNextQAvoidingClassCount": "41448397333714014751271"
+        }
+      ],
+      "previousLaterPrimeBuckets": [
+        {
+          "previousLaterObstructionPrime": 151,
+          "sourceRowCount": 1,
+          "sourcePostNextQAvoidingClassCount": "9967617910095519898511"
+        },
+        {
+          "previousLaterObstructionPrime": 191,
+          "sourceRowCount": 1,
+          "sourcePostNextQAvoidingClassCount": "41448397333714014751271"
+        }
+      ],
+      "status": "open_exact_two_root_successor_rank_boundary",
+      "proofObligation": "Cover this bucket as part of the whole 22-bucket successor q-avoiding batch/rank action, or emit a sharper exact subboundary. This token does not authorize singleton q-child descent by itself."
+    },
+    {
+      "tokenId": "p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_q233_rank_boundary",
+      "successorObstructionPrime": 233,
+      "successorObstructionSquare": 54289,
+      "sourceRowCount": 2,
+      "sourcePostNextQAvoidingClassCount": "26575880826932951069542",
+      "rootResidueCountsPerClass": [
+        2
+      ],
+      "successorRootChildCount": "53151761653865902139084",
+      "successorQAvoidingClassCount": "1442724842451709114712226554",
+      "previousPostNextPrimeBuckets": [
+        {
+          "previousPostNextObstructionPrime": 227,
+          "sourceRowCount": 1,
+          "sourcePostNextQAvoidingClassCount": "12413109429350072674511"
+        },
+        {
+          "previousPostNextObstructionPrime": 229,
+          "sourceRowCount": 1,
+          "sourcePostNextQAvoidingClassCount": "14162771397582878395031"
+        }
+      ],
+      "previousNextPrimeBuckets": [
+        {
+          "previousNextObstructionPrime": 181,
+          "sourceRowCount": 1,
+          "sourcePostNextQAvoidingClassCount": "12413109429350072674511"
+        },
+        {
+          "previousNextObstructionPrime": 199,
+          "sourceRowCount": 1,
+          "sourcePostNextQAvoidingClassCount": "14162771397582878395031"
+        }
+      ],
+      "previousLaterPrimeBuckets": [
+        {
+          "previousLaterObstructionPrime": 157,
+          "sourceRowCount": 1,
+          "sourcePostNextQAvoidingClassCount": "14162771397582878395031"
+        },
+        {
+          "previousLaterObstructionPrime": 167,
+          "sourceRowCount": 1,
+          "sourcePostNextQAvoidingClassCount": "12413109429350072674511"
+        }
+      ],
+      "status": "open_exact_two_root_successor_rank_boundary",
+      "proofObligation": "Cover this bucket as part of the whole 22-bucket successor q-avoiding batch/rank action, or emit a sharper exact subboundary. This token does not authorize singleton q-child descent by itself."
+    },
+    {
+      "tokenId": "p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_q239_rank_boundary",
+      "successorObstructionPrime": 239,
+      "successorObstructionSquare": 57121,
+      "sourceRowCount": 4,
+      "sourcePostNextQAvoidingClassCount": "88704517384377733995068",
+      "rootResidueCountsPerClass": [
+        2
+      ],
+      "successorRootChildCount": "177409034768755467990136",
+      "successorQAvoidingClassCount": "5066713328478271788064289092",
+      "previousPostNextPrimeBuckets": [
+        {
+          "previousPostNextObstructionPrime": 211,
+          "sourceRowCount": 1,
+          "sourcePostNextQAvoidingClassCount": "10933679259487692547871"
+        },
+        {
+          "previousPostNextObstructionPrime": 223,
+          "sourceRowCount": 1,
+          "sourcePostNextQAvoidingClassCount": "8328120788947610434343"
+        },
+        {
+          "previousPostNextObstructionPrime": 227,
+          "sourceRowCount": 1,
+          "sourcePostNextQAvoidingClassCount": "34312467777122558154551"
+        },
+        {
+          "previousPostNextObstructionPrime": 233,
+          "sourceRowCount": 1,
+          "sourcePostNextQAvoidingClassCount": "35130249558819872858303"
+        }
+      ],
+      "previousNextPrimeBuckets": [
+        {
+          "previousNextObstructionPrime": 167,
+          "sourceRowCount": 1,
+          "sourcePostNextQAvoidingClassCount": "10933679259487692547871"
+        },
+        {
+          "previousNextObstructionPrime": 199,
+          "sourceRowCount": 2,
+          "sourcePostNextQAvoidingClassCount": "42640588566070168588894"
+        },
+        {
+          "previousNextObstructionPrime": 211,
+          "sourceRowCount": 1,
+          "sourcePostNextQAvoidingClassCount": "35130249558819872858303"
+        }
+      ],
+      "previousLaterPrimeBuckets": [
+        {
+          "previousLaterObstructionPrime": 163,
+          "sourceRowCount": 2,
+          "sourcePostNextQAvoidingClassCount": "46063928818307565406174"
+        },
+        {
+          "previousLaterObstructionPrime": 167,
+          "sourceRowCount": 1,
+          "sourcePostNextQAvoidingClassCount": "8328120788947610434343"
+        },
+        {
+          "previousLaterObstructionPrime": 197,
+          "sourceRowCount": 1,
+          "sourcePostNextQAvoidingClassCount": "34312467777122558154551"
+        }
+      ],
+      "status": "open_exact_two_root_successor_rank_boundary",
+      "proofObligation": "Cover this bucket as part of the whole 22-bucket successor q-avoiding batch/rank action, or emit a sharper exact subboundary. This token does not authorize singleton q-child descent by itself."
+    },
+    {
+      "tokenId": "p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_q241_rank_boundary",
+      "successorObstructionPrime": 241,
+      "successorObstructionSquare": 58081,
+      "sourceRowCount": 1,
+      "sourcePostNextQAvoidingClassCount": "15629825591859901233287",
+      "rootResidueCountsPerClass": [
+        2
+      ],
+      "successorRootChildCount": "31259651183719802466574",
+      "successorQAvoidingClassCount": "907764640549631203728075673",
+      "previousPostNextPrimeBuckets": [
+        {
+          "previousPostNextObstructionPrime": 211,
+          "sourceRowCount": 1,
+          "sourcePostNextQAvoidingClassCount": "15629825591859901233287"
+        }
+      ],
+      "previousNextPrimeBuckets": [
+        {
+          "previousNextObstructionPrime": 199,
+          "sourceRowCount": 1,
+          "sourcePostNextQAvoidingClassCount": "15629825591859901233287"
+        }
+      ],
+      "previousLaterPrimeBuckets": [
+        {
+          "previousLaterObstructionPrime": 179,
+          "sourceRowCount": 1,
+          "sourcePostNextQAvoidingClassCount": "15629825591859901233287"
+        }
+      ],
+      "status": "open_exact_two_root_successor_rank_boundary",
+      "proofObligation": "Cover this bucket as part of the whole 22-bucket successor q-avoiding batch/rank action, or emit a sharper exact subboundary. This token does not authorize singleton q-child descent by itself."
+    },
+    {
+      "tokenId": "p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_q251_rank_boundary",
+      "successorObstructionPrime": 251,
+      "successorObstructionSquare": 63001,
+      "sourceRowCount": 1,
+      "sourcePostNextQAvoidingClassCount": "69211151765039331421871",
+      "rootResidueCountsPerClass": [
+        2
+      ],
+      "successorRootChildCount": "138422303530078662843742",
+      "successorQAvoidingClassCount": "4360233350045712840246451129",
+      "previousPostNextPrimeBuckets": [
+        {
+          "previousPostNextObstructionPrime": 239,
+          "sourceRowCount": 1,
+          "sourcePostNextQAvoidingClassCount": "69211151765039331421871"
+        }
+      ],
+      "previousNextPrimeBuckets": [
+        {
+          "previousNextObstructionPrime": 211,
+          "sourceRowCount": 1,
+          "sourcePostNextQAvoidingClassCount": "69211151765039331421871"
+        }
+      ],
+      "previousLaterPrimeBuckets": [
+        {
+          "previousLaterObstructionPrime": 199,
+          "sourceRowCount": 1,
+          "sourcePostNextQAvoidingClassCount": "69211151765039331421871"
+        }
+      ],
+      "status": "open_exact_two_root_successor_rank_boundary",
+      "proofObligation": "Cover this bucket as part of the whole 22-bucket successor q-avoiding batch/rank action, or emit a sharper exact subboundary. This token does not authorize singleton q-child descent by itself."
+    },
+    {
+      "tokenId": "p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_q263_rank_boundary",
+      "successorObstructionPrime": 263,
+      "successorObstructionSquare": 69169,
+      "sourceRowCount": 2,
+      "sourcePostNextQAvoidingClassCount": "53452205756349874010782",
+      "rootResidueCountsPerClass": [
+        2
+      ],
+      "successorRootChildCount": "106904411512699748021564",
+      "successorQAvoidingClassCount": "3697128715549451735703758594",
+      "previousPostNextPrimeBuckets": [
+        {
+          "previousPostNextObstructionPrime": 227,
+          "sourceRowCount": 1,
+          "sourcePostNextQAvoidingClassCount": "15392714783237749450703"
+        },
+        {
+          "previousPostNextObstructionPrime": 233,
+          "sourceRowCount": 1,
+          "sourcePostNextQAvoidingClassCount": "38059490973112124560079"
+        }
+      ],
+      "previousNextPrimeBuckets": [
+        {
+          "previousNextObstructionPrime": 179,
+          "sourceRowCount": 1,
+          "sourcePostNextQAvoidingClassCount": "15392714783237749450703"
+        },
+        {
+          "previousNextObstructionPrime": 223,
+          "sourceRowCount": 1,
+          "sourcePostNextQAvoidingClassCount": "38059490973112124560079"
+        }
+      ],
+      "previousLaterPrimeBuckets": [
+        {
+          "previousLaterObstructionPrime": 173,
+          "sourceRowCount": 1,
+          "sourcePostNextQAvoidingClassCount": "15392714783237749450703"
+        },
+        {
+          "previousLaterObstructionPrime": 199,
+          "sourceRowCount": 1,
+          "sourcePostNextQAvoidingClassCount": "38059490973112124560079"
+        }
+      ],
+      "status": "open_exact_two_root_successor_rank_boundary",
+      "proofObligation": "Cover this bucket as part of the whole 22-bucket successor q-avoiding batch/rank action, or emit a sharper exact subboundary. This token does not authorize singleton q-child descent by itself."
+    }
+  ],
+  "proofBoundary": "This packet accounts for every successor bucket emitted by the 20-bucket post-next q-avoiding batch cover and turns the 22-bucket surface into an exact deterministic ranked boundary. It does not close the 5,893,620,911,417,283,150,794,622 successor root children, the 111,172,518,226,866,898,571,161,320,153 successor q-avoiding classes, the p479-available branch, the p479-unavailable complement, q97, p443-unavailable, the wider p4217 complement, collision-free matching, or Problem 848.",
+  "oneNextAction": {
+    "stepId": "derive_p848_p4217_p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_q_avoiding_batch_cover_or_emit_boundary",
+    "action": "Run a whole-boundary q-avoiding batch cover over all 22 successor buckets, or emit an exact survivor/rank boundary if the batch cover does not close.",
+    "coveredFamily": "All 111,172,518,226,866,898,571,161,320,153 successor q-avoiding classes across q in {139,149,151,157,163,167,173,179,181,191,193,197,199,211,223,227,229,233,239,241,251,263}.",
+    "finiteDenominatorOrRankToken": "Finite token p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_q_avoiding_batch_cover.",
+    "failureBoundary": "If no whole-boundary cover exists, write the deterministic survivor boundary grouped by successor prime and previous post-next/next/later-prime support; do not open a singleton q-child first.",
+    "completionRule": "Every one of the 22 successor q-avoiding buckets is covered, structurally decomposed, or listed in a deterministic exact survivor boundary before singleton descent."
+  },
+  "recommendedNextAction": "derive_p848_p4217_p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_q_avoiding_batch_cover_or_emit_boundary",
+  "nextTheoremMove": "Use the deterministic 22-bucket successor rank boundary to run one whole-boundary q-avoiding batch cover; singleton q139/q149/etc. descent remains blocked until a later packet consumes a smaller finite token.",
+  "claims": {
+    "consumesPost20BucketQAvoiding22BucketSuccessorRankToken": true,
+    "accountsForAll22SuccessorBuckets": true,
+    "allRowsHaveTwoSuccessorRoots": true,
+    "emitsExactDeterministic22BucketRankBoundary": true,
+    "selectsWholeBoundaryBatchCoverNext": true,
+    "opensFreshFallbackSelector": false,
+    "descendsIntoQ139Singleton": false,
+    "descendsIntoQ149Singleton": false,
+    "descendsIntoSingletonQChild": false,
+    "provesSuccessorRootChildrenClosed": false,
+    "provesSuccessorQAvoidingBoundaryClosed": false,
+    "provesP479AvailableFamilyCoverage": false,
+    "provesP479UnavailableComplementClosed": false,
+    "provesQ97ChildCoverage": false,
+    "provesP443UnavailableComplementClosed": false,
+    "provesP4217ComplementCoverage": false,
+    "provesAllN": false
+  }
+}

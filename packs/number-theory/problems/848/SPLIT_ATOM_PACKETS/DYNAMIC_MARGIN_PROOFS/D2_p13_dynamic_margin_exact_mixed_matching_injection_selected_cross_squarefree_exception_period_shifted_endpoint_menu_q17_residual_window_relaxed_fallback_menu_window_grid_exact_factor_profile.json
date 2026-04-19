@@ -1,0 +1,572 @@
+{
+  "schema": "erdos.number_theory.p848_endpoint_window_grid/1",
+  "generatedAt": "2026-04-16T19:04:51.730Z",
+  "problemId": "848",
+  "target": {
+    "description": "q17 residual window-relaxed fallback endpoint-menu selector window grid",
+    "predecessorProof": "/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DYNAMIC_MARGIN_PROOFS/D2_p13_dynamic_margin_exact_mixed_matching_injection_selected_cross_squarefree_exception_period_shifted_endpoint_menu_q17_residual_p13_expanded_fallback_menu_lift.json",
+    "outsider": 6323,
+    "residualClass": {
+      "residue": 5882,
+      "modulus": 11025
+    },
+    "start": 27932207,
+    "end": 40000000,
+    "rowCount": 1095,
+    "windows": [
+      25000,
+      28500
+    ],
+    "squareCheck": "Every covered endpoint selected by each profiled full menu is exactly squarefree-certified."
+  },
+  "primaryMenu": [
+    23,
+    31,
+    37,
+    41,
+    61,
+    67
+  ],
+  "fallbackMenu": [
+    71,
+    73,
+    79,
+    83,
+    89,
+    97,
+    101,
+    103,
+    107,
+    109,
+    113
+  ],
+  "firstScreenPrimaryCoveredWindow": null,
+  "firstScreenAllCoveredWindow": 28500,
+  "firstProvedPrimaryCoveredWindow": null,
+  "firstProvedAllCoveredWindow": 28500,
+  "summaries": [
+    {
+      "window": 25000,
+      "rowCount": 1095,
+      "squareCheck": {
+        "mode": "factor",
+        "checkedPrimeLimit": null,
+        "exactForPrimaryCoveredEndpoints": true,
+        "exactForAllCoveredEndpoints": true,
+        "interpretation": "Every covered endpoint selected by the full menu is exactly squarefree-certified."
+      },
+      "primaryCovered": 1076,
+      "primaryMisses": 19,
+      "allCovered": 1091,
+      "allMisses": 4,
+      "firstPrimaryMiss": {
+        "left": 28836257,
+        "leftModResidualClass": 5882,
+        "usableWithinWindow": [
+          {
+            "prime": 73,
+            "k": 570,
+            "delta": -14264,
+            "right": 28821993,
+            "withinWindow": true,
+            "squarefreeStatus": "exact_squarefree",
+            "squareDivisorPrime": null,
+            "squareDivisor": null,
+            "checkedSquarePrimeLimit": null
+          },
+          {
+            "prime": 89,
+            "k": 671,
+            "delta": -16789,
+            "right": 28819468,
+            "withinWindow": true,
+            "squarefreeStatus": "exact_squarefree",
+            "squareDivisorPrime": null,
+            "squareDivisor": null,
+            "checkedSquarePrimeLimit": null
+          }
+        ],
+        "nearestUsableOutsideWindow": [
+          {
+            "prime": 37,
+            "k": 1239,
+            "delta": -30989,
+            "right": 28805268,
+            "withinWindow": false,
+            "squarefreeStatus": "exact_squarefree",
+            "squareDivisorPrime": null,
+            "squareDivisor": null,
+            "checkedSquarePrimeLimit": null
+          },
+          {
+            "prime": 41,
+            "k": 1515,
+            "delta": -37889,
+            "right": 28798368,
+            "withinWindow": false,
+            "squarefreeStatus": "exact_squarefree",
+            "squareDivisorPrime": null,
+            "squareDivisor": null,
+            "checkedSquarePrimeLimit": null
+          },
+          {
+            "prime": 103,
+            "k": 2115,
+            "delta": -52889,
+            "right": 28783368,
+            "withinWindow": false,
+            "squarefreeStatus": "exact_squarefree",
+            "squareDivisorPrime": null,
+            "squareDivisor": null,
+            "checkedSquarePrimeLimit": null
+          },
+          {
+            "prime": 83,
+            "k": 2143,
+            "delta": -53589,
+            "right": 28782668,
+            "withinWindow": false,
+            "squarefreeStatus": "exact_squarefree",
+            "squareDivisorPrime": null,
+            "squareDivisor": null,
+            "checkedSquarePrimeLimit": null
+          },
+          {
+            "prime": 107,
+            "k": 2351,
+            "delta": -58789,
+            "right": 28777468,
+            "withinWindow": false,
+            "squarefreeStatus": "exact_squarefree",
+            "squareDivisorPrime": null,
+            "squareDivisor": null,
+            "checkedSquarePrimeLimit": null
+          }
+        ],
+        "blockedWithinWindow": [
+          {
+            "prime": 23,
+            "k": 140,
+            "delta": -3514,
+            "right": 28832743,
+            "withinWindow": true,
+            "squarefreeStatus": "non_squarefree",
+            "squareDivisorPrime": 2,
+            "squareDivisor": 4,
+            "checkedSquarePrimeLimit": null
+          },
+          {
+            "prime": 31,
+            "k": 458,
+            "delta": -11464,
+            "right": 28824793,
+            "withinWindow": true,
+            "squarefreeStatus": "non_squarefree",
+            "squareDivisorPrime": 3,
+            "squareDivisor": 9,
+            "checkedSquarePrimeLimit": null
+          }
+        ]
+      },
+      "firstAllMiss": {
+        "left": 34414907,
+        "leftModResidualClass": 5882,
+        "usableWithinWindow": [],
+        "nearestUsableOutsideWindow": [
+          {
+            "prime": 67,
+            "k": 1139,
+            "delta": -28489,
+            "right": 34386418,
+            "withinWindow": false,
+            "squarefreeStatus": "exact_squarefree",
+            "squareDivisorPrime": null,
+            "squareDivisor": null,
+            "checkedSquarePrimeLimit": null
+          },
+          {
+            "prime": 37,
+            "k": 1238,
+            "delta": -30964,
+            "right": 34383943,
+            "withinWindow": false,
+            "squarefreeStatus": "exact_squarefree",
+            "squareDivisorPrime": null,
+            "squareDivisor": null,
+            "checkedSquarePrimeLimit": null
+          },
+          {
+            "prime": 79,
+            "k": 1606,
+            "delta": -40164,
+            "right": 34374743,
+            "withinWindow": false,
+            "squarefreeStatus": "exact_squarefree",
+            "squareDivisorPrime": null,
+            "squareDivisor": null,
+            "checkedSquarePrimeLimit": null
+          },
+          {
+            "prime": 89,
+            "k": 2029,
+            "delta": -50739,
+            "right": 34364168,
+            "withinWindow": false,
+            "squarefreeStatus": "exact_squarefree",
+            "squareDivisorPrime": null,
+            "squareDivisor": null,
+            "checkedSquarePrimeLimit": null
+          },
+          {
+            "prime": 61,
+            "k": 3238,
+            "delta": -80964,
+            "right": 34333943,
+            "withinWindow": false,
+            "squarefreeStatus": "exact_squarefree",
+            "squareDivisorPrime": null,
+            "squareDivisor": null,
+            "checkedSquarePrimeLimit": null
+          }
+        ],
+        "blockedWithinWindow": [
+          {
+            "prime": 23,
+            "k": 48,
+            "delta": -1214,
+            "right": 34413693,
+            "withinWindow": true,
+            "squarefreeStatus": "non_squarefree",
+            "squareDivisorPrime": 2,
+            "squareDivisor": 4,
+            "checkedSquarePrimeLimit": null
+          },
+          {
+            "prime": 31,
+            "k": 652,
+            "delta": -16314,
+            "right": 34398593,
+            "withinWindow": true,
+            "squarefreeStatus": "non_squarefree",
+            "squareDivisorPrime": 2,
+            "squareDivisor": 4,
+            "checkedSquarePrimeLimit": null
+          }
+        ]
+      },
+      "primaryCoverPrimeCounts": [
+        {
+          "key": 23,
+          "count": 819
+        },
+        {
+          "key": 31,
+          "count": 191
+        },
+        {
+          "key": 37,
+          "count": 40
+        },
+        {
+          "key": 41,
+          "count": 16
+        },
+        {
+          "key": 61,
+          "count": 5
+        },
+        {
+          "key": 67,
+          "count": 5
+        }
+      ],
+      "allCoverPrimeCounts": [
+        {
+          "key": 23,
+          "count": 819
+        },
+        {
+          "key": 31,
+          "count": 191
+        },
+        {
+          "key": 37,
+          "count": 40
+        },
+        {
+          "key": 41,
+          "count": 16
+        },
+        {
+          "key": 61,
+          "count": 5
+        },
+        {
+          "key": 67,
+          "count": 5
+        },
+        {
+          "key": 73,
+          "count": 4
+        },
+        {
+          "key": 71,
+          "count": 3
+        },
+        {
+          "key": 83,
+          "count": 3
+        },
+        {
+          "key": 79,
+          "count": 2
+        },
+        {
+          "key": 97,
+          "count": 1
+        },
+        {
+          "key": 103,
+          "count": 1
+        },
+        {
+          "key": 109,
+          "count": 1
+        }
+      ],
+      "claims": {
+        "provesBoundedPrimaryMenuCoverage": false,
+        "provesBoundedAllMenuCoverage": false,
+        "screensBoundedPrimaryMenuCoverage": false,
+        "screensBoundedAllMenuCoverage": false
+      }
+    },
+    {
+      "window": 28500,
+      "rowCount": 1095,
+      "squareCheck": {
+        "mode": "factor",
+        "checkedPrimeLimit": null,
+        "exactForPrimaryCoveredEndpoints": true,
+        "exactForAllCoveredEndpoints": true,
+        "interpretation": "Every covered endpoint selected by the full menu is exactly squarefree-certified."
+      },
+      "primaryCovered": 1082,
+      "primaryMisses": 13,
+      "allCovered": 1095,
+      "allMisses": 0,
+      "firstPrimaryMiss": {
+        "left": 28836257,
+        "leftModResidualClass": 5882,
+        "usableWithinWindow": [
+          {
+            "prime": 73,
+            "k": 570,
+            "delta": -14264,
+            "right": 28821993,
+            "withinWindow": true,
+            "squarefreeStatus": "exact_squarefree",
+            "squareDivisorPrime": null,
+            "squareDivisor": null,
+            "checkedSquarePrimeLimit": null
+          },
+          {
+            "prime": 89,
+            "k": 671,
+            "delta": -16789,
+            "right": 28819468,
+            "withinWindow": true,
+            "squarefreeStatus": "exact_squarefree",
+            "squareDivisorPrime": null,
+            "squareDivisor": null,
+            "checkedSquarePrimeLimit": null
+          }
+        ],
+        "nearestUsableOutsideWindow": [
+          {
+            "prime": 37,
+            "k": 1239,
+            "delta": -30989,
+            "right": 28805268,
+            "withinWindow": false,
+            "squarefreeStatus": "exact_squarefree",
+            "squareDivisorPrime": null,
+            "squareDivisor": null,
+            "checkedSquarePrimeLimit": null
+          },
+          {
+            "prime": 41,
+            "k": 1515,
+            "delta": -37889,
+            "right": 28798368,
+            "withinWindow": false,
+            "squarefreeStatus": "exact_squarefree",
+            "squareDivisorPrime": null,
+            "squareDivisor": null,
+            "checkedSquarePrimeLimit": null
+          },
+          {
+            "prime": 103,
+            "k": 2115,
+            "delta": -52889,
+            "right": 28783368,
+            "withinWindow": false,
+            "squarefreeStatus": "exact_squarefree",
+            "squareDivisorPrime": null,
+            "squareDivisor": null,
+            "checkedSquarePrimeLimit": null
+          },
+          {
+            "prime": 83,
+            "k": 2143,
+            "delta": -53589,
+            "right": 28782668,
+            "withinWindow": false,
+            "squarefreeStatus": "exact_squarefree",
+            "squareDivisorPrime": null,
+            "squareDivisor": null,
+            "checkedSquarePrimeLimit": null
+          },
+          {
+            "prime": 107,
+            "k": 2351,
+            "delta": -58789,
+            "right": 28777468,
+            "withinWindow": false,
+            "squarefreeStatus": "exact_squarefree",
+            "squareDivisorPrime": null,
+            "squareDivisor": null,
+            "checkedSquarePrimeLimit": null
+          }
+        ],
+        "blockedWithinWindow": [
+          {
+            "prime": 23,
+            "k": 140,
+            "delta": -3514,
+            "right": 28832743,
+            "withinWindow": true,
+            "squarefreeStatus": "non_squarefree",
+            "squareDivisorPrime": 2,
+            "squareDivisor": 4,
+            "checkedSquarePrimeLimit": null
+          },
+          {
+            "prime": 31,
+            "k": 458,
+            "delta": -11464,
+            "right": 28824793,
+            "withinWindow": true,
+            "squarefreeStatus": "non_squarefree",
+            "squareDivisorPrime": 3,
+            "squareDivisor": 9,
+            "checkedSquarePrimeLimit": null
+          }
+        ]
+      },
+      "firstAllMiss": null,
+      "primaryCoverPrimeCounts": [
+        {
+          "key": 23,
+          "count": 819
+        },
+        {
+          "key": 31,
+          "count": 191
+        },
+        {
+          "key": 37,
+          "count": 45
+        },
+        {
+          "key": 41,
+          "count": 17
+        },
+        {
+          "key": 61,
+          "count": 5
+        },
+        {
+          "key": 67,
+          "count": 5
+        }
+      ],
+      "allCoverPrimeCounts": [
+        {
+          "key": 23,
+          "count": 819
+        },
+        {
+          "key": 31,
+          "count": 191
+        },
+        {
+          "key": 37,
+          "count": 45
+        },
+        {
+          "key": 41,
+          "count": 17
+        },
+        {
+          "key": 61,
+          "count": 5
+        },
+        {
+          "key": 67,
+          "count": 5
+        },
+        {
+          "key": 73,
+          "count": 3
+        },
+        {
+          "key": 83,
+          "count": 3
+        },
+        {
+          "key": 71,
+          "count": 2
+        },
+        {
+          "key": 79,
+          "count": 2
+        },
+        {
+          "key": 97,
+          "count": 1
+        },
+        {
+          "key": 103,
+          "count": 1
+        },
+        {
+          "key": 109,
+          "count": 1
+        }
+      ],
+      "claims": {
+        "provesBoundedPrimaryMenuCoverage": false,
+        "provesBoundedAllMenuCoverage": true,
+        "screensBoundedPrimaryMenuCoverage": false,
+        "screensBoundedAllMenuCoverage": true
+      }
+    }
+  ],
+  "interpretation": {
+    "windowGridProvesAllN": false,
+    "warning": "A window grid is a bounded selector profile. It can identify the next theorem boundary but does not prove all-N coverage or matching by itself."
+  },
+  "nextTheoremOptions": [
+    {
+      "id": "window_relaxation_candidate",
+      "status": "candidate",
+      "statement": "The full menu first covers the bounded scan at window=28500; decide whether that relaxation is theorem-legal or requires a replacement-path handoff."
+    },
+    {
+      "id": "availability_strata_lift",
+      "status": "needed",
+      "statement": "Convert the observed window thresholds into residue-class availability strata rather than continuing a row-by-row staircase."
+    }
+  ]
+}

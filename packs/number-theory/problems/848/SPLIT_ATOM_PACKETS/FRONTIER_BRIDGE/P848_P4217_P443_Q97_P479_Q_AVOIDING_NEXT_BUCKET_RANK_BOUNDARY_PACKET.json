@@ -1,0 +1,654 @@
+{
+  "schema": "erdos.number_theory.p848_p4217_p443_q97_p479_q_avoiding_next_bucket_rank_boundary/1",
+  "generatedAt": "2026-04-17T14:46:57.255Z",
+  "status": "p479_q_avoiding_next_prime_buckets_deterministic_rank_boundary_emitted",
+  "target": "compress_p848_p4217_p443_q97_p479_q_avoiding_next_prime_buckets_or_emit_rank_boundary",
+  "sourceAudit": {
+    "qAvoidingCoverPacket": {
+      "path": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_P443_Q97_P479_Q_AVOIDING_BATCH_COVER_PACKET.json",
+      "sha256": "51f5a1f36afc8819e825834c4037259ff618705da1a2d6fe568675cf7db760c1",
+      "status": "all_post_q109_q_avoiding_boundary_classes_have_next_square_obstruction_child"
+    },
+    "postCoverAssemblyPacket": {
+      "path": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_POST_Q_AVOIDING_BATCH_COVER_CONVERGENCE_ASSEMBLY_PACKET.json",
+      "sha256": "ff64b56be1fac541b16a37f5ba4bbda8033c17f8347bf3edc5a5c7577a8b9f67",
+      "status": "post_q_avoiding_batch_cover_convergence_assembly_selects_13_bucket_rank_compression"
+    }
+  },
+  "boundarySummary": {
+    "sourceBoundaryFamilyCount": 12,
+    "sourceRowCount": 718,
+    "sourceQAvoidingClassCount": 9733599,
+    "nextObstructionPrimeBucketCount": 13,
+    "minNextObstructionPrime": 113,
+    "maxNextObstructionPrime": 191,
+    "rootResidueCountsPerClass": [
+      2
+    ],
+    "totalNextRootChildCount": 19467198,
+    "totalNextQAvoidingClassCount": 170308883793,
+    "survivorSourceRowCount": 0,
+    "survivorQAvoidingClassCount": 0
+  },
+  "deterministicRankBoundary": {
+    "consumedFiniteToken": "p443_q97_p479_q_avoiding_next_prime_bucket_rank_boundary",
+    "producedFiniteTokenCount": 13,
+    "producedFiniteTokens": [
+      {
+        "tokenId": "p443_q97_p479_q_avoiding_next_prime_q113_rank_boundary",
+        "nextObstructionPrime": 113,
+        "nextObstructionSquare": 12769,
+        "sourceRowCount": 172,
+        "sourceQAvoidingClassCount": 2043081,
+        "rootResidueCountPerClass": 2,
+        "nextRootChildCount": 4086162,
+        "nextQAvoidingClassCount": 26084015127,
+        "sourceFamilyProfile": [
+          {
+            "sourceFamilyId": "q109_regular_invertible_two_root_rows",
+            "sourceFamilyKind": "q109_regular_subbucket",
+            "sourceRowCount": 171,
+            "qAvoidingClassCount": 2031309,
+            "nextRootChildCount": 4062618,
+            "nextQAvoidingClassCount": 25933722003
+          },
+          {
+            "sourceFamilyId": "q109_singular_invertible_109_root_row",
+            "sourceFamilyKind": "q109_singular_subbucket",
+            "sourceRowCount": 1,
+            "qAvoidingClassCount": 11772,
+            "nextRootChildCount": 23544,
+            "nextQAvoidingClassCount": 150293124
+          }
+        ],
+        "status": "open_exact_two_root_rank_boundary",
+        "proofObligation": "Either cover this q-bucket as part of a next-rank batch/structural theorem, or emit a sharper exact subboundary. Do not descend into a singleton q-child from this packet."
+      },
+      {
+        "tokenId": "p443_q97_p479_q_avoiding_next_prime_q127_rank_boundary",
+        "nextObstructionPrime": 127,
+        "nextObstructionSquare": 16129,
+        "sourceRowCount": 176,
+        "sourceQAvoidingClassCount": 2167072,
+        "rootResidueCountPerClass": 2,
+        "nextRootChildCount": 4334144,
+        "nextQAvoidingClassCount": 34948370144,
+        "sourceFamilyProfile": [
+          {
+            "sourceFamilyId": "q109_regular_invertible_two_root_rows",
+            "sourceFamilyKind": "q109_regular_subbucket",
+            "sourceRowCount": 90,
+            "qAvoidingClassCount": 1069110,
+            "nextRootChildCount": 2138220,
+            "nextQAvoidingClassCount": 17241536970
+          },
+          {
+            "sourceFamilyId": "q113_partial_two_root_bucket",
+            "sourceFamilyKind": "partial_two_root_bucket",
+            "sourceRowCount": 86,
+            "qAvoidingClassCount": 1097962,
+            "nextRootChildCount": 2195924,
+            "nextQAvoidingClassCount": 17706833174
+          }
+        ],
+        "status": "open_exact_two_root_rank_boundary",
+        "proofObligation": "Either cover this q-bucket as part of a next-rank batch/structural theorem, or emit a sharper exact subboundary. Do not descend into a singleton q-child from this packet."
+      },
+      {
+        "tokenId": "p443_q97_p479_q_avoiding_next_prime_q131_rank_boundary",
+        "nextObstructionPrime": 131,
+        "nextObstructionSquare": 17161,
+        "sourceRowCount": 121,
+        "sourceQAvoidingClassCount": 1688447,
+        "rootResidueCountPerClass": 2,
+        "nextRootChildCount": 3376894,
+        "nextQAvoidingClassCount": 28972062073,
+        "sourceFamilyProfile": [
+          {
+            "sourceFamilyId": "q109_regular_invertible_two_root_rows",
+            "sourceFamilyKind": "q109_regular_subbucket",
+            "sourceRowCount": 35,
+            "qAvoidingClassCount": 415765,
+            "nextRootChildCount": 831530,
+            "nextQAvoidingClassCount": 7134111635
+          },
+          {
+            "sourceFamilyId": "q113_partial_two_root_bucket",
+            "sourceFamilyKind": "partial_two_root_bucket",
+            "sourceRowCount": 34,
+            "qAvoidingClassCount": 434078,
+            "nextRootChildCount": 868156,
+            "nextQAvoidingClassCount": 7448344402
+          },
+          {
+            "sourceFamilyId": "q127_partial_two_root_bucket",
+            "sourceFamilyKind": "partial_two_root_bucket",
+            "sourceRowCount": 52,
+            "qAvoidingClassCount": 838604,
+            "nextRootChildCount": 1677208,
+            "nextQAvoidingClassCount": 14389606036
+          }
+        ],
+        "status": "open_exact_two_root_rank_boundary",
+        "proofObligation": "Either cover this q-bucket as part of a next-rank batch/structural theorem, or emit a sharper exact subboundary. Do not descend into a singleton q-child from this packet."
+      },
+      {
+        "tokenId": "p443_q97_p479_q_avoiding_next_prime_q137_rank_boundary",
+        "nextObstructionPrime": 137,
+        "nextObstructionSquare": 18769,
+        "sourceRowCount": 103,
+        "sourceQAvoidingClassCount": 1483505,
+        "rootResidueCountPerClass": 2,
+        "nextRootChildCount": 2967010,
+        "nextQAvoidingClassCount": 27840938335,
+        "sourceFamilyProfile": [
+          {
+            "sourceFamilyId": "q109_regular_invertible_two_root_rows",
+            "sourceFamilyKind": "q109_regular_subbucket",
+            "sourceRowCount": 25,
+            "qAvoidingClassCount": 296975,
+            "nextRootChildCount": 593950,
+            "nextQAvoidingClassCount": 5573329825
+          },
+          {
+            "sourceFamilyId": "q113_partial_two_root_bucket",
+            "sourceFamilyKind": "partial_two_root_bucket",
+            "sourceRowCount": 28,
+            "qAvoidingClassCount": 357476,
+            "nextRootChildCount": 714952,
+            "nextQAvoidingClassCount": 6708752092
+          },
+          {
+            "sourceFamilyId": "q127_partial_two_root_bucket",
+            "sourceFamilyKind": "partial_two_root_bucket",
+            "sourceRowCount": 28,
+            "qAvoidingClassCount": 451556,
+            "nextRootChildCount": 903112,
+            "nextQAvoidingClassCount": 8474351452
+          },
+          {
+            "sourceFamilyId": "q131_partial_two_root_bucket",
+            "sourceFamilyKind": "partial_two_root_bucket",
+            "sourceRowCount": 22,
+            "qAvoidingClassCount": 377498,
+            "nextRootChildCount": 754996,
+            "nextQAvoidingClassCount": 7084504966
+          }
+        ],
+        "status": "open_exact_two_root_rank_boundary",
+        "proofObligation": "Either cover this q-bucket as part of a next-rank batch/structural theorem, or emit a sharper exact subboundary. Do not descend into a singleton q-child from this packet."
+      },
+      {
+        "tokenId": "p443_q97_p479_q_avoiding_next_prime_q139_rank_boundary",
+        "nextObstructionPrime": 139,
+        "nextObstructionSquare": 19321,
+        "sourceRowCount": 61,
+        "sourceQAvoidingClassCount": 913403,
+        "rootResidueCountPerClass": 2,
+        "nextRootChildCount": 1826806,
+        "nextQAvoidingClassCount": 17646032557,
+        "sourceFamilyProfile": [
+          {
+            "sourceFamilyId": "q109_regular_invertible_two_root_rows",
+            "sourceFamilyKind": "q109_regular_subbucket",
+            "sourceRowCount": 15,
+            "qAvoidingClassCount": 178185,
+            "nextRootChildCount": 356370,
+            "nextQAvoidingClassCount": 3442356015
+          },
+          {
+            "sourceFamilyId": "q113_partial_two_root_bucket",
+            "sourceFamilyKind": "partial_two_root_bucket",
+            "sourceRowCount": 13,
+            "qAvoidingClassCount": 165971,
+            "nextRootChildCount": 331942,
+            "nextQAvoidingClassCount": 3206393749
+          },
+          {
+            "sourceFamilyId": "q127_partial_two_root_bucket",
+            "sourceFamilyKind": "partial_two_root_bucket",
+            "sourceRowCount": 8,
+            "qAvoidingClassCount": 129016,
+            "nextRootChildCount": 258032,
+            "nextQAvoidingClassCount": 2492460104
+          },
+          {
+            "sourceFamilyId": "q131_partial_two_root_bucket",
+            "sourceFamilyKind": "partial_two_root_bucket",
+            "sourceRowCount": 18,
+            "qAvoidingClassCount": 308862,
+            "nextRootChildCount": 617724,
+            "nextQAvoidingClassCount": 5966904978
+          },
+          {
+            "sourceFamilyId": "q137_partial_two_root_bucket",
+            "sourceFamilyKind": "partial_two_root_bucket",
+            "sourceRowCount": 7,
+            "qAvoidingClassCount": 131369,
+            "nextRootChildCount": 262738,
+            "nextQAvoidingClassCount": 2537917711
+          }
+        ],
+        "status": "open_exact_two_root_rank_boundary",
+        "proofObligation": "Either cover this q-bucket as part of a next-rank batch/structural theorem, or emit a sharper exact subboundary. Do not descend into a singleton q-child from this packet."
+      },
+      {
+        "tokenId": "p443_q97_p479_q_avoiding_next_prime_q149_rank_boundary",
+        "nextObstructionPrime": 149,
+        "nextObstructionSquare": 22201,
+        "sourceRowCount": 39,
+        "sourceQAvoidingClassCount": 596241,
+        "rootResidueCountPerClass": 2,
+        "nextRootChildCount": 1192482,
+        "nextQAvoidingClassCount": 13235953959,
+        "sourceFamilyProfile": [
+          {
+            "sourceFamilyId": "q109_regular_invertible_two_root_rows",
+            "sourceFamilyKind": "q109_regular_subbucket",
+            "sourceRowCount": 8,
+            "qAvoidingClassCount": 95032,
+            "nextRootChildCount": 190064,
+            "nextQAvoidingClassCount": 2109615368
+          },
+          {
+            "sourceFamilyId": "q113_partial_two_root_bucket",
+            "sourceFamilyKind": "partial_two_root_bucket",
+            "sourceRowCount": 10,
+            "qAvoidingClassCount": 127670,
+            "nextRootChildCount": 255340,
+            "nextQAvoidingClassCount": 2834146330
+          },
+          {
+            "sourceFamilyId": "q127_partial_two_root_bucket",
+            "sourceFamilyKind": "partial_two_root_bucket",
+            "sourceRowCount": 6,
+            "qAvoidingClassCount": 96762,
+            "nextRootChildCount": 193524,
+            "nextQAvoidingClassCount": 2148019638
+          },
+          {
+            "sourceFamilyId": "q131_partial_two_root_bucket",
+            "sourceFamilyKind": "partial_two_root_bucket",
+            "sourceRowCount": 5,
+            "qAvoidingClassCount": 85795,
+            "nextRootChildCount": 171590,
+            "nextQAvoidingClassCount": 1904563205
+          },
+          {
+            "sourceFamilyId": "q137_partial_two_root_bucket",
+            "sourceFamilyKind": "partial_two_root_bucket",
+            "sourceRowCount": 4,
+            "qAvoidingClassCount": 75068,
+            "nextRootChildCount": 150136,
+            "nextQAvoidingClassCount": 1666434532
+          },
+          {
+            "sourceFamilyId": "q139_partial_two_root_bucket",
+            "sourceFamilyKind": "partial_two_root_bucket",
+            "sourceRowCount": 6,
+            "qAvoidingClassCount": 115914,
+            "nextRootChildCount": 231828,
+            "nextQAvoidingClassCount": 2573174886
+          }
+        ],
+        "status": "open_exact_two_root_rank_boundary",
+        "proofObligation": "Either cover this q-bucket as part of a next-rank batch/structural theorem, or emit a sharper exact subboundary. Do not descend into a singleton q-child from this packet."
+      },
+      {
+        "tokenId": "p443_q97_p479_q_avoiding_next_prime_q151_rank_boundary",
+        "nextObstructionPrime": 151,
+        "nextObstructionSquare": 22801,
+        "sourceRowCount": 20,
+        "sourceQAvoidingClassCount": 348196,
+        "rootResidueCountPerClass": 2,
+        "nextRootChildCount": 696392,
+        "nextQAvoidingClassCount": 7938520604,
+        "sourceFamilyProfile": [
+          {
+            "sourceFamilyId": "q109_regular_invertible_two_root_rows",
+            "sourceFamilyKind": "q109_regular_subbucket",
+            "sourceRowCount": 2,
+            "qAvoidingClassCount": 23758,
+            "nextRootChildCount": 47516,
+            "nextQAvoidingClassCount": 541658642
+          },
+          {
+            "sourceFamilyId": "q113_partial_two_root_bucket",
+            "sourceFamilyKind": "partial_two_root_bucket",
+            "sourceRowCount": 4,
+            "qAvoidingClassCount": 51068,
+            "nextRootChildCount": 102136,
+            "nextQAvoidingClassCount": 1164299332
+          },
+          {
+            "sourceFamilyId": "q127_partial_two_root_bucket",
+            "sourceFamilyKind": "partial_two_root_bucket",
+            "sourceRowCount": 1,
+            "qAvoidingClassCount": 16127,
+            "nextRootChildCount": 32254,
+            "nextQAvoidingClassCount": 367679473
+          },
+          {
+            "sourceFamilyId": "q131_partial_two_root_bucket",
+            "sourceFamilyKind": "partial_two_root_bucket",
+            "sourceRowCount": 2,
+            "qAvoidingClassCount": 34318,
+            "nextRootChildCount": 68636,
+            "nextQAvoidingClassCount": 782416082
+          },
+          {
+            "sourceFamilyId": "q137_partial_two_root_bucket",
+            "sourceFamilyKind": "partial_two_root_bucket",
+            "sourceRowCount": 2,
+            "qAvoidingClassCount": 37534,
+            "nextRootChildCount": 75068,
+            "nextQAvoidingClassCount": 855737666
+          },
+          {
+            "sourceFamilyId": "q139_partial_two_root_bucket",
+            "sourceFamilyKind": "partial_two_root_bucket",
+            "sourceRowCount": 5,
+            "qAvoidingClassCount": 96595,
+            "nextRootChildCount": 193190,
+            "nextQAvoidingClassCount": 2202269405
+          },
+          {
+            "sourceFamilyId": "q149_partial_two_root_bucket",
+            "sourceFamilyKind": "partial_two_root_bucket",
+            "sourceRowCount": 4,
+            "qAvoidingClassCount": 88796,
+            "nextRootChildCount": 177592,
+            "nextQAvoidingClassCount": 2024460004
+          }
+        ],
+        "status": "open_exact_two_root_rank_boundary",
+        "proofObligation": "Either cover this q-bucket as part of a next-rank batch/structural theorem, or emit a sharper exact subboundary. Do not descend into a singleton q-child from this packet."
+      },
+      {
+        "tokenId": "p443_q97_p479_q_avoiding_next_prime_q157_rank_boundary",
+        "nextObstructionPrime": 157,
+        "nextObstructionSquare": 24649,
+        "sourceRowCount": 8,
+        "sourceQAvoidingClassCount": 163528,
+        "rootResidueCountPerClass": 2,
+        "nextRootChildCount": 327056,
+        "nextQAvoidingClassCount": 4030474616,
+        "sourceFamilyProfile": [
+          {
+            "sourceFamilyId": "q127_partial_two_root_bucket",
+            "sourceFamilyKind": "partial_two_root_bucket",
+            "sourceRowCount": 1,
+            "qAvoidingClassCount": 16127,
+            "nextRootChildCount": 32254,
+            "nextQAvoidingClassCount": 397482169
+          },
+          {
+            "sourceFamilyId": "q137_partial_two_root_bucket",
+            "sourceFamilyKind": "partial_two_root_bucket",
+            "sourceRowCount": 1,
+            "qAvoidingClassCount": 18767,
+            "nextRootChildCount": 37534,
+            "nextQAvoidingClassCount": 462550249
+          },
+          {
+            "sourceFamilyId": "q139_partial_two_root_bucket",
+            "sourceFamilyKind": "partial_two_root_bucket",
+            "sourceRowCount": 2,
+            "qAvoidingClassCount": 38638,
+            "nextRootChildCount": 77276,
+            "nextQAvoidingClassCount": 952310786
+          },
+          {
+            "sourceFamilyId": "q149_partial_two_root_bucket",
+            "sourceFamilyKind": "partial_two_root_bucket",
+            "sourceRowCount": 2,
+            "qAvoidingClassCount": 44398,
+            "nextRootChildCount": 88796,
+            "nextQAvoidingClassCount": 1094277506
+          },
+          {
+            "sourceFamilyId": "q151_partial_two_root_bucket",
+            "sourceFamilyKind": "partial_two_root_bucket",
+            "sourceRowCount": 2,
+            "qAvoidingClassCount": 45598,
+            "nextRootChildCount": 91196,
+            "nextQAvoidingClassCount": 1123853906
+          }
+        ],
+        "status": "open_exact_two_root_rank_boundary",
+        "proofObligation": "Either cover this q-bucket as part of a next-rank batch/structural theorem, or emit a sharper exact subboundary. Do not descend into a singleton q-child from this packet."
+      },
+      {
+        "tokenId": "p443_q97_p479_q_avoiding_next_prime_q163_rank_boundary",
+        "nextObstructionPrime": 163,
+        "nextObstructionSquare": 26569,
+        "sourceRowCount": 7,
+        "sourceQAvoidingClassCount": 129089,
+        "rootResidueCountPerClass": 2,
+        "nextRootChildCount": 258178,
+        "nextQAvoidingClassCount": 3429507463,
+        "sourceFamilyProfile": [
+          {
+            "sourceFamilyId": "q113_partial_two_root_bucket",
+            "sourceFamilyKind": "partial_two_root_bucket",
+            "sourceRowCount": 1,
+            "qAvoidingClassCount": 12767,
+            "nextRootChildCount": 25534,
+            "nextQAvoidingClassCount": 339180889
+          },
+          {
+            "sourceFamilyId": "q127_partial_two_root_bucket",
+            "sourceFamilyKind": "partial_two_root_bucket",
+            "sourceRowCount": 1,
+            "qAvoidingClassCount": 16127,
+            "nextRootChildCount": 32254,
+            "nextQAvoidingClassCount": 428446009
+          },
+          {
+            "sourceFamilyId": "q131_partial_two_root_bucket",
+            "sourceFamilyKind": "partial_two_root_bucket",
+            "sourceRowCount": 1,
+            "qAvoidingClassCount": 17159,
+            "nextRootChildCount": 34318,
+            "nextQAvoidingClassCount": 455863153
+          },
+          {
+            "sourceFamilyId": "q139_partial_two_root_bucket",
+            "sourceFamilyKind": "partial_two_root_bucket",
+            "sourceRowCount": 2,
+            "qAvoidingClassCount": 38638,
+            "nextRootChildCount": 77276,
+            "nextQAvoidingClassCount": 1026495746
+          },
+          {
+            "sourceFamilyId": "q149_partial_two_root_bucket",
+            "sourceFamilyKind": "partial_two_root_bucket",
+            "sourceRowCount": 2,
+            "qAvoidingClassCount": 44398,
+            "nextRootChildCount": 88796,
+            "nextQAvoidingClassCount": 1179521666
+          }
+        ],
+        "status": "open_exact_two_root_rank_boundary",
+        "proofObligation": "Either cover this q-bucket as part of a next-rank batch/structural theorem, or emit a sharper exact subboundary. Do not descend into a singleton q-child from this packet."
+      },
+      {
+        "tokenId": "p443_q97_p479_q_avoiding_next_prime_q167_rank_boundary",
+        "nextObstructionPrime": 167,
+        "nextObstructionSquare": 27889,
+        "sourceRowCount": 5,
+        "sourceQAvoidingClassCount": 83371,
+        "rootResidueCountPerClass": 2,
+        "nextRootChildCount": 166742,
+        "nextQAvoidingClassCount": 2324967077,
+        "sourceFamilyProfile": [
+          {
+            "sourceFamilyId": "q109_regular_invertible_two_root_rows",
+            "sourceFamilyKind": "q109_regular_subbucket",
+            "sourceRowCount": 2,
+            "qAvoidingClassCount": 23758,
+            "nextRootChildCount": 47516,
+            "nextQAvoidingClassCount": 662539346
+          },
+          {
+            "sourceFamilyId": "q113_partial_two_root_bucket",
+            "sourceFamilyKind": "partial_two_root_bucket",
+            "sourceRowCount": 1,
+            "qAvoidingClassCount": 12767,
+            "nextRootChildCount": 25534,
+            "nextQAvoidingClassCount": 356033329
+          },
+          {
+            "sourceFamilyId": "q149_partial_two_root_bucket",
+            "sourceFamilyKind": "partial_two_root_bucket",
+            "sourceRowCount": 1,
+            "qAvoidingClassCount": 22199,
+            "nextRootChildCount": 44398,
+            "nextQAvoidingClassCount": 619063513
+          },
+          {
+            "sourceFamilyId": "q157_partial_two_root_bucket",
+            "sourceFamilyKind": "partial_two_root_bucket",
+            "sourceRowCount": 1,
+            "qAvoidingClassCount": 24647,
+            "nextRootChildCount": 49294,
+            "nextQAvoidingClassCount": 687330889
+          }
+        ],
+        "status": "open_exact_two_root_rank_boundary",
+        "proofObligation": "Either cover this q-bucket as part of a next-rank batch/structural theorem, or emit a sharper exact subboundary. Do not descend into a singleton q-child from this packet."
+      },
+      {
+        "tokenId": "p443_q97_p479_q_avoiding_next_prime_q173_rank_boundary",
+        "nextObstructionPrime": 173,
+        "nextObstructionSquare": 29929,
+        "sourceRowCount": 3,
+        "sourceQAvoidingClassCount": 49293,
+        "rootResidueCountPerClass": 2,
+        "nextRootChildCount": 98586,
+        "nextQAvoidingClassCount": 1475191611,
+        "sourceFamilyProfile": [
+          {
+            "sourceFamilyId": "q109_regular_invertible_two_root_rows",
+            "sourceFamilyKind": "q109_regular_subbucket",
+            "sourceRowCount": 1,
+            "qAvoidingClassCount": 11879,
+            "nextRootChildCount": 23758,
+            "nextQAvoidingClassCount": 355502833
+          },
+          {
+            "sourceFamilyId": "q113_partial_two_root_bucket",
+            "sourceFamilyKind": "partial_two_root_bucket",
+            "sourceRowCount": 1,
+            "qAvoidingClassCount": 12767,
+            "nextRootChildCount": 25534,
+            "nextQAvoidingClassCount": 382078009
+          },
+          {
+            "sourceFamilyId": "q157_partial_two_root_bucket",
+            "sourceFamilyKind": "partial_two_root_bucket",
+            "sourceRowCount": 1,
+            "qAvoidingClassCount": 24647,
+            "nextRootChildCount": 49294,
+            "nextQAvoidingClassCount": 737610769
+          }
+        ],
+        "status": "open_exact_two_root_rank_boundary",
+        "proofObligation": "Either cover this q-bucket as part of a next-rank batch/structural theorem, or emit a sharper exact subboundary. Do not descend into a singleton q-child from this packet."
+      },
+      {
+        "tokenId": "p443_q97_p479_q_avoiding_next_prime_q181_rank_boundary",
+        "nextObstructionPrime": 181,
+        "nextObstructionSquare": 32761,
+        "sourceRowCount": 1,
+        "sourceQAvoidingClassCount": 29927,
+        "rootResidueCountPerClass": 2,
+        "nextRootChildCount": 59854,
+        "nextQAvoidingClassCount": 980378593,
+        "sourceFamilyProfile": [
+          {
+            "sourceFamilyId": "q173_partial_two_root_bucket",
+            "sourceFamilyKind": "partial_two_root_bucket",
+            "sourceRowCount": 1,
+            "qAvoidingClassCount": 29927,
+            "nextRootChildCount": 59854,
+            "nextQAvoidingClassCount": 980378593
+          }
+        ],
+        "status": "open_exact_two_root_rank_boundary",
+        "proofObligation": "Either cover this q-bucket as part of a next-rank batch/structural theorem, or emit a sharper exact subboundary. Do not descend into a singleton q-child from this packet."
+      },
+      {
+        "tokenId": "p443_q97_p479_q_avoiding_next_prime_q191_rank_boundary",
+        "nextObstructionPrime": 191,
+        "nextObstructionSquare": 36481,
+        "sourceRowCount": 2,
+        "sourceQAvoidingClassCount": 38446,
+        "rootResidueCountPerClass": 2,
+        "nextRootChildCount": 76892,
+        "nextQAvoidingClassCount": 1402471634,
+        "sourceFamilyProfile": [
+          {
+            "sourceFamilyId": "q109_regular_invertible_two_root_rows",
+            "sourceFamilyKind": "q109_regular_subbucket",
+            "sourceRowCount": 1,
+            "qAvoidingClassCount": 11879,
+            "nextRootChildCount": 23758,
+            "nextQAvoidingClassCount": 433334041
+          },
+          {
+            "sourceFamilyId": "q163_partial_two_root_bucket",
+            "sourceFamilyKind": "partial_two_root_bucket",
+            "sourceRowCount": 1,
+            "qAvoidingClassCount": 26567,
+            "nextRootChildCount": 53134,
+            "nextQAvoidingClassCount": 969137593
+          }
+        ],
+        "status": "open_exact_two_root_rank_boundary",
+        "proofObligation": "Either cover this q-bucket as part of a next-rank batch/structural theorem, or emit a sharper exact subboundary. Do not descend into a singleton q-child from this packet."
+      }
+    ],
+    "measureStatus": "finite_rank_token_partitioned_not_decreased",
+    "exactPartition": "The single 13-bucket rank token is partitioned by next obstruction prime q in {113,127,131,137,139,149,151,157,163,167,173,181,191}."
+  },
+  "twoRootLaw": {
+    "theoremId": "p848_p4217_p443_q97_p479_post_q_avoiding_next_bucket_two_root_law",
+    "status": "finite_replay_verified",
+    "statement": "For every stored post-q109 q-avoiding source row, the first next square-obstruction prime has exactly two roots modulo q^2; therefore each source q-avoiding class emits two root children and q^2 - 2 next q-avoiding classes at that rank.",
+    "verifiedRowCount": 718,
+    "bucketCount": 13,
+    "verificationCommand": "node packs/number-theory/problems/848/compute/problem848_p479_q_avoiding_next_bucket_rank_boundary.mjs --pretty"
+  },
+  "proofBoundary": "This packet accounts for all 13 next-prime buckets emitted by the post-q109 q-avoiding batch cover and records the exact two-root rank boundary. It does not close the 19467198 next root children, the 170308883793 next q-avoiding classes, the p479-available branch, the p479-unavailable complement, q97, p443-unavailable, the wider p4217 complement, collision-free matching, or Problem 848.",
+  "oneNextAction": {
+    "stepId": "run_p848_convergence_assembly_after_13_bucket_rank_boundary",
+    "action": "Run convergence assembly after the deterministic 13-bucket rank boundary and choose a multi-bucket next-rank batch cover, structural rank theorem, impossibility theorem, or sharper deterministic boundary before any singleton q-child descent.",
+    "coveredFamily": "All 13 next-prime rank buckets over 718 source rows, 9733599 q-avoiding source classes, 19467198 root children, and 170308883793 next q-avoiding classes.",
+    "finiteDenominatorOrRankToken": "Thirteen exact q-bucket rank tokens, each with denominator q^2 and two root residues per inherited q-avoiding class.",
+    "failureBoundary": "If no shared next-rank theorem is available, write a deterministic per-bucket structural boundary packet; do not open q113/q127/etc. singleton repair descent.",
+    "completionRule": "Assembly must name a batch, structural, impossibility, or ranked transition over the 13 tokens before any singleton q-child descent."
+  },
+  "recommendedNextAction": "run_p848_convergence_assembly_after_13_bucket_rank_boundary",
+  "nextTheoremMove": "Assemble the deterministic 13-bucket rank boundary and choose a next-rank batch/structural theorem over the bucket family; singleton q-child descent remains blocked.",
+  "claims": {
+    "consumesNextPrimeBucketRankToken": true,
+    "accountsForAllNextPrimeBuckets": true,
+    "accountsForAllSourceRows": true,
+    "accountsForAllQAvoidingSourceClasses": true,
+    "allRowsHaveTwoNextRoots": true,
+    "emitsDeterministic13BucketRankBoundary": true,
+    "opensFreshFallbackSelector": false,
+    "descendsIntoQ113Singleton": false,
+    "descendsIntoQ127Singleton": false,
+    "descendsIntoSingletonQChild": false,
+    "provesNextRootChildrenClosed": false,
+    "provesNextQAvoidingBoundaryClosed": false,
+    "provesP479AvailableFamilyCoverage": false,
+    "provesP479UnavailableComplementClosed": false,
+    "provesQ97ChildCoverage": false,
+    "provesP443UnavailableComplementClosed": false,
+    "provesP4217ComplementCoverage": false,
+    "provesAllN": false
+  }
+}

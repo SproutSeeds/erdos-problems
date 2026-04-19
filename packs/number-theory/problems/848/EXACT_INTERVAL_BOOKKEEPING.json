@@ -1,7 +1,7 @@
 {
   "schema": "erdos.problem848_exact_interval_bookkeeping/1",
   "problemId": "848",
-  "statusDate": "2026-04-15",
+  "statusDate": "2026-04-17",
   "publicRepoRawExactPacket": {
     "interval": "1..10000",
     "certificate": "EXACT_SMALL_N_1_10000_CERTIFICATE.md",
@@ -15,11 +15,26 @@
     "rawResultSha256": "da3546ab3f30faef879c2d4da680f826711361e2c685de8f384eb116df1f8fbc",
     "rawResultApproximateSize": "440 MB"
   },
+  "publicCompactExactEvidence": {
+    "interval": "1..40500",
+    "claimLevel": "public_compact_evidence_not_public_raw_packet",
+    "promotionPacket": "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_EXACT_40500_COMPACT_PROMOTION_PACKET.json",
+    "compactCertificate": "output/p848-exact-small-n-rollouts/EXACT_SMALL_N_1_40500_CERTIFICATE.md",
+    "compactDerivativePackets": [
+      "EXACT_BREAKPOINT_SCOUT.json",
+      "EXACT_BREAKPOINT_CERTIFICATE.json"
+    ],
+    "verifiedRawResultSha256": "da3546ab3f30faef879c2d4da680f826711361e2c685de8f384eb116df1f8fbc",
+    "rawResultCommittedOrBundled": false,
+    "boundaryAuditPacket": "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_EXACT_40500_ENDPOINT_BOUNDARY_AUDIT_PACKET.json",
+    "boundaryAuditStatus": "lane_aligned_no_new_failure_boundary",
+    "boundaryAuditUse": "Use as finite-base evidence for the 32 mod 50 top repair-class lane; it found no failed endpoint or top-specific coverage boundary."
+  },
   "committedCompactDerivatives": [
     "EXACT_BREAKPOINT_SCOUT.json",
     "EXACT_BREAKPOINT_CERTIFICATE.json"
   ],
-  "claimRule": "Use 1..10000 for the public repo raw exact packet. Use 1..40500 only when explicitly described as local ignored rollout evidence or compact breakpoint/endpoint evidence derived from that rollout.",
+  "claimRule": "Use 1..10000 for the public repo raw exact packet. Use 1..40500 only when explicitly described as public compact evidence via P848_EXACT_40500_COMPACT_PROMOTION_PACKET.json, compact breakpoint/endpoint derivatives, and the verified raw-result hash.",
   "npmRule": "The npm package intentionally excludes raw exact small-N result JSON.",
-  "nextResearchUse": "Use the 1..40500 rollout as regression and structure-mining evidence while prioritizing theorem compression over raw interval extension."
+  "nextResearchUse": "Use the promoted and boundary-audited compact 1..40500 evidence as finite-base support for a mod-50 lane breakpoint coverage theorem; if the square-witness hypotheses cannot cover the lane, emit a hypotheses blocker before any 40501+ rollout."
 }

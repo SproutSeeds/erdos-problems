@@ -1,0 +1,153 @@
+{
+  "schema": "erdos.number_theory.p848_mod50_menu_generator_restoration_audit_packet/1",
+  "packetId": "p848_mod50_menu_generator_restoration_audit",
+  "generatedAt": "2026-04-17T11:56:01Z",
+  "problemId": 848,
+  "status": "mod50_menu_generator_restoration_blocked_chunk_source_only",
+  "parentAction": {
+    "stepId": "restore_p848_mod50_menu_generator_or_prove_symbolic_relevant_pair_recurrence",
+    "completionRule": "A replayable generator, symbolic recurrence, finite Q partition, or concrete residual counterfamily is recorded with proof boundaries."
+  },
+  "sourcePackets": [
+    "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_MOD50_RESTORED_MENU_SEQUENCE_STABILITY_BLOCKER_PACKET.json",
+    "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_MOD50_RELEVANT_PAIR_ENUMERATOR_GENERATOR_BLOCKER_PACKET.json",
+    "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_MOD50_UNIVERSAL_DOMAIN_COVER_RESIDUAL_PACKET.json",
+    "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_CONVERGENCE_ASSEMBLY_282_FIRST_FAILURE_PACKET.json"
+  ],
+  "blockedObject": {
+    "objectId": "p848_mod50_family_menu_generator_or_symbolic_recurrence",
+    "requiredStatement": "Restore a source command/proof object that generates the SIX_PREFIX family menus and their ordering, or prove a symbolic recurrence/finite Q partition for every relevant future (n,Q) pair in the c = 32 + 50*m lane.",
+    "blockedReason": "The local sync restores finite menus, singleton CRT packets, and chunked first-failure scan summaries, but no local source command or theorem object that emits the family menus or proves their all-future recurrence."
+  },
+  "restoredFiniteSources": {
+    "root": "output/frontier-engine-local/p848-anchor-ladder/live-frontier-sync/2026-04-05",
+    "readmePath": "output/frontier-engine-local/p848-anchor-ladder/live-frontier-sync/2026-04-05/README.md",
+    "familyMenus": {
+      "menuCount": 6,
+      "labels": [
+        "SIX_PREFIX_NINETEEN",
+        "SIX_PREFIX_TWENTY",
+        "SIX_PREFIX_TWENTY_ONE",
+        "SIX_PREFIX_TWENTY_TWO",
+        "SIX_PREFIX_TWENTY_THREE",
+        "SIX_PREFIX_TWENTY_FOUR"
+      ],
+      "familyCounts": [220, 230, 240, 250, 260, 280],
+      "knownFailureMatches": [20, 21, 22, 23, 24, 25],
+      "richestMenuPath": "output/frontier-engine-local/p848-anchor-ladder/live-frontier-sync/2026-04-05/SIX_PREFIX_TWENTY_FOUR_FAMILY_MENU.json",
+      "richestMenuFamilyCount": 280,
+      "richestMenuKnownFailureMatches": 25,
+      "richestMenuNextUnmatched": 137720141
+    },
+    "chunkedDirectFailureProvenance": {
+      "summaryCount": 6,
+      "chunkPacketCount": 50,
+      "rootFirstFailurePacketCount": 1,
+      "method": "anchor_chunked_frontier_summary",
+      "chunkMethod": "anchor_chunked_frontier",
+      "directFailures": [90512581, 102428617, 106393589, 127484267, 127682743, 136702637],
+      "latestSummaryPath": "output/frontier-engine-local/p848-anchor-ladder/live-frontier-sync/2026-04-05/chunks/six_anchor_frontier_after_twenty_third_failure/SUMMARY_127682744_to_137720141.json",
+      "latestSummary": {
+        "threshold": 127682744,
+        "max": 137720141,
+        "chunkSize": 1000000,
+        "firstFailure": 136702637,
+        "firstFailurePacket": "ANCHOR_FIRST_FAILURE_7_32_57_82_132_182_136682744_to_137682743.json",
+        "cleanThrough": 136702636,
+        "allCoveredOnWindow": false,
+        "chunkCount": 10
+      }
+    },
+    "singletonCrtProvenance": {
+      "packetCount": 6,
+      "method": "anchor_singleton_crt",
+      "representatives": [90512581, 102428617, 106393589, 127484267, 127682743, 136702637],
+      "latestPacketPath": "output/frontier-engine-local/p848-anchor-ladder/live-frontier-sync/2026-04-05/ANCHOR_SINGLETON_CRT_136702637.json",
+      "interpretation": "These packets prove row-level CRT witnesses for the known direct failures, but do not generate or order the family menu."
+    }
+  },
+  "localSourceAudit": {
+    "searchedFor": [
+      "anchor_chunked_frontier implementation",
+      "anchor_singleton_crt implementation",
+      "SIX_PREFIX_*_FAMILY_MENU generator command",
+      "symbolic recurrence for knownFailures or squareModuli",
+      "270-row or TWENTY_FIVE family-menu source"
+    ],
+    "searchedCodePaths": [
+      "research/frontier-engine/src/frontier_engine/p848_anchor_search.py",
+      "research/frontier-engine/src/frontier_engine/p848_theorem_bridge.py",
+      "research/frontier-engine/src/frontier_engine/p848_bundle.py",
+      "packs/number-theory/problems/848/compute/",
+      "src/runtime/theorem-loop.js",
+      "src/runtime/problem-progress.js",
+      "output/frontier-engine-local/p848-anchor-ladder/live-frontier-sync/2026-04-05"
+    ],
+    "positiveFindings": [
+      "p848_anchor_search.py loads and scores the richest restored family menu.",
+      "p848_theorem_bridge.py builds theorem-facing bridge data from existing reports and live-frontier sync summaries.",
+      "The live-frontier sync contains six summary packets for chunked direct first-failure scans and six singleton CRT packets.",
+      "The README records the late square-modulus entries 17161 = 131^2 and 1849 = 43^2."
+    ],
+    "missingSourceIds": [
+      "family_menu_generator_command",
+      "anchor_chunked_frontier_source_implementation",
+      "anchor_singleton_crt_source_implementation",
+      "symbolic_known_failure_recurrence",
+      "symbolic_square_moduli_recurrence",
+      "intermediate_270_row_menu_or_full_limit_sequence",
+      "SIX_PREFIX_TWENTY_FIVE_or_continuation_menu"
+    ],
+    "negativeFindings": [
+      "The local code paths consume finite menu and chunk artifacts, but do not emit the SIX_PREFIX family menus.",
+      "No local source implementation for the packet methods anchor_chunked_frontier or anchor_singleton_crt was found outside frozen output artifacts.",
+      "No generator command, recurrence theorem, or finite Q-partition proof was found for the all-future mod-50 relevant-pair surface.",
+      "The restored sequence remains finite and unstable at late transitions, so it cannot be promoted to a recurrence by inspection."
+    ]
+  },
+  "reconstructionAttempt": {
+    "attemptId": "p848_mod50_naive_crt_tuple_enumerator_probe",
+    "status": "blocked_as_unbounded_naive_cartesian_probe",
+    "inputSurface": {
+      "anchors": [7, 32, 57, 82, 132, 182],
+      "squareModuliCount": 23,
+      "knownFailureParameterCount": 24,
+      "familyMenuLimit": 280
+    },
+    "observation": "A row-level CRT check is possible from the tuple rows and square moduli, but a naive all-tuple enumeration over 23^6 square-modulus choices is too large to serve as a cheap generator proof.",
+    "requiredUpgrade": "A bounded priority CRT enumerator must prove it reproduces each restored finite menu exactly, including ordering and no omitted smaller representatives, or the original generator must be restored."
+  },
+  "deterministicBoundary": {
+    "boundaryId": "p848_mod50_menu_generator_restoration_boundary",
+    "status": "open",
+    "blockedInput": "A replayable family-menu generator, bounded CRT priority enumerator with exact restored-menu reproduction proof, symbolic relevant-pair recurrence, finite Q partition, or concrete residual counterfamily.",
+    "acceptedSuccessors": [
+      "Restore the original generator source/command that emits the SIX_PREFIX family menus from anchors, known failures, square moduli, threshold, limit, and distinctness parameters.",
+      "Implement a bounded CRT priority enumerator that reproduces the six restored menus exactly and proves no smaller representatives are omitted under each finite parameter set.",
+      "Prove a symbolic recurrence for new known failures and square moduli that makes the relevant-pair surface independent of finite snapshots.",
+      "Derive a finite Q partition from a theorem or generator proof, not from the TWENTY_FOUR menu alone.",
+      "Emit a concrete residual counterfamily with explicit n, Q, m-class denominator, and failed handoff."
+    ],
+    "forbiddenShortcut": "Do not treat frozen chunk summaries, singleton CRT packets, row-level CRT checks, or the 280-row menu as a restored generator, symbolic recurrence, finite Q partition, or all-N proof."
+  },
+  "recommendedNextAction": "derive_p848_mod50_bounded_crt_menu_enumerator_or_restore_original_generator",
+  "nextTheoremMove": "Derive a bounded CRT priority menu enumerator that exactly reproduces the restored SIX_PREFIX_NINETEEN through TWENTY_FOUR menus, or restore the original generator; keep the symbolic all-future recurrence and finite Q partition open unless proved.",
+  "suggestedVerificationCommand": "jq '{blockedObject, restoredFiniteSources, localSourceAudit, reconstructionAttempt, deterministicBoundary, recommendedNextAction, claims}' packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_MOD50_MENU_GENERATOR_RESTORATION_AUDIT_PACKET.json",
+  "proofBoundary": "This packet proves that local finite chunk/CRT provenance is available but the mod-50 family-menu generator or symbolic relevant-pair recurrence is not restored locally. It does not prove a bounded menu enumerator, universal square-witness domain cover, finite Q partition, contrast-only recombination, p4217 complement coverage, or all-N.",
+  "claims": {
+    "auditsGeneratorRestorationSource": true,
+    "provesChunkedDirectFailureSourceExists": true,
+    "provesSingletonCrtPacketsExist": true,
+    "provesFamilyMenuGeneratorAbsentLocally": true,
+    "namesBoundedCrtEnumeratorSuccessor": true,
+    "uses40501PlusRollout": false,
+    "provesBoundedMenuEnumerator": false,
+    "provesSymbolicRelevantPairRecurrence": false,
+    "provesRelevantPairEnumerator": false,
+    "provesFiniteQPartition": false,
+    "provesUniversalSquareWitnessDomainCover": false,
+    "closesContrastOnlyRecombination": false,
+    "provesP4217ComplementCoverage": false,
+    "provesAllN": false
+  }
+}

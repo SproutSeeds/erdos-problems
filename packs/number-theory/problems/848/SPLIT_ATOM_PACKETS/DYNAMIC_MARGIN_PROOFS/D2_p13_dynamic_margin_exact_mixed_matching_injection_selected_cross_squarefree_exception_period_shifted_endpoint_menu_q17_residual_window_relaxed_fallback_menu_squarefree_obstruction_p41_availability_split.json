@@ -1,0 +1,138 @@
+{
+  "schema": "erdos.number_theory.p848_endpoint_obstruction_availability_split/1",
+  "generatedAt": "2026-04-17T00:43:54.441Z",
+  "problemId": "848",
+  "status": "first_p41_available_square_obstruction_subclass_emitted",
+  "activeAtom": "D2_p13_q17_endpoint_menu_squarefree_obstruction_p23_q29_p41_availability_split",
+  "sourceObstructionSubclassRepair": "/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DYNAMIC_MARGIN_PROOFS/D2_p13_dynamic_margin_exact_mixed_matching_injection_selected_cross_squarefree_exception_period_shifted_endpoint_menu_q17_residual_window_relaxed_fallback_menu_squarefree_obstruction_subclass_repair.json",
+  "target": {
+    "description": "q17 p23/q29 obstruction subclass p41 availability split",
+    "outsider": 6323,
+    "residualClass": {
+      "residue": 1532646257,
+      "modulus": 4904901225
+    },
+    "endpointPrime": 41,
+    "endpointPrimeSquare": 1681,
+    "window": 28500,
+    "obstructionPrimeLimit": 17
+  },
+  "availabilitySplit": {
+    "kFormulaInParameter": "k_41(t) = (1496*t + 1011) mod 1681",
+    "maxK": 1139,
+    "period": 1681,
+    "availableResidueCount": 1140,
+    "unavailableResidueCount": 541,
+    "universallyWithinWindow": false,
+    "firstAvailableResidue": {
+      "tResidue": 0,
+      "k": 1011
+    },
+    "firstUnavailableResidue": {
+      "tResidue": 6,
+      "k": 1582
+    }
+  },
+  "representativeAudit": {
+    "parameterResidue": 0,
+    "boundedFamilyParameter": 0,
+    "left": 1532646257,
+    "k": 1011,
+    "delta": -25289,
+    "right": 1532620968,
+    "squarefreeStatus": "exact_squarefree",
+    "squareDivisorPrime": null,
+    "squareDivisor": null
+  },
+  "firstAvailableSquareObstruction": {
+    "endpointPrime": 41,
+    "endpointPrimeSquare": 1681,
+    "tResidueModuloEndpointPrimeSquare": 0,
+    "boundedFamilyParameter": 0,
+    "obstructionPrime": 13,
+    "obstructionSquare": 169,
+    "rootResiduesModuloObstructionSquare": [
+      71,
+      118
+    ],
+    "selectedRootResidueModuloObstructionSquare": 71,
+    "boundedFamilyParameterModuloObstructionSquare": 0,
+    "boundedWitnessAvoidsObstruction": true,
+    "tCongruence": {
+      "residue": 119351,
+      "modulus": 284089,
+      "expression": "t == 119351 mod 284089"
+    },
+    "leftCongruence": {
+      "residue": 585406398751232,
+      "modulus": 1393428484109025,
+      "expression": "left == 585406398751232 mod 1393428484109025"
+    },
+    "endpoint": {
+      "k": 1011,
+      "delta": -25289,
+      "rightResidue": 585406398725943,
+      "rightExpression": "right == left -25289"
+    },
+    "squareDivisibilityWitness": {
+      "expression": "13^2 | left*right+1",
+      "crossProductPlusOneAtResidue": "342700651684082100511001611777",
+      "residueModuloObstructionSquare": 0
+    },
+    "checkedPrimeSummaries": [
+      {
+        "prime": 2,
+        "square": 4,
+        "rootCount": 0
+      },
+      {
+        "prime": 3,
+        "square": 9,
+        "rootCount": 0
+      },
+      {
+        "prime": 5,
+        "square": 25,
+        "rootCount": 0
+      },
+      {
+        "prime": 7,
+        "square": 49,
+        "rootCount": 0
+      },
+      {
+        "prime": 11,
+        "square": 121,
+        "rootCount": 0
+      },
+      {
+        "prime": 13,
+        "square": 169,
+        "rootCount": 2
+      }
+    ]
+  },
+  "claims": {
+    "provesEndpointFormulas": true,
+    "provesRepresentativeRepair": true,
+    "provesAvailabilitySplit": true,
+    "provesAvailableSubfamilySquarefreeHitting": false,
+    "disprovesUniversalAvailableResidueFamily": true,
+    "provesAllN": false,
+    "provesCollisionFreeMatching": false
+  },
+  "proofBoundary": "This packet splits p41 availability and proves the first available residue family is itself not globally squarefree. It does not invalidate the representative repair.",
+  "nextTheoremOptions": [
+    {
+      "id": "split_q17_p41_available_square_obstruction_subclass",
+      "status": "next",
+      "statement": "Split the p41-available residue family by the emitted square obstruction and test alternate endpoints on that subclass."
+    },
+    {
+      "id": "route_p41_unavailable_residues",
+      "status": "later",
+      "statement": "Route the first p41-unavailable residue family to alternate endpoints or a successor atom."
+    }
+  ],
+  "recommendedNextAction": "split_q17_p41_available_square_obstruction_subclass"
+}

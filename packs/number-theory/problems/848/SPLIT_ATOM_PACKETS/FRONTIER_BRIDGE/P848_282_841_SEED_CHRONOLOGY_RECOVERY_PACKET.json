@@ -1,0 +1,188 @@
+{
+  "schema": "erdos.number_theory.p848_282_841_seed_chronology_recovery_packet/1",
+  "generatedAt": "2026-04-17T08:44:56Z",
+  "problemId": 848,
+  "status": "seed_chronology_summary_recovered_row_level_menu_still_missing",
+  "sourcePackets": [
+    "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_282_841_FIRST_UNAVOIDABILITY_CHRONOLOGY_BLOCKER_PACKET.json",
+    "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_282_841_LIVE_FAMILY_BINDING_PACKET.json",
+    "research/frontier-engine/experiments/p848-anchor-ladder/FRONTIER_STATE.json",
+    "research/frontier-engine/experiments/p848-anchor-ladder/known_failure_packets.json",
+    "research/frontier-engine/artifacts/p848-anchor-ladder/p848_anchor_ladder-seeds-20260406T020706Z/manifest.json",
+    "research/frontier-engine/artifacts/p848-anchor-ladder/p848_anchor_ladder-seeds-20260411T031305Z/manifest.json"
+  ],
+  "representative": 137720141,
+  "targetContinuation": 282,
+  "witnessSquare": 841,
+  "manifestAudit": {
+    "scannedManifestCount": 19,
+    "usableFamilyMenuSummaryCount": 14,
+    "stableTwentyFourFamilySummaryCount": 9,
+    "firstStableTwentyFourFamilyBundle": "p848_anchor_ladder-seeds-20260406T020706Z",
+    "latestStableTwentyFourFamilyBundle": "p848_anchor_ladder-seeds-20260411T031305Z",
+    "stableFamilyMenuSourcePaths": [
+      "C:\\Users\\codyr\\frontier-engine\\live-p848\\SIX_PREFIX_TWENTY_FOUR_FAMILY_MENU.json",
+      "/home/shadeform/frontier-engine/experiments/p848-anchor-ladder/live-frontier-sync/latest/SIX_PREFIX_TWENTY_FOUR_FAMILY_MENU.json",
+      "C:\\Users\\codyr\\frontier-engine\\experiments\\p848-anchor-ladder\\live-frontier-sync\\latest\\SIX_PREFIX_TWENTY_FOUR_FAMILY_MENU.json"
+    ],
+    "stableSurface": {
+      "familyCount": 280,
+      "knownFailureMatches": 25,
+      "knownFailurePacketCount": 26,
+      "sharedPrefixFailureCount": 24,
+      "latestDirectFailure": 136702637,
+      "nextUnmatched": 137720141,
+      "bestContinuation": 432
+    }
+  },
+  "chronologyEvolution": [
+    {
+      "bundle": "p848_anchor_ladder-seeds-20260405T215954Z",
+      "familyCount": 220,
+      "knownFailureMatches": 20,
+      "latestDirectFailure": 90512581,
+      "nextUnmatched": 102428617
+    },
+    {
+      "bundle": "p848_anchor_ladder-seeds-20260406T011647Z",
+      "familyCount": 230,
+      "knownFailureMatches": 21,
+      "latestDirectFailure": 102428617,
+      "nextUnmatched": 106393589
+    },
+    {
+      "bundle": "p848_anchor_ladder-seeds-20260406T012358Z",
+      "familyCount": 240,
+      "knownFailureMatches": 22,
+      "latestDirectFailure": 106393589,
+      "nextUnmatched": 127484267
+    },
+    {
+      "bundle": "p848_anchor_ladder-seeds-20260406T014647Z",
+      "familyCount": 250,
+      "knownFailureMatches": 23,
+      "latestDirectFailure": 127484267,
+      "nextUnmatched": 137720141
+    },
+    {
+      "bundle": "p848_anchor_ladder-seeds-20260406T015317Z",
+      "familyCount": 260,
+      "knownFailureMatches": 24,
+      "latestDirectFailure": 127682743,
+      "nextUnmatched": 137720141
+    },
+    {
+      "bundle": "p848_anchor_ladder-seeds-20260406T020706Z",
+      "familyCount": 280,
+      "knownFailureMatches": 25,
+      "latestDirectFailure": 136702637,
+      "nextUnmatched": 137720141
+    },
+    {
+      "bundle": "p848_anchor_ladder-seeds-20260408T042612Z",
+      "familyCount": 280,
+      "knownFailureMatches": 25,
+      "latestDirectFailure": 136702637,
+      "nextUnmatched": 137720141
+    },
+    {
+      "bundle": "p848_anchor_ladder-seeds-20260408T133044Z",
+      "familyCount": 280,
+      "knownFailureMatches": 25,
+      "latestDirectFailure": 136702637,
+      "nextUnmatched": 137720141
+    },
+    {
+      "bundle": "p848_anchor_ladder-seeds-20260408T153300Z",
+      "familyCount": 280,
+      "knownFailureMatches": 25,
+      "latestDirectFailure": 136702637,
+      "nextUnmatched": 137720141
+    },
+    {
+      "bundle": "p848_anchor_ladder-seeds-20260408T165349Z",
+      "familyCount": 280,
+      "knownFailureMatches": 25,
+      "latestDirectFailure": 136702637,
+      "nextUnmatched": 137720141
+    },
+    {
+      "bundle": "p848_anchor_ladder-seeds-20260410T232350Z",
+      "familyCount": 280,
+      "knownFailureMatches": 25,
+      "latestDirectFailure": 136702637,
+      "nextUnmatched": 137720141
+    },
+    {
+      "bundle": "p848_anchor_ladder-seeds-20260411T020106Z",
+      "familyCount": 280,
+      "knownFailureMatches": 25,
+      "latestDirectFailure": 136702637,
+      "nextUnmatched": 137720141
+    },
+    {
+      "bundle": "p848_anchor_ladder-seeds-20260411T020335Z",
+      "familyCount": 280,
+      "knownFailureMatches": 25,
+      "latestDirectFailure": 136702637,
+      "nextUnmatched": 137720141
+    },
+    {
+      "bundle": "p848_anchor_ladder-seeds-20260411T031305Z",
+      "familyCount": 280,
+      "knownFailureMatches": 25,
+      "latestDirectFailure": 136702637,
+      "nextUnmatched": 137720141
+    }
+  ],
+  "recoveredKnownFailureSequence": {
+    "source": "latest stable manifest live_frontier_snapshot.best_family_menu.known_failures",
+    "count": 24,
+    "values": [
+      2678425,
+      16293829,
+      19094395,
+      21441113,
+      27949928,
+      30736645,
+      44421397,
+      55758371,
+      58376519,
+      63655799,
+      65942977,
+      69802829,
+      70279189,
+      71362381,
+      73222735,
+      77263775,
+      83622515,
+      84036163,
+      90512581,
+      102428617,
+      106393589,
+      127484267,
+      127682743,
+      136702637
+    ],
+    "lastKnownFailureBeforeTarget": 136702637,
+    "targetTailFailurePacket": {
+      "packetId": "tail_282_137720141",
+      "n": 137720141,
+      "tail": 282,
+      "kind": "tail_failure"
+    }
+  },
+  "claims": {
+    "recoversSeedSummaryChronology": true,
+    "provesStableNextUnmatchedAcrossLocalSeedSnapshots": true,
+    "narrowsMissingInputToRawFamilyRowsOrGenerator": true,
+    "recoversRawFamilyMenuRows": false,
+    "provesChronologyRecurrence": false,
+    "provesFirstStructuralUnavoidability": false,
+    "provesAllN": false
+  },
+  "boundary": "This packet recovers the local seed-summary chronology and proves the stable next-unmatched summary across the available 24-family seed manifests. It still does not recover the 280 raw family-menu rows, replay the activation checker, or prove a recurrence/order theorem.",
+  "recommendedNextAction": "regenerate_p848_282_841_row_level_family_menu_from_seed_generator_or_prove_ordering_recurrence",
+  "nextTheoremMove": "Regenerate the 280 row-level SIX_PREFIX_TWENTY_FOUR family menu from the seed generator inputs, or prove an ordering recurrence that certifies 137720141 as the first 282/841 structural failure without the raw menu.",
+  "verificationCommand": "node --test test/p848-282-alignment-obstruction-packet.test.js"
+}

@@ -1,0 +1,113 @@
+{
+  "schema": "erdos.number_theory.p848_endpoint_obstruction_availability_split/1",
+  "generatedAt": "2026-04-17T00:54:31.313Z",
+  "problemId": "848",
+  "status": "first_p103_available_square_obstruction_subclass_emitted",
+  "activeAtom": "D2_p13_q17_endpoint_menu_squarefree_obstruction_p23_q29_p41_q13_p103_availability_split",
+  "sourceObstructionSubclassRepair": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DYNAMIC_MARGIN_PROOFS/D2_p13_dynamic_margin_exact_mixed_matching_injection_selected_cross_squarefree_exception_period_shifted_endpoint_menu_q17_residual_window_relaxed_fallback_menu_squarefree_obstruction_p41_q13_subclass_repair.json",
+  "target": {
+    "description": "q17 p41/q13 obstruction subclass p103 availability split",
+    "outsider": 6323,
+    "residualClass": {
+      "residue": 585406398751232,
+      "modulus": 1393428484109025
+    },
+    "endpointPrime": 103,
+    "endpointPrimeSquare": 10609,
+    "window": 28500,
+    "obstructionPrimeLimit": 31
+  },
+  "availabilitySplit": {
+    "kFormulaInParameter": "k_103(t) = (1766*t + 532) mod 10609",
+    "maxK": 1139,
+    "period": 10609,
+    "availableResidueCount": 1140,
+    "unavailableResidueCount": 9469,
+    "universallyWithinWindow": false,
+    "firstAvailableResidue": {
+      "tResidue": 0,
+      "k": 532
+    },
+    "firstUnavailableResidue": {
+      "tResidue": 1,
+      "k": 2298
+    }
+  },
+  "representativeAudit": {
+    "parameterResidue": 0,
+    "boundedFamilyParameter": 0,
+    "left": 585406398751232,
+    "k": 532,
+    "delta": -13314,
+    "right": 585406398737918,
+    "squarefreeStatus": "exact_squarefree",
+    "squareDivisorPrime": null,
+    "squareDivisor": null
+  },
+  "firstAvailableSquareObstruction": {
+    "endpointPrime": 103,
+    "endpointPrimeSquare": 10609,
+    "tResidueModuloEndpointPrimeSquare": 0,
+    "boundedFamilyParameter": 0,
+    "obstructionPrime": 2,
+    "obstructionSquare": 4,
+    "rootResiduesModuloObstructionSquare": [
+      1,
+      3
+    ],
+    "selectedRootResidueModuloObstructionSquare": 1,
+    "boundedFamilyParameterModuloObstructionSquare": 0,
+    "boundedWitnessAvoidsObstruction": true,
+    "tCongruence": {
+      "residue": 10609,
+      "modulus": 42436,
+      "expression": "t == 10609 mod 42436"
+    },
+    "leftCongruence": {
+      "residue": "14783468194311397457",
+      "modulus": "59131531151650584900",
+      "expression": "left == 14783468194311397457 mod 59131531151650584900"
+    },
+    "endpoint": {
+      "k": 532,
+      "delta": -13314,
+      "rightResidue": "14783468194311384143",
+      "rightExpression": "right == left -13314"
+    },
+    "squareDivisibilityWitness": {
+      "expression": "2^2 | left*right+1",
+      "crossProductPlusOneAtResidue": "218550931852216493611505394630280324352",
+      "residueModuloObstructionSquare": 0
+    },
+    "checkedPrimeSummaries": [
+      {
+        "prime": 2,
+        "square": 4,
+        "rootCount": 2
+      }
+    ]
+  },
+  "claims": {
+    "provesEndpointFormulas": true,
+    "provesRepresentativeRepair": true,
+    "provesAvailabilitySplit": true,
+    "provesAvailableSubfamilySquarefreeHitting": false,
+    "disprovesUniversalAvailableResidueFamily": true,
+    "provesAllN": false,
+    "provesCollisionFreeMatching": false
+  },
+  "proofBoundary": "This packet splits p103 availability and proves the first available residue family is itself not globally squarefree. It does not invalidate the representative repair.",
+  "nextTheoremOptions": [
+    {
+      "id": "split_q17_p41_q13_p103_available_square_obstruction_subclass",
+      "status": "next",
+      "statement": "Split the p103-available residue family by the emitted square obstruction and test alternate endpoints on that subclass."
+    },
+    {
+      "id": "route_p103_unavailable_residues",
+      "status": "later",
+      "statement": "Route the first p103-unavailable residue family to alternate endpoints or a successor atom."
+    }
+  ],
+  "recommendedNextAction": "split_q17_p41_q13_p103_available_square_obstruction_subclass"
+}

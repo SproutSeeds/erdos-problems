@@ -1,0 +1,730 @@
+{
+  "schema": "erdos.number_theory.p848_mod50_anchor432_witness4489_profile_split_packet/1",
+  "packetId": "p848_mod50_anchor432_witness4489_profile_split_packet_v1",
+  "status": "finite_group_replay_certified_initial_anchor_profile_split",
+  "generatedAt": "2026-04-17T10:16:03.205Z",
+  "sourceArtifacts": [
+    "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_MOD50_LANE_SQUARE_WITNESS_DOMAIN_CENSUS_PACKET.json",
+    "output/frontier-engine-local/p848-anchor-ladder/live-frontier-sync/2026-04-05/SIX_PREFIX_TWENTY_FOUR_FAMILY_MENU.json",
+    "FORMALIZATION_WORK.json#currentWork.packetData.activationDomainClosureAssessment"
+  ],
+  "parentCensus": {
+    "packet": "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_MOD50_LANE_SQUARE_WITNESS_DOMAIN_CENSUS_PACKET.json",
+    "selectedStepId": "prove_p848_mod50_anchor432_witness4489_domain_or_emit_profile_split",
+    "selectedGroupId": "anchor_432_witness_4489",
+    "observedTopOnlyGroupId": "top_432_Q4489_bad8"
+  },
+  "targetGroup": {
+    "groupId": "anchor_432_witness_4489",
+    "failingAnchor": 432,
+    "witnessSquareModulus": 4489,
+    "targetFailureResidue": 4250,
+    "expectedRowCount": 2,
+    "familyIndices": [
+      236,
+      237
+    ],
+    "representatives": [
+      1585191353
+    ],
+    "tupleKeys": [
+      "4, 19^2, 13^2, 7^2, 23^2, 11^2",
+      "9, 19^2, 13^2, 7^2, 23^2, 11^2"
+    ],
+    "observedTopOnlyGroup": {
+      "groupId": "top_432_Q4489_bad8",
+      "kind": "top_only_bad_lane_group",
+      "topContinuation": 432,
+      "contrastContinuation": null,
+      "witnessSquareModulus": 4489,
+      "badLaneResidue": 8,
+      "laneIndexPeriod": 4489,
+      "instanceCount": 6,
+      "familyIndices": [
+        236,
+        237
+      ],
+      "representatives": [
+        1585191353
+      ],
+      "laneEquation": "1517*m ≡ 3158 (mod 4489)",
+      "missedLaneIndices": [
+        8
+      ],
+      "repairedLaneIndices": [
+        6,
+        7,
+        24
+      ],
+      "repairedContinuations": [
+        332,
+        382,
+        1232
+      ],
+      "exchangeKinds": [
+        "top_only_miss"
+      ],
+      "allChecksPassed": true
+    }
+  },
+  "familyMenuPath": "output/frontier-engine-local/p848-anchor-ladder/live-frontier-sync/2026-04-05/SIX_PREFIX_TWENTY_FOUR_FAMILY_MENU.json",
+  "domainReplay": {
+    "checkerId": "p848_432_4489_anchor_witness_profile_split_checker_v1",
+    "status": "passed",
+    "checkedRowCount": 2,
+    "passCount": 2,
+    "failCount": 0,
+    "closureChecks": {
+      "rowCountMatchesCensus": true,
+      "allRowsPassReplay": true,
+      "sameRepresentative": true,
+      "sameRepairValue": true,
+      "profileSplitPresent": true,
+      "noRepeatedProfileRemains": true,
+      "sameSuffixFromAnchor32Through182": true,
+      "samePrefixThrough132": false,
+      "anchor132ConvergesToTargetResidue": true,
+      "anchor182ZeroLiftForEveryRow": true
+    },
+    "failedClosureChecks": [],
+    "finiteScopeConclusion": "Rows 236 and 237 both replay from raw tuple-row CRT data: anchor 132 is the first tracked match for the 432/4489 failure residue, anchor 182 preserves the same residue with zero lift, and the two rows split only as initial anchor-7 profile variants before converging at anchor 132."
+  },
+  "profileSplitDecision": {
+    "verdict": "two_pre132_profiles_converge_at_anchor132_not_a_single_duplicate_profile",
+    "profileGroupCount": 2,
+    "repeatedProfileId": null,
+    "profileGroups": [
+      {
+        "profileId": "pre132_7_1_32_1365_57_2462_82_1582",
+        "profile": "7->1, 32->1365, 57->2462, 82->1582",
+        "rowCount": 1,
+        "familyIndices": [
+          236
+        ],
+        "representatives": [
+          1585191353
+        ],
+        "tupleKeys": [
+          "4, 19^2, 13^2, 7^2, 23^2, 11^2"
+        ],
+        "anchor7Variants": [
+          {
+            "familyIndex": 236,
+            "squareModulus": 4,
+            "residue": 1
+          }
+        ]
+      },
+      {
+        "profileId": "pre132_7_5_32_1004_57_418_82_184",
+        "profile": "7->5, 32->1004, 57->418, 82->184",
+        "rowCount": 1,
+        "familyIndices": [
+          237
+        ],
+        "representatives": [
+          1585191353
+        ],
+        "tupleKeys": [
+          "9, 19^2, 13^2, 7^2, 23^2, 11^2"
+        ],
+        "anchor7Variants": [
+          {
+            "familyIndex": 237,
+            "squareModulus": 9,
+            "residue": 5
+          }
+        ]
+      }
+    ],
+    "samePrefixThrough132": false,
+    "sameSuffixFromAnchor32Through182": true,
+    "reason": "The two rows share representative, repair value, and the tuple suffix from anchors 32 through 182, but the anchor-7 tuple row differs. This falsifies a same-prefix finite duplicate interpretation while also keeping the evidence finite: no repeated pre-132 profile remains after the split."
+  },
+  "rowProofs": [
+    {
+      "familyIndex": 236,
+      "representative": 1585191353,
+      "tupleKey": "4, 19^2, 13^2, 7^2, 23^2, 11^2",
+      "failingAnchor": 432,
+      "witnessSquareModulus": 4489,
+      "targetFailureResidue": 4250,
+      "repairValue": 684802664497,
+      "squareWitnesses": [
+        {
+          "prime": 67,
+          "exponent": 2,
+          "squareModulus": 4489
+        }
+      ],
+      "representativeResidueModuloWitness": 4250,
+      "pre132ProfileId": "pre132_7_1_32_1365_57_2462_82_1582",
+      "pre132Profile": "7->1, 32->1365, 57->2462, 82->1582",
+      "pre132Residues": [
+        {
+          "anchor": 7,
+          "residueModWitness": 1,
+          "matchingTrackedAnchors": []
+        },
+        {
+          "anchor": 32,
+          "residueModWitness": 1365,
+          "matchingTrackedAnchors": []
+        },
+        {
+          "anchor": 57,
+          "residueModWitness": 2462,
+          "matchingTrackedAnchors": []
+        },
+        {
+          "anchor": 82,
+          "residueModWitness": 1582,
+          "matchingTrackedAnchors": []
+        }
+      ],
+      "residueAt132": 4250,
+      "residueAt182": 4250,
+      "anchor132LiftParameter": 132,
+      "anchor182LiftParameter": 0,
+      "anchor7RowSquareModulus": 4,
+      "anchor7RowResidue": 1,
+      "anchor182RowSquareModulus": 121,
+      "anchor182RowResidue": 119,
+      "tupleRows": [
+        {
+          "anchor": 7,
+          "squareModulus": 4,
+          "residue": 1
+        },
+        {
+          "anchor": 32,
+          "squareModulus": 361,
+          "residue": 282
+        },
+        {
+          "anchor": 57,
+          "squareModulus": 169,
+          "residue": 83
+        },
+        {
+          "anchor": 82,
+          "squareModulus": 49,
+          "residue": 46
+        },
+        {
+          "anchor": 132,
+          "squareModulus": 529,
+          "residue": 4
+        },
+        {
+          "anchor": 182,
+          "squareModulus": 121,
+          "residue": 119
+        }
+      ],
+      "crtDerivation": {
+        "combinedResidue": 1585191353,
+        "combinedModulus": 765404515876,
+        "projectedResidueModuloWitness": 4250,
+        "steps": [
+          {
+            "anchor": 7,
+            "rowSquareModulus": 4,
+            "rowResidue": 1,
+            "preCombinedResidue": 0,
+            "preCombinedModulus": 1,
+            "liftParameter": 1,
+            "combinedResidue": 1,
+            "combinedModulus": 4,
+            "residueModWitness": 1
+          },
+          {
+            "anchor": 32,
+            "rowSquareModulus": 361,
+            "rowResidue": 282,
+            "preCombinedResidue": 1,
+            "preCombinedModulus": 4,
+            "liftParameter": 341,
+            "combinedResidue": 1365,
+            "combinedModulus": 1444,
+            "residueModWitness": 1365
+          },
+          {
+            "anchor": 57,
+            "rowSquareModulus": 169,
+            "rowResidue": 83,
+            "preCombinedResidue": 1365,
+            "preCombinedModulus": 1444,
+            "liftParameter": 122,
+            "combinedResidue": 177533,
+            "combinedModulus": 244036,
+            "residueModWitness": 2462
+          },
+          {
+            "anchor": 82,
+            "rowSquareModulus": 49,
+            "rowResidue": 46,
+            "preCombinedResidue": 177533,
+            "preCombinedModulus": 244036,
+            "liftParameter": 27,
+            "combinedResidue": 6766505,
+            "combinedModulus": 11957764,
+            "residueModWitness": 1582
+          },
+          {
+            "anchor": 132,
+            "rowSquareModulus": 529,
+            "rowResidue": 4,
+            "preCombinedResidue": 6766505,
+            "preCombinedModulus": 11957764,
+            "liftParameter": 132,
+            "combinedResidue": 1585191353,
+            "combinedModulus": 6325657156,
+            "residueModWitness": 4250
+          },
+          {
+            "anchor": 182,
+            "rowSquareModulus": 121,
+            "rowResidue": 119,
+            "preCombinedResidue": 1585191353,
+            "preCombinedModulus": 6325657156,
+            "liftParameter": 0,
+            "combinedResidue": 1585191353,
+            "combinedModulus": 765404515876,
+            "residueModWitness": 4250
+          }
+        ]
+      },
+      "activationSequence": [
+        {
+          "anchor": 7,
+          "residueModWitness": 1,
+          "matchingTrackedAnchors": [],
+          "liftParameter": 1,
+          "rowSquareModulus": 4,
+          "rowResidue": 1
+        },
+        {
+          "anchor": 32,
+          "residueModWitness": 1365,
+          "matchingTrackedAnchors": [],
+          "liftParameter": 341,
+          "rowSquareModulus": 361,
+          "rowResidue": 282
+        },
+        {
+          "anchor": 57,
+          "residueModWitness": 2462,
+          "matchingTrackedAnchors": [],
+          "liftParameter": 122,
+          "rowSquareModulus": 169,
+          "rowResidue": 83
+        },
+        {
+          "anchor": 82,
+          "residueModWitness": 1582,
+          "matchingTrackedAnchors": [],
+          "liftParameter": 27,
+          "rowSquareModulus": 49,
+          "rowResidue": 46
+        },
+        {
+          "anchor": 132,
+          "residueModWitness": 4250,
+          "matchingTrackedAnchors": [
+            432
+          ],
+          "liftParameter": 132,
+          "rowSquareModulus": 529,
+          "rowResidue": 4
+        },
+        {
+          "anchor": 182,
+          "residueModWitness": 4250,
+          "matchingTrackedAnchors": [
+            432
+          ],
+          "liftParameter": 0,
+          "rowSquareModulus": 121,
+          "rowResidue": 119
+        }
+      ],
+      "checks": {
+        "witnessPresentOnTargetRepair": true,
+        "repairValueDivisibleByWitness": true,
+        "representativeHitsTargetFailureResidue": true,
+        "rawRepresentativeMatchesCrtResidue": true,
+        "pre132HasNoTrackedMatch": true,
+        "firstTrackedMatchIs132": true,
+        "anchor132UniqueTarget": true,
+        "anchor182PreservesTarget": true,
+        "anchor182ZeroLift": true
+      },
+      "status": "passed",
+      "failedChecks": []
+    },
+    {
+      "familyIndex": 237,
+      "representative": 1585191353,
+      "tupleKey": "9, 19^2, 13^2, 7^2, 23^2, 11^2",
+      "failingAnchor": 432,
+      "witnessSquareModulus": 4489,
+      "targetFailureResidue": 4250,
+      "repairValue": 684802664497,
+      "squareWitnesses": [
+        {
+          "prime": 67,
+          "exponent": 2,
+          "squareModulus": 4489
+        }
+      ],
+      "representativeResidueModuloWitness": 4250,
+      "pre132ProfileId": "pre132_7_5_32_1004_57_418_82_184",
+      "pre132Profile": "7->5, 32->1004, 57->418, 82->184",
+      "pre132Residues": [
+        {
+          "anchor": 7,
+          "residueModWitness": 5,
+          "matchingTrackedAnchors": []
+        },
+        {
+          "anchor": 32,
+          "residueModWitness": 1004,
+          "matchingTrackedAnchors": []
+        },
+        {
+          "anchor": 57,
+          "residueModWitness": 418,
+          "matchingTrackedAnchors": []
+        },
+        {
+          "anchor": 82,
+          "residueModWitness": 184,
+          "matchingTrackedAnchors": []
+        }
+      ],
+      "residueAt132": 4250,
+      "residueAt182": 4250,
+      "anchor132LiftParameter": 58,
+      "anchor182LiftParameter": 0,
+      "anchor7RowSquareModulus": 9,
+      "anchor7RowResidue": 5,
+      "anchor182RowSquareModulus": 121,
+      "anchor182RowResidue": 119,
+      "tupleRows": [
+        {
+          "anchor": 7,
+          "squareModulus": 9,
+          "residue": 5
+        },
+        {
+          "anchor": 32,
+          "squareModulus": 361,
+          "residue": 282
+        },
+        {
+          "anchor": 57,
+          "squareModulus": 169,
+          "residue": 83
+        },
+        {
+          "anchor": 82,
+          "squareModulus": 49,
+          "residue": 46
+        },
+        {
+          "anchor": 132,
+          "squareModulus": 529,
+          "residue": 4
+        },
+        {
+          "anchor": 182,
+          "squareModulus": 121,
+          "residue": 119
+        }
+      ],
+      "crtDerivation": {
+        "combinedResidue": 1585191353,
+        "combinedModulus": 1722160160721,
+        "projectedResidueModuloWitness": 4250,
+        "steps": [
+          {
+            "anchor": 7,
+            "rowSquareModulus": 9,
+            "rowResidue": 5,
+            "preCombinedResidue": 0,
+            "preCombinedModulus": 1,
+            "liftParameter": 5,
+            "combinedResidue": 5,
+            "combinedModulus": 9,
+            "residueModWitness": 5
+          },
+          {
+            "anchor": 32,
+            "rowSquareModulus": 361,
+            "rowResidue": 282,
+            "preCombinedResidue": 5,
+            "preCombinedModulus": 9,
+            "liftParameter": 111,
+            "combinedResidue": 1004,
+            "combinedModulus": 3249,
+            "residueModWitness": 1004
+          },
+          {
+            "anchor": 57,
+            "rowSquareModulus": 169,
+            "rowResidue": 83,
+            "preCombinedResidue": 1004,
+            "preCombinedModulus": 3249,
+            "liftParameter": 167,
+            "combinedResidue": 543587,
+            "combinedModulus": 549081,
+            "residueModWitness": 418
+          },
+          {
+            "anchor": 82,
+            "rowSquareModulus": 49,
+            "rowResidue": 46,
+            "preCombinedResidue": 543587,
+            "preCombinedModulus": 549081,
+            "liftParameter": 44,
+            "combinedResidue": 24703151,
+            "combinedModulus": 26904969,
+            "residueModWitness": 184
+          },
+          {
+            "anchor": 132,
+            "rowSquareModulus": 529,
+            "rowResidue": 4,
+            "preCombinedResidue": 24703151,
+            "preCombinedModulus": 26904969,
+            "liftParameter": 58,
+            "combinedResidue": 1585191353,
+            "combinedModulus": 14232728601,
+            "residueModWitness": 4250
+          },
+          {
+            "anchor": 182,
+            "rowSquareModulus": 121,
+            "rowResidue": 119,
+            "preCombinedResidue": 1585191353,
+            "preCombinedModulus": 14232728601,
+            "liftParameter": 0,
+            "combinedResidue": 1585191353,
+            "combinedModulus": 1722160160721,
+            "residueModWitness": 4250
+          }
+        ]
+      },
+      "activationSequence": [
+        {
+          "anchor": 7,
+          "residueModWitness": 5,
+          "matchingTrackedAnchors": [],
+          "liftParameter": 5,
+          "rowSquareModulus": 9,
+          "rowResidue": 5
+        },
+        {
+          "anchor": 32,
+          "residueModWitness": 1004,
+          "matchingTrackedAnchors": [],
+          "liftParameter": 111,
+          "rowSquareModulus": 361,
+          "rowResidue": 282
+        },
+        {
+          "anchor": 57,
+          "residueModWitness": 418,
+          "matchingTrackedAnchors": [],
+          "liftParameter": 167,
+          "rowSquareModulus": 169,
+          "rowResidue": 83
+        },
+        {
+          "anchor": 82,
+          "residueModWitness": 184,
+          "matchingTrackedAnchors": [],
+          "liftParameter": 44,
+          "rowSquareModulus": 49,
+          "rowResidue": 46
+        },
+        {
+          "anchor": 132,
+          "residueModWitness": 4250,
+          "matchingTrackedAnchors": [
+            432
+          ],
+          "liftParameter": 58,
+          "rowSquareModulus": 529,
+          "rowResidue": 4
+        },
+        {
+          "anchor": 182,
+          "residueModWitness": 4250,
+          "matchingTrackedAnchors": [
+            432
+          ],
+          "liftParameter": 0,
+          "rowSquareModulus": 121,
+          "rowResidue": 119
+        }
+      ],
+      "checks": {
+        "witnessPresentOnTargetRepair": true,
+        "repairValueDivisibleByWitness": true,
+        "representativeHitsTargetFailureResidue": true,
+        "rawRepresentativeMatchesCrtResidue": true,
+        "pre132HasNoTrackedMatch": true,
+        "firstTrackedMatchIs132": true,
+        "anchor132UniqueTarget": true,
+        "anchor182PreservesTarget": true,
+        "anchor182ZeroLift": true
+      },
+      "status": "passed",
+      "failedChecks": []
+    }
+  ],
+  "failedRows": [],
+  "deterministicBoundary": [
+    "This packet closes only the selected finite 432/4489 subprobe from the observed mod-50 census.",
+    "It does not prove a universal square-witness domain cover for c = 32 + 50*m.",
+    "A future refreshed family menu can falsify this finite closure by adding another anchor_432_witness_4489 row, removing rows 236/237, or changing their tuple CRT replay.",
+    "The remaining top-only groups must be batch-classified or separately ledgered before any 40501+ exact rollout is justified."
+  ],
+  "nextDomainCoverMove": {
+    "stepId": "batch_classify_p848_mod50_remaining_top_only_witness_groups_or_emit_next_profile_split",
+    "action": "Use the census plus the 832/529 and 432/4489 closure packets to batch-classify the remaining top-only witness groups, or emit the next deterministic profile split/counterfamily without starting a 40501+ rollout.",
+    "remainingTopOnlyGroupCount": 5,
+    "remainingTopOnlyGroups": [
+      {
+        "groupId": "top_432_Q1681_bad8",
+        "topContinuation": 432,
+        "witnessSquareModulus": 1681,
+        "badLaneResidue": 8,
+        "instanceCount": 3,
+        "familyIndices": [
+          118
+        ],
+        "representatives": [
+          770426585
+        ],
+        "repairedLaneIndices": [
+          6,
+          7,
+          24
+        ],
+        "repairedContinuations": [
+          332,
+          382,
+          1232
+        ]
+      },
+      {
+        "groupId": "top_432_Q49_bad8",
+        "topContinuation": 432,
+        "witnessSquareModulus": 49,
+        "badLaneResidue": 8,
+        "instanceCount": 3,
+        "familyIndices": [
+          75
+        ],
+        "representatives": [
+          457148843
+        ],
+        "repairedLaneIndices": [
+          6,
+          7,
+          24
+        ],
+        "repairedContinuations": [
+          332,
+          382,
+          1232
+        ]
+      },
+      {
+        "groupId": "top_782_Q9_bad6",
+        "topContinuation": 782,
+        "witnessSquareModulus": 9,
+        "badLaneResidue": 6,
+        "instanceCount": 3,
+        "familyIndices": [
+          107,
+          161,
+          275
+        ],
+        "representatives": [
+          695323423,
+          1079001739,
+          1820631943
+        ],
+        "repairedLaneIndices": [
+          7
+        ],
+        "repairedContinuations": [
+          382
+        ]
+      },
+      {
+        "groupId": "top_782_Q169_bad15",
+        "topContinuation": 782,
+        "witnessSquareModulus": 169,
+        "badLaneResidue": 15,
+        "instanceCount": 2,
+        "familyIndices": [
+          234
+        ],
+        "representatives": [
+          1583883827
+        ],
+        "repairedLaneIndices": [
+          6,
+          7
+        ],
+        "repairedContinuations": [
+          332,
+          382
+        ]
+      },
+      {
+        "groupId": "top_832_Q9_bad7",
+        "topContinuation": 832,
+        "witnessSquareModulus": 9,
+        "badLaneResidue": 7,
+        "instanceCount": 2,
+        "familyIndices": [
+          256
+        ],
+        "representatives": [
+          1684455347
+        ],
+        "repairedLaneIndices": [
+          6,
+          24
+        ],
+        "repairedContinuations": [
+          332,
+          1232
+        ]
+      }
+    ],
+    "suggestedVerificationCommand": "jq '.nextDomainCoverMove.remainingTopOnlyGroups' packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_MOD50_ANCHOR432_WITNESS4489_PROFILE_SPLIT_PACKET.json"
+  },
+  "recommendedNextAction": "batch_classify_p848_mod50_remaining_top_only_witness_groups_or_emit_next_profile_split",
+  "nextTheoremMove": "Batch-classify the remaining observed top-only mod-50 witness groups using the closed 832/529 and 432/4489 profile patterns, or emit the next deterministic profile split/counterfamily before any 40501+ rollout.",
+  "verification": {
+    "localAuditCommand": "jq '.domainReplay.status, .profileSplitDecision.verdict, .nextDomainCoverMove.remainingTopOnlyGroupCount' packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_MOD50_ANCHOR432_WITNESS4489_PROFILE_SPLIT_PACKET.json",
+    "regressionCommand": "node --test test/p848-282-alignment-obstruction-packet.test.js"
+  },
+  "claims": {
+    "closesSelectedAnchor432Witness4489Subprobe": true,
+    "certifiesFiniteRawTupleReplay": true,
+    "provesSamePrefixFiniteDuplicate": false,
+    "emitsProfileSplitBoundary": true,
+    "provesUniversalSquareWitnessDomainCover": false,
+    "justifies40501PlusRollout": false,
+    "provesP4217ComplementCoverage": false,
+    "provesAllN": false
+  }
+}

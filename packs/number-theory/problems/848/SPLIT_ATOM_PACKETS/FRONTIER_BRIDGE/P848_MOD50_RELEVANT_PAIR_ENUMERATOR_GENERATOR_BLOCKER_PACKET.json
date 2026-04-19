@@ -1,0 +1,159 @@
+{
+  "schema": "erdos.number_theory.p848_mod50_relevant_pair_enumerator_generator_blocker_packet/1",
+  "packetId": "p848_mod50_relevant_pair_enumerator_generator_blocker",
+  "generatedAt": "2026-04-17T11:28:40Z",
+  "problemId": 848,
+  "status": "parametric_mod50_relevant_pair_enumerator_blocked_generator_absent",
+  "parentAction": {
+    "stepId": "derive_p848_mod50_relevant_pair_enumerator_or_emit_generator_blocker",
+    "completionRule": "A parametric relevant-pair enumerator/recurrence is recorded, or a generator-source blocker names exactly why the finite restored menu cannot be lifted."
+  },
+  "sourcePackets": [
+    "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_MOD50_UNIVERSAL_DOMAIN_COVER_RESIDUAL_PACKET.json",
+    "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_282_841_GENERATOR_SOURCE_BLOCKER_PACKET.json",
+    "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_TOP_REPAIR_CLASS_MECHANISM_PACKET.json"
+  ],
+  "blockedObject": {
+    "objectId": "p848_mod50_parametric_relevant_pair_enumerator",
+    "requiredStatement": "Enumerate all future or theorem-relevant pairs (n,Q) for the 32 mod 50 lane, where n is a family representative and Q is a square witness modulus that can obstruct c*n+1 for c = 32 + 50*m.",
+    "requiredOutputShape": [
+      "A parametric formula or recurrence for representatives n.",
+      "A finite or recursively generated set of possible square witness moduli Q.",
+      "For each pair (n,Q), the bad-lane denominator Q/gcd(50*n,Q).",
+      "A handoff label proving how the bad lane is avoided, top-tie repaired, contrast-only repaired, or terminally blocked."
+    ],
+    "blockedReason": "The local repo has finite row-menu consumers and finite restored menus, but no source command or theorem object that generates all future family representatives and their possible square witness moduli."
+  },
+  "localAudit": {
+    "searchedCodePaths": [
+      "research/frontier-engine/src/frontier_engine/p848_anchor_search.py",
+      "research/frontier-engine/src/frontier_engine/p848_theorem_bridge.py",
+      "research/frontier-engine/src/frontier_engine/p848_bundle.py",
+      "research/frontier-engine/src/frontier_engine/cli.py",
+      "packs/number-theory/problems/848/compute/problem848_282_alignment_obstruction_packet.mjs",
+      "src/runtime/theorem-loop.js"
+    ],
+    "consumerCommands": [
+      {
+        "command": "FRONTIER_ENGINE_P848_LIVE_ROOT=output/frontier-engine-local/p848-anchor-ladder/live-frontier-sync/2026-04-05 python3 research/frontier-engine/src/frontier_engine/cli.py p848-live-frontier",
+        "result": "loads_restored_finite_menu",
+        "generatesParametricRows": false,
+        "observedBestMenuRows": 280,
+        "observedKnownFailureMatches": 25
+      },
+      {
+        "command": "python3 research/frontier-engine/src/frontier_engine/cli.py p848-run",
+        "result": "scores_candidate_continuations_against_available_finite_surfaces",
+        "generatesParametricRows": false
+      },
+      {
+        "command": "python3 research/frontier-engine/src/frontier_engine/cli.py export-p848-theorem-bridge",
+        "result": "exports theorem bridge from existing report surface",
+        "generatesParametricRows": false
+      }
+    ],
+    "finiteRestoredMenus": [
+      {
+        "path": "output/frontier-engine-local/p848-anchor-ladder/live-frontier-sync/2026-04-05/SIX_PREFIX_NINETEEN_FAMILY_MENU.json",
+        "familyCount": 220,
+        "knownFailureMatches": 20
+      },
+      {
+        "path": "output/frontier-engine-local/p848-anchor-ladder/live-frontier-sync/2026-04-05/SIX_PREFIX_TWENTY_FAMILY_MENU.json",
+        "familyCount": 230,
+        "knownFailureMatches": 21
+      },
+      {
+        "path": "output/frontier-engine-local/p848-anchor-ladder/live-frontier-sync/2026-04-05/SIX_PREFIX_TWENTY_ONE_FAMILY_MENU.json",
+        "familyCount": 240,
+        "knownFailureMatches": 22
+      },
+      {
+        "path": "output/frontier-engine-local/p848-anchor-ladder/live-frontier-sync/2026-04-05/SIX_PREFIX_TWENTY_TWO_FAMILY_MENU.json",
+        "familyCount": 250,
+        "knownFailureMatches": 23
+      },
+      {
+        "path": "output/frontier-engine-local/p848-anchor-ladder/live-frontier-sync/2026-04-05/SIX_PREFIX_TWENTY_THREE_FAMILY_MENU.json",
+        "familyCount": 260,
+        "knownFailureMatches": 24
+      },
+      {
+        "path": "output/frontier-engine-local/p848-anchor-ladder/live-frontier-sync/2026-04-05/SIX_PREFIX_TWENTY_FOUR_FAMILY_MENU.json",
+        "familyCount": 280,
+        "knownFailureMatches": 25
+      }
+    ],
+    "richestFiniteMenuPairSurface": {
+      "familyMenuPath": "output/frontier-engine-local/p848-anchor-ladder/live-frontier-sync/2026-04-05/SIX_PREFIX_TWENTY_FOUR_FAMILY_MENU.json",
+      "familyCount": 280,
+      "repairAnchorCount": 8,
+      "repairRowCount": 2240,
+      "witnessRepairRowCount": 295,
+      "lane32Continuations": [
+        232,
+        282,
+        332,
+        382,
+        432,
+        782,
+        832
+      ],
+      "lane32WitnessRepairRowCount": 139,
+      "lane32DistinctWitnessSquares": [
+        9,
+        25,
+        49,
+        121,
+        169,
+        289,
+        361,
+        529,
+        841,
+        1681,
+        4489,
+        44521,
+        66049
+      ],
+      "interpretation": "This is a finite witness-pair table over the restored menu. It is useful for recurrence mining but does not prove that future rows have no new Q values or new bad-lane classes."
+    },
+    "negativeFindings": [
+      "The local p848-live-frontier path chooses the richest existing menu; it does not generate the menu.",
+      "load_best_family_menu_surface keeps representative, known-failure flag, and tuple key for scoring; it is not a theorem-level relevant-pair enumerator.",
+      "The seed-bundle manifests preserve family-menu summary counts and candidate scores, but not raw parametric row generation.",
+      "No local CLI command found in this audit emits a recurrence for all future representatives n or all future square witness moduli Q."
+    ]
+  },
+  "finiteEvidenceUsableNext": {
+    "status": "usable_for_sequence_recurrence_audit_not_universal_cover",
+    "reason": "The restored menus from NINETEEN through TWENTY_FOUR provide a finite row-count sequence and a finite Q surface. They can be mined for a stability/recurrence candidate, but cannot by themselves discharge the all-future quantifier.",
+    "sequenceGap": "The local restored sequence jumps from 260 to 280 rows; the missing 270-row menu or the generating recurrence is not present as a local source."
+  },
+  "deterministicBoundary": {
+    "boundaryId": "p848_mod50_relevant_pair_enumerator_source_boundary",
+    "status": "open",
+    "blockedInput": "A local generator, recurrence, or theorem that emits every future relevant (n,Q) pair for c = 32 + 50*m.",
+    "acceptedSuccessors": [
+      "A generator-source restoration packet that names the command and reproduces the finite menus.",
+      "A finite-menu sequence recurrence/stability packet proving or falsifying a candidate row generator from the restored 220..280 row menus.",
+      "A concrete residual counterfamily with explicit n, Q, m, denominator Q/gcd(50*n,Q), and failed handoff."
+    ],
+    "forbiddenShortcut": "Do not promote the finite 280-row menu or the 139 lane-32 witness repair rows to a universal domain-cover theorem without a row generator, finite Q partition, or recurrence proof."
+  },
+  "recommendedNextAction": "audit_p848_mod50_restored_menu_sequence_for_relevant_pair_recurrence_or_emit_stability_blocker",
+  "nextTheoremMove": "Mine the restored SIX_PREFIX_NINETEEN through TWENTY_FOUR menu sequence for a stable relevant-pair recurrence or Q-partition candidate; if no recurrence survives, emit a sequence-stability blocker before any 40501+ rollout.",
+  "suggestedVerificationCommand": "jq '{blockedObject, localAudit, finiteEvidenceUsableNext, deterministicBoundary, recommendedNextAction, claims}' packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_MOD50_RELEVANT_PAIR_ENUMERATOR_GENERATOR_BLOCKER_PACKET.json",
+  "proofBoundary": "This packet blocks the parametric mod-50 relevant-pair enumerator because the local sources only consume finite menus. It does not prove a universal square-witness cover, finite Q partition, contrast-only recombination, p4217 complement coverage, or all-N.",
+  "claims": {
+    "auditsLocalEnumeratorSource": true,
+    "provesFiniteMenuConsumerExists": true,
+    "provesParametricEnumeratorAbsentLocally": true,
+    "namesFinitePairSurfaceForNextAudit": true,
+    "uses40501PlusRollout": false,
+    "provesRelevantPairEnumerator": false,
+    "provesUniversalSquareWitnessDomainCover": false,
+    "closesContrastOnlyRecombination": false,
+    "provesP4217ComplementCoverage": false,
+    "provesAllN": false
+  }
+}

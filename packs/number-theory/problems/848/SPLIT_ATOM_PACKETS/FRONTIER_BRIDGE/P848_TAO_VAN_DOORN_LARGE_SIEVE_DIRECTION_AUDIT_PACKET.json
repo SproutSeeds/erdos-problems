@@ -1,0 +1,92 @@
+{
+  "schema": "erdos.number_theory.p848_tao_van_doorn_large_sieve_direction_audit_packet/1",
+  "packetId": "p848_tao_van_doorn_large_sieve_direction_audit_packet_v1",
+  "status": "large_sieve_reference_verified_direction_mismatch_blocks_threshold_collapse_claim",
+  "generatedAt": "2026-04-17T15:36:11Z",
+  "problemId": "848",
+  "sourceClaimAudited": {
+    "summary": "A teammate report suggested applying Tao-van Doorn Appendix A, Theorem 16 to replace Sawhney Lemma 2.1/2.2 tails and possibly lower the explicit threshold to around 10^6 or below the existing 1..40500 exact evidence.",
+    "proposedConsequence": "If the theorem directly bounded the relevant union/hitting sets with a Q^4/N penalty, the remaining exact finite range might shrink dramatically."
+  },
+  "primarySourcesChecked": [
+    {
+      "id": "tao_van_doorn_2512_01087",
+      "title": "Growth rates of sequences governed by the squarefree properties of its translates",
+      "authors": [
+        "Wouter van Doorn",
+        "Terence Tao"
+      ],
+      "url": "https://arxiv.org/abs/2512.01087",
+      "versionChecked": "v2, revised 2025-12-07",
+      "relevantResult": "Appendix A, Theorem 16 / arithmetic large sieve for square moduli: a set avoiding omega(p^2) residue classes modulo p^2 satisfies |A| <= (N + Q^4) / sum_{q <= Q} h(q)."
+    },
+    {
+      "id": "sawhney_problem_848_note",
+      "title": "On A subset [N] such that ab+1 is never squarefree for a,b in A",
+      "author": "Mehtaab Sawhney",
+      "url": "https://www.math.columbia.edu/~msawhney/Problem_848.pdf",
+      "relevantUse": "Lemma 2.1 and Lemma 2.2 upper-bound union/hitting sets: elements lying in at least one square-obstruction residue class."
+    }
+  ],
+  "directionAudit": {
+    "taoVanDoornTheoremControls": "avoiding_set_size",
+    "sawhneyLemma21Needs": "upper_bound_for_union_of_root_residue_classes",
+    "sawhneyLemma22Needs": "upper_bound_for_union_of_square_obstruction_residue_classes",
+    "mismatch": "The theorem upper-bounds the complement/avoiding side. Sawhney's weakest-branch bottleneck needs an upper bound on the union/hitting side. An upper bound on the avoiding side does not by itself produce the needed upper bound on the union.",
+    "claimStatus": "blocked_not_adopted"
+  },
+  "numericalSanityCheck": {
+    "method": "Local Node one-off computation of sum_{q<=Q} h(q) for squarefree q, using omega(p^2)=2 for p == 1 mod 4, p >= 13 in the A* branch and omega(p^2)=1 for p != 2,5 in the Lemma 2.2-style branch.",
+    "values": [
+      {
+        "Q": 50,
+        "astarHsum": 1.0239827222657203,
+        "astarReciprocal": 0.9765789776094514,
+        "lemma22Hsum": 1.177205267161646,
+        "lemma22Reciprocal": 0.8494695257447287
+      },
+      {
+        "Q": 100,
+        "astarHsum": 1.02607361630732,
+        "astarReciprocal": 0.9745889418722655,
+        "lemma22Hsum": 1.1808591037350578,
+        "lemma22Reciprocal": 0.8468410810713993
+      },
+      {
+        "Q": 1000,
+        "astarHsum": 1.0279035651775665,
+        "astarReciprocal": 0.972853907581548,
+        "lemma22Hsum": 1.1840017585185343,
+        "lemma22Reciprocal": 0.844593340174795
+      },
+      {
+        "Q": 10000,
+        "astarHsum": 1.0279767441231482,
+        "astarReciprocal": 0.9727846526849087,
+        "lemma22Hsum": 1.1841878021751924,
+        "lemma22Reciprocal": 0.844460649031459
+      }
+    ],
+    "interpretation": "The large-sieve denominator is near 1 for the A* residue system, so the theorem cannot plausibly give a density bound near 1/25 from Q around 50 to 100. The proposed threshold-collapse arithmetic appears inverted."
+  },
+  "repoImpact": {
+    "shouldRedirectCurrentClawdadRun": false,
+    "reason": "The reference is real and useful background, but the direct threshold-collapse route is blocked by direction-of-inequality and denominator-size checks.",
+    "preserveForFuture": true,
+    "futureUseIfAny": [
+      "Look for a dual lower bound for the avoiding side or a separate lower-bound sieve that can upper-bound the union.",
+      "Check whether a different square-moduli sieve result gives the needed union/hitting upper bound with explicit constants.",
+      "Keep the current theorem-facing p4217/frontier abstraction lane active unless a corrected analytic threshold packet is produced."
+    ]
+  },
+  "recommendedNextAction": "continue_current_p848_next_rank_batch_cover_lane_and_do_not_claim_tao_van_doorn_threshold_collapse_without_new_dual_argument",
+  "claims": {
+    "verifiesTaoVanDoornPaperExists": true,
+    "verifiesSawhneyProofExists": true,
+    "provesTheorem16InapplicableInAllForms": false,
+    "blocksDirectThresholdCollapseClaim": true,
+    "provesExplicitN0": false,
+    "decidesProblem848": false
+  },
+  "proofBoundary": "This audit only blocks the direct use claimed in the teammate report. It does not rule out a corrected analytic threshold route using a dual sieve, a different large-sieve inequality, or an explicit lower bound for the avoiding complement."
+}

@@ -1,0 +1,96 @@
+{
+  "schema": "erdos.number_theory.p848_p4217_complement_fallback_selector/1",
+  "generatedAt": "2026-04-17T05:52:27Z",
+  "problemId": "848",
+  "status": "p4217_complement_p43_fallback_selector_proved_squarefree_open",
+  "activeAtom": "D2_p13_q17_endpoint_menu_squarefree_obstruction_p23_q29_p41_q13_p103_q2_p37_q19_p31_q53_p73_q11_p83_q17_p509_q43_p29_q59_p47_q67_p79_q71_p107_q89_p4217_complement_p43_fallback_selector",
+  "sourcePackets": {
+    "p4217AvailabilitySplit": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DYNAMIC_MARGIN_PROOFS/P848_q17_p107_q89_p4217_availability_split.json",
+    "p4217ComplementRefinement": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_UNAVAILABLE_COMPLEMENT_REFINEMENT_PACKET.json",
+    "endpointStaircaseTheorem": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_ENDPOINT_AVAILABILITY_STAIRCASE_THEOREM_V0_PACKET.json"
+  },
+  "sourceClass": {
+    "outsider": 6323,
+    "leftParameterization": "left = 760410154648626128533304355898763555393483209652336085943695959179023528577227857 + 4018151289874337645868852921870587523537603036293953839351606997760601160064480100*t",
+    "residualClass": {
+      "residue": "760410154648626128533304355898763555393483209652336085943695959179023528577227857",
+      "modulus": "4018151289874337645868852921870587523537603036293953839351606997760601160064480100"
+    }
+  },
+  "complementInput": {
+    "endpointPrime": 4217,
+    "endpointPrimeSquare": 17783089,
+    "window": 28500,
+    "maxAvailableK": 1139,
+    "selector": "k_4217(t) = (445517*t + 203) mod 17783089",
+    "unavailableKInterval": {
+      "min": 1140,
+      "max": 17783088,
+      "count": 17781949
+    },
+    "parameterization": {
+      "range": "0 <= s < 17781949",
+      "tOfS": "t(s) = 4749600*(s + 937) mod 17783089"
+    }
+  },
+  "fallbackSelector": {
+    "endpointPrime": 43,
+    "endpointPrimeSquare": 1849,
+    "window": 28500,
+    "maxAvailableK": 1139,
+    "endpointFormula": "k_43(left) = (74*left + 1323) mod 1849",
+    "sourceResidueModuloEndpointPrimeSquare": 1509,
+    "sourceModulusModuloEndpointPrimeSquare": 0,
+    "kFormulaOnSourceClass": "k_43(t) = (0*t + 200) mod 1849",
+    "constantK": 200,
+    "delta": -5014,
+    "rightFormula": "right_43(left) = left - 5014",
+    "rightMod25": 18,
+    "outsiderCompatibilityModuloEndpointPrimeSquare": 0,
+    "availableOnP4217ComplementResidues": 17781949,
+    "unavailableOnP4217ComplementResidues": 0,
+    "coverageFraction": 1
+  },
+  "theoremObject": {
+    "id": "p848_p4217_complement_p43_universal_availability_selector",
+    "status": "proved_at_endpoint_selector_layer_squarefree_open",
+    "statement": "For every p4217-unavailable complement residue in the p107/q89 source class, the p43 endpoint right = left - 5014 is inside the 28500 window and satisfies the endpoint compatibility congruence 43^2 | 6323*right + 1.",
+    "proof": [
+      "The endpoint formula for p43 and outsider 6323 is k_43(left) = (74*left + 1323) mod 1849.",
+      "On the p107/q89 source class, left residue is 1509 mod 1849 and the source modulus is 0 mod 1849.",
+      "Therefore k_43(t) = (74*1509 + 1323) mod 1849 = 200 for every source parameter t, including every t in the p4217 complement.",
+      "The endpoint displacement is delta = -14 - 25*200 = -5014, so the p43 endpoint is inside window 28500.",
+      "The endpoint construction gives 6323*(left - 5014) + 1 == 0 mod 1849, verified on the source residue with right == 18 mod 25."
+    ]
+  },
+  "ledgerTransition": {
+    "inputObligation": {
+      "state": "p4217_complement_selector_interval_pending",
+      "residueCount": 17781949
+    },
+    "outputObligation": {
+      "state": "p4217_complement_p43_squarefree_hitting_pending",
+      "residueCount": 17781949,
+      "endpointPrime": 43
+    },
+    "measureEffect": "The unavailable-complement selector obligation is closed at the endpoint-availability layer and replaced by a p43 squarefree-hitting obligation of the same residue count."
+  },
+  "claims": {
+    "provesFallbackSelectorForP4217Complement": true,
+    "provesEndpointAvailabilityCover": true,
+    "provesP43SquarefreeHitting": false,
+    "provesCollisionFreeMatching": false,
+    "provesAllN": false,
+    "decidesProblem848": false
+  },
+  "notProvedHere": [
+    "Squarefree hitting for left*(left - 5014)+1 on the p4217 complement family.",
+    "A collision-free matching composition for the endpoint choices.",
+    "Certification of the p97 or p227 candidates on the p4217/q61 available-child leaf.",
+    "Binding the synthetic 282/841 alignment row to a regenerated live family-menu row.",
+    "An all-N decision for Problem 848."
+  ],
+  "proofBoundary": "The p4217 complement now has a universal fallback endpoint selector p43, but the cross-product squarefree layer remains open. The next proof must prove squarefree hitting for left*(left - 5014)+1 over the complement family or emit the first deterministic square-obstruction subfamily.",
+  "recommendedNextAction": "prove_p848_p4217_complement_p43_squarefree_hitting_or_obstruction",
+  "verificationCommand": "node --test test/p848-endpoint-menu-compiler.test.js test/p848-282-alignment-obstruction-packet.test.js"
+}

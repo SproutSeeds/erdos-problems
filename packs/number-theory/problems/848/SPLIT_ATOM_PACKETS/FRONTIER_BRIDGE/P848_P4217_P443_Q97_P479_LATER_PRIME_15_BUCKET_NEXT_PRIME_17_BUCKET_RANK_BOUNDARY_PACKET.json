@@ -1,0 +1,1443 @@
+{
+  "schema": "erdos.number_theory.p848_p4217_p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_rank_boundary/1",
+  "generatedAt": "2026-04-17T16:17:16.479Z",
+  "problemId": 848,
+  "status": "p479_later_prime_15_bucket_next_prime_17_bucket_deterministic_rank_boundary_emitted",
+  "target": "compress_p848_p4217_p443_q97_p479_later_prime_15_bucket_next_prime_buckets_or_emit_rank_boundary",
+  "sourceAudit": {
+    "laterPrime15BucketQAvoidingBatchCoverPacket": {
+      "path": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_P443_Q97_P479_LATER_PRIME_15_BUCKET_Q_AVOIDING_BATCH_COVER_PACKET.json",
+      "sha256": "8afe6f7c3c7bdb012afd8254a06aa585ccc9d7e95b086f11afeaa479500c6659",
+      "status": "all_15_bucket_later_prime_q_avoiding_classes_have_next_square_obstruction_child"
+    },
+    "postLaterPrime15BucketQAvoidingBatchCoverAssemblyPacket": {
+      "path": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_POST_LATER_PRIME_15_BUCKET_Q_AVOIDING_BATCH_COVER_CONVERGENCE_ASSEMBLY_PACKET.json",
+      "sha256": "bf1098001f8820cf05dbde4f10214dbebd8ec5f35bd3143287aeb55f25e58ffc",
+      "status": "post_later_prime_15_bucket_q_avoiding_batch_cover_convergence_assembly_selects_17_bucket_rank_compression"
+    }
+  },
+  "boundarySummary": {
+    "sourceLaterPrimeBucketCount": 15,
+    "sourceRowCount": 718,
+    "sourceLaterQAvoidingClassCount": "3652250197976151",
+    "nextObstructionPrimeBucketCount": 17,
+    "nextObstructionPrimes": [
+      131,
+      137,
+      139,
+      149,
+      151,
+      157,
+      163,
+      167,
+      173,
+      179,
+      181,
+      191,
+      193,
+      197,
+      199,
+      211,
+      223
+    ],
+    "minNextObstructionPrime": 131,
+    "maxNextObstructionPrime": 223,
+    "rootResidueCountsPerClass": [
+      2
+    ],
+    "totalNextRootChildCount": "7304500395952302",
+    "totalNextQAvoidingClassCount": "94524741190958970657",
+    "survivorSourceRowCount": 0,
+    "survivorLaterQAvoidingClassCount": "0"
+  },
+  "deterministicRankBoundary": {
+    "consumedFiniteToken": "p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_rank_boundary",
+    "producedFiniteTokenCount": 17,
+    "producedFiniteTokens": [
+      {
+        "tokenId": "p443_q97_p479_later_prime_15_bucket_next_prime_q131_rank_boundary",
+        "nextObstructionPrime": 131,
+        "nextObstructionSquare": 17161,
+        "sourceRowCount": 44,
+        "sourceLaterQAvoidingClassCount": "107615543442484",
+        "rootResidueCountsPerClass": [
+          2
+        ],
+        "nextRootChildCount": "215231086884968",
+        "nextQAvoidingClassCount": "1846575109929582956",
+        "previousLaterPrimeBuckets": [
+          {
+            "previousLaterObstructionPrime": 127,
+            "sourceRowCount": 44,
+            "sourceLaterQAvoidingClassCount": "107615543442484"
+          }
+        ],
+        "status": "open_exact_two_root_next_prime_rank_boundary",
+        "proofObligation": "Cover this bucket as part of the whole 17-bucket q-avoiding batch/rank action, or emit a sharper exact subboundary. This token does not authorize singleton q-child descent by itself."
+      },
+      {
+        "tokenId": "p443_q97_p479_later_prime_15_bucket_next_prime_q137_rank_boundary",
+        "nextObstructionPrime": 137,
+        "nextObstructionSquare": 18769,
+        "sourceRowCount": 83,
+        "sourceLaterQAvoidingClassCount": "247941698677850",
+        "rootResidueCountsPerClass": [
+          2
+        ],
+        "nextRootChildCount": "495883397355700",
+        "nextQAvoidingClassCount": "4653121859087210950",
+        "previousLaterPrimeBuckets": [
+          {
+            "previousLaterObstructionPrime": 127,
+            "sourceRowCount": 20,
+            "sourceLaterQAvoidingClassCount": "48894125515457"
+          },
+          {
+            "previousLaterObstructionPrime": 131,
+            "sourceRowCount": 63,
+            "sourceLaterQAvoidingClassCount": "199047573162393"
+          }
+        ],
+        "status": "open_exact_two_root_next_prime_rank_boundary",
+        "proofObligation": "Cover this bucket as part of the whole 17-bucket q-avoiding batch/rank action, or emit a sharper exact subboundary. This token does not authorize singleton q-child descent by itself."
+      },
+      {
+        "tokenId": "p443_q97_p479_later_prime_15_bucket_next_prime_q139_rank_boundary",
+        "nextObstructionPrime": 139,
+        "nextObstructionSquare": 19321,
+        "sourceRowCount": 89,
+        "sourceLaterQAvoidingClassCount": "317273632000207",
+        "rootResidueCountsPerClass": [
+          2
+        ],
+        "nextRootChildCount": "634547264000414",
+        "nextQAvoidingClassCount": "6129409296611999033",
+        "previousLaterPrimeBuckets": [
+          {
+            "previousLaterObstructionPrime": 127,
+            "sourceRowCount": 9,
+            "sourceLaterQAvoidingClassCount": "22012270249599"
+          },
+          {
+            "previousLaterObstructionPrime": 131,
+            "sourceRowCount": 25,
+            "sourceLaterQAvoidingClassCount": "77683793287031"
+          },
+          {
+            "previousLaterObstructionPrime": 137,
+            "sourceRowCount": 55,
+            "sourceLaterQAvoidingClassCount": "217577568463577"
+          }
+        ],
+        "status": "open_exact_two_root_next_prime_rank_boundary",
+        "proofObligation": "Cover this bucket as part of the whole 17-bucket q-avoiding batch/rank action, or emit a sharper exact subboundary. This token does not authorize singleton q-child descent by itself."
+      },
+      {
+        "tokenId": "p443_q97_p479_later_prime_15_bucket_next_prime_q149_rank_boundary",
+        "nextObstructionPrime": 149,
+        "nextObstructionSquare": 22201,
+        "sourceRowCount": 117,
+        "sourceLaterQAvoidingClassCount": "473503169591427",
+        "rootResidueCountsPerClass": [
+          2
+        ],
+        "nextRootChildCount": "947006339182854",
+        "nextQAvoidingClassCount": "10511296861760087973",
+        "previousLaterPrimeBuckets": [
+          {
+            "previousLaterObstructionPrime": 127,
+            "sourceRowCount": 6,
+            "sourceLaterQAvoidingClassCount": "14674846833066"
+          },
+          {
+            "previousLaterObstructionPrime": 131,
+            "sourceRowCount": 16,
+            "sourceLaterQAvoidingClassCount": "49714519629512"
+          },
+          {
+            "previousLaterObstructionPrime": 137,
+            "sourceRowCount": 39,
+            "sourceLaterQAvoidingClassCount": "153211384604145"
+          },
+          {
+            "previousLaterObstructionPrime": 139,
+            "sourceRowCount": 56,
+            "sourceLaterQAvoidingClassCount": "255902418524704"
+          }
+        ],
+        "status": "open_exact_two_root_next_prime_rank_boundary",
+        "proofObligation": "Cover this bucket as part of the whole 17-bucket q-avoiding batch/rank action, or emit a sharper exact subboundary. This token does not authorize singleton q-child descent by itself."
+      },
+      {
+        "tokenId": "p443_q97_p479_later_prime_15_bucket_next_prime_q151_rank_boundary",
+        "nextObstructionPrime": 151,
+        "nextObstructionSquare": 22801,
+        "sourceRowCount": 92,
+        "sourceLaterQAvoidingClassCount": "435776693460196",
+        "rootResidueCountsPerClass": [
+          2
+        ],
+        "nextRootChildCount": "871553386920392",
+        "nextQAvoidingClassCount": "9935272834199008604",
+        "previousLaterPrimeBuckets": [
+          {
+            "previousLaterObstructionPrime": 127,
+            "sourceRowCount": 2,
+            "sourceLaterQAvoidingClassCount": "4891615611022"
+          },
+          {
+            "previousLaterObstructionPrime": 131,
+            "sourceRowCount": 10,
+            "sourceLaterQAvoidingClassCount": "31308784336358"
+          },
+          {
+            "previousLaterObstructionPrime": 137,
+            "sourceRowCount": 12,
+            "sourceLaterQAvoidingClassCount": "51228795842364"
+          },
+          {
+            "previousLaterObstructionPrime": 139,
+            "sourceRowCount": 33,
+            "sourceLaterQAvoidingClassCount": "154477989393975"
+          },
+          {
+            "previousLaterObstructionPrime": 149,
+            "sourceRowCount": 35,
+            "sourceLaterQAvoidingClassCount": "193869508276477"
+          }
+        ],
+        "status": "open_exact_two_root_next_prime_rank_boundary",
+        "proofObligation": "Cover this bucket as part of the whole 17-bucket q-avoiding batch/rank action, or emit a sharper exact subboundary. This token does not authorize singleton q-child descent by itself."
+      },
+      {
+        "tokenId": "p443_q97_p479_later_prime_15_bucket_next_prime_q157_rank_boundary",
+        "nextObstructionPrime": 157,
+        "nextObstructionSquare": 24649,
+        "sourceRowCount": 85,
+        "sourceLaterQAvoidingClassCount": "446002376201291",
+        "rootResidueCountsPerClass": [
+          2
+        ],
+        "nextRootChildCount": "892004752402582",
+        "nextQAvoidingClassCount": "10992620566233219277",
+        "previousLaterPrimeBuckets": [
+          {
+            "previousLaterObstructionPrime": 127,
+            "sourceRowCount": 3,
+            "sourceLaterQAvoidingClassCount": "7337423416533"
+          },
+          {
+            "previousLaterObstructionPrime": 131,
+            "sourceRowCount": 5,
+            "sourceLaterQAvoidingClassCount": "14627080092739"
+          },
+          {
+            "previousLaterObstructionPrime": 137,
+            "sourceRowCount": 8,
+            "sourceLaterQAvoidingClassCount": "29144849677048"
+          },
+          {
+            "previousLaterObstructionPrime": 139,
+            "sourceRowCount": 11,
+            "sourceLaterQAvoidingClassCount": "48317128316509"
+          },
+          {
+            "previousLaterObstructionPrime": 149,
+            "sourceRowCount": 24,
+            "sourceLaterQAvoidingClassCount": "128590389139200"
+          },
+          {
+            "previousLaterObstructionPrime": 151,
+            "sourceRowCount": 34,
+            "sourceLaterQAvoidingClassCount": "217985505559262"
+          }
+        ],
+        "status": "open_exact_two_root_next_prime_rank_boundary",
+        "proofObligation": "Cover this bucket as part of the whole 17-bucket q-avoiding batch/rank action, or emit a sharper exact subboundary. This token does not authorize singleton q-child descent by itself."
+      },
+      {
+        "tokenId": "p443_q97_p479_later_prime_15_bucket_next_prime_q163_rank_boundary",
+        "nextObstructionPrime": 163,
+        "nextObstructionSquare": 26569,
+        "sourceRowCount": 67,
+        "sourceLaterQAvoidingClassCount": "424043199744197",
+        "rootResidueCountsPerClass": [
+          2
+        ],
+        "nextRootChildCount": "848086399488394",
+        "nextQAvoidingClassCount": "11265555687604081699",
+        "previousLaterPrimeBuckets": [
+          {
+            "previousLaterObstructionPrime": 131,
+            "sourceRowCount": 4,
+            "sourceLaterQAvoidingClassCount": "12024760000052"
+          },
+          {
+            "previousLaterObstructionPrime": 137,
+            "sourceRowCount": 1,
+            "sourceLaterQAvoidingClassCount": "3825310658687"
+          },
+          {
+            "previousLaterObstructionPrime": 139,
+            "sourceRowCount": 10,
+            "sourceLaterQAvoidingClassCount": "47044804303718"
+          },
+          {
+            "previousLaterObstructionPrime": 149,
+            "sourceRowCount": 16,
+            "sourceLaterQAvoidingClassCount": "80197399204208"
+          },
+          {
+            "previousLaterObstructionPrime": 151,
+            "sourceRowCount": 14,
+            "sourceLaterQAvoidingClassCount": "105818512508002"
+          },
+          {
+            "previousLaterObstructionPrime": 157,
+            "sourceRowCount": 22,
+            "sourceLaterQAvoidingClassCount": "175132413069530"
+          }
+        ],
+        "status": "open_exact_two_root_next_prime_rank_boundary",
+        "proofObligation": "Cover this bucket as part of the whole 17-bucket q-avoiding batch/rank action, or emit a sharper exact subboundary. This token does not authorize singleton q-child descent by itself."
+      },
+      {
+        "tokenId": "p443_q97_p479_later_prime_15_bucket_next_prime_q167_rank_boundary",
+        "nextObstructionPrime": 167,
+        "nextObstructionSquare": 27889,
+        "sourceRowCount": 54,
+        "sourceLaterQAvoidingClassCount": "346049561651826",
+        "rootResidueCountsPerClass": [
+          2
+        ],
+        "nextRootChildCount": "692099123303652",
+        "nextQAvoidingClassCount": "9650284125784471662",
+        "previousLaterPrimeBuckets": [
+          {
+            "previousLaterObstructionPrime": 127,
+            "sourceRowCount": 1,
+            "sourceLaterQAvoidingClassCount": "2445807805511"
+          },
+          {
+            "previousLaterObstructionPrime": 131,
+            "sourceRowCount": 3,
+            "sourceLaterQAvoidingClassCount": "9176709711981"
+          },
+          {
+            "previousLaterObstructionPrime": 137,
+            "sourceRowCount": 4,
+            "sourceLaterQAvoidingClassCount": "15498697448276"
+          },
+          {
+            "previousLaterObstructionPrime": 139,
+            "sourceRowCount": 7,
+            "sourceLaterQAvoidingClassCount": "34903614870641"
+          },
+          {
+            "previousLaterObstructionPrime": 149,
+            "sourceRowCount": 6,
+            "sourceLaterQAvoidingClassCount": "32236980714738"
+          },
+          {
+            "previousLaterObstructionPrime": 151,
+            "sourceRowCount": 5,
+            "sourceLaterQAvoidingClassCount": "27571237365763"
+          },
+          {
+            "previousLaterObstructionPrime": 157,
+            "sourceRowCount": 16,
+            "sourceLaterQAvoidingClassCount": "116145874879664"
+          },
+          {
+            "previousLaterObstructionPrime": 163,
+            "sourceRowCount": 12,
+            "sourceLaterQAvoidingClassCount": "108070638855252"
+          }
+        ],
+        "status": "open_exact_two_root_next_prime_rank_boundary",
+        "proofObligation": "Cover this bucket as part of the whole 17-bucket q-avoiding batch/rank action, or emit a sharper exact subboundary. This token does not authorize singleton q-child descent by itself."
+      },
+      {
+        "tokenId": "p443_q97_p479_later_prime_15_bucket_next_prime_q173_rank_boundary",
+        "nextObstructionPrime": 173,
+        "nextObstructionSquare": 29929,
+        "sourceRowCount": 27,
+        "sourceLaterQAvoidingClassCount": "207452942753013",
+        "rootResidueCountsPerClass": [
+          2
+        ],
+        "nextRootChildCount": "414905885506026",
+        "nextQAvoidingClassCount": "6208444217769420051",
+        "previousLaterPrimeBuckets": [
+          {
+            "previousLaterObstructionPrime": 137,
+            "sourceRowCount": 2,
+            "sourceLaterQAvoidingClassCount": "7190487207022"
+          },
+          {
+            "previousLaterObstructionPrime": 139,
+            "sourceRowCount": 2,
+            "sourceLaterQAvoidingClassCount": "8007838052494"
+          },
+          {
+            "previousLaterObstructionPrime": 151,
+            "sourceRowCount": 6,
+            "sourceLaterQAvoidingClassCount": "38400146997954"
+          },
+          {
+            "previousLaterObstructionPrime": 157,
+            "sourceRowCount": 5,
+            "sourceLaterQAvoidingClassCount": "42775023603571"
+          },
+          {
+            "previousLaterObstructionPrime": 163,
+            "sourceRowCount": 8,
+            "sourceLaterQAvoidingClassCount": "70422313722640"
+          },
+          {
+            "previousLaterObstructionPrime": 167,
+            "sourceRowCount": 4,
+            "sourceLaterQAvoidingClassCount": "40657133169332"
+          }
+        ],
+        "status": "open_exact_two_root_next_prime_rank_boundary",
+        "proofObligation": "Cover this bucket as part of the whole 17-bucket q-avoiding batch/rank action, or emit a sharper exact subboundary. This token does not authorize singleton q-child descent by itself."
+      },
+      {
+        "tokenId": "p443_q97_p479_later_prime_15_bucket_next_prime_q179_rank_boundary",
+        "nextObstructionPrime": 179,
+        "nextObstructionSquare": 32041,
+        "sourceRowCount": 24,
+        "sourceLaterQAvoidingClassCount": "218451106784544",
+        "rootResidueCountsPerClass": [
+          2
+        ],
+        "nextRootChildCount": "436902213569088",
+        "nextQAvoidingClassCount": "6998955010270005216",
+        "previousLaterPrimeBuckets": [
+          {
+            "previousLaterObstructionPrime": 137,
+            "sourceRowCount": 1,
+            "sourceLaterQAvoidingClassCount": "5193264163031"
+          },
+          {
+            "previousLaterObstructionPrime": 139,
+            "sourceRowCount": 2,
+            "sourceLaterQAvoidingClassCount": "9784825637230"
+          },
+          {
+            "previousLaterObstructionPrime": 149,
+            "sourceRowCount": 3,
+            "sourceLaterQAvoidingClassCount": "14920560303813"
+          },
+          {
+            "previousLaterObstructionPrime": 151,
+            "sourceRowCount": 2,
+            "sourceLaterQAvoidingClassCount": "10317438530518"
+          },
+          {
+            "previousLaterObstructionPrime": 157,
+            "sourceRowCount": 4,
+            "sourceLaterQAvoidingClassCount": "35066534728316"
+          },
+          {
+            "previousLaterObstructionPrime": 163,
+            "sourceRowCount": 3,
+            "sourceLaterQAvoidingClassCount": "27216787242645"
+          },
+          {
+            "previousLaterObstructionPrime": 167,
+            "sourceRowCount": 3,
+            "sourceLaterQAvoidingClassCount": "34712782832781"
+          },
+          {
+            "previousLaterObstructionPrime": 173,
+            "sourceRowCount": 6,
+            "sourceLaterQAvoidingClassCount": "81238913346210"
+          }
+        ],
+        "status": "open_exact_two_root_next_prime_rank_boundary",
+        "proofObligation": "Cover this bucket as part of the whole 17-bucket q-avoiding batch/rank action, or emit a sharper exact subboundary. This token does not authorize singleton q-child descent by itself."
+      },
+      {
+        "tokenId": "p443_q97_p479_later_prime_15_bucket_next_prime_q181_rank_boundary",
+        "nextObstructionPrime": 181,
+        "nextObstructionSquare": 32761,
+        "sourceRowCount": 12,
+        "sourceLaterQAvoidingClassCount": "107648049268380",
+        "rootResidueCountsPerClass": [
+          2
+        ],
+        "nextRootChildCount": "215296098536760",
+        "nextQAvoidingClassCount": "3526442445982860420",
+        "previousLaterPrimeBuckets": [
+          {
+            "previousLaterObstructionPrime": 139,
+            "sourceRowCount": 1,
+            "sourceLaterQAvoidingClassCount": "5846999846471"
+          },
+          {
+            "previousLaterObstructionPrime": 149,
+            "sourceRowCount": 1,
+            "sourceLaterQAvoidingClassCount": "7148587533647"
+          },
+          {
+            "previousLaterObstructionPrime": 151,
+            "sourceRowCount": 2,
+            "sourceLaterQAvoidingClassCount": "13650813382654"
+          },
+          {
+            "previousLaterObstructionPrime": 157,
+            "sourceRowCount": 1,
+            "sourceLaterQAvoidingClassCount": "5656249913447"
+          },
+          {
+            "previousLaterObstructionPrime": 163,
+            "sourceRowCount": 2,
+            "sourceLaterQAvoidingClassCount": "11337864532918"
+          },
+          {
+            "previousLaterObstructionPrime": 167,
+            "sourceRowCount": 2,
+            "sourceLaterQAvoidingClassCount": "17337492745078"
+          },
+          {
+            "previousLaterObstructionPrime": 173,
+            "sourceRowCount": 1,
+            "sourceLaterQAvoidingClassCount": "18526713753551"
+          },
+          {
+            "previousLaterObstructionPrime": 179,
+            "sourceRowCount": 2,
+            "sourceLaterQAvoidingClassCount": "28143327560614"
+          }
+        ],
+        "status": "open_exact_two_root_next_prime_rank_boundary",
+        "proofObligation": "Cover this bucket as part of the whole 17-bucket q-avoiding batch/rank action, or emit a sharper exact subboundary. This token does not authorize singleton q-child descent by itself."
+      },
+      {
+        "tokenId": "p443_q97_p479_later_prime_15_bucket_next_prime_q191_rank_boundary",
+        "nextObstructionPrime": 191,
+        "nextObstructionSquare": 36481,
+        "sourceRowCount": 6,
+        "sourceLaterQAvoidingClassCount": "49375224107610",
+        "rootResidueCountsPerClass": [
+          2
+        ],
+        "nextRootChildCount": "98750448215220",
+        "nextQAvoidingClassCount": "1801158800221505190",
+        "previousLaterPrimeBuckets": [
+          {
+            "previousLaterObstructionPrime": 149,
+            "sourceRowCount": 1,
+            "sourceLaterQAvoidingClassCount": "8048462180927"
+          },
+          {
+            "previousLaterObstructionPrime": 151,
+            "sourceRowCount": 1,
+            "sourceLaterQAvoidingClassCount": "6900240669791"
+          },
+          {
+            "previousLaterObstructionPrime": 163,
+            "sourceRowCount": 1,
+            "sourceLaterQAvoidingClassCount": "5089510140911"
+          },
+          {
+            "previousLaterObstructionPrime": 167,
+            "sourceRowCount": 1,
+            "sourceLaterQAvoidingClassCount": "13278545444591"
+          },
+          {
+            "previousLaterObstructionPrime": 173,
+            "sourceRowCount": 1,
+            "sourceLaterQAvoidingClassCount": "7381365055871"
+          },
+          {
+            "previousLaterObstructionPrime": 179,
+            "sourceRowCount": 1,
+            "sourceLaterQAvoidingClassCount": "8677100615519"
+          }
+        ],
+        "status": "open_exact_two_root_next_prime_rank_boundary",
+        "proofObligation": "Cover this bucket as part of the whole 17-bucket q-avoiding batch/rank action, or emit a sharper exact subboundary. This token does not authorize singleton q-child descent by itself."
+      },
+      {
+        "tokenId": "p443_q97_p479_later_prime_15_bucket_next_prime_q193_rank_boundary",
+        "nextObstructionPrime": 193,
+        "nextObstructionSquare": 37249,
+        "sourceRowCount": 2,
+        "sourceLaterQAvoidingClassCount": "40857688105846",
+        "rootResidueCountsPerClass": [
+          2
+        ],
+        "nextRootChildCount": "81715376211692",
+        "nextQAvoidingClassCount": "1521826308878445962",
+        "previousLaterPrimeBuckets": [
+          {
+            "previousLaterObstructionPrime": 149,
+            "sourceRowCount": 1,
+            "sourceLaterQAvoidingClassCount": "5094457411799"
+          },
+          {
+            "previousLaterObstructionPrime": 191,
+            "sourceRowCount": 1,
+            "sourceLaterQAvoidingClassCount": "35763230694047"
+          }
+        ],
+        "status": "open_exact_two_root_next_prime_rank_boundary",
+        "proofObligation": "Cover this bucket as part of the whole 17-bucket q-avoiding batch/rank action, or emit a sharper exact subboundary. This token does not authorize singleton q-child descent by itself."
+      },
+      {
+        "tokenId": "p443_q97_p479_later_prime_15_bucket_next_prime_q197_rank_boundary",
+        "nextObstructionPrime": 197,
+        "nextObstructionSquare": 38809,
+        "sourceRowCount": 5,
+        "sourceLaterQAvoidingClassCount": "94183957814347",
+        "rootResidueCountsPerClass": [
+          2
+        ],
+        "nextRootChildCount": "188367915628694",
+        "nextQAvoidingClassCount": "3654996850901364029",
+        "previousLaterPrimeBuckets": [
+          {
+            "previousLaterObstructionPrime": 167,
+            "sourceRowCount": 1,
+            "sourceLaterQAvoidingClassCount": "9244393284527"
+          },
+          {
+            "previousLaterObstructionPrime": 179,
+            "sourceRowCount": 2,
+            "sourceLaterQAvoidingClassCount": "35873708758342"
+          },
+          {
+            "previousLaterObstructionPrime": 191,
+            "sourceRowCount": 1,
+            "sourceLaterQAvoidingClassCount": "12968387845007"
+          },
+          {
+            "previousLaterObstructionPrime": 193,
+            "sourceRowCount": 1,
+            "sourceLaterQAvoidingClassCount": "36097467926471"
+          }
+        ],
+        "status": "open_exact_two_root_next_prime_rank_boundary",
+        "proofObligation": "Cover this bucket as part of the whole 17-bucket q-avoiding batch/rank action, or emit a sharper exact subboundary. This token does not authorize singleton q-child descent by itself."
+      },
+      {
+        "tokenId": "p443_q97_p479_later_prime_15_bucket_next_prime_q199_rank_boundary",
+        "nextObstructionPrime": 199,
+        "nextObstructionSquare": 39601,
+        "sourceRowCount": 7,
+        "sourceLaterQAvoidingClassCount": "61500570294233",
+        "rootResidueCountsPerClass": [
+          2
+        ],
+        "nextRootChildCount": "123001140588466",
+        "nextQAvoidingClassCount": "2435361083081332567",
+        "previousLaterPrimeBuckets": [
+          {
+            "previousLaterObstructionPrime": 157,
+            "sourceRowCount": 2,
+            "sourceLaterQAvoidingClassCount": "11895051389494"
+          },
+          {
+            "previousLaterObstructionPrime": 167,
+            "sourceRowCount": 1,
+            "sourceLaterQAvoidingClassCount": "4229319915191"
+          },
+          {
+            "previousLaterObstructionPrime": 179,
+            "sourceRowCount": 3,
+            "sourceLaterQAvoidingClassCount": "28559804860461"
+          },
+          {
+            "previousLaterObstructionPrime": 197,
+            "sourceRowCount": 1,
+            "sourceLaterQAvoidingClassCount": "16816394129087"
+          }
+        ],
+        "status": "open_exact_two_root_next_prime_rank_boundary",
+        "proofObligation": "Cover this bucket as part of the whole 17-bucket q-avoiding batch/rank action, or emit a sharper exact subboundary. This token does not authorize singleton q-child descent by itself."
+      },
+      {
+        "tokenId": "p443_q97_p479_later_prime_15_bucket_next_prime_q211_rank_boundary",
+        "nextObstructionPrime": 211,
+        "nextObstructionSquare": 44521,
+        "sourceRowCount": 3,
+        "sourceLaterQAvoidingClassCount": "60476220283629",
+        "rootResidueCountsPerClass": [
+          2
+        ],
+        "nextRootChildCount": "120952440567258",
+        "nextQAvoidingClassCount": "2692340850806879451",
+        "previousLaterPrimeBuckets": [
+          {
+            "previousLaterObstructionPrime": 163,
+            "sourceRowCount": 1,
+            "sourceLaterQAvoidingClassCount": "14535835250951"
+          },
+          {
+            "previousLaterObstructionPrime": 191,
+            "sourceRowCount": 1,
+            "sourceLaterQAvoidingClassCount": "18722769159167"
+          },
+          {
+            "previousLaterObstructionPrime": 199,
+            "sourceRowCount": 1,
+            "sourceLaterQAvoidingClassCount": "27217615873511"
+          }
+        ],
+        "status": "open_exact_two_root_next_prime_rank_boundary",
+        "proofObligation": "Cover this bucket as part of the whole 17-bucket q-avoiding batch/rank action, or emit a sharper exact subboundary. This token does not authorize singleton q-child descent by itself."
+      },
+      {
+        "tokenId": "p443_q97_p479_later_prime_15_bucket_next_prime_q223_rank_boundary",
+        "nextObstructionPrime": 223,
+        "nextObstructionSquare": 49729,
+        "sourceRowCount": 1,
+        "sourceLaterQAvoidingClassCount": "14098563795071",
+        "rootResidueCountsPerClass": [
+          2
+        ],
+        "nextRootChildCount": "28197127590142",
+        "nextQAvoidingClassCount": "701079281837495617",
+        "previousLaterPrimeBuckets": [
+          {
+            "previousLaterObstructionPrime": 199,
+            "sourceRowCount": 1,
+            "sourceLaterQAvoidingClassCount": "14098563795071"
+          }
+        ],
+        "status": "open_exact_two_root_next_prime_rank_boundary",
+        "proofObligation": "Cover this bucket as part of the whole 17-bucket q-avoiding batch/rank action, or emit a sharper exact subboundary. This token does not authorize singleton q-child descent by itself."
+      }
+    ],
+    "measureStatus": "finite_rank_token_partitioned_not_decreased",
+    "exactPartition": "The single 17-bucket next-prime rank token is partitioned by q in {131,137,139,149,151,157,163,167,173,179,181,191,193,197,199,211,223}."
+  },
+  "compressionAudit": {
+    "verdict": "exact_boundary_packet_is_the_honest_current_compression",
+    "sharedInvariant": "Every stored row in the 17-bucket next-prime boundary has exactly two roots at its first next obstruction prime.",
+    "nonTerminalReason": "The shared two-root law emits rank children and a very large q-avoiding boundary; it does not prove terminal closure of those children.",
+    "noStrongerUniformTheoremThisTurn": "The buckets mix previous later-prime supports unevenly, so this packet records the exact finite partition and hands off a whole-boundary q-avoiding batch cover instead of claiming one closed terminal family."
+  },
+  "finiteTokenTransition": {
+    "consumedFiniteToken": {
+      "tokenId": "p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_rank_boundary",
+      "bucketCount": 17,
+      "nextRootChildCount": "7304500395952302",
+      "nextQAvoidingClassCount": "94524741190958970657",
+      "status": "consumed_by_deterministic_17_bucket_rank_boundary"
+    },
+    "emittedRankBoundaryTokenCount": 17,
+    "producedFiniteTokens": [
+      {
+        "tokenId": "p443_q97_p479_later_prime_15_bucket_next_prime_root_children",
+        "nextObstructionPrimeBucketCount": 17,
+        "rootChildCount": "7304500395952302",
+        "status": "root_children_open_not_descended"
+      },
+      {
+        "tokenId": "p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_q_avoiding_batch_cover",
+        "nextObstructionPrimeBucketCount": 17,
+        "qAvoidingClassCount": "94524741190958970657",
+        "status": "selected_for_whole_boundary_batch_cover"
+      }
+    ],
+    "nextFiniteToken": {
+      "tokenId": "p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_q_avoiding_batch_cover",
+      "bucketCount": 17,
+      "qAvoidingClassCount": "94524741190958970657",
+      "status": "selected"
+    }
+  },
+  "nextPrimeBuckets": [
+    {
+      "tokenId": "p443_q97_p479_later_prime_15_bucket_next_prime_q131_rank_boundary",
+      "nextObstructionPrime": 131,
+      "nextObstructionSquare": 17161,
+      "sourceRowCount": 44,
+      "sourceLaterQAvoidingClassCount": "107615543442484",
+      "rootResidueCountsPerClass": [
+        2
+      ],
+      "nextRootChildCount": "215231086884968",
+      "nextQAvoidingClassCount": "1846575109929582956",
+      "previousLaterPrimeBuckets": [
+        {
+          "previousLaterObstructionPrime": 127,
+          "sourceRowCount": 44,
+          "sourceLaterQAvoidingClassCount": "107615543442484"
+        }
+      ],
+      "status": "open_exact_two_root_next_prime_rank_boundary",
+      "proofObligation": "Cover this bucket as part of the whole 17-bucket q-avoiding batch/rank action, or emit a sharper exact subboundary. This token does not authorize singleton q-child descent by itself."
+    },
+    {
+      "tokenId": "p443_q97_p479_later_prime_15_bucket_next_prime_q137_rank_boundary",
+      "nextObstructionPrime": 137,
+      "nextObstructionSquare": 18769,
+      "sourceRowCount": 83,
+      "sourceLaterQAvoidingClassCount": "247941698677850",
+      "rootResidueCountsPerClass": [
+        2
+      ],
+      "nextRootChildCount": "495883397355700",
+      "nextQAvoidingClassCount": "4653121859087210950",
+      "previousLaterPrimeBuckets": [
+        {
+          "previousLaterObstructionPrime": 127,
+          "sourceRowCount": 20,
+          "sourceLaterQAvoidingClassCount": "48894125515457"
+        },
+        {
+          "previousLaterObstructionPrime": 131,
+          "sourceRowCount": 63,
+          "sourceLaterQAvoidingClassCount": "199047573162393"
+        }
+      ],
+      "status": "open_exact_two_root_next_prime_rank_boundary",
+      "proofObligation": "Cover this bucket as part of the whole 17-bucket q-avoiding batch/rank action, or emit a sharper exact subboundary. This token does not authorize singleton q-child descent by itself."
+    },
+    {
+      "tokenId": "p443_q97_p479_later_prime_15_bucket_next_prime_q139_rank_boundary",
+      "nextObstructionPrime": 139,
+      "nextObstructionSquare": 19321,
+      "sourceRowCount": 89,
+      "sourceLaterQAvoidingClassCount": "317273632000207",
+      "rootResidueCountsPerClass": [
+        2
+      ],
+      "nextRootChildCount": "634547264000414",
+      "nextQAvoidingClassCount": "6129409296611999033",
+      "previousLaterPrimeBuckets": [
+        {
+          "previousLaterObstructionPrime": 127,
+          "sourceRowCount": 9,
+          "sourceLaterQAvoidingClassCount": "22012270249599"
+        },
+        {
+          "previousLaterObstructionPrime": 131,
+          "sourceRowCount": 25,
+          "sourceLaterQAvoidingClassCount": "77683793287031"
+        },
+        {
+          "previousLaterObstructionPrime": 137,
+          "sourceRowCount": 55,
+          "sourceLaterQAvoidingClassCount": "217577568463577"
+        }
+      ],
+      "status": "open_exact_two_root_next_prime_rank_boundary",
+      "proofObligation": "Cover this bucket as part of the whole 17-bucket q-avoiding batch/rank action, or emit a sharper exact subboundary. This token does not authorize singleton q-child descent by itself."
+    },
+    {
+      "tokenId": "p443_q97_p479_later_prime_15_bucket_next_prime_q149_rank_boundary",
+      "nextObstructionPrime": 149,
+      "nextObstructionSquare": 22201,
+      "sourceRowCount": 117,
+      "sourceLaterQAvoidingClassCount": "473503169591427",
+      "rootResidueCountsPerClass": [
+        2
+      ],
+      "nextRootChildCount": "947006339182854",
+      "nextQAvoidingClassCount": "10511296861760087973",
+      "previousLaterPrimeBuckets": [
+        {
+          "previousLaterObstructionPrime": 127,
+          "sourceRowCount": 6,
+          "sourceLaterQAvoidingClassCount": "14674846833066"
+        },
+        {
+          "previousLaterObstructionPrime": 131,
+          "sourceRowCount": 16,
+          "sourceLaterQAvoidingClassCount": "49714519629512"
+        },
+        {
+          "previousLaterObstructionPrime": 137,
+          "sourceRowCount": 39,
+          "sourceLaterQAvoidingClassCount": "153211384604145"
+        },
+        {
+          "previousLaterObstructionPrime": 139,
+          "sourceRowCount": 56,
+          "sourceLaterQAvoidingClassCount": "255902418524704"
+        }
+      ],
+      "status": "open_exact_two_root_next_prime_rank_boundary",
+      "proofObligation": "Cover this bucket as part of the whole 17-bucket q-avoiding batch/rank action, or emit a sharper exact subboundary. This token does not authorize singleton q-child descent by itself."
+    },
+    {
+      "tokenId": "p443_q97_p479_later_prime_15_bucket_next_prime_q151_rank_boundary",
+      "nextObstructionPrime": 151,
+      "nextObstructionSquare": 22801,
+      "sourceRowCount": 92,
+      "sourceLaterQAvoidingClassCount": "435776693460196",
+      "rootResidueCountsPerClass": [
+        2
+      ],
+      "nextRootChildCount": "871553386920392",
+      "nextQAvoidingClassCount": "9935272834199008604",
+      "previousLaterPrimeBuckets": [
+        {
+          "previousLaterObstructionPrime": 127,
+          "sourceRowCount": 2,
+          "sourceLaterQAvoidingClassCount": "4891615611022"
+        },
+        {
+          "previousLaterObstructionPrime": 131,
+          "sourceRowCount": 10,
+          "sourceLaterQAvoidingClassCount": "31308784336358"
+        },
+        {
+          "previousLaterObstructionPrime": 137,
+          "sourceRowCount": 12,
+          "sourceLaterQAvoidingClassCount": "51228795842364"
+        },
+        {
+          "previousLaterObstructionPrime": 139,
+          "sourceRowCount": 33,
+          "sourceLaterQAvoidingClassCount": "154477989393975"
+        },
+        {
+          "previousLaterObstructionPrime": 149,
+          "sourceRowCount": 35,
+          "sourceLaterQAvoidingClassCount": "193869508276477"
+        }
+      ],
+      "status": "open_exact_two_root_next_prime_rank_boundary",
+      "proofObligation": "Cover this bucket as part of the whole 17-bucket q-avoiding batch/rank action, or emit a sharper exact subboundary. This token does not authorize singleton q-child descent by itself."
+    },
+    {
+      "tokenId": "p443_q97_p479_later_prime_15_bucket_next_prime_q157_rank_boundary",
+      "nextObstructionPrime": 157,
+      "nextObstructionSquare": 24649,
+      "sourceRowCount": 85,
+      "sourceLaterQAvoidingClassCount": "446002376201291",
+      "rootResidueCountsPerClass": [
+        2
+      ],
+      "nextRootChildCount": "892004752402582",
+      "nextQAvoidingClassCount": "10992620566233219277",
+      "previousLaterPrimeBuckets": [
+        {
+          "previousLaterObstructionPrime": 127,
+          "sourceRowCount": 3,
+          "sourceLaterQAvoidingClassCount": "7337423416533"
+        },
+        {
+          "previousLaterObstructionPrime": 131,
+          "sourceRowCount": 5,
+          "sourceLaterQAvoidingClassCount": "14627080092739"
+        },
+        {
+          "previousLaterObstructionPrime": 137,
+          "sourceRowCount": 8,
+          "sourceLaterQAvoidingClassCount": "29144849677048"
+        },
+        {
+          "previousLaterObstructionPrime": 139,
+          "sourceRowCount": 11,
+          "sourceLaterQAvoidingClassCount": "48317128316509"
+        },
+        {
+          "previousLaterObstructionPrime": 149,
+          "sourceRowCount": 24,
+          "sourceLaterQAvoidingClassCount": "128590389139200"
+        },
+        {
+          "previousLaterObstructionPrime": 151,
+          "sourceRowCount": 34,
+          "sourceLaterQAvoidingClassCount": "217985505559262"
+        }
+      ],
+      "status": "open_exact_two_root_next_prime_rank_boundary",
+      "proofObligation": "Cover this bucket as part of the whole 17-bucket q-avoiding batch/rank action, or emit a sharper exact subboundary. This token does not authorize singleton q-child descent by itself."
+    },
+    {
+      "tokenId": "p443_q97_p479_later_prime_15_bucket_next_prime_q163_rank_boundary",
+      "nextObstructionPrime": 163,
+      "nextObstructionSquare": 26569,
+      "sourceRowCount": 67,
+      "sourceLaterQAvoidingClassCount": "424043199744197",
+      "rootResidueCountsPerClass": [
+        2
+      ],
+      "nextRootChildCount": "848086399488394",
+      "nextQAvoidingClassCount": "11265555687604081699",
+      "previousLaterPrimeBuckets": [
+        {
+          "previousLaterObstructionPrime": 131,
+          "sourceRowCount": 4,
+          "sourceLaterQAvoidingClassCount": "12024760000052"
+        },
+        {
+          "previousLaterObstructionPrime": 137,
+          "sourceRowCount": 1,
+          "sourceLaterQAvoidingClassCount": "3825310658687"
+        },
+        {
+          "previousLaterObstructionPrime": 139,
+          "sourceRowCount": 10,
+          "sourceLaterQAvoidingClassCount": "47044804303718"
+        },
+        {
+          "previousLaterObstructionPrime": 149,
+          "sourceRowCount": 16,
+          "sourceLaterQAvoidingClassCount": "80197399204208"
+        },
+        {
+          "previousLaterObstructionPrime": 151,
+          "sourceRowCount": 14,
+          "sourceLaterQAvoidingClassCount": "105818512508002"
+        },
+        {
+          "previousLaterObstructionPrime": 157,
+          "sourceRowCount": 22,
+          "sourceLaterQAvoidingClassCount": "175132413069530"
+        }
+      ],
+      "status": "open_exact_two_root_next_prime_rank_boundary",
+      "proofObligation": "Cover this bucket as part of the whole 17-bucket q-avoiding batch/rank action, or emit a sharper exact subboundary. This token does not authorize singleton q-child descent by itself."
+    },
+    {
+      "tokenId": "p443_q97_p479_later_prime_15_bucket_next_prime_q167_rank_boundary",
+      "nextObstructionPrime": 167,
+      "nextObstructionSquare": 27889,
+      "sourceRowCount": 54,
+      "sourceLaterQAvoidingClassCount": "346049561651826",
+      "rootResidueCountsPerClass": [
+        2
+      ],
+      "nextRootChildCount": "692099123303652",
+      "nextQAvoidingClassCount": "9650284125784471662",
+      "previousLaterPrimeBuckets": [
+        {
+          "previousLaterObstructionPrime": 127,
+          "sourceRowCount": 1,
+          "sourceLaterQAvoidingClassCount": "2445807805511"
+        },
+        {
+          "previousLaterObstructionPrime": 131,
+          "sourceRowCount": 3,
+          "sourceLaterQAvoidingClassCount": "9176709711981"
+        },
+        {
+          "previousLaterObstructionPrime": 137,
+          "sourceRowCount": 4,
+          "sourceLaterQAvoidingClassCount": "15498697448276"
+        },
+        {
+          "previousLaterObstructionPrime": 139,
+          "sourceRowCount": 7,
+          "sourceLaterQAvoidingClassCount": "34903614870641"
+        },
+        {
+          "previousLaterObstructionPrime": 149,
+          "sourceRowCount": 6,
+          "sourceLaterQAvoidingClassCount": "32236980714738"
+        },
+        {
+          "previousLaterObstructionPrime": 151,
+          "sourceRowCount": 5,
+          "sourceLaterQAvoidingClassCount": "27571237365763"
+        },
+        {
+          "previousLaterObstructionPrime": 157,
+          "sourceRowCount": 16,
+          "sourceLaterQAvoidingClassCount": "116145874879664"
+        },
+        {
+          "previousLaterObstructionPrime": 163,
+          "sourceRowCount": 12,
+          "sourceLaterQAvoidingClassCount": "108070638855252"
+        }
+      ],
+      "status": "open_exact_two_root_next_prime_rank_boundary",
+      "proofObligation": "Cover this bucket as part of the whole 17-bucket q-avoiding batch/rank action, or emit a sharper exact subboundary. This token does not authorize singleton q-child descent by itself."
+    },
+    {
+      "tokenId": "p443_q97_p479_later_prime_15_bucket_next_prime_q173_rank_boundary",
+      "nextObstructionPrime": 173,
+      "nextObstructionSquare": 29929,
+      "sourceRowCount": 27,
+      "sourceLaterQAvoidingClassCount": "207452942753013",
+      "rootResidueCountsPerClass": [
+        2
+      ],
+      "nextRootChildCount": "414905885506026",
+      "nextQAvoidingClassCount": "6208444217769420051",
+      "previousLaterPrimeBuckets": [
+        {
+          "previousLaterObstructionPrime": 137,
+          "sourceRowCount": 2,
+          "sourceLaterQAvoidingClassCount": "7190487207022"
+        },
+        {
+          "previousLaterObstructionPrime": 139,
+          "sourceRowCount": 2,
+          "sourceLaterQAvoidingClassCount": "8007838052494"
+        },
+        {
+          "previousLaterObstructionPrime": 151,
+          "sourceRowCount": 6,
+          "sourceLaterQAvoidingClassCount": "38400146997954"
+        },
+        {
+          "previousLaterObstructionPrime": 157,
+          "sourceRowCount": 5,
+          "sourceLaterQAvoidingClassCount": "42775023603571"
+        },
+        {
+          "previousLaterObstructionPrime": 163,
+          "sourceRowCount": 8,
+          "sourceLaterQAvoidingClassCount": "70422313722640"
+        },
+        {
+          "previousLaterObstructionPrime": 167,
+          "sourceRowCount": 4,
+          "sourceLaterQAvoidingClassCount": "40657133169332"
+        }
+      ],
+      "status": "open_exact_two_root_next_prime_rank_boundary",
+      "proofObligation": "Cover this bucket as part of the whole 17-bucket q-avoiding batch/rank action, or emit a sharper exact subboundary. This token does not authorize singleton q-child descent by itself."
+    },
+    {
+      "tokenId": "p443_q97_p479_later_prime_15_bucket_next_prime_q179_rank_boundary",
+      "nextObstructionPrime": 179,
+      "nextObstructionSquare": 32041,
+      "sourceRowCount": 24,
+      "sourceLaterQAvoidingClassCount": "218451106784544",
+      "rootResidueCountsPerClass": [
+        2
+      ],
+      "nextRootChildCount": "436902213569088",
+      "nextQAvoidingClassCount": "6998955010270005216",
+      "previousLaterPrimeBuckets": [
+        {
+          "previousLaterObstructionPrime": 137,
+          "sourceRowCount": 1,
+          "sourceLaterQAvoidingClassCount": "5193264163031"
+        },
+        {
+          "previousLaterObstructionPrime": 139,
+          "sourceRowCount": 2,
+          "sourceLaterQAvoidingClassCount": "9784825637230"
+        },
+        {
+          "previousLaterObstructionPrime": 149,
+          "sourceRowCount": 3,
+          "sourceLaterQAvoidingClassCount": "14920560303813"
+        },
+        {
+          "previousLaterObstructionPrime": 151,
+          "sourceRowCount": 2,
+          "sourceLaterQAvoidingClassCount": "10317438530518"
+        },
+        {
+          "previousLaterObstructionPrime": 157,
+          "sourceRowCount": 4,
+          "sourceLaterQAvoidingClassCount": "35066534728316"
+        },
+        {
+          "previousLaterObstructionPrime": 163,
+          "sourceRowCount": 3,
+          "sourceLaterQAvoidingClassCount": "27216787242645"
+        },
+        {
+          "previousLaterObstructionPrime": 167,
+          "sourceRowCount": 3,
+          "sourceLaterQAvoidingClassCount": "34712782832781"
+        },
+        {
+          "previousLaterObstructionPrime": 173,
+          "sourceRowCount": 6,
+          "sourceLaterQAvoidingClassCount": "81238913346210"
+        }
+      ],
+      "status": "open_exact_two_root_next_prime_rank_boundary",
+      "proofObligation": "Cover this bucket as part of the whole 17-bucket q-avoiding batch/rank action, or emit a sharper exact subboundary. This token does not authorize singleton q-child descent by itself."
+    },
+    {
+      "tokenId": "p443_q97_p479_later_prime_15_bucket_next_prime_q181_rank_boundary",
+      "nextObstructionPrime": 181,
+      "nextObstructionSquare": 32761,
+      "sourceRowCount": 12,
+      "sourceLaterQAvoidingClassCount": "107648049268380",
+      "rootResidueCountsPerClass": [
+        2
+      ],
+      "nextRootChildCount": "215296098536760",
+      "nextQAvoidingClassCount": "3526442445982860420",
+      "previousLaterPrimeBuckets": [
+        {
+          "previousLaterObstructionPrime": 139,
+          "sourceRowCount": 1,
+          "sourceLaterQAvoidingClassCount": "5846999846471"
+        },
+        {
+          "previousLaterObstructionPrime": 149,
+          "sourceRowCount": 1,
+          "sourceLaterQAvoidingClassCount": "7148587533647"
+        },
+        {
+          "previousLaterObstructionPrime": 151,
+          "sourceRowCount": 2,
+          "sourceLaterQAvoidingClassCount": "13650813382654"
+        },
+        {
+          "previousLaterObstructionPrime": 157,
+          "sourceRowCount": 1,
+          "sourceLaterQAvoidingClassCount": "5656249913447"
+        },
+        {
+          "previousLaterObstructionPrime": 163,
+          "sourceRowCount": 2,
+          "sourceLaterQAvoidingClassCount": "11337864532918"
+        },
+        {
+          "previousLaterObstructionPrime": 167,
+          "sourceRowCount": 2,
+          "sourceLaterQAvoidingClassCount": "17337492745078"
+        },
+        {
+          "previousLaterObstructionPrime": 173,
+          "sourceRowCount": 1,
+          "sourceLaterQAvoidingClassCount": "18526713753551"
+        },
+        {
+          "previousLaterObstructionPrime": 179,
+          "sourceRowCount": 2,
+          "sourceLaterQAvoidingClassCount": "28143327560614"
+        }
+      ],
+      "status": "open_exact_two_root_next_prime_rank_boundary",
+      "proofObligation": "Cover this bucket as part of the whole 17-bucket q-avoiding batch/rank action, or emit a sharper exact subboundary. This token does not authorize singleton q-child descent by itself."
+    },
+    {
+      "tokenId": "p443_q97_p479_later_prime_15_bucket_next_prime_q191_rank_boundary",
+      "nextObstructionPrime": 191,
+      "nextObstructionSquare": 36481,
+      "sourceRowCount": 6,
+      "sourceLaterQAvoidingClassCount": "49375224107610",
+      "rootResidueCountsPerClass": [
+        2
+      ],
+      "nextRootChildCount": "98750448215220",
+      "nextQAvoidingClassCount": "1801158800221505190",
+      "previousLaterPrimeBuckets": [
+        {
+          "previousLaterObstructionPrime": 149,
+          "sourceRowCount": 1,
+          "sourceLaterQAvoidingClassCount": "8048462180927"
+        },
+        {
+          "previousLaterObstructionPrime": 151,
+          "sourceRowCount": 1,
+          "sourceLaterQAvoidingClassCount": "6900240669791"
+        },
+        {
+          "previousLaterObstructionPrime": 163,
+          "sourceRowCount": 1,
+          "sourceLaterQAvoidingClassCount": "5089510140911"
+        },
+        {
+          "previousLaterObstructionPrime": 167,
+          "sourceRowCount": 1,
+          "sourceLaterQAvoidingClassCount": "13278545444591"
+        },
+        {
+          "previousLaterObstructionPrime": 173,
+          "sourceRowCount": 1,
+          "sourceLaterQAvoidingClassCount": "7381365055871"
+        },
+        {
+          "previousLaterObstructionPrime": 179,
+          "sourceRowCount": 1,
+          "sourceLaterQAvoidingClassCount": "8677100615519"
+        }
+      ],
+      "status": "open_exact_two_root_next_prime_rank_boundary",
+      "proofObligation": "Cover this bucket as part of the whole 17-bucket q-avoiding batch/rank action, or emit a sharper exact subboundary. This token does not authorize singleton q-child descent by itself."
+    },
+    {
+      "tokenId": "p443_q97_p479_later_prime_15_bucket_next_prime_q193_rank_boundary",
+      "nextObstructionPrime": 193,
+      "nextObstructionSquare": 37249,
+      "sourceRowCount": 2,
+      "sourceLaterQAvoidingClassCount": "40857688105846",
+      "rootResidueCountsPerClass": [
+        2
+      ],
+      "nextRootChildCount": "81715376211692",
+      "nextQAvoidingClassCount": "1521826308878445962",
+      "previousLaterPrimeBuckets": [
+        {
+          "previousLaterObstructionPrime": 149,
+          "sourceRowCount": 1,
+          "sourceLaterQAvoidingClassCount": "5094457411799"
+        },
+        {
+          "previousLaterObstructionPrime": 191,
+          "sourceRowCount": 1,
+          "sourceLaterQAvoidingClassCount": "35763230694047"
+        }
+      ],
+      "status": "open_exact_two_root_next_prime_rank_boundary",
+      "proofObligation": "Cover this bucket as part of the whole 17-bucket q-avoiding batch/rank action, or emit a sharper exact subboundary. This token does not authorize singleton q-child descent by itself."
+    },
+    {
+      "tokenId": "p443_q97_p479_later_prime_15_bucket_next_prime_q197_rank_boundary",
+      "nextObstructionPrime": 197,
+      "nextObstructionSquare": 38809,
+      "sourceRowCount": 5,
+      "sourceLaterQAvoidingClassCount": "94183957814347",
+      "rootResidueCountsPerClass": [
+        2
+      ],
+      "nextRootChildCount": "188367915628694",
+      "nextQAvoidingClassCount": "3654996850901364029",
+      "previousLaterPrimeBuckets": [
+        {
+          "previousLaterObstructionPrime": 167,
+          "sourceRowCount": 1,
+          "sourceLaterQAvoidingClassCount": "9244393284527"
+        },
+        {
+          "previousLaterObstructionPrime": 179,
+          "sourceRowCount": 2,
+          "sourceLaterQAvoidingClassCount": "35873708758342"
+        },
+        {
+          "previousLaterObstructionPrime": 191,
+          "sourceRowCount": 1,
+          "sourceLaterQAvoidingClassCount": "12968387845007"
+        },
+        {
+          "previousLaterObstructionPrime": 193,
+          "sourceRowCount": 1,
+          "sourceLaterQAvoidingClassCount": "36097467926471"
+        }
+      ],
+      "status": "open_exact_two_root_next_prime_rank_boundary",
+      "proofObligation": "Cover this bucket as part of the whole 17-bucket q-avoiding batch/rank action, or emit a sharper exact subboundary. This token does not authorize singleton q-child descent by itself."
+    },
+    {
+      "tokenId": "p443_q97_p479_later_prime_15_bucket_next_prime_q199_rank_boundary",
+      "nextObstructionPrime": 199,
+      "nextObstructionSquare": 39601,
+      "sourceRowCount": 7,
+      "sourceLaterQAvoidingClassCount": "61500570294233",
+      "rootResidueCountsPerClass": [
+        2
+      ],
+      "nextRootChildCount": "123001140588466",
+      "nextQAvoidingClassCount": "2435361083081332567",
+      "previousLaterPrimeBuckets": [
+        {
+          "previousLaterObstructionPrime": 157,
+          "sourceRowCount": 2,
+          "sourceLaterQAvoidingClassCount": "11895051389494"
+        },
+        {
+          "previousLaterObstructionPrime": 167,
+          "sourceRowCount": 1,
+          "sourceLaterQAvoidingClassCount": "4229319915191"
+        },
+        {
+          "previousLaterObstructionPrime": 179,
+          "sourceRowCount": 3,
+          "sourceLaterQAvoidingClassCount": "28559804860461"
+        },
+        {
+          "previousLaterObstructionPrime": 197,
+          "sourceRowCount": 1,
+          "sourceLaterQAvoidingClassCount": "16816394129087"
+        }
+      ],
+      "status": "open_exact_two_root_next_prime_rank_boundary",
+      "proofObligation": "Cover this bucket as part of the whole 17-bucket q-avoiding batch/rank action, or emit a sharper exact subboundary. This token does not authorize singleton q-child descent by itself."
+    },
+    {
+      "tokenId": "p443_q97_p479_later_prime_15_bucket_next_prime_q211_rank_boundary",
+      "nextObstructionPrime": 211,
+      "nextObstructionSquare": 44521,
+      "sourceRowCount": 3,
+      "sourceLaterQAvoidingClassCount": "60476220283629",
+      "rootResidueCountsPerClass": [
+        2
+      ],
+      "nextRootChildCount": "120952440567258",
+      "nextQAvoidingClassCount": "2692340850806879451",
+      "previousLaterPrimeBuckets": [
+        {
+          "previousLaterObstructionPrime": 163,
+          "sourceRowCount": 1,
+          "sourceLaterQAvoidingClassCount": "14535835250951"
+        },
+        {
+          "previousLaterObstructionPrime": 191,
+          "sourceRowCount": 1,
+          "sourceLaterQAvoidingClassCount": "18722769159167"
+        },
+        {
+          "previousLaterObstructionPrime": 199,
+          "sourceRowCount": 1,
+          "sourceLaterQAvoidingClassCount": "27217615873511"
+        }
+      ],
+      "status": "open_exact_two_root_next_prime_rank_boundary",
+      "proofObligation": "Cover this bucket as part of the whole 17-bucket q-avoiding batch/rank action, or emit a sharper exact subboundary. This token does not authorize singleton q-child descent by itself."
+    },
+    {
+      "tokenId": "p443_q97_p479_later_prime_15_bucket_next_prime_q223_rank_boundary",
+      "nextObstructionPrime": 223,
+      "nextObstructionSquare": 49729,
+      "sourceRowCount": 1,
+      "sourceLaterQAvoidingClassCount": "14098563795071",
+      "rootResidueCountsPerClass": [
+        2
+      ],
+      "nextRootChildCount": "28197127590142",
+      "nextQAvoidingClassCount": "701079281837495617",
+      "previousLaterPrimeBuckets": [
+        {
+          "previousLaterObstructionPrime": 199,
+          "sourceRowCount": 1,
+          "sourceLaterQAvoidingClassCount": "14098563795071"
+        }
+      ],
+      "status": "open_exact_two_root_next_prime_rank_boundary",
+      "proofObligation": "Cover this bucket as part of the whole 17-bucket q-avoiding batch/rank action, or emit a sharper exact subboundary. This token does not authorize singleton q-child descent by itself."
+    }
+  ],
+  "proofBoundary": "This packet accounts for every next-prime bucket emitted by the later-prime 15-bucket q-avoiding batch cover and turns the 17-bucket surface into an exact deterministic ranked boundary. It does not close the 7,304,500,395,952,302 next root children, the 94,524,741,190,958,970,657 next q-avoiding classes, the p479-available branch, the p479-unavailable complement, q97, p443-unavailable, the wider p4217 complement, collision-free matching, or Problem 848.",
+  "oneNextAction": {
+    "stepId": "derive_p848_p4217_p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_q_avoiding_batch_cover_or_emit_boundary",
+    "action": "Run a whole-boundary q-avoiding batch cover over all 17 next-prime buckets, or emit an exact survivor/rank boundary if the batch cover does not close.",
+    "coveredFamily": "All 94,524,741,190,958,970,657 next q-avoiding classes across q in {131,137,139,149,151,157,163,167,173,179,181,191,193,197,199,211,223}.",
+    "finiteDenominatorOrRankToken": "Finite token p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_q_avoiding_batch_cover.",
+    "failureBoundary": "If no whole-boundary cover exists, write the deterministic survivor boundary grouped by next prime and previous later-prime support; do not open a singleton q-child first.",
+    "completionRule": "Every one of the 17 next-prime q-avoiding buckets is covered, structurally decomposed, or listed in a deterministic exact survivor boundary before singleton descent."
+  },
+  "recommendedNextAction": "derive_p848_p4217_p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_q_avoiding_batch_cover_or_emit_boundary",
+  "nextTheoremMove": "Use the deterministic 17-bucket rank boundary to run one whole-boundary q-avoiding batch cover; singleton q131/q137/etc. descent remains blocked until a later packet consumes a smaller finite token.",
+  "claims": {
+    "consumesPostLaterPrime15BucketNextPrime17BucketRankToken": true,
+    "accountsForAll17NextPrimeBuckets": true,
+    "allRowsHaveTwoNextRoots": true,
+    "emitsExactDeterministic17BucketRankBoundary": true,
+    "selectsWholeBoundaryBatchCoverNext": true,
+    "opensFreshFallbackSelector": false,
+    "descendsIntoQ131Singleton": false,
+    "descendsIntoQ137Singleton": false,
+    "descendsIntoSingletonQChild": false,
+    "provesNextRootChildrenClosed": false,
+    "provesNextQAvoidingBoundaryClosed": false,
+    "provesP479AvailableFamilyCoverage": false,
+    "provesP479UnavailableComplementClosed": false,
+    "provesQ97ChildCoverage": false,
+    "provesP443UnavailableComplementClosed": false,
+    "provesP4217ComplementCoverage": false,
+    "provesAllN": false
+  }
+}

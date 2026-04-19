@@ -1,0 +1,544 @@
+{
+  "schema": "erdos.number_theory.p848_p4217_complement_p61_q101_p443_q97_repair_candidate_boundary/1",
+  "generatedAt": "2026-04-17T07:53:30Z",
+  "problemId": 848,
+  "status": "p4217_complement_p61_q101_p443_q97_p151_repair_candidate_boundary_open",
+  "activeAtom": "D2_p13_q17_endpoint_menu_squarefree_obstruction_p23_q29_p41_q13_p103_q2_p37_q19_p31_q53_p73_q11_p83_q17_p509_q43_p29_q59_p47_q67_p79_q71_p107_q89_p4217_complement_p43_q2_p61_q101_p443_q97_p151_repair_candidate_boundary",
+  "sourcePackets": [
+    "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_COMPLEMENT_P61_Q101_P443_AVAILABILITY_SPLIT_PACKET.json",
+    "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_CONVERGENCE_ASSEMBLY_282_FIRST_FAILURE_PACKET.json",
+    "packs/number-theory/problems/848/P4217_COMPLEMENT_STRATEGY_GUARD.json"
+  ],
+  "theoremObject": {
+    "id": "p848_p4217_complement_p61_q101_p443_q97_repair_candidate_boundary",
+    "status": "bounded_repair_screen_recorded_exact_certification_needed",
+    "claim": "On the selected p443/q97 obstruction child, the established p>=23 endpoint-menu screen through p<=50000 has exactly two trial-squarefree within-window repair candidates after trial square checks through prime 199999: p151 and p479. The first is p151; bounded local factor routes have split its residual to a 167-digit composite but have not exact-certified it.",
+    "doesNotClaim": [
+      "p151 is an exact repair.",
+      "p479 is an exact repair.",
+      "The q97 child is closed.",
+      "The q97-avoiding first p443-available family, p443-unavailable residues, q101-avoiding residues, other p61-available rows, p61-unavailable complement, or Problem 848 are decided."
+    ]
+  },
+  "targetChild": {
+    "description": "First q97 square-obstruction child inside the first p443-available family of the p61/q101 branch.",
+    "tCongruence": {
+      "residue": "858404682506186150932058",
+      "modulus": "1246408897617516648005929",
+      "expression": "t == 858404682506186150932058 mod 1246408897617516648005929"
+    },
+    "leftCongruence": {
+      "residue": "3449199882246403162146857078213360639892746996146891529938208657606051673377944521449110708641522770273657",
+      "modulus": "5008259519672675769496874520298756223775352864790330415029070839201594060956874703037101519492727102512900",
+      "expression": "left == 3449199882246403162146857078213360639892746996146891529938208657606051673377944521449110708641522770273657 mod 5008259519672675769496874520298756223775352864790330415029070839201594060956874703037101519492727102512900"
+    },
+    "inheritedSquareObstruction": {
+      "endpointPrime": 443,
+      "k": 1029,
+      "delta": -25739,
+      "obstructionPrime": 97,
+      "obstructionSquare": 9409
+    }
+  },
+  "boundedRepairScreen": {
+    "screenScope": "established endpoint-menu primes with 23 <= p <= 50000, excluding primes not invertible for the 25*6323 selector denominator",
+    "outsider": 6323,
+    "window": 28500,
+    "maxK": 1139,
+    "trialSquarePrimeLimit": 199999,
+    "withinWindowEndpointCount": 17,
+    "trialSquareBlockedEndpointCount": 15,
+    "trialSquarefreeCandidateCount": 2,
+    "firstRepairCandidateEndpointPrime": 151,
+    "candidateEndpointPrimes": [
+      151,
+      479
+    ],
+    "selectorFormula": "k_p(left) = (6323 * (25*6323)^(-1) * left + (1 - 14*6323) * (25*6323)^(-1)) mod p^2; right_p(left) = left - 14 - 25*k_p(left)"
+  },
+  "blockedWithinWindowEndpoints": [
+    {
+      "endpointPrime": 23,
+      "k": 479,
+      "delta": -11989,
+      "withinWindow": true,
+      "right": "3449199882246403162146857078213360639892746996146891529938208657606051673377944521449110708641522770261668",
+      "rightMod25": 18,
+      "checkedSquarePrimeLimit": 29,
+      "squarefreeStatus": "trial_square_blocked",
+      "obstructionPrime": 29,
+      "obstructionSquare": 841
+    },
+    {
+      "endpointPrime": 29,
+      "k": 330,
+      "delta": -8264,
+      "withinWindow": true,
+      "right": "3449199882246403162146857078213360639892746996146891529938208657606051673377944521449110708641522770265393",
+      "rightMod25": 18,
+      "checkedSquarePrimeLimit": 59,
+      "squarefreeStatus": "trial_square_blocked",
+      "obstructionPrime": 59,
+      "obstructionSquare": 3481
+    },
+    {
+      "endpointPrime": 31,
+      "k": 727,
+      "delta": -18189,
+      "withinWindow": true,
+      "right": "3449199882246403162146857078213360639892746996146891529938208657606051673377944521449110708641522770255468",
+      "rightMod25": 18,
+      "checkedSquarePrimeLimit": 53,
+      "squarefreeStatus": "trial_square_blocked",
+      "obstructionPrime": 53,
+      "obstructionSquare": 2809
+    },
+    {
+      "endpointPrime": 37,
+      "k": 457,
+      "delta": -11439,
+      "withinWindow": true,
+      "right": "3449199882246403162146857078213360639892746996146891529938208657606051673377944521449110708641522770262218",
+      "rightMod25": 18,
+      "checkedSquarePrimeLimit": 19,
+      "squarefreeStatus": "trial_square_blocked",
+      "obstructionPrime": 19,
+      "obstructionSquare": 361
+    },
+    {
+      "endpointPrime": 41,
+      "k": 1011,
+      "delta": -25289,
+      "withinWindow": true,
+      "right": "3449199882246403162146857078213360639892746996146891529938208657606051673377944521449110708641522770248368",
+      "rightMod25": 18,
+      "checkedSquarePrimeLimit": 13,
+      "squarefreeStatus": "trial_square_blocked",
+      "obstructionPrime": 13,
+      "obstructionSquare": 169
+    },
+    {
+      "endpointPrime": 43,
+      "k": 200,
+      "delta": -5014,
+      "withinWindow": true,
+      "right": "3449199882246403162146857078213360639892746996146891529938208657606051673377944521449110708641522770268643",
+      "rightMod25": 18,
+      "checkedSquarePrimeLimit": 2,
+      "squarefreeStatus": "trial_square_blocked",
+      "obstructionPrime": 2,
+      "obstructionSquare": 4
+    },
+    {
+      "endpointPrime": 47,
+      "k": 682,
+      "delta": -17064,
+      "withinWindow": true,
+      "right": "3449199882246403162146857078213360639892746996146891529938208657606051673377944521449110708641522770256593",
+      "rightMod25": 18,
+      "checkedSquarePrimeLimit": 67,
+      "squarefreeStatus": "trial_square_blocked",
+      "obstructionPrime": 67,
+      "obstructionSquare": 4489
+    },
+    {
+      "endpointPrime": 61,
+      "k": 1014,
+      "delta": -25364,
+      "withinWindow": true,
+      "right": "3449199882246403162146857078213360639892746996146891529938208657606051673377944521449110708641522770248293",
+      "rightMod25": 18,
+      "checkedSquarePrimeLimit": 101,
+      "squarefreeStatus": "trial_square_blocked",
+      "obstructionPrime": 101,
+      "obstructionSquare": 10201
+    },
+    {
+      "endpointPrime": 73,
+      "k": 42,
+      "delta": -1064,
+      "withinWindow": true,
+      "right": "3449199882246403162146857078213360639892746996146891529938208657606051673377944521449110708641522770272593",
+      "rightMod25": 18,
+      "checkedSquarePrimeLimit": 11,
+      "squarefreeStatus": "trial_square_blocked",
+      "obstructionPrime": 11,
+      "obstructionSquare": 121
+    },
+    {
+      "endpointPrime": 79,
+      "k": 635,
+      "delta": -15889,
+      "withinWindow": true,
+      "right": "3449199882246403162146857078213360639892746996146891529938208657606051673377944521449110708641522770257768",
+      "rightMod25": 18,
+      "checkedSquarePrimeLimit": 71,
+      "squarefreeStatus": "trial_square_blocked",
+      "obstructionPrime": 71,
+      "obstructionSquare": 5041
+    },
+    {
+      "endpointPrime": 83,
+      "k": 1053,
+      "delta": -26339,
+      "withinWindow": true,
+      "right": "3449199882246403162146857078213360639892746996146891529938208657606051673377944521449110708641522770247318",
+      "rightMod25": 18,
+      "checkedSquarePrimeLimit": 17,
+      "squarefreeStatus": "trial_square_blocked",
+      "obstructionPrime": 17,
+      "obstructionSquare": 289
+    },
+    {
+      "endpointPrime": 103,
+      "k": 532,
+      "delta": -13314,
+      "withinWindow": true,
+      "right": "3449199882246403162146857078213360639892746996146891529938208657606051673377944521449110708641522770260343",
+      "rightMod25": 18,
+      "checkedSquarePrimeLimit": 2,
+      "squarefreeStatus": "trial_square_blocked",
+      "obstructionPrime": 2,
+      "obstructionSquare": 4
+    },
+    {
+      "endpointPrime": 107,
+      "k": 913,
+      "delta": -22839,
+      "withinWindow": true,
+      "right": "3449199882246403162146857078213360639892746996146891529938208657606051673377944521449110708641522770250818",
+      "rightMod25": 18,
+      "checkedSquarePrimeLimit": 89,
+      "squarefreeStatus": "trial_square_blocked",
+      "obstructionPrime": 89,
+      "obstructionSquare": 7921
+    },
+    {
+      "endpointPrime": 443,
+      "k": 1029,
+      "delta": -25739,
+      "withinWindow": true,
+      "right": "3449199882246403162146857078213360639892746996146891529938208657606051673377944521449110708641522770247918",
+      "rightMod25": 18,
+      "checkedSquarePrimeLimit": 97,
+      "squarefreeStatus": "trial_square_blocked",
+      "obstructionPrime": 97,
+      "obstructionSquare": 9409
+    },
+    {
+      "endpointPrime": 509,
+      "k": 375,
+      "delta": -9389,
+      "withinWindow": true,
+      "right": "3449199882246403162146857078213360639892746996146891529938208657606051673377944521449110708641522770264268",
+      "rightMod25": 18,
+      "checkedSquarePrimeLimit": 43,
+      "squarefreeStatus": "trial_square_blocked",
+      "obstructionPrime": 43,
+      "obstructionSquare": 1849
+    }
+  ],
+  "trialRepairCandidates": [
+    {
+      "endpointPrime": 151,
+      "k": 929,
+      "delta": -23239,
+      "withinWindow": true,
+      "right": "3449199882246403162146857078213360639892746996146891529938208657606051673377944521449110708641522770250418",
+      "rightMod25": 18,
+      "crossProductPlusOne": "11896979827688601439663447120004746920772288609584622965207770194258190182964840051413631820138675086066632106291033511177084021305481356866005258944353503467824650795762147378523370355636479059778945756278638627",
+      "checkedSquarePrimeLimit": 199999,
+      "squarefreeStatus": "no_checked_square_divisor",
+      "obstructionPrime": null,
+      "obstructionSquare": null,
+      "partialFactorization": {
+        "knownFactors": [
+          {
+            "factor": "3",
+            "exponent": 1,
+            "prime": true
+          },
+          {
+            "factor": "7",
+            "exponent": 1,
+            "prime": true
+          },
+          {
+            "factor": "547",
+            "exponent": 1,
+            "prime": true
+          },
+          {
+            "factor": "14713",
+            "exponent": 1,
+            "prime": true
+          },
+          {
+            "factor": "281112363028343503",
+            "exponent": 1,
+            "prime": true
+          },
+          {
+            "factor": "6530015338384483333",
+            "exponent": 1,
+            "prime": true
+          }
+        ],
+        "residual": "38347293895261462115265760871239114558090711677484368796298938103154578788398208246822725777079527504392721735442032760827347347537616784616226808990643326259390168783",
+        "cofactorDigits": 167,
+        "residualStatus": "composite_not_certified_after_second_ecm_split_to_167_digits"
+      },
+      "boundedFactorAttempts": [
+        {
+          "method": "sympy.factorint",
+          "timeoutSeconds": 180,
+          "status": "timeout",
+          "result": "no_exact_certificate_emitted"
+        },
+        {
+          "method": "sympy.pollard_pm1_ladder",
+          "target": "p151_203_digit_residual",
+          "timeoutSeconds": 180,
+          "status": "timeout_during_B5000000",
+          "completedNoFactorThrough": {
+            "B": 1000000,
+            "retries": 8
+          },
+          "attempts": [
+            {
+              "B": 10000,
+              "retries": 8,
+              "status": "no_factor",
+              "seconds": 0.322
+            },
+            {
+              "B": 100000,
+              "retries": 8,
+              "status": "no_factor",
+              "seconds": 3.222
+            },
+            {
+              "B": 1000000,
+              "retries": 8,
+              "status": "no_factor",
+              "seconds": 32.399
+            },
+            {
+              "B": 5000000,
+              "retries": 8,
+              "status": "timeout",
+              "secondsElapsedBeforeAlarm": 144.061
+            }
+          ],
+          "elapsedSeconds": 180.004,
+          "result": "no_exact_certificate_emitted"
+        },
+        {
+          "method": "sympy._ecm_one_factor",
+          "target": "p151_203_digit_residual",
+          "B1": 10000,
+          "B2": 100000,
+          "maxCurve": 200,
+          "seed": 84815101,
+          "status": "factor_found",
+          "seconds": 6.942,
+          "factor": "281112363028343503",
+          "factorDigits": 18,
+          "factorPrime": true,
+          "cofactor": "250408417321595008501372022295962271050426437854572176437181874616914239459431326570244933929263771716393887048956537931885360733452344481240175750621687228365832880573815548295120393739",
+          "cofactorDigits": 186,
+          "cofactorPrime": false,
+          "productVerified": true,
+          "result": "partial_factorization_sharpened_no_exact_certificate_emitted"
+        },
+        {
+          "method": "sympy.recursive_pm1_ecm_ladder",
+          "target": "p151_186_digit_residual",
+          "timeoutSeconds": 180,
+          "status": "timeout_during_second_ecm_config",
+          "completedNoFactorThrough": {
+            "pollardPm1B": 1000000,
+            "pollardPm1Retries": 4,
+            "ecmB1": 10000,
+            "ecmB2": 100000,
+            "ecmMaxCurve": 200
+          },
+          "attempts": [
+            {
+              "targetDigits": 186,
+              "method": "pollard_pm1",
+              "B": 10000,
+              "retries": 4,
+              "seconds": 0.165,
+              "status": "no_factor"
+            },
+            {
+              "targetDigits": 186,
+              "method": "pollard_pm1",
+              "B": 100000,
+              "retries": 4,
+              "seconds": 1.645,
+              "status": "no_factor"
+            },
+            {
+              "targetDigits": 186,
+              "method": "pollard_pm1",
+              "B": 1000000,
+              "retries": 4,
+              "seconds": 16.478,
+              "status": "no_factor"
+            },
+            {
+              "targetDigits": 186,
+              "method": "ecm_one_factor",
+              "B1": 10000,
+              "B2": 100000,
+              "maxCurve": 200,
+              "seed": 84815124,
+              "seconds": 91.185,
+              "status": "no_factor"
+            },
+            {
+              "targetDigits": 186,
+              "method": "ecm_one_factor",
+              "B1": 50000,
+              "B2": 1000000,
+              "maxCurve": 120,
+              "status": "timeout",
+              "secondsElapsedBeforeAlarm": 70.53
+            }
+          ],
+          "elapsedSeconds": 180.003,
+          "result": "no_exact_certificate_emitted"
+        },
+        {
+          "method": "sympy._ecm_one_factor",
+          "target": "p151_186_digit_residual",
+          "B1": 50000,
+          "B2": 1000000,
+          "maxCurve": 120,
+          "seed": 84815125,
+          "status": "factor_found",
+          "seconds": 73.282,
+          "factor": "6530015338384483333",
+          "factorDigits": 19,
+          "factorPrime": true,
+          "cofactor": "38347293895261462115265760871239114558090711677484368796298938103154578788398208246822725777079527504392721735442032760827347347537616784616226808990643326259390168783",
+          "cofactorDigits": 167,
+          "cofactorPrime": false,
+          "productVerified": true,
+          "result": "partial_factorization_sharpened_no_exact_certificate_emitted"
+        },
+        {
+          "method": "sympy.pm1_plus_ecm_ladder",
+          "target": "p151_167_digit_residual",
+          "timeoutSeconds": 240,
+          "status": "timeout_during_ecm_config",
+          "completedNoFactorThrough": {
+            "pollardPm1B": 1000000,
+            "pollardPm1Retries": 6
+          },
+          "attempts": [
+            {
+              "targetDigits": 167,
+              "method": "pollard_pm1",
+              "B": 10000,
+              "retries": 6,
+              "seconds": 0.223,
+              "status": "no_factor"
+            },
+            {
+              "targetDigits": 167,
+              "method": "pollard_pm1",
+              "B": 100000,
+              "retries": 6,
+              "seconds": 2.237,
+              "status": "no_factor"
+            },
+            {
+              "targetDigits": 167,
+              "method": "pollard_pm1",
+              "B": 1000000,
+              "retries": 6,
+              "seconds": 22.696,
+              "status": "no_factor"
+            },
+            {
+              "targetDigits": 167,
+              "method": "ecm_one_factor",
+              "B1": 50000,
+              "B2": 1000000,
+              "maxCurve": 160,
+              "seed": 84815126,
+              "status": "timeout",
+              "secondsElapsedBeforeAlarm": 214.847
+            }
+          ],
+          "elapsedSeconds": 240.003,
+          "result": "no_exact_certificate_emitted"
+        }
+      ]
+    },
+    {
+      "endpointPrime": 479,
+      "k": 250,
+      "delta": -6264,
+      "withinWindow": true,
+      "right": "3449199882246403162146857078213360639892746996146891529938208657606051673377944521449110708641522770267393",
+      "rightMod25": 18,
+      "crossProductPlusOne": "11896979827688601439663447120004746920772288609584622965207770194258190182964840051413631820138675086125182274292166204854526920208153153728184639203946987188525742758624874534113978607235133338968794781673966202",
+      "checkedSquarePrimeLimit": 199999,
+      "squarefreeStatus": "no_checked_square_divisor",
+      "obstructionPrime": null,
+      "obstructionSquare": null,
+      "partialFactorization": {
+        "knownFactors": [
+          {
+            "factor": "2",
+            "exponent": 1,
+            "prime": true
+          },
+          {
+            "factor": "7",
+            "exponent": 1,
+            "prime": true
+          },
+          {
+            "factor": "53",
+            "exponent": 1,
+            "prime": true
+          }
+        ],
+        "residual": "16033665535968465552107071590302893424221413220464451435589986784714542025559083627242091401804144320923426245676773860989928463892389695051461777902893513731166769216475572148401588419454357599688402670719631",
+        "cofactorDigits": 209,
+        "residualStatus": "unfactored_not_certified"
+      }
+    }
+  ],
+  "guardAnswersBeforeAnotherSelector": {
+    "wholeFamilyCovered": "This screen covers only the already-ledgered q97 square-obstruction child emitted by the first p443-available family; it does not cover p443-unavailable, q97-avoiding, q101-avoiding, or p61-unavailable siblings.",
+    "finiteDenominatorOrRankToken": "The finite denominator is the established endpoint-menu screen 23 <= p <= 50000 on this single q97 CRT child. The ledger token decreases from open_square_obstruction_child to repair_candidate_boundary_open, pending exact certification or blocker.",
+    "failureBoundary": "If p151 and p479 cannot be exactly certified by local/free factor routes, emit a deterministic blocker/open-leaf packet or successor boundary for the q97 child.",
+    "whySingleSelectorCheaper": "p151 is not a new fallback-selector ladder; it is the first survivor of a completed finite repair screen inside the already-emitted q97 child. Exact-certifying or blocking it is cheaper than reopening bulk complement cover before the current finite child is ledgered."
+  },
+  "ledgerTransition": {
+    "fromState": "open_square_obstruction_child",
+    "toState": "repair_candidate_boundary_open",
+    "consumedToken": "p443/q97 child representative repair screen",
+    "nextToken": "p151 exact-certification or q97 blocker/successor"
+  },
+  "proofBoundary": "This packet records a bounded repair-candidate boundary for the selected p443/q97 child. It proves the p>=23, p<=50000 endpoint screen outcome and trial-square checks through prime 199999. For p151, bounded local factor routes now split the 203-digit residual by the primes 281112363028343503 and 6530015338384483333, leaving a 167-digit composite residual; a 240-second p-1/ECM ladder on that residual found no further factor before timeout. p151 is still not exact-certified and the q97 child is not closed.",
+  "recommendedNextAction": "exact_certify_p848_p4217_complement_p61_q101_p443_q97_p151_repair_candidate",
+  "verificationCommand": "node --test test/p848-endpoint-menu-compiler.test.js test/p848-282-alignment-obstruction-packet.test.js",
+  "claims": {
+    "boundedScreenExactWithinScope": true,
+    "exactRepairCertified": false,
+    "firstRepairCandidateEndpointPrime": 151,
+    "reserveRepairCandidateEndpointPrimes": [
+      479
+    ],
+    "p151BoundedFactorAttemptStatus": "partial_factorization_sharpened_to_167_digit_composite",
+    "p151LatestBoundedFactorAttempt": "sympy.pm1_plus_ecm_ladder on the 167-digit residual completed p-1 no-factor rungs through B=1000000/retries=6 and timed out during ECM B1=50000/B2=1000000/maxCurve=160.",
+    "proofBoundaryNeeded": "An exact squarefree factor certificate for p151, or a deterministic obstruction/successor replacing p151, is required before emitting a repair handoff."
+  }
+}

@@ -18,6 +18,7 @@ Workspace runtime files live under `.erdos/`:
 - `orp/templates/`
 - `registry/preflight/`
 - `registry/compute/`
+- `registry/research/openai-live-usage.json`
 
 ## Core loop
 
@@ -30,8 +31,34 @@ Workspace runtime files live under `.erdos/`:
 7. Pull or scaffold artifacts.
 8. Review public status and agent websearch brief if the problem was freshly seeded.
 9. Work the active route.
-10. If the pack admits a local scout, run it intentionally and checkpoint the artifact.
-11. Sync checkpoints again at honest boundaries.
+10. Run worktree hygiene at delegation boundaries and after material writeback.
+11. Before expanding a branch, search lane, compute sweep, API call, or paid rung, apply the Abstract Before Expanding gate.
+12. If the pack admits a local scout, run it intentionally and checkpoint the artifact.
+13. Sync checkpoints again at honest boundaries.
+
+## Worktree Hygiene
+
+Use `erdos workspace hygiene --json` as a non-destructive checkpoint for autonomous work. It classifies dirty paths into canonical problem artifacts, source/test/docs changes, runtime research artifacts, scratch/output artifacts, and unclassified paths.
+
+Delegates should use this checkpoint to self-clean and self-heal:
+- refresh generated surfaces after material work
+- convert useful scratch into canonical artifacts before relying on it
+- keep temporary experiments out of tracked source paths
+- pause with a blocker when dirty paths are unrelated to the active step or remain unclassified
+- avoid destructive cleanup unless explicitly approved
+
+## Abstract Before Expanding
+
+The generated task list includes a hardcoded `abstract-before-expand` gate. Agents should run it before opening more concrete work whenever the next move would expand the surface: another sibling case, selector, search lane, compute sweep, API call, local/remote GPU rung, or paid research call.
+
+The gate must answer:
+- what larger family the concrete case represents
+- what theorem object would collapse that family
+- whether a finite partition, decreasing rank, bulk cover, impossibility theorem, source theorem, or recombination path is available
+- whether the next route should be local proof, local compute, budget-guarded API/source audit, paid compute approval, or a blocker packet
+- what canonical artifact or task-list writeback preserves the abstraction
+
+Expansion is allowed only when the gate records why the concrete step is finite, cheaper than the collapse theorem this turn, and paired with a decreasing token or blocker boundary.
 
 ## Commands
 
@@ -69,6 +96,19 @@ The ORP kit travels with the workspace too:
 - `templates/CLAIM.md`
 - `templates/VERIFICATION_RECORD.md`
 - `templates/FAILED_TOPIC.md`
+
+For ORP-backed research API work:
+- `erdos orp research status --json` shows whether ORP research and OpenAI reachability are configured
+- `erdos orp research ask <problem-id> --question "<question>" --json` creates a planning-only research artifact without paid API execution
+- `erdos orp research openai-check --json` creates the smoke-test profile without calling OpenAI
+- `erdos orp research usage --json` shows the local paid-call usage ledger and daily cap
+- live calls require explicit paid-call intent with `--execute --allow-paid`, or the session env `ERDOS_ORP_RESEARCH_ALLOW_PAID=1`
+- use live research when it can unlock a source audit, theorem wedge, external reference check, or repeated local-stall diagnosis; avoid it for routine tests, deterministic local compute, or broad fishing
+- `ERDOS_ORP_RESEARCH_DAILY_LIMIT` defaults to `10`; set it to `0` to disable paid research calls for the workspace/session
+- `ERDOS_ORP_RESEARCH_DAILY_USD_LIMIT` defaults to `$5`; set it to `0` to disable paid research spend for the workspace/session
+- `ERDOS_ORP_RESEARCH_ESTIMATED_COST_USD` overrides the local per-call estimate; otherwise the guard reserves `$1` for a normal research ask and `$0.05` for the smoke check before launching
+- this is a local agent/workspace budget guard, not an upstream provider billing hard cap
+- research API outputs are discovery/source-audit artifacts until converted into audited claims, verification records, proof packets, exact certificates, or canonical dossier updates
 
 For sunflower compute lanes, ORP sits above `breakthroughs`:
 - `erdos sunflower status <id>` evaluates the packaged compute lane with `breakthroughs`

@@ -1,0 +1,66 @@
+{
+  "schema": "erdos.number_theory.p848_factorization_blocker_open_leaf/1",
+  "generatedAt": "2026-04-17T05:17:26Z",
+  "problemId": "848",
+  "status": "open_leaf_ledgered",
+  "activeAtom": "D2_p13_q17_endpoint_menu_squarefree_obstruction_p23_q29_p41_q13_p103_q2_p37_q19_p31_q53_p73_q11_p83_q17_p509_q43_p29_q59_p47_q67_p79_q71_p107_q89_p4217_q61_subclass",
+  "sourceBoundaryPacket": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DYNAMIC_MARGIN_PROOFS/P848_q17_p4217_q61_repair_candidate_factorization_boundary.json",
+  "sourceAvailabilitySplit": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DYNAMIC_MARGIN_PROOFS/P848_q17_p107_q89_p4217_availability_split.json",
+  "leaf": {
+    "label": "p4217/q61 exact-factorization open leaf",
+    "type": "factorization_blocker",
+    "residualClass": {
+      "residue": "169420141690585054358732178817328088519972453794407467571322168411530879091645805420092749757",
+      "modulus": "265884583394279840187007549369466635122108056254479559599229627196756604148422140623504536900"
+    },
+    "blockedEndpointPrime": 4217,
+    "blockedSquarePrime": 61,
+    "blockedSquareDivisor": 3721,
+    "candidateEndpointPrimes": [97, 227]
+  },
+  "boundedRepairScreen": {
+    "endpointPrimeRange": "23 <= p <= 50000, p prime, excluding blocked p=4217 and outsider p=6323",
+    "trialSquarePrimeLimit": 199999,
+    "withinWindowEndpointCount": 17,
+    "trialSquarefreeWithinWindowCandidates": [97, 227],
+    "allOtherWithinWindowEndpointsSquareBlocked": true
+  },
+  "candidateBoundaries": [
+    {
+      "endpointPrime": 97,
+      "status": "partial_factorization_sharpened_not_certified",
+      "knownPrimeFactors": ["2", "29", "4984999", "20049382114183789", "42227912403779999179"],
+      "remainingCofactor": "117256359714726963150139156404557256954820898610624509684791481511720847765231680964627572629037553166229475039228398233780067755378188368751",
+      "remainingCofactorDigits": 141,
+      "localAttempts": [
+        "trial division found no factor through 20000000",
+        "bounded ECM rungs timed out on the 141-digit residual",
+        "Pollard p-1 completed with no factor at B=5000000, retries=8, seed=49848"
+      ]
+    },
+    {
+      "endpointPrime": 227,
+      "status": "not_certified",
+      "knownPrimeFactors": ["13297"],
+      "remainingCofactor": "2158621073208837786027363911904260682072764780591138289669674695191425848596913494161539405687971909766697293936522954661461138290773751000387599525650547877359298687210385932400891",
+      "remainingCofactorDigits": 181,
+      "localAttempts": [
+        "trial division found no factor through 2000000",
+        "bounded ECM rungs timed out on the 181-digit residual",
+        "Pollard p-1 completed with no factor at B=5000000, retries=8, seed=22748"
+      ]
+    }
+  ],
+  "claims": {
+    "provesRepresentativeRepair": false,
+    "provesExactSquarefree": false,
+    "provesSubclassCoverage": false,
+    "provesAllN": false,
+    "provesCollisionFreeMatching": false,
+    "provesOpenLeafNeedsLedgerAccounting": true
+  },
+  "proofBoundary": "This blocker/open-leaf packet does not prove that p97 or p227 fail; it records that the only bounded trial-squarefree p4217/q61 repair candidates remain exact-uncertified after the local free factor routes already attempted. No repair or availability split may be emitted from this leaf without an exact squarefree certificate.",
+  "recommendedNextAction": "define_p848_frontier_ledger_format_from_p4217_q61_open_leaf",
+  "nextTheoremMove": "Promote the p4217/q61 exact-factorization boundary into the finite frontier ledger format: typed open leaves, unavailable complements, closed repair handoffs, deterministic square-obstruction children, and blocker states.",
+  "verificationCommand": "node --test test/p848-endpoint-menu-compiler.test.js test/p848-282-alignment-obstruction-packet.test.js"
+}

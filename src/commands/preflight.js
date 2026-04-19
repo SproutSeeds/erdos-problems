@@ -49,6 +49,12 @@ export function runPreflightCommand(args) {
     if (report.researchStack.compute.hardwareDoctorCommand) {
       console.log(`  - Hardware doctor: ${report.researchStack.compute.hardwareDoctorCommand}`);
     }
+    if (report.researchStack.researchApi) {
+      console.log(`  - Research API status: ${report.researchStack.researchApi.statusCommand}`);
+      console.log(`  - Research API plan: ${report.researchStack.researchApi.planCommand}`);
+      console.log(`  - Research API smoke: ${report.researchStack.researchApi.openaiSmokeCommand}`);
+      console.log(`  - Research API usage: ${report.researchStack.researchApi.usageCommand}`);
+    }
     console.log(`  - Canonical writeback: ${report.researchStack.writeback.packagedRefreshCommand ?? '(none)'}`);
   }
   console.log('Checks:');

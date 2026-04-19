@@ -1,0 +1,180 @@
+{
+  "schema": "erdos.number_theory.p848_frontier_transition_rule_packet/1",
+  "generatedAt": "2026-04-17T05:29:11Z",
+  "problemId": 848,
+  "title": "P848 Frontier Transition Rule v0",
+  "sourceFormatPacket": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_FRONTIER_LEDGER_FORMAT_PACKET.json",
+  "status": "transition_rule_v0_rank_refined_current_ledger",
+  "theoremObject": {
+    "id": "p848_frontier_transition_rule_v0",
+    "status": "proved_for_current_typed_ledger_not_global",
+    "statement": "For the current Problem 848 frontier ledger, every recorded transition is one of: an exact finite partition into ledgered child obligations, an exact-certified repair precondition, a deterministic square-obstruction child, an explicit unavailable-complement open leaf, or a blocker/open leaf. No transition is allowed to turn bounded trial evidence into all-N closure.",
+    "notGlobalClosure": "This proves the transition discipline for the current ledger shape and refines the rank used by the ledger. It does not prove the endpoint availability staircase theorem, does not cover unavailable complements, and does not decide Problem 848."
+  },
+  "rankRefinement": {
+    "id": "P848ObligationRankV1",
+    "status": "defined_for_current_ledger_cases",
+    "rankType": "finite_lexicographic_multiset_of_obligation_tokens",
+    "lexicographicCoordinates": [
+      "source_class_pending_partition",
+      "partitioned_available_child_pending",
+      "partitioned_unavailable_complement_pending",
+      "exact_factorization_boundary_pending",
+      "uncertified_repair_candidate_pending",
+      "blocker_or_terminal_leaf_recorded"
+    ],
+    "tokenLevels": [
+      {
+        "level": 5,
+        "token": "source_class_pending_partition",
+        "meaning": "A source class has a candidate endpoint rule but has not yet been exactly partitioned into available residues and unavailable complement."
+      },
+      {
+        "level": 4,
+        "token": "partitioned_available_child_pending",
+        "meaning": "A finite available-residue child has been emitted and must be closed, repaired, obstructed, or ledgered."
+      },
+      {
+        "level": 4,
+        "token": "partitioned_unavailable_complement_pending",
+        "meaning": "The unavailable residue complement is exact and must be covered by a separate theorem, impossibility argument, or explicit open ledger leaf."
+      },
+      {
+        "level": 3,
+        "token": "exact_factorization_boundary_pending",
+        "meaning": "A representative repair candidate exists but exact squarefree certification is incomplete."
+      },
+      {
+        "level": 2,
+        "token": "uncertified_repair_candidate_pending",
+        "meaning": "A trial-squarefree endpoint candidate is tracked but cannot be used as a repair handoff."
+      },
+      {
+        "level": 1,
+        "token": "blocker_or_terminal_leaf_recorded",
+        "meaning": "The branch is explicitly terminal for the current local/free loop or blocked/open without an all-N closure claim."
+      }
+    ],
+    "decreaseClaim": "Each rule below either consumes a higher-level token and emits only finite lower-level tokens, or records an explicit blocker/open leaf. The global proof still needs a theorem that bounds or covers the repeated creation of new source-class tokens across the whole endpoint staircase."
+  },
+  "caseProofs": [
+    {
+      "case": "availability_partition",
+      "status": "proved_for_current_p4217_split",
+      "inputToken": "source_class_pending_partition",
+      "outputTokens": [
+        "partitioned_available_child_pending",
+        "partitioned_unavailable_complement_pending"
+      ],
+      "evidence": {
+        "packet": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DYNAMIC_MARGIN_PROOFS/P848_q17_p107_q89_p4217_availability_split.json",
+        "period": "17783089",
+        "availableResidues": "1140",
+        "unavailableResidues": "17781949",
+        "partitionedResidues": "17783089"
+      },
+      "proof": "The availability split records availableResidueCount + unavailableResidueCount = period, so the source residue class is exactly partitioned into a finite available child set and a finite unavailable complement. This is a local partition, not closure."
+    },
+    {
+      "case": "square_obstruction_child",
+      "status": "proved_for_current_p4217_q61_child",
+      "inputToken": "partitioned_available_child_pending",
+      "outputTokens": [
+        "exact_factorization_boundary_pending"
+      ],
+      "evidence": {
+        "obstructionPrime": 61,
+        "obstructionSquare": 3721,
+        "childCongruence": "t == 42163704019 mod 66170874169",
+        "boundaryPacket": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DYNAMIC_MARGIN_PROOFS/P848_q17_p4217_q61_repair_candidate_factorization_boundary.json"
+      },
+      "proof": "The first available p4217 child is deterministically identified by the lifted 61^2 obstruction and is then routed to the exact-factorization boundary for any possible repair. It remains open until repaired, obstructed, or ledgered."
+    },
+    {
+      "case": "repair_handoff",
+      "status": "precondition_proved_no_current_handoff",
+      "inputToken": "uncertified_repair_candidate_pending",
+      "outputTokens": [],
+      "evidence": {
+        "requiredPrecondition": "exact_squarefree_factor_certificate",
+        "currentCandidates": [
+          97,
+          227
+        ],
+        "currentCertificateStatus": "not_certified"
+      },
+      "proof": "A repair handoff may only be emitted from an exact squarefree factor certificate. The p97 and p227 candidates remain uncertified, so the transition rule forbids treating either bounded trial survivor as a repair."
+    },
+    {
+      "case": "factorization_boundary_to_blocker",
+      "status": "proved_for_current_p4217_q61_boundary",
+      "inputToken": "exact_factorization_boundary_pending",
+      "outputTokens": [
+        "blocker_or_terminal_leaf_recorded"
+      ],
+      "evidence": {
+        "boundaryPacket": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DYNAMIC_MARGIN_PROOFS/P848_q17_p4217_q61_repair_candidate_factorization_boundary.json",
+        "blockerPacket": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DYNAMIC_MARGIN_PROOFS/P848_q17_p4217_q61_factorization_blocker_open_leaf.json"
+      },
+      "proof": "The blocker/open-leaf packet preserves the failed bounded factor routes and explicitly refuses to claim candidate failure. This consumes the local exact-factorization boundary as a ledgered blocker for the current free/local loop."
+    },
+    {
+      "case": "unavailable_complement",
+      "status": "ledgered_open_not_covered",
+      "inputToken": "partitioned_unavailable_complement_pending",
+      "outputTokens": [
+        "partitioned_unavailable_complement_pending"
+      ],
+      "evidence": {
+        "residueCount": "17781949",
+        "sourcePacket": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DYNAMIC_MARGIN_PROOFS/P848_q17_p107_q89_p4217_availability_split.json"
+      },
+      "proof": "The unavailable complement is finite and exactly measured, but no cover or impossibility theorem is proved here. The transition rule requires it to remain an explicit open ledger obligation."
+    }
+  ],
+  "currentLedgerAudit": {
+    "status": "all_current_entries_classified",
+    "entries": [
+      {
+        "entryId": "latest_endpoint_availability_partition",
+        "case": "availability_partition",
+        "classification": "finite_partition_accounted"
+      },
+      {
+        "entryId": "latest_available_square_obstruction_child",
+        "case": "square_obstruction_child",
+        "classification": "deterministic_child_then_factor_boundary"
+      },
+      {
+        "entryId": "latest_unavailable_complement",
+        "case": "unavailable_complement",
+        "classification": "explicit_open_leaf"
+      },
+      {
+        "entryId": "current_exact_factorization_boundary",
+        "case": "factorization_boundary_to_blocker",
+        "classification": "ledgered_blocker"
+      },
+      {
+        "entryId": "repair_candidate_p97",
+        "case": "repair_handoff",
+        "classification": "handoff_forbidden_until_exact_certificate"
+      },
+      {
+        "entryId": "repair_candidate_p227",
+        "case": "repair_handoff",
+        "classification": "handoff_forbidden_until_exact_certificate"
+      },
+      {
+        "entryId": "p4217_q61_factorization_blocker_open_leaf",
+        "case": "factorization_boundary_to_blocker",
+        "classification": "terminal_for_current_local_loop"
+      }
+    ]
+  },
+  "proofBoundary": "This packet proves/refines the ledger transition discipline for the current p4217/q61 frontier. It does not cover the p4217 unavailable complement, does not prove a global decreasing endpoint measure, does not bind the synthetic 282/841 row to a live family-menu row, and does not decide Problem 848.",
+  "recommendedNextAction": "prove_p848_endpoint_availability_staircase_theorem_or_unavailable_complement_cover",
+  "verification": {
+    "command": "node --test test/cli.test.js test/p848-endpoint-menu-compiler.test.js test/p848-282-alignment-obstruction-packet.test.js"
+  }
+}

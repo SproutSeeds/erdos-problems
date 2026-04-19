@@ -1,0 +1,115 @@
+{
+  "schema": "erdos.number_theory.p848_corrected_square_moduli_dual_sieve_or_union_hitting_threshold_packet/1",
+  "packetId": "P848_CORRECTED_SQUARE_MODULI_DUAL_SIEVE_OR_UNION_HITTING_THRESHOLD_PACKET",
+  "problemId": 848,
+  "generatedAt": "2026-04-18T05:10:56.550Z",
+  "status": "corrected_square_moduli_sieve_no_go_current_sources_handoff_to_p4217",
+  "target": "derive_p848_corrected_square_moduli_dual_sieve_or_union_hitting_threshold_packet",
+  "recommendedNextAction": "prepare_p848_p4217_complement_theorem_wedge_or_import_source_cover",
+  "coversPrimaryNextAction": {
+    "stepId": "derive_p848_corrected_square_moduli_dual_sieve_or_union_hitting_threshold_packet",
+    "status": "blocked_by_current_source_no_go_handoff_to_p4217_theorem_wedge",
+    "reconciliationPacket": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_TAO_VAN_DOORN_THRESHOLD_PIVOT_RECONCILIATION_PACKET.json",
+    "reconciliationSha256": "78411015adee54e041a59b537f94af2754a4177a6777d2386ce6337483d7ca7a"
+  },
+  "inputs": {
+    "reconciliation": {
+      "relativePath": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_TAO_VAN_DOORN_THRESHOLD_PIVOT_RECONCILIATION_PACKET.json",
+      "sha256": "78411015adee54e041a59b537f94af2754a4177a6777d2386ce6337483d7ca7a",
+      "status": "tvd_threshold_pivot_reconciled_direct_route_blocked_dual_sieve_required",
+      "recommendedNextAction": "derive_p848_corrected_square_moduli_dual_sieve_or_union_hitting_threshold_packet"
+    },
+    "directionAudit": {
+      "relativePath": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_TAO_VAN_DOORN_LARGE_SIEVE_DIRECTION_AUDIT_PACKET.json",
+      "sha256": "f6259a45f9708010e3d619534d6febef08df02b9b43f98e2831c9352549d0b08",
+      "status": "large_sieve_reference_verified_direction_mismatch_blocks_threshold_collapse_claim",
+      "claimStatus": "blocked_not_adopted"
+    },
+    "p4217FallbackBlocker": {
+      "relativePath": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_COMPLEMENT_COVER_IMPOSSIBILITY_BLOCKER_PACKET.json",
+      "sha256": "7d74136f8ecbe4703d3734e61df6114ce7e5d3dd287826dc7151513afb812aee",
+      "status": "p4217_complement_cover_impossibility_blocker_emitted_no_local_cover_theorem",
+      "recommendedNextAction": "prepare_p848_p4217_complement_theorem_wedge_or_import_source_cover"
+    },
+    "lemma21ExplicitBound": {
+      "relativePath": "packs/number-theory/problems/848/LEMMA21_EXPLICIT_BOUND.md",
+      "sha256": "2216543d63928e02e43f0db65a87ffd06a9427ea0bb7c6af1fb9d5641f6dd71e",
+      "largePrimeTailBottleneckNamed": true
+    },
+    "lemma22ExplicitBound": {
+      "relativePath": "packs/number-theory/problems/848/LEMMA22_EXPLICIT_BOUND.md",
+      "sha256": "dff62d3da1240498178a676f7d2a0ac817b22b8f75c9792c03d85c7101da956f",
+      "available": true
+    }
+  },
+  "correctedRouteAudit": {
+    "verdict": "no_current_source_valid_threshold_route",
+    "universeIdentity": "For a fixed progression/domain U and obstruction union H, the avoiding set is A = U \\ H, so |H| = |U| - |A|.",
+    "tvdDirection": "Tao-van Doorn Theorem 16 gives an upper bound for |A| when A avoids residue classes modulo p^2.",
+    "requiredDirection": "Sawhney Lemma 2.1 and Lemma 2.2 need an upper bound for |H|, the union/hitting side.",
+    "dualityFailure": "Combining |A| <= B with |H| = |U| - |A| gives |H| >= |U| - B, a lower bound on the hitting side. It does not give the required upper bound.",
+    "missingCorrectiveObject": "A lower bound for the avoiding set, a direct upper-bound sieve for the union/hitting side, or a different explicit threshold theorem with constants strong enough for the Sawhney weakest branch."
+  },
+  "candidateRouteDecisions": [
+    {
+      "routeId": "direct_tao_van_doorn_avoiding_bound",
+      "status": "blocked",
+      "reason": "Wrong inequality direction for Sawhney Lemma 2.1/Lemma 2.2 union upper bounds."
+    },
+    {
+      "routeId": "complement_duality_from_avoiding_upper_bound",
+      "status": "blocked",
+      "reason": "The complement identity turns the available avoiding upper bound into a hitting lower bound, not a hitting upper bound."
+    },
+    {
+      "routeId": "denominator_threshold_shortcut",
+      "status": "blocked",
+      "reason": "The largest recomputed A* sum h(q) is 1.0280946719241701, and the largest Lemma 2.2-style sum h(q) in the checked table is 1.1843175651289024; neither is near the direct 25-scale denominator needed for a naive 1/25 bound."
+    },
+    {
+      "routeId": "existing_lemma21_union_bound_repair",
+      "status": "blocked_by_existing_bottleneck",
+      "reason": "The local Lemma 2.1 explicit-bound surface already identifies the large-prime tail as the bottleneck for the union-bound/inclusion-exclusion route."
+    },
+    {
+      "routeId": "external_or_imported_union_hitting_square_moduli_sieve",
+      "status": "not_present_in_current_repo_sources",
+      "reason": "This packet does not rule such a theorem out globally, but no repo-owned source has supplied it with verified hypotheses/constants."
+    }
+  ],
+  "handoffDecision": {
+    "decision": "close_current_tvd_shortcut_and_release_p4217_theorem_wedge",
+    "reason": "The analytic shortcut is now atomized enough to know what is missing; spending more q-frontier compute under a false threshold-collapse premise would be worse than returning to the already named p4217 theorem-source gap.",
+    "fallbackPacket": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_COMPLEMENT_COVER_IMPOSSIBILITY_BLOCKER_PACKET.json",
+    "releasedAction": "prepare_p848_p4217_complement_theorem_wedge_or_import_source_cover",
+    "forbiddenUntilNewAnalyticSource": [
+      "claim_tao_van_doorn_directly_lowers_N0",
+      "claim_exact_verification_plus_tvd_decides_848",
+      "resume_q_frontier_work_because_of_tvd_without_a_new_union_hitting_theorem",
+      "make_live_paid_orp_openai_call_without_usage_guard_and_high_leverage_question"
+    ]
+  },
+  "oneNextAction": {
+    "stepId": "prepare_p848_p4217_complement_theorem_wedge_or_import_source_cover",
+    "action": "Prepare a p4217-specific theorem wedge or import/source-cover audit for the missing complement cover/impossibility theorem, without live paid execution by default.",
+    "finiteDenominatorOrRankToken": "p848_corrected_square_moduli_sieve_no_go_handoff_to_p4217_theorem_wedge",
+    "command": "erdos orp research ask 848 --question \"Problem 848 p4217 complement theorem wedge: Given the exact p4217 unavailable-complement parameterization, p43 uniform obstruction, p61 CRT refinement, q-cover nonconvergence blocker, and all-N residual packet, prove or refute a whole-complement cover/impossibility theorem or identify the minimal imported/source theorem needed. Do not use finite selector descent as proof unless it comes with a finite partition or decreasing rank.\" --json"
+  },
+  "claims": {
+    "emitsCorrectedSquareModuliNoGoPacket": true,
+    "closesCurrentAnalyticShortcutFromRepoSources": true,
+    "provesTvdDirectRouteWrongDirectionForSawhneyUnionBound": true,
+    "provesComplementDualityDoesNotRepairDirection": true,
+    "preservesPossibilityOfFutureExternalUnionHittingTheorem": true,
+    "releasesP4217TheoremWedgeFallback": true,
+    "madeNewPaidCall": false,
+    "respectsNoPaidByDefault": true,
+    "provesNoSquareModuliSieveExistsGlobally": false,
+    "provesUnionHittingThresholdBound": false,
+    "provesExplicitN0": false,
+    "extendsExactVerifier": false,
+    "decidesProblem848": false
+  },
+  "proofBoundary": "This packet closes only the current Tao-van-Doorn threshold shortcut from repo-owned sources. It proves that the available avoiding-set upper bound and complement identity do not supply the needed union/hitting upper bound, and it records that no corrected threshold theorem is currently present locally. It does not rule out a future imported square-moduli union/hitting theorem, does not compute a valid N0, and does not decide Problem 848.",
+  "packetPath": "/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_CORRECTED_SQUARE_MODULI_DUAL_SIEVE_OR_UNION_HITTING_THRESHOLD_PACKET.json"
+}

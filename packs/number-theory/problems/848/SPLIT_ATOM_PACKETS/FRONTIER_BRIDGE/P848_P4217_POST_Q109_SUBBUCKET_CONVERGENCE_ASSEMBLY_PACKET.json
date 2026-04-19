@@ -1,0 +1,125 @@
+{
+  "schema": "erdos.number_theory.p848_p4217_post_q109_subbucket_convergence_assembly_packet/1",
+  "problemId": 848,
+  "generatedAt": "2026-04-17T14:06:46Z",
+  "status": "post_q109_subbucket_convergence_assembly_selects_q_avoiding_batch_cover",
+  "target": "run_p848_convergence_assembly_after_q109_subbucket_boundaries",
+  "coversPrimaryNextAction": {
+    "stepId": "run_p848_convergence_assembly_after_q109_subbucket_boundaries",
+    "status": "covered_by_post_q109_subbucket_convergence_assembly"
+  },
+  "sourcePackets": [
+    "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_P443_Q97_P479_AVAILABLE_OBSTRUCTION_BUCKET_BOUNDARY_PACKET.json",
+    "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_P443_Q97_P479_Q109_NONUNIFORM_BUCKET_STRUCTURE_PACKET.json",
+    "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_POST_P479_OBSTRUCTION_BUCKET_BOUNDARY_CONVERGENCE_ASSEMBLY_PACKET.json"
+  ],
+  "frontierComparison": {
+    "measureName": "open_frontier_obligation_count",
+    "previousRefreshValueBeforeQ109Structure": 42,
+    "currentRefreshValueAfterQ109Structure": 43,
+    "delta": 1,
+    "status": "increased_but_q109_token_was_consumed",
+    "interpretation": "The open ledger count increased when the q109 boundary was split into exact regular and singular subbucket obligations. That is not global convergence by itself. The useful finite progress is that the single nonuniform q109 bucket token has been consumed; the next step must recombine the resulting q-avoiding classes with the 10 existing partial buckets instead of descending into singleton q children."
+  },
+  "assembledPieces": [
+    {
+      "pieceId": "p479_terminal_obstruction_buckets",
+      "status": "terminally_closed_at_bucket_boundary",
+      "claim": "The bucket-boundary packet closes 19 full-family obstruction-prime buckets covering 422 p479-available residue rows.",
+      "boundary": "These terminal closures do not close the q109 subbuckets, the 10 partial buckets, p479-unavailable residues, q97, p443-unavailable, or the p4217 complement."
+    },
+    {
+      "pieceId": "p479_partial_two_root_buckets",
+      "status": "exact_open_boundaries",
+      "claim": "The same bucket-boundary packet records 10 partial two-root buckets covering 367 rows, 734 square-obstruction root children, and 5564177 q-avoiding descendant classes.",
+      "boundary": "The q-avoiding descendants are open boundary classes, not closures."
+    },
+    {
+      "pieceId": "q109_regular_subbucket",
+      "status": "exact_open_boundary",
+      "claim": "The q109 structure packet proves 350 q109 rows have invertible family step modulo 109^2, nonsingular discriminant modulo 109, exactly two root children per row, 700 root children total, and 4157650 q-avoiding descendant classes.",
+      "boundary": "The regular q109 q-avoiding classes remain open."
+    },
+    {
+      "pieceId": "q109_singular_subbucket",
+      "status": "exact_open_boundary",
+      "claim": "The q109 structure packet isolates the unique singular row residue 171005, k=950, delta=-23764 == -2 mod 109^2, with 109 root children and 11772 q-avoiding descendant classes.",
+      "boundary": "The singular q109 q-avoiding classes remain open."
+    },
+    {
+      "pieceId": "post_q109_batch_frontier",
+      "status": "assembled_for_batch_handoff",
+      "claim": "After q109 subbucketing, the remaining p479-available nonterminal frontier is 12 exact q-avoiding boundary families: 10 partial buckets plus q109 regular and q109 singular, covering 718 rows, 1543 root children, and 9733599 q-avoiding descendant classes.",
+      "boundary": "The assembled frontier is a finite next token, not a closure theorem."
+    }
+  ],
+  "supportedClaim": "For the selected p443/q97/p479-available branch, every one of the 1140 available residue rows is now either terminally closed by a full-family square obstruction bucket or assigned to an exact q-avoiding boundary family. The nonterminal boundary is finite and consists of 12 batchable q-avoiding families.",
+  "finiteMeasureOrNoMeasureYet": {
+    "globalFiniteMeasureDecreased": false,
+    "consumedFiniteToken": {
+      "tokenId": "p443_q97_p479_nonuniform_obstruction_bucket_q109",
+      "obstructionPrime": 109,
+      "obstructionSquare": 11881,
+      "residueClassCount": 351,
+      "status": "consumed_by_regular_and_singular_subbucket_boundaries"
+    },
+    "closedTerminalToken": {
+      "tokenId": "p443_q97_p479_terminal_full_family_square_obstruction_buckets",
+      "bucketCount": 19,
+      "residueClassCount": 422,
+      "status": "terminally_closed_at_bucket_boundary"
+    },
+    "nextFiniteToken": {
+      "tokenId": "p443_q97_p479_partial_and_q109_q_avoiding_boundary_families",
+      "boundaryFamilyCount": 12,
+      "sourcePartialBucketCount": 10,
+      "q109SubbucketCount": 2,
+      "residueClassCount": 718,
+      "rootChildCount": 1543,
+      "qAvoidingClassCount": 9733599,
+      "rankDecreaseIfCompleted": "A batch q-avoiding cover, structural decomposition, or exact blocker over these 12 boundary families would replace 9733599 descendant classes with a theorem-facing cover or a smaller ranked boundary, without q-child singleton descent."
+    }
+  },
+  "compressionCandidate": {
+    "kind": "batch_q_avoiding_cover_or_ranked_boundary",
+    "name": "p479_partial_and_q109_q_avoiding_boundary_family_cover",
+    "coveredFamily": "The complete nonterminal p479-available q-avoiding boundary after bucket compression and q109 subbucketing: 10 partial two-root buckets plus q109 regular and q109 singular.",
+    "whyThisCompresses": "The remaining work is no longer a single obstruction-prime bucket problem. All open classes are q-avoiding descendants with explicit root-count and boundary-family data, so a batch cover can search for a shared obstruction, structural decomposition, or ranked successor boundary across the whole open q-avoiding frontier.",
+    "whyNotSingletonDescent": "Descending into q109, q127, or any individual q-child would leave the 12-family q-avoiding theorem surface unassembled and recreate the sibling-ladder anti-pattern.",
+    "failureBoundary": "If no shared cover exists, emit a deterministic ranked boundary packet listing each of the 12 families, the exact denominator/rank token it consumes, the q-avoiding counts, and the next structural obstruction or blocker."
+  },
+  "proofBoundary": "This convergence assembly consumes only the post-q109 assembly obligation and selects the next non-selector batch handoff. It does not close the q109 regular or singular q-avoiding descendants, the 10 partial buckets, the p479-available branch, the p479-unavailable complement, the q97 child, p443-unavailable, q101-avoiding, other p61-available, p61-unavailable, the wider p4217 complement, collision-free matching, or Problem 848.",
+  "oneNextAction": {
+    "stepId": "derive_p848_p4217_p443_q97_p479_partial_and_q109_q_avoiding_batch_cover_or_emit_ranked_boundary",
+    "action": "Batch the 12 q-avoiding boundary families from the 10 partial buckets plus q109 regular/singular subbuckets and either prove a shared q-avoiding cover, emit a structural decomposition, or write an exact ranked boundary packet.",
+    "coveredFamily": "The complete post-bucket, post-q109 nonterminal p479-available q-avoiding frontier: 718 residue rows, 1543 root children, and 9733599 q-avoiding descendant classes.",
+    "finiteDenominatorOrRankToken": "Finite token p443_q97_p479_partial_and_q109_q_avoiding_boundary_families with 12 boundary families.",
+    "failureBoundary": "If the batch cover does not close or structurally decompose the q-avoiding frontier, emit a deterministic ranked boundary packet with exact per-family counts, denominator/rank tokens, and successor/blocker conditions.",
+    "whyCheaperThanSingleSelector": "A single q-child repair would address only one descendant while the assembled token covers all 12 remaining q-avoiding families. The batch handoff is the smallest step that can reduce the frontier as a family.",
+    "completionRule": "A batch q-avoiding cover, structural decomposition, or ranked boundary packet must account for all 12 boundary families and must not claim p479-available, p479-unavailable, q97, p443-unavailable, p4217, or all-n closure unless a theorem packet proves it.",
+    "command": "node --check src/runtime/theorem-loop.js && node --check src/runtime/problem-progress.js && node --test test/p848-282-alignment-obstruction-packet.test.js"
+  },
+  "oneVerificationCommand": "node --check src/runtime/theorem-loop.js && node --check src/runtime/problem-progress.js && node --test test/p848-282-alignment-obstruction-packet.test.js",
+  "recommendedNextAction": "derive_p848_p4217_p443_q97_p479_partial_and_q109_q_avoiding_batch_cover_or_emit_ranked_boundary",
+  "nextTheoremMove": "Run a batch q-avoiding cover, structural decomposition, or ranked boundary over the 12 exact post-bucket/post-q109 boundary families before any singleton q-child descent.",
+  "claims": {
+    "runsPostQ109SubbucketConvergenceAssembly": true,
+    "selectsQAvoidingBatchCoverInsteadOfQChildDescent": true,
+    "consumesQ109StructureIntoAssembly": true,
+    "namesWholeCoveredFamily": true,
+    "namesFiniteRankToken": true,
+    "opensFreshFallbackSelector": false,
+    "descendsIntoQ109Singleton": false,
+    "descendsIntoQ127Singleton": false,
+    "descendsIntoSingletonQChild": false,
+    "provesTerminalBucketClosures": true,
+    "provesQ109BucketClosure": false,
+    "provesPartialBucketClosure": false,
+    "provesP479AvailableFamilyCoverage": false,
+    "provesP479UnavailableComplementClosed": false,
+    "provesQ97ChildCoverage": false,
+    "provesP443UnavailableComplementClosed": false,
+    "provesP4217ComplementCoverage": false,
+    "provesAllN": false
+  }
+}

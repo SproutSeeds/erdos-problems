@@ -1,0 +1,717 @@
+{
+  "schema": "erdos.number_theory.p848_282_alignment_obstruction_packet/1",
+  "generatedAt": "2026-04-17T09:06:46.653Z",
+  "problemId": 848,
+  "status": "mechanism_candidate_family_row_reconstructed",
+  "representative": 137720141,
+  "sharedPrefix": [
+    7,
+    32,
+    57,
+    82,
+    132,
+    182
+  ],
+  "targetContinuation": 282,
+  "comparisonContinuations": [
+    332,
+    432,
+    782,
+    832
+  ],
+  "sourceBridge": "/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SEARCH_THEOREM_BRIDGE.json",
+  "sourceAudit": {
+    "familyMenuSourcePath": "output/frontier-engine-local/p848-anchor-ladder/live-frontier-sync/2026-04-05/SIX_PREFIX_TWENTY_FOUR_FAMILY_MENU.json",
+    "familyMenuSourceExists": true,
+    "targetRepresentativeInSharedPrefixLedger": false,
+    "precedingLedgerPacket": {
+      "n": 136702637,
+      "tuple_key": "4, 43^2, 11^2, 9, 7^3, 19^2",
+      "square_moduli": [
+        4,
+        1849,
+        121,
+        9,
+        49,
+        361
+      ],
+      "new_square_moduli": [
+        1849
+      ],
+      "packet_path": "output/frontier-engine-local/p848-anchor-ladder/live-frontier-sync/2026-04-05/chunks/six_anchor_frontier_after_twenty_third_failure/ANCHOR_FIRST_FAILURE_7_32_57_82_132_182_136682744_to_137682743.json",
+      "singleton_crt_path": "output/frontier-engine-local/p848-anchor-ladder/live-frontier-sync/2026-04-05/ANCHOR_SINGLETON_CRT_136702637.json",
+      "singleton_crt_modulus": null,
+      "singleton_crt_residue": null
+    },
+    "targetLedgerPacket": null
+  },
+  "trackedTail": {
+    "continuation": 282,
+    "observed_status": "fails",
+    "observed_clean_through": null,
+    "observed_first_failure": 137720141,
+    "repaired_known_packets": 25,
+    "missed_known_packets": 1,
+    "repaired_known_family_count": 25,
+    "repaired_predicted_family_count": 244,
+    "first_missed_predicted_representatives": [
+      137720141,
+      210290957,
+      287180657,
+      287180657,
+      517124182,
+      525631657,
+      1229502607,
+      1654841707
+    ],
+    "effective_clean_through": 137720140,
+    "effective_first_failure": 137720141,
+    "extension_mode": "historical_failure_locked",
+    "direct_scan_performed": false,
+    "direct_scan_skipped": true,
+    "plus50_alignment": true
+  },
+  "comparisonTailRows": [
+    {
+      "continuation": 332,
+      "observed_status": "clean_through",
+      "observed_clean_through": 250000000,
+      "observed_first_failure": null,
+      "repaired_known_packets": 26,
+      "missed_known_packets": 0,
+      "repaired_known_family_count": 25,
+      "repaired_predicted_family_count": 240,
+      "first_missed_predicted_representatives": [
+        210290957,
+        287180657,
+        287180657,
+        517124182,
+        525631657,
+        657348925,
+        695323423,
+        885528547
+      ],
+      "effective_clean_through": 250050000,
+      "effective_first_failure": null,
+      "extension_mode": "contiguous_clean_extension",
+      "direct_scan_performed": true,
+      "direct_scan_skipped": false,
+      "plus50_alignment": true
+    },
+    {
+      "continuation": 432,
+      "observed_status": "unseen",
+      "observed_clean_through": null,
+      "observed_first_failure": null,
+      "repaired_known_packets": 26,
+      "missed_known_packets": 0,
+      "repaired_known_family_count": 25,
+      "repaired_predicted_family_count": 242,
+      "first_missed_predicted_representatives": [
+        210290957,
+        287180657,
+        287180657,
+        457148843,
+        517124182,
+        525631657,
+        770426585,
+        1229502607
+      ],
+      "effective_clean_through": 250050000,
+      "effective_first_failure": null,
+      "extension_mode": "direct_window_only",
+      "direct_scan_performed": true,
+      "direct_scan_skipped": false,
+      "plus50_alignment": true
+    },
+    {
+      "continuation": 782,
+      "observed_status": "unseen",
+      "observed_clean_through": null,
+      "observed_first_failure": null,
+      "repaired_known_packets": 26,
+      "missed_known_packets": 0,
+      "repaired_known_family_count": 25,
+      "repaired_predicted_family_count": 242,
+      "first_missed_predicted_representatives": [
+        210290957,
+        287180657,
+        287180657,
+        517124182,
+        525631657,
+        695323423,
+        1079001739,
+        1229502607
+      ],
+      "effective_clean_through": 250050000,
+      "effective_first_failure": null,
+      "extension_mode": "direct_window_only",
+      "direct_scan_performed": true,
+      "direct_scan_skipped": false,
+      "plus50_alignment": true
+    },
+    {
+      "continuation": 832,
+      "observed_status": "unseen",
+      "observed_clean_through": null,
+      "observed_first_failure": null,
+      "repaired_known_packets": 26,
+      "missed_known_packets": 0,
+      "repaired_known_family_count": 25,
+      "repaired_predicted_family_count": 242,
+      "first_missed_predicted_representatives": [
+        210290957,
+        287180657,
+        287180657,
+        517124182,
+        525631657,
+        1229502607,
+        1446717451,
+        1654841707
+      ],
+      "effective_clean_through": 250050000,
+      "effective_first_failure": null,
+      "extension_mode": "direct_window_only",
+      "direct_scan_performed": true,
+      "direct_scan_skipped": false,
+      "plus50_alignment": true
+    }
+  ],
+  "obstructionWitnesses": {
+    "anchors": [
+      {
+        "value": 7,
+        "productPlusOne": "964040988",
+        "squareDivisorPrime": 2,
+        "squareDivisor": 4,
+        "squarefree": false,
+        "status": "non_squarefree"
+      },
+      {
+        "value": 32,
+        "productPlusOne": "4407044513",
+        "squareDivisorPrime": 23,
+        "squareDivisor": 529,
+        "squarefree": false,
+        "status": "non_squarefree"
+      },
+      {
+        "value": 57,
+        "productPlusOne": "7850048038",
+        "squareDivisorPrime": 7,
+        "squareDivisor": 49,
+        "squarefree": false,
+        "status": "non_squarefree"
+      },
+      {
+        "value": 82,
+        "productPlusOne": "11293051563",
+        "squareDivisorPrime": 3,
+        "squareDivisor": 9,
+        "squarefree": false,
+        "status": "non_squarefree"
+      },
+      {
+        "value": 132,
+        "productPlusOne": "18179058613",
+        "squareDivisorPrime": 17,
+        "squareDivisor": 289,
+        "squarefree": false,
+        "status": "non_squarefree"
+      },
+      {
+        "value": 182,
+        "productPlusOne": "25065065663",
+        "squareDivisorPrime": 11,
+        "squareDivisor": 121,
+        "squarefree": false,
+        "status": "non_squarefree"
+      }
+    ],
+    "targetContinuation": {
+      "value": 282,
+      "productPlusOne": "38837079763",
+      "squareDivisorPrime": 29,
+      "squareDivisor": 841,
+      "squarefree": false,
+      "status": "non_squarefree"
+    },
+    "comparisons": [
+      {
+        "value": 332,
+        "productPlusOne": "45723086813",
+        "squareDivisorPrime": null,
+        "squareDivisor": null,
+        "squarefree": true,
+        "status": "squarefree"
+      },
+      {
+        "value": 432,
+        "productPlusOne": "59495100913",
+        "squareDivisorPrime": null,
+        "squareDivisor": null,
+        "squarefree": true,
+        "status": "squarefree"
+      },
+      {
+        "value": 782,
+        "productPlusOne": "107697150263",
+        "squareDivisorPrime": null,
+        "squareDivisor": null,
+        "squarefree": true,
+        "status": "squarefree"
+      },
+      {
+        "value": 832,
+        "productPlusOne": "114583157313",
+        "squareDivisorPrime": null,
+        "squareDivisor": null,
+        "squarefree": true,
+        "status": "squarefree"
+      }
+    ]
+  },
+  "reconstructedCrt": {
+    "anchorClass": {
+      "congruences": [
+        {
+          "value": 7,
+          "modulus": 4,
+          "residue": 1,
+          "expression": "n*7+1 == 0 mod 4"
+        },
+        {
+          "value": 32,
+          "modulus": 529,
+          "residue": 281,
+          "expression": "n*32+1 == 0 mod 529"
+        },
+        {
+          "value": 57,
+          "modulus": 49,
+          "residue": 6,
+          "expression": "n*57+1 == 0 mod 49"
+        },
+        {
+          "value": 82,
+          "modulus": 9,
+          "residue": 8,
+          "expression": "n*82+1 == 0 mod 9"
+        },
+        {
+          "value": 132,
+          "modulus": 289,
+          "residue": 81,
+          "expression": "n*132+1 == 0 mod 289"
+        },
+        {
+          "value": 182,
+          "modulus": 121,
+          "residue": 119,
+          "expression": "n*182+1 == 0 mod 121"
+        }
+      ],
+      "modulus": "32631532164",
+      "residue": "137720141",
+      "representativeMatches": true
+    },
+    "targetContinuationClass": {
+      "congruences": [
+        {
+          "value": 7,
+          "modulus": 4,
+          "residue": 1,
+          "expression": "n*7+1 == 0 mod 4"
+        },
+        {
+          "value": 32,
+          "modulus": 529,
+          "residue": 281,
+          "expression": "n*32+1 == 0 mod 529"
+        },
+        {
+          "value": 57,
+          "modulus": 49,
+          "residue": 6,
+          "expression": "n*57+1 == 0 mod 49"
+        },
+        {
+          "value": 82,
+          "modulus": 9,
+          "residue": 8,
+          "expression": "n*82+1 == 0 mod 9"
+        },
+        {
+          "value": 132,
+          "modulus": 289,
+          "residue": 81,
+          "expression": "n*132+1 == 0 mod 289"
+        },
+        {
+          "value": 182,
+          "modulus": 121,
+          "residue": 119,
+          "expression": "n*182+1 == 0 mod 121"
+        },
+        {
+          "value": 282,
+          "modulus": 841,
+          "residue": 504,
+          "expression": "n*282+1 == 0 mod 841"
+        }
+      ],
+      "modulus": "27443118549924",
+      "residue": "137720141",
+      "representativeMatches": true
+    }
+  },
+  "syntheticFamilyRows": {
+    "anchorOnly": {
+      "source": "regenerated_from_representative_square_witnesses",
+      "representative": 137720141,
+      "tupleKey": "4, 23^2, 7^2, 9, 17^2, 11^2",
+      "squareModuli": [
+        4,
+        529,
+        49,
+        9,
+        289,
+        121
+      ],
+      "values": [
+        7,
+        32,
+        57,
+        82,
+        132,
+        182
+      ],
+      "modulus": "32631532164",
+      "residue": "137720141",
+      "tupleRows": [
+        {
+          "anchor": 7,
+          "productPlusOne": "964040988",
+          "squarePrime": 2,
+          "squareModulus": 4,
+          "residue": 1,
+          "expression": "n*7+1 == 0 mod 4"
+        },
+        {
+          "anchor": 32,
+          "productPlusOne": "4407044513",
+          "squarePrime": 23,
+          "squareModulus": 529,
+          "residue": 281,
+          "expression": "n*32+1 == 0 mod 529"
+        },
+        {
+          "anchor": 57,
+          "productPlusOne": "7850048038",
+          "squarePrime": 7,
+          "squareModulus": 49,
+          "residue": 6,
+          "expression": "n*57+1 == 0 mod 49"
+        },
+        {
+          "anchor": 82,
+          "productPlusOne": "11293051563",
+          "squarePrime": 3,
+          "squareModulus": 9,
+          "residue": 8,
+          "expression": "n*82+1 == 0 mod 9"
+        },
+        {
+          "anchor": 132,
+          "productPlusOne": "18179058613",
+          "squarePrime": 17,
+          "squareModulus": 289,
+          "residue": 81,
+          "expression": "n*132+1 == 0 mod 289"
+        },
+        {
+          "anchor": 182,
+          "productPlusOne": "25065065663",
+          "squarePrime": 11,
+          "squareModulus": 121,
+          "residue": 119,
+          "expression": "n*182+1 == 0 mod 121"
+        }
+      ],
+      "crt": {
+        "modulus": "32631532164",
+        "residue": "137720141"
+      }
+    },
+    "withTargetContinuation": {
+      "source": "regenerated_from_representative_square_witnesses",
+      "representative": 137720141,
+      "tupleKey": "4, 23^2, 7^2, 9, 17^2, 11^2, 29^2",
+      "squareModuli": [
+        4,
+        529,
+        49,
+        9,
+        289,
+        121,
+        841
+      ],
+      "values": [
+        7,
+        32,
+        57,
+        82,
+        132,
+        182,
+        282
+      ],
+      "modulus": "27443118549924",
+      "residue": "137720141",
+      "tupleRows": [
+        {
+          "anchor": 7,
+          "productPlusOne": "964040988",
+          "squarePrime": 2,
+          "squareModulus": 4,
+          "residue": 1,
+          "expression": "n*7+1 == 0 mod 4"
+        },
+        {
+          "anchor": 32,
+          "productPlusOne": "4407044513",
+          "squarePrime": 23,
+          "squareModulus": 529,
+          "residue": 281,
+          "expression": "n*32+1 == 0 mod 529"
+        },
+        {
+          "anchor": 57,
+          "productPlusOne": "7850048038",
+          "squarePrime": 7,
+          "squareModulus": 49,
+          "residue": 6,
+          "expression": "n*57+1 == 0 mod 49"
+        },
+        {
+          "anchor": 82,
+          "productPlusOne": "11293051563",
+          "squarePrime": 3,
+          "squareModulus": 9,
+          "residue": 8,
+          "expression": "n*82+1 == 0 mod 9"
+        },
+        {
+          "anchor": 132,
+          "productPlusOne": "18179058613",
+          "squarePrime": 17,
+          "squareModulus": 289,
+          "residue": 81,
+          "expression": "n*132+1 == 0 mod 289"
+        },
+        {
+          "anchor": 182,
+          "productPlusOne": "25065065663",
+          "squarePrime": 11,
+          "squareModulus": 121,
+          "residue": 119,
+          "expression": "n*182+1 == 0 mod 121"
+        },
+        {
+          "anchor": 282,
+          "productPlusOne": "38837079763",
+          "squarePrime": 29,
+          "squareModulus": 841,
+          "residue": 504,
+          "expression": "n*282+1 == 0 mod 841"
+        }
+      ],
+      "crt": {
+        "modulus": "27443118549924",
+        "residue": "137720141"
+      }
+    }
+  },
+  "recoveredFamilyRow": {
+    "source": "regenerated_from_representative_square_witnesses",
+    "representative": 137720141,
+    "tupleKey": "4, 23^2, 7^2, 9, 17^2, 11^2",
+    "squareModuli": [
+      4,
+      529,
+      49,
+      9,
+      289,
+      121
+    ],
+    "values": [
+      7,
+      32,
+      57,
+      82,
+      132,
+      182
+    ],
+    "modulus": "32631532164",
+    "residue": "137720141",
+    "tupleRows": [
+      {
+        "anchor": 7,
+        "productPlusOne": "964040988",
+        "squarePrime": 2,
+        "squareModulus": 4,
+        "residue": 1,
+        "expression": "n*7+1 == 0 mod 4"
+      },
+      {
+        "anchor": 32,
+        "productPlusOne": "4407044513",
+        "squarePrime": 23,
+        "squareModulus": 529,
+        "residue": 281,
+        "expression": "n*32+1 == 0 mod 529"
+      },
+      {
+        "anchor": 57,
+        "productPlusOne": "7850048038",
+        "squarePrime": 7,
+        "squareModulus": 49,
+        "residue": 6,
+        "expression": "n*57+1 == 0 mod 49"
+      },
+      {
+        "anchor": 82,
+        "productPlusOne": "11293051563",
+        "squarePrime": 3,
+        "squareModulus": 9,
+        "residue": 8,
+        "expression": "n*82+1 == 0 mod 9"
+      },
+      {
+        "anchor": 132,
+        "productPlusOne": "18179058613",
+        "squarePrime": 17,
+        "squareModulus": 289,
+        "residue": 81,
+        "expression": "n*132+1 == 0 mod 289"
+      },
+      {
+        "anchor": 182,
+        "productPlusOne": "25065065663",
+        "squarePrime": 11,
+        "squareModulus": 121,
+        "residue": 119,
+        "expression": "n*182+1 == 0 mod 121"
+      }
+    ],
+    "crt": {
+      "modulus": "32631532164",
+      "residue": "137720141"
+    },
+    "repairRows": [
+      {
+        "anchor": 282,
+        "value": 38837079763,
+        "productPlusOne": "38837079763",
+        "squarefree": false,
+        "squareWitnesses": [
+          {
+            "squarePrime": 29,
+            "squareModulus": 841,
+            "quotient": "46179643"
+          }
+        ]
+      },
+      {
+        "anchor": 332,
+        "value": 45723086813,
+        "productPlusOne": "45723086813",
+        "squarefree": true,
+        "squareWitnesses": []
+      },
+      {
+        "anchor": 432,
+        "value": 59495100913,
+        "productPlusOne": "59495100913",
+        "squarefree": true,
+        "squareWitnesses": []
+      },
+      {
+        "anchor": 782,
+        "value": 107697150263,
+        "productPlusOne": "107697150263",
+        "squarefree": true,
+        "squareWitnesses": []
+      },
+      {
+        "anchor": 832,
+        "value": 114583157313,
+        "productPlusOne": "114583157313",
+        "squarefree": true,
+        "squareWitnesses": []
+      }
+    ],
+    "recoveryStatus": "regenerated_tuple_rows_and_crt"
+  },
+  "targetWitnessLift": {
+    "status": "target_witness_subprogression_starts_at_representative",
+    "witnessSquare": 841,
+    "targetContinuation": 282,
+    "anchorRowFormula": "n = 137720141 + 32631532164*t",
+    "targetWitnessCondition": "282*n + 1 == 0 mod 841",
+    "rowIndexCongruence": {
+      "coefficientModuloWitness": 543,
+      "rhsModuloWitness": 0,
+      "gcdCoeffWitness": 1,
+      "solution": 0,
+      "period": 841,
+      "expression": "t == 0 mod 841"
+    },
+    "targetContinuationClass": {
+      "modulus": "27443118549924",
+      "residue": "137720141"
+    },
+    "interpretation": "Inside the recovered anchor row, the 841 witness for continuation 282 recurs exactly on t == 0 mod 841; the representative is the first element of that subprogression.",
+    "warning": "This lifts the witness to a named subprogression of the recovered class. It does not prove first structural unavoidability."
+  },
+  "mechanismReadout": {
+    "targetFailsAtRepresentative": true,
+    "targetSquareDivisor": 841,
+    "comparisonsStaySquarefree": true,
+    "familyRowRecovered": true,
+    "targetWitnessLiftedToSubprogression": true,
+    "statement": "At representative 137720141, continuation 282 is blocked by 841, while comparison continuations 332,432,782,832 are squarefree."
+  },
+  "proofBoundary": {
+    "provesObservedRepresentativeMechanism": true,
+    "regeneratesFamilyRow": true,
+    "liftsTargetWitnessToRecoveredSubprogression": true,
+    "provesFirstStructuralUnavoidability": false,
+    "provesAllN": false,
+    "missingForPromotion": [
+      "Show that the 29^2 target obstruction is structurally first in the family-menu chronology, not only lifted to the recovered subprogression.",
+      "Bind the class to bridge falsifiers so future frontier refreshes can promote or break the packet cleanly."
+    ]
+  },
+  "nextTheoremOptions": [
+    {
+      "id": "recover_representative_family_row",
+      "status": "done_regenerated",
+      "statement": "Recover the missing family-menu row and singleton CRT packet for representative 137720141, or regenerate them locally from available frontier data."
+    },
+    {
+      "id": "lift_841_witness_to_class",
+      "status": "done_subprogression_lift",
+      "statement": "Prove that the 29^2 witness for continuation 282 is forced across the recovered obstruction class."
+    },
+    {
+      "id": "prove_first_structural_unavoidability",
+      "status": "next",
+      "statement": "Use family-menu chronology or a theorem-facing recurrence argument to show no earlier recovered class can occupy the 282/841 witness subprogression."
+    },
+    {
+      "id": "separate_282_from_leader_tails",
+      "status": "ready_bounded_mechanism",
+      "statement": "Use the exact representative checks to keep the 282 obstruction claim narrow and separate from 332/432/782/832 leaderboard behavior."
+    }
+  ]
+}

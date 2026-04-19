@@ -1,0 +1,248 @@
+{
+  "schema": "erdos.number_theory.p848_p4217_residual_squarefree_realization_source_theorem_gap_packet/1",
+  "packetId": "P848_P4217_RESIDUAL_SQUAREFREE_REALIZATION_SOURCE_THEOREM_GAP_PACKET",
+  "problemId": 848,
+  "generatedAt": "2026-04-18T09:21:46.111Z",
+  "status": "p4217_residual_source_theorem_gap_emitted_no_finite_partition_rank_or_squarefree_source",
+  "target": "reduce_p848_p4217_residual_to_squarefree_realization_source_theorem_or_emit_gap",
+  "recommendedNextAction": "assemble_p848_all_n_residual_after_p4217_source_theorem_gap_or_import_source",
+  "coversPrimaryNextAction": {
+    "stepId": "reduce_p848_p4217_residual_to_squarefree_realization_source_theorem_or_emit_gap",
+    "status": "blocked_by_no_finite_crt_partition_decreasing_rank_or_squarefree_realization_source",
+    "decisionBlockerPacket": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_COMPLEMENT_THEOREM_WEDGE_DECISION_BLOCKER_PACKET.json",
+    "decisionBlockerSha256": "afc90fffe93e568acbfa46d39cedc6df0b28a415df38513231c5d011a6386bf5"
+  },
+  "sourceGapDecision": {
+    "decision": "emit_p4217_residual_squarefree_realization_source_theorem_gap",
+    "reason": "The selected residual forks are the right theorem objects, but the current repo-owned sources close none of them.",
+    "madeNewPaidCall": false,
+    "paidWedgeReusedAsEvidenceOnly": true
+  },
+  "auditedSourceCount": 10,
+  "auditedSources": [
+    {
+      "id": "p4217_theorem_wedge_decision_blocker",
+      "relativePath": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_COMPLEMENT_THEOREM_WEDGE_DECISION_BLOCKER_PACKET.json",
+      "exists": true,
+      "sha256": "afc90fffe93e568acbfa46d39cedc6df0b28a415df38513231c5d011a6386bf5",
+      "status": "p4217_theorem_wedge_decision_blocker_emitted_budget_guarded_live_no_whole_complement_theorem",
+      "packetId": "P848_P4217_COMPLEMENT_THEOREM_WEDGE_DECISION_BLOCKER_PACKET",
+      "recommendedNextAction": "reduce_p848_p4217_residual_to_squarefree_realization_source_theorem_or_emit_gap",
+      "usefulFact": "The single budget-guarded live p4217 wedge completed and found no promotable whole-complement theorem.",
+      "gap": "It selects three residual forks but proves none of them.",
+      "provesFiniteCrtPartition": false,
+      "provesDecreasingRank": false,
+      "provesSquarefreeRealizationSource": false,
+      "provesAllN": false
+    },
+    {
+      "id": "p4217_theorem_wedge_source_import_audit",
+      "relativePath": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_COMPLEMENT_THEOREM_WEDGE_SOURCE_IMPORT_AUDIT_PACKET.json",
+      "exists": true,
+      "sha256": "391ab66348646b462246bb9365361b3229f3f829b2ec0bcfc090438c4987fbcd",
+      "status": "p4217_theorem_wedge_source_import_audit_planning_only_no_source_theorem",
+      "packetId": "P848_P4217_COMPLEMENT_THEOREM_WEDGE_SOURCE_IMPORT_AUDIT_PACKET",
+      "recommendedNextAction": "decide_p848_p4217_complement_wedge_with_budget_guard_or_local_symbolic_proof",
+      "usefulFact": "The no-spend source/import audit found no repo-owned p4217 whole-complement source theorem.",
+      "gap": "It does not import a squarefree-realization source theorem.",
+      "provesFiniteCrtPartition": false,
+      "provesDecreasingRank": false,
+      "provesSquarefreeRealizationSource": false,
+      "provesAllN": false
+    },
+    {
+      "id": "p4217_cover_impossibility_blocker",
+      "relativePath": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_COMPLEMENT_COVER_IMPOSSIBILITY_BLOCKER_PACKET.json",
+      "exists": true,
+      "sha256": "7d74136f8ecbe4703d3734e61df6114ce7e5d3dd287826dc7151513afb812aee",
+      "status": "p4217_complement_cover_impossibility_blocker_emitted_no_local_cover_theorem",
+      "packetId": "P848_P4217_COMPLEMENT_COVER_IMPOSSIBILITY_BLOCKER_PACKET",
+      "recommendedNextAction": "prepare_p848_p4217_complement_theorem_wedge_or_import_source_cover",
+      "usefulFact": "The post-residual p4217 cover/impossibility audit found exact local refinements and blockers.",
+      "gap": "It found no whole-complement cover, impossibility theorem, or decreasing invariant.",
+      "provesFiniteCrtPartition": false,
+      "provesDecreasingRank": false,
+      "provesSquarefreeRealizationSource": false,
+      "provesAllN": false
+    },
+    {
+      "id": "all_n_residual_after_mod50_wedge",
+      "relativePath": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_ALL_N_RECOMBINATION_RESIDUAL_AFTER_MOD50_WEDGE_BLOCKER_PACKET.json",
+      "exists": true,
+      "sha256": "c87378c5dc3c31d9bda1089da7c63e7e809fe21dcd89181c6222e0a76e1359ec",
+      "status": "all_n_recombination_residual_assembled_mod50_wedge_blocked",
+      "packetId": "P848_ALL_N_RECOMBINATION_RESIDUAL_AFTER_MOD50_WEDGE_BLOCKER_PACKET",
+      "recommendedNextAction": "derive_p848_p4217_complement_cover_or_impossibility_from_all_n_residual",
+      "usefulFact": "The all-N residual assembly names the p4217 complement atom as a remaining theorem obligation.",
+      "gap": "It is not an all-N proof and does not close the p4217 residual.",
+      "provesFiniteCrtPartition": false,
+      "provesDecreasingRank": false,
+      "provesSquarefreeRealizationSource": false,
+      "provesAllN": false
+    },
+    {
+      "id": "p4217_unavailable_complement_refinement",
+      "relativePath": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_UNAVAILABLE_COMPLEMENT_REFINEMENT_PACKET.json",
+      "exists": true,
+      "sha256": "fa96784d05dd34814bf5dfd762dfb9f80436d903914a7570a9dc7ca99e433b7e",
+      "status": "p4217_unavailable_complement_parameterized_open",
+      "packetId": null,
+      "recommendedNextAction": "prove_p848_p4217_complement_fallback_selector_or_cover",
+      "usefulFact": "Exact affine parameterization of the p4217-unavailable complement is present.",
+      "gap": "The parameterization is not a finite terminal partition or squarefree realization theorem.",
+      "provesFiniteCrtPartition": false,
+      "provesDecreasingRank": false,
+      "provesSquarefreeRealizationSource": false,
+      "provesAllN": false
+    },
+    {
+      "id": "p4217_p61_availability_refinement",
+      "relativePath": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_COMPLEMENT_P61_AVAILABILITY_REFINEMENT_PACKET.json",
+      "exists": true,
+      "sha256": "9385500bf5364d8b0b2da0fc1213a062c5cb7f259d4260471980bcbc45dc984b",
+      "status": "p4217_complement_p61_availability_refined_squarefree_open",
+      "packetId": null,
+      "recommendedNextAction": "prove_p848_p4217_complement_p61_available_squarefree_or_obstruction",
+      "usefulFact": "The p4217 complement has an exact p61 availability split.",
+      "gap": "The split opens available and unavailable obligations; it is not a decreasing all-residual rank.",
+      "provesFiniteCrtPartition": false,
+      "provesDecreasingRank": false,
+      "provesSquarefreeRealizationSource": false,
+      "provesAllN": false
+    },
+    {
+      "id": "structural_complement_invariant_blocker",
+      "relativePath": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_STRUCTURAL_COMPLEMENT_INVARIANT_BLOCKER_PACKET.json",
+      "exists": true,
+      "sha256": "5e7f56a6c04a150f05c1cbfb0fad92f0d58317103f2490cb1b9e23d36a3557e9",
+      "status": "p4217_structural_complement_invariant_blocker_emitted_mod50_recurrence_boundary_selected",
+      "packetId": "P848_P4217_STRUCTURAL_COMPLEMENT_INVARIANT_BLOCKER_PACKET",
+      "recommendedNextAction": "derive_p848_mod50_all_future_recurrence_or_emit_source_theorem_blocker",
+      "usefulFact": "The structural audit tested candidate complement surfaces.",
+      "gap": "It records no structural p4217 complement decomposition or decreasing invariant.",
+      "provesFiniteCrtPartition": false,
+      "provesDecreasingRank": false,
+      "provesSquarefreeRealizationSource": false,
+      "provesAllN": false
+    },
+    {
+      "id": "q_cover_staircase_nonconvergence",
+      "relativePath": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_Q_COVER_STAIRCASE_BREAKER_NONCONVERGENCE_PACKET.json",
+      "exists": true,
+      "sha256": "01e52a171d15e9fc36de3f17538b048bc9ed8470b00a4cb4078318c84da0ada7",
+      "status": "q_cover_staircase_nonconvergence_blocker_emitted_theorem_wedge_required",
+      "packetId": "P848_P4217_Q_COVER_STAIRCASE_BREAKER_NONCONVERGENCE_PACKET",
+      "recommendedNextAction": "derive_p848_q_cover_parametric_transition_theorem_or_route_to_independent_282_841_binding",
+      "usefulFact": "The q-cover staircase is blocked as nonconvergent without a new theorem object.",
+      "gap": "It does not prove a finite CRT partition or residual squarefree-realization theorem.",
+      "provesFiniteCrtPartition": false,
+      "provesDecreasingRank": false,
+      "provesSquarefreeRealizationSource": false,
+      "provesAllN": false
+    },
+    {
+      "id": "q_cover_parametric_transition_route",
+      "relativePath": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_Q_COVER_PARAMETRIC_TRANSITION_ROUTE_PACKET.json",
+      "exists": true,
+      "sha256": "e54e580790d7a353a606e983692d468f7c207b59d9ca8002e8a461a58601cd15",
+      "status": "q_cover_parametric_transition_audit_routes_to_structural_complement_decomposition",
+      "packetId": "P848_Q_COVER_PARAMETRIC_TRANSITION_ROUTE_PACKET",
+      "recommendedNextAction": "derive_p848_p4217_structural_complement_decomposition_or_emit_invariant_blocker",
+      "usefulFact": "The q-cover transition has row-uniform two-root structure.",
+      "gap": "The q-avoiding side grows, so this is not a decreasing residual rank.",
+      "provesFiniteCrtPartition": false,
+      "provesDecreasingRank": false,
+      "provesSquarefreeRealizationSource": false,
+      "provesAllN": false
+    },
+    {
+      "id": "corrected_square_moduli_no_go",
+      "relativePath": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_CORRECTED_SQUARE_MODULI_DUAL_SIEVE_OR_UNION_HITTING_THRESHOLD_PACKET.json",
+      "exists": true,
+      "sha256": "e667bcc284cb0d2b2d7afe841762b85c9defab5226bf3165383fabccff1c82ac",
+      "status": "corrected_square_moduli_sieve_no_go_current_sources_handoff_to_p4217",
+      "packetId": "P848_CORRECTED_SQUARE_MODULI_DUAL_SIEVE_OR_UNION_HITTING_THRESHOLD_PACKET",
+      "recommendedNextAction": "prepare_p848_p4217_complement_theorem_wedge_or_import_source_cover",
+      "usefulFact": "The corrected analytic audit blocks the current Tao-van Doorn shortcut for the needed union/hitting direction.",
+      "gap": "It preserves a possible future imported theorem but supplies no current squarefree-realization source.",
+      "provesFiniteCrtPartition": false,
+      "provesDecreasingRank": false,
+      "provesSquarefreeRealizationSource": false,
+      "provesAllN": false
+    }
+  ],
+  "theoremForkReduction": {
+    "result": "no_current_fork_closes",
+    "forkCount": 3,
+    "forks": [
+      {
+        "forkId": "finite_crt_partition",
+        "closes": false,
+        "sourceFound": false,
+        "requiredObject": "A finite, complete CRT partition of the p4217 unavailable complement whose leaves are terminal, covered, or already discharged.",
+        "gap": "Current local packets give exact parameterizations/refinements and finite descendants, but no complete terminal partition of the all-N residual complement."
+      },
+      {
+        "forkId": "decreasing_rank",
+        "closes": false,
+        "sourceFound": false,
+        "requiredObject": "A well-founded rank/invariant that strictly decreases on every unresolved p4217 residual transition.",
+        "gap": "The row-uniform q-cover transition expands the q-avoiding surface, and the structural invariant audit found no decreasing complement invariant."
+      },
+      {
+        "forkId": "squarefree_realization_source",
+        "closes": false,
+        "sourceFound": false,
+        "requiredObject": "A source theorem guaranteeing squarefree values in every locally admissible residual CRT/arithmetic-progression/linear-family instance.",
+        "gap": "Neither the local p4217 source audit nor the corrected analytic audit imports or proves this squarefree-realization theorem."
+      }
+    ]
+  },
+  "minimalMissingTheorem": {
+    "id": "p848_p4217_residual_squarefree_realization_or_finite_partition",
+    "preferredSourceShape": "squarefree_values_in_every_locally_admissible_residual_arithmetic_progression_or_linear_family",
+    "alternatives": [
+      "finite_complete_partition_of_the_p4217_unavailable_complement",
+      "residual_exhaustion_or_absorption_into_finitely_many_discharged_families",
+      "well_founded_rank_that_strictly_decreases_on_every_residual_transition",
+      "source_theorem_guaranteeing_squarefree_values_in_each_residual_locally_admissible_crt_or_linear_family"
+    ]
+  },
+  "forbiddenMovesAfterGap": [
+    "resume_q193_q197_singleton_descent",
+    "launch_q193_q389_or_larger_q_cover_without_new_theorem",
+    "rerun_the_same_paid_p4217_wedge_by_default",
+    "claim_tao_van_doorn_plus_exact_verifier_decides_848_without_union_hitting_source",
+    "treat_affine_parameterization_or_finite_descendant_packets_as_all_N_partition"
+  ],
+  "oneNextAction": {
+    "stepId": "assemble_p848_all_n_residual_after_p4217_source_theorem_gap_or_import_source",
+    "action": "Assemble the exact all-N residual boundary after this p4217 source-theorem gap, or import/recover a source theorem that closes finite CRT partition, decreasing rank, or squarefree realization.",
+    "finiteDenominatorOrRankToken": "p848_p4217_residual_squarefree_realization_source_theorem_gap",
+    "command": "./bin/erdos problem progress 848 --json"
+  },
+  "proofBoundary": "This packet closes the current p4217 residual fork reduction as a source-theorem gap. It proves only absence of a current repo-owned finite CRT partition, decreasing residual rank, or squarefree-realization source theorem among the audited local packets. It does not prove the p4217 complement, all-N recombination, an analytic threshold, or Problem 848.",
+  "claims": {
+    "emitsP4217ResidualSourceTheoremGap": true,
+    "auditsFiniteCrtPartitionFork": true,
+    "auditsDecreasingRankFork": true,
+    "auditsSquarefreeRealizationSourceFork": true,
+    "provesNoCurrentFiniteCrtPartitionSource": true,
+    "provesNoCurrentDecreasingRankSource": true,
+    "provesNoCurrentSquarefreeRealizationSource": true,
+    "madeNewPaidCall": false,
+    "respectsNoPaidByDefault": true,
+    "blocksQCoverExpansion": true,
+    "blocksSingletonQDescent": true,
+    "blocksSingleFallbackSelectorLadder": true,
+    "provesFiniteP4217Partition": false,
+    "provesP4217ResidualRankDecrease": false,
+    "provesSquarefreeRealizationSourceTheorem": false,
+    "importsSquarefreeRealizationTheorem": false,
+    "provesP4217ComplementCover": false,
+    "provesP4217ComplementImpossibility": false,
+    "provesAllN": false,
+    "decidesProblem848": false
+  },
+  "packetPath": "/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_RESIDUAL_SQUAREFREE_REALIZATION_SOURCE_THEOREM_GAP_PACKET.json"
+}

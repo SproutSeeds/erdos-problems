@@ -1,0 +1,330 @@
+{
+  "schema": "erdos.number_theory.p848_endpoint_availability_obstruction_repair/1",
+  "generatedAt": "2026-04-17T00:50:01.486Z",
+  "problemId": "848",
+  "status": "representative_repair_found_availability_split_needed",
+  "activeAtom": "D2_p13_q17_endpoint_menu_squarefree_obstruction_p23_q29_p41_q13_subclass",
+  "sourceAvailabilitySplit": "/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DYNAMIC_MARGIN_PROOFS/D2_p13_dynamic_margin_exact_mixed_matching_injection_selected_cross_squarefree_exception_period_shifted_endpoint_menu_q17_residual_window_relaxed_fallback_menu_squarefree_obstruction_p41_availability_split.json",
+  "target": {
+    "description": "q17 p41-available/q13 square-obstruction subclass alternate-endpoint repair probe",
+    "outsider": 6323,
+    "residualClass": {
+      "residue": 585406398751232,
+      "modulus": 1393428484109025
+    },
+    "start": 585406398751232,
+    "end": 585406398751232,
+    "visitedRowCount": 1,
+    "window": 28500,
+    "blockedEndpointPrime": 41,
+    "blockedSquareDivisor": 169,
+    "squareCheck": {
+      "mode": "factor",
+      "checkedPrimeLimit": null
+    }
+  },
+  "obstructionSummary": {
+    "tCongruence": {
+      "residue": 119351,
+      "modulus": 284089,
+      "expression": "t == 119351 mod 284089"
+    },
+    "leftCongruence": {
+      "residue": 585406398751232,
+      "modulus": 1393428484109025,
+      "expression": "left == 585406398751232 mod 1393428484109025"
+    },
+    "squareDivisibilityWitness": {
+      "expression": "13^2 | left*right+1",
+      "crossProductPlusOneAtResidue": "342700651684082100511001611777",
+      "residueModuloObstructionSquare": 0
+    }
+  },
+  "firstRepair": {
+    "left": 585406398751232,
+    "alternateEndpoint": {
+      "prime": 103,
+      "k": 532,
+      "delta": -13314,
+      "right": 585406398737918,
+      "withinWindow": true,
+      "squarefreeStatus": "exact_squarefree",
+      "squareDivisorPrime": null,
+      "squareDivisor": null,
+      "checkedSquarePrimeLimit": null
+    },
+    "blockedEndpoint": {
+      "prime": 41,
+      "k": 1011,
+      "delta": -25289,
+      "right": 585406398725943,
+      "withinWindow": true,
+      "squarefreeStatus": "non_squarefree",
+      "squareDivisorPrime": 13,
+      "squareDivisor": 169,
+      "checkedSquarePrimeLimit": null
+    },
+    "availabilityRule": {
+      "window": 28500,
+      "maxK": 1139,
+      "minimalWindowForMaxK": 28489,
+      "criterion": "within window 28500 iff k_103(left) <= 1139",
+      "leftParameterization": "left = 585406398751232 + 1393428484109025*t",
+      "kFormulaInT": "k_103(t) = (1766*t + 532) mod 10609",
+      "tPeriod": 10609,
+      "stepGcdWithPrimeSquare": 1,
+      "availableResidueCount": 1140,
+      "unavailableResidueCount": 9469,
+      "density": 0.107455933641248,
+      "universallyWithinWindow": false,
+      "firstAvailableTResidues": [
+        {
+          "tResidue": 0,
+          "k": 532
+        },
+        {
+          "tResidue": 6,
+          "k": 519
+        },
+        {
+          "tResidue": 12,
+          "k": 506
+        },
+        {
+          "tResidue": 18,
+          "k": 493
+        },
+        {
+          "tResidue": 24,
+          "k": 480
+        },
+        {
+          "tResidue": 30,
+          "k": 467
+        },
+        {
+          "tResidue": 36,
+          "k": 454
+        },
+        {
+          "tResidue": 42,
+          "k": 441
+        },
+        {
+          "tResidue": 48,
+          "k": 428
+        },
+        {
+          "tResidue": 54,
+          "k": 415
+        },
+        {
+          "tResidue": 60,
+          "k": 402
+        },
+        {
+          "tResidue": 66,
+          "k": 389
+        },
+        {
+          "tResidue": 72,
+          "k": 376
+        },
+        {
+          "tResidue": 78,
+          "k": 363
+        },
+        {
+          "tResidue": 84,
+          "k": 350
+        },
+        {
+          "tResidue": 90,
+          "k": 337
+        }
+      ],
+      "firstUnavailableTResidue": {
+        "tResidue": 1,
+        "k": 2298
+      }
+    }
+  },
+  "firstUnrepairedRow": null,
+  "rowSamples": [
+    {
+      "left": 585406398751232,
+      "leftModResidualClass": 585406398751232,
+      "blockedEndpoint": {
+        "prime": 41,
+        "k": 1011,
+        "delta": -25289,
+        "right": 585406398725943,
+        "withinWindow": true,
+        "squarefreeStatus": "non_squarefree",
+        "squareDivisorPrime": 13,
+        "squareDivisor": 169,
+        "checkedSquarePrimeLimit": null
+      },
+      "alternateEndpoint": {
+        "prime": 103,
+        "k": 532,
+        "delta": -13314,
+        "right": 585406398737918,
+        "withinWindow": true,
+        "squarefreeStatus": "exact_squarefree",
+        "squareDivisorPrime": null,
+        "squareDivisor": null,
+        "checkedSquarePrimeLimit": null
+      },
+      "withinWindowUsableEndpoints": [
+        {
+          "prime": 103,
+          "k": 532,
+          "delta": -13314,
+          "right": 585406398737918,
+          "withinWindow": true,
+          "squarefreeStatus": "exact_squarefree",
+          "squareDivisorPrime": null,
+          "squareDivisor": null,
+          "checkedSquarePrimeLimit": null
+        },
+        {
+          "prime": 113,
+          "k": 532,
+          "delta": -13314,
+          "right": 585406398737918,
+          "withinWindow": true,
+          "squarefreeStatus": "exact_squarefree",
+          "squareDivisorPrime": null,
+          "squareDivisor": null,
+          "checkedSquarePrimeLimit": null
+        }
+      ],
+      "blockedWithinWindowEndpoints": [
+        {
+          "prime": 23,
+          "k": 479,
+          "delta": -11989,
+          "right": 585406398739243,
+          "withinWindow": true,
+          "squarefreeStatus": "non_squarefree",
+          "squareDivisorPrime": 29,
+          "squareDivisor": 841,
+          "checkedSquarePrimeLimit": null
+        },
+        {
+          "prime": 31,
+          "k": 80,
+          "delta": -2014,
+          "right": 585406398749218,
+          "withinWindow": true,
+          "squarefreeStatus": "non_squarefree",
+          "squareDivisorPrime": 3,
+          "squareDivisor": 9,
+          "checkedSquarePrimeLimit": null
+        },
+        {
+          "prime": 41,
+          "k": 1011,
+          "delta": -25289,
+          "right": 585406398725943,
+          "withinWindow": true,
+          "squarefreeStatus": "non_squarefree",
+          "squareDivisorPrime": 13,
+          "squareDivisor": 169,
+          "checkedSquarePrimeLimit": null
+        }
+      ],
+      "nearestUsableOutsideWindow": [
+        {
+          "prime": 37,
+          "k": 1144,
+          "delta": -28614,
+          "right": 585406398722618,
+          "withinWindow": false,
+          "squarefreeStatus": "exact_squarefree",
+          "squareDivisorPrime": null,
+          "squareDivisor": null,
+          "checkedSquarePrimeLimit": null
+        },
+        {
+          "prime": 79,
+          "k": 1362,
+          "delta": -34064,
+          "right": 585406398717168,
+          "withinWindow": false,
+          "squarefreeStatus": "exact_squarefree",
+          "squareDivisorPrime": null,
+          "squareDivisor": null,
+          "checkedSquarePrimeLimit": null
+        },
+        {
+          "prime": 83,
+          "k": 1749,
+          "delta": -43739,
+          "right": 585406398707493,
+          "withinWindow": false,
+          "squarefreeStatus": "exact_squarefree",
+          "squareDivisorPrime": null,
+          "squareDivisor": null,
+          "checkedSquarePrimeLimit": null
+        },
+        {
+          "prime": 73,
+          "k": 1814,
+          "delta": -45364,
+          "right": 585406398705868,
+          "withinWindow": false,
+          "squarefreeStatus": "exact_squarefree",
+          "squareDivisorPrime": null,
+          "squareDivisor": null,
+          "checkedSquarePrimeLimit": null
+        },
+        {
+          "prime": 89,
+          "k": 2063,
+          "delta": -51589,
+          "right": 585406398699643,
+          "withinWindow": false,
+          "squarefreeStatus": "exact_squarefree",
+          "squareDivisorPrime": null,
+          "squareDivisor": null,
+          "checkedSquarePrimeLimit": null
+        },
+        {
+          "prime": 107,
+          "k": 2881,
+          "delta": -72039,
+          "right": 585406398679193,
+          "withinWindow": false,
+          "squarefreeStatus": "exact_squarefree",
+          "squareDivisorPrime": null,
+          "squareDivisor": null,
+          "checkedSquarePrimeLimit": null
+        }
+      ]
+    }
+  ],
+  "claims": {
+    "provesEndpointFormulas": true,
+    "provesRepresentativeRepair": true,
+    "provesSubclassCoverage": false,
+    "provesSymbolicSquarefreeHitting": false,
+    "provesAllN": false,
+    "provesCollisionFreeMatching": false
+  },
+  "proofBoundary": "This packet repairs the emitted p41/q13 square-obstruction representative with an alternate endpoint. Because the alternate endpoint is not yet proved across the full subclass, this is a split/availability handoff rather than a subclass proof.",
+  "nextTheoremOptions": [
+    {
+      "id": "split_q17_p41_q13_subclass_by_p103_availability",
+      "status": "next",
+      "statement": "Split the p41/q13 obstruction subclass by the p103 availability rule and then audit squarefree hitting on the available subfamilies."
+    },
+    {
+      "id": "emit_p41_q13_square_obstruction_successor",
+      "status": "fallback",
+      "statement": "If the alternate endpoint cannot be lifted, emit the p23/q29/p41/q13 obstruction subclass as the next deterministic successor atom."
+    }
+  ],
+  "recommendedNextAction": "split_q17_p41_q13_subclass_by_p103_availability"
+}

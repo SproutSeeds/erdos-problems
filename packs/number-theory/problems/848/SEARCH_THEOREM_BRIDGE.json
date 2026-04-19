@@ -1,6 +1,6 @@
 {
   "schema": "frontier_engine.p848_search_theorem_bridge/1",
-  "generated_at_utc": "2026-04-12T10:07:04Z",
+  "generated_at_utc": "2026-04-17T09:06:15Z",
   "problem_id": "848",
   "shared_prefix": [
     7,
@@ -11,8 +11,8 @@
     182
   ],
   "sources": {
-    "live_frontier_root": "/Volumes/Code_2TB/code/erdos-problems/research/frontier-engine/experiments/p848-anchor-ladder/live-frontier-sync/2026-04-05",
-    "family_menu_source_path": "/Volumes/Code_2TB/code/erdos-problems/research/frontier-engine/experiments/p848-anchor-ladder/live-frontier-sync/2026-04-05/SIX_PREFIX_TWENTY_FOUR_FAMILY_MENU.json",
+    "live_frontier_root": "output/frontier-engine-local/p848-anchor-ladder/live-frontier-sync/2026-04-05",
+    "family_menu_source_path": "output/frontier-engine-local/p848-anchor-ladder/live-frontier-sync/2026-04-05/SIX_PREFIX_TWENTY_FOUR_FAMILY_MENU.json",
     "gpu_manifest_path": "/Volumes/Code_2TB/code/erdos-problems/research/frontier-engine/artifacts/p848-anchor-ladder/p848_anchor_ladder-seeds-20260408T165349Z/manifest.json"
   },
   "current_bridge_state": {
@@ -64,8 +64,8 @@
         361,
         9
       ],
-      "packet_path": "/Volumes/Code_2TB/code/erdos-problems/research/frontier-engine/experiments/p848-anchor-ladder/live-frontier-sync/2026-04-05/chunks/six_anchor_frontier_after_eighteenth_failure/ANCHOR_FIRST_FAILURE_7_32_57_82_132_182_90036164_to_90512581.json",
-      "singleton_crt_path": "/Volumes/Code_2TB/code/erdos-problems/research/frontier-engine/experiments/p848-anchor-ladder/live-frontier-sync/2026-04-05/ANCHOR_SINGLETON_CRT_90512581.json",
+      "packet_path": "output/frontier-engine-local/p848-anchor-ladder/live-frontier-sync/2026-04-05/chunks/six_anchor_frontier_after_eighteenth_failure/ANCHOR_FIRST_FAILURE_7_32_57_82_132_182_90036164_to_90512581.json",
+      "singleton_crt_path": "output/frontier-engine-local/p848-anchor-ladder/live-frontier-sync/2026-04-05/ANCHOR_SINGLETON_CRT_90512581.json",
       "singleton_crt_modulus": null,
       "singleton_crt_residue": null
     },
@@ -83,8 +83,8 @@
       "new_square_moduli": [
         289
       ],
-      "packet_path": "/Volumes/Code_2TB/code/erdos-problems/research/frontier-engine/experiments/p848-anchor-ladder/live-frontier-sync/2026-04-05/chunks/six_anchor_frontier_after_nineteenth_failure/ANCHOR_FIRST_FAILURE_7_32_57_82_132_182_101512582_to_102428617.json",
-      "singleton_crt_path": "/Volumes/Code_2TB/code/erdos-problems/research/frontier-engine/experiments/p848-anchor-ladder/live-frontier-sync/2026-04-05/ANCHOR_SINGLETON_CRT_102428617.json",
+      "packet_path": "output/frontier-engine-local/p848-anchor-ladder/live-frontier-sync/2026-04-05/chunks/six_anchor_frontier_after_nineteenth_failure/ANCHOR_FIRST_FAILURE_7_32_57_82_132_182_101512582_to_102428617.json",
+      "singleton_crt_path": "output/frontier-engine-local/p848-anchor-ladder/live-frontier-sync/2026-04-05/ANCHOR_SINGLETON_CRT_102428617.json",
       "singleton_crt_modulus": null,
       "singleton_crt_residue": null
     },
@@ -102,8 +102,8 @@
       "new_square_moduli": [
         1369
       ],
-      "packet_path": "/Volumes/Code_2TB/code/erdos-problems/research/frontier-engine/experiments/p848-anchor-ladder/live-frontier-sync/2026-04-05/chunks/six_anchor_frontier_after_twentieth_failure/ANCHOR_FIRST_FAILURE_7_32_57_82_132_182_105428618_to_106393589.json",
-      "singleton_crt_path": "/Volumes/Code_2TB/code/erdos-problems/research/frontier-engine/experiments/p848-anchor-ladder/live-frontier-sync/2026-04-05/ANCHOR_SINGLETON_CRT_106393589.json",
+      "packet_path": "output/frontier-engine-local/p848-anchor-ladder/live-frontier-sync/2026-04-05/chunks/six_anchor_frontier_after_twentieth_failure/ANCHOR_FIRST_FAILURE_7_32_57_82_132_182_105428618_to_106393589.json",
+      "singleton_crt_path": "output/frontier-engine-local/p848-anchor-ladder/live-frontier-sync/2026-04-05/ANCHOR_SINGLETON_CRT_106393589.json",
       "singleton_crt_modulus": null,
       "singleton_crt_residue": null
     },
@@ -121,8 +121,8 @@
       "new_square_moduli": [
         841
       ],
-      "packet_path": "/Volumes/Code_2TB/code/erdos-problems/research/frontier-engine/experiments/p848-anchor-ladder/live-frontier-sync/2026-04-05/chunks/six_anchor_frontier_after_twenty_first_failure/ANCHOR_FIRST_FAILURE_7_32_57_82_132_182_127393590_to_127484267.json",
-      "singleton_crt_path": "/Volumes/Code_2TB/code/erdos-problems/research/frontier-engine/experiments/p848-anchor-ladder/live-frontier-sync/2026-04-05/ANCHOR_SINGLETON_CRT_127484267.json",
+      "packet_path": "output/frontier-engine-local/p848-anchor-ladder/live-frontier-sync/2026-04-05/chunks/six_anchor_frontier_after_twenty_first_failure/ANCHOR_FIRST_FAILURE_7_32_57_82_132_182_127393590_to_127484267.json",
+      "singleton_crt_path": "output/frontier-engine-local/p848-anchor-ladder/live-frontier-sync/2026-04-05/ANCHOR_SINGLETON_CRT_127484267.json",
       "singleton_crt_modulus": null,
       "singleton_crt_residue": null
     },
@@ -140,8 +140,8 @@
       "new_square_moduli": [
         17161
       ],
-      "packet_path": "/Volumes/Code_2TB/code/erdos-problems/research/frontier-engine/experiments/p848-anchor-ladder/live-frontier-sync/2026-04-05/chunks/six_anchor_frontier_after_twenty_second_failure/ANCHOR_FIRST_FAILURE_7_32_57_82_132_182_127484268_to_128484267.json",
-      "singleton_crt_path": "/Volumes/Code_2TB/code/erdos-problems/research/frontier-engine/experiments/p848-anchor-ladder/live-frontier-sync/2026-04-05/ANCHOR_SINGLETON_CRT_127682743.json",
+      "packet_path": "output/frontier-engine-local/p848-anchor-ladder/live-frontier-sync/2026-04-05/chunks/six_anchor_frontier_after_twenty_second_failure/ANCHOR_FIRST_FAILURE_7_32_57_82_132_182_127484268_to_128484267.json",
+      "singleton_crt_path": "output/frontier-engine-local/p848-anchor-ladder/live-frontier-sync/2026-04-05/ANCHOR_SINGLETON_CRT_127682743.json",
       "singleton_crt_modulus": null,
       "singleton_crt_residue": null
     },
@@ -159,8 +159,8 @@
       "new_square_moduli": [
         1849
       ],
-      "packet_path": "/Volumes/Code_2TB/code/erdos-problems/research/frontier-engine/experiments/p848-anchor-ladder/live-frontier-sync/2026-04-05/chunks/six_anchor_frontier_after_twenty_third_failure/ANCHOR_FIRST_FAILURE_7_32_57_82_132_182_136682744_to_137682743.json",
-      "singleton_crt_path": "/Volumes/Code_2TB/code/erdos-problems/research/frontier-engine/experiments/p848-anchor-ladder/live-frontier-sync/2026-04-05/ANCHOR_SINGLETON_CRT_136702637.json",
+      "packet_path": "output/frontier-engine-local/p848-anchor-ladder/live-frontier-sync/2026-04-05/chunks/six_anchor_frontier_after_twenty_third_failure/ANCHOR_FIRST_FAILURE_7_32_57_82_132_182_136682744_to_137682743.json",
+      "singleton_crt_path": "output/frontier-engine-local/p848-anchor-ladder/live-frontier-sync/2026-04-05/ANCHOR_SINGLETON_CRT_136702637.json",
       "singleton_crt_modulus": null,
       "singleton_crt_residue": null
     }

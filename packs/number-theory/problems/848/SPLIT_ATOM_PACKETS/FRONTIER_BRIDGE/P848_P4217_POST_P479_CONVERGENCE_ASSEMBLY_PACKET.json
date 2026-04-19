@@ -1,0 +1,139 @@
+{
+  "schema": "erdos.number_theory.p848_p4217_post_p479_convergence_assembly_packet/1",
+  "packetId": "p848_p4217_post_p479_convergence_assembly",
+  "generatedAt": "2026-04-17T12:42:00Z",
+  "problemId": 848,
+  "status": "post_p479_convergence_assembly_selects_explicit_p479_availability_split",
+  "assemblyTopic": "problem 848 | convergence assembly | Explain the 282 First-Failure Mechanism",
+  "sourceOrpCommand": "orp mode breakdown granular-breakdown --topic \"problem 848 | convergence assembly | Explain the 282 First-Failure Mechanism\" --json",
+  "sourceOrpResult": {
+    "ok": true,
+    "mode": "granular-breakdown",
+    "resultKind": "generic_breakdown_scaffold",
+    "interpretation": "The ORP command returned the mode scaffold, so this packet supplies the concrete assembly answers from the repo-owned p151 blocker, p479 repair handoff, frontier ledger, and p4217 guard."
+  },
+  "parentAction": {
+    "stepId": "run_p848_convergence_assembly_after_q97_p151_p479_leaf_resolution",
+    "completionRule": "A convergence assembly packet names the exact next non-ladder move: bulk selector cover, impossibility theorem, structural complement decomposition, ranked ledger transition, live-family binding, or an explicitly ledgered p479 availability split."
+  },
+  "sourcePackets": [
+    "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_COMPLEMENT_P61_Q101_P443_Q97_P151_BLOCKER_OPEN_LEAF_PACKET.json",
+    "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_COMPLEMENT_P61_Q101_P443_Q97_P479_REPAIR_HANDOFF_PACKET.json",
+    "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_COMPLEMENT_P61_Q101_P443_AVAILABILITY_SPLIT_PACKET.json",
+    "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_COMPLEMENT_P61_AVAILABILITY_REFINEMENT_PACKET.json",
+    "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_ENDPOINT_AVAILABILITY_STAIRCASE_THEOREM_V0_PACKET.json",
+    "packs/number-theory/problems/848/FRONTIER_LEDGER.json",
+    "packs/number-theory/problems/848/P4217_COMPLEMENT_STRATEGY_GUARD.json",
+    "packs/number-theory/problems/848/GLOBAL_CONVERGENCE_LIFT.json"
+  ],
+  "assembledPieces": [
+    {
+      "id": "p151_blocker_open_leaf",
+      "provedOrCertified": [
+        "The p151 local/free exact-certification route is ledgered as a blocker/open leaf.",
+        "No p151 repair handoff or p151 availability split is allowed without a future exact squarefree certificate.",
+        "The only already recorded reserve inside this finite q97 screen was p479."
+      ],
+      "boundary": "This does not prove p151 impossible in principle; it only closes the local/free p151 route for this turn."
+    },
+    {
+      "id": "p479_exact_representative_repair",
+      "provedOrCertified": [
+        "The p479 representative cross product is exactly factored squarefree.",
+        "p479 repairs the selected p443/q97 representative after p151 is ledgered.",
+        "The repair is representative-level only."
+      ],
+      "boundary": "This does not prove p479 availability or squarefree hitting over the full q97 child."
+    },
+    {
+      "id": "frontier_guard",
+      "provedOrCertified": [
+        "open_frontier_obligation_count is 34 after the finite leaf handoff.",
+        "The growth tripwire is active after p151/p479 resolution.",
+        "The guard forbids another fresh selector child before a bulk, structural, ranked, or explicitly ledgered handoff is recorded."
+      ],
+      "boundary": "The frontier ledger is a local pressure measure, not a global proof of termination."
+    },
+    {
+      "id": "mod50_bounded_replay_theorem",
+      "provedOrCertified": [
+        "The mod-50 bounded CRT finite replay theorem is promoted and no longer needs another finite replay step before p4217 assembly.",
+        "All-future mod-50 recurrence and finite Q partition remain open, but they are not the immediate p4217 guard action."
+      ],
+      "boundary": "This does not close the p4217 complement."
+    }
+  ],
+  "supportedClaim": {
+    "statement": "The p443/q97 finite repair screen is consumed at representative level: p151 is a blocker/open leaf and p479 is exact-certified for the selected representative. The next allowed p4217 move must be an explicitly ledgered p479 availability split for the same q97 child, or a broader bulk/structural theorem. No fresh fallback-selector ladder is permitted.",
+    "claimStrength": "post_leaf_convergence_decision_not_global_cover",
+    "doesNotClaim": [
+      "The q97 child is closed.",
+      "p479 is available or squarefree-hitting on the full q97 child.",
+      "The p443-unavailable complement is closed.",
+      "The p4217 complement is covered.",
+      "Problem 848 is decided."
+    ]
+  },
+  "finiteMeasureOrNoMeasureYet": {
+    "globalMeasureDecreased": false,
+    "openFrontierObligationCountBeforeCurrentLeaf": 21,
+    "openFrontierObligationCountAfterRefresh": 34,
+    "interpretation": "The frontier expanded while descending. That is allowed only if the next step records a finite token, terminal leaf, bulk cover, impossibility theorem, structural decomposition, or ranked transition.",
+    "selectedFiniteToken": {
+      "tokenId": "p443_q97_p479_availability_residue_partition",
+      "endpointPrime": 479,
+      "endpointPrimeSquare": 229441,
+      "family": "selected p443/q97 square-obstruction child inside the p61/q101 branch",
+      "rankUse": "Partition the current q97 child by the already exact-certified p479 reserve endpoint before any fresh selector is introduced."
+    }
+  },
+  "selectedHandoff": {
+    "type": "explicitly_ledgered_p479_availability_split",
+    "recommendedNextAction": "split_p848_p4217_complement_p61_q101_p443_q97_child_by_p479_availability_with_ledger_token",
+    "whyThisInsteadOfAnotherSibling": "p479 is not a new fallback selector; it is the already recorded reserve inside the finite q97 repair screen and has an exact representative repair. Splitting by p479 availability consumes the finite p479^2 availability token for the same child instead of starting a naked p-next/q-next ladder.",
+    "wholeFamilyCovered": "The selected p443/q97 square-obstruction child, not the whole p4217 complement.",
+    "finiteDenominatorOrPartition": "Residues modulo 479^2 = 229441 for the p479 endpoint availability formula on the q97 child.",
+    "ifStepFailsBoundary": "Emit a deterministic p479 availability blocker naming the missing formula or source parameter; do not introduce a new selector.",
+    "ifStepSucceedsBoundary": "Emit a p479 availability split packet with available residues, unavailable residues, first available family, and each created child ledgered as available-child, unavailable-complement, terminal, or open.",
+    "whyCheaperThanBulkThisTurn": "Bulk p4217 cover still spans 17781949 p4217-complement residues plus p61/p443/q97 descendants; the p479 split is the smallest guard-approved finite partition already supported by an exact representative repair."
+  },
+  "rejectedShortcuts": [
+    "Do not exact-certify a new p151 route without new factorization evidence.",
+    "Do not try p47, p53, p59, or any fresh fallback selector one by one.",
+    "Do not treat the p479 representative repair as q97 child coverage.",
+    "Do not report frontier growth as convergence without terminal leaves, bulk cover, structural decomposition, or ranked ledger accounting."
+  ],
+  "remainingPuzzleBoundary": {
+    "smallestFalsifiableBoundary": "Derive the p479 endpoint availability formula on the selected q97 child and split residues modulo 229441, or emit a blocker proving that formula/source is not available locally.",
+    "outsideThisAssembly": [
+      "q97-avoiding part of the first p443-available family",
+      "p443-unavailable complement",
+      "q101-avoiding part of the p61 branch",
+      "other p61-available CRT families",
+      "p61-unavailable complement",
+      "global p4217 unavailable complement",
+      "mod-50 all-future recurrence/finite Q partition"
+    ]
+  },
+  "oneNextAction": {
+    "stepId": "split_p848_p4217_complement_p61_q101_p443_q97_child_by_p479_availability_with_ledger_token",
+    "action": "Derive and emit the p479 availability split for the selected p443/q97 child with denominator 479^2, or emit a deterministic blocker naming the missing formula/source parameter.",
+    "command": "node --check src/runtime/theorem-loop.js && node --check src/runtime/problem-progress.js && node --test test/p848-endpoint-menu-compiler.test.js test/p848-282-alignment-obstruction-packet.test.js",
+    "completionRule": "A p479 availability split packet partitions the q97 child into ledgered available/unavailable residues, or a blocker records why the p479 availability formula cannot be derived locally."
+  },
+  "verificationCommand": "node --check src/runtime/theorem-loop.js && node --check src/runtime/problem-progress.js && node --test test/p848-endpoint-menu-compiler.test.js test/p848-282-alignment-obstruction-packet.test.js",
+  "proofBoundary": "This assembly chooses the next guard-approved handoff. It does not perform the p479 availability split, close the q97 child, close the p443-unavailable complement, cover the wider p4217 complement, or decide Problem 848.",
+  "claims": {
+    "runsPostP479ConvergenceAssembly": true,
+    "selectsExplicitP479AvailabilitySplit": true,
+    "recordsFiniteLedgerToken": true,
+    "opensFreshFallbackSelector": false,
+    "provesP479Availability": false,
+    "provesQ97ChildCoverage": false,
+    "provesP443UnavailableComplementClosed": false,
+    "provesP4217ComplementCoverage": false,
+    "provesAllN": false
+  },
+  "recommendedNextAction": "split_p848_p4217_complement_p61_q101_p443_q97_child_by_p479_availability_with_ledger_token",
+  "nextTheoremMove": "Derive the p479 endpoint availability split on the selected p443/q97 child using the finite 479^2 token, or emit a deterministic formula/source blocker without introducing any fresh selector."
+}

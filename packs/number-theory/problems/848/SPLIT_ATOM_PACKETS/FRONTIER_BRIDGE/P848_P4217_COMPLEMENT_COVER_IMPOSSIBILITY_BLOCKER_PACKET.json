@@ -1,0 +1,173 @@
+{
+  "schema": "erdos.number_theory.p848_p4217_complement_cover_impossibility_blocker_packet/1",
+  "packetId": "P848_P4217_COMPLEMENT_COVER_IMPOSSIBILITY_BLOCKER_PACKET",
+  "problemId": 848,
+  "generatedAt": "2026-04-18T04:53:36.558Z",
+  "status": "p4217_complement_cover_impossibility_blocker_emitted_no_local_cover_theorem",
+  "target": "derive_p848_p4217_complement_cover_or_impossibility_from_all_n_residual",
+  "recommendedNextAction": "prepare_p848_p4217_complement_theorem_wedge_or_import_source_cover",
+  "coversPrimaryNextAction": {
+    "stepId": "derive_p848_p4217_complement_cover_or_impossibility_from_all_n_residual",
+    "status": "blocked_by_no_repo_owned_p4217_complement_cover_or_impossibility",
+    "residualPacket": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_ALL_N_RECOMBINATION_RESIDUAL_AFTER_MOD50_WEDGE_BLOCKER_PACKET.json",
+    "residualSha256": "c87378c5dc3c31d9bda1089da7c63e7e809fe21dcd89181c6222e0a76e1359ec"
+  },
+  "localCoverAudit": {
+    "result": "no_repo_owned_p4217_cover_or_impossibility_theorem_available_after_residual_assembly",
+    "auditedSourceCount": 8,
+    "auditedSources": [
+      {
+        "id": "p4217_unavailable_complement_refinement",
+        "relativePath": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_UNAVAILABLE_COMPLEMENT_REFINEMENT_PACKET.json",
+        "exists": true,
+        "sha256": "fa96784d05dd34814bf5dfd762dfb9f80436d903914a7570a9dc7ca99e433b7e",
+        "status": "p4217_unavailable_complement_parameterized_open",
+        "packetId": null,
+        "recommendedNextAction": "prove_p848_p4217_complement_fallback_selector_or_cover",
+        "usefulFact": "Exact affine parameterization of all 17,781,949 p4217-unavailable residues.",
+        "gap": "Parameterization is not a cover, impossibility proof, or decreasing rank.",
+        "provesP4217ComplementCoverage": false,
+        "provesP4217ComplementImpossibility": false
+      },
+      {
+        "id": "p43_uniform_square_obstruction",
+        "relativePath": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_COMPLEMENT_P43_SQUARE_OBSTRUCTION_PACKET.json",
+        "exists": true,
+        "sha256": "36d266e5c8407c23a2be0ad68687d1de4b3211277968ecc12c8372698f675f33",
+        "status": "p4217_complement_p43_fallback_globally_square_blocked_by_2",
+        "packetId": null,
+        "recommendedNextAction": "prove_p848_p4217_complement_next_fallback_selector_or_cover",
+        "usefulFact": "The p43 fallback selector is globally killed by a uniform 2^2 obstruction.",
+        "gap": "This eliminates one selector but leaves the whole complement open.",
+        "provesP4217ComplementCoverage": false,
+        "provesP4217ComplementImpossibility": false
+      },
+      {
+        "id": "p61_availability_refinement",
+        "relativePath": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_COMPLEMENT_P61_AVAILABILITY_REFINEMENT_PACKET.json",
+        "exists": true,
+        "sha256": "9385500bf5364d8b0b2da0fc1213a062c5cb7f259d4260471980bcbc45dc984b",
+        "status": "p4217_complement_p61_availability_refined_squarefree_open",
+        "packetId": null,
+        "recommendedNextAction": "prove_p848_p4217_complement_p61_available_squarefree_or_obstruction",
+        "usefulFact": "The complement splits exactly into p61-available and p61-unavailable CRT classes.",
+        "gap": "Both sides remain open: available classes need squarefree hitting/obstruction closure; unavailable classes need another selector or theorem.",
+        "provesP4217ComplementCoverage": false,
+        "provesP4217ComplementImpossibility": false
+      },
+      {
+        "id": "p61_q101_first_child_obstruction",
+        "relativePath": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_COMPLEMENT_P61_Q101_SQUARE_OBSTRUCTION_PACKET.json",
+        "exists": true,
+        "sha256": "520de1819b5959ba4e69628589858a33c5651f116f9927edf366c1aed8ce4875",
+        "status": "p4217_complement_p61_first_child_q101_square_obstruction_emitted",
+        "packetId": null,
+        "recommendedNextAction": "resolve_p848_p4217_complement_p61_q101_square_obstruction_child",
+        "usefulFact": "The first p61-available child has an exact q101 square-obstruction subfamily.",
+        "gap": "A first child obstruction is not a cover of all p61-available classes or the p61-unavailable complement.",
+        "provesP4217ComplementCoverage": false,
+        "provesP4217ComplementImpossibility": false
+      },
+      {
+        "id": "p479_available_residue_bulk_cover",
+        "relativePath": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_P443_Q97_P479_AVAILABLE_RESIDUE_BULK_COVER_PACKET.json",
+        "exists": true,
+        "sha256": "f022316b0bb364c5376d2d4755522ead92c45201420db4779430f1c40e8e60eb",
+        "status": "all_p479_available_residue_classes_have_square_obstruction_child",
+        "packetId": null,
+        "recommendedNextAction": "compress_p848_p4217_p443_q97_p479_available_obstruction_buckets_or_emit_bucket_boundaries",
+        "usefulFact": "A finite p479-available residue set is batch-classified by first square-obstruction children.",
+        "gap": "It does not close the obstruction children, q-avoiding descendants, p479-unavailable complement, q97 child, p443-unavailable complement, or wider p4217 complement.",
+        "provesP4217ComplementCoverage": false,
+        "provesP4217ComplementImpossibility": false
+      },
+      {
+        "id": "q_cover_staircase_nonconvergence_blocker",
+        "relativePath": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_Q_COVER_STAIRCASE_BREAKER_NONCONVERGENCE_PACKET.json",
+        "exists": true,
+        "sha256": "01e52a171d15e9fc36de3f17538b048bc9ed8470b00a4cb4078318c84da0ada7",
+        "status": "q_cover_staircase_nonconvergence_blocker_emitted_theorem_wedge_required",
+        "packetId": "P848_P4217_Q_COVER_STAIRCASE_BREAKER_NONCONVERGENCE_PACKET",
+        "recommendedNextAction": "derive_p848_q_cover_parametric_transition_theorem_or_route_to_independent_282_841_binding",
+        "usefulFact": "The q-cover staircase is blocked because it expands successor surfaces without a decreasing measure.",
+        "gap": "This blocks a method; it does not cover the complement.",
+        "provesP4217ComplementCoverage": false,
+        "provesP4217ComplementImpossibility": false
+      },
+      {
+        "id": "q_cover_parametric_transition_route",
+        "relativePath": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_Q_COVER_PARAMETRIC_TRANSITION_ROUTE_PACKET.json",
+        "exists": true,
+        "sha256": "e54e580790d7a353a606e983692d468f7c207b59d9ca8002e8a461a58601cd15",
+        "status": "q_cover_parametric_transition_audit_routes_to_structural_complement_decomposition",
+        "packetId": "P848_Q_COVER_PARAMETRIC_TRANSITION_ROUTE_PACKET",
+        "recommendedNextAction": "derive_p848_p4217_structural_complement_decomposition_or_emit_invariant_blocker",
+        "usefulFact": "The current q-cover transition is row-uniform with two roots per source class.",
+        "gap": "The q-avoiding side grows by 124343.572052x and no global closure follows.",
+        "provesP4217ComplementCoverage": false,
+        "provesP4217ComplementImpossibility": false
+      },
+      {
+        "id": "structural_complement_invariant_blocker",
+        "relativePath": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_STRUCTURAL_COMPLEMENT_INVARIANT_BLOCKER_PACKET.json",
+        "exists": true,
+        "sha256": "5e7f56a6c04a150f05c1cbfb0fad92f0d58317103f2490cb1b9e23d36a3557e9",
+        "status": "p4217_structural_complement_invariant_blocker_emitted_mod50_recurrence_boundary_selected",
+        "packetId": "P848_P4217_STRUCTURAL_COMPLEMENT_INVARIANT_BLOCKER_PACKET",
+        "recommendedNextAction": "derive_p848_mod50_all_future_recurrence_or_emit_source_theorem_blocker",
+        "usefulFact": "The earlier audit found no repo-owned structural complement decomposition or decreasing invariant.",
+        "gap": "This is the strongest local blocker before the all-N residual; it remains a blocker after residual assembly.",
+        "provesP4217ComplementCoverage": false,
+        "provesP4217ComplementImpossibility": false
+      }
+    ],
+    "strongestUsefulFacts": [
+      "The complement is exactly parameterized as one affine selector interval with 17,781,949 residues.",
+      "The first fallback selector p43 is uniformly impossible because 2^2 divides every p43 cross-product.",
+      "The p61 selector creates an exact CRT refinement, but it increases the ledger surface into available and unavailable obligations.",
+      "The q-cover route is now explicitly nonconvergent without a decreasing measure or finite partition."
+    ],
+    "missingTheoremObjects": [
+      "A deterministic partition of the p4217 unavailable complement whose children are all terminal, covered, or strictly lower rank.",
+      "A uniform square-obstruction/impossibility theorem covering the whole p4217 unavailable complement.",
+      "A finite selector-family cover with squarefree hitting and collision-free matching proof for every complement residue.",
+      "A source/imported theorem that supplies the above in a repo-owned, auditable form."
+    ]
+  },
+  "blockerDecision": {
+    "decision": "emit_p4217_cover_impossibility_blocker_instead_of_reopening_q_cover_or_selector_ladder",
+    "reason": "All local p4217 packets are exact refinements, negative selector facts, or finite descendant covers; none proves a whole-complement cover, impossibility theorem, or decreasing invariant.",
+    "forbiddenUntilNewTheoremObject": [
+      "resume_q193_q197_singleton_descent",
+      "launch_q193_q389_or_larger_q_cover_without_new_theorem",
+      "try_fallback_selectors_one_by_one",
+      "treat_p61_availability_refinement_as_complement_cover",
+      "treat_p479_available_bulk_cover_as_wider_p4217_cover"
+    ]
+  },
+  "oneNextAction": {
+    "stepId": "prepare_p848_p4217_complement_theorem_wedge_or_import_source_cover",
+    "action": "Prepare a p4217-specific theorem wedge or import/source-cover audit for the missing complement cover/impossibility theorem, without live paid execution by default.",
+    "finiteDenominatorOrRankToken": "p848_p4217_complement_cover_impossibility_blocker_after_all_n_residual",
+    "failureBoundary": "If no source theorem or free/local symbolic proof is found, keep the p4217 atom blocked and route final recombination to a proof-boundary packet rather than more finite q-cover compute.",
+    "command": "erdos orp research ask 848 --question \"Problem 848 p4217 complement theorem wedge: Given the exact p4217 unavailable-complement parameterization, p43 uniform obstruction, p61 CRT refinement, q-cover nonconvergence blocker, and all-N residual packet, prove or refute a whole-complement cover/impossibility theorem or identify the minimal imported/source theorem needed. Do not use finite selector descent as proof unless it comes with a finite partition or decreasing rank.\" --json"
+  },
+  "proofBoundary": "This packet is a post-residual p4217 blocker. It does not prove p4217 complement coverage, complement impossibility, a decreasing global invariant, mod-50 recurrence, post-40500 sufficiency, or all-N closure. It prevents the loop from disguising missing p4217 theorem content as more finite q-cover/selector work.",
+  "claims": {
+    "emitsExactP4217CoverImpossibilityBlocker": true,
+    "auditsP4217SourcesAfterAllNResidual": true,
+    "provesNoCurrentLocalP4217CoverSource": true,
+    "blocksQCoverExpansion": true,
+    "blocksSingletonQChildDescent": true,
+    "blocksSingleFallbackSelectorLadder": true,
+    "selectsSourceOrTheoremWedgeInsteadOfFiniteDescent": true,
+    "madeNewPaidCall": false,
+    "respectsNoPaidByDefault": true,
+    "provesP4217ComplementCover": false,
+    "provesP4217ComplementImpossibility": false,
+    "provesStructuralP4217ComplementDecomposition": false,
+    "provesDecreasingGlobalInvariant": false,
+    "provesAllN": false
+  },
+  "packetPath": "/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_COMPLEMENT_COVER_IMPOSSIBILITY_BLOCKER_PACKET.json"
+}

@@ -1,0 +1,137 @@
+{
+  "schema_version": "1.0.0",
+  "profile_id": "p848-mod50-residual-handoff-label-source-audit-single",
+  "label": "Problem 848 mod-50 residual handoff-label source audit",
+  "description": "Single-lane future source-audit profile for the four explicit mod-50 same-bound residual bad m-classes. This profile is prepared locally only and must not execute without a future explicit guarded release and the local usage/budget guard.",
+  "execution_policy": {
+    "live_requires_execute": true,
+    "process_only": true,
+    "secrets_not_persisted": true,
+    "default_timeout_sec": 180,
+    "estimated_cost_usd": 1,
+    "budget_note": "Use only after ./bin/erdos orp research usage --json confirms remaining local daily run count and USD guard, and only if a future instruction releases this exact residual handoff-label profile."
+  },
+  "call_moments": [
+    {
+      "moment_id": "plan",
+      "label": "Local profile preparation",
+      "calls_api": false,
+      "description": "Create the exact residual handoff-label source/import prompt without resolving credentials or making a live call."
+    },
+    {
+      "moment_id": "p848_mod50_residual_handoff_label_source_import",
+      "label": "P848 mod-50 residual handoff labels",
+      "calls_api": true,
+      "secret_alias": "openai-primary",
+      "env_var": "OPENAI_API_KEY",
+      "description": "Run one bounded source-audit pass asking only for an importable residual handoff-label theorem or the broader row-generator/finite-Q theorem that supplies those labels."
+    }
+  ],
+  "lanes": [
+    {
+      "lane_id": "p848_mod50_residual_handoff_label_source_import",
+      "call_moment": "p848_mod50_residual_handoff_label_source_import",
+      "label": "P848 mod-50 residual handoff-label theorem",
+      "provider": "openai",
+      "model": "gpt-5.4",
+      "adapter": "openai_responses",
+      "role": "Analyze only the supplied Problem 848 mod-50 same-bound residual blocker, residual counterfamily boundary, exact bounded CRT replay theorem, and row-generator restoration blocker as a source/import theorem audit. Return a concise verdict first. The residual representative is n=1837022639 with tuple 9, 11^2, 4, 7^2, 41^2, 23^2. Decide whether an importable or repo-localizable theorem classifies each of the four explicit bad m-classes as bad-lane avoided, top-tie repaired, contrast-only repaired, or terminally blocked, or proves the broader mod-50 relevant-pair row generator / finite-Q partition with denominators Q/gcd(50*n,Q) and handoff labels. Name exact hypotheses, constants, denominator objects, proof boundary, and the 848 all-N handoff. Explicitly reject finite tie-policy exclusion alone, arbitrary square-producing elementary generators, bounded CRT replay, q-cover expansion, singleton descent, fallback selector ladders, and naked rank-boundary evidence as proof.",
+      "env_var": "OPENAI_API_KEY",
+      "secret_alias": "openai-primary",
+      "reasoning_effort": "medium",
+      "text_verbosity": "medium",
+      "max_output_tokens": 8192
+    }
+  ],
+  "residual_context": {
+    "representative": 1837022639,
+    "tuple": [
+      9,
+      121,
+      4,
+      49,
+      1681,
+      529
+    ],
+    "tupleKey": "9, 11^2, 4, 7^2, 41^2, 23^2",
+    "sourceLabel": "SIX_PREFIX_TWENTY_FOUR",
+    "badClasses": [
+      {
+        "anchor": 32,
+        "squareWitnessModulus": 121,
+        "squareWitnessLabel": "11^2",
+        "denominatorQOverGcd50NQ": 121,
+        "badMClass": {
+          "expression": "m == 0 mod 121",
+          "residue": 0,
+          "modulus": 121
+        },
+        "requiredLabels": [
+          "bad-lane avoided",
+          "top-tie repaired",
+          "contrast-only repaired",
+          "terminally blocked"
+        ]
+      },
+      {
+        "anchor": 82,
+        "squareWitnessModulus": 49,
+        "squareWitnessLabel": "7^2",
+        "denominatorQOverGcd50NQ": 49,
+        "badMClass": {
+          "expression": "m == 1 mod 49",
+          "residue": 1,
+          "modulus": 49
+        },
+        "requiredLabels": [
+          "bad-lane avoided",
+          "top-tie repaired",
+          "contrast-only repaired",
+          "terminally blocked"
+        ]
+      },
+      {
+        "anchor": 132,
+        "squareWitnessModulus": 1681,
+        "squareWitnessLabel": "41^2",
+        "denominatorQOverGcd50NQ": 1681,
+        "badMClass": {
+          "expression": "m == 2 mod 1681",
+          "residue": 2,
+          "modulus": 1681
+        },
+        "requiredLabels": [
+          "bad-lane avoided",
+          "top-tie repaired",
+          "contrast-only repaired",
+          "terminally blocked"
+        ]
+      },
+      {
+        "anchor": 182,
+        "squareWitnessModulus": 529,
+        "squareWitnessLabel": "23^2",
+        "denominatorQOverGcd50NQ": 529,
+        "badMClass": {
+          "expression": "m == 3 mod 529",
+          "residue": 3,
+          "modulus": 529
+        },
+        "requiredLabels": [
+          "bad-lane avoided",
+          "top-tie repaired",
+          "contrast-only repaired",
+          "terminally blocked"
+        ]
+      }
+    ]
+  },
+  "synthesis": {
+    "style": "source_or_gap_first",
+    "require_disagreements": true,
+    "require_open_questions": true,
+    "require_exact_handoff_labels": true,
+    "require_generator_or_finite_q_statement_if_labels_are_indirect": true,
+    "require_exact_hypotheses_constants_denominators_and_848_handoff": true
+  }
+}

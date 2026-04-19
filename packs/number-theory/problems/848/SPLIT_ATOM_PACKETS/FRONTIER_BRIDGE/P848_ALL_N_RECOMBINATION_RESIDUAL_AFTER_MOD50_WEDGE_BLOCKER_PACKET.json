@@ -1,0 +1,297 @@
+{
+  "schema": "erdos.number_theory.p848_all_n_recombination_residual_after_mod50_wedge_blocker_packet/1",
+  "packetId": "P848_ALL_N_RECOMBINATION_RESIDUAL_AFTER_MOD50_WEDGE_BLOCKER_PACKET",
+  "problemId": 848,
+  "generatedAt": "2026-04-18T04:41:21.897Z",
+  "status": "all_n_recombination_residual_assembled_mod50_wedge_blocked",
+  "target": "assemble_p848_all_n_recombination_residual_after_mod50_wedge_blocker",
+  "recommendedNextAction": "derive_p848_p4217_complement_cover_or_impossibility_from_all_n_residual",
+  "coversPrimaryNextAction": {
+    "stepId": "assemble_p848_all_n_recombination_residual_after_mod50_wedge_blocker",
+    "status": "completed_by_all_n_residual_assembly_packet",
+    "wedgeDecisionBlockerPacket": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_MOD50_THEOREM_WEDGE_DECISION_BLOCKER_PACKET.json",
+    "wedgeDecisionBlockerSha256": "9ca8da429267924f93046d7099759d0a19d1189958a10bd32e5a1682c94b454a"
+  },
+  "assembledPieces": [
+    {
+      "id": "endpoint_availability_staircase_theorem_v0",
+      "relativePath": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_ENDPOINT_AVAILABILITY_STAIRCASE_THEOREM_V0_PACKET.json",
+      "exists": true,
+      "sha256": "c59f853b86eca4bcaa670f41f9b649d4920ac4648e9943f5017b3c7d8134145f",
+      "status": "endpoint_availability_staircase_theorem_v0_proved_complement_open",
+      "packetId": null,
+      "target": null,
+      "recommendedNextAction": "prove_p848_p4217_unavailable_complement_cover_or_ledger_refinement",
+      "role": "Compresses the repeated endpoint availability split/handoff pattern into the current finite split discipline.",
+      "boundary": "Leaves the p4217 unavailable complement open and does not prove global termination."
+    },
+    {
+      "id": "frontier_transition_rule_v0",
+      "relativePath": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_FRONTIER_TRANSITION_RULE_V0_PACKET.json",
+      "exists": true,
+      "sha256": "083ba3cdac9606627ed7bb8225180e2776e6ad2ff5d7c23b3e3fb7696acd6860",
+      "status": "transition_rule_v0_rank_refined_current_ledger",
+      "packetId": null,
+      "target": null,
+      "recommendedNextAction": "prove_p848_endpoint_availability_staircase_theorem_or_unavailable_complement_cover",
+      "role": "Records the typed frontier-ledger transition/rank discipline for the current ledger cases.",
+      "boundary": "Rank is refined for current transitions, not a global all-N decreasing measure."
+    },
+    {
+      "id": "q_cover_staircase_breaker",
+      "relativePath": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_Q_COVER_STAIRCASE_BREAKER_NONCONVERGENCE_PACKET.json",
+      "exists": true,
+      "sha256": "01e52a171d15e9fc36de3f17538b048bc9ed8470b00a4cb4078318c84da0ada7",
+      "status": "q_cover_staircase_nonconvergence_blocker_emitted_theorem_wedge_required",
+      "packetId": "P848_P4217_Q_COVER_STAIRCASE_BREAKER_NONCONVERGENCE_PACKET",
+      "target": "prove_p848_p4217_q_cover_staircase_breaker_for_q193_q389_successor_surface_or_emit_nonconvergence_blocker",
+      "recommendedNextAction": "derive_p848_q_cover_parametric_transition_theorem_or_route_to_independent_282_841_binding",
+      "role": "Stops the q193..q389 finite q-cover staircase from expanding without a real theorem object.",
+      "boundary": "A naked larger q-cover or singleton q-child descent is forbidden."
+    },
+    {
+      "id": "q_cover_parametric_transition_route",
+      "relativePath": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_Q_COVER_PARAMETRIC_TRANSITION_ROUTE_PACKET.json",
+      "exists": true,
+      "sha256": "e54e580790d7a353a606e983692d468f7c207b59d9ca8002e8a461a58601cd15",
+      "status": "q_cover_parametric_transition_audit_routes_to_structural_complement_decomposition",
+      "packetId": "P848_Q_COVER_PARAMETRIC_TRANSITION_ROUTE_PACKET",
+      "target": "derive_p848_q_cover_parametric_transition_theorem_or_route_to_independent_282_841_binding",
+      "recommendedNextAction": "derive_p848_p4217_structural_complement_decomposition_or_emit_invariant_blocker",
+      "role": "Audits the row-uniform two-root q-cover transition and records that the surface grows rather than decreases.",
+      "boundary": "The two-root law is not by itself a well-founded measure or finite cover."
+    },
+    {
+      "id": "p4217_structural_complement_invariant_blocker",
+      "relativePath": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_STRUCTURAL_COMPLEMENT_INVARIANT_BLOCKER_PACKET.json",
+      "exists": true,
+      "sha256": "5e7f56a6c04a150f05c1cbfb0fad92f0d58317103f2490cb1b9e23d36a3557e9",
+      "status": "p4217_structural_complement_invariant_blocker_emitted_mod50_recurrence_boundary_selected",
+      "packetId": "P848_P4217_STRUCTURAL_COMPLEMENT_INVARIANT_BLOCKER_PACKET",
+      "target": "derive_p848_p4217_structural_complement_decomposition_or_emit_invariant_blocker",
+      "recommendedNextAction": "derive_p848_mod50_all_future_recurrence_or_emit_source_theorem_blocker",
+      "role": "Audits candidate p4217 complement structural surfaces and blocks selector-ladder/q-cover reuse.",
+      "boundary": "No repo-owned p4217 complement cover, impossibility theorem, or decreasing invariant is currently available."
+    },
+    {
+      "id": "mod50_all_future_recurrence_source_theorem_blocker",
+      "relativePath": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_MOD50_ALL_FUTURE_RECURRENCE_SOURCE_THEOREM_BLOCKER_PACKET.json",
+      "exists": true,
+      "sha256": "00f01185e010b8144b29789efef98e1f7d4f303e40c8f6d9d733b85b887e6cc0",
+      "status": "mod50_all_future_recurrence_source_theorem_blocker_emitted_local_source_absent",
+      "packetId": "P848_MOD50_ALL_FUTURE_RECURRENCE_SOURCE_THEOREM_BLOCKER_PACKET",
+      "target": "derive_p848_mod50_all_future_recurrence_or_emit_source_theorem_blocker",
+      "recommendedNextAction": "prepare_p848_mod50_all_future_recurrence_theorem_wedge_or_restore_source_generator",
+      "role": "Blocks promotion of bounded CRT replay to all-future recurrence without a source theorem/generator.",
+      "boundary": "No local all-future recurrence, finite-Q partition, or restored generator is present."
+    },
+    {
+      "id": "mod50_source_archaeology_theorem_wedge",
+      "relativePath": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_MOD50_SOURCE_ARCHAEOLOGY_THEOREM_WEDGE_PACKET.json",
+      "exists": true,
+      "sha256": "74d029b6800360c6313030720c2f397d306b01e6c76cef52edac70ef3411eb35",
+      "status": "mod50_source_archaeology_completed_theorem_wedge_prepared",
+      "packetId": "P848_MOD50_SOURCE_ARCHAEOLOGY_THEOREM_WEDGE_PACKET",
+      "target": "prepare_p848_mod50_all_future_recurrence_theorem_wedge_or_restore_source_generator",
+      "recommendedNextAction": "decide_p848_mod50_recurrence_wedge_with_budget_guard_or_local_symbolic_proof",
+      "role": "Audits local frontier-engine/code/output source surfaces and prepares the exact theorem wedge.",
+      "boundary": "Finds finite search/menu evidence but no local universal theorem."
+    },
+    {
+      "id": "mod50_theorem_wedge_decision_blocker",
+      "relativePath": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_MOD50_THEOREM_WEDGE_DECISION_BLOCKER_PACKET.json",
+      "exists": true,
+      "sha256": "9ca8da429267924f93046d7099759d0a19d1189958a10bd32e5a1682c94b454a",
+      "status": "mod50_theorem_wedge_decision_blocker_emitted_budget_guarded_live_incomplete_no_universal_theorem",
+      "packetId": "P848_MOD50_THEOREM_WEDGE_DECISION_BLOCKER_PACKET",
+      "target": "decide_p848_mod50_recurrence_wedge_with_budget_guard_or_local_symbolic_proof",
+      "recommendedNextAction": "assemble_p848_all_n_recombination_residual_after_mod50_wedge_blocker",
+      "role": "Decides the prepared wedge as a blocker: the guarded live/planning result supplies no theorem evidence.",
+      "boundary": "The finite 280-row menu and incomplete ORP lane cannot be promoted to an all-N proof."
+    },
+    {
+      "id": "282_841_live_family_binding",
+      "relativePath": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_282_841_LIVE_FAMILY_BINDING_PACKET.json",
+      "exists": true,
+      "sha256": "89780a2e0bf4898b6b6bcffe8fd71bcc31b3d59db2fd8e4894d3aeb23f938fa1",
+      "status": "live_family_binding_recorded_first_unavoidability_open",
+      "packetId": null,
+      "target": null,
+      "recommendedNextAction": "prove_p848_282_841_first_structural_unavoidability_or_emit_boundary",
+      "role": "Binds the synthetic 282/841 representative to a live family-menu row and witness square.",
+      "boundary": "Useful for recombination, but not a standalone all-N proof."
+    },
+    {
+      "id": "282_841_row_menu_replay_certificate",
+      "relativePath": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_282_841_ROW_MENU_REPLAY_CERTIFICATE_PACKET.json",
+      "exists": true,
+      "sha256": "77b8d8c4c49609c85ee5dd6035dabf9ec7c86294fc84d8e0c721ec93940eac51",
+      "status": "row_level_family_menu_source_restored_and_replayed",
+      "packetId": null,
+      "target": null,
+      "recommendedNextAction": "formalize_top_repair_class_mechanism",
+      "role": "Restores finite row-menu chronology for the observed first 282 failure.",
+      "boundary": "Replay is finite unless joined to an all-future recurrence/source theorem."
+    },
+    {
+      "id": "exact_40500_endpoint_boundary_audit",
+      "relativePath": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_EXACT_40500_ENDPOINT_BOUNDARY_AUDIT_PACKET.json",
+      "exists": true,
+      "sha256": "1f162164c33b7bd69cf2a856f49e7829e7c0bdb5e37537726945718418e00cce",
+      "status": "compact_40500_endpoint_boundary_audit_lane_aligned_no_new_failure_boundary",
+      "packetId": "p848_exact_40500_endpoint_boundary_audit_packet_v1",
+      "target": null,
+      "recommendedNextAction": "prove_p848_mod50_lane_breakpoint_coverage_theorem_or_emit_hypotheses_blocker",
+      "role": "Audits compact endpoint evidence against the top repair-class/mod-50 boundary.",
+      "boundary": "Compact 1..40500 evidence is not a public raw all-N proof and cannot justify 40501+ rollout by itself."
+    }
+  ],
+  "residualVerdict": {
+    "status": "all_n_recombination_blocked_by_named_residual_atoms",
+    "allNProofAvailable": false,
+    "finiteMeasureDecreased": false,
+    "openFrontierObligationCountAtInput": 80,
+    "whyNotGlobalConvergence": [
+      "The q-cover lane has a nonconvergence blocker and the row-uniform two-root transition grows the q-avoiding class surface.",
+      "The p4217 complement has exact local parameterizations and blockers but no cover, impossibility theorem, or global decreasing invariant.",
+      "The mod-50 bounded replay lane has finite evidence only: the richest menu has 280 rows and no restored all-future source theorem.",
+      "The finite repair witness set is not closed by the tuple square-prime pool; outside tuple-pool primes are 5, 67, 211, 257.",
+      "The guarded ORP theorem-wedge result produced no theorem text and cannot be promoted to proof evidence."
+    ]
+  },
+  "residualTheoremAtoms": [
+    {
+      "atomId": "p848_p4217_unavailable_complement_cover_or_impossibility",
+      "status": "open_required_for_all_n",
+      "neededTheorem": "Every residue in the p4217 unavailable complement is impossible, covered by a finite selector family, or covered by a structural square-obstruction decomposition with a well-founded rank.",
+      "currentBoundary": "The structural complement invariant blocker found no repo-owned invariant, and q-cover/singleton selector ladders are paused.",
+      "blockingSources": [
+        "P848_P4217_STRUCTURAL_COMPLEMENT_INVARIANT_BLOCKER_PACKET.json",
+        "P848_P4217_Q_COVER_STAIRCASE_BREAKER_NONCONVERGENCE_PACKET.json"
+      ]
+    },
+    {
+      "atomId": "p848_mod50_symbolic_relevant_pair_recurrence_or_finite_q_partition",
+      "status": "open_required_for_all_n",
+      "neededTheorem": "A symbolic recurrence/source generator for every future mod-50 relevant-pair row, or a finite Q partition that covers all future square witnesses.",
+      "currentBoundary": "The source-theorem blocker, source archaeology wedge, and theorem-wedge decision blocker all fail to restore this object.",
+      "blockingSources": [
+        "P848_MOD50_ALL_FUTURE_RECURRENCE_SOURCE_THEOREM_BLOCKER_PACKET.json",
+        "P848_MOD50_SOURCE_ARCHAEOLOGY_THEOREM_WEDGE_PACKET.json",
+        "P848_MOD50_THEOREM_WEDGE_DECISION_BLOCKER_PACKET.json"
+      ]
+    },
+    {
+      "atomId": "p848_square_witness_pool_closure_for_future_rows",
+      "status": "open_required_for_all_n",
+      "neededTheorem": "Future repair rows cannot introduce square-witness primes outside a finite audited pool, or the pool must be enlarged by a proved finite partition.",
+      "currentBoundary": "The current finite menu already has outside tuple-pool repair witness primes 5, 67, 211, 257, so tuple rows alone do not close Q.",
+      "blockingSources": [
+        "P848_MOD50_THEOREM_WEDGE_DECISION_BLOCKER_PACKET.json"
+      ]
+    },
+    {
+      "atomId": "p848_post_40500_sufficiency_or_threshold_bridge",
+      "status": "open_required_for_all_n",
+      "neededTheorem": "A theorem proving the compact 1..40500 endpoint boundary suffices for every later row, or an audited external threshold bridge accepted into repo-owned proof scope.",
+      "currentBoundary": "The compact endpoint packet is evidence, not a raw all-N scan or a 40501+ rollout license.",
+      "blockingSources": [
+        "P848_EXACT_40500_COMPACT_PROMOTION_PACKET.json",
+        "P848_EXACT_40500_ENDPOINT_BOUNDARY_AUDIT_PACKET.json"
+      ]
+    },
+    {
+      "atomId": "p848_final_all_n_recombination_theorem",
+      "status": "blocked_by_prior_residual_atoms",
+      "neededTheorem": "A final recombination theorem joining endpoint staircase, frontier ledger, complement cover, 282/841 chronology, mod-50 recurrence/finite-Q closure, and endpoint sufficiency.",
+      "currentBoundary": "The current packet only assembles the residual; it does not discharge the residual atoms.",
+      "blockingSources": [
+        "this_packet"
+      ]
+    }
+  ],
+  "dependencyDag": {
+    "nodes": [
+      "endpoint_staircase_theorem_v0",
+      "frontier_transition_rule_v0",
+      "q_cover_staircase_blocked",
+      "p4217_complement_cover_or_impossibility",
+      "282_841_live_family_and_row_replay",
+      "mod50_symbolic_recurrence_or_finite_q_partition",
+      "post_40500_sufficiency_or_threshold_bridge",
+      "final_all_n_recombination"
+    ],
+    "edges": [
+      [
+        "endpoint_staircase_theorem_v0",
+        "final_all_n_recombination"
+      ],
+      [
+        "frontier_transition_rule_v0",
+        "final_all_n_recombination"
+      ],
+      [
+        "q_cover_staircase_blocked",
+        "p4217_complement_cover_or_impossibility"
+      ],
+      [
+        "p4217_complement_cover_or_impossibility",
+        "final_all_n_recombination"
+      ],
+      [
+        "282_841_live_family_and_row_replay",
+        "final_all_n_recombination"
+      ],
+      [
+        "mod50_symbolic_recurrence_or_finite_q_partition",
+        "post_40500_sufficiency_or_threshold_bridge"
+      ],
+      [
+        "post_40500_sufficiency_or_threshold_bridge",
+        "final_all_n_recombination"
+      ]
+    ],
+    "selectedNextNode": "p4217_complement_cover_or_impossibility",
+    "selectionReason": [
+      "The mod-50 source/theorem wedge has just been exhausted locally and by one guarded incomplete live run.",
+      "The finite q-cover lane is blocked as nondecreasing.",
+      "The p4217 unavailable complement remains the largest exact residual with an existing parameterized surface and an allowed bulk-cover/impossibility route."
+    ]
+  },
+  "oneNextAction": {
+    "stepId": "derive_p848_p4217_complement_cover_or_impossibility_from_all_n_residual",
+    "action": "Attempt a theorem-facing p4217 unavailable-complement cover or impossibility theorem from the assembled residual, using a bulk/structural/ranked argument rather than singleton fallback selectors.",
+    "finiteDenominatorOrRankToken": "p848_all_n_recombination_residual_after_mod50_wedge_blocker",
+    "failureBoundary": "If no complement cover/impossibility can be proved locally, emit a sharper formal recombination blocker naming the missing p4217 theorem object and preserving the q-cover/mod-50 blocks.",
+    "command": "./bin/erdos problem progress 848 --json"
+  },
+  "forbiddenMovesAfterResidualAssembly": [
+    "resume_q193_q197_singleton_descent",
+    "launch_q193_q389_or_larger_q_cover_without_new_theorem",
+    "emit_naked_deterministic_rank_boundary",
+    "treat_280_row_finite_menu_as_all_future_recurrence",
+    "treat_incomplete_live_orp_lane_as_theorem_evidence",
+    "try_single_fallback_selectors_without_bulk_cover_impossibility_or_rank_decrease"
+  ],
+  "proofBoundary": "This packet is a recombination residual assembly, not an all-N proof. It names the theorem atoms still outside the proof after the mod-50 theorem-wedge blocker and keeps finite q-cover/selector expansion blocked until a new theorem object is produced.",
+  "claims": {
+    "completesAllNResidualAssembly": true,
+    "assemblesAllNResidual": true,
+    "provesAllN": false,
+    "provesP4217ComplementCover": false,
+    "provesQCoverDecreasingMeasure": false,
+    "provesMod50Recurrence": false,
+    "provesFiniteQPartition": false,
+    "restoresOriginalGenerator": false,
+    "provesPost40500Sufficiency": false,
+    "blocksQCoverExpansion": true,
+    "blocksSingletonQDescent": true,
+    "blocksNakedRankBoundary": true,
+    "selectedNextActionIsTheoremFacing": true,
+    "selectedNextActionIsSingletonSelector": false,
+    "madeNewPaidCall": false,
+    "referencesBudgetGuardedIncompleteLiveRun": true,
+    "usesBoundedEvidenceOnlyAsBoundary": true
+  },
+  "packetPath": "/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_ALL_N_RECOMBINATION_RESIDUAL_AFTER_MOD50_WEDGE_BLOCKER_PACKET.json"
+}

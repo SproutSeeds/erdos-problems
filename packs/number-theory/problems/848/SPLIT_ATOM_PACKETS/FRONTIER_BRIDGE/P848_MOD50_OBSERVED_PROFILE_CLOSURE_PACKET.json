@@ -1,0 +1,200 @@
+{
+  "schema": "erdos.number_theory.p848_mod50_observed_profile_closure_packet/1",
+  "packetId": "p848_mod50_observed_profile_closure",
+  "problemId": 848,
+  "generatedAt": "2026-04-17T11:11:06.234Z",
+  "status": "observed_mod50_profile_closure_assembled_universal_cover_open",
+  "parentAction": {
+    "stepId": "assemble_p848_mod50_observed_profile_closure_or_prove_universal_domain_cover",
+    "task": "Assemble the observed mod-50 profile closure and choose the next universal square-witness domain-cover theorem or residual counterfamily before any 40501+ rollout.",
+    "source": "packs/number-theory/problems/848/TASK_LIST.json"
+  },
+  "sourcePackets": [
+    {
+      "packetId": "p848_mod50_lane_coverage_hypotheses_blocker",
+      "path": "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_MOD50_LANE_COVERAGE_HYPOTHESES_BLOCKER_PACKET.json",
+      "role": "names the missing universal square-witness domain cover"
+    },
+    {
+      "packetId": "p848_mod50_lane_square_witness_domain_census",
+      "path": "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_MOD50_LANE_SQUARE_WITNESS_DOMAIN_CENSUS_PACKET.json",
+      "role": "decomposes the 74 observed finite witness instances"
+    },
+    {
+      "packetId": "p848_mod50_anchor432_witness4489_profile_split",
+      "path": "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_MOD50_ANCHOR432_WITNESS4489_PROFILE_SPLIT_PACKET.json",
+      "role": "closes the selected 432/4489 top-only subprobe as a finite profile split"
+    },
+    {
+      "packetId": "p848_mod50_remaining_top_only_groups_batch_classification",
+      "path": "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_MOD50_REMAINING_TOP_ONLY_GROUPS_BATCH_CLASSIFICATION_PACKET.json",
+      "role": "batch-classifies the five remaining observed top-only groups"
+    },
+    {
+      "packetId": "p848_mod50_non_first_target_profile_boundary_audit",
+      "path": "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_MOD50_NON_FIRST_TARGET_PROFILE_BOUNDARY_AUDIT_PACKET.json",
+      "role": "identifies the tracked-activation cover gap for non-first-target rows"
+    },
+    {
+      "packetId": "p848_mod50_external_anchor_activation_counterfamily",
+      "path": "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_MOD50_EXTERNAL_ANCHOR_ACTIVATION_COUNTERFAMILY_PACKET.json",
+      "role": "refutes the current broad tracked-activation cover at finite observed scope"
+    },
+    {
+      "packetId": "p848_mod50_external_anchor_irrelevance_split",
+      "path": "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_MOD50_EXTERNAL_ANCHOR_IRRELEVANCE_SPLIT_PACKET.json",
+      "role": "terminally splits observed 157 external-anchor events"
+    },
+    {
+      "packetId": "p848_mod50_232_same_lane_external_anchor_profile_split",
+      "path": "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_MOD50_232_SAME_LANE_EXTERNAL_ANCHOR_PROFILE_SPLIT_PACKET.json",
+      "role": "terminally splits the observed same-lane 232 event"
+    },
+    {
+      "packetId": "p848_mod50_382_832_companion_gap_profile_split",
+      "path": "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_MOD50_382_832_COMPANION_GAP_PROFILE_SPLIT_PACKET.json",
+      "role": "terminally splits all observed 382/832 companion gaps"
+    }
+  ],
+  "observedWitnessDomain": {
+    "finiteWitnessInstanceCount": 74,
+    "witnessPeriodSet": [
+      9,
+      49,
+      169,
+      289,
+      361,
+      529,
+      1369,
+      1681,
+      4489,
+      66049
+    ],
+    "qBadResidueGroupCount": 15,
+    "topOnly": {
+      "groupCount": 7,
+      "instanceCount": 28,
+      "status": "observed_top_only_profile_surface_closed_or_atomized",
+      "closedGroupCount": 7,
+      "closureClasses": [
+        {
+          "classId": "already_closed_zero_lift_duplicate",
+          "groupIds": [
+            "top_832_Q529_bad16"
+          ],
+          "source": "P848_TOP_REPAIR_CLASS_MECHANISM_PACKET.json#anchor832Witness529Domain"
+        },
+        {
+          "classId": "finite_profile_split_selected_subprobe",
+          "groupIds": [
+            "top_432_Q4489_bad8"
+          ],
+          "source": "P848_MOD50_ANCHOR432_WITNESS4489_PROFILE_SPLIT_PACKET.json"
+        },
+        {
+          "classId": "strict_target_first_finite_replay",
+          "groupIds": [
+            "top_432_Q1681_bad8",
+            "top_782_Q169_bad15"
+          ],
+          "source": "P848_MOD50_REMAINING_TOP_ONLY_GROUPS_BATCH_CLASSIFICATION_PACKET.json"
+        },
+        {
+          "classId": "non_first_target_terminal_profiles",
+          "groupIds": [
+            "top_432_Q49_bad8",
+            "top_782_Q9_bad6",
+            "top_832_Q9_bad7"
+          ],
+          "source": "P848_MOD50_EXTERNAL_ANCHOR_IRRELEVANCE_SPLIT_PACKET.json; P848_MOD50_232_SAME_LANE_EXTERNAL_ANCHOR_PROFILE_SPLIT_PACKET.json; P848_MOD50_382_832_COMPANION_GAP_PROFILE_SPLIT_PACKET.json"
+        }
+      ]
+    },
+    "contrastOnly": {
+      "groupCount": 11,
+      "instanceCount": 46,
+      "status": "observed_contrast_only_recombination_open",
+      "reason": "The current observed top-only profile closure does not by itself prove contrast-only coverage or final top/contrast recombination."
+    }
+  },
+  "assembledClosure": {
+    "observedTopOnlyProfileClosure": "assembled",
+    "observedTopOnlyNonFirstTargetProfileGaps": "atomized",
+    "allObservedTopOnlyGroupsAccounted": true,
+    "allObservedNonFirstTargetActivationGapsAccounted": true,
+    "uses40501PlusRollout": false,
+    "frontierMeasureEffect": {
+      "priorOpenFrontierObligationCount": 27,
+      "newOpenFrontierObligationCount": 27,
+      "interpretation": "This packet recombines already-emitted terminal profiles into a closure surface; it does not create another terminal leaf by itself."
+    }
+  },
+  "routeDecision": {
+    "observedFiniteProfileClosure": "assembled",
+    "universalSquareWitnessDomainCoverTheorem": "not_proved",
+    "residualCounterfamilyBoundary": "emitted",
+    "reason": "All observed top-only/non-first-target mod-50 profile gaps now have finite closure or terminal-profile accounting, but the repo still has only the 74-instance observed witness domain and the earlier blocker still lacks a quantifier over all future or unenumerated representatives n and square witness moduli Q."
+  },
+  "residualBoundary": {
+    "boundaryId": "p848_mod50_universal_square_witness_domain_cover_residual",
+    "status": "open",
+    "primaryMissingHypothesis": "square_witness_domain_cover",
+    "statement": "Classify or finitely cover every relevant pair (n, Q), where n is a future/family representative and Q is a square witness modulus that can obstruct a continuation in c = 32 + 50*m.",
+    "currentFiniteEvidence": {
+      "finiteWitnessInstanceCount": 74,
+      "witnessPeriodSet": [
+        9,
+        49,
+        169,
+        289,
+        361,
+        529,
+        1369,
+        1681,
+        4489,
+        66049
+      ],
+      "topOnlyProfileClosure": "assembled"
+    },
+    "outsideScope": [
+      "Any future or unenumerated representative n not in the observed finite witness census.",
+      "Any square witness modulus Q not covered by a parametric domain theorem.",
+      "Any observed-period family not proved to belong to a covered handoff or contrast-only recombination theorem.",
+      "The post-40500 sufficiency theorem or any theorem-facing finite regression interval."
+    ]
+  },
+  "remainingObligations": [
+    {
+      "obligationId": "universal_mod50_square_witness_domain_cover",
+      "status": "open",
+      "rank": "primary",
+      "statement": "Prove a parametric cover for all relevant (n,Q,bad-lane) families in c = 32 + 50*m, or emit a residual counterfamily/hypotheses packet with an exact denominator and representative family."
+    },
+    {
+      "obligationId": "contrast_only_recombination_surface",
+      "status": "open",
+      "rank": "secondary",
+      "statement": "Recombine the 11 observed contrast-only groups and any parametric contrast-only families with the top repair-class handoff."
+    },
+    {
+      "obligationId": "post_40500_sufficiency_or_regression_interval",
+      "status": "open",
+      "rank": "secondary",
+      "statement": "Prove why the compact 1..40500 base plus symbolic lane theorem suffices beyond 40500, or name a theorem-facing finite regression interval."
+    }
+  ],
+  "proofBoundary": "This packet assembles the observed mod-50 top-only profile closure from existing finite packets. It does not prove the universal square-witness domain cover, does not close contrast-only recombination, does not justify a 40501+ rollout, and does not decide Problem 848.",
+  "recommendedNextAction": "derive_p848_mod50_universal_square_witness_domain_cover_or_emit_residual_counterfamily",
+  "nextTheoremMove": "Derive the universal square-witness domain cover for c = 32 + 50*m from the symbolic bad-lane schema and restored family-menu structure, or emit an exact residual counterfamily/hypotheses packet before any 40501+ rollout.",
+  "suggestedVerificationCommand": "jq '{observedWitnessDomain, assembledClosure, routeDecision, residualBoundary, remainingObligations, claims}' packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_MOD50_OBSERVED_PROFILE_CLOSURE_PACKET.json",
+  "claims": {
+    "assemblesObservedMod50ProfileClosure": true,
+    "allObservedTopOnlyGroupsAccounted": true,
+    "allObservedNonFirstTargetProfileGapsAtomized": true,
+    "provesUniversalSquareWitnessDomainCover": false,
+    "closesContrastOnlyRecombination": false,
+    "justifies40501PlusRollout": false,
+    "provesP4217ComplementCoverage": false,
+    "provesAllN": false
+  }
+}

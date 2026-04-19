@@ -1,0 +1,148 @@
+{
+  "schema": "erdos.number_theory.p848_mod50_universal_domain_cover_residual_packet/1",
+  "packetId": "p848_mod50_universal_domain_cover_residual",
+  "generatedAt": "2026-04-17T11:19:48Z",
+  "problemId": 848,
+  "status": "universal_mod50_square_witness_domain_cover_blocked_by_missing_parametric_enumerator",
+  "parentAction": {
+    "stepId": "derive_p848_mod50_universal_square_witness_domain_cover_or_emit_residual_counterfamily",
+    "completionRule": "A parametric universal domain-cover theorem is recorded, or a residual counterfamily/hypotheses packet names the exact uncovered family and denominator."
+  },
+  "sourcePackets": [
+    "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_MOD50_LANE_COVERAGE_HYPOTHESES_BLOCKER_PACKET.json",
+    "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_MOD50_LANE_SQUARE_WITNESS_DOMAIN_CENSUS_PACKET.json",
+    "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_MOD50_OBSERVED_PROFILE_CLOSURE_PACKET.json",
+    "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_282_841_ROW_MENU_REPLAY_CERTIFICATE_PACKET.json",
+    "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_EXACT_40500_ENDPOINT_BOUNDARY_AUDIT_PACKET.json"
+  ],
+  "theoremAttempt": {
+    "theoremId": "p848_mod50_universal_square_witness_domain_cover_v1",
+    "laneFormula": "c = 32 + 50*m",
+    "candidateStatement": "The symbolic bad-lane congruence and restored family-menu structure classify or finitely cover every relevant pair (n,Q), where n is a future or family representative and Q is a square witness modulus that can obstruct a continuation in the 32 mod 50 lane.",
+    "result": "blocked_not_proved",
+    "reason": "The repo currently supplies a universal divisibility identity for a named (n,Q) and a finite 74-instance observed witness census, but it does not supply a parametric relevant-pair enumerator, a finite partition of possible Q, or a recurrence proving that future representatives stay inside the observed cover."
+  },
+  "localAudit": {
+    "symbolicBadLaneSchema": {
+      "status": "ready_for_named_q_only",
+      "universalDivisibilityClaim": true,
+      "universalSquarefreeRepairClaim": false,
+      "formula": "For c = 32 + 50*m, Q | c*n + 1 iff (50*n)*m \u2261 -(32*n + 1) (mod Q)."
+    },
+    "restoredFamilyMenu": {
+      "path": "output/frontier-engine-local/p848-anchor-ladder/live-frontier-sync/2026-04-05/SIX_PREFIX_TWENTY_FOUR_FAMILY_MENU.json",
+      "familyCount": 280,
+      "knownFailureMatches": 25,
+      "repairAnchors": [
+        157,
+        232,
+        282,
+        332,
+        382,
+        432,
+        782,
+        832
+      ],
+      "menuScope": "finite_restored_menu_not_parametric_generator",
+      "auditResult": "The menu is replayable local evidence, but it does not quantify over future representatives beyond the restored finite row set."
+    },
+    "observedWitnessDomain": {
+      "finiteWitnessInstanceCount": 74,
+      "qBadResidueGroupCount": 15,
+      "witnessPeriodSet": [
+        9,
+        49,
+        169,
+        289,
+        361,
+        529,
+        1369,
+        1681,
+        4489,
+        66049
+      ],
+      "topOnlyGroupCount": 7,
+      "closedTopOnlyGroupCount": 7,
+      "contrastOnlyGroupCount": 11,
+      "contrastOnlyInstanceCount": 46,
+      "auditResult": "Observed top-only profile closure is assembled, but contrast-only recombination and all future/unobserved witness pairs remain outside the proof."
+    },
+    "exactIntervalBoundary": {
+      "compactInterval": "1..40500",
+      "status": "promoted_as_compact_verifier_evidence_only",
+      "rollout40501PlusJustified": false
+    }
+  },
+  "residualFamily": {
+    "familyId": "p848_mod50_universal_square_witness_domain_cover_residual_family",
+    "representativeVariable": "n",
+    "squareWitnessVariable": "Q",
+    "laneIndexVariable": "m",
+    "continuationFormula": "c = 32 + 50*m",
+    "badLaneCongruence": "(50*n)*m \u2261 -(32*n + 1) (mod Q)",
+    "badLaneDenominator": "Q / gcd(50*n, Q)",
+    "badLaneClass": "the solution class for m modulo Q / gcd(50*n,Q), when the linear congruence is solvable",
+    "uncoveredScope": [
+      "Any future or unenumerated representative n not produced by a parametric relevant-pair enumerator.",
+      "Any square witness modulus Q not bounded by a finite partition or recurrence theorem.",
+      "Any observed-period pair not proved to belong to a top-tie, handoff, or contrast-only recombination theorem.",
+      "Any post-40500 representative whose safety depends on a finite rollout rather than a theorem-facing sufficiency argument."
+    ]
+  },
+  "missingHypotheses": [
+    {
+      "hypothesisId": "parametric_relevant_pair_enumerator",
+      "status": "missing",
+      "requiredStatement": "Enumerate all relevant future pairs (n,Q) that can obstruct a continuation c = 32 + 50*m, or prove that the restored finite family-menu rows are exhaustive for the theorem context.",
+      "currentEvidence": "The restored family menu has 280 finite rows and 25 known-failure matches; no all-N row generator or recurrence theorem is recorded here."
+    },
+    {
+      "hypothesisId": "square_witness_modulus_bound_or_finite_partition",
+      "status": "missing",
+      "requiredStatement": "Bound Q or partition all possible Q into finitely checked square-witness families with an explicit denominator Q/gcd(50*n,Q).",
+      "currentEvidence": "The observed period set is finite for the 74 checked instances, but no proof excludes new Q values."
+    },
+    {
+      "hypothesisId": "bad_lane_class_handoff_map",
+      "status": "missing",
+      "requiredStatement": "For every covered (n,Q), prove that the bad lane class is avoided or routed through a top-tie, handoff, companion-gap, or contrast-only theorem.",
+      "currentEvidence": "The observed top-only side is atomized, but the handoff map is finite and row-local."
+    },
+    {
+      "hypothesisId": "contrast_only_recombination_theorem",
+      "status": "missing",
+      "requiredStatement": "Recombine the 11 observed contrast-only groups, and any parametric contrast-only families, with the top repair-class handoff.",
+      "currentEvidence": "The observed closure packet explicitly leaves 11 contrast-only groups and 46 instances open."
+    },
+    {
+      "hypothesisId": "post_40500_sufficiency_or_regression_interval",
+      "status": "missing",
+      "requiredStatement": "Prove that the compact 1..40500 base plus symbolic lane theorem suffices beyond 40500, or select a theorem-facing finite regression interval.",
+      "currentEvidence": "The exact interval is promoted only as compact verifier evidence; no 40501+ rollout is justified."
+    }
+  ],
+  "deterministicBoundary": {
+    "boundaryId": "p848_mod50_universal_domain_cover_parametric_enumerator_boundary",
+    "status": "open",
+    "mustProvideOneOf": [
+      "A parametric relevant-pair enumerator/recurrence that covers every future (n,Q) pair in the 32 mod 50 lane.",
+      "A finite Q partition plus handoff map proving every bad lane class is covered.",
+      "A concrete residual counterfamily with explicit n, Q, m, bad-lane denominator, and failed handoff."
+    ],
+    "forbiddenShortcut": "Do not start a 40501+ exact rollout or claim universal mod-50 coverage from the 74 finite witness instances alone."
+  },
+  "recommendedNextAction": "derive_p848_mod50_relevant_pair_enumerator_or_emit_generator_blocker",
+  "nextTheoremMove": "Recover or prove a parametric relevant-pair enumerator for the mod-50 square-witness domain; if the local generator cannot supply one, emit a generator/recurrence blocker naming the missing source.",
+  "suggestedVerificationCommand": "jq '{theoremAttempt, localAudit, residualFamily, missingHypotheses, deterministicBoundary, recommendedNextAction, claims}' packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_MOD50_UNIVERSAL_DOMAIN_COVER_RESIDUAL_PACKET.json",
+  "proofBoundary": "This packet blocks the universal mod-50 square-witness domain cover at the missing parametric relevant-pair enumerator. It sharpens the residual family and denominator, but does not prove all-N, contrast-only recombination, p4217 complement coverage, or a 40501+ rollout.",
+  "claims": {
+    "blocksUniversalDomainCover": true,
+    "namesResidualFamily": true,
+    "namesBadLaneDenominator": true,
+    "uses40501PlusRollout": false,
+    "provesUniversalSquareWitnessDomainCover": false,
+    "closesContrastOnlyRecombination": false,
+    "provesP4217ComplementCoverage": false,
+    "provesAllN": false
+  }
+}

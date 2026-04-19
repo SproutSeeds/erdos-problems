@@ -1,0 +1,253 @@
+{
+  "schema": "erdos.number_theory.p848_mod50_restored_menu_sequence_stability_blocker_packet/1",
+  "packetId": "p848_mod50_restored_menu_sequence_stability_blocker",
+  "generatedAt": "2026-04-17T11:42:53Z",
+  "problemId": 848,
+  "status": "restored_menu_sequence_stability_blocked_not_a_recurrence",
+  "parentAction": {
+    "stepId": "audit_p848_mod50_restored_menu_sequence_for_relevant_pair_recurrence_or_emit_stability_blocker",
+    "completionRule": "A recurrence or finite Q-partition candidate is recorded with its coverage boundary, or a sequence-stability blocker names the exact missing menu/generator input."
+  },
+  "sourcePackets": [
+    "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_MOD50_RELEVANT_PAIR_ENUMERATOR_GENERATOR_BLOCKER_PACKET.json",
+    "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_MOD50_UNIVERSAL_DOMAIN_COVER_RESIDUAL_PACKET.json",
+    "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_MOD50_OBSERVED_PROFILE_CLOSURE_PACKET.json",
+    "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_CONVERGENCE_ASSEMBLY_282_FIRST_FAILURE_PACKET.json"
+  ],
+  "blockedObject": {
+    "objectId": "p848_mod50_restored_menu_sequence_recurrence_or_q_partition",
+    "requiredStatement": "Derive a stable relevant-pair recurrence or finite Q partition for all future c = 32 + 50*m square-witness pairs from the restored family-menu sequence.",
+    "blockedReason": "The six restored menu snapshots are finite limit surfaces, not a stable recurrence. Prefix stability holds only for the first three transitions and then fails when new known failures and square moduli insert lower representatives and delete prior finite-limit rows."
+  },
+  "auditedMenuSequence": {
+    "root": "output/frontier-engine-local/p848-anchor-ladder/live-frontier-sync/2026-04-05",
+    "menus": [
+      {
+        "label": "SIX_PREFIX_NINETEEN",
+        "path": "output/frontier-engine-local/p848-anchor-ladder/live-frontier-sync/2026-04-05/SIX_PREFIX_NINETEEN_FAMILY_MENU.json",
+        "familyCount": 220,
+        "knownFailureMatches": 20,
+        "knownFailureParameterCount": 19,
+        "squareModuliCount": 21,
+        "minRepresentative": 2678425,
+        "maxRepresentative": 1644258991,
+        "sortedByRepresentative": true,
+        "witnessRepairRowCount": 219,
+        "lane32WitnessRepairRowCount": 97,
+        "lane32WitnessSquares": [9, 25, 49, 169, 289, 529, 841, 1681, 4489, 66049]
+      },
+      {
+        "label": "SIX_PREFIX_TWENTY",
+        "path": "output/frontier-engine-local/p848-anchor-ladder/live-frontier-sync/2026-04-05/SIX_PREFIX_TWENTY_FAMILY_MENU.json",
+        "familyCount": 230,
+        "knownFailureMatches": 21,
+        "knownFailureParameterCount": 20,
+        "squareModuliCount": 21,
+        "minRepresentative": 2678425,
+        "maxRepresentative": 1684455347,
+        "sortedByRepresentative": true,
+        "witnessRepairRowCount": 251,
+        "lane32WitnessRepairRowCount": 122,
+        "lane32WitnessSquares": [9, 25, 49, 169, 289, 529, 841, 1681, 4489, 44521, 66049]
+      },
+      {
+        "label": "SIX_PREFIX_TWENTY_ONE",
+        "path": "output/frontier-engine-local/p848-anchor-ladder/live-frontier-sync/2026-04-05/SIX_PREFIX_TWENTY_ONE_FAMILY_MENU.json",
+        "familyCount": 240,
+        "knownFailureMatches": 22,
+        "knownFailureParameterCount": 21,
+        "squareModuliCount": 21,
+        "minRepresentative": 2678425,
+        "maxRepresentative": 1766364109,
+        "sortedByRepresentative": true,
+        "witnessRepairRowCount": 257,
+        "lane32WitnessRepairRowCount": 125,
+        "lane32WitnessSquares": [9, 25, 49, 169, 289, 529, 841, 1681, 4489, 44521, 66049]
+      },
+      {
+        "label": "SIX_PREFIX_TWENTY_TWO",
+        "path": "output/frontier-engine-local/p848-anchor-ladder/live-frontier-sync/2026-04-05/SIX_PREFIX_TWENTY_TWO_FAMILY_MENU.json",
+        "familyCount": 250,
+        "knownFailureMatches": 23,
+        "knownFailureParameterCount": 22,
+        "squareModuliCount": 21,
+        "minRepresentative": 2678425,
+        "maxRepresentative": 1835206429,
+        "sortedByRepresentative": true,
+        "witnessRepairRowCount": 268,
+        "lane32WitnessRepairRowCount": 131,
+        "lane32WitnessSquares": [9, 25, 49, 169, 289, 529, 841, 1681, 4489, 44521, 66049]
+      },
+      {
+        "label": "SIX_PREFIX_TWENTY_THREE",
+        "path": "output/frontier-engine-local/p848-anchor-ladder/live-frontier-sync/2026-04-05/SIX_PREFIX_TWENTY_THREE_FAMILY_MENU.json",
+        "familyCount": 260,
+        "knownFailureMatches": 24,
+        "knownFailureParameterCount": 23,
+        "squareModuliCount": 22,
+        "minRepresentative": 2678425,
+        "maxRepresentative": 1859125225,
+        "sortedByRepresentative": true,
+        "witnessRepairRowCount": 278,
+        "lane32WitnessRepairRowCount": 135,
+        "lane32WitnessSquares": [9, 25, 49, 121, 169, 289, 529, 841, 1681, 4489, 44521, 66049]
+      },
+      {
+        "label": "SIX_PREFIX_TWENTY_FOUR",
+        "path": "output/frontier-engine-local/p848-anchor-ladder/live-frontier-sync/2026-04-05/SIX_PREFIX_TWENTY_FOUR_FAMILY_MENU.json",
+        "familyCount": 280,
+        "knownFailureMatches": 25,
+        "knownFailureParameterCount": 24,
+        "squareModuliCount": 23,
+        "minRepresentative": 2678425,
+        "maxRepresentative": 1837022639,
+        "sortedByRepresentative": true,
+        "witnessRepairRowCount": 295,
+        "lane32WitnessRepairRowCount": 139,
+        "lane32WitnessSquares": [9, 25, 49, 121, 169, 289, 361, 529, 841, 1681, 4489, 44521, 66049]
+      }
+    ],
+    "missingSequenceInputs": [
+      "No local SIX_PREFIX_TWENTY_FIVE or generating command is present.",
+      "The local sequence jumps from 260 to 280 rows; no 270-row menu snapshot is present.",
+      "No theorem object explains how new known failures or new square moduli enter the sequence."
+    ]
+  },
+  "transitionAudit": {
+    "transitions": [
+      {
+        "from": "SIX_PREFIX_NINETEEN",
+        "to": "SIX_PREFIX_TWENTY",
+        "countDelta": 10,
+        "prefixStable": true,
+        "retainedFamilyCount": 220,
+        "deletedFamilyCount": 0,
+        "addedFamilyCount": 10,
+        "addedKnownFailureMatches": 0,
+        "addedKnownFailures": [102428617],
+        "addedSquareModuli": [],
+        "addedLane32WitnessSquares": [9, 25, 44521],
+        "addedRepresentativeSample": [1651000783, 1654841707, 1666743993, 1667737831, 1673229956, 1675008823, 1676618257, 1682248877, 1684455347]
+      },
+      {
+        "from": "SIX_PREFIX_TWENTY",
+        "to": "SIX_PREFIX_TWENTY_ONE",
+        "countDelta": 10,
+        "prefixStable": true,
+        "retainedFamilyCount": 230,
+        "deletedFamilyCount": 0,
+        "addedFamilyCount": 10,
+        "addedKnownFailureMatches": 0,
+        "addedKnownFailures": [106393589],
+        "addedSquareModuli": [],
+        "addedLane32WitnessSquares": [9, 289],
+        "addedRepresentativeSample": [1688174545, 1705839349, 1711131215, 1712315255, 1714380241, 1723772653, 1734684433, 1744410865, 1765031251, 1766364109]
+      },
+      {
+        "from": "SIX_PREFIX_TWENTY_ONE",
+        "to": "SIX_PREFIX_TWENTY_TWO",
+        "countDelta": 10,
+        "prefixStable": true,
+        "retainedFamilyCount": 240,
+        "deletedFamilyCount": 0,
+        "addedFamilyCount": 10,
+        "addedKnownFailureMatches": 0,
+        "addedKnownFailures": [127484267],
+        "addedSquareModuli": [],
+        "addedLane32WitnessSquares": [9, 529],
+        "addedRepresentativeSample": [1790361409, 1797117529, 1802675543, 1809102037, 1820631943, 1834551647, 1835206429]
+      },
+      {
+        "from": "SIX_PREFIX_TWENTY_TWO",
+        "to": "SIX_PREFIX_TWENTY_THREE",
+        "countDelta": 10,
+        "prefixStable": false,
+        "retainedFamilyCount": 250,
+        "deletedFamilyCount": 0,
+        "addedFamilyCount": 10,
+        "addedKnownFailureMatches": 1,
+        "addedKnownFailures": [127682743],
+        "addedSquareModuli": [17161],
+        "addedLane32WitnessSquares": [9, 121],
+        "addedRepresentativeSample": [127682743, 320477921, 365477947, 687671377, 1081989121, 1837022639, 1842958283, 1854925279, 1859125225]
+      },
+      {
+        "from": "SIX_PREFIX_TWENTY_THREE",
+        "to": "SIX_PREFIX_TWENTY_FOUR",
+        "countDelta": 20,
+        "prefixStable": false,
+        "retainedFamilyCount": 256,
+        "deletedFamilyCount": 4,
+        "addedFamilyCount": 24,
+        "addedKnownFailureMatches": 1,
+        "addedKnownFailures": [136702637],
+        "addedSquareModuli": [1849],
+        "addedLane32WitnessSquares": [9, 49, 361],
+        "deletedFamilies": [
+          {
+            "representative": 1837022639,
+            "tupleKey": "9, 11^2, 4, 7^2, 41^2, 23^2"
+          },
+          {
+            "representative": 1842958283,
+            "tupleKey": "9, 7^2, 4, 53^2, 17^2, 29^2"
+          },
+          {
+            "representative": 1854925279,
+            "tupleKey": "17^2, 9, 4, 7^2, 23^2, 11^2"
+          },
+          {
+            "representative": 1859125225,
+            "tupleKey": "4, 11^2, 7^2, 17^2, 19^2, 9"
+          }
+        ],
+        "addedRepresentativeSample": [136702637, 193809001, 290063023, 310471151, 559012567, 609799499, 907339445, 971212435, 983391169, 1072792169, 1079001739, 1163335849, 1297708855, 1361442751, 1383039071, 1442785093, 1520094347, 1531079761, 1576182419, 1618557295, 1795172611]
+      }
+    ],
+    "prefixStableTransitionCount": 3,
+    "unstableTransitionIds": [
+      "SIX_PREFIX_TWENTY_TWO_to_SIX_PREFIX_TWENTY_THREE",
+      "SIX_PREFIX_TWENTY_THREE_to_SIX_PREFIX_TWENTY_FOUR"
+    ],
+    "deletedFamilyCount": 4,
+    "lateLane32WitnessSquares": [121, 361],
+    "lateAddedSquareModuli": [17161, 1849],
+    "interpretation": "The restored sequence is useful finite evidence, but it is not a recurrence proof: the observed menu prefix is stable only until new known failures and square moduli enter the finite-limit selection surface."
+  },
+  "negativeFindings": [
+    "The six restored menus are finite snapshots, not a generator or theorem-level recurrence.",
+    "Prefix stability fails at SIX_PREFIX_TWENTY_TWO -> SIX_PREFIX_TWENTY_THREE and SIX_PREFIX_TWENTY_THREE -> SIX_PREFIX_TWENTY_FOUR.",
+    "The parameter surface changes late: square moduli 17161 and 1849 enter, and new known failures insert lower representatives.",
+    "The 260 -> 280 jump has no 270-row menu, and the 280-row finite limit deletes four families that were present at 260 rows.",
+    "Late lane-32 witness squares 121 and 361 appear in the restored sequence, so the TWENTY_FOUR finite Q set is not a proved all-future Q partition."
+  ],
+  "deterministicBoundary": {
+    "boundaryId": "p848_mod50_restored_menu_sequence_stability_boundary",
+    "status": "open",
+    "blockedInput": "A local source generator, missing intermediate menu/source sequence, or symbolic recurrence that explains representatives and square witness moduli independent of finite menu limits.",
+    "acceptedSuccessors": [
+      "Restore the actual family-menu generator or a replayable full sequence source, including the missing 270-row boundary if it exists.",
+      "Prove a symbolic recurrence for representatives and Q values that is independent of finite limit snapshots.",
+      "Derive a finite Q partition from the source generator or a theorem, not from the six finite snapshots alone.",
+      "Emit a concrete residual counterfamily with explicit n, Q, m-class denominator, and failed handoff."
+    ],
+    "forbiddenShortcut": "Do not infer a universal recurrence or finite Q partition from prefix stability in the first three transitions, from the TWENTY_FOUR finite Q set, or from the 280-row finite menu limit."
+  },
+  "recommendedNextAction": "restore_p848_mod50_menu_generator_or_prove_symbolic_relevant_pair_recurrence",
+  "nextTheoremMove": "Restore the mod-50 family-menu generator or prove a symbolic relevant-pair recurrence/finite Q partition independent of finite snapshots; otherwise route to a concrete residual counterfamily.",
+  "suggestedVerificationCommand": "jq '{blockedObject, transitionAudit, deterministicBoundary, recommendedNextAction, claims}' packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_MOD50_RESTORED_MENU_SEQUENCE_STABILITY_BLOCKER_PACKET.json",
+  "proofBoundary": "This packet blocks promotion of the restored SIX_PREFIX_NINETEEN through TWENTY_FOUR sequence to a universal relevant-pair recurrence or finite Q partition. It does not prove the parametric relevant-pair enumerator, the universal square-witness domain cover, contrast-only recombination, post-40500 sufficiency, p4217 complement coverage, or all-N.",
+  "claims": {
+    "auditsRestoredMenuSequence": true,
+    "provesEarlyPrefixStabilityOnly": true,
+    "provesSequenceNotStableRecurrence": true,
+    "namesMissingGeneratorOrIntermediateSource": true,
+    "uses40501PlusRollout": false,
+    "provesRelevantPairEnumerator": false,
+    "provesFiniteQPartition": false,
+    "provesUniversalSquareWitnessDomainCover": false,
+    "closesContrastOnlyRecombination": false,
+    "provesP4217ComplementCoverage": false,
+    "provesAllN": false
+  }
+}

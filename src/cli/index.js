@@ -43,6 +43,8 @@ function printUsage() {
   console.log('  erdos problem task-list [<id>] [--json]');
   console.log('  erdos problem task-list-refresh [<id>] [--json]');
   console.log('  erdos problem task-list-run [<id>] [--passes <n>] [--no-stop-on-convergence] [--json]');
+  console.log('  erdos problem progress [<id>] [--json]');
+  console.log('  erdos problem progress-refresh [<id>] [--json]');
   console.log('  erdos cluster list [--json]');
   console.log('  erdos cluster show <name> [--json]');
   console.log('  erdos archive show <id> [--json]');
@@ -85,8 +87,15 @@ function printUsage() {
   console.log('  erdos number-theory ticket <problem-id> <ticket-id> [--json]');
   console.log('  erdos number-theory atom <problem-id> <atom-id> [--json]');
   console.log('  erdos workspace show [--json]');
+  console.log('  erdos workspace hygiene [--json]');
   console.log('  erdos orp show [--json]');
   console.log('  erdos orp sync [--json]');
+  console.log('  erdos orp research status [--json]');
+  console.log('  erdos orp research ask <problem-id> --question <text> [--run-id <id>] [--profile <id>] [--profile-file <path>] [--timeout-sec <n>] [--execute] [--allow-paid] [--json]');
+  console.log('  erdos orp research openai-check [--run-id <id>] [--timeout-sec <n>] [--execute] [--allow-paid] [--json]');
+  console.log('  erdos orp research run-status [run-id] [--json]');
+  console.log('  erdos orp research show [run-id] [--json]');
+  console.log('  erdos orp research usage [--json]');
   console.log('  erdos paper init [<id>] [--dest <path>] [--json]');
   console.log('  erdos paper show [<id>] [--dest <path>] [--json]');
   console.log('  erdos state sync [--json]');

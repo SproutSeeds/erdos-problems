@@ -1,8 +1,8 @@
 {
-  "schema": "erdos.number_theory.p848_endpoint_window_legality_audit/1",
-  "generatedAt": "2026-04-14",
-  "problemId": 848,
-  "status": "candidate_window_relaxation_requires_theorem_legality",
+  "schema": "erdos.number_theory.p848_endpoint_window_legality_audit/2",
+  "generatedAt": "2026-04-16T19:23:02.525Z",
+  "problemId": "848",
+  "status": "selector_layer_window_relaxation_supported_matching_handoff_needed",
   "activeAtom": "D2_p13_dynamic_margin_exact_mixed_matching_injection_selected_cross_squarefree_exception_period_shifted_endpoint_menu_q17_residual_window_relaxed_fallback_menu_lift_outP2_70_out25_23_smaller_side7_outsider_6323",
   "scope": {
     "split": "D2_p13",
@@ -17,15 +17,17 @@
   "windows": {
     "inheritedWindow": 25000,
     "candidateEndpointWindow": 28500,
-    "deltaBeyondInheritedWindow": 3489
+    "deltaBeyondInheritedWindow": 3489,
+    "inheritedMaxK": 999,
+    "candidateMaxK": 1139
   },
-  "sourcePackets": [
-    "D2_p13_dynamic_margin_exact_mixed_matching_injection_selected_cross_squarefree_exception_period_shifted_endpoint_menu_q17_residual_window_relaxed_fallback_menu_window_grid_profile.json",
-    "D2_p13_dynamic_margin_exact_mixed_matching_injection_selected_cross_squarefree_exception_period_shifted_endpoint_menu_q17_residual_window_relaxed_fallback_menu_first_window_miss.json",
-    "D2_p13_dynamic_margin_exact_mixed_matching_injection_selected_cross_squarefree_exception_period_shifted_endpoint_menu_q17_residual_window_relaxed_fallback_menu_first_window_miss_exact_window_grid.json",
-    "TASK_LIST.json",
-    "src/runtime/theorem-loop.js"
-  ],
+  "sourceProfiles": {
+    "predecessorProof": "/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DYNAMIC_MARGIN_PROOFS/D2_p13_dynamic_margin_exact_mixed_matching_injection_selected_cross_squarefree_exception_period_shifted_endpoint_menu_q17_residual_p13_expanded_fallback_menu_lift.json",
+    "scanStart": 27932207,
+    "scanEnd": 40000000,
+    "rowCount": 1095,
+    "squareCheck": "Every covered endpoint selected by each profiled full menu is exactly squarefree-certified."
+  },
   "observedEndpointRepair": {
     "left": 34414907,
     "prime": 67,
@@ -33,77 +35,109 @@
     "delta": -28489,
     "right": 34386418,
     "rightMod25": 18,
+    "insideInheritedWindow": false,
+    "insideCandidateWindow": true,
     "outsiderCompatibility": {
       "expression": "6323 * right + 1",
+      "compatibilityModPrimeSquare": 0,
       "divisibleByPrimeSquare": 4489,
       "primeSquare": "67^2"
     },
     "crossProduct": {
       "expression": "left * right + 1",
+      "value": "1183405377533127",
+      "squarefreeStatus": "exact_squarefree",
       "exactSquarefreeCertified": true
     }
   },
   "boundedEvidence": {
-    "broadFastGrid": {
-      "scan": "27932207..40000000",
-      "rows": 1095,
-      "window25000FullCovered": 1091,
-      "window25000FirstFullMiss": 34414907,
-      "window28500FullCovered": 1095,
-      "window28500FirstFullMiss": null,
-      "squareCheck": "fast_screen"
+    "windowGrid": [
+      {
+        "window": 25000,
+        "rows": 1095,
+        "fullCovered": 1091,
+        "fullMisses": 4,
+        "firstFullMiss": 34414907,
+        "exactFactorCoverage": false
+      },
+      {
+        "window": 28500,
+        "rows": 1095,
+        "fullCovered": 1095,
+        "fullMisses": 0,
+        "firstFullMiss": null,
+        "exactFactorCoverage": true
+      }
+    ],
+    "inheritedWindowFalsified": true,
+    "candidateWindowExactCoverage": true,
+    "endpointRepairCertified": true
+  },
+  "availabilityStratumSeed": {
+    "prime": 67,
+    "inheritedWindow": {
+      "maxK": 999,
+      "availableResidueCount": 1000,
+      "period": 4489,
+      "witnessAvailable": false
     },
-    "exactFirstMissGrid": {
-      "scan": "34414907..34414907",
-      "rows": 1,
-      "window25000FullCovered": 0,
-      "window28500FullCovered": 1,
-      "squareCheck": "exact_squarefree"
+    "candidateWindow": {
+      "maxK": 1139,
+      "availableResidueCount": 1140,
+      "period": 4489,
+      "witnessAvailable": true,
+      "kFormulaInT": "k_67(t) = (441*t + 2901) mod 4489"
     }
   },
   "inheritedBoundaryAudit": {
-    "taskListStillSays25000": true,
-    "runtimeCarriesSeedEscapeWindowForward": true,
-    "observedReasonFor25000": "inherited seedEscapeWindow/task wording from previous selector packets",
-    "notYetFoundInThisAudit": [
+    "predecessorSeedEscapeWindow": 25000,
+    "inheritedWindowMatchesPredecessorSeed": true,
+    "observedReasonForInheritedWindow": "The inherited cap is the predecessor nextSubatom.seedEscapeWindow carried into the selector lane.",
+    "notFoundInThisAudit": [
       "A theorem packet proving that 25000 is a collision-free matching invariant.",
       "A theorem packet proving that endpoints with 25000 < |delta| <= 28500 are illegal.",
       "A theorem packet showing that the p67 endpoint at left=34414907 breaks right-compatibility or squarefreeness."
     ]
   },
+  "selectorLayerDecision": {
+    "legalAtEndpointSelectorLayer": true,
+    "promotesAllN": false,
+    "provesCollisionFreeMatching": false,
+    "statement": "At endpoint-selector scope, window 28500 is the first profiled exact-factor window that repairs the inherited 25000-window miss without violating side, outsider-compatibility, or cross-squarefree checks.",
+    "boundary": "This decision is endpoint-selector legality only. Collision-free matching and all-N squarefree hitting remain downstream theorem obligations."
+  },
   "alreadySatisfiedAtEndpointLayer": [
     "The p67 endpoint is inside the candidate 28500 window.",
     "The p67 endpoint has right == 18 mod 25.",
     "The p67 endpoint satisfies outsider compatibility by construction.",
-    "The p67 endpoint is exactly squarefree for left * right + 1 at the first 25000-window full miss.",
-    "The broad fast grid has no full-menu misses at window 28500 over the profiled residual band."
+    "The p67 endpoint has exact squarefree cross product status exact_squarefree.",
+    "The broad exact-factor grid covers 1095/1095 rows at window 28500."
   ],
   "notProvedHere": [
     "All-N coverage for every q17 residual row.",
     "Collision-free online matching.",
     "The D2/D3 dynamic-margin promotion.",
-    "A symbolic availability/residue cover for window 28500.",
-    "A proof that broad fast-screen coverage is exact squarefree coverage for the full band."
+    "A symbolic residue-class squarefree-hitting lemma for the full endpoint menu."
   ],
   "theoremFork": [
     {
       "id": "prove_28500_endpoint_window_legality",
-      "status": "recommended_next",
-      "statement": "Prove that the q17 residual selector may use the candidate 28500 endpoint window, at least for the p67 repair stratum and any follow-on fallback strata.",
-      "completionRule": "Either emit a symbolic legality lemma for window 28500 or identify the exact invariant that forbids relaxing the old 25000 cap."
+      "status": "done_at_endpoint_selector_layer",
+      "statement": "Decide whether the q17 residual selector may use the candidate 28500 endpoint window.",
+      "completionRule": "Endpoint-selector legality is supported; route the remaining work to availability strata and matching handoff."
     },
     {
       "id": "preserve_25000_and_augment",
-      "status": "alternate_if_25000_is_structural",
-      "statement": "If 25000 is a real matching invariant, keep the cap and route the left=34414907 p67 endpoint into a replacement/augmenting-path handoff rather than a direct selector relaxation.",
+      "status": "not_selected_unless_matching_invariant_found",
+      "statement": "If 25000 is a real matching invariant, keep the cap and route left=34414907 into a replacement/augmenting-path handoff instead of direct selector relaxation.",
       "completionRule": "A bounded replacement path becomes a symbolic augmentation lemma, or emits the next deterministic obstruction."
     },
     {
       "id": "availability_residue_cover",
-      "status": "needed_after_fork",
+      "status": "next",
       "statement": "Convert the p67 and fallback endpoint availability thresholds into residue-class strata so the loop stops extending by one row at a time.",
       "completionRule": "Every residual class is assigned to an endpoint prime/window stratum or the first unassigned residue class is emitted."
     }
   ],
-  "recommendedNextAction": "prove_or_falsify_28500_endpoint_window_legality"
+  "recommendedNextAction": "promote_availability_residue_cover"
 }

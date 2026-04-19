@@ -1,0 +1,438 @@
+{
+  "schema": "erdos.number_theory.p848_mod50_non_first_target_profile_boundary_audit_packet/1",
+  "packetId": "p848_mod50_non_first_target_profile_boundary_audit_packet_v1",
+  "status": "non_first_target_boundaries_blocked_by_activation_cover_gap",
+  "generatedAt": "2026-04-17T10:33:08.357Z",
+  "sourceArtifacts": [
+    "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_MOD50_REMAINING_TOP_ONLY_GROUPS_BATCH_CLASSIFICATION_PACKET.json",
+    "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_MOD50_LANE_SQUARE_WITNESS_DOMAIN_CENSUS_PACKET.json",
+    "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_TOP_REPAIR_CLASS_MECHANISM_PACKET.json"
+  ],
+  "parentBoundary": {
+    "packet": "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_MOD50_REMAINING_TOP_ONLY_GROUPS_BATCH_CLASSIFICATION_PACKET.json",
+    "stepId": "resolve_p848_mod50_non_first_target_top_only_boundaries_or_emit_handoff_theorem",
+    "groupIds": [
+      "top_432_Q49_bad8",
+      "top_782_Q9_bad6",
+      "top_832_Q9_bad7"
+    ]
+  },
+  "handoffSurfaceUsed": {
+    "topTie": [
+      432,
+      782,
+      832
+    ],
+    "primaryContrasts": [
+      332,
+      382,
+      1232
+    ],
+    "finiteMenuSeparationStatus": "finite_menu_plus2_replay_certified",
+    "strictHandoffStatus": "finite_strict_handoff_certified_not_gap_closure",
+    "boundary": "The current handoff surface is finite-menu guidance over the top tie and primary contrasts; it does not automatically cover external continuations or missing same-family contrast companions."
+  },
+  "auditSummary": {
+    "checkedBoundaryGroupCount": 3,
+    "checkedBoundaryRowCount": 5,
+    "firstActivationEventCount": 10,
+    "sameFamilyObservedCompanionEventCount": 4,
+    "unresolvedActivationEventCount": 6,
+    "outsideSurfaceEventCount": 3,
+    "unresolvedContinuations": [
+      157,
+      232,
+      382,
+      832
+    ],
+    "outsideSurfaceContinuations": [
+      157,
+      232
+    ],
+    "no40501PlusRolloutUsed": true
+  },
+  "auditedGroups": [
+    {
+      "groupId": "top_432_Q49_bad8",
+      "topContinuation": 432,
+      "witnessSquareModulus": 49,
+      "familyIndices": [
+        75
+      ],
+      "representatives": [
+        457148843
+      ],
+      "previousClassification": "non_first_target_single_profile_boundary",
+      "status": "primary_contrast_same_family_companion_missing",
+      "firstActivationEventCount": 1,
+      "unresolvedActivationEventCount": 1,
+      "outsideSurfaceEventCount": 0,
+      "sameFamilyObservedCompanionEventCount": 0,
+      "rows": [
+        {
+          "familyIndex": 75,
+          "representative": 457148843,
+          "targetContinuation": 432,
+          "witnessSquareModulus": 49,
+          "targetFailureResidue": 11,
+          "firstTrackedMatchAnchor": 7,
+          "firstTargetMatchAnchor": 132,
+          "firstActivationEvents": [
+            {
+              "continuation": 382,
+              "activationAnchor": 7,
+              "activationResidueModWitness": 5,
+              "category": "primary_contrast",
+              "sameFamilyObservedCompanionCount": 0,
+              "sameFamilyObservedGroups": [],
+              "hasSameFamilyObservedCompanion": false,
+              "requiresNewActivationCover": true
+            }
+          ],
+          "unresolvedActivationEvents": [
+            {
+              "continuation": 382,
+              "activationAnchor": 7,
+              "activationResidueModWitness": 5,
+              "category": "primary_contrast",
+              "sameFamilyObservedCompanionCount": 0,
+              "sameFamilyObservedGroups": [],
+              "hasSameFamilyObservedCompanion": false,
+              "requiresNewActivationCover": true
+            }
+          ]
+        }
+      ],
+      "conclusion": "At least one first activation is outside the current top/primary-contrast handoff surface or lacks a same-family observed companion group; this blocks a contrast/handoff discharge theorem at current scope."
+    },
+    {
+      "groupId": "top_782_Q9_bad6",
+      "topContinuation": 782,
+      "witnessSquareModulus": 9,
+      "familyIndices": [
+        107,
+        161,
+        275
+      ],
+      "representatives": [
+        695323423,
+        1079001739,
+        1820631943
+      ],
+      "previousClassification": "non_first_target_multirow_profile_boundary",
+      "status": "mixed_companion_and_external_activation_boundary",
+      "firstActivationEventCount": 6,
+      "unresolvedActivationEventCount": 4,
+      "outsideSurfaceEventCount": 2,
+      "sameFamilyObservedCompanionEventCount": 2,
+      "rows": [
+        {
+          "familyIndex": 107,
+          "representative": 695323423,
+          "targetContinuation": 782,
+          "witnessSquareModulus": 9,
+          "targetFailureResidue": 1,
+          "firstTrackedMatchAnchor": 32,
+          "firstTargetMatchAnchor": 32,
+          "firstActivationEvents": [
+            {
+              "continuation": 332,
+              "activationAnchor": 32,
+              "activationResidueModWitness": 1,
+              "category": "primary_contrast",
+              "sameFamilyObservedCompanionCount": 1,
+              "sameFamilyObservedGroups": [
+                {
+                  "groupId": "contrast_332_Q9_bad6",
+                  "kind": "contrast_only_bad_lane_group",
+                  "continuation": 332,
+                  "witnessSquareModulus": 9,
+                  "badLaneResidue": 6,
+                  "familyIndices": [
+                    107,
+                    161,
+                    275
+                  ],
+                  "repairedContinuations": [
+                    432,
+                    832
+                  ]
+                }
+              ],
+              "hasSameFamilyObservedCompanion": true,
+              "requiresNewActivationCover": false
+            },
+            {
+              "continuation": 782,
+              "activationAnchor": 32,
+              "activationResidueModWitness": 1,
+              "category": "target_continuation",
+              "sameFamilyObservedCompanionCount": 1,
+              "sameFamilyObservedGroups": [
+                {
+                  "groupId": "top_782_Q9_bad6",
+                  "kind": "top_only_bad_lane_group",
+                  "continuation": 782,
+                  "witnessSquareModulus": 9,
+                  "badLaneResidue": 6,
+                  "familyIndices": [
+                    107,
+                    161,
+                    275
+                  ],
+                  "repairedContinuations": [
+                    382
+                  ]
+                }
+              ],
+              "hasSameFamilyObservedCompanion": true,
+              "requiresNewActivationCover": false
+            }
+          ],
+          "unresolvedActivationEvents": []
+        },
+        {
+          "familyIndex": 161,
+          "representative": 1079001739,
+          "targetContinuation": 782,
+          "witnessSquareModulus": 9,
+          "targetFailureResidue": 1,
+          "firstTrackedMatchAnchor": 57,
+          "firstTargetMatchAnchor": 132,
+          "firstActivationEvents": [
+            {
+              "continuation": 157,
+              "activationAnchor": 57,
+              "activationResidueModWitness": 2,
+              "category": "outside_top_or_primary_contrast_surface",
+              "sameFamilyObservedCompanionCount": 0,
+              "sameFamilyObservedGroups": [],
+              "hasSameFamilyObservedCompanion": false,
+              "requiresNewActivationCover": true
+            },
+            {
+              "continuation": 382,
+              "activationAnchor": 57,
+              "activationResidueModWitness": 2,
+              "category": "primary_contrast",
+              "sameFamilyObservedCompanionCount": 0,
+              "sameFamilyObservedGroups": [],
+              "hasSameFamilyObservedCompanion": false,
+              "requiresNewActivationCover": true
+            },
+            {
+              "continuation": 832,
+              "activationAnchor": 57,
+              "activationResidueModWitness": 2,
+              "category": "top_tie_non_target",
+              "sameFamilyObservedCompanionCount": 0,
+              "sameFamilyObservedGroups": [],
+              "hasSameFamilyObservedCompanion": false,
+              "requiresNewActivationCover": true
+            }
+          ],
+          "unresolvedActivationEvents": [
+            {
+              "continuation": 157,
+              "activationAnchor": 57,
+              "activationResidueModWitness": 2,
+              "category": "outside_top_or_primary_contrast_surface",
+              "sameFamilyObservedCompanionCount": 0,
+              "sameFamilyObservedGroups": [],
+              "hasSameFamilyObservedCompanion": false,
+              "requiresNewActivationCover": true
+            },
+            {
+              "continuation": 382,
+              "activationAnchor": 57,
+              "activationResidueModWitness": 2,
+              "category": "primary_contrast",
+              "sameFamilyObservedCompanionCount": 0,
+              "sameFamilyObservedGroups": [],
+              "hasSameFamilyObservedCompanion": false,
+              "requiresNewActivationCover": true
+            },
+            {
+              "continuation": 832,
+              "activationAnchor": 57,
+              "activationResidueModWitness": 2,
+              "category": "top_tie_non_target",
+              "sameFamilyObservedCompanionCount": 0,
+              "sameFamilyObservedGroups": [],
+              "hasSameFamilyObservedCompanion": false,
+              "requiresNewActivationCover": true
+            }
+          ]
+        },
+        {
+          "familyIndex": 275,
+          "representative": 1820631943,
+          "targetContinuation": 782,
+          "witnessSquareModulus": 9,
+          "targetFailureResidue": 1,
+          "firstTrackedMatchAnchor": 32,
+          "firstTargetMatchAnchor": 132,
+          "firstActivationEvents": [
+            {
+              "continuation": 232,
+              "activationAnchor": 32,
+              "activationResidueModWitness": 5,
+              "category": "outside_top_or_primary_contrast_surface",
+              "sameFamilyObservedCompanionCount": 0,
+              "sameFamilyObservedGroups": [],
+              "hasSameFamilyObservedCompanion": false,
+              "requiresNewActivationCover": true
+            }
+          ],
+          "unresolvedActivationEvents": [
+            {
+              "continuation": 232,
+              "activationAnchor": 32,
+              "activationResidueModWitness": 5,
+              "category": "outside_top_or_primary_contrast_surface",
+              "sameFamilyObservedCompanionCount": 0,
+              "sameFamilyObservedGroups": [],
+              "hasSameFamilyObservedCompanion": false,
+              "requiresNewActivationCover": true
+            }
+          ]
+        }
+      ],
+      "conclusion": "At least one first activation is outside the current top/primary-contrast handoff surface or lacks a same-family observed companion group; this blocks a contrast/handoff discharge theorem at current scope."
+    },
+    {
+      "groupId": "top_832_Q9_bad7",
+      "topContinuation": 832,
+      "witnessSquareModulus": 9,
+      "familyIndices": [
+        256
+      ],
+      "representatives": [
+        1684455347
+      ],
+      "previousClassification": "non_first_target_single_profile_boundary",
+      "status": "mixed_companion_and_external_activation_boundary",
+      "firstActivationEventCount": 3,
+      "unresolvedActivationEventCount": 1,
+      "outsideSurfaceEventCount": 1,
+      "sameFamilyObservedCompanionEventCount": 2,
+      "rows": [
+        {
+          "familyIndex": 256,
+          "representative": 1684455347,
+          "targetContinuation": 832,
+          "witnessSquareModulus": 9,
+          "targetFailureResidue": 2,
+          "firstTrackedMatchAnchor": 57,
+          "firstTargetMatchAnchor": 57,
+          "firstActivationEvents": [
+            {
+              "continuation": 157,
+              "activationAnchor": 57,
+              "activationResidueModWitness": 2,
+              "category": "outside_top_or_primary_contrast_surface",
+              "sameFamilyObservedCompanionCount": 0,
+              "sameFamilyObservedGroups": [],
+              "hasSameFamilyObservedCompanion": false,
+              "requiresNewActivationCover": true
+            },
+            {
+              "continuation": 382,
+              "activationAnchor": 57,
+              "activationResidueModWitness": 2,
+              "category": "primary_contrast",
+              "sameFamilyObservedCompanionCount": 1,
+              "sameFamilyObservedGroups": [
+                {
+                  "groupId": "contrast_382_Q9_bad7",
+                  "kind": "contrast_only_bad_lane_group",
+                  "continuation": 382,
+                  "witnessSquareModulus": 9,
+                  "badLaneResidue": 7,
+                  "familyIndices": [
+                    256
+                  ],
+                  "repairedContinuations": [
+                    432,
+                    782
+                  ]
+                }
+              ],
+              "hasSameFamilyObservedCompanion": true,
+              "requiresNewActivationCover": false
+            },
+            {
+              "continuation": 832,
+              "activationAnchor": 57,
+              "activationResidueModWitness": 2,
+              "category": "target_continuation",
+              "sameFamilyObservedCompanionCount": 1,
+              "sameFamilyObservedGroups": [
+                {
+                  "groupId": "top_832_Q9_bad7",
+                  "kind": "top_only_bad_lane_group",
+                  "continuation": 832,
+                  "witnessSquareModulus": 9,
+                  "badLaneResidue": 7,
+                  "familyIndices": [
+                    256
+                  ],
+                  "repairedContinuations": [
+                    332,
+                    1232
+                  ]
+                }
+              ],
+              "hasSameFamilyObservedCompanion": true,
+              "requiresNewActivationCover": false
+            }
+          ],
+          "unresolvedActivationEvents": [
+            {
+              "continuation": 157,
+              "activationAnchor": 57,
+              "activationResidueModWitness": 2,
+              "category": "outside_top_or_primary_contrast_surface",
+              "sameFamilyObservedCompanionCount": 0,
+              "sameFamilyObservedGroups": [],
+              "hasSameFamilyObservedCompanion": false,
+              "requiresNewActivationCover": true
+            }
+          ]
+        }
+      ],
+      "conclusion": "At least one first activation is outside the current top/primary-contrast handoff surface or lacks a same-family observed companion group; this blocks a contrast/handoff discharge theorem at current scope."
+    }
+  ],
+  "blocker": {
+    "blocksClaim": "the current top/primary-contrast handoff surface discharges all non-first-target top-only boundaries",
+    "missingHypotheses": [
+      {
+        "hypothesisId": "tracked_activation_cover",
+        "statement": "Every earlier or co-tied first activation for a top-only boundary is either the target continuation, a top-tie continuation with same-family observed support, or a primary contrast with same-family observed support."
+      },
+      {
+        "hypothesisId": "external_activation_handoff",
+        "statement": "External continuations such as 157 and 232 are either impossible, already covered by another theorem surface, or irrelevant to the top-only mod-50 handoff."
+      },
+      {
+        "hypothesisId": "same_family_primary_contrast_companion",
+        "statement": "Primary-contrast first activations such as 382 in rows 75 and 161 have same-family contrast/handoff support or a separate profile counterfamily."
+      }
+    ],
+    "deterministicBoundary": "The non-first-target rows still have certified target square witnesses and CRT preservation. What is missing is only an activation-cover theorem for first activations outside the target-first story."
+  },
+  "recommendedNextAction": "prove_p848_mod50_tracked_activation_cover_or_emit_external_anchor_counterfamily",
+  "suggestedVerificationCommand": "jq '.auditSummary, .blocker.missingHypotheses' packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_MOD50_NON_FIRST_TARGET_PROFILE_BOUNDARY_AUDIT_PACKET.json",
+  "nextTheoremMove": "Prove the tracked-activation cover for non-first-target mod-50 boundaries, especially external continuations 157 and 232 plus same-family 382 companions, or emit an external-anchor counterfamily packet before any 40501+ rollout.",
+  "proofBoundary": "This packet audits the three non-first-target top-only boundaries against the current finite top/primary-contrast handoff surface. It does not prove the activation-cover theorem, does not cover contrast-only groups universally, does not justify a 40501+ rollout, and does not decide Problem 848.",
+  "claims": {
+    "auditsAllNonFirstTargetTopOnlyBoundaries": true,
+    "resolvesAllNonFirstTargetBoundariesByCurrentHandoff": false,
+    "identifiesActivationCoverGap": true,
+    "provesTrackedActivationCover": false,
+    "provesUniversalSquareWitnessDomainCover": false,
+    "justifies40501PlusRollout": false,
+    "provesAllN": false
+  }
+}

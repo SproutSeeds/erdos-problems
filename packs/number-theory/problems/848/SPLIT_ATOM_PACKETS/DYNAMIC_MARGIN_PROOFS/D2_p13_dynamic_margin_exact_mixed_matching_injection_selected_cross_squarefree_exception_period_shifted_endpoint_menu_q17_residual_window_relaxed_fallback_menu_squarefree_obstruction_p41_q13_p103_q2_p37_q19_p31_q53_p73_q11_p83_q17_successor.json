@@ -1,0 +1,312 @@
+{
+  "schema": "erdos.number_theory.p848_endpoint_availability_obstruction_successor/1",
+  "generatedAt": "2026-04-17T01:58:37.553Z",
+  "problemId": "848",
+  "status": "successor_atom_emitted",
+  "activeAtom": "D2_p13_q17_endpoint_menu_squarefree_obstruction_p23_q29_p41_q13_p103_q2_p37_q19_p31_q53_p73_q11_p83_q17_successor",
+  "sourceNoRepairPacket": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/DYNAMIC_MARGIN_PROOFS/D2_p13_dynamic_margin_exact_mixed_matching_injection_selected_cross_squarefree_exception_period_shifted_endpoint_menu_q17_residual_window_relaxed_fallback_menu_squarefree_obstruction_p41_q13_p103_q2_p37_q19_p31_q53_p73_q11_p83_q17_subclass_repair.json",
+  "target": {
+    "description": "q17 p41/q13/p103 parity/p37/q19/p31/q53/p73/q11/p83/q17 deterministic successor atom",
+    "outsider": 6323,
+    "residualClass": {
+      "residue": "70434973191454519683340203976042263775739957",
+      "modulus": "101272147580523754927494162392934891769280100"
+    },
+    "representativeLeft": "70434973191454519683340203976042263775739957",
+    "window": 28500,
+    "testedEndpointPrimes": [
+      23,
+      31,
+      37,
+      41,
+      61,
+      67,
+      73,
+      83,
+      89,
+      97,
+      101,
+      103,
+      107,
+      109,
+      113,
+      127,
+      131,
+      137,
+      139,
+      149,
+      151
+    ],
+    "squareCheck": {
+      "mode": "trial",
+      "checkedPrimeLimit": 199999,
+      "factorCertificate": null
+    }
+  },
+  "obstructionSummary": {
+    "tCongruence": {
+      "residue": 1384689,
+      "modulus": 1990921,
+      "expression": "t == 1384689 mod 1990921"
+    },
+    "leftCongruence": {
+      "residue": "70434973191454519683340203976042263775739957",
+      "modulus": "101272147580523754927494162392934891769280100",
+      "expression": "left == 70434973191454519683340203976042263775739957 mod 101272147580523754927494162392934891769280100"
+    },
+    "squareDivisibilityWitness": {
+      "expression": "17^2 | left*right+1",
+      "crossProductPlusOneAtResidue": "4961085448480916885902904740912560589948341305603314235283304562021152884192273671634427",
+      "residueModuloObstructionSquare": 0
+    }
+  },
+  "finiteMenuNoRepairWitness": {
+    "withinWindowUsableEndpointCount": 0,
+    "blockedWithinWindowEndpointCount": 9,
+    "blockedEndpoint": {
+      "prime": 83,
+      "k": 1053,
+      "delta": -26339,
+      "right": "70434973191454519683340203976042263775713618",
+      "withinWindow": true,
+      "squarefreeStatus": "non_squarefree",
+      "squareDivisorPrime": 17,
+      "squareDivisor": 289,
+      "checkedSquarePrimeLimit": 199999,
+      "factorCertificateId": null
+    },
+    "blockedWithinWindowEndpoints": [
+      {
+        "prime": 23,
+        "k": 479,
+        "delta": -11989,
+        "right": "70434973191454519683340203976042263775727968",
+        "withinWindow": true,
+        "squarefreeStatus": "non_squarefree",
+        "squareDivisorPrime": 29,
+        "squareDivisor": 841,
+        "checkedSquarePrimeLimit": 199999,
+        "factorCertificateId": null
+      },
+      {
+        "prime": 31,
+        "k": 727,
+        "delta": -18189,
+        "right": "70434973191454519683340203976042263775721768",
+        "withinWindow": true,
+        "squarefreeStatus": "non_squarefree",
+        "squareDivisorPrime": 53,
+        "squareDivisor": 2809,
+        "checkedSquarePrimeLimit": 199999,
+        "factorCertificateId": null
+      },
+      {
+        "prime": 37,
+        "k": 457,
+        "delta": -11439,
+        "right": "70434973191454519683340203976042263775728518",
+        "withinWindow": true,
+        "squarefreeStatus": "non_squarefree",
+        "squareDivisorPrime": 19,
+        "squareDivisor": 361,
+        "checkedSquarePrimeLimit": 199999,
+        "factorCertificateId": null
+      },
+      {
+        "prime": 41,
+        "k": 1011,
+        "delta": -25289,
+        "right": "70434973191454519683340203976042263775714668",
+        "withinWindow": true,
+        "squarefreeStatus": "non_squarefree",
+        "squareDivisorPrime": 13,
+        "squareDivisor": 169,
+        "checkedSquarePrimeLimit": 199999,
+        "factorCertificateId": null
+      },
+      {
+        "prime": 61,
+        "k": 395,
+        "delta": -9889,
+        "right": "70434973191454519683340203976042263775730068",
+        "withinWindow": true,
+        "squarefreeStatus": "non_squarefree",
+        "squareDivisorPrime": 3,
+        "squareDivisor": 9,
+        "checkedSquarePrimeLimit": 199999,
+        "factorCertificateId": null
+      },
+      {
+        "prime": 67,
+        "k": 1084,
+        "delta": -27114,
+        "right": "70434973191454519683340203976042263775712843",
+        "withinWindow": true,
+        "squarefreeStatus": "non_squarefree",
+        "squareDivisorPrime": 2,
+        "squareDivisor": 4,
+        "checkedSquarePrimeLimit": 199999,
+        "factorCertificateId": null
+      },
+      {
+        "prime": 73,
+        "k": 42,
+        "delta": -1064,
+        "right": "70434973191454519683340203976042263775738893",
+        "withinWindow": true,
+        "squarefreeStatus": "non_squarefree",
+        "squareDivisorPrime": 11,
+        "squareDivisor": 121,
+        "checkedSquarePrimeLimit": 199999,
+        "factorCertificateId": null
+      },
+      {
+        "prime": 83,
+        "k": 1053,
+        "delta": -26339,
+        "right": "70434973191454519683340203976042263775713618",
+        "withinWindow": true,
+        "squarefreeStatus": "non_squarefree",
+        "squareDivisorPrime": 17,
+        "squareDivisor": 289,
+        "checkedSquarePrimeLimit": 199999,
+        "factorCertificateId": null
+      },
+      {
+        "prime": 103,
+        "k": 532,
+        "delta": -13314,
+        "right": "70434973191454519683340203976042263775726643",
+        "withinWindow": true,
+        "squarefreeStatus": "non_squarefree",
+        "squareDivisorPrime": 2,
+        "squareDivisor": 4,
+        "checkedSquarePrimeLimit": 199999,
+        "factorCertificateId": null
+      }
+    ],
+    "nearestUsableOutsideWindow": [
+      {
+        "prime": 131,
+        "k": 2223,
+        "delta": -55589,
+        "right": "70434973191454519683340203976042263775684368",
+        "withinWindow": false,
+        "squarefreeStatus": "no_checked_square_divisor",
+        "squareDivisorPrime": null,
+        "squareDivisor": null,
+        "checkedSquarePrimeLimit": 199999,
+        "factorCertificateId": null
+      },
+      {
+        "prime": 101,
+        "k": 4441,
+        "delta": -111039,
+        "right": "70434973191454519683340203976042263775628918",
+        "withinWindow": false,
+        "squarefreeStatus": "no_checked_square_divisor",
+        "squareDivisorPrime": null,
+        "squareDivisor": null,
+        "checkedSquarePrimeLimit": 199999,
+        "factorCertificateId": null
+      },
+      {
+        "prime": 89,
+        "k": 4542,
+        "delta": -113564,
+        "right": "70434973191454519683340203976042263775626393",
+        "withinWindow": false,
+        "squarefreeStatus": "no_checked_square_divisor",
+        "squareDivisorPrime": null,
+        "squareDivisor": null,
+        "checkedSquarePrimeLimit": 199999,
+        "factorCertificateId": null
+      },
+      {
+        "prime": 109,
+        "k": 5475,
+        "delta": -136889,
+        "right": "70434973191454519683340203976042263775603068",
+        "withinWindow": false,
+        "squarefreeStatus": "no_checked_square_divisor",
+        "squareDivisorPrime": null,
+        "squareDivisor": null,
+        "checkedSquarePrimeLimit": 199999,
+        "factorCertificateId": null
+      },
+      {
+        "prime": 139,
+        "k": 6005,
+        "delta": -150139,
+        "right": "70434973191454519683340203976042263775589818",
+        "withinWindow": false,
+        "squarefreeStatus": "no_checked_square_divisor",
+        "squareDivisorPrime": null,
+        "squareDivisor": null,
+        "checkedSquarePrimeLimit": 199999,
+        "factorCertificateId": null
+      },
+      {
+        "prime": 97,
+        "k": 6841,
+        "delta": -171039,
+        "right": "70434973191454519683340203976042263775568918",
+        "withinWindow": false,
+        "squarefreeStatus": "no_checked_square_divisor",
+        "squareDivisorPrime": null,
+        "squareDivisor": null,
+        "checkedSquarePrimeLimit": 199999,
+        "factorCertificateId": null
+      }
+    ]
+  },
+  "successorAtom": {
+    "atomId": "D2_p13_q17_endpoint_menu_squarefree_obstruction_p23_q29_p41_q13_p103_q2_p37_q19_p31_q53_p73_q11_p83_q17_successor",
+    "predecessorAtom": "D2_p13_q17_endpoint_menu_squarefree_obstruction_p23_q29_p41_q13_p103_q2_p37_q19_p31_q53_p73_q11_p83_q17_subclass",
+    "branchLabel": "p41/q13/p103 parity/p37/q19/p31/q53/p73/q11/p83/q17",
+    "residualClass": {
+      "residue": "70434973191454519683340203976042263775739957",
+      "modulus": "101272147580523754927494162392934891769280100"
+    },
+    "representativeLeft": "70434973191454519683340203976042263775739957",
+    "blockedEndpointPrime": 83,
+    "blockedSquareDivisor": 289,
+    "squareDivisibilityWitness": {
+      "expression": "17^2 | left*right+1",
+      "crossProductPlusOneAtResidue": "4961085448480916885902904740912560589948341305603314235283304562021152884192273671634427",
+      "residueModuloObstructionSquare": 0
+    },
+    "tCongruence": {
+      "residue": 1384689,
+      "modulus": 1990921,
+      "expression": "t == 1384689 mod 1990921"
+    },
+    "leftCongruence": {
+      "residue": "70434973191454519683340203976042263775739957",
+      "modulus": "101272147580523754927494162392934891769280100",
+      "expression": "left == 70434973191454519683340203976042263775739957 mod 101272147580523754927494162392934891769280100"
+    }
+  },
+  "claims": {
+    "emitsDeterministicSuccessorAtom": true,
+    "provesNoFiniteMenuRepresentativeRepair": true,
+    "provesEndpointFormulasForTestedMenu": true,
+    "provesAllN": false,
+    "provesAllPrimeNoRepair": false,
+    "provesCollisionFreeMatching": false
+  },
+  "proofBoundary": "This packet emits an exact endpoint-menu successor atom from a finite tested-menu no-repair witness. It does not prove no repair exists outside the tested finite endpoint menu and does not prove any all-N claim.",
+  "nextTheoremOptions": [
+    {
+      "id": "attack_p41_q13_p103_q2_p37_q19_p31_q53_p73_q11_p83_q17_successor_atom",
+      "status": "next",
+      "statement": "Attack the emitted successor atom with a symbolic obstruction proof, a sharper endpoint menu, or a smaller deterministic refinement."
+    },
+    {
+      "id": "route_sibling_unavailable_endpoint_residues",
+      "status": "later",
+      "statement": "After this successor branch is routed, return to sibling unavailable endpoint residues from earlier availability splits."
+    }
+  ],
+  "recommendedNextAction": "attack_p41_q13_p103_q2_p37_q19_p31_q53_p73_q11_p83_q17_successor_atom"
+}

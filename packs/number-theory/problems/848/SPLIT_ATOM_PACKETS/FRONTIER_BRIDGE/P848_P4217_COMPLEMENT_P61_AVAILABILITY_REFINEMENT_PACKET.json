@@ -1,0 +1,178 @@
+{
+  "schema": "erdos.number_theory.p848_p4217_complement_p61_availability_refinement/1",
+  "generatedAt": "2026-04-17T06:08:16Z",
+  "problemId": "848",
+  "status": "p4217_complement_p61_availability_refined_squarefree_open",
+  "activeAtom": "D2_p13_q17_endpoint_menu_squarefree_obstruction_p23_q29_p41_q13_p103_q2_p37_q19_p31_q53_p73_q11_p83_q17_p509_q43_p29_q59_p47_q67_p79_q71_p107_q89_p4217_complement_p43_q2_p61_availability_refinement",
+  "sourcePackets": {
+    "p4217ComplementRefinement": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_UNAVAILABLE_COMPLEMENT_REFINEMENT_PACKET.json",
+    "p4217ComplementP43FallbackSelector": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_COMPLEMENT_P43_FALLBACK_SELECTOR_PACKET.json",
+    "p4217ComplementP43SquareObstruction": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_COMPLEMENT_P43_SQUARE_OBSTRUCTION_PACKET.json"
+  },
+  "sourceClass": {
+    "outsider": 6323,
+    "leftParameterization": "left = 760410154648626128533304355898763555393483209652336085943695959179023528577227857 + 4018151289874337645868852921870587523537603036293953839351606997760601160064480100*t",
+    "residualClass": {
+      "residue": "760410154648626128533304355898763555393483209652336085943695959179023528577227857",
+      "modulus": "4018151289874337645868852921870587523537603036293953839351606997760601160064480100"
+    }
+  },
+  "complementInput": {
+    "endpointPrime": 4217,
+    "endpointPrimeSquare": 17783089,
+    "window": 28500,
+    "maxAvailableK": 1139,
+    "selector": "k_4217(t) = (445517*t + 203) mod 17783089",
+    "unavailableKInterval": {
+      "min": 1140,
+      "max": 17783088,
+      "count": 17781949
+    },
+    "parameterization": {
+      "range": "0 <= s < 17781949",
+      "tOfS": "t4217(s) = 4749600*(s + 937) mod 17783089"
+    }
+  },
+  "excludedFallback": {
+    "endpointPrime": 43,
+    "reason": "The p43 fallback selector is globally square-blocked on the p4217 complement because 2^2 divides left*(left - 5014)+1 for every complement residue.",
+    "sourcePacket": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_COMPLEMENT_P43_SQUARE_OBSTRUCTION_PACKET.json"
+  },
+  "fallbackSelectorRefinement": {
+    "endpointPrime": 61,
+    "endpointPrimeSquare": 3721,
+    "window": 28500,
+    "maxAvailableK": 1139,
+    "endpointFormula": "k_61(left) = (2828*left + 2221) mod 3721",
+    "sourceResidueModuloEndpointPrimeSquare": 2428,
+    "sourceModulusModuloEndpointPrimeSquare": 1388,
+    "kFormulaOnSourceClass": "k_61(t) = (3330*t + 3360) mod 3721",
+    "coefficient": 3330,
+    "constant": 3360,
+    "coefficientInverseModuloEndpointPrimeSquare": 3150,
+    "availableResidueParameterization": "r_61(k) = 3150*(k - 3360) mod 3721 for 0 <= k <= 1139",
+    "availableResiduesPerP4217ComplementRow": 1140,
+    "unavailableResiduesPerP4217ComplementRow": 2581,
+    "availabilityFractionPerComplementRow": "1140/3721",
+    "firstAvailableResiduesModulo61Square": [
+      6,
+      7,
+      8,
+      16,
+      17,
+      18,
+      25,
+      26,
+      27,
+      35,
+      36,
+      37,
+      44,
+      45,
+      46,
+      54,
+      55,
+      56,
+      63,
+      64,
+      65,
+      73,
+      74,
+      75
+    ]
+  },
+  "crtRefinement": {
+    "moduli": {
+      "p4217ComplementModulus": 17783089,
+      "p61SelectorModulus": 3721,
+      "combinedModulus": "66170874169"
+    },
+    "coprimeCheck": "gcd(17783089, 3721) = 1",
+    "inverseP4217Modulo61Square": 2847,
+    "inverse61SquareModulo4217Square": 4176947,
+    "availableClassParameterization": "t(s,k) = t4217(s) + 17783089*(((r_61(k) - t4217(s))*2847) mod 3721) mod 66170874169, with 0 <= s < 17781949 and 0 <= k <= 1139",
+    "unavailableClassParameterization": "Use the same CRT formula with r in [0,3720] such that (3330*r + 3360) mod 3721 >= 1140.",
+    "availableCrtClassCount": "17781949*1140 = 20271421860",
+    "unavailableCrtClassCount": "17781949*2581 = 45895210369"
+  },
+  "firstAvailableChild": {
+    "description": "First p4217-complement row and first p61-available selector residue by residue order.",
+    "s": 0,
+    "p4217K": 1140,
+    "tModulo4217Square": 4602950,
+    "tModulo61Square": 6,
+    "p61K": 1014,
+    "delta": -25364,
+    "tCongruence": {
+      "residue": "48783616077",
+      "modulus": "66170874169",
+      "expression": "t == 48783616077 mod 66170874169"
+    },
+    "checks": {
+      "residueModulo4217Square": 4602950,
+      "residueModulo61Square": 6,
+      "k4217": 1140,
+      "k61": 1014,
+      "insideWindow28500": true
+    }
+  },
+  "firstChildSquareProbe": {
+    "status": "informative_not_a_cover",
+    "checkedSquarePrimeLimit": 257,
+    "firstObstructionPrimeFound": 101,
+    "obstructionSquare": 10201,
+    "rootResiduesModulo101Square": [
+      1829,
+      2811
+    ],
+    "meaning": "The first p61-available CRT child already has q=101 square-obstruction subfamilies. This probe does not prove p61 is globally blocked or squarefree; it gives the next deterministic squarefree-audit boundary."
+  },
+  "theoremObject": {
+    "id": "p848_p4217_complement_p61_availability_refinement",
+    "status": "proved_exact_crt_refinement_squarefree_open",
+    "statement": "After p43 is eliminated, the p4217-unavailable complement splits exactly by the p61 selector into 1140 available CRT residue classes and 2581 unavailable CRT residue classes for each p4217-complement row.",
+    "proof": [
+      "The p61 endpoint formula for outsider 6323 is k_61(left) = (2828*left + 2221) mod 3721.",
+      "On the current source class, left = R + M*t has R == 2428 mod 3721 and M == 1388 mod 3721, so k_61(t) = (3330*t + 3360) mod 3721.",
+      "Because gcd(3330, 3721) = 1, k_61(t) permutes the 3721 residues modulo 61^2.",
+      "The 28500 window is equivalent to k <= floor((28500 - 14)/25) = 1139, so exactly 1140 residues modulo 3721 are p61-available and 2581 are p61-unavailable.",
+      "The p4217 complement modulus 17783089 is coprime to 3721, so the Chinese remainder theorem combines each p4217-complement row with each p61 selector residue uniquely modulo 66170874169.",
+      "Therefore the p43-dead p4217 complement is replaced by an exact p61-available squarefree-hitting obligation plus an exact p61-unavailable complement obligation."
+    ]
+  },
+  "ledgerTransition": {
+    "inputObligation": {
+      "state": "p4217_complement_p43_blocked_next_selector_needed",
+      "residueCount": 17781949,
+      "excludedEndpointPrime": 43
+    },
+    "outputObligations": [
+      {
+        "state": "p4217_complement_p61_available_squarefree_pending",
+        "endpointPrime": 61,
+        "rows": 17781949,
+        "availableResiduesPerRow": 1140,
+        "crtClassCount": "20271421860"
+      },
+      {
+        "state": "p4217_complement_p61_unavailable_next_selector_needed",
+        "endpointPrime": 61,
+        "rows": 17781949,
+        "unavailableResiduesPerRow": 2581,
+        "crtClassCount": "45895210369"
+      }
+    ],
+    "measureEffect": "This is a deterministic CRT refinement rather than closure: the p43-dead complement is no longer a vague fallback search, and its next p61-available squarefree obligation has an explicit first child and square-obstruction probe."
+  },
+  "claims": {
+    "provesP61AvailabilityPartitionOnComplement": true,
+    "provesP61SquarefreeHitting": false,
+    "provesP61UnavailableComplementCovered": false,
+    "provesCollisionFreeMatching": false,
+    "provesAllN": false,
+    "decidesProblem848": false
+  },
+  "proofBoundary": "The p4217 complement is exactly refined by the p61 endpoint selector after p43 is excluded. The p61-available CRT classes still require squarefree hitting or deterministic square-obstruction splits, and the p61-unavailable CRT classes still need a later selector, cover, or blocker.",
+  "recommendedNextAction": "prove_p848_p4217_complement_p61_available_squarefree_or_obstruction",
+  "verificationCommand": "node --test test/p848-endpoint-menu-compiler.test.js test/p848-282-alignment-obstruction-packet.test.js"
+}

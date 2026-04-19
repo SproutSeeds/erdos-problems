@@ -1,0 +1,129 @@
+{
+  "schema": "erdos.number_theory.p848_exact_40500_compact_promotion_packet/1",
+  "packetId": "p848_exact_40500_compact_promotion_packet_v1",
+  "status": "compact_exact_40500_promoted_public_compact_evidence",
+  "generatedAt": "2026-04-17T09:38:52Z",
+  "sourceDecisionPacket": "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_TOP_REPAIR_CLASS_EXACT_VERIFIER_ROLLOUT_DECISION_PACKET.json",
+  "promotionObject": {
+    "id": "p848_exact_40500_compact_interval_promotion",
+    "interval": "1..40500",
+    "methodClass": "exact_small_n",
+    "claimLevel": "public_compact_evidence_not_public_raw_packet",
+    "promotedEvidenceKind": "compact_endpoint_breakpoint_certificate",
+    "promotionRuleSatisfied": true,
+    "rawPacketCommittedOrBundled": false,
+    "publicRawExactIntervalRemains": "1..10000",
+    "publicCompactExactIntervalNowAvailable": "1..40500",
+    "statement": "The repo may cite 1..40500 as public compact exact verifier evidence via the endpoint/breakpoint certificate and verified raw-result hash, while still citing 1..10000 as the committed public raw exact packet."
+  },
+  "inputsAudited": {
+    "publicRawExactPacket": {
+      "interval": "1..10000",
+      "certificate": "EXACT_SMALL_N_1_10000_CERTIFICATE.md",
+      "rawResultPacket": "EXACT_SMALL_N_1_10000_RESULTS.json",
+      "rawResultSha256": "96748efe7a355621016f4987209e1b634b1d14ac3f79f135dcc3a0a55a3dfcb2"
+    },
+    "localRollout": {
+      "interval": "1..40500",
+      "certificate": "output/p848-exact-small-n-rollouts/EXACT_SMALL_N_1_40500_CERTIFICATE.md",
+      "rawResultPacket": "output/p848-exact-small-n-rollouts/EXACT_SMALL_N_1_40500_RESULTS.json",
+      "rawResultSha256": "da3546ab3f30faef879c2d4da680f826711361e2c685de8f384eb116df1f8fbc",
+      "rawResultApproximateSize": "440 MB",
+      "rawResultSha256VerifiedThisStep": "da3546ab3f30faef879c2d4da680f826711361e2c685de8f384eb116df1f8fbc",
+      "rawHashVerificationCommand": "shasum -a 256 output/p848-exact-small-n-rollouts/EXACT_SMALL_N_1_40500_RESULTS.json",
+      "rawHashMatchesBookkeeping": true
+    },
+    "compactCertificate": {
+      "path": "output/p848-exact-small-n-rollouts/EXACT_SMALL_N_1_40500_CERTIFICATE.md",
+      "existsAtPromotionTime": true,
+      "recordsInterval": "1..40500",
+      "recordsMethodClass": "exact_small_n",
+      "recordsRawBoundaryWarning": true
+    },
+    "compactDerivatives": [
+      {
+        "path": "packs/number-theory/problems/848/EXACT_BREAKPOINT_SCOUT.json",
+        "summary": {
+          "interval": "1..40500",
+          "rowCount": 40500,
+          "uniqueNCount": 40500,
+          "duplicateCount": 0,
+          "sortedContiguousFromOne": true,
+          "allCandidateAchievesMaximum": true,
+          "allExampleCliquesMatchCandidateClass": true,
+          "plateauCount": 3243,
+          "breakpointCount": 3242,
+          "breakpointGapFrequency": {
+            "6": 3,
+            "8": 2,
+            "11": 1620,
+            "14": 1617
+          }
+        },
+        "sourceResultsStatus": "local_ignored_large_raw_packet",
+        "sourceResultsSha256": "da3546ab3f30faef879c2d4da680f826711361e2c685de8f384eb116df1f8fbc",
+        "publicRepoRawExactInterval": "1..10000"
+      },
+      {
+        "path": "packs/number-theory/problems/848/EXACT_BREAKPOINT_CERTIFICATE.json",
+        "summary": {
+          "interval": "1..40500",
+          "rowCount": 40500,
+          "endpointCheckCount": 1621,
+          "compressionRatio": 24.98457742134485,
+          "allRowsAlreadyExact": true,
+          "allEndpointChecksCertified": true,
+          "plateauLengthFrequency": {
+            "6": 1,
+            "19": 1,
+            "25": 1619
+          }
+        },
+        "sourceResultsStatus": "local_ignored_large_raw_packet",
+        "sourceResultsSha256": "da3546ab3f30faef879c2d4da680f826711361e2c685de8f384eb116df1f8fbc",
+        "publicRepoRawExactInterval": "1..10000"
+      }
+    ],
+    "decisionAudit": {
+      "chosenRoute": "promote_existing_compact_1_40500_exact_rollout_before_new_compute",
+      "noNewExactScanStarted": true,
+      "exactFollowupRolloutAvailable": false,
+      "exactFollowupRolloutReason": "The exact interval scout does not have a valid ready range yet."
+    }
+  },
+  "compactCertificateReview": {
+    "interval": "1..40500",
+    "rowCount": 40500,
+    "endpointCheckCount": 1621,
+    "compressionRatio": 24.98457742134485,
+    "allRowsAlreadyExact": true,
+    "allEndpointChecksCertified": true,
+    "scoutSortedContiguousFromOne": true,
+    "scoutAllCandidateAchievesMaximum": true,
+    "scoutAllExampleCliquesMatchCandidateClass": true,
+    "rowFailures": 0,
+    "failedEndpointChecks": 0,
+    "endpointChecks": 1621
+  },
+  "boundaryPolicy": {
+    "rawPacketPolicy": "The 440 MB raw local result remains outside the committed compact proof surface and outside npm/package claims.",
+    "publicRawClaimRule": "Use 1..10000 when referring to committed public raw exact-result coverage.",
+    "publicCompactClaimRule": "Use 1..40500 only when citing this compact promotion packet, EXACT_BREAKPOINT_CERTIFICATE.json, and the verified raw-result hash.",
+    "exactOnlyClosureWarning": "This compact promotion does not change the finite-gap strategy verdict: exact endpoint rollout is not a sole all-N closure strategy."
+  },
+  "nextVerificationCommand": "node --test test/p848-282-alignment-obstruction-packet.test.js",
+  "proofBoundary": "This packet promotes the existing 1..40500 exact small-N rollout only as public compact verifier evidence. It does not commit or bundle the 440 MB raw result, does not make 1..40500 a public raw packet, does not start a 40501+ rollout, does not prove the top repair-class coverage theorem, and does not decide Problem 848.",
+  "recommendedNextAction": "audit_p848_compact_40500_endpoint_certificate_against_top_repair_boundary",
+  "nextTheoremMove": "Audit the promoted 1..40500 compact endpoint certificate for theorem-facing boundary information that can feed the top repair-class/mod-50 coverage theorem; if it yields no relevant boundary, emit a no-boundary packet before considering any 40501+ rollout.",
+  "claims": {
+    "promotesCompact40500Interval": true,
+    "promotesRaw40500Packet": false,
+    "preservesPublicRawExact10000Boundary": true,
+    "verifiesRaw40500Hash": true,
+    "satisfiesCompactPromotionRule": true,
+    "startsNewExactCompute": false,
+    "provesCoverageTheorem": false,
+    "provesExactOnlyClosureToThreshold": false,
+    "provesAllN": false
+  }
+}

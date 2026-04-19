@@ -1,0 +1,135 @@
+{
+  "schema": "erdos.number_theory.p848_no_spend_source_import_boundary_after_mod50_profile_blocker_packet/1",
+  "packetId": "P848_NO_SPEND_SOURCE_IMPORT_BOUNDARY_AFTER_MOD50_PROFILE_BLOCKER_PACKET",
+  "problemId": 848,
+  "generatedAt": "2026-04-18T12:29:19.746Z",
+  "status": "no_spend_source_import_boundary_assembled_after_mod50_profile_blocker",
+  "target": "assemble_p848_no_spend_source_import_boundary_after_mod50_profile_blocker",
+  "recommendedNextAction": "decide_p848_three_profile_source_import_with_budget_guard_or_emit_no_spend_blocker",
+  "coversPrimaryNextAction": {
+    "stepId": "assemble_p848_no_spend_source_import_boundary_after_mod50_profile_blocker",
+    "status": "completed_by_no_spend_source_import_boundary_after_mod50_profile_blocker",
+    "previousBoundaryPacket": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_NO_SPEND_SOURCE_IMPORT_BOUNDARY_AFTER_SQUARE_MODULI_PROFILE_BLOCKER_PACKET.json",
+    "previousBoundarySha256": "031c5ad177ea7dcc4e1aa3a13e7d133fa8c457b96d4ebb97d44bba499b131837",
+    "p4217ApprovalBlockerPacket": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_RESIDUAL_SOURCE_IMPORT_PROFILE_APPROVAL_BLOCKER_PACKET.json",
+    "p4217ApprovalBlockerSha256": "801b1f289c536f774590644ef1f37586bc62e2d099ae51cea1fbf19620fe27d9",
+    "p4217HardBlockerPacket": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_LOCAL_P4217_RESIDUAL_SOURCE_THEOREM_PROOF_ATTEMPT_HARD_BLOCKER_PACKET.json",
+    "p4217HardBlockerSha256": "a7ae92b8753dfdd1b86a8e19d101790c100f8931ec4245a5065e6ae9e1b87a9d",
+    "squareProfileBlockerPacket": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_SQUARE_MODULI_UNION_HITTING_SOURCE_IMPORT_PROFILE_APPROVAL_BLOCKER_PACKET.json",
+    "squareProfileBlockerSha256": "a7c67f1860ba88424cbab7283c273f0cb67bb8a4153a256d82b44be7e142b5de",
+    "mod50ProfileBlockerPacket": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_MOD50_GENERATOR_SOURCE_IMPORT_PROFILE_NO_SPEND_BLOCKER_PACKET.json",
+    "mod50ProfileBlockerSha256": "1a2332729b9ce25386ce178a9525cb0f61a67b74ff43a15cf68458c489011a9f"
+  },
+  "boundaryAssembly": {
+    "status": "assembled_after_mod50_profile_blocker",
+    "mode": "no_spend_source_import_recombination",
+    "madeNewPaidCall": false,
+    "currentStepAllowsPaidCall": false,
+    "usageCheckRun": false,
+    "allNProofAvailable": false,
+    "finiteMeasureDecreased": false,
+    "openFrontierObligationCountAtInput": 94,
+    "sourceImportBoundaryShape": "p4217_square_moduli_mod50_all_profile_or_hard_blocker_represented",
+    "assembledProfileOrBlockerCount": 3,
+    "selectedRoute": "future_budget_guarded_decision_or_no_spend_blocker",
+    "assembledFromStatuses": {
+      "previousBoundary": "no_spend_source_import_boundary_assembled_after_square_moduli_profile_blocker",
+      "p4217ApprovalBlocker": "p4217_residual_source_import_profile_approval_blocker_emitted_no_live_spend",
+      "p4217HardBlocker": "local_p4217_residual_source_theorem_proof_attempt_hard_blocker_emitted",
+      "squareProfileBlocker": "square_moduli_union_hitting_source_import_profile_approval_blocker_emitted_no_live_spend",
+      "mod50ProfileBlocker": "mod50_generator_source_import_profile_no_spend_blocker_emitted"
+    }
+  },
+  "sourceImportDecisionQueue": [
+    {
+      "laneId": "mod50_generator_source_import",
+      "status": "profile_prepared_no_spend_blocked",
+      "priority": 1,
+      "profilePath": "packs/number-theory/problems/848/ORP_RESEARCH_MOD50_GENERATOR_SOURCE_IMPORT_PROFILE.json",
+      "profileId": "p848-mod50-generator-source-import-single",
+      "reason": "Freshly repaired single-lane profile targets the mod-50 all-future recurrence, finite-Q partition, or original generator theorem and rejects finite replay overclaim.",
+      "liveReleaseCondition": "Future budget-guarded source-audit decision may release this exact single-lane profile after usage ledger clearance.",
+      "proofBoundary": "This packet prepares the no-spend mod-50 generator/source-import profile and blocker after the source/import boundary selected mod-50. It names the exact missing theorem object: an all-future mod-50 relevant-pair recurrence, finite-Q partition, or restored original family-menu generator theorem with audited denominator/partition objects. It preserves a future-use single-lane profile and blocks live provider execution under the current no-spend instruction. It does not prove the mod-50 recurrence, restore the generator, prove a finite-Q partition, close p4217 residuals, import a square-moduli union/hitting theorem, recombine all-N, or decide Problem 848."
+    },
+    {
+      "laneId": "square_moduli_union_hitting_source_import",
+      "status": "profile_prepared_approval_blocked",
+      "priority": 2,
+      "profilePath": "packs/number-theory/problems/848/ORP_RESEARCH_SQUARE_MODULI_UNION_HITTING_SOURCE_IMPORT_PROFILE.json",
+      "profileId": "p848-square-moduli-union-hitting-source-import-single",
+      "reason": "Prepared profile targets the missing Sawhney-compatible union/hitting upper-bound theorem and rejects avoiding-side-only answers.",
+      "liveReleaseCondition": "Future budget-guarded source-audit decision may release this profile if the analytic threshold route is selected.",
+      "proofBoundary": "This packet completes the square-moduli union/hitting source-import profile/approval boundary. It preserves a future-use single-lane profile, blocks live provider execution under the no-spend instruction, and records the exact missing theorem: a Sawhney-compatible square-moduli union/hitting upper-bound source with audited direction, hypotheses, constants, and finite threshold handoff. It does not prove the union/hitting theorem, lower an analytic threshold, close all-N recombination, or decide Problem 848."
+    },
+    {
+      "laneId": "p4217_residual_source_import",
+      "status": "profile_prepared_approval_blocked_and_local_hard_blocked",
+      "priority": 3,
+      "profilePath": "packs/number-theory/problems/848/ORP_RESEARCH_P4217_RESIDUAL_SOURCE_IMPORT_PROFILE.json",
+      "profileId": "p848-p4217-residual-source-import-single",
+      "reason": "Prepared p4217 residual profile exists, but the immediate local proof attempt already hard-blocked finite CRT partition, decreasing rank, and squarefree-realization source theorem recovery.",
+      "liveReleaseCondition": "Future budget-guarded source-audit decision may release this profile only if p4217 residuals become the selected source lane again.",
+      "proofBoundary": "This packet completes the no-spend local p4217 residual source-theorem proof attempt as a hard blocker. It records that the local probe found no repo-owned finite complete CRT partition, well-founded residual rank, or squarefree-realization source theorem for every locally admissible p4217 residual family. It does not prove the p4217 complement, all-N recombination, an analytic threshold, or Problem 848, and it does not authorize any live provider call."
+    }
+  ],
+  "selectedNextDecision": {
+    "stepId": "decide_p848_three_profile_source_import_with_budget_guard_or_emit_no_spend_blocker",
+    "status": "ready_without_live_execution",
+    "selectedLaneId": "mod50_generator_source_import",
+    "selectedProfileId": "p848-mod50-generator-source-import-single",
+    "reason": "All three source/import lanes now have profile or hard-blocker artifacts. The mod-50 profile is freshest and narrower than the failed broad mod-50 wedge, so it is the first candidate for any future budget-guarded source-audit decision; under current no-spend instructions this packet only records the decision boundary.",
+    "noSpendFallback": "If a future step still forbids live/API spend, emit a no-spend all-source-import recombination blocker instead of executing a provider call.",
+    "firstCommandIfFutureLiveAllowed": "./bin/erdos orp research usage --json",
+    "liveCommandTemplate": "erdos orp research ask 848 --profile-file packs/number-theory/problems/848/ORP_RESEARCH_MOD50_GENERATOR_SOURCE_IMPORT_PROFILE.json --question \"<mod-50 generator/source theorem question>\" --execute --allow-paid --json"
+  },
+  "releaseConditions": [
+    "A future instruction allows budget-guarded live source-import execution or explicitly asks for the no-spend blocker path.",
+    "./bin/erdos orp research usage --json reports remaining daily live-run count and USD budget before any provider execution.",
+    "The selected live question names exactly one source theorem object and rejects bounded evidence as proof.",
+    "Any answer is packetized as discovery only until hypotheses, constants, denominator/partition objects, and proof boundaries are audited."
+  ],
+  "forbiddenMovesAfterBoundaryAssembly": [
+    "execute_provider_source_import_under_current_no_spend_instruction",
+    "run_erdos_orp_research_execute_allow_paid_before_usage_check",
+    "rerun_the_same_broad_mod50_or_p4217_wedge_by_default",
+    "resume_q193_q197_singleton_descent",
+    "launch_q193_q389_or_larger_q_cover_without_new_theorem",
+    "try_fallback_selectors_one_by_one",
+    "emit_a_naked_deterministic_rank_boundary",
+    "treat_finite_mod50_replay_as_all_future_recurrence",
+    "promote_tao_van_doorn_avoiding_bound_to_union_hitting_bound",
+    "claim_N0_around_1e6_or_N0_at_most_40500_without_imported_threshold_source",
+    "treat_bounded_finite_evidence_as_all_N_proof"
+  ],
+  "oneNextAction": {
+    "stepId": "decide_p848_three_profile_source_import_with_budget_guard_or_emit_no_spend_blocker",
+    "action": "Decide whether to release exactly one prepared source/import profile under the local budget guard, or emit a no-spend recombination blocker if live execution remains disallowed.",
+    "finiteDenominatorOrRankToken": "p848_no_spend_source_import_boundary_after_mod50_profile_blocker",
+    "verificationCommand": "./bin/erdos problem progress 848 --json"
+  },
+  "proofBoundary": "This packet assembles the no-spend source/import boundary after the mod-50 profile blocker. It records that p4217, square-moduli, and mod-50 source lanes are now all represented by explicit profile or hard-blocker artifacts, selects the mod-50 profile as the first future budget-guarded source-audit candidate, and preserves a no-spend blocker fallback. It does not run usage, call a provider, prove any source theorem, lower any threshold, recombine all-N, or decide Problem 848.",
+  "claims": {
+    "completesSourceImportBoundaryAfterMod50ProfileBlocker": true,
+    "allThreeSourceLanesRepresentedByProfileOrHardBlocker": true,
+    "selectsMod50AsFirstFutureBudgetGuardedCandidate": true,
+    "preservesNoSpendFallback": true,
+    "madeNewPaidCall": false,
+    "currentStepAllowsPaidCall": false,
+    "usageCheckRun": false,
+    "blocksLiveSpendThisTurn": true,
+    "requiresFutureUsageCheckBeforeSpend": true,
+    "respectsNoPaidByDefault": true,
+    "blocksQCoverExpansion": true,
+    "blocksSingletonQDescent": true,
+    "blocksSingleFallbackSelectorLadder": true,
+    "blocksNakedRankBoundary": true,
+    "provesP4217ResidualSourceTheorem": false,
+    "provesSquareModuliUnionHittingUpperBound": false,
+    "provesMod50AllFutureRecurrence": false,
+    "restoresOriginalGenerator": false,
+    "provesFiniteQPartition": false,
+    "provesAllN": false,
+    "decidesProblem848": false
+  },
+  "packetPath": "/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_NO_SPEND_SOURCE_IMPORT_BOUNDARY_AFTER_MOD50_PROFILE_BLOCKER_PACKET.json"
+}

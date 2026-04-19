@@ -1,0 +1,77 @@
+{
+  "schema": "erdos.number_theory.p848_endpoint_factor_certificate/1",
+  "generatedAt": "2026-04-17T06:35:59Z",
+  "problemId": "848",
+  "certificateId": "p848_p4217_complement_p61_q101_p443_factor_certificate",
+  "sourceTool": {
+    "name": "sympy.ntheory.factor_.pollard_pm1 + sympy.factorint + sympy.isprime",
+    "version": "1.14.0",
+    "mode": "local_free_cpu"
+  },
+  "sourceRepairBoundaryPacket": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_COMPLEMENT_P61_Q101_REPAIR_CANDIDATE_BOUNDARY_PACKET.json",
+  "endpointPrime": 443,
+  "k": 1029,
+  "delta": -25739,
+  "left": "486498922978003120137482190528915923361118218280393901731215929409345512449172580645681381785657",
+  "right": "486498922978003120137482190528915923361118218280393901731215929409345512449172580645681381759918",
+  "crossProductPlusOne": "236681202058757012275533257971682835669967059058282801408222949239071993719690526144388776764890183336796668547117623219156141375387144900628732563351436289374478344000317101516162036109896127",
+  "factorizationRungs": [
+    {
+      "method": "trial_division",
+      "status": "found_factor",
+      "factor": "809",
+      "factorPrimeBySympyIsPrime": true
+    },
+    {
+      "method": "pollard_pm1",
+      "B": 1000000,
+      "retries": 4,
+      "seed": 44348,
+      "status": "found_factor",
+      "factor": "480776155556269",
+      "factorization": [
+        {
+          "factor": "341321",
+          "exponent": 1
+        },
+        {
+          "factor": "1408574789",
+          "exponent": 1
+        }
+      ],
+      "wallSeconds": 3.187
+    },
+    {
+      "method": "primality",
+      "status": "remaining_cofactor_prime",
+      "factor": "608516451863859881854682780387361090418542865904642619902852366647063847133067629242628904323681308963523905097941593667349866460600578701037569830109549835977166633958193187",
+      "factorPrimeBySympyIsPrime": true
+    }
+  ],
+  "factors": [
+    {
+      "factor": "809",
+      "exponent": 1
+    },
+    {
+      "factor": "341321",
+      "exponent": 1
+    },
+    {
+      "factor": "1408574789",
+      "exponent": 1
+    },
+    {
+      "factor": "608516451863859881854682780387361090418542865904642619902852366647063847133067629242628904323681308963523905097941593667349866460600578701037569830109549835977166633958193187",
+      "exponent": 1
+    }
+  ],
+  "claims": {
+    "factorsMultiplyToCrossProductPlusOne": true,
+    "allExponentsAreOne": true,
+    "allFactorsPrimeByLocalSympyIsPrime": true,
+    "provesExactSquarefree": true,
+    "provesAllN": false,
+    "provesCollisionFreeMatching": false
+  }
+}

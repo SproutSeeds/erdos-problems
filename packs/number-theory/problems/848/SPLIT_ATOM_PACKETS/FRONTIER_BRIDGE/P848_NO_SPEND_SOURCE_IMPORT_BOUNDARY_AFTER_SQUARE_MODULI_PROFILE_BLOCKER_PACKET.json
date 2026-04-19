@@ -1,0 +1,159 @@
+{
+  "schema": "erdos.number_theory.p848_no_spend_source_import_boundary_after_square_moduli_profile_blocker_packet/1",
+  "packetId": "P848_NO_SPEND_SOURCE_IMPORT_BOUNDARY_AFTER_SQUARE_MODULI_PROFILE_BLOCKER_PACKET",
+  "problemId": 848,
+  "generatedAt": "2026-04-18T12:02:03.265Z",
+  "status": "no_spend_source_import_boundary_assembled_after_square_moduli_profile_blocker",
+  "target": "assemble_p848_no_spend_source_import_boundary_after_square_moduli_profile_blocker",
+  "recommendedNextAction": "prepare_p848_mod50_generator_source_import_profile_or_no_spend_blocker_after_source_boundary",
+  "coversPrimaryNextAction": {
+    "stepId": "assemble_p848_no_spend_source_import_boundary_after_square_moduli_profile_blocker",
+    "status": "completed_by_no_spend_source_import_boundary_after_square_moduli_profile_blocker",
+    "previousBoundaryPacket": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_NO_SPEND_SOURCE_IMPORT_BOUNDARY_AFTER_LOCAL_P4217_HARD_BLOCKER_PACKET.json",
+    "previousBoundarySha256": "8517fb5ff9dd43a8ac19609141397435b24321a06f7f52e27069fd16f0c47b50",
+    "squareProfileBlockerPacket": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_SQUARE_MODULI_UNION_HITTING_SOURCE_IMPORT_PROFILE_APPROVAL_BLOCKER_PACKET.json",
+    "squareProfileBlockerSha256": "a7c67f1860ba88424cbab7283c273f0cb67bb8a4153a256d82b44be7e142b5de",
+    "mod50SourceBlockerPacket": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_MOD50_ALL_FUTURE_RECURRENCE_SOURCE_THEOREM_BLOCKER_PACKET.json",
+    "mod50SourceBlockerSha256": "00f01185e010b8144b29789efef98e1f7d4f303e40c8f6d9d733b85b887e6cc0",
+    "mod50WedgeDecisionPacket": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_MOD50_THEOREM_WEDGE_DECISION_BLOCKER_PACKET.json",
+    "mod50WedgeDecisionSha256": "9ca8da429267924f93046d7099759d0a19d1189958a10bd32e5a1682c94b454a",
+    "sourceSearchPacket": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_NO_SPEND_SOURCE_RECOVERY_SEARCH_FOR_P4217_MOD50_UNION_HITTING_PACKET.json",
+    "sourceSearchSha256": "d3e6bb44996bf45dda158d9fb521e2c058aa678db002e4f2ff5e8e08e133a660"
+  },
+  "boundaryAssembly": {
+    "status": "assembled_after_square_moduli_profile_blocker",
+    "mode": "no_spend_source_import_recombination",
+    "madeNewPaidCall": false,
+    "currentStepAllowsPaidCall": false,
+    "allNProofAvailable": false,
+    "finiteMeasureDecreased": false,
+    "openFrontierObligationCountAtInput": 93,
+    "sourceImportBoundaryShape": "p4217_and_square_profile_blocked_mod50_selected_next",
+    "convergenceAssemblyNudgeUsed": true,
+    "assembledFromStatuses": {
+      "previousBoundary": "no_spend_source_import_boundary_assembled_after_local_p4217_hard_blocker",
+      "squareProfileBlocker": "square_moduli_union_hitting_source_import_profile_approval_blocker_emitted_no_live_spend",
+      "mod50SourceBlocker": "mod50_all_future_recurrence_source_theorem_blocker_emitted_local_source_absent",
+      "mod50WedgeDecision": "mod50_theorem_wedge_decision_blocker_emitted_budget_guarded_live_incomplete_no_universal_theorem",
+      "sourceSearch": "no_spend_source_recovery_search_completed_no_promotable_source_found"
+    }
+  },
+  "remainingTheoremObjects": [
+    {
+      "objectId": "p4217_residual_squarefree_realization_source",
+      "status": "local_hard_blocker_and_profile_approval_blocker_preserved",
+      "neededTheorem": "A p4217 residual finite complete CRT partition, well-founded decreasing rank/invariant, or squarefree-realization theorem for every locally admissible residual CRT/arithmetic-progression/linear-family instance.",
+      "currentBoundary": "The p4217 residual source theorem lane has both a repaired future-use profile and a local hard blocker; under the current no-spend instruction it is not the cheapest next local probe.",
+      "releaseConditions": [
+        "A repo-owned finite complete CRT partition closes every p4217 residual cell.",
+        "A repo-owned well-founded residual rank strictly decreases on every residual transition.",
+        "A local or imported squarefree-realization theorem supplies audited hypotheses and constants for every locally admissible p4217 residual family.",
+        "A future explicit instruction releases the prepared p4217 single-lane source-import profile under the local usage/budget guard, followed by an audited source packet."
+      ],
+      "blockingPackets": [
+        "P848_P4217_RESIDUAL_SQUAREFREE_REALIZATION_SOURCE_THEOREM_GAP_PACKET.json",
+        "P848_REPAIRED_SINGLE_LANE_SOURCE_IMPORT_PROFILE_AFTER_NO_SPEND_GAP_PACKET.json",
+        "P848_P4217_RESIDUAL_SOURCE_IMPORT_PROFILE_APPROVAL_BLOCKER_PACKET.json",
+        "P848_LOCAL_P4217_RESIDUAL_SOURCE_THEOREM_PROOF_ATTEMPT_HARD_BLOCKER_PACKET.json"
+      ]
+    },
+    {
+      "objectId": "mod50_all_future_recurrence_or_generator",
+      "status": "selected_next_for_repaired_source_import_profile_or_no_spend_blocker",
+      "neededTheorem": "A mod-50 all-future relevant-pair recurrence, finite-Q partition, or restored original family-menu generator theorem covering every future relevant-pair row.",
+      "currentBoundary": "The mod-50 lane has finite replay evidence plus a failed broad wedge, but it still lacks a narrow post-boundary source/import profile or no-spend blocker naming the exact generator/recurrence target.",
+      "releaseConditions": [
+        "Recover/prove the mod-50 all-future relevant-pair recurrence, finite-Q partition, or original family-menu generator theorem locally.",
+        "Prepare a single-lane future source-import profile only if it names a concrete generator/source theorem sharper than the broad failed wedge.",
+        "Keep provider execution blocked under no-spend instructions until a future budget-guarded release is explicit."
+      ],
+      "blockingPackets": [
+        "P848_MOD50_ALL_FUTURE_RECURRENCE_SOURCE_THEOREM_BLOCKER_PACKET.json",
+        "P848_MOD50_THEOREM_WEDGE_DECISION_BLOCKER_PACKET.json",
+        "P848_NO_SPEND_SOURCE_RECOVERY_SEARCH_FOR_P4217_MOD50_UNION_HITTING_PACKET.json"
+      ]
+    },
+    {
+      "objectId": "square_moduli_union_hitting_threshold_source",
+      "status": "source_index_audited_and_profile_approval_blocked",
+      "neededTheorem": "A square-moduli union/hitting upper-bound theorem with Sawhney-compatible hypotheses, inequality direction, constants, and threshold.",
+      "currentBoundary": "The square-moduli union/hitting lane has a no-spend source-index audit and a future-use profile/approval blocker. No union/hitting upper-bound theorem is promoted from current repo sources.",
+      "releaseConditions": [
+        "A future instruction permits budget-guarded provider execution for this exact square-moduli union/hitting profile.",
+        "./bin/erdos orp research usage --json confirms remaining local daily run count and USD budget.",
+        "The call remains a single high-leverage source-audit question about Sawhney-compatible union/hitting upper bounds, not broad fishing.",
+        "Any ORP/OpenAI answer is packetized before promotion to proof, preserving hypotheses, constants, inequality direction, and finite handoff."
+      ],
+      "blockingPackets": [
+        "P848_TAO_VAN_DOORN_THRESHOLD_PIVOT_RECONCILIATION_PACKET.json",
+        "P848_CORRECTED_SQUARE_MODULI_DUAL_SIEVE_OR_UNION_HITTING_THRESHOLD_PACKET.json",
+        "P848_SQUARE_MODULI_UNION_HITTING_SOURCE_INDEX_NO_SPEND_AUDIT_PACKET.json",
+        "P848_SQUARE_MODULI_UNION_HITTING_SOURCE_IMPORT_PROFILE_APPROVAL_BLOCKER_PACKET.json"
+      ]
+    }
+  ],
+  "lanePriorityDecision": {
+    "selectedLaneId": "mod50_all_future_recurrence_or_generator",
+    "selectedStepId": "prepare_p848_mod50_generator_source_import_profile_or_no_spend_blocker_after_source_boundary",
+    "selectedMode": "single_mod50_source_import_profile_or_no_spend_blocker",
+    "reason": [
+      "The p4217 residual lane already has a repaired future-use profile, a no-spend approval blocker, and a local hard blocker.",
+      "The square-moduli union/hitting lane already has a no-spend source-index audit, a future-use profile, and an approval blocker.",
+      "The mod-50 lane still has no post-boundary repaired profile/blocker that names only the all-future recurrence, finite-Q partition, or generator theorem target."
+    ],
+    "whyNotSpendNow": [
+      "Current instructions explicitly say do not spend.",
+      "The next durable local step is profile/blocker preparation, not provider execution.",
+      "Any future live source-import call still requires usage ledger clearance and a sharper single-lane question."
+    ]
+  },
+  "selectedNextTheoremObject": {
+    "objectId": "mod50_all_future_recurrence_or_generator",
+    "statement": "Find or prove a mod-50 all-future relevant-pair recurrence, finite-Q partition, or restored original family-menu generator theorem covering every future relevant-pair row.",
+    "nextLocalGoal": "Prepare the repaired mod-50 source/import profile or no-spend blocker, explicitly excluding broad reruns of the failed mod-50 theorem wedge and finite replay overclaims.",
+    "firstVerificationCommand": "./bin/erdos problem progress 848 --json"
+  },
+  "forbiddenMovesAfterBoundaryAssembly": [
+    "execute_provider_source_import_under_current_no_spend_instruction",
+    "rerun_the_same_mod50_paid_wedge_by_default",
+    "resume_q193_q197_singleton_descent",
+    "launch_q193_q389_or_larger_q_cover_without_new_theorem",
+    "try_fallback_selectors_one_by_one",
+    "emit_a_naked_deterministic_rank_boundary",
+    "claim_mod50_finite_replay_as_all_future_recurrence",
+    "claim_tao_van_doorn_plus_exact_verifier_decides_848_without_union_hitting_source",
+    "treat_bounded_finite_evidence_as_all_N_proof"
+  ],
+  "oneNextAction": {
+    "stepId": "prepare_p848_mod50_generator_source_import_profile_or_no_spend_blocker_after_source_boundary",
+    "action": "Prepare a no-spend repaired source/import profile or blocker for the mod-50 all-future recurrence/generator theorem, using the existing mod-50 source blocker, theorem-wedge decision blocker, and source-search gap as inputs.",
+    "finiteDenominatorOrRankToken": "p848_no_spend_source_import_boundary_after_square_moduli_profile_blocker",
+    "verificationCommand": "./bin/erdos problem progress 848 --json"
+  },
+  "proofBoundary": "This packet assembles the no-spend source/import boundary after the square-moduli profile blocker. It records that p4217 and square-moduli are already profile/approval-blocked under current no-spend rules, selects the remaining mod-50 all-future recurrence/generator theorem as the next no-spend profile/blocker target, and forbids q-cover, singleton descent, provider execution, threshold overclaims, and bounded-evidence all-N promotion. It does not prove the mod-50 recurrence, p4217 residual source theorem, square-moduli union/hitting theorem, all-N recombination, or Problem 848.",
+  "claims": {
+    "completesSourceImportBoundaryAfterSquareModuliProfileBlocker": true,
+    "preservesPreviousSourceImportBoundary": true,
+    "preservesP4217ProfileAndHardBlocker": true,
+    "preservesSquareModuliProfileApprovalBlocker": true,
+    "selectsMod50AsNextSourceObject": true,
+    "madeNewPaidCall": false,
+    "currentStepAllowsPaidCall": false,
+    "blocksLiveSpendThisTurn": true,
+    "requiresFutureApprovalBeforeSpend": true,
+    "respectsNoPaidByDefault": true,
+    "blocksQCoverExpansion": true,
+    "blocksSingletonQDescent": true,
+    "blocksSingleFallbackSelectorLadder": true,
+    "blocksNakedRankBoundary": true,
+    "provesFiniteP4217Partition": false,
+    "provesP4217ResidualRankDecrease": false,
+    "provesSquarefreeRealizationSourceTheorem": false,
+    "provesMod50AllFutureRecurrence": false,
+    "importsSquareModuliUnionHittingThreshold": false,
+    "lowersAnalyticThreshold": false,
+    "provesAllN": false,
+    "decidesProblem848": false
+  },
+  "packetPath": "/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_NO_SPEND_SOURCE_IMPORT_BOUNDARY_AFTER_SQUARE_MODULI_PROFILE_BLOCKER_PACKET.json"
+}

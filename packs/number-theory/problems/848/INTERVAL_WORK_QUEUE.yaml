@@ -17,16 +17,18 @@ intervals:
   - interval_id: N848.V2
     label: exact_small_n_local_rollout
     range: "10001..40500"
-    status: local_unpromoted
+    status: compact_promoted_boundary_audited
     method_class: exact_small_n
-    claim_level: local_compact_evidence
+    claim_level: public_compact_evidence_not_public_raw_packet
     certificate: output/p848-exact-small-n-rollouts/EXACT_SMALL_N_1_40500_CERTIFICATE.md
     data_packet: output/p848-exact-small-n-rollouts/EXACT_SMALL_N_1_40500_RESULTS.json
+    compact_promotion: SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_EXACT_40500_COMPACT_PROMOTION_PACKET.json
+    compact_boundary_audit: SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_EXACT_40500_ENDPOINT_BOUNDARY_AUDIT_PACKET.json
     compact_derivatives:
       - EXACT_BREAKPOINT_SCOUT.json
       - EXACT_BREAKPOINT_CERTIFICATE.json
     bookkeeping: EXACT_INTERVAL_BOOKKEEPING.md
-    next_move: Promote a compact public certificate for the local `1..40500` rollout or keep public raw claims at `1..10000`.
+    next_move: Use as compact verifier evidence and finite-base support for the 32 mod 50 lane theorem; keep public raw claims at `1..10000` and do not start `40501..?` rollout unless the mod-50 coverage theorem or a hypotheses blocker justifies it.
   - interval_id: N848.V2B
     label: exact_small_n_next_extension
     range: "40501..?"

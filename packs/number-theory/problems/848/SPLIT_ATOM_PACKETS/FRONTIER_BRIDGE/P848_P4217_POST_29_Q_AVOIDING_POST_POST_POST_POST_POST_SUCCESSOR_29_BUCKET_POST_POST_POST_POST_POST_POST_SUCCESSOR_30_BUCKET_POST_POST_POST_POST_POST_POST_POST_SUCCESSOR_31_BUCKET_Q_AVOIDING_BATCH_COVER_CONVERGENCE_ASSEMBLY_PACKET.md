@@ -1,0 +1,27 @@
+# P848 P4217 post-post-post-post-post-post-post-post-successor 31-bucket q-cover convergence assembly
+
+- Status: `post_29_q_avoiding_post_post_post_post_post_successor_29_bucket_post_post_post_post_post_post_successor_30_bucket_post_post_post_post_post_post_post_successor_31_bucket_q_avoiding_batch_cover_convergence_assembly_selects_31_bucket_post_post_post_post_post_post_post_post_successor_rank_compression`
+- Target: `run_p848_convergence_assembly_after_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_post_post_post_successor_26_bucket_post_post_post_post_successor_29_bucket_post_post_post_post_post_successor_29_bucket_post_post_post_post_post_post_successor_30_bucket_post_post_post_post_post_post_post_successor_31_bucket_q_avoiding_batch_cover`
+- Recommended next action: `compress_p848_p4217_p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_post_post_post_successor_26_bucket_post_post_post_post_successor_29_bucket_post_post_post_post_post_successor_29_bucket_post_post_post_post_post_post_successor_30_bucket_post_post_post_post_post_post_post_successor_31_bucket_post_post_post_post_post_post_post_post_successor_31_buckets_or_emit_rank_boundary`
+- Successor buckets assembled: 31
+- Primes: 191, 197, 199, 211, 223, 227, 229, 233, 239, 241, 251, 257, 263, 269, 271, 277, 281, 283, 293, 307, 311, 313, 317, 331, 337, 347, 349, 353, 359, 367, 383
+- Root children outside closure: 2153619015042405547059029326640611588488212035013588791800641742
+- Q-avoiding classes outside closure: 124948172109189798223447033533750138554613507343879586729927215881345
+
+## Assembly
+
+The zero-survivor 31-bucket q-cover is assembled into one whole 31-bucket successor rank/compression obligation over q191..q383.
+
+## Next Move
+
+Compress all 31 post-post-post-post-post-post-post-post-successor buckets, prove a structural decomposition/impossibility theorem, or emit the exact deterministic rank boundary for the whole q191..q383 token.
+
+Finite token: `p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_post_post_post_successor_26_bucket_post_post_post_post_successor_29_bucket_post_post_post_post_post_successor_29_bucket_post_post_post_post_post_post_successor_30_bucket_post_post_post_post_post_post_post_successor_31_bucket_post_post_post_post_post_post_post_post_successor_rank_boundary`
+
+## Boundary
+
+This convergence assembly consumes the zero-survivor 31-bucket q-cover and selects the 31-bucket q191..q383 successor rank/compression token. It does not close the 2153619015042405547059029326640611588488212035013588791800641742 root children, the 124948172109189798223447033533750138554613507343879586729927215881345 q-avoiding classes, the p479 branches, q97, p443-unavailable, the p4217 complement, collision-free matching, or Problem 848.
+
+## Verification
+
+- node --check packs/number-theory/problems/848/compute/problem848_post29_q_avoiding_post5_successor_29_bucket_post6_successor_30_bucket_post7_successor_31_bucket_q_avoiding_batch_cover_convergence_assembly.mjs && node --check src/runtime/theorem-loop.js && node --check src/runtime/problem-progress.js && node --test test/p848-282-alignment-obstruction-packet.test.js

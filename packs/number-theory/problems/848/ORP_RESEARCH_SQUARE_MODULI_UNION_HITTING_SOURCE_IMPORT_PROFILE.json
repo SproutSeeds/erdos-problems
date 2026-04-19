@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.0.0",
+  "profile_id": "p848-square-moduli-union-hitting-source-import-single",
+  "label": "Problem 848 square-moduli union/hitting source-import audit",
+  "description": "Single-lane bounded ORP/OpenAI profile for a future source-audit pass on the missing Sawhney-compatible square-moduli union/hitting upper-bound theorem. This profile is prepared locally and must not execute without an explicit usage/budget guard.",
+  "execution_policy": {
+    "live_requires_execute": true,
+    "process_only": true,
+    "secrets_not_persisted": true,
+    "default_timeout_sec": 180,
+    "estimated_cost_usd": 1,
+    "budget_note": "Use only after ./bin/erdos orp research usage --json confirms remaining local daily run count and USD guard, and only if a future approval packet releases this exact single-lane profile."
+  },
+  "call_moments": [
+    {
+      "moment_id": "plan",
+      "label": "Local profile preparation",
+      "calls_api": false,
+      "description": "Create the exact source/import prompt without resolving credentials or making a live call."
+    },
+    {
+      "moment_id": "p848_square_moduli_union_hitting_source_import",
+      "label": "Square-moduli union/hitting source-import theorem audit",
+      "calls_api": true,
+      "secret_alias": "openai-primary",
+      "env_var": "OPENAI_API_KEY",
+      "description": "Run one bounded source-audit pass asking only for a Sawhney-compatible union/hitting upper-bound theorem, not avoiding-side evidence."
+    }
+  ],
+  "lanes": [
+    {
+      "lane_id": "p848_square_moduli_union_hitting_source_import",
+      "call_moment": "p848_square_moduli_union_hitting_source_import",
+      "label": "P848 square-moduli union/hitting source-import theorem",
+      "provider": "openai",
+      "model": "gpt-5.4",
+      "adapter": "openai_responses",
+      "role": "Analyze only the supplied Problem 848 square-moduli artifacts as a source-import theorem wedge. Return a concise verdict first. Decide whether an importable source theorem gives Sawhney-compatible upper bounds for union/hitting sets of square obstruction classes modulo p^2, with exact inequality direction, hypotheses, constants, and threshold handoff. Explicitly reject Tao-van-Doorn avoiding-set upper bounds used as union/hitting upper bounds, complement-duality lower-bound inversions, threshold claims without constants, q-cover expansion, singleton descent, and bounded finite evidence as all-N proof.",
+      "env_var": "OPENAI_API_KEY",
+      "secret_alias": "openai-primary",
+      "reasoning_effort": "medium",
+      "text_verbosity": "medium",
+      "max_output_tokens": 8192
+    }
+  ],
+  "synthesis": {
+    "style": "source_or_gap_first",
+    "require_disagreements": true,
+    "require_open_questions": true,
+    "require_exact_hypotheses_constants_and_direction": true
+  }
+}

@@ -1,0 +1,110 @@
+{
+  "schema": "erdos.number_theory.p848_p4217_residual_source_import_profile_approval_blocker_packet/1",
+  "packetId": "P848_P4217_RESIDUAL_SOURCE_IMPORT_PROFILE_APPROVAL_BLOCKER_PACKET",
+  "problemId": 848,
+  "generatedAt": "2026-04-18T10:48:15.312Z",
+  "status": "p4217_residual_source_import_profile_approval_blocker_emitted_no_live_spend",
+  "target": "emit_p848_p4217_residual_source_import_profile_approval_blocker_before_any_live_spend",
+  "recommendedNextAction": "prepare_p848_local_p4217_residual_source_theorem_proof_attempt_or_emit_hard_blocker",
+  "coversPrimaryNextAction": {
+    "stepId": "emit_p848_p4217_residual_source_import_profile_approval_blocker_before_any_live_spend",
+    "status": "completed_by_no_spend_approval_blocker_profile_execution_not_released",
+    "profilePacket": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_REPAIRED_SINGLE_LANE_SOURCE_IMPORT_PROFILE_AFTER_NO_SPEND_GAP_PACKET.json",
+    "profilePacketSha256": "9c3bb6020ad18e2996dc6eaeb8519e9f352afe6467f9723938c3b71d92e60e40"
+  },
+  "approvalDecision": {
+    "status": "live_execution_blocked_this_turn",
+    "profilePrepared": true,
+    "profileExecutionApproved": false,
+    "profileExecutionBlockedThisTurn": true,
+    "madeNewPaidCall": false,
+    "currentStepAllowsPaidCall": false,
+    "usageCheckRun": false,
+    "usageCheckReason": "No usage check was needed because current delegate instructions forbid spend and this packet does not contemplate a live call.",
+    "reason": "The repaired source-import profile is a future-use live provider profile. Current instructions say do not spend, so the only valid local action is to emit this approval/budget blocker before any execution.",
+    "futureLivePreconditions": [
+      "A future instruction explicitly authorizes guarded live execution of this single p4217 residual profile.",
+      "erdos orp research usage --json confirms remaining local daily run count and USD budget.",
+      "The call purpose remains the p4217 residual source-import theorem audit, not broad fishing or routine verification.",
+      "Any ORP/OpenAI answer is treated as process evidence until an audited repo-owned packet preserves hypotheses, constants, and proof boundaries."
+    ]
+  },
+  "preservedProfile": {
+    "sourceProfilePacket": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_REPAIRED_SINGLE_LANE_SOURCE_IMPORT_PROFILE_AFTER_NO_SPEND_GAP_PACKET.json",
+    "profileFile": "packs/number-theory/problems/848/ORP_RESEARCH_P4217_RESIDUAL_SOURCE_IMPORT_PROFILE.json",
+    "profileId": "p848-p4217-residual-source-import-single",
+    "selectedLaneId": "p848_p4217_residual_source_import",
+    "futureLiveCommandTemplate": "erdos orp research ask 848 --profile-file packs/number-theory/problems/848/ORP_RESEARCH_P4217_RESIDUAL_SOURCE_IMPORT_PROFILE.json --question \"<p4217 residual source-import theorem question>\" --execute --allow-paid --json",
+    "sourceAuditQuestion": "Problem 848 p4217 residual source-import theorem: given the packetized p4217 residual source-theorem gap, the p4217 theorem-wedge decision blocker, and the post-source-search all-N residual assembly, identify whether a source/import theorem proves squarefree values in every locally admissible p4217 residual CRT/arithmetic-progression/linear-family instance, or proves a finite complete CRT partition or well-founded residual rank. Return exact hypotheses/constants and a proof boundary; do not rerun broad whole-complement wedge logic or finite q-cover descent."
+  },
+  "selectedLane": {
+    "laneId": "p4217_residual_squarefree_realization_source",
+    "atomId": "p848_p4217_residual_finite_partition_rank_or_squarefree_realization_source",
+    "theoremObject": "p4217 residual squarefree-realization source theorem for every locally admissible residual CRT/arithmetic-progression/linear-family instance",
+    "neededTheorem": "A p4217 residual finite complete CRT partition, well-founded decreasing rank/invariant, or squarefree-realization theorem for every locally admissible residual CRT/arithmetic-progression/linear-family instance.",
+    "currentBoundary": "The p4217 live wedge, residual fork reduction, and no-spend source search found no promotable whole-complement theorem, finite partition, decreasing invariant, or squarefree-realization source theorem.",
+    "selectionStatus": "selected_as_single_repaired_source_import_profile_lane",
+    "whySelected": [
+      "The p4217 live wedge selected the squarefree-realization residual fork after failing to find a whole-complement theorem.",
+      "The post-source-search all-N residual assembly says to prefer p4217 when the profile can be narrowed to the residual squarefree-realization theorem.",
+      "The current repo has already searched all three source/import lanes locally and found no promotable theorem source, so the next profile must be a source/import audit rather than another finite q-cover or broad wedge."
+    ],
+    "whySharperThanPreviousAttempts": [
+      "The previous p4217 live wedge asked for a whole-complement cover theorem, complement impossibility theorem, finite partition, decreasing invariant, or imported/source theorem; this profile asks only for the residual p4217 squarefree-realization source theorem and its exact finite-partition/rank alternatives.",
+      "The mod-50 lane remains broader because no concrete generator filename, finite-Q denominator, or original family-menu recurrence source has been restored.",
+      "The square-moduli lane remains direction-sensitive because current Tao-van-Doorn sources bound avoiding sets, while the missing object is a Sawhney-compatible union/hitting upper bound.",
+      "The repaired profile states non-acceptable outputs up front: no singleton q descent, no q193..q389 cover, no bounded evidence as all-N proof, and no threshold claim without a verified union/hitting source."
+    ]
+  },
+  "localFallback": {
+    "selectedNextAction": "prepare_p848_local_p4217_residual_source_theorem_proof_attempt_or_emit_hard_blocker",
+    "whyLocalNext": "With live execution blocked and the profile preserved, the only no-spend progress path is a local p4217 residual source-theorem proof attempt from existing packet/profile inputs, followed by a hard blocker if no local theorem can be derived.",
+    "firstLocalProbeCommand": "rg -n \"squarefree.*(arithmetic progression|linear family|locally admissible)|locally admissible.*squarefree|finite CRT partition|well-founded.*rank|decreasing invariant\" packs/number-theory/problems/848 src test",
+    "failureBoundary": "If the local proof attempt finds no repo-owned theorem, emit a hard blocker stating that profile execution needs future guarded approval and no all-N proof can use this lane yet."
+  },
+  "forbiddenMovesAfterApprovalBlocker": [
+    "execute_the_repaired_profile_without_future_guarded_approval",
+    "run_erdos_orp_research_execute_allow_paid_this_turn",
+    "resume_q193_q197_singleton_descent",
+    "launch_q193_q389_or_larger_q_cover_without_new_theorem",
+    "emit_a_naked_deterministic_rank_boundary",
+    "try_fallback_selectors_one_by_one",
+    "rerun_the_same_p4217_paid_wedge_by_default",
+    "claim_tao_van_doorn_plus_exact_verifier_decides_848_without_union_hitting_source",
+    "treat_bounded_finite_evidence_as_all_N_proof"
+  ],
+  "oneNextAction": {
+    "stepId": "prepare_p848_local_p4217_residual_source_theorem_proof_attempt_or_emit_hard_blocker",
+    "action": "Attempt a local p4217 residual source theorem proof from the prepared profile inputs and packetized gaps; if no finite CRT partition, decreasing rank, or squarefree-realization theorem is locally derivable, emit the hard no-spend blocker.",
+    "finiteDenominatorOrRankToken": "p848_p4217_residual_source_import_profile_approval_blocked_no_spend",
+    "command": "./bin/erdos problem progress 848 --json"
+  },
+  "proofBoundary": "This packet completes the approval/budget blocker before any live provider call. It preserves the repaired single-lane p4217 residual source-import profile, records that no live execution is approved or attempted under the no-spend instruction, and routes to a local proof attempt or hard blocker. It does not prove a p4217 finite partition, p4217 decreasing rank, p4217 squarefree-realization source theorem, mod-50 all-future recurrence, square-moduli union/hitting threshold, all-N recombination, or Problem 848.",
+  "claims": {
+    "completesProfileApprovalBlocker": true,
+    "blocksLiveSpendThisTurn": true,
+    "madeNewPaidCall": false,
+    "currentStepAllowsPaidCall": false,
+    "usageCheckRequiredThisTurn": false,
+    "requiresFutureApprovalBeforeSpend": true,
+    "preservesPreparedProfile": true,
+    "keepsProfileSingleLane": true,
+    "selectedLaneIsP4217Residual": true,
+    "selectsLocalProofAttemptBeforeAnyLiveExecution": true,
+    "respectsNoPaidByDefault": true,
+    "blocksQCoverExpansion": true,
+    "blocksSingletonQDescent": true,
+    "blocksSingleFallbackSelectorLadder": true,
+    "blocksNakedRankBoundary": true,
+    "blocksRepeatPaidWedgeByDefault": true,
+    "provesFiniteP4217Partition": false,
+    "provesP4217ResidualRankDecrease": false,
+    "provesSquarefreeRealizationSourceTheorem": false,
+    "provesMod50AllFutureRecurrence": false,
+    "importsSquareModuliUnionHittingThreshold": false,
+    "provesPost40500Sufficiency": false,
+    "provesAllN": false,
+    "decidesProblem848": false
+  },
+  "packetPath": "/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_RESIDUAL_SOURCE_IMPORT_PROFILE_APPROVAL_BLOCKER_PACKET.json"
+}

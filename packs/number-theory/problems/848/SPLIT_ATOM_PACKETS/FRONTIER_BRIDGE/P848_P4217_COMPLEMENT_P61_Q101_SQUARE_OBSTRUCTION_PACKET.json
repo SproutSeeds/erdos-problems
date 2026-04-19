@@ -1,0 +1,123 @@
+{
+  "schema": "erdos.number_theory.p848_p4217_complement_p61_q101_square_obstruction/1",
+  "generatedAt": "2026-04-17T06:16:29Z",
+  "problemId": "848",
+  "status": "p4217_complement_p61_first_child_q101_square_obstruction_emitted",
+  "activeAtom": "D2_p13_q17_endpoint_menu_squarefree_obstruction_p23_q29_p41_q13_p103_q2_p37_q19_p31_q53_p73_q11_p83_q17_p509_q43_p29_q59_p47_q67_p79_q71_p107_q89_p4217_complement_p43_q2_p61_q101_obstruction",
+  "sourcePackets": {
+    "p61AvailabilityRefinement": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_COMPLEMENT_P61_AVAILABILITY_REFINEMENT_PACKET.json",
+    "p43SquareObstruction": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_COMPLEMENT_P43_SQUARE_OBSTRUCTION_PACKET.json",
+    "p4217ComplementRefinement": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_UNAVAILABLE_COMPLEMENT_REFINEMENT_PACKET.json"
+  },
+  "sourceClass": {
+    "outsider": 6323,
+    "leftParameterization": "left = 760410154648626128533304355898763555393483209652336085943695959179023528577227857 + 4018151289874337645868852921870587523537603036293953839351606997760601160064480100*t",
+    "residualClass": {
+      "residue": "760410154648626128533304355898763555393483209652336085943695959179023528577227857",
+      "modulus": "4018151289874337645868852921870587523537603036293953839351606997760601160064480100"
+    }
+  },
+  "inputP61AvailableChild": {
+    "endpointPrime": 61,
+    "endpointPrimeSquare": 3721,
+    "tCongruence": {
+      "residue": "48783616077",
+      "modulus": "66170874169",
+      "expression": "t == 48783616077 mod 66170874169"
+    },
+    "k4217": 1140,
+    "k61": 1014,
+    "delta": -25364,
+    "rightFormula": "right_61(left) = left - 25364"
+  },
+  "squareObstruction": {
+    "obstructionPrime": 101,
+    "obstructionSquare": 10201,
+    "rootResiduesModulo101Square": [
+      1829,
+      2811
+    ],
+    "selectedRootResidueModulo101Square": 1829,
+    "alternateRootResidueModulo101Square": 2811,
+    "selectedRootMeaning": "For t = 48783616077 + 66170874169*u, u == 1829 mod 10201 is the first q101 square-obstruction subfamily by root order."
+  },
+  "liftedChild": {
+    "tCongruence": {
+      "residue": "121075312471178",
+      "modulus": "675009087397969",
+      "expression": "t == 121075312471178 mod 675009087397969"
+    },
+    "leftCongruence": {
+      "residue": "486498922978003120137482190528915923361118218280393901731215929409345512449172580645681381785657",
+      "modulus": "2712288635205048649747664011117929144880624281851945987471741427034114118918054256500369780916900",
+      "expression": "left == 486498922978003120137482190528915923361118218280393901731215929409345512449172580645681381785657 mod 2712288635205048649747664011117929144880624281851945987471741427034114118918054256500369780916900"
+    },
+    "rightResidue": "486498922978003120137482190528915923361118218280393901731215929409345512449172580645681381760293",
+    "endpoint": {
+      "endpointPrime": 61,
+      "k": 1014,
+      "delta": -25364,
+      "insideWindow28500": true
+    }
+  },
+  "verification": {
+    "checks": {
+      "tModulo4217Square": 4602950,
+      "tModulo61Square": 6,
+      "uModulo101Square": 1829,
+      "k4217": 1140,
+      "k61": 1014,
+      "rightMinusLeft": -25364,
+      "crossProductModulo101Square": 0,
+      "alternateRootCrossProductModulo101Square": 0
+    },
+    "crossProductPlusOneAtSelectedResidue": "236681202058757012275533257971682835669967059058282801408222949239071993719690526144388776765072620432913419717169179040604484846647564232483880276500642262902982911168756819258292554279517502",
+    "verificationCommand": "node --test test/p848-endpoint-menu-compiler.test.js test/p848-282-alignment-obstruction-packet.test.js"
+  },
+  "theoremObject": {
+    "id": "p848_p4217_complement_p61_first_child_q101_obstruction",
+    "status": "proved_exact_square_obstruction_child",
+    "statement": "Inside the first p61-available CRT child of the p4217 complement, the subfamily t == 121075312471178 mod 675009087397969 has 101^2 dividing left*(left - 25364)+1.",
+    "proof": [
+      "The p61 availability refinement records the first p61-available CRT child as t == 48783616077 mod 66170874169, with k61 = 1014 and right = left - 25364.",
+      "For t = 48783616077 + 66170874169*u, direct modular evaluation modulo 101^2 gives roots u == 1829 and u == 2811.",
+      "Selecting the first root gives t == 48783616077 + 66170874169*1829 mod 66170874169*10201.",
+      "This simplifies to t == 121075312471178 mod 675009087397969.",
+      "Substituting this t congruence into left = R + M*t preserves k4217 = 1140 and k61 = 1014, and gives left*(left - 25364)+1 == 0 mod 101^2."
+    ]
+  },
+  "ledgerTransition": {
+    "inputObligation": {
+      "state": "p4217_complement_p61_available_squarefree_pending",
+      "endpointPrime": 61,
+      "firstChild": "t == 48783616077 mod 66170874169"
+    },
+    "outputObligations": [
+      {
+        "state": "p4217_complement_p61_q101_square_obstruction_child",
+        "obstructionPrime": 101,
+        "tCongruence": "t == 121075312471178 mod 675009087397969"
+      },
+      {
+        "state": "p4217_complement_p61_first_child_q101_avoiding_complement_open",
+        "excludedRootsModulo101Square": [
+          1829,
+          2811
+        ]
+      }
+    ],
+    "measureEffect": "The p61-available squarefree obligation is not closed, but its first CRT child now has an exact q101 square-obstruction child instead of an unstructured squarefree-hitting question."
+  },
+  "claims": {
+    "provesQ101SquareObstructionOnSelectedChild": true,
+    "provesP61SquarefreeHitting": false,
+    "provesAllP61AvailableClassesHandled": false,
+    "provesP61UnavailableComplementCovered": false,
+    "provesCollisionFreeMatching": false,
+    "provesAllN": false,
+    "decidesProblem848": false
+  },
+  "proofBoundary": "This packet emits the first q101 square-obstruction child inside the first p61-available CRT family. It does not resolve the q101-obstruction child, the q101-avoiding part of that child, the other p61-available CRT families, or the p61-unavailable complement.",
+  "recommendedNextAction": "resolve_p848_p4217_complement_p61_q101_square_obstruction_child",
+  "verificationCommand": "node --test test/p848-endpoint-menu-compiler.test.js test/p848-282-alignment-obstruction-packet.test.js"
+}

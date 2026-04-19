@@ -1,0 +1,563 @@
+{
+  "schema": "erdos.number_theory.p848_p4217_complement_strategy_guard/1",
+  "status": "active_bulk_cover_guard_enabled",
+  "riskStatus": "high_if_next_action_is_another_single_fallback_selector",
+  "purpose": "Keep the p4217 unavailable-complement lane theorem-facing instead of drifting into one fallback-selector sibling after another.",
+  "activeOpenFront": {
+    "complementResidues": 17781949,
+    "complementResiduePercent": {
+      "part": "17781949",
+      "partLabel": "17,781,949",
+      "total": "17783089",
+      "totalLabel": "17,783,089",
+      "percent": 99.993589,
+      "percentLabel": "99.993589%"
+    },
+    "latestComplementState": "mod50_residual_handoff_label_source_audit_profile_no_spend_blocker_emitted",
+    "frontierLedgerMeasure": {
+      "name": "open_frontier_obligation_count",
+      "value": 106,
+      "status": "rank_refined_for_current_transitions_not_global",
+      "rule": "The transition packet refines current ledger transitions into finite lower-level obligations or explicit blockers; a global endpoint staircase theorem is still needed to bound repeated source-class creation."
+    },
+    "frontierGrowthPressure": {
+      "status": "active_branch_expansion_pressure",
+      "openFrontierObligationCount": 106,
+      "interpretation": "This count is allowed to grow while availability splits expose children. Growth is not regression by itself, but it is not global convergence unless paired with terminal leaves, bulk cover, impossibility, or a proved decreasing rank across the whole frontier.",
+      "tripwire": {
+        "status": "armed_after_current_leaf",
+        "activationCondition": "After the current finite leaf is certified, blocked, or ledgered, if open_frontier_obligation_count has not decreased through terminal leaves, exact repairs, blockers, bulk cover, impossibility theorem, structural decomposition, or ranked transition, pause selector descent.",
+        "forcedMove": "Run convergence assembly and choose bulk_selector_cover_or_impossibility, structural_complement_decomposition, ranked_ledger_transition, q_cover_staircase_breaker, or parallel_live_family_binding before opening any fresh selector child.",
+        "allowedException": "Continue only inside the already named finite leaf and its explicitly recorded reserves."
+      },
+      "currentExpansionSources": [
+        {
+          "source": "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_COMPLEMENT_P61_Q101_P443_AVAILABILITY_SPLIT_PACKET.json",
+          "kind": "availability_split_created_new_child",
+          "createdObligations": [
+            "first p443-available q97 square-obstruction child",
+            "p443-unavailable complement of the p61/q101 child"
+          ]
+        },
+        {
+          "source": "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_COMPLEMENT_P61_Q101_P443_Q97_P479_AVAILABILITY_SPLIT_PACKET.json",
+          "kind": "availability_split_created_new_child",
+          "createdObligations": [
+            "first p479-available q127 square-obstruction child",
+            "p479-unavailable complement of the p443/q97 child"
+          ]
+        },
+        {
+          "source": "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_COMPLEMENT_P61_AVAILABILITY_REFINEMENT_PACKET.json",
+          "kind": "availability_refinement_created_available_and_unavailable_children",
+          "createdObligations": [
+            "p61-available CRT families",
+            "p61-unavailable CRT complement"
+          ]
+        }
+      ],
+      "requiredCounterweight": [
+        "Resolve emitted square-obstruction children to terminal leaves, exact repairs, or smaller deterministic blocker packets.",
+        "Prove a bulk complement cover or impossibility theorem before extending many more selector levels.",
+        "If another selector is introduced, record the exact frontier-ledger token it consumes.",
+        "Refresh this pressure after each split so agents can see whether the frontier is closing or merely unfolding."
+      ]
+    },
+    "convergenceAssemblyStatus": "assembly_recorded_for_all_future_recurrence_boundary_after_bounded_theorem"
+  },
+  "growthPressureRule": {
+    "status": "active_branch_expansion_pressure",
+    "rule": "A structured descent may still expand the frontier because each availability split can create available-child and unavailable-complement obligations. Treat growth as acceptable only when the current step records a terminal leaf, bulk cover, impossibility theorem, structural decomposition, or explicit ledger-rank decrease.",
+    "requiredNextCheck": "After the current finite child closes or blocks, compare open_frontier_obligation_count against the previous refresh before launching another selector/deeper split.",
+    "tripwire": {
+      "status": "armed_after_current_leaf",
+      "activationCondition": "After the current finite leaf is certified, blocked, or ledgered, if open_frontier_obligation_count has not decreased through terminal leaves, exact repairs, blockers, bulk cover, impossibility theorem, structural decomposition, or ranked transition, pause selector descent.",
+      "forcedMove": "Run convergence assembly and choose bulk_selector_cover_or_impossibility, structural_complement_decomposition, ranked_ledger_transition, q_cover_staircase_breaker, or parallel_live_family_binding before opening any fresh selector child.",
+      "allowedException": "Continue only inside the already named finite leaf and its explicitly recorded reserves."
+    }
+  },
+  "antiSiblingLadderRule": {
+    "status": "enforced_for_agent_flow",
+    "antiPattern": "Do not try fallback selectors p47, p53, p59, etc. one by one without a batch cover, impossibility theorem, structural split, or explicit ledger-rank decrease.",
+    "stopRule": "After the current bounded leaf closes or blocks, the next move must recombine/generalize unless a single-selector step is proved to decrease the frontier ledger rank or is part of a batch-screen theorem.",
+    "allowedException": "The residual handoff-label source-audit profile is prepared, but provider execution remains blocked by no-spend. Q-cover expansion, singleton descent, one-by-one fallback selectors, and naked rank-boundary work remain paused until a new local residual handoff theorem, row-generator/finite-Q theorem, or future explicit guarded source-audit release appears."
+  },
+  "currentLeafWork": {
+    "status": "mod50_residual_handoff_label_source_audit_profile_no_spend_blocker_emitted",
+    "stepId": "await_p848_new_local_residual_handoff_theorem_or_explicit_guarded_source_audit_release_after_profile",
+    "source": "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_MOD50_RESIDUAL_HANDOFF_LABEL_SOURCE_AUDIT_PROFILE_NO_SPEND_BLOCKER_PACKET.json",
+    "firstRepairCandidateEndpointPrime": null,
+    "reserveRepairCandidateEndpointPrimes": [],
+    "finiteTokenId": "p848_mod50_residual_handoff_label_source_audit_profile_no_spend_blocker",
+    "endpointPrimeSquare": null,
+    "completionRule": "The residual handoff-label source-audit profile is prepared under no-spend. Keep provider execution, q-cover expansion, singleton descent, fallback ladders, and naked rank-boundary expansion paused until a new local residual handoff theorem, row-generator/finite-Q theorem, or future explicit guarded source-audit release appears."
+  },
+  "postCurrentLeafBulkHandoff": {
+    "status": "q_cover_staircase_nonconvergence_blocker_emitted_theorem_wedge_required",
+    "triggerCondition": "The q-cover staircase breaker emitted a nonconvergence blocker for the q193..q389 successor surface. Do not run another q-cover, naked rank boundary, or singleton q-child before a parametric transition theorem, structural decomposition, independent 282/841 binding handoff, or audited theorem-wedge packet exists.",
+    "allowedBeforeTrigger": [
+      "No further finite q-cover/rank-boundary expansion is allowed from q193..q389.",
+      "Derive a parametric q-cover transition theorem with a decreasing/finite measure, route to structural complement decomposition, route to independent 282/841 binding, or use one budget-guarded theorem-wedge call."
+    ],
+    "mandatoryDecisionAfterTrigger": [
+      "Do not open another finite q-cover or naked rank-boundary layer.",
+      "Choose one theorem-facing lane: parametric q-cover transition theorem, structural complement decomposition, independent 282/841 binding, or audited budget-guarded theorem wedge.",
+      "Keep the q193..q389 finite surface blocked until a decreasing measure, finite partition, structural cover, or theorem-wedge packet exists."
+    ],
+    "forbiddenAfterTrigger": "Do not continue to a fresh p-next/q-next sibling ladder just because a new first survivor exists."
+  },
+  "preferredNextMovesAfterCurrentLeaf": [
+    {
+      "id": "bulk_selector_cover_or_impossibility",
+      "task": "Batch-screen fallback selector families to find an invariant, then prove a cover or impossibility theorem for the p4217 complement instead of testing one endpoint at a time.",
+      "output": "A finite family cover, a uniform obstruction, or a no-selector theorem with exact denominator and proof boundary."
+    },
+    {
+      "id": "structural_complement_decomposition",
+      "task": "Split the complement by the square-obstruction mechanism itself, such as parity/mod-square classes or CRT families, so each child is ledgered with a smaller deterministic boundary.",
+      "output": "A deterministic partition packet with every child either covered, terminal, or listed as an open ledger leaf."
+    },
+    {
+      "id": "ranked_ledger_transition",
+      "task": "If another selector is used, prove which frontier-ledger token is consumed and why the transition cannot restart the same shape indefinitely.",
+      "output": "A transition-rule refinement or blocker packet that lowers the open-frontier obligation rank."
+    },
+    {
+      "id": "parallel_live_family_binding",
+      "task": "In parallel, bind the 282/841 synthetic CRT row to a live family-menu row so final recombination is not blocked after the complement lane closes.",
+      "output": "A live-family binding packet for the 137720141/282 representative mechanism."
+    }
+  ],
+  "requiredQuestionsBeforeAnotherSelector": [
+    "What whole complement family or selector family is being covered, not just which next prime is being tried?",
+    "What finite denominator, partition, or ledger-rank token decreases after this step?",
+    "If the step fails, what deterministic blocker or successor boundary will be written?",
+    "Why is this single selector cheaper than a bulk cover, impossibility theorem, or structural decomposition this turn?"
+  ],
+  "recentComplementArtifacts": [
+    {
+      "endpointPrime": 43,
+      "state": "p4217_complement_p43_squarefree_hitting_pending",
+      "source": "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_COMPLEMENT_P43_FALLBACK_SELECTOR_PACKET.json"
+    },
+    {
+      "endpointPrime": 43,
+      "state": "p4217_complement_p43_blocked_next_selector_needed",
+      "source": "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_COMPLEMENT_P43_SQUARE_OBSTRUCTION_PACKET.json"
+    },
+    {
+      "endpointPrime": 61,
+      "state": "p4217_complement_p61_availability_refined_squarefree_open",
+      "source": "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_COMPLEMENT_P61_AVAILABILITY_REFINEMENT_PACKET.json"
+    },
+    {
+      "endpointPrime": 61,
+      "obstructionPrime": 101,
+      "state": "p4217_complement_p61_first_child_q101_square_obstruction_emitted",
+      "source": "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_COMPLEMENT_P61_Q101_SQUARE_OBSTRUCTION_PACKET.json"
+    },
+    {
+      "endpointPrime": 443,
+      "candidatePrimes": [
+        443,
+        1741,
+        2609
+      ],
+      "state": "p4217_complement_p61_q101_p443_repair_candidate_boundary_open",
+      "source": "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_COMPLEMENT_P61_Q101_REPAIR_CANDIDATE_BOUNDARY_PACKET.json"
+    },
+    {
+      "endpointPrime": 443,
+      "state": "representative_p443_repair_found_availability_split_needed",
+      "source": "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_COMPLEMENT_P61_Q101_P443_REPAIR_HANDOFF_PACKET.json"
+    },
+    {
+      "endpointPrime": 443,
+      "obstructionPrime": 97,
+      "state": "first_p443_available_q97_square_obstruction_subclass_emitted",
+      "source": "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_COMPLEMENT_P61_Q101_P443_AVAILABILITY_SPLIT_PACKET.json"
+    },
+    {
+      "endpointPrime": 151,
+      "candidatePrimes": [
+        151,
+        479
+      ],
+      "state": "p4217_complement_p61_q101_p443_q97_p151_repair_candidate_boundary_open",
+      "source": "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_COMPLEMENT_P61_Q101_P443_Q97_REPAIR_CANDIDATE_BOUNDARY_PACKET.json"
+    },
+    {
+      "endpointPrime": 151,
+      "reserveCandidatePrime": 479,
+      "state": "p4217_complement_p61_q101_p443_q97_p151_blocker_open_leaf",
+      "source": "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_COMPLEMENT_P61_Q101_P443_Q97_P151_BLOCKER_OPEN_LEAF_PACKET.json"
+    },
+    {
+      "endpointPrime": 479,
+      "state": "representative_p479_repair_exact_squarefree_convergence_handoff_needed",
+      "source": "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_COMPLEMENT_P61_Q101_P443_Q97_P479_REPAIR_HANDOFF_PACKET.json"
+    },
+    {
+      "endpointPrime": 479,
+      "endpointPrimeSquare": 229441,
+      "state": "post_p479_convergence_assembly_selects_explicit_p479_availability_split",
+      "source": "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_POST_P479_CONVERGENCE_ASSEMBLY_PACKET.json",
+      "nextAction": "split_p848_p4217_complement_p61_q101_p443_q97_child_by_p479_availability_with_ledger_token"
+    },
+    {
+      "endpointPrime": 479,
+      "endpointPrimeSquare": 229441,
+      "obstructionPrime": 127,
+      "state": "first_p479_available_q127_square_obstruction_subclass_emitted",
+      "source": "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_COMPLEMENT_P61_Q101_P443_Q97_P479_AVAILABILITY_SPLIT_PACKET.json",
+      "nextAction": "run_p848_convergence_assembly_after_p479_availability_split_and_q127_child_emission"
+    },
+    {
+      "state": "post_p479_availability_split_convergence_assembly_selects_available_residue_bulk_cover",
+      "source": "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_POST_P479_AVAILABILITY_SPLIT_CONVERGENCE_ASSEMBLY_PACKET.json",
+      "nextAction": "bulk_cover_p848_p4217_p443_q97_p479_available_residue_square_obstructions_or_emit_survivor_boundary",
+      "finiteTokenId": "p443_q97_p479_available_residue_set",
+      "residueCount": 1140,
+      "period": 229441
+    },
+    {
+      "state": "all_p479_available_residue_classes_have_square_obstruction_child",
+      "source": "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_P443_Q97_P479_AVAILABLE_RESIDUE_BULK_COVER_PACKET.json",
+      "nextAction": "compress_p848_p4217_p443_q97_p479_available_obstruction_buckets_or_emit_bucket_boundaries",
+      "residueCount": 1140,
+      "survivorResidueCount": 0,
+      "obstructionPrimeCount": 30,
+      "maxObstructionPrime": 173
+    },
+    {
+      "state": "p479_available_obstruction_buckets_compressed_to_terminal_and_partial_boundaries",
+      "source": "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_P443_Q97_P479_AVAILABLE_OBSTRUCTION_BUCKET_BOUNDARY_PACKET.json",
+      "nextAction": "run_p848_convergence_assembly_after_p479_obstruction_bucket_boundaries",
+      "inputBucketCount": 30,
+      "terminalFullFamilyBucketCount": 19,
+      "partialTwoRootBucketCount": 10,
+      "nonuniformBucketCount": 1
+    },
+    {
+      "state": "post_p479_obstruction_bucket_boundary_convergence_assembly_selects_q109_nonuniform_bucket_structure",
+      "source": "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_POST_P479_OBSTRUCTION_BUCKET_BOUNDARY_CONVERGENCE_ASSEMBLY_PACKET.json",
+      "nextAction": "derive_p848_p4217_p443_q97_p479_q109_nonuniform_bucket_structure_or_emit_subbucket_boundaries",
+      "q109ResidueClassCount": 351,
+      "partialBucketCount": 10,
+      "partialQAvoidingClassCount": 5564177
+    },
+    {
+      "state": "q109_nonuniform_bucket_split_into_regular_and_singular_subbucket_boundaries",
+      "source": "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_P443_Q97_P479_Q109_NONUNIFORM_BUCKET_STRUCTURE_PACKET.json",
+      "nextAction": "run_p848_convergence_assembly_after_q109_subbucket_boundaries",
+      "regularTwoRootRowCount": 350,
+      "singular109RootRowCount": 1,
+      "totalRootChildCount": 809,
+      "totalQAvoidingClassCount": 4169422
+    },
+    {
+      "state": "post_q109_subbucket_convergence_assembly_selects_q_avoiding_batch_cover",
+      "source": "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_POST_Q109_SUBBUCKET_CONVERGENCE_ASSEMBLY_PACKET.json",
+      "nextAction": "derive_p848_p4217_p443_q97_p479_partial_and_q109_q_avoiding_batch_cover_or_emit_ranked_boundary",
+      "boundaryFamilyCount": 12,
+      "residueClassCount": 718,
+      "rootChildCount": 1543,
+      "qAvoidingClassCount": 9733599
+    },
+    {
+      "state": "all_post_q109_q_avoiding_boundary_classes_have_next_square_obstruction_child",
+      "source": "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_P443_Q97_P479_Q_AVOIDING_BATCH_COVER_PACKET.json",
+      "nextAction": "run_p848_convergence_assembly_after_partial_and_q109_q_avoiding_batch_cover",
+      "sourceBoundaryFamilyCount": 12,
+      "sourceRowCount": 718,
+      "qAvoidingClassCount": 9733599,
+      "survivorQAvoidingClassCount": 0,
+      "nextObstructionPrimeBucketCount": 13,
+      "totalNextRootChildCount": 19467198,
+      "totalNextQAvoidingClassCount": 170308883793
+    },
+    {
+      "state": "post_q_avoiding_batch_cover_convergence_assembly_selects_13_bucket_rank_compression",
+      "source": "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_POST_Q_AVOIDING_BATCH_COVER_CONVERGENCE_ASSEMBLY_PACKET.json",
+      "nextAction": "compress_p848_p4217_p443_q97_p479_q_avoiding_next_prime_buckets_or_emit_rank_boundary",
+      "bucketCount": 13,
+      "rootChildCount": 19467198,
+      "qAvoidingClassCount": 170308883793
+    },
+    {
+      "state": "p479_q_avoiding_next_prime_buckets_deterministic_rank_boundary_emitted",
+      "source": "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_P443_Q97_P479_Q_AVOIDING_NEXT_BUCKET_RANK_BOUNDARY_PACKET.json",
+      "nextAction": "run_p848_convergence_assembly_after_13_bucket_rank_boundary",
+      "producedFiniteTokenCount": 13,
+      "nextObstructionPrimeBucketCount": 13,
+      "totalNextRootChildCount": 19467198,
+      "totalNextQAvoidingClassCount": 170308883793
+    },
+    {
+      "state": "post_13_bucket_rank_boundary_convergence_assembly_selects_next_rank_batch_cover",
+      "source": "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_POST_13_BUCKET_RANK_BOUNDARY_CONVERGENCE_ASSEMBLY_PACKET.json",
+      "nextAction": "derive_p848_p4217_p443_q97_p479_next_rank_13_bucket_batch_cover_or_emit_boundary",
+      "bucketCount": 13,
+      "rootChildCount": 19467198,
+      "qAvoidingClassCount": 170308883793
+    },
+    {
+      "state": "all_13_bucket_next_rank_q_avoiding_classes_have_later_square_obstruction_child",
+      "source": "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_P443_Q97_P479_NEXT_RANK_13_BUCKET_BATCH_COVER_PACKET.json",
+      "nextAction": "run_p848_convergence_assembly_after_next_rank_13_bucket_batch_cover",
+      "sourceBucketCount": 13,
+      "sourceNextQAvoidingClassCount": 170308883793,
+      "survivorNextQAvoidingClassCount": 0,
+      "laterObstructionPrimeBucketCount": 15,
+      "totalLaterRootChildCount": 340617767586,
+      "totalLaterQAvoidingClassCount": 3652250197976151
+    },
+    {
+      "state": "post_next_rank_13_bucket_batch_cover_convergence_assembly_selects_15_bucket_rank_compression",
+      "source": "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_POST_NEXT_RANK_13_BUCKET_BATCH_COVER_CONVERGENCE_ASSEMBLY_PACKET.json",
+      "nextAction": "compress_p848_p4217_p443_q97_p479_next_rank_later_prime_buckets_or_emit_rank_boundary",
+      "bucketCount": 15,
+      "laterRootChildCount": 340617767586,
+      "laterQAvoidingClassCount": 3652250197976151
+    },
+    {
+      "state": "p479_next_rank_later_prime_15_bucket_deterministic_rank_boundary_emitted",
+      "source": "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_P443_Q97_P479_NEXT_RANK_LATER_PRIME_15_BUCKET_RANK_BOUNDARY_PACKET.json",
+      "nextAction": "derive_p848_p4217_p443_q97_p479_later_prime_15_bucket_q_avoiding_batch_cover_or_emit_boundary",
+      "bucketCount": 15,
+      "laterRootChildCount": 340617767586,
+      "laterQAvoidingClassCount": 3652250197976151
+    },
+    {
+      "state": "all_15_bucket_later_prime_q_avoiding_classes_have_next_square_obstruction_child",
+      "source": "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_P443_Q97_P479_LATER_PRIME_15_BUCKET_Q_AVOIDING_BATCH_COVER_PACKET.json",
+      "nextAction": "run_p848_convergence_assembly_after_later_prime_15_bucket_q_avoiding_batch_cover",
+      "bucketCount": 17,
+      "nextRootChildCount": "7304500395952302",
+      "nextQAvoidingClassCount": "94524741190958970657"
+    },
+    {
+      "state": "post_later_prime_15_bucket_q_avoiding_batch_cover_convergence_assembly_selects_17_bucket_rank_compression",
+      "source": "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_POST_LATER_PRIME_15_BUCKET_Q_AVOIDING_BATCH_COVER_CONVERGENCE_ASSEMBLY_PACKET.json",
+      "nextAction": "compress_p848_p4217_p443_q97_p479_later_prime_15_bucket_next_prime_buckets_or_emit_rank_boundary",
+      "bucketCount": 17,
+      "nextRootChildCount": "7304500395952302",
+      "nextQAvoidingClassCount": "94524741190958970657"
+    },
+    {
+      "state": "p479_later_prime_15_bucket_next_prime_17_bucket_deterministic_rank_boundary_emitted",
+      "source": "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_P443_Q97_P479_LATER_PRIME_15_BUCKET_NEXT_PRIME_17_BUCKET_RANK_BOUNDARY_PACKET.json",
+      "nextAction": "derive_p848_p4217_p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_q_avoiding_batch_cover_or_emit_boundary",
+      "bucketCount": 17,
+      "nextRootChildCount": "7304500395952302",
+      "nextQAvoidingClassCount": "94524741190958970657"
+    },
+    {
+      "state": "all_17_bucket_next_prime_q_avoiding_classes_have_later_square_obstruction_child",
+      "source": "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_P443_Q97_P479_LATER_PRIME_15_BUCKET_NEXT_PRIME_17_BUCKET_Q_AVOIDING_BATCH_COVER_PACKET.json",
+      "nextAction": "run_p848_convergence_assembly_after_later_prime_15_bucket_next_prime_17_bucket_q_avoiding_batch_cover",
+      "bucketCount": 20,
+      "postNextRootChildCount": "189049482381917941314",
+      "postNextQAvoidingClassCount": "2946810455708641575397311"
+    },
+    {
+      "state": "post_later_prime_15_bucket_next_prime_17_bucket_q_avoiding_batch_cover_convergence_assembly_selects_20_bucket_rank_compression",
+      "source": "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_POST_LATER_PRIME_15_BUCKET_NEXT_PRIME_17_BUCKET_Q_AVOIDING_BATCH_COVER_CONVERGENCE_ASSEMBLY_PACKET.json",
+      "nextAction": "compress_p848_p4217_p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_buckets_or_emit_rank_boundary",
+      "bucketCount": 20,
+      "postNextRootChildCount": "189049482381917941314",
+      "postNextQAvoidingClassCount": "2946810455708641575397311"
+    },
+    {
+      "state": "p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_deterministic_rank_boundary_emitted",
+      "source": "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_P443_Q97_P479_LATER_PRIME_15_BUCKET_NEXT_PRIME_17_BUCKET_POST_NEXT_20_BUCKET_RANK_BOUNDARY_PACKET.json",
+      "nextAction": "derive_p848_p4217_p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_q_avoiding_batch_cover_or_emit_boundary",
+      "bucketCount": 20,
+      "postNextRootChildCount": "189049482381917941314",
+      "postNextQAvoidingClassCount": "2946810455708641575397311"
+    },
+    {
+      "state": "all_20_bucket_post_next_q_avoiding_classes_have_later_square_obstruction_child",
+      "source": "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_P443_Q97_P479_LATER_PRIME_15_BUCKET_NEXT_PRIME_17_BUCKET_POST_NEXT_20_BUCKET_Q_AVOIDING_BATCH_COVER_PACKET.json",
+      "nextAction": "run_p848_convergence_assembly_after_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_q_avoiding_batch_cover",
+      "bucketCount": 22,
+      "successorRootChildCount": "5893620911417283150794622",
+      "successorQAvoidingClassCount": "111172518226866898571161320153"
+    },
+    {
+      "state": "post_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_q_avoiding_batch_cover_convergence_assembly_selects_22_bucket_successor_rank_compression",
+      "source": "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_POST_LATER_PRIME_15_BUCKET_NEXT_PRIME_17_BUCKET_POST_NEXT_20_BUCKET_Q_AVOIDING_BATCH_COVER_CONVERGENCE_ASSEMBLY_PACKET.json",
+      "nextAction": "compress_p848_p4217_p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_buckets_or_emit_rank_boundary",
+      "bucketCount": 22,
+      "successorRootChildCount": "5893620911417283150794622",
+      "successorQAvoidingClassCount": "111172518226866898571161320153"
+    },
+    {
+      "state": "p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_deterministic_rank_boundary_emitted",
+      "source": "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_P443_Q97_P479_LATER_PRIME_15_BUCKET_NEXT_PRIME_17_BUCKET_POST_NEXT_20_BUCKET_SUCCESSOR_22_BUCKET_RANK_BOUNDARY_PACKET.json",
+      "nextAction": "derive_p848_p4217_p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_q_avoiding_batch_cover_or_emit_boundary",
+      "bucketCount": 22,
+      "successorRootChildCount": "5893620911417283150794622",
+      "successorQAvoidingClassCount": "111172518226866898571161320153"
+    },
+    {
+      "state": "all_22_bucket_successor_q_avoiding_classes_have_later_square_obstruction_child",
+      "source": "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_P443_Q97_P479_LATER_PRIME_15_BUCKET_NEXT_PRIME_17_BUCKET_POST_NEXT_20_BUCKET_SUCCESSOR_22_BUCKET_Q_AVOIDING_BATCH_COVER_PACKET.json",
+      "nextAction": "run_p848_convergence_assembly_after_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_q_avoiding_batch_cover",
+      "bucketCount": 24,
+      "postSuccessorRootChildCount": "222345036453733797142322640306",
+      "postSuccessorQAvoidingClassCount": "5058399114142580922880572195875967"
+    },
+    {
+      "state": "post_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_q_avoiding_batch_cover_convergence_assembly_selects_24_bucket_post_successor_rank_compression",
+      "source": "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_POST_LATER_PRIME_15_BUCKET_NEXT_PRIME_17_BUCKET_POST_NEXT_20_BUCKET_SUCCESSOR_22_BUCKET_Q_AVOIDING_BATCH_COVER_CONVERGENCE_ASSEMBLY_PACKET.json",
+      "nextAction": "compress_p848_p4217_p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_buckets_or_emit_rank_boundary",
+      "bucketCount": 24,
+      "postSuccessorRootChildCount": "222345036453733797142322640306",
+      "postSuccessorQAvoidingClassCount": "5058399114142580922880572195875967"
+    },
+    {
+      "state": "p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_deterministic_rank_boundary_emitted",
+      "source": "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_P443_Q97_P479_LATER_PRIME_15_BUCKET_NEXT_PRIME_17_BUCKET_POST_NEXT_20_BUCKET_SUCCESSOR_22_BUCKET_POST_SUCCESSOR_24_BUCKET_RANK_BOUNDARY_PACKET.json",
+      "nextAction": "derive_p848_p4217_p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_q_avoiding_batch_cover_or_emit_boundary",
+      "bucketCount": 24,
+      "postSuccessorRootChildCount": "222345036453733797142322640306",
+      "postSuccessorQAvoidingClassCount": "5058399114142580922880572195875967"
+    },
+    {
+      "state": "post_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_q_avoiding_batch_cover_convergence_assembly_selects_24_bucket_post_post_successor_rank_compression",
+      "source": "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_POST_LATER_PRIME_15_BUCKET_NEXT_PRIME_17_BUCKET_POST_NEXT_20_BUCKET_SUCCESSOR_22_BUCKET_POST_SUCCESSOR_24_BUCKET_Q_AVOIDING_BATCH_COVER_CONVERGENCE_ASSEMBLY_PACKET.json",
+      "nextAction": "compress_p848_p4217_p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_buckets_or_emit_rank_boundary",
+      "bucketCount": 24,
+      "postPostSuccessorRootChildCount": "10116798228285161845761144391751934",
+      "postPostSuccessorQAvoidingClassCount": "272895494027351286884102031165661158393"
+    },
+    {
+      "state": "all_24_bucket_post_successor_q_avoiding_classes_have_later_square_obstruction_child",
+      "source": "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_P443_Q97_P479_LATER_PRIME_15_BUCKET_NEXT_PRIME_17_BUCKET_POST_NEXT_20_BUCKET_SUCCESSOR_22_BUCKET_POST_SUCCESSOR_24_BUCKET_Q_AVOIDING_BATCH_COVER_PACKET.json",
+      "nextAction": "run_p848_convergence_assembly_after_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_q_avoiding_batch_cover",
+      "bucketCount": 24,
+      "postPostSuccessorRootChildCount": "10116798228285161845761144391751934",
+      "postPostSuccessorQAvoidingClassCount": "272895494027351286884102031165661158393"
+    },
+    {
+      "state": "all_24_bucket_post_post_successor_q_avoiding_classes_have_later_square_obstruction_child",
+      "source": "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_P443_Q97_P479_LATER_PRIME_15_BUCKET_NEXT_PRIME_17_BUCKET_POST_NEXT_20_BUCKET_SUCCESSOR_22_BUCKET_POST_SUCCESSOR_24_BUCKET_POST_POST_SUCCESSOR_24_BUCKET_Q_AVOIDING_BATCH_COVER_PACKET.json",
+      "nextAction": "run_p848_convergence_assembly_after_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_q_avoiding_batch_cover",
+      "bucketCount": 26,
+      "postPostPostSuccessorRootChildCount": "545790988054702573768204062331322316786",
+      "postPostPostSuccessorQAvoidingClassCount": "17122811411360928250603246815478193773776015"
+    },
+    {
+      "state": "post_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_q_avoiding_batch_cover_convergence_assembly_selects_26_bucket_post_post_post_successor_rank_compression",
+      "source": "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_POST_LATER_PRIME_15_BUCKET_NEXT_PRIME_17_BUCKET_POST_NEXT_20_BUCKET_SUCCESSOR_22_BUCKET_POST_SUCCESSOR_24_BUCKET_POST_POST_SUCCESSOR_24_BUCKET_Q_AVOIDING_BATCH_COVER_CONVERGENCE_ASSEMBLY_PACKET.json",
+      "nextAction": "compress_p848_p4217_p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_post_post_post_successor_buckets_or_emit_rank_boundary",
+      "bucketCount": 26,
+      "postPostPostSuccessorRootChildCount": "545790988054702573768204062331322316786",
+      "postPostPostSuccessorQAvoidingClassCount": "17122811411360928250603246815478193773776015"
+    },
+    {
+      "state": "p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_post_post_post_successor_26_bucket_deterministic_rank_boundary_emitted",
+      "source": "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_P443_Q97_P479_LATER_PRIME_15_BUCKET_NEXT_PRIME_17_BUCKET_POST_NEXT_20_BUCKET_SUCCESSOR_22_BUCKET_POST_SUCCESSOR_24_BUCKET_POST_POST_SUCCESSOR_24_BUCKET_POST_POST_POST_SUCCESSOR_26_BUCKET_RANK_BOUNDARY_PACKET.json",
+      "nextAction": "derive_p848_p4217_p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_post_post_post_successor_26_bucket_q_avoiding_batch_cover_or_emit_boundary",
+      "bucketCount": 26,
+      "postPostPostSuccessorRootChildCount": "545790988054702573768204062331322316786",
+      "postPostPostSuccessorQAvoidingClassCount": "17122811411360928250603246815478193773776015"
+    },
+    {
+      "state": "post_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_post_post_post_successor_26_bucket_rank_boundary_convergence_assembly_selects_26_bucket_q_avoiding_cover",
+      "source": "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_POST_LATER_PRIME_15_BUCKET_NEXT_PRIME_17_BUCKET_POST_NEXT_20_BUCKET_SUCCESSOR_22_BUCKET_POST_SUCCESSOR_24_BUCKET_POST_POST_SUCCESSOR_24_BUCKET_POST_POST_POST_SUCCESSOR_26_BUCKET_RANK_BOUNDARY_CONVERGENCE_ASSEMBLY_PACKET.json",
+      "nextAction": "derive_p848_p4217_p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_post_post_post_successor_26_bucket_q_avoiding_batch_cover_or_emit_boundary",
+      "bucketCount": 26,
+      "postPostPostSuccessorRootChildCount": "545790988054702573768204062331322316786",
+      "postPostPostSuccessorQAvoidingClassCount": "17122811411360928250603246815478193773776015"
+    },
+    {
+      "state": "all_26_bucket_post_post_post_successor_q_avoiding_classes_have_later_square_obstruction_child",
+      "source": "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_P443_Q97_P479_LATER_PRIME_15_BUCKET_NEXT_PRIME_17_BUCKET_POST_NEXT_20_BUCKET_SUCCESSOR_22_BUCKET_POST_SUCCESSOR_24_BUCKET_POST_POST_SUCCESSOR_24_BUCKET_POST_POST_POST_SUCCESSOR_26_BUCKET_Q_AVOIDING_BATCH_COVER_PACKET.json",
+      "nextAction": "run_p848_convergence_assembly_after_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_post_post_post_successor_26_bucket_q_avoiding_batch_cover",
+      "bucketCount": 29,
+      "postPostPostPostSuccessorRootChildCount": "34245622822721856501206493630956387547552030",
+      "postPostPostPostSuccessorQAvoidingClassCount": "1256125158212428260162381710030390124682911240345"
+    },
+    {
+      "state": "post_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_post_post_post_successor_26_bucket_q_avoiding_batch_cover_convergence_assembly_selects_29_bucket_post_post_post_post_successor_rank_compression",
+      "source": "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_POST_LATER_PRIME_15_BUCKET_NEXT_PRIME_17_BUCKET_POST_NEXT_20_BUCKET_SUCCESSOR_22_BUCKET_POST_SUCCESSOR_24_BUCKET_POST_POST_SUCCESSOR_24_BUCKET_POST_POST_POST_SUCCESSOR_26_BUCKET_Q_AVOIDING_BATCH_COVER_CONVERGENCE_ASSEMBLY_PACKET.json",
+      "nextAction": "compress_p848_p4217_p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_post_post_post_successor_26_bucket_post_post_post_post_successor_29_buckets_or_emit_rank_boundary",
+      "bucketCount": 29,
+      "postPostPostPostSuccessorRootChildCount": "34245622822721856501206493630956387547552030",
+      "postPostPostPostSuccessorQAvoidingClassCount": "1256125158212428260162381710030390124682911240345"
+    },
+    {
+      "state": "p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_post_post_post_successor_26_bucket_post_post_post_post_successor_29_bucket_deterministic_rank_boundary_emitted",
+      "source": "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_POST_26_Q_AVOIDING_29_BUCKET_RANK_BOUNDARY_PACKET.json",
+      "nextAction": "run_p848_convergence_assembly_after_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_post_post_post_successor_26_bucket_post_post_post_post_successor_29_bucket_rank_boundary",
+      "bucketCount": 29,
+      "postPostPostPostSuccessorRootChildCount": "34245622822721856501206493630956387547552030",
+      "postPostPostPostSuccessorQAvoidingClassCount": "1256125158212428260162381710030390124682911240345"
+    },
+    {
+      "state": "post_29_bucket_rank_boundary_convergence_assembly_selects_29_bucket_q_avoiding_cover",
+      "source": "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_POST_29_BUCKET_RANK_BOUNDARY_CONVERGENCE_ASSEMBLY_PACKET.json",
+      "nextAction": "derive_p848_p4217_p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_post_post_post_successor_26_bucket_post_post_post_post_successor_29_bucket_q_avoiding_batch_cover_or_emit_boundary",
+      "bucketCount": 29,
+      "postPostPostPostSuccessorRootChildCount": "34245622822721856501206493630956387547552030",
+      "postPostPostPostSuccessorQAvoidingClassCount": "1256125158212428260162381710030390124682911240345"
+    },
+    {
+      "state": "post_29_q_avoiding_post_post_post_post_post_successor_29_bucket_post_post_post_post_post_post_successor_30_bucket_rank_boundary_convergence_assembly_selects_30_bucket_q_avoiding_cover",
+      "source": "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_POST_29_Q_AVOIDING_POST_POST_POST_POST_POST_SUCCESSOR_29_BUCKET_POST_POST_POST_POST_POST_POST_SUCCESSOR_30_BUCKET_RANK_BOUNDARY_CONVERGENCE_ASSEMBLY_PACKET.json",
+      "nextAction": "derive_p848_p4217_p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_post_post_post_successor_26_bucket_post_post_post_post_successor_29_bucket_post_post_post_post_post_successor_29_bucket_post_post_post_post_post_post_successor_30_bucket_q_avoiding_batch_cover_or_emit_boundary",
+      "bucketCount": 30,
+      "postPostPostPostPostPostSuccessorRootChildCount": "209959025371800462398398841431586439796950134059710318",
+      "postPostPostPostPostPostSuccessorQAvoidingClassCount": "9963724410351871391088180714463609317652043690749610411985"
+    },
+    {
+      "state": "post_29_q_avoiding_post_post_post_post_post_successor_29_bucket_post_post_post_post_post_post_successor_30_bucket_q_avoiding_batch_cover_convergence_assembly_selects_31_bucket_post_post_post_post_post_post_post_successor_rank_compression",
+      "source": "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_POST_29_Q_AVOIDING_POST_POST_POST_POST_POST_SUCCESSOR_29_BUCKET_POST_POST_POST_POST_POST_POST_SUCCESSOR_30_BUCKET_Q_AVOIDING_BATCH_COVER_CONVERGENCE_ASSEMBLY_PACKET.json",
+      "nextAction": "compress_p848_p4217_p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_post_post_post_successor_26_bucket_post_post_post_post_successor_29_bucket_post_post_post_post_post_successor_29_bucket_post_post_post_post_post_post_successor_30_bucket_post_post_post_post_post_post_post_successor_31_buckets_or_emit_rank_boundary",
+      "bucketCount": 31,
+      "postPostPostPostPostPostPostSuccessorRootChildCount": "19927448820703742782176361428927218635304087381499220823970",
+      "postPostPostPostPostPostPostSuccessorQAvoidingClassCount": "1076809507521202773529514663320305794244106017506794395900320871"
+    },
+    {
+      "state": "all_30_bucket_post_post_post_post_post_post_successor_q_avoiding_classes_have_later_square_obstruction_child",
+      "source": "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_POST_29_Q_AVOIDING_POST_POST_POST_POST_POST_SUCCESSOR_29_BUCKET_POST_POST_POST_POST_POST_POST_SUCCESSOR_30_BUCKET_Q_AVOIDING_BATCH_COVER_PACKET.json",
+      "nextAction": "run_p848_convergence_assembly_after_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_post_post_post_successor_26_bucket_post_post_post_post_successor_29_bucket_post_post_post_post_post_successor_29_bucket_post_post_post_post_post_post_successor_30_bucket_q_avoiding_batch_cover",
+      "bucketCount": 31,
+      "postPostPostPostPostPostPostSuccessorRootChildCount": "19927448820703742782176361428927218635304087381499220823970",
+      "postPostPostPostPostPostPostSuccessorQAvoidingClassCount": "1076809507521202773529514663320305794244106017506794395900320871"
+    },
+    {
+      "state": "p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_post_post_post_successor_26_bucket_post_post_post_post_successor_29_bucket_post_post_post_post_post_successor_29_bucket_post_post_post_post_post_post_successor_30_bucket_deterministic_rank_boundary_emitted",
+      "source": "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_POST_29_Q_AVOIDING_POST_POST_POST_POST_POST_SUCCESSOR_29_BUCKET_POST_POST_POST_POST_POST_POST_SUCCESSOR_30_BUCKET_RANK_BOUNDARY_PACKET.json",
+      "nextAction": "run_p848_convergence_assembly_after_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_post_post_post_successor_26_bucket_post_post_post_post_successor_29_bucket_post_post_post_post_post_successor_29_bucket_post_post_post_post_post_post_successor_30_bucket_rank_boundary",
+      "bucketCount": 30,
+      "postPostPostPostPostPostSuccessorRootChildCount": "209959025371800462398398841431586439796950134059710318",
+      "postPostPostPostPostPostSuccessorQAvoidingClassCount": "9963724410351871391088180714463609317652043690749610411985"
+    },
+    {
+      "state": "post_29_q_avoiding_post_post_post_post_post_successor_29_bucket_q_avoiding_batch_cover_convergence_assembly_selects_30_bucket_post_post_post_post_post_post_successor_rank_compression",
+      "source": "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_POST_29_Q_AVOIDING_POST_POST_POST_POST_POST_SUCCESSOR_29_BUCKET_Q_AVOIDING_BATCH_COVER_CONVERGENCE_ASSEMBLY_PACKET.json",
+      "nextAction": "compress_p848_p4217_p443_q97_p479_later_prime_15_bucket_next_prime_17_bucket_post_next_20_bucket_successor_22_bucket_post_successor_24_bucket_post_post_successor_24_bucket_post_post_post_successor_26_bucket_post_post_post_post_successor_29_bucket_post_post_post_post_post_successor_29_bucket_post_post_post_post_post_post_successor_30_buckets_or_emit_rank_boundary",
+      "bucketCount": 30,
+      "postPostPostPostPostPostSuccessorRootChildCount": "209959025371800462398398841431586439796950134059710318",
+      "postPostPostPostPostPostSuccessorQAvoidingClassCount": "9963724410351871391088180714463609317652043690749610411985"
+    },
+    {
+      "state": "post_p479_available_bulk_cover_convergence_assembly_selects_bucket_compression",
+      "source": "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_POST_P479_AVAILABLE_BULK_COVER_CONVERGENCE_ASSEMBLY_PACKET.json",
+      "nextAction": "compress_p848_p4217_p443_q97_p479_available_obstruction_buckets_or_emit_bucket_boundaries",
+      "bucketCount": 30,
+      "totalResidueClasses": 1140,
+      "maxObstructionPrime": 173
+    }
+  ],
+  "writebackRule": "Refresh TASK_LIST, PROGRESS, GLOBAL_CONVERGENCE_LIFT, FRONTIER_LEDGER, and this guard after any material complement-lane movement.",
+  "generatedAt": "2026-04-19T04:10:14.916Z",
+  "problemId": "848",
+  "displayName": "Erdos Problem #848",
+  "sourceProgressJsonPath": "/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/PROGRESS.json",
+  "sourceFrontierLedgerJsonPath": "/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/FRONTIER_LEDGER.json",
+  "sourceGlobalConvergenceLiftJsonPath": "/Volumes/Code_2TB/code/erdos-problems/packs/number-theory/problems/848/GLOBAL_CONVERGENCE_LIFT.json"
+}

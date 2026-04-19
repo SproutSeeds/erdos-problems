@@ -1,0 +1,136 @@
+{
+  "schema": "erdos.number_theory.p848_p4217_post_p479_availability_split_convergence_assembly_packet/1",
+  "problemId": 848,
+  "generatedAt": "2026-04-17T12:59:47Z",
+  "status": "post_p479_availability_split_convergence_assembly_selects_available_residue_bulk_cover",
+  "target": "run_p848_convergence_assembly_after_p479_availability_split_and_q127_child_emission",
+  "sourcePackets": {
+    "p443AvailabilitySplit": "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_COMPLEMENT_P61_Q101_P443_AVAILABILITY_SPLIT_PACKET.json",
+    "q97RepairBoundary": "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_COMPLEMENT_P61_Q101_P443_Q97_REPAIR_CANDIDATE_BOUNDARY_PACKET.json",
+    "p151Blocker": "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_COMPLEMENT_P61_Q101_P443_Q97_P151_BLOCKER_OPEN_LEAF_PACKET.json",
+    "p479RepairHandoff": "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_COMPLEMENT_P61_Q101_P443_Q97_P479_REPAIR_HANDOFF_PACKET.json",
+    "p479AvailabilitySplit": "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_COMPLEMENT_P61_Q101_P443_Q97_P479_AVAILABILITY_SPLIT_PACKET.json",
+    "frontierLedger": "FRONTIER_LEDGER.md",
+    "guard": "P4217_COMPLEMENT_STRATEGY_GUARD.md"
+  },
+  "orpAssembly": {
+    "command": "orp mode breakdown granular-breakdown --topic \"problem 848 | convergence assembly | Explain the 282 First-Failure Mechanism\" --json",
+    "mode": "granular-breakdown",
+    "result": "generic_breakdown_scaffold_returned_repo_writeback_supplies_specific_assembly"
+  },
+  "assembledPieces": [
+    {
+      "pieceId": "p443_availability_split",
+      "status": "recorded",
+      "claim": "The earlier p443 split exposed the selected q97 square-obstruction child plus a remaining p443-unavailable complement.",
+      "boundary": "It does not close the p443-unavailable complement or the wider p4217 complement."
+    },
+    {
+      "pieceId": "q97_p151_blocker",
+      "status": "recorded",
+      "claim": "The local/free exact p151 route is ledgered as blocked on the selected q97 child.",
+      "boundary": "This is not a proof that p151 fails in principle."
+    },
+    {
+      "pieceId": "q97_p479_representative_repair",
+      "status": "exact_squarefree_representative_certified",
+      "claim": "The p479 reserve gives an exact squarefree representative repair for the selected q97 child.",
+      "boundary": "A representative repair is not a full availability or squarefree-hitting theorem over the q97 child."
+    },
+    {
+      "pieceId": "p479_availability_split",
+      "status": "finite_token_consumed",
+      "claim": "The p479 endpoint formula is k_479(w) = (131596*w + 250) mod 229441; exactly 1140 residues are p479-available and 228301 residues are p479-unavailable.",
+      "boundary": "The split does not close the available residues, the unavailable complement, the q97 child, or the p4217 complement."
+    },
+    {
+      "pieceId": "first_p479_available_q127_child",
+      "status": "open_square_obstruction_child_emitted",
+      "claim": "The first p479-available residue family w = 229441*z contains a deterministic 127^2 square-obstruction subprogression with roots 4391 and 15510.",
+      "boundary": "This only emits the first square-obstruction child; it does not justify q127 repair descent before a bulk or ranked handoff is selected."
+    }
+  ],
+  "jointTheoremClaimSupported": {
+    "statement": "For the selected p443/q97 child, p479 availability is now a finite residue partition modulo 479^2, and the first available residue family has a deterministic q127 square-obstruction child.",
+    "supported": true,
+    "scope": "selected p4217/p61/q101/p443/q97 child only",
+    "doesNotClaim": [
+      "q127 child coverage",
+      "p479-available residue coverage",
+      "p479-unavailable complement coverage",
+      "q97 child coverage",
+      "p443-unavailable complement coverage",
+      "wider p4217 complement coverage",
+      "all-n proof",
+      "collision-free matching"
+    ]
+  },
+  "frontierComparison": {
+    "measureName": "open_frontier_obligation_count",
+    "previousRefreshValue": 35,
+    "currentRefreshValue": 38,
+    "delta": 3,
+    "status": "increased_after_finite_partition",
+    "interpretation": "The increase is expected from exposing explicit children, but it is not global convergence. Another single-child descent is disallowed until a bulk cover, structural decomposition, or ranked transition is selected."
+  },
+  "finiteMeasureOrNoMeasureYet": {
+    "globalFiniteMeasureDecreased": false,
+    "selectedFiniteTokenConsumed": {
+      "tokenId": "p443_q97_p479_availability_residue_partition",
+      "endpointPrime": 479,
+      "endpointPrimeSquare": 229441,
+      "availableResidueCount": 1140,
+      "unavailableResidueCount": 228301
+    },
+    "nextFiniteToken": {
+      "tokenId": "p443_q97_p479_available_residue_set",
+      "residueCount": 1140,
+      "period": 229441,
+      "rankDecreaseIfCompleted": "The p479-available side is replaced by terminal square-obstruction subclasses plus an explicit survivor boundary, instead of an unbounded q-prime selector chain."
+    }
+  },
+  "compressionCandidate": {
+    "kind": "bulk_square_obstruction_cover",
+    "name": "p479_available_residue_square_obstruction_cover",
+    "coveredFamily": "All 1140 p479-available residue classes modulo 479^2 inside the selected p443/q97 child.",
+    "whyThisCompresses": "It tests the whole p479-available side at once and can absorb the q127 child plus q127-avoiding available families into one finite cover or one survivor packet.",
+    "whyNotSingleQ127Descent": "Descending into the selected q127 child would handle one exposed child while leaving the other p479-available residues and the p479-unavailable complement unassembled."
+  },
+  "exactBoundaryRemainingOutsideAssembly": [
+    "q127 square-obstruction child",
+    "q127-avoiding p479-available residue families",
+    "p479-unavailable complement",
+    "q97 child coverage",
+    "p443-unavailable complement",
+    "wider p4217 complement",
+    "global 282 first-failure binding"
+  ],
+  "oneNextAction": {
+    "stepId": "bulk_cover_p848_p4217_p443_q97_p479_available_residue_square_obstructions_or_emit_survivor_boundary",
+    "action": "Run a finite bulk square-obstruction screen over all 1140 p479-available residue classes modulo 479^2; emit a cover packet if every available residue is square-obstructed by a recorded q^2 class, or emit a deterministic survivor-boundary packet naming the uncovered residues and next structural denominator.",
+    "coveredFamily": "The full p479-available residue partition of the selected p443/q97 child, not a single q127 branch.",
+    "finiteDenominatorOrRankToken": "479^2 availability period with 1140 available residues; completion consumes the p443_q97_p479_available_residue_set token.",
+    "failureBoundary": "If the finite bulk screen does not cover all 1140 residues, the packet must name the exact survivor residue list, checked q-prime bound, and deterministic successor denominator before any selector descent.",
+    "whyCheaperThanSingleSelector": "The residue set has only 1140 classes, so a bulk screen is local/free and directly addresses the guard's growth tripwire; a q127-only repair would keep the sibling ladder pattern alive.",
+    "completionRule": "A bulk-cover packet closes or classifies all 1140 p479-available residues, or a survivor-boundary packet records the exact uncovered finite set and next structural handoff."
+  },
+  "oneVerificationCommand": "node --check src/runtime/theorem-loop.js && node --check src/runtime/problem-progress.js && node --test test/p848-282-alignment-obstruction-packet.test.js",
+  "recommendedNextAction": "bulk_cover_p848_p4217_p443_q97_p479_available_residue_square_obstructions_or_emit_survivor_boundary",
+  "nextTheoremMove": "Run a finite bulk square-obstruction cover over the 1140 p479-available residue classes; emit a full cover or exact survivor boundary before any q127 repair descent.",
+  "proofBoundary": "This convergence assembly records the post-p479 split frontier and selects a guard-approved bulk handoff. It does not perform the bulk cover, close the q127 child, close q127-avoiding p479-available residues, close the p479-unavailable complement, close the q97 child, close the p443-unavailable complement, close the wider p4217 complement, prove collision-free matching, or decide Problem 848.",
+  "claims": {
+    "runsPostP479AvailabilitySplitConvergenceAssembly": true,
+    "selectsBulkCoverInsteadOfQ127Descent": true,
+    "namesWholeCoveredFamily": true,
+    "namesFiniteRankToken": true,
+    "opensFreshFallbackSelector": false,
+    "provesBulkCover": false,
+    "provesQ127ChildCoverage": false,
+    "provesP479AvailableCoverage": false,
+    "provesP479UnavailableComplementClosed": false,
+    "provesQ97ChildCoverage": false,
+    "provesP443UnavailableComplementClosed": false,
+    "provesP4217ComplementCoverage": false,
+    "provesAllN": false
+  }
+}

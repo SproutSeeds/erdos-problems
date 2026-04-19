@@ -1,6 +1,6 @@
 {
   "schema": "erdos.problem_formalization/1",
-  "generatedAt": "2026-04-14T11:45:59.647Z",
+  "generatedAt": "2026-04-19T04:10:15.291Z",
   "problemId": "848",
   "displayName": "Erdos Problem #848",
   "title": "Squarefree ab+1 Extremal Set Problem",
@@ -11,15 +11,9 @@
   "currentState": {
     "activeRoute": "finite_check_gap_closure",
     "routeSummary": "Convert the sufficiently-large-N theorem into a complete all-N resolution without overstating what is already closed or confusing imported thresholds with repo-owned claims.",
-    "nextHonestMove": "Promote or reject the local `1..40500` rollout; public raw exact claims remain `1..10000` until that handoff is committed.",
+    "nextHonestMove": "Write the theorem candidate and proof-obligation surface for the four-anchor obstruction.",
     "latestVerifiedInterval": "1..10000",
-    "sourceRefresh": "erdos number-theory bridge-refresh 848",
-    "exactIntervalBookkeeping": {
-      "publicRepoRawExactInterval": "1..10000",
-      "localIgnoredRolloutInterval": "1..40500",
-      "bookkeepingArtifact": "EXACT_INTERVAL_BOOKKEEPING.md",
-      "raw40500PacketCommitted": false
-    }
+    "sourceRefresh": "erdos number-theory bridge-refresh 848"
   },
   "currentTarget": {
     "formalizationId": "p848_282_alignment_formalization_v1",
@@ -37,10 +31,10 @@
     "evidenceBasis": [
       "The canonical bridge records next unmatched representative 137720141.",
       "The tracked-tail matrix records continuation 282 failing first at 137720141.",
-      "The current family menu already contains representative 137720141 with tuple key 4, 23^2, 7^2, 9, 17^2, 11^2 and tuple rows 7->4/1, 32->529/281, 57->49/6, 82->9/8, 132->289/81, 182->121/119.",
+      "The live family menu supplies representative 137720141 with tuple key 4, 23^2, 7^2, 9, 17^2, 11^2 and tuple rows 7->4/1, 32->529/281, 57->49/6, 82->9/8, 132->289/81, 182->121/119.",
       "On that family-menu row, only continuation 282 fails among the tracked tails, and it does so via witness modulus 841.",
       "The strongest completed structured tail remains 332, so this packet isolates the 282 obstruction mechanism rather than conflating it with the current family-aware leader 432.",
-      "The public raw exact packet is committed through 1..10000, while local compact rollout evidence reaches 1..40500; the open work is still structural rather than raw interval bookkeeping.",
+      "The finite exact base is already certified through 1..10000, so the open work is structural rather than basic interval bookkeeping.",
       "Formalization-work checker p848_132_activation_row_certificate_checker_v1 replayed 17 activation rows with 0 failures.",
       "Formalization-work checker p848_132_lift_crt_checker_v1 proved the 132-row lift with k=147 and residue 504 mod 841.",
       "The top repair-class side packet is also checked: +2 finite-menu replay plus 74 mod-50 lane exchange rows pass."
@@ -189,8 +183,8 @@
       "theoremReady": false,
       "supportSatisfied": true,
       "summary": "Choose the next finite-gap closure move and keep the theorem-facing claim surface honest.",
-      "rationale": "The local exact rollout reaches 1..40500, but the public raw packet remains 1..10000 until compact promotion is committed.",
-      "nextAction": "decide_post_40500_verification_lane"
+      "rationale": "The current canonical exact base is 1..10000; the next interval is still open.",
+      "nextAction": "decide_post_10000_verification_lane"
     },
     {
       "claim_id": "explain_next_unmatched_alignment",
@@ -275,10 +269,10 @@
       "command": "erdos problem formalization 848"
     },
     {
-      "recommendation_id": "decide_post_40500_verification_lane",
+      "recommendation_id": "decide_post_10000_verification_lane",
       "priority": "high",
       "lane": "exact_verifier",
-      "reason": "Resolve the local 1..40500 promotion boundary; public raw packet currently ends at 1..10000.",
+      "reason": "The canonical exact base currently ends at 1..10000. The next verification move is still open.",
       "command": "erdos number-theory dispatch 848"
     },
     {

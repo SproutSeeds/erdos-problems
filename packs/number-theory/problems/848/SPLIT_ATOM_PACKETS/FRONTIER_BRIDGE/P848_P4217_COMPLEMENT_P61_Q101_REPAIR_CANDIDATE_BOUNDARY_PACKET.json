@@ -1,0 +1,280 @@
+{
+  "schema": "erdos.number_theory.p848_p4217_complement_p61_q101_repair_candidate_boundary/1",
+  "generatedAt": "2026-04-17T06:25:06Z",
+  "problemId": "848",
+  "status": "p4217_complement_p61_q101_p443_repair_candidate_boundary_open",
+  "activeAtom": "D2_p13_q17_endpoint_menu_squarefree_obstruction_p23_q29_p41_q13_p103_q2_p37_q19_p31_q53_p73_q11_p83_q17_p509_q43_p29_q59_p47_q67_p79_q71_p107_q89_p4217_complement_p43_q2_p61_q101_p443_repair_candidate_boundary",
+  "sourcePackets": [
+    "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_COMPLEMENT_P61_Q101_SQUARE_OBSTRUCTION_PACKET.json",
+    "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_COMPLEMENT_P61_AVAILABILITY_REFINEMENT_PACKET.json",
+    "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_COMPLEMENT_P43_SQUARE_OBSTRUCTION_PACKET.json"
+  ],
+  "targetChild": {
+    "description": "First q101 square-obstruction child inside the first p61-available p4217-complement CRT family.",
+    "tCongruence": {
+      "residue": "121075312471178",
+      "modulus": "675009087397969",
+      "expression": "t == 121075312471178 mod 675009087397969"
+    },
+    "leftCongruence": {
+      "residue": "486498922978003120137482190528915923361118218280393901731215929409345512449172580645681381785657",
+      "modulus": "2712288635205048649747664011117929144880624281851945987471741427034114118918054256500369780916900",
+      "expression": "left == 486498922978003120137482190528915923361118218280393901731215929409345512449172580645681381785657 mod 2712288635205048649747664011117929144880624281851945987471741427034114118918054256500369780916900"
+    },
+    "inheritedSquareObstruction": {
+      "endpointPrime": 61,
+      "k": 1014,
+      "delta": -25364,
+      "obstructionPrime": 101,
+      "obstructionSquare": 10201
+    }
+  },
+  "boundedRepairScreen": {
+    "screenScope": "established endpoint-menu primes with 23 <= p <= 50000, excluding primes not invertible for the 25*6323 selector denominator",
+    "outsider": 6323,
+    "window": 28500,
+    "maxK": 1139,
+    "trialSquarePrimeLimit": 199999,
+    "withinWindowEndpointCount": 17,
+    "trialSquareBlockedEndpointCount": 14,
+    "trialSquarefreeCandidateCount": 3,
+    "firstRepairCandidateEndpointPrime": 443,
+    "candidateEndpointPrimes": [
+      443,
+      1741,
+      2609
+    ],
+    "selectorFormula": "k_p(left) = (6323 * (25*6323)^(-1) * left + (1 - 14*6323) * (25*6323)^(-1)) mod p^2; right_p(left) = left - 14 - 25*k_p(left)"
+  },
+  "blockedWithinWindowEndpoints": [
+    {
+      "endpointPrime": 23,
+      "k": 479,
+      "delta": -11989,
+      "obstructionPrime": 29,
+      "obstructionSquare": 841
+    },
+    {
+      "endpointPrime": 29,
+      "k": 330,
+      "delta": -8264,
+      "obstructionPrime": 59,
+      "obstructionSquare": 3481
+    },
+    {
+      "endpointPrime": 31,
+      "k": 727,
+      "delta": -18189,
+      "obstructionPrime": 53,
+      "obstructionSquare": 2809
+    },
+    {
+      "endpointPrime": 37,
+      "k": 457,
+      "delta": -11439,
+      "obstructionPrime": 19,
+      "obstructionSquare": 361
+    },
+    {
+      "endpointPrime": 41,
+      "k": 1011,
+      "delta": -25289,
+      "obstructionPrime": 13,
+      "obstructionSquare": 169
+    },
+    {
+      "endpointPrime": 43,
+      "k": 200,
+      "delta": -5014,
+      "obstructionPrime": 2,
+      "obstructionSquare": 4
+    },
+    {
+      "endpointPrime": 47,
+      "k": 682,
+      "delta": -17064,
+      "obstructionPrime": 67,
+      "obstructionSquare": 4489
+    },
+    {
+      "endpointPrime": 61,
+      "k": 1014,
+      "delta": -25364,
+      "obstructionPrime": 101,
+      "obstructionSquare": 10201
+    },
+    {
+      "endpointPrime": 73,
+      "k": 42,
+      "delta": -1064,
+      "obstructionPrime": 11,
+      "obstructionSquare": 121
+    },
+    {
+      "endpointPrime": 79,
+      "k": 635,
+      "delta": -15889,
+      "obstructionPrime": 71,
+      "obstructionSquare": 5041
+    },
+    {
+      "endpointPrime": 83,
+      "k": 1053,
+      "delta": -26339,
+      "obstructionPrime": 17,
+      "obstructionSquare": 289
+    },
+    {
+      "endpointPrime": 103,
+      "k": 532,
+      "delta": -13314,
+      "obstructionPrime": 2,
+      "obstructionSquare": 4
+    },
+    {
+      "endpointPrime": 107,
+      "k": 913,
+      "delta": -22839,
+      "obstructionPrime": 89,
+      "obstructionSquare": 7921
+    },
+    {
+      "endpointPrime": 509,
+      "k": 456,
+      "delta": -11414,
+      "obstructionPrime": 43,
+      "obstructionSquare": 1849
+    }
+  ],
+  "trialRepairCandidates": [
+    {
+      "endpointPrime": 443,
+      "k": 1029,
+      "delta": -25739,
+      "withinWindow": true,
+      "right": "486498922978003120137482190528915923361118218280393901731215929409345512449172580645681381759918",
+      "rightMod25": 18,
+      "crossProductPlusOne": "236681202058757012275533257971682835669967059058282801408222949239071993719690526144388776764890183336796668547117623219156141375387144900628732563351436289374478344000317101516162036109896127",
+      "checkedSquarePrimeLimit": 199999,
+      "squarefreeStatus": "no_checked_square_divisor",
+      "exactCertificateStatus": "not_certified",
+      "partialFactorization": {
+        "knownFactors": [
+          {
+            "factor": "809",
+            "exponent": 1,
+            "prime": true
+          }
+        ],
+        "residual": "292560200319847975618706128518767411211331346178347096919929479899965381606539587323101083763770313148079936399403736982887690204434048084831560646911540530747192019777895057498346150939303",
+        "cofactorDigits": 189,
+        "residualStatus": "unfactored_not_certified"
+      }
+    },
+    {
+      "endpointPrime": 1741,
+      "k": 149,
+      "delta": -3739,
+      "withinWindow": true,
+      "right": "486498922978003120137482190528915923361118218280393901731215929409345512449172580645681381781918",
+      "rightMod25": 18,
+      "crossProductPlusOne": "236681202058757012275533257971682835669967059058282801408222949239071993719690526144388776775593159642312737190142231410792291689331745702797398401438186736380079617882113875721152435394350127",
+      "checkedSquarePrimeLimit": 199999,
+      "squarefreeStatus": "no_checked_square_divisor",
+      "exactCertificateStatus": "not_certified",
+      "partialFactorization": {
+        "knownFactors": [
+          {
+            "factor": "3",
+            "exponent": 1,
+            "prime": true
+          }
+        ],
+        "residual": "78893734019585670758511085990560945223322353019427600469407649746357331239896842048129592258531053214104245730047410470264097229777248567599132800479395578793359872627371291907050811798116709",
+        "cofactorDigits": 191,
+        "residualStatus": "unfactored_not_certified"
+      }
+    },
+    {
+      "endpointPrime": 2609,
+      "k": 257,
+      "delta": -6439,
+      "withinWindow": true,
+      "right": "486498922978003120137482190528915923361118218280393901731215929409345512449172580645681381779218",
+      "rightMod25": 18,
+      "crossProductPlusOne": "236681202058757012275533257971682835669967059058282801408222949239071993719690526144388776774279612550272128765771029496364218696256726513440334866763903726974846734269347907977812704573076227",
+      "checkedSquarePrimeLimit": 199999,
+      "squarefreeStatus": "no_checked_square_divisor",
+      "exactCertificateStatus": "not_certified",
+      "partialFactorization": {
+        "knownFactors": [
+          {
+            "factor": "3",
+            "exponent": 1,
+            "prime": true
+          },
+          {
+            "factor": "7",
+            "exponent": 1,
+            "prime": true
+          },
+          {
+            "factor": "13",
+            "exponent": 1,
+            "prime": true
+          },
+          {
+            "factor": "41",
+            "exponent": 1,
+            "prime": true
+          }
+        ],
+        "residual": "21145466100130171739080966494387816999014299924799678496222902639066558895710759058732134081504477133053884460445906325057108790874361343110902784487081544445175264385718565887412910262939",
+        "cofactorDigits": 188,
+        "residualStatus": "unfactored_not_certified"
+      }
+    }
+  ],
+  "theoremObject": {
+    "id": "p848_p4217_complement_p61_q101_repair_candidate_boundary",
+    "status": "bounded_repair_screen_recorded_exact_certification_needed",
+    "claim": "On the selected q101 obstruction child, the established p>=23 endpoint-menu screen through p<=50000 has exactly three trial-squarefree within-window repair candidates after trial square checks through prime 199999: p443, p1741, and p2609. The first is p443.",
+    "doesNotClaim": [
+      "p443 is an exact repair.",
+      "The p61/q101 child is closed.",
+      "The q101-avoiding sibling, other p61-available residues, p61-unavailable complement, or Problem 848 are decided."
+    ]
+  },
+  "ledgerTransition": {
+    "inputObligation": {
+      "state": "p4217_complement_p61_q101_square_obstruction_child",
+      "sourcePacket": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_COMPLEMENT_P61_Q101_SQUARE_OBSTRUCTION_PACKET.json"
+    },
+    "outputObligations": [
+      {
+        "state": "p4217_complement_p61_q101_p443_exact_certification_open",
+        "endpointPrime": 443,
+        "cofactorDigits": 189
+      },
+      {
+        "state": "p4217_complement_p61_q101_p1741_reserve_candidate_open",
+        "endpointPrime": 1741,
+        "cofactorDigits": 191
+      },
+      {
+        "state": "p4217_complement_p61_q101_p2609_reserve_candidate_open",
+        "endpointPrime": 2609,
+        "cofactorDigits": 188
+      }
+    ],
+    "measureEffect": "The q101 obstruction child is no longer an unstructured repair-selector question; it is reduced to a bounded exact-certification boundary with p443 as the first candidate and p1741/p2609 as reserves."
+  },
+  "claims": {
+    "boundedScreenExactWithinScope": true,
+    "exactRepairCertified": false,
+    "proofBoundaryNeeded": "An exact squarefree factor certificate for p443, or a deterministic obstruction/successor replacing p443, is required before emitting a repair handoff."
+  },
+  "proofBoundary": "This is a bounded repair-candidate boundary for the selected p61/q101 child. It proves the p>=23, p<=50000 endpoint screen outcome and trial-square checks through prime 199999, but it does not prove p443 squarefree or close the child.",
+  "recommendedNextAction": "exact_certify_p848_p4217_complement_p61_q101_p443_repair_candidate",
+  "verificationCommand": "node --check src/runtime/theorem-loop.js && node --check src/runtime/problem-progress.js && node --test test/p848-endpoint-menu-compiler.test.js test/p848-282-alignment-obstruction-packet.test.js"
+}

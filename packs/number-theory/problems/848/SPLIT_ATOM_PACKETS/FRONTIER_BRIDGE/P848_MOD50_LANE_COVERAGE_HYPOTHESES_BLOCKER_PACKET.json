@@ -1,0 +1,297 @@
+{
+  "schema": "erdos.number_theory.p848_mod50_lane_coverage_hypotheses_blocker_packet/1",
+  "packetId": "p848_mod50_lane_coverage_hypotheses_blocker_packet_v1",
+  "status": "mod50_lane_coverage_hypotheses_blocked_universal_square_witness_cover_missing",
+  "generatedAt": "2026-04-17T09:54:13.089Z",
+  "attemptedTheorem": {
+    "theoremId": "p848_mod50_lane_breakpoint_coverage_theorem_candidate_v1",
+    "laneFormula": "continuation = 32 + 50*m",
+    "candidateStatement": "For the 32 mod 50 top repair-class lane, the symbolic bad-lane congruence plus the compact 1..40500 finite base controls all relevant square-witness obstructions needed for the top repair-class coverage theorem.",
+    "result": "blocked_not_proved",
+    "reason": "The available schema is universal for divisibility by a named witness modulus Q, but the artifact surface does not quantify or cover all relevant future representatives n and square witness moduli Q."
+  },
+  "sourcePackets": {
+    "topRepairClassMechanism": "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_TOP_REPAIR_CLASS_MECHANISM_PACKET.json",
+    "compactEndpointBoundaryAudit": "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_EXACT_40500_ENDPOINT_BOUNDARY_AUDIT_PACKET.json",
+    "compact40500Promotion": "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_EXACT_40500_COMPACT_PROMOTION_PACKET.json"
+  },
+  "certifiedInputs": {
+    "symbolicBadLaneSchema": {
+      "checkerId": "p848_mod50_bad_lane_symbolic_schema_checker_v1",
+      "schemaId": "p848_mod50_bad_lane_symbolic_schema_v1",
+      "status": "symbolic_bad_lane_schema_ready",
+      "symbolicStatement": "For any representative n and square witness modulus Q, continuation c = 32 + 50*m has Q | c*n + 1 exactly when (50*n)*m ≡ -(32*n + 1) (mod Q). When this congruence is solvable, it defines the bad m-class modulo Q/gcd(50*n,Q).",
+      "universalDivisibilityClaim": true,
+      "universalSquarefreeRepairClaim": false,
+      "checkedRowCount": 74,
+      "passCount": 74,
+      "failCount": 0,
+      "witnessPeriodCounts": {
+        "9": 19,
+        "49": 18,
+        "169": 2,
+        "289": 6,
+        "361": 2,
+        "529": 9,
+        "1369": 3,
+        "1681": 6,
+        "4489": 6,
+        "66049": 3
+      },
+      "witnessPeriods": [
+        9,
+        49,
+        169,
+        289,
+        361,
+        529,
+        1369,
+        1681,
+        4489,
+        66049
+      ]
+    },
+    "finiteMenuSeparation": {
+      "status": "finite_menu_plus2_replay_certified",
+      "predictedFamilyCount": 255,
+      "checkedRowCount": 9,
+      "checkedPairCount": 9,
+      "topTieCounts": [
+        {
+          "continuation": 432,
+          "repairedPredictedFamilyCount": 242,
+          "missedPredictedFamilyCount": 13
+        },
+        {
+          "continuation": 782,
+          "repairedPredictedFamilyCount": 242,
+          "missedPredictedFamilyCount": 13
+        },
+        {
+          "continuation": 832,
+          "repairedPredictedFamilyCount": 242,
+          "missedPredictedFamilyCount": 13
+        }
+      ],
+      "primaryContrastCounts": [
+        {
+          "continuation": 332,
+          "repairedPredictedFamilyCount": 240,
+          "missedPredictedFamilyCount": 15
+        },
+        {
+          "continuation": 382,
+          "repairedPredictedFamilyCount": 240,
+          "missedPredictedFamilyCount": 15
+        },
+        {
+          "continuation": 1232,
+          "repairedPredictedFamilyCount": 240,
+          "missedPredictedFamilyCount": 15
+        }
+      ]
+    },
+    "strictHandoff782Vs1232": {
+      "status": "finite_strict_handoff_certified_not_gap_closure",
+      "checkedRowCount": 2,
+      "netExtraRepairsForTop": 2,
+      "rowChecks": [
+        {
+          "familyIndex": 104,
+          "representative": 681558029,
+          "witnessSquareModulus": 1369,
+          "laneEquation": "500*m ≡ 1048 (mod 1369)",
+          "laneIndexResidue": 24,
+          "laneIndexPeriod": 1369,
+          "missedLaneIndex": 24,
+          "repairedLaneIndex": 15,
+          "status": "passed"
+        },
+        {
+          "familyIndex": 187,
+          "representative": 1256825183,
+          "witnessSquareModulus": 289,
+          "laneEquation": "83*m ≡ 258 (mod 289)",
+          "laneIndexResidue": 24,
+          "laneIndexPeriod": 289,
+          "missedLaneIndex": 24,
+          "repairedLaneIndex": 15,
+          "status": "passed"
+        }
+      ],
+      "theoremBoundary": {
+        "finiteMenuHandoffClaim": true,
+        "allNFiniteGapClosureClaim": false,
+        "reason": "This packet connects the symbolic bad-lane schema to the finite exchange surface, but it does not prove that all post-11300 candidates are controlled by the strict handoff family."
+      }
+    },
+    "compactEndpointBoundaryAudit": {
+      "promotedCompactInterval": "1..40500",
+      "publicRawExactIntervalRemains": "1..10000",
+      "lane32BreakpointRowsInCompactInterval": 810,
+      "relevantContinuationsAudited": [
+        {
+          "continuation": 332,
+          "role": "primary_contrast",
+          "mod50": 32,
+          "endpointCertified": true
+        },
+        {
+          "continuation": 382,
+          "role": "primary_contrast",
+          "mod50": 32,
+          "endpointCertified": true
+        },
+        {
+          "continuation": 432,
+          "role": "top_tie",
+          "mod50": 32,
+          "endpointCertified": true
+        },
+        {
+          "continuation": 782,
+          "role": "top_tie",
+          "mod50": 32,
+          "endpointCertified": true
+        },
+        {
+          "continuation": 832,
+          "role": "top_tie",
+          "mod50": 32,
+          "endpointCertified": true
+        },
+        {
+          "continuation": 882,
+          "role": "nearest_contrast",
+          "mod50": 32,
+          "endpointCertified": true
+        },
+        {
+          "continuation": 1232,
+          "role": "primary_contrast",
+          "mod50": 32,
+          "endpointCertified": true
+        }
+      ],
+      "noNewFailureBoundaryFound": true,
+      "noTopSpecificCoverageBoundaryFound": true
+    }
+  },
+  "laneIndexSurface": {
+    "topTieLaneIndices": [
+      {
+        "continuation": 432,
+        "m": 8
+      },
+      {
+        "continuation": 782,
+        "m": 15
+      },
+      {
+        "continuation": 832,
+        "m": 16
+      }
+    ],
+    "contrastLaneIndices": [
+      {
+        "continuation": 332,
+        "m": 6
+      },
+      {
+        "continuation": 382,
+        "m": 7
+      },
+      {
+        "continuation": 882,
+        "m": 17
+      },
+      {
+        "continuation": 1232,
+        "m": 24
+      }
+    ],
+    "strictHandoffLaneIndices": {
+      "top": 15,
+      "contrast": 24
+    },
+    "interpretation": "The finite handoff proves selected bad-m-class avoidance for checked witnesses, but does not prove that every future bad m-class is avoided by a top-tie continuation or controlled by a finite handoff family."
+  },
+  "missingHypotheses": [
+    {
+      "hypothesisId": "square_witness_domain_cover",
+      "status": "missing",
+      "requiredStatement": "Classify or finitely cover every relevant pair (n, Q), where n is a future/family representative and Q is a square witness modulus that can obstruct a continuation in c = 32 + 50*m.",
+      "currentEvidence": "Only 74 finite witness instances are checked, with observed periods 9, 49, 169, 289, 361, 529, 1369, 1681, 4489, 66049.",
+      "whyNeeded": "Without this domain cover, the universal divisibility schema cannot become a universal squarefree repair theorem."
+    },
+    {
+      "hypothesisId": "top_lane_bad_class_avoidance_or_handoff_cover",
+      "status": "missing",
+      "requiredStatement": "For every covered (n, Q), prove that the bad m-class modulo Q/gcd(50n,Q) is avoided by the selected top-tie lane index, or is handled by a finite handoff rule such as 782 vs 1232.",
+      "currentEvidence": "Top lane indices are 432->m8, 782->m15, 832->m16; the strict 782 vs 1232 handoff covers 2 finite rows.",
+      "whyNeeded": "The finite +2 separation does not by itself show how future bad lane classes are routed."
+    },
+    {
+      "hypothesisId": "finite_menu_to_breakpoint_bridge",
+      "status": "missing",
+      "requiredStatement": "Bridge the restored finite-menu predicted-family repair counts to the exact breakpoint rows certified by the compact endpoint certificate.",
+      "currentEvidence": "The compact audit certifies 810 lane-32 breakpoint rows through 40500, but all same-lane top and contrast continuations are certified by the same 7 mod 25 endpoint class.",
+      "whyNeeded": "The exact verifier confirms extremality of the residue class, not the top-repair leaderboard separation."
+    },
+    {
+      "hypothesisId": "post_40500_breakpoint_sufficiency",
+      "status": "missing",
+      "requiredStatement": "Prove why checking the compact base through 40500 plus the symbolic lane theorem suffices beyond 40500, or state the next finite regression interval with a theorem-facing reason.",
+      "currentEvidence": "The endpoint audit found no failed boundary row and explicitly does not justify a blind 40501+ rollout.",
+      "whyNeeded": "A raw interval extension without this sufficiency theorem would repeat bounded verification without compressing the proof."
+    }
+  ],
+  "exactUncoveredWitnessLaneFamily": {
+    "familyId": "p848_mod50_lane_uncovered_square_witness_family",
+    "representativeVariable": "n",
+    "squareWitnessVariable": "Q",
+    "laneIndexVariable": "m",
+    "continuationFormula": "c = 32 + 50*m",
+    "badLaneCongruence": "(50*n)*m ≡ -(32*n + 1) (mod Q)",
+    "badLanePeriod": "Q / gcd(50*n, Q)",
+    "uncoveredScope": "All future or unenumerated representatives n and square witness moduli Q outside the 74 checked finite witness instances, including any Q not in the observed finite period set and any observed-period instance not proved to belong to a covered handoff family.",
+    "currentFiniteWitnessPeriodSet": [
+      9,
+      49,
+      169,
+      289,
+      361,
+      529,
+      1369,
+      1681,
+      4489,
+      66049
+    ],
+    "currentFiniteWitnessInstanceCount": 74
+  },
+  "blocker": {
+    "blockerType": "coverage_theorem_hypotheses_blocker",
+    "blocksClaim": "p848_mod50_lane_breakpoint_coverage_theorem_candidate_v1",
+    "doesNotRefuteClaim": true,
+    "deterministicBoundary": "The route is blocked exactly at the missing square-witness domain cover and bad-lane handoff cover for c = 32 + 50*m. The existing finite instances remain valid evidence, but they cannot be promoted to all relevant square-witness coverage."
+  },
+  "proofBoundary": "This packet blocks the mod-50 lane coverage theorem at the hypotheses layer. It preserves the universal divisibility schema and the compact 1..40500 finite base, but refuses to claim universal squarefree repair, post-40500 breakpoint sufficiency, a 40501+ rollout justification, p4217 complement closure, or an all-N decision.",
+  "recommendedNextAction": "derive_p848_mod50_lane_square_witness_domain_cover_or_emit_counterfamily",
+  "nextTheoremMove": "Derive a square-witness domain cover for the 32 mod 50 lane: parameterize all relevant (n, Q, bad m-class) families beyond the 74 finite instances and prove the top-tie/handoff lane indices cover them, or emit a counterfamily/hypotheses packet before any 40501+ rollout.",
+  "verification": {
+    "command": "node --test test/p848-282-alignment-obstruction-packet.test.js",
+    "localAuditCommand": "jq '.missingHypotheses' packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_MOD50_LANE_COVERAGE_HYPOTHESES_BLOCKER_PACKET.json"
+  },
+  "claims": {
+    "provesUniversalDivisibilitySchemaForNamedQ": true,
+    "provesFiniteMenuPlus2Separation": true,
+    "auditsCompact40500Boundary": true,
+    "blocksMod50CoverageTheorem": true,
+    "namesExactUncoveredWitnessLaneFamily": true,
+    "provesUniversalSquarefreeRepairTheorem": false,
+    "justifies40501PlusRollout": false,
+    "startsNewExactCompute": false,
+    "provesP4217ComplementCoverage": false,
+    "provesAllN": false
+  }
+}

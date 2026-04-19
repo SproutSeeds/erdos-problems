@@ -1,0 +1,209 @@
+{
+  "schema": "erdos.number_theory.p848_mod50_bounded_crt_menu_enumerator_audit_packet/1",
+  "packetId": "p848_mod50_bounded_crt_menu_enumerator_audit",
+  "generatedAt": "2026-04-17T12:21:38Z",
+  "problemId": 848,
+  "status": "mod50_bounded_crt_menu_enumerator_exact_restored_menu_reproduction_verified",
+  "parentAction": {
+    "stepId": "derive_p848_mod50_bounded_crt_menu_enumerator_or_restore_original_generator",
+    "completionRule": "A bounded enumerator reproduces all six restored menus exactly with no omitted smaller representatives, the original generator is restored, or a precise blocker names the missing ordering proof."
+  },
+  "sourcePackets": [
+    "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_MOD50_MENU_GENERATOR_RESTORATION_AUDIT_PACKET.json",
+    "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_MOD50_RESTORED_MENU_SEQUENCE_STABILITY_BLOCKER_PACKET.json",
+    "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_MOD50_RELEVANT_PAIR_ENUMERATOR_GENERATOR_BLOCKER_PACKET.json",
+    "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_CONVERGENCE_ASSEMBLY_282_FIRST_FAILURE_PACKET.json"
+  ],
+  "computeArtifact": {
+    "script": "packs/number-theory/problems/848/compute/problem848_mod50_bounded_crt_menu_enumerator.mjs",
+    "verificationCommand": "node packs/number-theory/problems/848/compute/problem848_mod50_bounded_crt_menu_enumerator.mjs --pretty",
+    "scriptOutputSchema": "erdos.number_theory.p848_mod50_bounded_crt_menu_enumerator_audit/compute-output/1"
+  },
+  "boundedEnumerator": {
+    "objectId": "p848_mod50_bounded_crt_representative_enumerator",
+    "scope": "Restored finite SIX_PREFIX_NINETEEN through SIX_PREFIX_TWENTY_FOUR parameter surfaces only.",
+    "menuRoot": "output/frontier-engine-local/p848-anchor-ladder/live-frontier-sync/2026-04-05",
+    "algorithm": {
+      "leftAnchors": [7, 32, 57],
+      "rightAnchors": [82, 132, 182],
+      "description": "Enumerate distinct right-half CRT progressions for anchors 82,132,182; enumerate n <= the restored menu representative bound for each progression; directly test anchors 7,32,57 for unused square witnesses; keep only distinct six-square tuple rows.",
+      "tieBreakPolicy": "Sort by representative ascending, then by the stored tupleKey display string ascending, then take the first menu limit rows.",
+      "whyBounded": "The representative bound is the maximum representative in each restored menu. This proves containment/no-smaller-omission for the finite restored surfaces without using a naive 23^6 Cartesian CRT search."
+    }
+  },
+  "boundedEnumeratorAudit": {
+    "menuCount": 6,
+    "allMenuRowsContained": true,
+    "allNoSmallerExtras": true,
+    "exactOrderedListReproduction": true,
+    "totalMissing": 0,
+    "totalSmallerExtra": 0,
+    "totalSameBoundExtra": 1,
+    "duplicateTiePolicyOpen": false,
+    "menus": [
+      {
+        "label": "SIX_PREFIX_NINETEEN",
+        "limit": 220,
+        "familyCount": 220,
+        "knownFailureParameterCount": 19,
+        "squareModuliCount": 21,
+        "representativeBound": 1644258991,
+        "rightProgressionCount": 5270,
+        "candidateNCount": 453085,
+        "enumeratedSolutionCount": 220,
+        "menuRowCount": 220,
+        "missingMenuRowCount": 0,
+        "extraSolutionCount": 0,
+        "smallerExtraCount": 0,
+        "sameBoundExtraCount": 0,
+        "duplicateRepresentativeCount": 11,
+        "exactOrderedListReproduction": true,
+        "firstMismatchIndex": null
+      },
+      {
+        "label": "SIX_PREFIX_TWENTY",
+        "limit": 230,
+        "familyCount": 230,
+        "knownFailureParameterCount": 20,
+        "squareModuliCount": 21,
+        "representativeBound": 1684455347,
+        "rightProgressionCount": 5270,
+        "candidateNCount": 464178,
+        "enumeratedSolutionCount": 230,
+        "menuRowCount": 230,
+        "missingMenuRowCount": 0,
+        "extraSolutionCount": 0,
+        "smallerExtraCount": 0,
+        "sameBoundExtraCount": 0,
+        "duplicateRepresentativeCount": 12,
+        "exactOrderedListReproduction": true,
+        "firstMismatchIndex": null
+      },
+      {
+        "label": "SIX_PREFIX_TWENTY_ONE",
+        "limit": 240,
+        "familyCount": 240,
+        "knownFailureParameterCount": 21,
+        "squareModuliCount": 21,
+        "representativeBound": 1766364109,
+        "rightProgressionCount": 5270,
+        "candidateNCount": 486747,
+        "enumeratedSolutionCount": 240,
+        "menuRowCount": 240,
+        "missingMenuRowCount": 0,
+        "extraSolutionCount": 0,
+        "smallerExtraCount": 0,
+        "sameBoundExtraCount": 0,
+        "duplicateRepresentativeCount": 12,
+        "exactOrderedListReproduction": true,
+        "firstMismatchIndex": null
+      },
+      {
+        "label": "SIX_PREFIX_TWENTY_TWO",
+        "limit": 250,
+        "familyCount": 250,
+        "knownFailureParameterCount": 22,
+        "squareModuliCount": 21,
+        "representativeBound": 1835206429,
+        "rightProgressionCount": 5270,
+        "candidateNCount": 505704,
+        "enumeratedSolutionCount": 250,
+        "menuRowCount": 250,
+        "missingMenuRowCount": 0,
+        "extraSolutionCount": 0,
+        "smallerExtraCount": 0,
+        "sameBoundExtraCount": 0,
+        "duplicateRepresentativeCount": 15,
+        "exactOrderedListReproduction": true,
+        "firstMismatchIndex": null
+      },
+      {
+        "label": "SIX_PREFIX_TWENTY_THREE",
+        "limit": 260,
+        "familyCount": 260,
+        "knownFailureParameterCount": 23,
+        "squareModuliCount": 22,
+        "representativeBound": 1859125225,
+        "rightProgressionCount": 6228,
+        "candidateNCount": 514438,
+        "enumeratedSolutionCount": 260,
+        "menuRowCount": 260,
+        "missingMenuRowCount": 0,
+        "extraSolutionCount": 0,
+        "smallerExtraCount": 0,
+        "sameBoundExtraCount": 0,
+        "duplicateRepresentativeCount": 16,
+        "exactOrderedListReproduction": true,
+        "firstMismatchIndex": null
+      },
+      {
+        "label": "SIX_PREFIX_TWENTY_FOUR",
+        "limit": 280,
+        "familyCount": 280,
+        "knownFailureParameterCount": 24,
+        "squareModuliCount": 23,
+        "representativeBound": 1837022639,
+        "rightProgressionCount": 7296,
+        "candidateNCount": 527942,
+        "enumeratedSolutionCount": 281,
+        "menuRowCount": 280,
+        "missingMenuRowCount": 0,
+        "extraSolutionCount": 1,
+        "smallerExtraCount": 0,
+        "sameBoundExtraCount": 1,
+        "duplicateRepresentativeCount": 19,
+        "exactOrderedListReproduction": true,
+        "firstMismatchIndex": null,
+        "sameBoundExtraSample": {
+          "representative": 1837022639,
+          "tuple": [9, 121, 4, 49, 1681, 529],
+          "tupleKey": "9, 11^2, 4, 7^2, 41^2, 23^2"
+        }
+      }
+    ]
+  },
+  "interpretation": {
+    "provedForRestoredFiniteSurface": [
+      "Every restored menu row in SIX_PREFIX_NINETEEN through SIX_PREFIX_TWENTY_FOUR is produced by the bounded CRT enumerator.",
+      "No enumerated row with representative smaller than the restored menu boundary is omitted from any restored menu.",
+      "The duplicate/equal-representative tie policy is recovered: representative ascending, tupleKey display string ascending, then first limit rows.",
+      "The bounded enumerator exactly reproduces all six restored finite menus under that policy.",
+      "The naive all-tuple Cartesian CRT probe is replaced by a bounded right-half CRT plus direct left-half witness test."
+    ],
+    "remainingOpen": [
+      "SIX_PREFIX_TWENTY_FOUR has one additional enumerated tuple at the same boundary representative 1837022639, and the recovered tie policy excludes it by the finite limit.",
+      "The original family-menu generator/source is still not restored.",
+      "No symbolic all-future relevant-pair recurrence or finite Q partition is proved."
+    ]
+  },
+  "deterministicBoundary": {
+    "boundaryId": "p848_mod50_exact_bounded_menu_enumerator_universal_recurrence_boundary",
+    "status": "open_all_future_recurrence_boundary",
+    "blockedInput": "A symbolic all-future relevant-pair recurrence, finite Q partition, original generator source, or theorem showing the bounded restored finite enumerator suffices for the universal mod-50 square-witness domain cover.",
+    "acceptedSuccessors": [
+      "Promote the bounded CRT enumerator as an exact finite restored-menu replay theorem with all-future recurrence explicitly open.",
+      "Restore the original family-menu generator and compare its ordering/source rule with the bounded enumerator.",
+      "Prove a symbolic relevant-pair recurrence or finite Q partition independent of these finite menu snapshots."
+    ],
+    "forbiddenShortcut": "Do not treat exact restored finite-menu reproduction as original generator restoration, universal relevant-pair enumeration, finite Q partition, or all-N proof."
+  },
+  "proofBoundary": "The bounded CRT enumerator exactly reproduces the restored finite menus, including duplicate/equal-representative ordering, under the recovered tupleKey-string tie policy. It does not restore the original generator, prove a symbolic recurrence, close contrast-only recombination, or prove Problem 848.",
+  "recommendedNextAction": "promote_p848_mod50_exact_bounded_menu_enumerator_or_emit_all_future_recurrence_blocker",
+  "nextTheoremMove": "Promote the exact bounded CRT menu enumerator as a finite restored-menu replay theorem, then either derive a symbolic all-future relevant-pair recurrence/finite Q partition or emit the next blocker at that universal boundary.",
+  "claims": {
+    "derivesBoundedMenuEnumerator": true,
+    "verifiesRestoredMenuRowsContained": true,
+    "provesNoSmallerRepresentativesOmitted": true,
+    "provesExactMenuListReproduction": true,
+    "provesDuplicateTiePolicy": true,
+    "provesOriginalGeneratorRestored": false,
+    "uses40501PlusRollout": false,
+    "provesSymbolicRelevantPairRecurrence": false,
+    "provesRelevantPairEnumerator": false,
+    "provesFiniteQPartition": false,
+    "provesUniversalSquareWitnessDomainCover": false,
+    "closesContrastOnlyRecombination": false,
+    "provesP4217ComplementCoverage": false,
+    "provesAllN": false
+  }
+}

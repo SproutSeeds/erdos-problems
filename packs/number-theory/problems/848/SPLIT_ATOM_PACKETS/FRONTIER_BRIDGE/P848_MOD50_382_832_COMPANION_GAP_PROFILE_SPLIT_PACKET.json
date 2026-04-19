@@ -1,0 +1,390 @@
+{
+  "schema": "erdos.number_theory.p848_mod50_382_832_companion_gap_profile_split_packet/1",
+  "packetId": "p848_mod50_382_832_companion_gap_profile_split",
+  "problemId": "848",
+  "generatedAt": "2026-04-17T11:04:28.671Z",
+  "status": "same_family_companion_gaps_terminal_profile_split_emitted",
+  "parentProfileSplit": {
+    "stepId": "cover_p848_mod50_382_832_same_family_companion_gaps_or_emit_terminal_profiles",
+    "packet": "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_MOD50_232_SAME_LANE_EXTERNAL_ANCHOR_PROFILE_SPLIT_PACKET.json",
+    "status": "same_lane_external_anchor_232_terminal_profile_split_emitted"
+  },
+  "sourceArtifacts": {
+    "externalAnchorIrrelevanceSplit": "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_MOD50_EXTERNAL_ANCHOR_IRRELEVANCE_SPLIT_PACKET.json",
+    "sameLane232ProfileSplit": "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_MOD50_232_SAME_LANE_EXTERNAL_ANCHOR_PROFILE_SPLIT_PACKET.json",
+    "familyMenuPath": "output/frontier-engine-local/p848-anchor-ladder/live-frontier-sync/2026-04-05/SIX_PREFIX_TWENTY_FOUR_FAMILY_MENU.json"
+  },
+  "companionGapSummary": {
+    "checkedGapCount": 3,
+    "checkedFamilyCount": 2,
+    "familyIndices": [
+      75,
+      161
+    ],
+    "continuations": [
+      382,
+      832
+    ],
+    "primaryContrastGapCount": 2,
+    "topTieNonTargetGapCount": 1,
+    "allRepairRowsSquarefree": true,
+    "allTargetRowsSquareBlocked": true,
+    "sameFamilyObservedCompanionCountTotal": 0,
+    "no40501PlusRolloutUsed": true
+  },
+  "terminalProfiles": [
+    {
+      "profileId": "same_family_companion_382_family_75",
+      "status": "terminal_profile_recorded_not_companion_theorem",
+      "groupId": "top_432_Q49_bad8",
+      "familyIndex": 75,
+      "representative": 457148843,
+      "tupleKey": "19^2, 41^2, 4, 9, 31^2, 17^2",
+      "continuation": 382,
+      "category": "primary_contrast",
+      "targetContinuation": 432,
+      "targetFirstAnchor": 132,
+      "activationAnchor": 7,
+      "activationResidueModWitness": 5,
+      "sameFamilyObservedCompanionCount": 0,
+      "tupleRows": [
+        {
+          "anchor": 7,
+          "squareModulus": 361,
+          "residue": 103
+        },
+        {
+          "anchor": 32,
+          "squareModulus": 1681,
+          "residue": 893
+        },
+        {
+          "anchor": 57,
+          "squareModulus": 4,
+          "residue": 3
+        },
+        {
+          "anchor": 82,
+          "squareModulus": 9,
+          "residue": 8
+        },
+        {
+          "anchor": 132,
+          "squareModulus": 961,
+          "residue": 182
+        },
+        {
+          "anchor": 182,
+          "squareModulus": 289,
+          "residue": 262
+        }
+      ],
+      "repairRow": {
+        "anchor": 382,
+        "value": 174630858027,
+        "squarefree": true,
+        "squareWitnesses": []
+      },
+      "targetRepairRow": {
+        "anchor": 432,
+        "value": 197488300177,
+        "squarefree": false,
+        "squareWitnesses": [
+          {
+            "prime": 7,
+            "exponent": 3,
+            "squareModulus": 49
+          }
+        ]
+      },
+      "handoffSurfaceRows": [
+        {
+          "anchor": 332,
+          "value": 151773415877,
+          "squarefree": true,
+          "squareWitnesses": []
+        },
+        {
+          "anchor": 382,
+          "value": 174630858027,
+          "squarefree": true,
+          "squareWitnesses": []
+        },
+        {
+          "anchor": 432,
+          "value": 197488300177,
+          "squarefree": false,
+          "squareWitnesses": [
+            {
+              "prime": 7,
+              "exponent": 3,
+              "squareModulus": 49
+            }
+          ]
+        },
+        {
+          "anchor": 782,
+          "value": 357490395227,
+          "squarefree": true,
+          "squareWitnesses": []
+        },
+        {
+          "anchor": 832,
+          "value": 380347837377,
+          "squarefree": true,
+          "squareWitnesses": []
+        }
+      ],
+      "deterministicBoundary": "Primary-contrast continuation repairs the finite row, but no same-family observed companion group exists in the current handoff surface; record as terminal profile rather than a theorem."
+    },
+    {
+      "profileId": "same_family_companion_382_family_161",
+      "status": "terminal_profile_recorded_not_companion_theorem",
+      "groupId": "top_782_Q9_bad6",
+      "familyIndex": 161,
+      "representative": 1079001739,
+      "tupleKey": "31^2, 17^2, 4, 11^2, 61^2, 43^2",
+      "continuation": 382,
+      "category": "primary_contrast",
+      "targetContinuation": 782,
+      "targetFirstAnchor": 132,
+      "activationAnchor": 57,
+      "activationResidueModWitness": 2,
+      "sameFamilyObservedCompanionCount": 0,
+      "tupleRows": [
+        {
+          "anchor": 7,
+          "squareModulus": 961,
+          "residue": 549
+        },
+        {
+          "anchor": 32,
+          "squareModulus": 289,
+          "residue": 9
+        },
+        {
+          "anchor": 57,
+          "squareModulus": 4,
+          "residue": 3
+        },
+        {
+          "anchor": 82,
+          "squareModulus": 121,
+          "residue": 90
+        },
+        {
+          "anchor": 132,
+          "squareModulus": 3721,
+          "residue": 1043
+        },
+        {
+          "anchor": 182,
+          "squareModulus": 1849,
+          "residue": 1148
+        }
+      ],
+      "repairRow": {
+        "anchor": 382,
+        "value": 412178664299,
+        "squarefree": true,
+        "squareWitnesses": []
+      },
+      "targetRepairRow": {
+        "anchor": 782,
+        "value": 843779359899,
+        "squarefree": false,
+        "squareWitnesses": [
+          {
+            "prime": 3,
+            "exponent": 2,
+            "squareModulus": 9
+          }
+        ]
+      },
+      "handoffSurfaceRows": [
+        {
+          "anchor": 332,
+          "value": 358228577349,
+          "squarefree": false,
+          "squareWitnesses": [
+            {
+              "prime": 3,
+              "exponent": 4,
+              "squareModulus": 9
+            }
+          ]
+        },
+        {
+          "anchor": 382,
+          "value": 412178664299,
+          "squarefree": true,
+          "squareWitnesses": []
+        },
+        {
+          "anchor": 432,
+          "value": 466128751249,
+          "squarefree": true,
+          "squareWitnesses": []
+        },
+        {
+          "anchor": 782,
+          "value": 843779359899,
+          "squarefree": false,
+          "squareWitnesses": [
+            {
+              "prime": 3,
+              "exponent": 2,
+              "squareModulus": 9
+            }
+          ]
+        },
+        {
+          "anchor": 832,
+          "value": 897729446849,
+          "squarefree": true,
+          "squareWitnesses": []
+        }
+      ],
+      "deterministicBoundary": "Primary-contrast continuation repairs the finite row, but no same-family observed companion group exists in the current handoff surface; record as terminal profile rather than a theorem."
+    },
+    {
+      "profileId": "same_family_companion_832_family_161",
+      "status": "terminal_profile_recorded_not_companion_theorem",
+      "groupId": "top_782_Q9_bad6",
+      "familyIndex": 161,
+      "representative": 1079001739,
+      "tupleKey": "31^2, 17^2, 4, 11^2, 61^2, 43^2",
+      "continuation": 832,
+      "category": "top_tie_non_target",
+      "targetContinuation": 782,
+      "targetFirstAnchor": 132,
+      "activationAnchor": 57,
+      "activationResidueModWitness": 2,
+      "sameFamilyObservedCompanionCount": 0,
+      "tupleRows": [
+        {
+          "anchor": 7,
+          "squareModulus": 961,
+          "residue": 549
+        },
+        {
+          "anchor": 32,
+          "squareModulus": 289,
+          "residue": 9
+        },
+        {
+          "anchor": 57,
+          "squareModulus": 4,
+          "residue": 3
+        },
+        {
+          "anchor": 82,
+          "squareModulus": 121,
+          "residue": 90
+        },
+        {
+          "anchor": 132,
+          "squareModulus": 3721,
+          "residue": 1043
+        },
+        {
+          "anchor": 182,
+          "squareModulus": 1849,
+          "residue": 1148
+        }
+      ],
+      "repairRow": {
+        "anchor": 832,
+        "value": 897729446849,
+        "squarefree": true,
+        "squareWitnesses": []
+      },
+      "targetRepairRow": {
+        "anchor": 782,
+        "value": 843779359899,
+        "squarefree": false,
+        "squareWitnesses": [
+          {
+            "prime": 3,
+            "exponent": 2,
+            "squareModulus": 9
+          }
+        ]
+      },
+      "handoffSurfaceRows": [
+        {
+          "anchor": 332,
+          "value": 358228577349,
+          "squarefree": false,
+          "squareWitnesses": [
+            {
+              "prime": 3,
+              "exponent": 4,
+              "squareModulus": 9
+            }
+          ]
+        },
+        {
+          "anchor": 382,
+          "value": 412178664299,
+          "squarefree": true,
+          "squareWitnesses": []
+        },
+        {
+          "anchor": 432,
+          "value": 466128751249,
+          "squarefree": true,
+          "squareWitnesses": []
+        },
+        {
+          "anchor": 782,
+          "value": 843779359899,
+          "squarefree": false,
+          "squareWitnesses": [
+            {
+              "prime": 3,
+              "exponent": 2,
+              "squareModulus": 9
+            }
+          ]
+        },
+        {
+          "anchor": 832,
+          "value": 897729446849,
+          "squarefree": true,
+          "squareWitnesses": []
+        }
+      ],
+      "deterministicBoundary": "Top-tie non-target continuation repairs the finite row, but no same-family observed companion group exists in the current handoff surface; record as terminal profile rather than a theorem."
+    }
+  ],
+  "routeDecision": {
+    "sameFamilyCompanionTheorem": "not_proved",
+    "terminalProfileSplit": "emitted_for_all_observed_382_832_companion_gaps",
+    "reason": "Each remaining observed gap has an exact finite repair row and zero same-family observed companion groups in the current handoff surface. The repo has row evidence, not a quantified companion theorem, so the deterministic move is terminal profile atomization."
+  },
+  "remainingObligations": [
+    {
+      "obligationId": "universal_mod50_square_witness_domain_cover",
+      "status": "open",
+      "statement": "The observed top-only/non-first-target profile rows are now atomized, but this does not prove the all-relevant (n,Q,bad-lane) cover for c = 32 + 50*m."
+    },
+    {
+      "obligationId": "contrast_only_and_global_recombination",
+      "status": "open",
+      "statement": "Contrast-only coverage and final all-N recombination remain outside this finite observed-profile closure."
+    }
+  ],
+  "nextTheoremMove": "Assemble the observed mod-50 profile closure and choose the next universal square-witness domain-cover theorem or residual counterfamily before any 40501+ rollout.",
+  "recommendedNextAction": "assemble_p848_mod50_observed_profile_closure_or_prove_universal_domain_cover",
+  "suggestedVerificationCommand": "jq '{companionGapSummary, routeDecision, remainingObligations, claims}' packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_MOD50_382_832_COMPANION_GAP_PROFILE_SPLIT_PACKET.json",
+  "proofBoundary": "Finite terminal-profile split for the three observed 382/832 companion gaps only. It closes the current observed companion-gap work surface, but it does not prove the universal mod-50 square-witness domain cover, contrast-only closure, a 40501+ rollout justification, or all-N.",
+  "claims": {
+    "emitsAllObserved382832CompanionTerminalProfiles": true,
+    "provesSameFamilyCompanionTheorem": false,
+    "closesObservedTopOnlyNonFirstTargetProfileGaps": true,
+    "provesUniversalSquareWitnessDomainCover": false,
+    "justifies40501PlusRollout": false,
+    "provesAllN": false
+  }
+}

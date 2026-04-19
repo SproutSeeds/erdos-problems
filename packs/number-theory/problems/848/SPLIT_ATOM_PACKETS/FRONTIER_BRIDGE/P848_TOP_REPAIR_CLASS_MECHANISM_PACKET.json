@@ -1,0 +1,609 @@
+{
+  "schema": "erdos.number_theory.p848_top_repair_class_mechanism_packet/1",
+  "packetId": "p848_top_repair_class_mechanism_packet_v1",
+  "status": "top_repair_class_mechanism_formalized_finite_menu_handoff",
+  "generatedAt": "2026-04-17T09:22:47Z",
+  "sourcePackets": [
+    "packs/number-theory/problems/848/FORMALIZATION_WORK.json",
+    "packs/number-theory/problems/848/SEARCH_THEOREM_BRIDGE.json",
+    "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_282_841_ROW_MENU_REPLAY_CERTIFICATE_PACKET.json"
+  ],
+  "sourceFamilyMenu": {
+    "path": "output/frontier-engine-local/p848-anchor-ladder/live-frontier-sync/2026-04-05/SIX_PREFIX_TWENTY_FOUR_FAMILY_MENU.json",
+    "familyCount": 280,
+    "predictedFamilyCount": 255,
+    "rowMenuReplayStatus": "row_level_family_menu_source_restored_and_replayed",
+    "rowMenuReplayProvesFirst282FailureWithinRestoredMenu": true
+  },
+  "theoremObject": {
+    "id": "p848_top_repair_class_mechanism",
+    "statement": "On the restored finite SIX_PREFIX_TWENTY_FOUR family menu, continuations 432, 782, and 832 form the top repair class: they share repaired-known=26, repaired-predicted=242, and clean-through=250075000, while nearest primary contrasts 332, 382, and 1232 share repaired-known=26 but repair only 240 predicted families. The finite +2 separation is explained row-by-row by the mod-50 bad-lane congruence c = 32 + 50*m together with certified handoff and anchor-witness sublanes.",
+    "scope": "restored_finite_family_menu_with_symbolic_bad_lane_divisibility_schema",
+    "doesNotClaim": [
+      "Problem 848 is decided.",
+      "The top repair class proves an all-N squarefree repair theorem.",
+      "The mod-50 bad-lane schema proves squarefreeness by itself.",
+      "The strict 782 > 1232 handoff controls every future square witness.",
+      "The 832/529 anchor-witness closure is a broad single-profile symbolic domain.",
+      "The p4217 complement or q97/p479 availability subclasses are closed."
+    ]
+  },
+  "topRepairClass": {
+    "tieClass": [
+      432,
+      782,
+      832
+    ],
+    "currentFamilyAwareLeader": {
+      "continuation": 432,
+      "repaired_known_packets": 26,
+      "repaired_predicted_families": 242,
+      "effective_clean_through": 250075000
+    },
+    "sharedMetrics": {
+      "repairedKnownPackets": 26,
+      "repairedPredictedFamilies": 242,
+      "directCleanThrough": 250075000,
+      "effectiveCleanThrough": 250075000,
+      "trackedRepairedKnownFamilyCount": 25,
+      "trackedMissedKnownPackets": 0,
+      "trackedExtensionMode": "direct_window_only",
+      "sameRepairedKnownPackets": true,
+      "sameRepairedPredictedFamilies": true,
+      "sameCleanThrough": true,
+      "sameTrackedKnownFamilyCount": true,
+      "sameTrackedMissedKnownPackets": true,
+      "sameTrackedExtensionMode": true
+    },
+    "primaryContrasts": [
+      332,
+      382,
+      1232
+    ],
+    "nearestContrasts": [
+      {
+        "rank": 4,
+        "continuation": 332,
+        "repaired_known_packets": 26,
+        "repaired_predicted_families": 240,
+        "direct_clean_through": 250075000,
+        "effective_clean_through": 250075000
+      },
+      {
+        "rank": 5,
+        "continuation": 382,
+        "repaired_known_packets": 26,
+        "repaired_predicted_families": 240,
+        "direct_clean_through": 250075000,
+        "effective_clean_through": 250075000
+      },
+      {
+        "rank": 6,
+        "continuation": 1232,
+        "repaired_known_packets": 26,
+        "repaired_predicted_families": 240,
+        "direct_clean_through": 250075000,
+        "effective_clean_through": 250075000
+      },
+      {
+        "rank": 7,
+        "continuation": 882,
+        "repaired_known_packets": 26,
+        "repaired_predicted_families": 236,
+        "direct_clean_through": 250075000,
+        "effective_clean_through": 250075000
+      }
+    ],
+    "commonMissedPredictedRepresentatives": [
+      210290957,
+      287180657,
+      517124182,
+      525631657,
+      1229502607
+    ],
+    "tailSpecificMissedPredictedRepresentatives": {
+      "432": [
+        457148843,
+        770426585
+      ],
+      "782": [
+        695323423,
+        1079001739
+      ],
+      "832": [
+        1446717451,
+        1654841707
+      ]
+    },
+    "residueLaneAssessment": {
+      "tieClassModulo50": [
+        32
+      ],
+      "nearbyModulo50Values": [
+        32
+      ],
+      "verdict": "shared_mod_50_lane_but_not_sufficient",
+      "note": "The top tie is in the same mod-50 lane as several near contrasts, so the mod-50 lane is useful context but not by itself the repair mechanism."
+    },
+    "mechanismHypotheses": [
+      {
+        "hypothesisId": "shared_repair_count_signature",
+        "status": "supported_by_bridge",
+        "note": "All top tails share repaired-known=26, repaired-predicted=242, and clean-through=250075000 on the bridge leaderboard."
+      },
+      {
+        "hypothesisId": "plus50_lane_context",
+        "status": "necessary_not_sufficient",
+        "note": "The top tails share the same mod-50 lane, but nearby contrasts in that lane do not all reach 242 predicted repairs."
+      },
+      {
+        "hypothesisId": "common_missed_family_boundary",
+        "status": "supported_by_tracked_tail_matrix",
+        "note": "The top tails share 5 early missed predicted representatives in the tracked-tail matrix."
+      },
+      {
+        "hypothesisId": "finite_menu_plus2_separation",
+        "status": "certified_by_replay",
+        "note": "The current finite menu has 255 predicted families; each top tail misses 13 and each primary contrast misses 15, so the top tie repairs exactly two more predicted families under the same menu evidence."
+      }
+    ],
+    "falsifierBoundary": [
+      "A bridge refresh breaks the 432, 782, 832 tie on repaired-known, repaired-predicted, or clean-through metrics.",
+      "A near contrast such as 332, 382, or 1232 reaches the same predicted repair count under the same evidence boundary.",
+      "The apparent common missed-family representatives disappear when the family menu is refreshed.",
+      "A direct exact extension finds an earlier failure for one member of the top tie inside the claimed clean-through window."
+    ]
+  },
+  "finiteMenuSeparation": {
+    "checkerId": "p848_top_repair_plus2_family_menu_replay_checker_v1",
+    "status": "finite_menu_plus2_replay_certified",
+    "familyMenuPath": "output/frontier-engine-local/p848-anchor-ladder/live-frontier-sync/2026-04-05/SIX_PREFIX_TWENTY_FOUR_FAMILY_MENU.json",
+    "checkedRowCount": 9,
+    "checkedContinuationCount": 6,
+    "checkedPairCount": 9,
+    "predictedFamilyCount": 255,
+    "failCount": 0,
+    "topTieCounts": [
+      {
+        "continuation": 432,
+        "repairedPredictedFamilyCount": 242,
+        "missedPredictedFamilyCount": 13,
+        "repairedKnownFamilyCount": 25,
+        "firstMissedPredictedRepresentatives": [
+          210290957,
+          287180657,
+          287180657,
+          457148843,
+          517124182,
+          525631657,
+          770426585,
+          1229502607
+        ],
+        "matchesLeaderboard": true,
+        "matchesTrackedTailMatrix": true
+      },
+      {
+        "continuation": 782,
+        "repairedPredictedFamilyCount": 242,
+        "missedPredictedFamilyCount": 13,
+        "repairedKnownFamilyCount": 25,
+        "firstMissedPredictedRepresentatives": [
+          210290957,
+          287180657,
+          287180657,
+          517124182,
+          525631657,
+          695323423,
+          1079001739,
+          1229502607
+        ],
+        "matchesLeaderboard": true,
+        "matchesTrackedTailMatrix": true
+      },
+      {
+        "continuation": 832,
+        "repairedPredictedFamilyCount": 242,
+        "missedPredictedFamilyCount": 13,
+        "repairedKnownFamilyCount": 25,
+        "firstMissedPredictedRepresentatives": [
+          210290957,
+          287180657,
+          287180657,
+          517124182,
+          525631657,
+          1229502607,
+          1446717451,
+          1654841707
+        ],
+        "matchesLeaderboard": true,
+        "matchesTrackedTailMatrix": true
+      }
+    ],
+    "primaryContrastCounts": [
+      {
+        "continuation": 332,
+        "repairedPredictedFamilyCount": 240,
+        "missedPredictedFamilyCount": 15,
+        "repairedKnownFamilyCount": 25,
+        "firstMissedPredictedRepresentatives": [
+          210290957,
+          287180657,
+          287180657,
+          517124182,
+          525631657,
+          657348925,
+          695323423,
+          885528547
+        ],
+        "matchesLeaderboard": true,
+        "matchesTrackedTailMatrix": true
+      },
+      {
+        "continuation": 382,
+        "repairedPredictedFamilyCount": 240,
+        "missedPredictedFamilyCount": 15,
+        "repairedKnownFamilyCount": 25,
+        "firstMissedPredictedRepresentatives": [
+          210290957,
+          287180657,
+          287180657,
+          342292837,
+          517124182,
+          520923103,
+          525631657,
+          537246638
+        ],
+        "matchesLeaderboard": true,
+        "matchesTrackedTailMatrix": true
+      },
+      {
+        "continuation": 1232,
+        "repairedPredictedFamilyCount": 240,
+        "missedPredictedFamilyCount": 15,
+        "repairedKnownFamilyCount": 25,
+        "firstMissedPredictedRepresentatives": [
+          210290957,
+          287180657,
+          287180657,
+          517124182,
+          525631657,
+          681558029,
+          695323423,
+          1079001739
+        ],
+        "matchesLeaderboard": true,
+        "matchesTrackedTailMatrix": null
+      }
+    ],
+    "pairwiseDeltaCount": 9,
+    "verifiedAgainstBridge": {
+      "allScoresMatchLeaderboard": true,
+      "allScoresMatchTrackedRows": true,
+      "allTopMiss13": true,
+      "allPrimaryContrastsMiss15": true,
+      "allTopRepair242": true,
+      "allPrimaryContrastsRepair240": true,
+      "allPairwiseNetPlus2": true
+    },
+    "conclusion": "The current finite menu has 255 predicted families; each top tail misses 13 and each primary contrast misses 15, so the top tie repairs exactly two more predicted families under the same menu evidence."
+  },
+  "symbolicBadLaneSchema": {
+    "checkerId": "p848_mod50_bad_lane_symbolic_schema_checker_v1",
+    "schemaId": "p848_mod50_bad_lane_symbolic_schema_v1",
+    "status": "symbolic_bad_lane_schema_ready",
+    "laneFormula": "continuation = 32 + 50*m",
+    "symbolicStatement": "For any representative n and square witness modulus Q, continuation c = 32 + 50*m has Q | c*n + 1 exactly when (50*n)*m ≡ -(32*n + 1) (mod Q). When this congruence is solvable, it defines the bad m-class modulo Q/gcd(50*n,Q).",
+    "checkedRowCount": 74,
+    "passCount": 74,
+    "failCount": 0,
+    "periodCounts": {
+      "9": 19,
+      "49": 18,
+      "169": 2,
+      "289": 6,
+      "361": 2,
+      "529": 9,
+      "1369": 3,
+      "1681": 6,
+      "4489": 6,
+      "66049": 3
+    },
+    "strict782Vs1232InstanceCount": 2,
+    "scope": {
+      "universalDivisibilityClaim": true,
+      "universalSquarefreeRepairClaim": false,
+      "finiteExchangeRowsChecked": 74,
+      "symbolicVariables": [
+        "n: family representative",
+        "Q: square witness modulus",
+        "m: lane index in c = 32 + 50*m",
+        "c: continuation being tested"
+      ]
+    },
+    "conclusion": "The finite mod-50 exchange packet is now backed by a reusable divisibility schema over 74 checked witness instances."
+  },
+  "strictHandoff782Vs1232": {
+    "checkerId": "p848_782_1232_strict_handoff_checker_v1",
+    "packetId": "p848_782_1232_strict_handoff_packet_v1",
+    "status": "finite_strict_handoff_certified_not_gap_closure",
+    "topContinuation": 782,
+    "contrastContinuation": 1232,
+    "topLaneIndex": 15,
+    "contrastLaneIndex": 24,
+    "checkedRowCount": 2,
+    "passCount": 2,
+    "failCount": 0,
+    "netExtraRepairsForTop": 2,
+    "topOnlyMissCount": 0,
+    "contrastOnlyMissCount": 2,
+    "rowChecks": [
+      {
+        "familyIndex": 104,
+        "representative": 681558029,
+        "tupleKey": "4, 7^2, 41^2, 9, 17^2, 11^2",
+        "witnessSquareModulus": 1369,
+        "laneEquation": "500*m ≡ 1048 (mod 1369)",
+        "laneIndexResidue": 24,
+        "laneIndexPeriod": 1369,
+        "missedLaneIndex": 24,
+        "repairedLaneIndex": 15,
+        "status": "passed",
+        "checks": {
+          "symbolicSchemaInstancePresent": true,
+          "missedContinuationIs1232": true,
+          "repairedContinuationIs782": true,
+          "missedLaneIndexIs24": true,
+          "repairedLaneIndexIs15": true,
+          "missedLaneHitsBadClass": true,
+          "repairedLaneAvoidsBadClass": true
+        },
+        "failedChecks": []
+      },
+      {
+        "familyIndex": 187,
+        "representative": 1256825183,
+        "tupleKey": "9, 7^2, 4, 13^2, 23^2, 11^2",
+        "witnessSquareModulus": 289,
+        "laneEquation": "83*m ≡ 258 (mod 289)",
+        "laneIndexResidue": 24,
+        "laneIndexPeriod": 289,
+        "missedLaneIndex": 24,
+        "repairedLaneIndex": 15,
+        "status": "passed",
+        "checks": {
+          "symbolicSchemaInstancePresent": true,
+          "missedContinuationIs1232": true,
+          "repairedContinuationIs782": true,
+          "missedLaneIndexIs24": true,
+          "repairedLaneIndexIs15": true,
+          "missedLaneHitsBadClass": true,
+          "repairedLaneAvoidsBadClass": true
+        },
+        "failedChecks": []
+      }
+    ],
+    "theoremBoundary": {
+      "finiteMenuHandoffClaim": true,
+      "allNFiniteGapClosureClaim": false,
+      "reason": "This packet connects the symbolic bad-lane schema to the finite exchange surface, but it does not prove that all post-11300 candidates are controlled by the strict handoff family."
+    },
+    "conclusion": "The strict 782 > 1232 handoff is certified on the current finite menu: 782 repairs exactly two predicted rows that 1232 misses, 1232 repairs no predicted row that 782 misses, and both strict rows are explained by the symbolic mod-50 bad-lane schema."
+  },
+  "anchor832Witness529Domain": {
+    "checkerId": "p848_832_529_anchor_witness_domain_closure_checker_v1",
+    "packetId": "p848_832_529_anchor_witness_domain_closure_packet_v1",
+    "status": "finite_group_closure_certified_symbolic_domain_split",
+    "targetGroupId": "anchor_832_witness_529",
+    "failingAnchor": 832,
+    "witnessSquareModulus": 529,
+    "targetFailureResidue": 316,
+    "checkedRowCount": 3,
+    "passCount": 3,
+    "failCount": 0,
+    "symbolicDomainDecision": {
+      "verdict": "single_profile_symbolic_domain_falsified_by_profile_split",
+      "reason": "The recommended anchor/witness group splits into 2 pre-132 residue profiles, so one broad single-profile symbolic closure would overclaim the evidence.",
+      "profileGroupCount": 2,
+      "repeatedProfileId": "pre132_7_1_32_224_57_229_82_412"
+    },
+    "zeroLiftPreservation": {
+      "allRowsAnchor182ZeroLift": true,
+      "explanation": "In the certified rows, the anchor-132 CRT prefix already satisfies the anchor-182 tuple row, so adding anchor 182 uses lift parameter 0 and cannot move the witness residue modulo 529."
+    },
+    "profileGroups": [
+      {
+        "profileId": "pre132_7_1_32_224_57_229_82_412",
+        "profile": "7->1, 32->224, 57->229, 82->412",
+        "rowCount": 2,
+        "familyIndices": [
+          270,
+          271
+        ],
+        "representatives": [
+          1797117529
+        ],
+        "tupleKeys": [
+          "4, 53^2, 17^2, 7^2, 61^2, 11^2",
+          "4, 53^2, 17^2, 7^2, 61^2, 9"
+        ],
+        "anchor182RowSquareModuli": [
+          121,
+          9
+        ]
+      },
+      {
+        "profileId": "pre132_7_69_32_22_57_22_82_521",
+        "profile": "7->69, 32->22, 57->22, 82->521",
+        "rowCount": 1,
+        "familyIndices": [
+          217
+        ],
+        "representatives": [
+          1446717451
+        ],
+        "tupleKeys": [
+          "11^2, 29^2, 4, 7^2, 31^2, 9"
+        ],
+        "anchor182RowSquareModuli": [
+          9
+        ]
+      }
+    ],
+    "finiteScopeConclusion": "Every current finite-menu occurrence of anchor_832_witness_529 replays from raw tuple-row CRT data: pre-132 prefixes are clear, anchor 132 uniquely activates tracked tail 832, and anchor 182 preserves residue 316 mod 529."
+  },
+  "anchor832Witness529ProfileSublane": {
+    "checkerId": "p848_832_529_pre132_profile_sublane_checker_v1",
+    "packetId": "p848_832_529_pre132_profile_sublane_packet_v1",
+    "status": "finite_profile_sublane_resolved_as_zero_lift_duplicate",
+    "targetProfileId": "pre132_7_1_32_224_57_229_82_412",
+    "checkedRowCount": 2,
+    "passCount": 2,
+    "failCount": 0,
+    "familyIndices": [
+      270,
+      271
+    ],
+    "representatives": [
+      1797117529
+    ],
+    "repairValues": [
+      1495201784129
+    ],
+    "checks": {
+      "repeatedProfileHasAtLeastTwoRows": true,
+      "sameRepresentative": true,
+      "sameRepairValue": true,
+      "sameTuplePrefixThrough132": true,
+      "distinctFullTupleRows": true,
+      "differsOnlyAtAnchor182": true,
+      "sameAnchor132Lift": true,
+      "anchor182ZeroLiftForEveryRow": true,
+      "allRowsAlreadyPassedParentClosure": true
+    },
+    "symbolicDomainDecision": {
+      "verdict": "profile_sublane_not_a_new_symbolic_family",
+      "reason": "The repeated profile rows share representative, repair value, tuple prefix through anchor 132, and anchor-132 lift; they differ only by the final anchor-182 tuple row, which is a zero-lift in both cases."
+    },
+    "conclusion": "Rows 270, 271 are a finite duplicate final-anchor variant over the same CRT prefix through anchor 132, not evidence for a separate broad symbolic family."
+  },
+  "bridgeAudit": {
+    "currentBridgeState": {
+      "shared_prefix_failure_count": 24,
+      "latest_shared_prefix_failure": 136702637,
+      "family_menu_count": 280,
+      "known_family_matches": 25,
+      "next_unmatched_representative": 137720141,
+      "next_unmatched_matches_282_failure": true,
+      "strongest_completed_structured_tail": {
+        "continuation": 332,
+        "clean_through": 250000000
+      },
+      "current_family_aware_leader": {
+        "continuation": 432,
+        "repaired_known_packets": 26,
+        "repaired_predicted_families": 242,
+        "effective_clean_through": 250075000
+      },
+      "top_gpu_tie_class": [
+        432,
+        782,
+        832
+      ],
+      "recent_pool_expansion_moduli": [
+        1369,
+        841,
+        17161,
+        1849
+      ]
+    },
+    "topRepairClassHook": {
+      "hook_id": "top_repair_class_cluster",
+      "status": "supported",
+      "detail": "The current top continuation class shares the same repaired-known, repaired-predicted, and tested-clean-through profile on the live finite window."
+    },
+    "leaderboardTopContinuations": [
+      {
+        "rank": 1,
+        "continuation": 432,
+        "repaired_known_packets": 26,
+        "repaired_predicted_families": 242,
+        "effective_clean_through": 250075000
+      },
+      {
+        "rank": 2,
+        "continuation": 782,
+        "repaired_known_packets": 26,
+        "repaired_predicted_families": 242,
+        "effective_clean_through": 250075000
+      },
+      {
+        "rank": 3,
+        "continuation": 832,
+        "repaired_known_packets": 26,
+        "repaired_predicted_families": 242,
+        "effective_clean_through": 250075000
+      },
+      {
+        "rank": 4,
+        "continuation": 332,
+        "repaired_known_packets": 26,
+        "repaired_predicted_families": 240,
+        "effective_clean_through": 250075000
+      },
+      {
+        "rank": 5,
+        "continuation": 382,
+        "repaired_known_packets": 26,
+        "repaired_predicted_families": 240,
+        "effective_clean_through": 250075000
+      },
+      {
+        "rank": 6,
+        "continuation": 1232,
+        "repaired_known_packets": 26,
+        "repaired_predicted_families": 240,
+        "effective_clean_through": 250075000
+      },
+      {
+        "rank": 7,
+        "continuation": 882,
+        "repaired_known_packets": 26,
+        "repaired_predicted_families": 236,
+        "effective_clean_through": 250075000
+      },
+      {
+        "rank": 8,
+        "continuation": 1182,
+        "repaired_known_packets": 25,
+        "repaired_predicted_families": 242,
+        "effective_clean_through": 250075000
+      }
+    ]
+  },
+  "proofBoundary": "This packet formalizes the top repair-class mechanism as a restored finite-menu theorem handoff backed by a reusable divisibility schema and certified finite handoff/profile checks. It does not prove broad squarefree repair coverage, all-N finite-gap closure, or the p4217 complement. A future step must either turn the mod-50/strict-handoff guidance into a coverage theorem over all relevant square witnesses, or run the next exact verifier rollout and replay any new boundary row through the schema.",
+  "recommendedNextAction": "choose_next_exact_verifier_rollout_after_top_repair_class_handoff",
+  "nextTheoremMove": "Use the formalized top repair-class packet to choose the next exact verifier rollout beyond the current certified base, or prove a coverage theorem showing the mod-50 bad-lane/strict 782-vs-1232 handoff controls all relevant square witnesses before widening compute.",
+  "claims": {
+    "formalizesTopRepairClassMechanism": true,
+    "restoresFiniteMenuEvidence": true,
+    "provesFiniteMenuPlus2Separation": true,
+    "provesMod50BadLaneDivisibilitySchema": true,
+    "certifiesStrict782Beats1232OnRestoredMenu": true,
+    "certifiesAnchor832Witness529FiniteDomain": true,
+    "resolvesRepeated832529ProfileAsFiniteDuplicate": true,
+    "provesUniversalSquarefreeRepairTheorem": false,
+    "provesAllRelevantSquareWitnessCoverage": false,
+    "provesP4217ComplementCoverage": false,
+    "provesAllN": false
+  },
+  "verification": {
+    "command": "node --test test/p848-282-alignment-obstruction-packet.test.js",
+    "packetChecks": [
+      "top tie class is [432, 782, 832]",
+      "top continuations repair 242 predicted families while primary contrasts repair 240",
+      "mod-50 symbolic schema has 74 passing finite witness instances",
+      "strict 782 > 1232 handoff has two strict rows and no top-only misses",
+      "anchor_832_witness_529 profile sublane is resolved as a finite zero-lift duplicate"
+    ]
+  }
+}

@@ -1,0 +1,370 @@
+{
+  "schema": "erdos.number_theory.p848_p4217_complement_p61_q101_p443_q97_p479_availability_split/1",
+  "generatedAt": "2026-04-17T13:03:00Z",
+  "problemId": 848,
+  "status": "first_p479_available_q127_square_obstruction_subclass_emitted",
+  "activeAtom": "D2_p13_q17_endpoint_menu_squarefree_obstruction_p23_q29_p41_q13_p103_q2_p37_q19_p31_q53_p73_q11_p83_q17_p509_q43_p29_q59_p47_q67_p79_q71_p107_q89_p4217_complement_p43_q2_p61_q101_p443_q97_p479_availability_split_q127_child",
+  "target": "split_p848_p4217_complement_p61_q101_p443_q97_child_by_p479_availability_with_ledger_token",
+  "sourcePackets": [
+    "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_POST_P479_CONVERGENCE_ASSEMBLY_PACKET.json",
+    "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_COMPLEMENT_P61_Q101_P443_Q97_P479_REPAIR_HANDOFF_PACKET.json",
+    "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_COMPLEMENT_P61_Q101_P443_Q97_P151_BLOCKER_OPEN_LEAF_PACKET.json",
+    "SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_COMPLEMENT_P61_Q101_P443_AVAILABILITY_SPLIT_PACKET.json"
+  ],
+  "sourceRepairHandoff": {
+    "jsonPath": "packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_COMPLEMENT_P61_Q101_P443_Q97_P479_REPAIR_HANDOFF_PACKET.json",
+    "status": "representative_p479_repair_exact_squarefree_convergence_handoff_needed",
+    "factorCertificateId": "p848_p4217_complement_p61_q101_p443_q97_p479_factor_certificate",
+    "representativeRepairIsExactSquarefree": true,
+    "representativeRepairIsNotQ97Coverage": true
+  },
+  "sourceChild": {
+    "description": "First q97 square-obstruction child inside the first p443-available family of the p61/q101 branch.",
+    "parameter": "w",
+    "tCongruence": {
+      "residue": "858404682506186150932058",
+      "modulus": "1246408897617516648005929",
+      "expression": "t == 858404682506186150932058 mod 1246408897617516648005929"
+    },
+    "leftCongruence": {
+      "residue": "3449199882246403162146857078213360639892746996146891529938208657606051673377944521449110708641522770273657",
+      "modulus": "5008259519672675769496874520298756223775352864790330415029070839201594060956874703037101519492727102512900",
+      "expression": "left == 3449199882246403162146857078213360639892746996146891529938208657606051673377944521449110708641522770273657 mod 5008259519672675769496874520298756223775352864790330415029070839201594060956874703037101519492727102512900"
+    },
+    "inheritedSquareObstruction": {
+      "endpointPrime": 443,
+      "k": 1029,
+      "delta": -25739,
+      "obstructionPrime": 97,
+      "obstructionSquare": 9409
+    }
+  },
+  "availabilitySplit": {
+    "endpointPrime": 479,
+    "endpointPrimeSquare": 229441,
+    "window": 28500,
+    "maxK": 1139,
+    "endpointFormula": "k_479(left) = (128487*left + 168052) mod 229441",
+    "kFormulaInSourceParameter": "k_479(w) = (131596*w + 250) mod 229441",
+    "coefficientGcdWithPrimeSquare": 1,
+    "availableResidueCount": 1140,
+    "unavailableResidueCount": 228301,
+    "universallyWithinWindow": false,
+    "firstAvailableResidue": {
+      "wResidueModuloEndpointPrimeSquare": 0,
+      "k": 250
+    },
+    "firstUnavailableResidue": {
+      "wResidueModuloEndpointPrimeSquare": 1,
+      "k": 131846
+    },
+    "availableResidueSamples": [
+      {
+        "wResidueModuloEndpointPrimeSquare": 0,
+        "k": 250
+      },
+      {
+        "wResidueModuloEndpointPrimeSquare": 68,
+        "k": 579
+      },
+      {
+        "wResidueModuloEndpointPrimeSquare": 136,
+        "k": 908
+      },
+      {
+        "wResidueModuloEndpointPrimeSquare": 673,
+        "k": 132
+      },
+      {
+        "wResidueModuloEndpointPrimeSquare": 741,
+        "k": 461
+      },
+      {
+        "wResidueModuloEndpointPrimeSquare": 809,
+        "k": 790
+      },
+      {
+        "wResidueModuloEndpointPrimeSquare": 877,
+        "k": 1119
+      },
+      {
+        "wResidueModuloEndpointPrimeSquare": 1346,
+        "k": 14
+      }
+    ]
+  },
+  "firstAvailableFamily": {
+    "parameter": "z",
+    "parameterization": "w = 229441*z",
+    "tCongruence": {
+      "residue": "858404682506186150932058",
+      "modulus": "285977303878260637235128355689",
+      "expression": "t == 858404682506186150932058 mod 285977303878260637235128355689"
+    },
+    "leftCongruence": {
+      "residue": "3449199882246403162146857078213360639892746996146891529938208657606051673377944521449110708641522770273657",
+      "modulus": "1149100072453218401229132386811866926739240736650358200754685042417252942940006288739535609733930799127662288900",
+      "expression": "left == 3449199882246403162146857078213360639892746996146891529938208657606051673377944521449110708641522770273657 mod 1149100072453218401229132386811866926739240736650358200754685042417252942940006288739535609733930799127662288900"
+    },
+    "endpoint": {
+      "prime": 479,
+      "k": 250,
+      "delta": -6264,
+      "rightExpression": "right == left - 6264"
+    }
+  },
+  "representativeAudit": {
+    "w": 0,
+    "z": 0,
+    "endpointPrime": 479,
+    "k": 250,
+    "delta": -6264,
+    "right": "3449199882246403162146857078213360639892746996146891529938208657606051673377944521449110708641522770267393",
+    "rightMod25": 18,
+    "squarefreeStatus": "exact_squarefree",
+    "factorCertificateId": "p848_p4217_complement_p61_q101_p443_q97_p479_factor_certificate",
+    "representativeAvoidsFirstObstructionModulo127Square": true
+  },
+  "firstAvailableSquareObstruction": {
+    "endpointPrime": 479,
+    "endpointPrimeSquare": 229441,
+    "availableResidueModuloEndpointPrimeSquare": 0,
+    "availableFamilyParameter": "z",
+    "obstructionPrime": 127,
+    "obstructionSquare": 16129,
+    "rootResiduesModuloObstructionSquare": [
+      4391,
+      15510
+    ],
+    "selectedRootResidueModuloObstructionSquare": 4391,
+    "availableFamilyParameterModuloObstructionSquare": 4391,
+    "representativeAvoidsObstruction": true,
+    "tCongruence": {
+      "residue": "1255726342187847140605634760762457",
+      "modulus": "4612527934252465817965385248907881",
+      "expression": "t == 1255726342187847140605634760762457 mod 4612527934252465817965385248907881"
+    },
+    "leftCongruence": {
+      "residue": "5045698421591281882043523472637764753525366714524469855660713551192366330055619287233245383790800847611087880833557",
+      "modulus": "18533835068597959593424676266888601661377213841433627419972315049147872716679361431079969849398569859130065057668100",
+      "expression": "left == 5045698421591281882043523472637764753525366714524469855660713551192366330055619287233245383790800847611087880833557 mod 18533835068597959593424676266888601661377213841433627419972315049147872716679361431079969849398569859130065057668100"
+    },
+    "endpoint": {
+      "k": 250,
+      "delta": -6264,
+      "rightResidue": "5045698421591281882043523472637764753525366714524469855660713551192366330055619287233245383790800847611087880827293",
+      "rightExpression": "right == left - 6264"
+    },
+    "squareDivisibilityWitness": {
+      "expression": "127^2 | left*right+1",
+      "residueModuloObstructionSquare": 0
+    }
+  },
+  "checkedPrimeSummaries": [
+    {
+      "prime": 2,
+      "square": 4,
+      "rootCount": 0
+    },
+    {
+      "prime": 3,
+      "square": 9,
+      "rootCount": 0
+    },
+    {
+      "prime": 5,
+      "square": 25,
+      "rootCount": 0
+    },
+    {
+      "prime": 7,
+      "square": 49,
+      "rootCount": 0
+    },
+    {
+      "prime": 11,
+      "square": 121,
+      "rootCount": 0
+    },
+    {
+      "prime": 13,
+      "square": 169,
+      "rootCount": 0
+    },
+    {
+      "prime": 17,
+      "square": 289,
+      "rootCount": 0
+    },
+    {
+      "prime": 19,
+      "square": 361,
+      "rootCount": 0
+    },
+    {
+      "prime": 23,
+      "square": 529,
+      "rootCount": 0
+    },
+    {
+      "prime": 29,
+      "square": 841,
+      "rootCount": 0
+    },
+    {
+      "prime": 31,
+      "square": 961,
+      "rootCount": 0
+    },
+    {
+      "prime": 37,
+      "square": 1369,
+      "rootCount": 0
+    },
+    {
+      "prime": 41,
+      "square": 1681,
+      "rootCount": 0
+    },
+    {
+      "prime": 43,
+      "square": 1849,
+      "rootCount": 0
+    },
+    {
+      "prime": 47,
+      "square": 2209,
+      "rootCount": 0
+    },
+    {
+      "prime": 53,
+      "square": 2809,
+      "rootCount": 0
+    },
+    {
+      "prime": 59,
+      "square": 3481,
+      "rootCount": 0
+    },
+    {
+      "prime": 61,
+      "square": 3721,
+      "rootCount": 0
+    },
+    {
+      "prime": 67,
+      "square": 4489,
+      "rootCount": 0
+    },
+    {
+      "prime": 71,
+      "square": 5041,
+      "rootCount": 0
+    },
+    {
+      "prime": 73,
+      "square": 5329,
+      "rootCount": 0
+    },
+    {
+      "prime": 79,
+      "square": 6241,
+      "rootCount": 0
+    },
+    {
+      "prime": 83,
+      "square": 6889,
+      "rootCount": 0
+    },
+    {
+      "prime": 89,
+      "square": 7921,
+      "rootCount": 0
+    },
+    {
+      "prime": 97,
+      "square": 9409,
+      "rootCount": 0
+    },
+    {
+      "prime": 101,
+      "square": 10201,
+      "rootCount": 0
+    },
+    {
+      "prime": 103,
+      "square": 10609,
+      "rootCount": 0
+    },
+    {
+      "prime": 107,
+      "square": 11449,
+      "rootCount": 0
+    },
+    {
+      "prime": 109,
+      "square": 11881,
+      "rootCount": 0
+    },
+    {
+      "prime": 113,
+      "square": 12769,
+      "rootCount": 0
+    },
+    {
+      "prime": 127,
+      "square": 16129,
+      "rootCount": 2,
+      "roots": [
+        4391,
+        15510
+      ]
+    }
+  ],
+  "ledgerChildren": [
+    {
+      "childId": "p479_available_residue_partition",
+      "kind": "available_child_partition",
+      "state": "partitioned_with_first_q127_square_obstruction_child_open",
+      "residueCount": 1140,
+      "period": 229441,
+      "proofBoundary": "The p479 endpoint is inside the 28500 window on exactly these residues. This does not prove squarefree hitting on all p479-available residues."
+    },
+    {
+      "childId": "p479_unavailable_complement",
+      "kind": "unavailable_complement",
+      "state": "open_unavailable_complement",
+      "residueCount": 228301,
+      "period": 229441,
+      "proofBoundary": "These residues have no p479 endpoint inside the 28500 window and require later bulk, structural, or ranked complement accounting."
+    },
+    {
+      "childId": "p479_available_q127_square_obstruction_child",
+      "kind": "square_obstruction_child",
+      "state": "open_square_obstruction_child",
+      "obstructionPrime": 127,
+      "obstructionSquare": 16129,
+      "proofBoundary": "The first p479-available family contains a deterministic q127 square-obstruction subprogression. Resolving it is a successor obligation; this split does not certify a q127 repair or q97 child coverage."
+    }
+  ],
+  "claims": {
+    "provesEndpointFormula": true,
+    "provesAvailabilitySplit": true,
+    "consumesFiniteP479AvailabilityToken": true,
+    "provesRepresentativeRepair": true,
+    "provesFirstAvailableSquareObstructionChild": true,
+    "opensFreshFallbackSelector": false,
+    "provesP479AvailableFamilySquarefreeHitting": false,
+    "provesP479UnavailableComplementClosed": false,
+    "provesQ127ChildCoverage": false,
+    "provesQ97ChildCoverage": false,
+    "provesP443UnavailableComplementClosed": false,
+    "provesP4217ComplementCoverage": false,
+    "provesAllN": false,
+    "provesCollisionFreeMatching": false
+  },
+  "proofBoundary": "This packet consumes the explicitly ledgered p479 availability token for the selected p443/q97 child: it proves the p479 endpoint formula, partitions residues modulo 479^2, and emits the first p479-available q127 square-obstruction child. It does not close the q127 child, the q127-avoiding p479-available families, the p479-unavailable complement, the q97 child, the p443-unavailable complement, the wider p4217 complement, collision-free matching, or Problem 848.",
+  "recommendedNextAction": "run_p848_convergence_assembly_after_p479_availability_split_and_q127_child_emission",
+  "nextTheoremMove": "Run convergence assembly after the p479 availability split because the finite token has been consumed and the split introduced a q127 child plus a p479-unavailable complement. Choose a bulk/structural/ranked handoff before any q127 repair descent.",
+  "suggestedVerificationCommand": "jq '{availabilitySplit, firstAvailableFamily, firstAvailableSquareObstruction, ledgerChildren, claims}' packs/number-theory/problems/848/SPLIT_ATOM_PACKETS/FRONTIER_BRIDGE/P848_P4217_COMPLEMENT_P61_Q101_P443_Q97_P479_AVAILABILITY_SPLIT_PACKET.json && node --test test/p848-282-alignment-obstruction-packet.test.js"
+}

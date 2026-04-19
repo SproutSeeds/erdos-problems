@@ -1,6 +1,6 @@
 {
   "schema": "erdos.problem_claim_loop/1",
-  "generatedAt": "2026-04-14T11:45:57.618Z",
+  "generatedAt": "2026-04-19T04:10:14.614Z",
   "problemId": "848",
   "displayName": "Erdos Problem #848",
   "title": "Squarefree ab+1 Extremal Set Problem",
@@ -11,12 +11,15 @@
   "currentState": {
     "theoremLoopMode": "bridge_backed",
     "activeRoute": "finite_check_gap_closure",
-    "nextHonestMove": "Promote or reject the local `1..40500` rollout; public raw exact claims remain `1..10000` until that handoff is committed.",
+    "nextHonestMove": "Write the theorem candidate and proof-obligation surface for the four-anchor obstruction.",
     "routeSummary": "Convert the sufficiently-large-N theorem into a complete all-N resolution without overstating what is already closed or confusing imported thresholds with repo-owned claims.",
     "sourceRefresh": "erdos number-theory bridge-refresh 848",
     "exactIntervalBookkeeping": {
       "publicRepoRawExactInterval": "1..10000",
       "localIgnoredRolloutInterval": "1..40500",
+      "publicRepoRawExactMax": 10000,
+      "localIgnoredRolloutMax": 40500,
+      "exactMaxMeaning": "Use the public raw exact max for committed raw-packet claims; use the local rollout max only for compact derivative evidence.",
       "bookkeepingArtifact": "EXACT_INTERVAL_BOOKKEEPING.md",
       "raw40500PacketCommitted": false
     }
@@ -147,7 +150,7 @@
       "status": "ready",
       "source": "theorem_agenda",
       "summary": "Choose the next finite-gap closure move and keep the theorem-facing claim surface honest.",
-      "why": "Promote or reject the local `1..40500` rollout; public raw exact claims remain `1..10000` until that handoff is committed.",
+      "why": "Write the theorem candidate and proof-obligation surface for the four-anchor obstruction.",
       "support": [
         "next_unmatched_equals_282_failure",
         "completed_tail_vs_search_leader_split",
@@ -255,7 +258,7 @@
       "item_id": "choose_next_finite_gap_move",
       "status": "ready",
       "task": "Choose the next finite-gap closure move and keep the theorem-facing claim surface honest.",
-      "why": "Promote or reject the local `1..40500` rollout; public raw exact claims remain `1..10000` until that handoff is committed."
+      "why": "Write the theorem candidate and proof-obligation surface for the four-anchor obstruction."
     },
     {
       "item_id": "explain_next_unmatched_alignment",
