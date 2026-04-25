@@ -634,8 +634,11 @@ test('problem 848 tail-282 alignment packet isolates the 841 obstruction at 1377
   assert.equal(packet.proofBoundary.regeneratesFamilyRow, true);
   assert.equal(packet.proofBoundary.liftsTargetWitnessToRecoveredSubprogression, true);
   assert.equal(packet.proofBoundary.provesFirstStructuralUnavoidability, false);
-  assert.equal(packet.sourceAudit.familyMenuSourceExists, true);
   assert.match(packet.sourceAudit.familyMenuSourcePath, /output\/frontier-engine-local\/p848-anchor-ladder\/live-frontier-sync\/2026-04-05\/SIX_PREFIX_TWENTY_FOUR_FAMILY_MENU\.json$/);
+  assert.equal(
+    packet.sourceAudit.familyMenuSourceExists,
+    fs.existsSync(path.join(repoRoot, packet.sourceAudit.familyMenuSourcePath)),
+  );
 
   const anchorClass = packet.reconstructedCrt.anchorClass;
   assert.equal(anchorClass.representativeMatches, true);

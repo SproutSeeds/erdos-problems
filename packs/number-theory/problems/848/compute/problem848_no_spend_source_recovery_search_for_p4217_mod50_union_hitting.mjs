@@ -1,6 +1,5 @@
 #!/usr/bin/env node
 import crypto from 'node:crypto';
-import { execFileSync } from 'node:child_process';
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -105,19 +104,61 @@ function assertCondition(condition, message) {
   }
 }
 
-function runRg(args) {
-  try {
-    return execFileSync('rg', args, {
-      cwd: repoRoot,
-      encoding: 'utf8',
-      maxBuffer: 16 * 1024 * 1024,
-    });
-  } catch (error) {
-    if (error.status === 1) {
-      return '';
-    }
-    throw error;
+function walkTextFiles(entryPath) {
+  const absolutePath = path.join(repoRoot, entryPath);
+  if (!fs.existsSync(absolutePath)) {
+    return [];
   }
+
+  const stat = fs.statSync(absolutePath);
+  if (stat.isFile()) {
+    return [entryPath];
+  }
+  if (!stat.isDirectory()) {
+    return [];
+  }
+
+  const skipDirs = new Set(['.git', 'node_modules', '.erdos', '.clawdad', 'orp', 'output', 'tmp', 'dist']);
+  const entries = fs.readdirSync(absolutePath, { withFileTypes: true });
+  return entries.flatMap((entry) => {
+    if (entry.isDirectory() && skipDirs.has(entry.name)) {
+      return [];
+    }
+    return walkTextFiles(path.join(entryPath, entry.name));
+  });
+}
+
+function countMatches(filePath, pattern) {
+  let text;
+  try {
+    text = fs.readFileSync(path.join(repoRoot, filePath), 'utf8');
+  } catch {
+    return 0;
+  }
+
+  const regex = new RegExp(pattern, 'g');
+  const matches = text.match(regex);
+  return matches?.length ?? 0;
+}
+
+function collectPatternMatches(pattern, paths) {
+  const files = paths.flatMap(walkTextFiles);
+  return files
+    .map((filePath) => ({ filePath, count: countMatches(filePath, pattern) }))
+    .filter((entry) => entry.count > 0)
+    .sort((left, right) => left.filePath.localeCompare(right.filePath));
+}
+
+function runRg(args) {
+  const [mode, pattern, ...paths] = args;
+  const matches = collectPatternMatches(pattern, paths);
+  if (mode === '-l') {
+    return matches.map((entry) => entry.filePath).join('\n') + (matches.length ? '\n' : '');
+  }
+  if (mode === '--count-matches') {
+    return matches.map((entry) => `${entry.filePath}:${entry.count}`).join('\n') + (matches.length ? '\n' : '');
+  }
+  throw new Error(`Unsupported source-search mode: ${mode}`);
 }
 
 function collectLaneEvidence(lane) {

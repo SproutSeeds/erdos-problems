@@ -154,10 +154,41 @@ function inferGap(fileName, doc) {
   return 'Does not prove a whole-complement cover, impossibility theorem, finite partition, or decreasing rank.';
 }
 
+function readFallbackOrpPlanningRun() {
+  const packet = readJsonIfPresent(DEFAULT_JSON_OUTPUT);
+  return packet?.orpPlanningRun ?? null;
+}
+
 function summarizeOrpRun(runPath) {
-  const answerPath = fs.statSync(runPath).isDirectory() ? path.join(runPath, 'ANSWER.json') : runPath;
-  const breakdownPath = fs.statSync(runPath).isDirectory() ? path.join(runPath, 'BREAKDOWN.json') : path.join(path.dirname(runPath), 'BREAKDOWN.json');
-  const profilePath = fs.statSync(runPath).isDirectory() ? path.join(runPath, 'PROFILE.json') : path.join(path.dirname(runPath), 'PROFILE.json');
+  const runStat = runPath && fs.existsSync(runPath) ? fs.statSync(runPath) : null;
+  if (!runStat) {
+    const fallback = readFallbackOrpPlanningRun();
+    if (fallback) {
+      return fallback;
+    }
+    return {
+      answerPath: runPath ? rel(runPath) : null,
+      answerSha256: null,
+      breakdownPath: null,
+      profilePath: null,
+      runId: null,
+      status: 'absent',
+      execute: null,
+      generatedAtUtc: null,
+      profileId: null,
+      apiCalled: false,
+      completedLaneCount: 0,
+      plannedOrSkippedLaneCount: 0,
+      failedLaneCount: 0,
+      laneStatuses: [],
+      breakdownMode: null,
+      answer: null,
+    };
+  }
+
+  const answerPath = runStat.isDirectory() ? path.join(runPath, 'ANSWER.json') : runPath;
+  const breakdownPath = runStat.isDirectory() ? path.join(runPath, 'BREAKDOWN.json') : path.join(path.dirname(runPath), 'BREAKDOWN.json');
+  const profilePath = runStat.isDirectory() ? path.join(runPath, 'PROFILE.json') : path.join(path.dirname(runPath), 'PROFILE.json');
   const answer = readJson(answerPath);
   const breakdown = readJsonIfPresent(breakdownPath);
   const profile = readJsonIfPresent(profilePath);
