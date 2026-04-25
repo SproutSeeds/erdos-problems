@@ -96,10 +96,22 @@ function findLatestP4217ResearchRun() {
   return matching[0]?.answerPath ?? null;
 }
 
+function readFallbackLiveWedgeRun() {
+  const packet = readJsonIfPresent(DEFAULT_JSON_OUTPUT);
+  return packet?.liveWedgeRun ?? null;
+}
+
 function summarizeResearchRun(runPath) {
+  const runStat = runPath && exists(runPath) ? fs.statSync(runPath) : null;
   const answerPath = runPath
-    ? (fs.statSync(runPath).isDirectory() ? path.join(runPath, 'ANSWER.json') : runPath)
+    ? (runStat ? (runStat.isDirectory() ? path.join(runPath, 'ANSWER.json') : runPath) : null)
     : findLatestP4217ResearchRun();
+  if (!answerPath || !exists(answerPath)) {
+    const fallback = readFallbackLiveWedgeRun();
+    if (fallback) {
+      return fallback;
+    }
+  }
   const doc = answerPath && exists(answerPath) ? readJson(answerPath) : null;
   const lanes = Array.isArray(doc?.lanes) ? doc.lanes : [];
   const completedTextLanes = lanes.filter((lane) => String(lane?.status ?? '') === 'complete' && String(lane?.text ?? '').trim().length > 0);

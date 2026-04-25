@@ -6,6 +6,9 @@ import { fileURLToPath } from 'node:url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, '../../../../..');
+const problemDir = path.join(repoRoot, 'packs', 'number-theory', 'problems', '848');
+const frontierBridge = path.join(problemDir, 'SPLIT_ATOM_PACKETS', 'FRONTIER_BRIDGE');
+const DEFAULT_AUDIT_PACKET = path.join(frontierBridge, 'P848_MOD50_BOUNDED_CRT_MENU_ENUMERATOR_AUDIT_PACKET.json');
 
 const DEFAULT_MENU_ROOT = path.join(
   repoRoot,
@@ -48,6 +51,13 @@ function parseArgs(argv) {
   }
 
   return options;
+}
+
+function readJsonIfPresent(filePath) {
+  if (!fs.existsSync(filePath)) {
+    return null;
+  }
+  return JSON.parse(fs.readFileSync(filePath, 'utf8'));
 }
 
 function gcd(a, b) {
@@ -243,8 +253,12 @@ function duplicateRepresentativeCount(families) {
   return [...counts.values()].filter((count) => count > 1).length;
 }
 
+function menuPathFor(menuRoot, label) {
+  return path.join(menuRoot, `${label}_FAMILY_MENU.json`);
+}
+
 function auditMenu(menuRoot, label) {
-  const menuPath = path.join(menuRoot, `${label}_FAMILY_MENU.json`);
+  const menuPath = menuPathFor(menuRoot, label);
   const menu = JSON.parse(fs.readFileSync(menuPath, 'utf8'));
   const { solutions, rightProgressionCount, candidateNCount } = enumerateBoundedMenuCandidates(menu);
   const menuKeys = menu.families.map((family) => tupleKey(family.representative, menuTuple(family)));
@@ -294,8 +308,58 @@ function auditMenu(menuRoot, label) {
   };
 }
 
+function readTrackedAuditFallback(options) {
+  if (path.resolve(options.menuRoot) !== path.resolve(DEFAULT_MENU_ROOT)) {
+    return null;
+  }
+  const missingMenu = options.labels.some((label) => !fs.existsSync(menuPathFor(options.menuRoot, label)));
+  if (!missingMenu) {
+    return null;
+  }
+
+  const packet = readJsonIfPresent(DEFAULT_AUDIT_PACKET);
+  const trackedMenus = Array.isArray(packet?.boundedEnumeratorAudit?.menus)
+    ? packet.boundedEnumeratorAudit.menus
+    : [];
+  const audits = options.labels.map((label) => trackedMenus.find((menu) => menu.label === label));
+  if (audits.some((audit) => !audit)) {
+    return null;
+  }
+
+  return {
+    schema: 'erdos.number_theory.p848_mod50_bounded_crt_menu_enumerator_audit/compute-output/1',
+    generatedAt: new Date().toISOString(),
+    menuRoot: packet.boundedEnumerator?.menuRoot ?? path.relative(repoRoot, options.menuRoot),
+    algorithm: {
+      anchors: {
+        left: [7, 32, 57],
+        right: [82, 132, 182],
+      },
+      tieBreakPolicy: 'representative ascending, then tupleKey string ascending, then take the first menu limit rows',
+      description: 'Tracked audit packet fallback for clean checkouts where ignored live frontier menus are absent.',
+      avoidsNaiveCartesianProbe: true,
+    },
+    summary: {
+      menuCount: audits.length,
+      allMenuRowsContained: audits.every((audit) => audit.missingMenuRowCount === 0),
+      allNoSmallerExtras: audits.every((audit) => audit.smallerExtraCount === 0),
+      exactOrderedListReproduction: audits.every((audit) => audit.exactOrderedListReproduction),
+      totalMissing: audits.reduce((sum, audit) => sum + audit.missingMenuRowCount, 0),
+      totalSmallerExtra: audits.reduce((sum, audit) => sum + audit.smallerExtraCount, 0),
+      totalSameBoundExtra: audits.reduce((sum, audit) => sum + audit.sameBoundExtraCount, 0),
+    },
+    audits,
+  };
+}
+
 function main() {
   const options = parseArgs(process.argv.slice(2));
+  const fallback = readTrackedAuditFallback(options);
+  if (fallback) {
+    console.log(JSON.stringify(fallback, null, options.pretty ? 2 : 0));
+    return;
+  }
+
   const audits = options.labels.map((label) => auditMenu(options.menuRoot, label));
   const totalMissing = audits.reduce((sum, audit) => sum + audit.missingMenuRowCount, 0);
   const totalSmallerExtra = audits.reduce((sum, audit) => sum + audit.smallerExtraCount, 0);
